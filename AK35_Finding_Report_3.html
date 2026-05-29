@@ -328,9 +328,10 @@ async function submitAll() {
       showSuccess(reporter, valid.length, valid);
     } else {
       console.log('Sending payload:', JSON.stringify(payload, null, 2));
+      // Use text/plain to bypass CORS preflight
       await fetch(FLOW_URL, {
         method: 'POST',
-        headers: {'Content-Type': 'application/json'},
+        headers: {'Content-Type': 'text/plain'},
         body: JSON.stringify(payload),
         mode: 'no-cors'
       });
