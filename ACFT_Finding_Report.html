@@ -118,7 +118,7 @@ select{font-family:'BwGradual',sans-serif;text-transform:uppercase}
 const CATEGORIES = [
   'GENERAL CABIN','GALLEY','LAVATORY','PAX DOORS',
   'F/A SEAT','PAX SEAT','FLIGHT DECK','OFAR/OFCR',
-  'TEDLAR/SIDEWALL','PAINT','TASK CARD'
+  'TEDLAR/SIDEWALL','PAINT'
 ];
 
 // Power Automate HTTP trigger URL — paste here after creating the Flow
@@ -184,19 +184,19 @@ function renderFindings() {
         </div>
 
         <div class="field">
-          <label>Photo <span class="opt">(optional)</span></label>
+          <label>Photos <span class="opt">(optional — up to 5)</span></label>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
             <label class="photo-label" style="font-size:12px">
-              <input type="file" accept="image/*" capture="environment" id="photo-cam-${f.id}" onchange="handlePhoto(${f.id},'cam')">
+              <input type="file" accept="image/*" capture="environment" multiple id="photo-cam-${f.id}" onchange="handlePhotos(${f.id},'cam')">
               📷 CAMERA
             </label>
             <label class="photo-label" style="font-size:12px">
-              <input type="file" accept="image/*" id="photo-gal-${f.id}" onchange="handlePhoto(${f.id},'gal')">
+              <input type="file" accept="image/*" multiple id="photo-gal-${f.id}" onchange="handlePhotos(${f.id},'gal')">
               🖼 GALLERY
             </label>
           </div>
-          <div id="photo-status-${f.id}" style="font-size:11px;color:#0F2920;font-weight:700;display:none;margin-top:6px;font-family:'BwGradualEB',sans-serif">✓ PHOTO ATTACHED</div>
-          <img id="photo-preview-${f.id}" class="photo-preview" alt="">
+          <div id="photo-status-${f.id}" style="font-size:11px;color:#0F2920;font-weight:700;display:none;margin-top:6px;font-family:'BwGradualEB',sans-serif"></div>
+          <div id="photo-previews-${f.id}" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px"></div>
           <div style="font-size:10px;color:#BBB;margin-top:3px;font-family:'BwGradual',sans-serif">iPhone users: use Safari for camera</div>
         </div>
 
@@ -210,11 +210,11 @@ function renderFindings() {
     if (f.sub)  { const el = document.getElementById(`sub-${f.id}`); if(el) el.value = f.sub; }
     if (f.desc) { const el = document.getElementById(`desc-${f.id}`); if(el) el.value = f.desc; }
     if (f.rmk)  { const el = document.getElementById(`rmk-${f.id}`); if(el) el.value = f.rmk; }
-    if (f.photoPreview) {
-      const img  = document.getElementById(`photo-preview-${f.id}`);
-      const stat = document.getElementById(`photo-status-${f.id}`);
-      if(img) { img.src = f.photoPreview; img.style.display = 'block'; }
-      if(stat) stat.style.display = 'block';
+    if (f.photos && f.photos.length > 0) {
+      renderPhotoPreviews(f.id);
+    } else if (f.photoData) {
+      f.photos = [{data: f.photoData, name: f.photoName || 'photo.jpg'}];
+      renderPhotoPreviews(f.id);
     }
     updatePreview(f.id);
   });
@@ -246,28 +246,63 @@ function updatePreview(id) {
   updateUI();
 }
 
-function handlePhoto(id, src) {
-  // iOS Chrome camera note
+function handlePhotos(id, src) {
   const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
   const isChrome = /CriOS/.test(navigator.userAgent);
   if (src === 'cam' && isIOS && isChrome) {
-    showToast('For camera: open in Safari ⇒ Share ⇒ Add to Home Screen');
+    showToast('For camera: open in Safari');
   }
   const inputId = src === 'cam' ? `photo-cam-${id}` : `photo-gal-${id}`;
   const input = document.getElementById(inputId);
-  const file  = input?.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = e => {
-    const f = findings.find(f => f.id === id);
-    if (f) { f.photoData = e.target.result; f.photoName = file.name; f.photoPreview = e.target.result; }
-    const img  = document.getElementById(`photo-preview-${id}`);
-    const stat = document.getElementById(`photo-status-${id}`);
-    if (img) { img.src = e.target.result; img.style.display = 'block'; }
-    if (stat) { stat.style.display = 'block'; }
-    updatePreview(id);
-  };
-  reader.readAsDataURL(file);
+  const files = Array.from(input?.files || []).slice(0, 5);
+  if (!files.length) return;
+  
+  const f = findings.find(f => f.id === id);
+  if (!f) return;
+  if (!f.photos) f.photos = [];
+  
+  files.forEach(file => {
+    if (f.photos.length >= 5) return;
+    const reader = new FileReader();
+    reader.onload = e => {
+      f.photos.push({ data: e.target.result, name: file.name });
+      // Backward compat
+      if (!f.photoData) { f.photoData = e.target.result; f.photoName = file.name; }
+      renderPhotoPreviews(id);
+      updatePreview(id);
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function renderPhotoPreviews(id) {
+  const f = findings.find(f => f.id === id);
+  if (!f) return;
+  const container = document.getElementById(`photo-previews-${id}`);
+  const stat      = document.getElementById(`photo-status-${id}`);
+  if (!container) return;
+  
+  container.innerHTML = (f.photos || []).map((p, idx) => `
+    <div style="position:relative;display:inline-block">
+      <img src="${p.data}" style="width:70px;height:70px;object-fit:cover;border-radius:6px;border:1px solid #E0E0D8">
+      <button onclick="removePhoto(${id},${idx})" style="position:absolute;top:-4px;right:-4px;background:#C62828;color:#fff;border:none;border-radius:50%;width:18px;height:18px;font-size:11px;cursor:pointer;line-height:1;padding:0">×</button>
+    </div>
+  `).join('');
+  
+  if (stat) {
+    const count = (f.photos || []).length;
+    stat.style.display = count > 0 ? 'block' : 'none';
+    stat.textContent = count > 0 ? `✓ ${count} PHOTO${count>1?'S':''} ATTACHED` : '';
+  }
+}
+
+function removePhoto(id, idx) {
+  const f = findings.find(f => f.id === id);
+  if (!f || !f.photos) return;
+  f.photos.splice(idx, 1);
+  f.photoData = f.photos[0]?.data || null;
+  renderPhotoPreviews(id);
+  updatePreview(id);
 }
 
 function updateUI() {
@@ -300,22 +335,25 @@ async function submitAll() {
   const date = now.toLocaleDateString('en-GB');
   const time = now.toLocaleTimeString('en-GB', {hour:'2-digit',minute:'2-digit'});
 
-  // 1. Upload photos to ImgBB first
+  // 1. Upload photos to ImgBB first (all photos per finding)
   const photoUrls = {};
   for (let i = 0; i < valid.length; i++) {
     const f = valid[i];
-    if (f.photoData) {
-      try {
-        const base64 = f.photoData.split(',')[1];
-        const fd = new FormData();
-        fd.append('key', 'a72386b4ada67f2fdefd06144f01adfd');
-        fd.append('image', base64);
-        const r = await fetch('https://api.imgbb.com/1/upload', {method:'POST', body:fd});
-        const d = await r.json();
-        if (d.success) photoUrls[i] = d.data.url;
-      } catch(e) {
-        photoUrls[i] = '';
+    const photos = f.photos && f.photos.length > 0 ? f.photos : (f.photoData ? [{data: f.photoData}] : []);
+    if (photos.length > 0) {
+      const urls = [];
+      for (const photo of photos) {
+        try {
+          const base64 = photo.data.split(',')[1];
+          const fd = new FormData();
+          fd.append('key', 'a72386b4ada67f2fdefd06144f01adfd');
+          fd.append('image', base64);
+          const r = await fetch('https://api.imgbb.com/1/upload', {method:'POST', body:fd});
+          const d = await r.json();
+          if (d.success) urls.push(d.data.url);
+        } catch(e) { }
       }
+      if (urls.length) photoUrls[i] = urls.join(' | ');
     }
   }
 
