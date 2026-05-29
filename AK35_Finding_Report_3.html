@@ -122,7 +122,7 @@ const CATEGORIES = [
 ];
 
 // Power Automate HTTP trigger URL — paste here after creating the Flow
-const FLOW_URL = 'YOUR_POWER_AUTOMATE_URL_HERE';
+const FLOW_URL = 'https://hook.eu1.make.com/x4285b0ddusm9lsn5by3q48x3hh4iv2e';
 
 let findings = [];
 let nextId = 1;
@@ -185,11 +185,19 @@ function renderFindings() {
 
         <div class="field">
           <label>Photo <span class="opt">(optional)</span></label>
-          <label class="photo-label" id="photo-label-${f.id}">
-            <input type="file" accept="image/*" id="photo-${f.id}" onchange="handlePhoto(${f.id})">
-            <span id="photo-text-${f.id}">📷 ADD PHOTO</span>
-          </label>
-          <img id="photo-preview-${f.id}" class="photo-preview" alt="Finding photo">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+            <label class="photo-label" style="font-size:12px">
+              <input type="file" accept="image/*" capture="environment" id="photo-cam-${f.id}" onchange="handlePhoto(${f.id},'cam')">
+              📷 CAMERA
+            </label>
+            <label class="photo-label" style="font-size:12px">
+              <input type="file" accept="image/*" id="photo-gal-${f.id}" onchange="handlePhoto(${f.id},'gal')">
+              🖼 GALLERY
+            </label>
+          </div>
+          <div id="photo-status-${f.id}" style="font-size:11px;color:#0F2920;font-weight:700;display:none;margin-top:6px;font-family:'BwGradualEB',sans-serif">✓ PHOTO ATTACHED</div>
+          <img id="photo-preview-${f.id}" class="photo-preview" alt="">
+          <div style="font-size:10px;color:#BBB;margin-top:3px;font-family:'BwGradual',sans-serif">iPhone users: use Safari for camera</div>
         </div>
 
       </div>
@@ -256,7 +264,8 @@ function handlePhoto(id, src) {
     const img  = document.getElementById(`photo-preview-${id}`);
     const stat = document.getElementById(`photo-status-${id}`);
     if (img) { img.src = e.target.result; img.style.display = 'block'; }
-    if (stat) stat.style.display = 'block';
+    if (stat) { stat.style.display = 'block'; }
+    updatePreview(id);
   };
   reader.readAsDataURL(file);
 }
