@@ -352,7 +352,7 @@ async function submitAll() {
       if (photosPayload.length > 0) {
         photosPayload.forEach(p => {
           const photoParam = encodeURIComponent(JSON.stringify(p));
-          fetch(FLOW_URL + '&action=photo&data=' + photoParam, {
+          fetch(FLOW_URL + '?action=photo&data=' + photoParam, {
             method: 'GET'
           }).catch(() => {});
         });
