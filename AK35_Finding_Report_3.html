@@ -353,7 +353,7 @@ async function submitAll() {
         photosPayload.forEach(p => {
           fetch(FLOW_URL + '?action=photo', {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
+            headers: {'Content-Type': 'text/plain'},
             body: JSON.stringify(p)
           }).catch(() => {});
         });
