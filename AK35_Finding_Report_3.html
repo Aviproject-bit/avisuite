@@ -92,8 +92,8 @@ select{font-family:'BwGradual',sans-serif;text-transform:uppercase}
     <button class="add-btn" onclick="addFinding()">+ ADD FINDING</button>
     <div class="submit-section">
       <div class="field reporter-field">
-        <label>Reported by <span class="req">*</span></label>
-        <input type="text" id="reporter" placeholder="Your name..." autocomplete="name">
+        <label>Raised by <span class="req">*</span></label>
+        <input type="text" id="reporter" placeholder="NAME OR PRN" autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false">
       </div>
       <button class="submit-btn" id="submit-btn" onclick="submitAll()" disabled>SUBMIT ALL FINDINGS</button>
       <div class="submit-note" id="submit-note">Add at least one finding to submit</div>
@@ -169,18 +169,18 @@ function renderFindings() {
           </div>
           <div class="field">
             <label>Sub-category <span class="opt">(optional)</span></label>
-            <input type="text" id="sub-${f.id}" placeholder="LAV 2A-1L" onchange="updatePreview(${f.id})">
+            <input type="text" id="sub-${f.id}" placeholder="E.G. LAV 2A-1R" onchange="updatePreview(${f.id})" autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false">
           </div>
         </div>
 
         <div class="field">
           <label>Finding Description <span class="req">*</span></label>
-          <textarea id="desc-${f.id}" placeholder="Describe the finding..." oninput="updatePreview(${f.id})"></textarea>
+          <textarea id="desc-${f.id}" placeholder="Describe the finding..." oninput="updatePreview(${f.id})" autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false"></textarea>
         </div>
 
         <div class="field">
           <label>Remarks <span class="opt">(optional)</span></label>
-          <input type="text" id="rmk-${f.id}" placeholder="Additional notes...">
+          <input type="text" id="rmk-${f.id}" placeholder="Additional notes..." autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false">
         </div>
 
         <div class="field">
