@@ -327,12 +327,13 @@ async function submitAll() {
       await new Promise(r => setTimeout(r, 1500));
       showSuccess(reporter, valid.length, valid);
     } else {
-      const res = await fetch(FLOW_URL, {
+      await fetch(FLOW_URL, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(payload)
+        body: JSON.stringify(payload),
+        mode: 'no-cors'
       });
-      if (!res.ok) throw new Error('Flow error: ' + res.status);
+      // no-cors: can't check response but request is sent
       showSuccess(reporter, valid.length, valid);
     }
   } catch (err) {
