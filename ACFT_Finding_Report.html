@@ -72,6 +72,7 @@ select{font-family:'BwGradual',sans-serif;text-transform:uppercase}
 .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(80px);background:#0F2920;color:#fff;padding:10px 20px;border-radius:20px;font-size:13px;transition:transform .3s;z-index:999;white-space:nowrap;font-family:'BwGradualEB',sans-serif;letter-spacing:.5px}
 .toast.show{transform:translateX(-50%) translateY(0)}
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body>
 
@@ -555,6 +556,150 @@ function saveAircraft() {
 updateUI();
 loadSession();
 updateAircraftDisplay();
+
+
+function generateReport(reporter, count, snap) {
+  const validFindings = snap || findings.filter(f => f.cat && f.desc && f.desc.trim());
+  if (!validFindings.length) return;
+
+  const ac      = currentAircraft();
+  const chk     = currentCheck();
+  const now     = new Date();
+  const dateStr = now.toLocaleDateString('en-GB', {day:'2-digit',month:'short',year:'numeric'});
+  const timeStr = now.toLocaleTimeString('en-GB', {hour:'2-digit',minute:'2-digit'});
+
+  // Build report using DOM
+  const card = document.createElement('div');
+  card.id = 'rpt-card';
+  card.style.cssText = 'background:#fff;border-radius:14px;overflow:hidden;font-family:BwGradual,Segoe UI,sans-serif;max-width:420px;margin:0 auto;box-shadow:0 4px 20px rgba(0,0,0,.12)';
+
+  // Header
+  const hdr = document.createElement('div');
+  hdr.style.cssText = 'background:#0F2920;padding:16px;color:#fff';
+  hdr.innerHTML = '<div style="font-size:9px;font-weight:700;letter-spacing:2px;opacity:.6;text-transform:uppercase;margin-bottom:2px">Saudia Technic · CA&QC</div>' +
+    '<div style="font-size:15px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;margin-bottom:12px">Cabin Finding Report</div>' +
+    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">' +
+      '<div style="background:rgba(255,255,255,.12);border-radius:8px;padding:8px"><div style="font-size:9px;opacity:.6;text-transform:uppercase;letter-spacing:1px">Aircraft</div><div style="font-size:12px;font-weight:700">' + ac + ' · ' + chk + '</div></div>' +
+      '<div style="background:rgba(255,255,255,.12);border-radius:8px;padding:8px"><div style="font-size:9px;opacity:.6;text-transform:uppercase;letter-spacing:1px">Raised By</div><div style="font-size:12px;font-weight:700">' + reporter + '</div></div>' +
+      '<div style="background:rgba(255,255,255,.12);border-radius:8px;padding:8px"><div style="font-size:9px;opacity:.6;text-transform:uppercase;letter-spacing:1px">Date</div><div style="font-size:12px;font-weight:600">' + dateStr + '</div></div>' +
+      '<div style="background:rgba(255,255,255,.12);border-radius:8px;padding:8px"><div style="font-size:9px;opacity:.6;text-transform:uppercase;letter-spacing:1px">Time</div><div style="font-size:12px;font-weight:600">' + timeStr + '</div></div>' +
+    '</div>';
+  card.appendChild(hdr);
+
+  // Count bar
+  const countBar = document.createElement('div');
+  countBar.style.cssText = 'background:#F0F5F2;padding:10px 16px;font-size:12px;font-weight:700;color:#0F2920;letter-spacing:.5px;text-transform:uppercase';
+  countBar.textContent = validFindings.length + ' Finding' + (validFindings.length > 1 ? 's' : '');
+  card.appendChild(countBar);
+
+  // Findings
+  const listDiv = document.createElement('div');
+  listDiv.style.cssText = 'padding:12px;display:flex;flex-direction:column;gap:10px';
+
+  validFindings.forEach((f, idx) => {
+    const rmkEl = document.getElementById('rmk-' + f.id);
+    const rmk   = rmkEl ? rmkEl.value.trim() : '';
+    const photos = f.photos && f.photos.length > 0 ? f.photos : [];
+
+    const item = document.createElement('div');
+    item.style.cssText = 'border:1px solid #E8E8E0;border-radius:10px;overflow:hidden';
+
+    // Item header
+    const itemHdr = document.createElement('div');
+    itemHdr.style.cssText = 'background:#0F2920;padding:8px 12px;display:flex;align-items:center;gap:8px';
+    itemHdr.innerHTML =
+      '<div style="background:rgba(255,255,255,.2);color:#fff;font-size:11px;font-weight:800;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0">' + (idx+1) + '</div>' +
+      '<div><div style="font-size:12px;font-weight:800;color:#fff;text-transform:uppercase">' + (f.cat||'') + '</div>' +
+      (f.sub ? '<div style="font-size:10px;color:rgba(255,255,255,.65);text-transform:uppercase">' + (f.sub||'') + '</div>' : '') + '</div>';
+    item.appendChild(itemHdr);
+
+    // Item body
+    const itemBody = document.createElement('div');
+    itemBody.style.cssText = 'padding:10px 12px';
+
+    const descDiv = document.createElement('div');
+    descDiv.style.cssText = 'font-size:12px;color:#1A1A1A;line-height:1.5;text-transform:uppercase';
+    descDiv.textContent = f.desc || '';
+    itemBody.appendChild(descDiv);
+
+    if (rmk) {
+      const rmkDiv = document.createElement('div');
+      rmkDiv.style.cssText = 'font-size:11px;color:#888;margin-top:4px;font-style:italic';
+      rmkDiv.textContent = rmk.toUpperCase();
+      itemBody.appendChild(rmkDiv);
+    }
+
+    if (photos.length > 0) {
+      const photoRow = document.createElement('div');
+      photoRow.style.cssText = 'display:flex;flex-wrap:wrap;gap:4px;margin-top:8px';
+      photos.slice(0,4).forEach(p => {
+        const img = document.createElement('img');
+        img.src = p.data;
+        img.style.cssText = 'width:60px;height:60px;object-fit:cover;border-radius:6px;border:1px solid #E0E0D8';
+        photoRow.appendChild(img);
+      });
+      itemBody.appendChild(photoRow);
+    }
+
+    item.appendChild(itemBody);
+    listDiv.appendChild(item);
+  });
+  card.appendChild(listDiv);
+
+  // Footer
+  const ftr = document.createElement('div');
+  ftr.style.cssText = 'background:#F8F8F4;padding:10px 16px;font-size:10px;color:#AAA;text-align:center;border-top:1px solid #EBEBEB';
+  ftr.textContent = 'AK35 Cabin Finding Report · Saudia Technic CA&QC';
+  card.appendChild(ftr);
+
+  // Show in success area
+  const successArea = document.getElementById('success-area');
+  const existing = document.getElementById('report-preview');
+  if (existing) existing.remove();
+
+  const reportDiv = document.createElement('div');
+  reportDiv.id = 'report-preview';
+  reportDiv.style.cssText = 'margin-top:16px';
+
+  const label = document.createElement('div');
+  label.style.cssText = 'font-size:12px;color:#666;margin-bottom:10px;font-family:BwGradual,sans-serif';
+  label.textContent = 'Your report — save or share:';
+  reportDiv.appendChild(label);
+  reportDiv.appendChild(card);
+
+  const saveBtn = document.createElement('button');
+  saveBtn.textContent = '⬇ SAVE REPORT IMAGE';
+  saveBtn.style.cssText = 'width:100%;margin-top:10px;padding:11px;background:#0F2920;color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:800;cursor:pointer;letter-spacing:.5px';
+  saveBtn.onclick = saveReportImage;
+  reportDiv.appendChild(saveBtn);
+
+  successArea.appendChild(reportDiv);
+}
+
+
+function saveReportImage() {
+  const card = document.getElementById('rpt-card');
+  if (!card) { showToast('Report not found'); return; }
+  
+  showToast('Generating image...');
+  html2canvas(card, {
+    scale: 2,
+    useCORS: true,
+    backgroundColor: '#fff',
+    logging: false
+  }).then(canvas => {
+    const ac = currentAircraft().replace(/[^A-Z0-9]/g,'_');
+    const date = new Date().toLocaleDateString('en-GB').replace(/\//g,'-');
+    const link = document.createElement('a');
+    link.download = 'finding_report_' + ac + '_' + date + '.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+    showToast('Report saved ✓');
+  }).catch(() => {
+    showToast('Take a screenshot to save');
+  });
+}
+
 
 </script>
 </body>
