@@ -351,10 +351,9 @@ async function submitAll() {
       // Send photos separately
       if (photosPayload.length > 0) {
         photosPayload.forEach(p => {
-          fetch(FLOW_URL + '?action=photo', {
-            method: 'POST',
-            headers: {'Content-Type': 'text/plain'},
-            body: JSON.stringify(p)
+          const photoParam = encodeURIComponent(JSON.stringify(p));
+          fetch(FLOW_URL + '&action=photo&data=' + photoParam, {
+            method: 'GET'
           }).catch(() => {});
         });
       }
