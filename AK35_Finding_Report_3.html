@@ -93,7 +93,7 @@ select{font-family:'BwGradual',sans-serif;text-transform:uppercase}
     <div class="submit-section">
       <div class="field reporter-field">
         <label>Raised by <span class="req">*</span></label>
-        <input type="text" id="reporter" placeholder="NAME OR PRN" autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false">
+        <input type="text" id="reporter" placeholder="NAME OR PRN" autocomplete="name" autocorrect="off" autocapitalize="words" spellcheck="false">
       </div>
       <button class="submit-btn" id="submit-btn" onclick="submitAll()" disabled>SUBMIT ALL FINDINGS</button>
       <div class="submit-note" id="submit-note">Add at least one finding to submit</div>
@@ -169,18 +169,18 @@ function renderFindings() {
           </div>
           <div class="field">
             <label>Sub-category <span class="opt">(optional)</span></label>
-            <input type="text" id="sub-${f.id}" placeholder="E.G. LAV 2A-1R" onchange="updatePreview(${f.id})" autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false">
+            <input type="text" id="sub-${f.id}" placeholder="E.G. LAV 2A-1R" onchange="updatePreview(${f.id})" autocomplete="on" autocorrect="off" autocapitalize="characters" spellcheck="false">
           </div>
         </div>
 
         <div class="field">
           <label>Finding Description <span class="req">*</span></label>
-          <textarea id="desc-${f.id}" placeholder="Describe the finding..." oninput="updatePreview(${f.id})" autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false"></textarea>
+          <textarea id="desc-${f.id}" placeholder="Describe the finding..." oninput="updatePreview(${f.id})" autocomplete="on" autocorrect="on" autocapitalize="characters" spellcheck="true"></textarea>
         </div>
 
         <div class="field">
           <label>Remarks <span class="opt">(optional)</span></label>
-          <input type="text" id="rmk-${f.id}" placeholder="Additional notes..." autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false">
+          <input type="text" id="rmk-${f.id}" placeholder="Additional notes..." autocomplete="on" autocorrect="on" autocapitalize="characters" spellcheck="true">
         </div>
 
         <div class="field">
@@ -239,6 +239,12 @@ function updatePreview(id) {
 }
 
 function handlePhoto(id, src) {
+  // iOS Chrome camera note
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+  const isChrome = /CriOS/.test(navigator.userAgent);
+  if (src === 'cam' && isIOS && isChrome) {
+    showToast('For camera: open in Safari ⇒ Share ⇒ Add to Home Screen');
+  }
   const inputId = src === 'cam' ? `photo-cam-${id}` : `photo-gal-${id}`;
   const input = document.getElementById(inputId);
   const file  = input?.files[0];
@@ -310,7 +316,7 @@ async function submitAll() {
     if (FLOW_URL === 'YOUR_POWER_AUTOMATE_URL_HERE') {
       // Demo mode — simulate success
       await new Promise(r => setTimeout(r, 1500));
-      showSuccess(reporter, valid.length);
+      showSuccess(reporter, valid.length, valid);
     } else {
       const res = await fetch(FLOW_URL, {
         method: 'POST',
@@ -318,7 +324,7 @@ async function submitAll() {
         body: JSON.stringify(payload)
       });
       if (!res.ok) throw new Error('Flow error: ' + res.status);
-      showSuccess(reporter, valid.length);
+      showSuccess(reporter, valid.length, valid);
     }
   } catch (err) {
     document.getElementById('sending-area').style.display = 'none';
@@ -416,9 +422,9 @@ document.addEventListener('change', () => { saveSession(); updateUI(); });
 
 // Clear session after successful submit
 const _origShowSuccess = showSuccess;
-window.showSuccess = function(reporter, count) {
+window.showSuccess = function(reporter, count, snap) {
   localStorage.removeItem(SAVE_KEY);
-  _origShowSuccess(reporter, count);
+  _origShowSuccess(reporter, count, snap);
 };
 
 // ── Aircraft config ──────────────────────────────────────────────────────────
