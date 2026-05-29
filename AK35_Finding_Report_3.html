@@ -327,6 +327,7 @@ async function submitAll() {
       await new Promise(r => setTimeout(r, 1500));
       showSuccess(reporter, valid.length, valid);
     } else {
+      console.log('Sending payload:', JSON.stringify(payload, null, 2));
       await fetch(FLOW_URL, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
