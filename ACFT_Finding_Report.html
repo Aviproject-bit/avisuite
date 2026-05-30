@@ -417,8 +417,8 @@ async function submitAll() {
     showSuccess(reporter, valid.length, valid);
     
     // Upload photos to ImgBB
-    for (let i = 0; i < valid.length; i++) {
-      const f = valid[i];
+    for (let i = 0; i < validSnapshot.length; i++) {
+      const f = validSnapshot[i];
       const photos = f.photos && f.photos.length > 0 ? f.photos : (f.photoData ? [{data:f.photoData,name:'photo.jpg'}] : []);
       console.log('Finding', i+1, 'photos:', photos.length);
       if (photos.length > 0) {
