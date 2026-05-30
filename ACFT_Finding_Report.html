@@ -617,39 +617,25 @@ if (_savedReporter) {
 }
 
 
-function generateReport(reporter, count, snap) {
-  const validFindings = snap || findings.filter(f => f.cat && f.desc && f.desc.trim());
-  window._lastSnap = validFindings;
-  window._lastReporter = reporter;
-  if (!validFindings.length) return;
-
-  const ac      = currentAircraft();
-  const chk     = currentCheck();
-  const now     = new Date();
-  const dateStr = now.toLocaleDateString('en-GB', {day:'2-digit',month:'short',year:'numeric'});
-  const timeStr = now.toLocaleTimeString('en-GB', {hour:'2-digit',minute:'2-digit'});
-
+function buildReportCard(pageFindings, reporter, ac, chk, dateStr, timeStr, pageNum, totalPages) {
   const card = document.createElement('div');
-  card.id = 'rpt-card';
+  card.id = 'rpt-card-' + pageNum;
   card.style.cssText = [
     'background:#F4F4F0',
     'border-radius:16px',
     'overflow:hidden',
-    'font-family:Arial,sans-serif',
+    'font-family:BwGradual,Arial,sans-serif',
     'max-width:420px',
     'margin:0 auto',
     'box-shadow:0 6px 24px rgba(0,0,0,.15)'
   ].join(';');
 
-  // ── Top stripe ──────────────────────────────────────────────────────────────
   const stripe = document.createElement('div');
   stripe.style.cssText = 'background:#006937;height:3px';
   card.appendChild(stripe);
 
-  // ── Header ──────────────────────────────────────────────────────────────────
   const hdr = document.createElement('div');
   hdr.style.cssText = 'background:#0F2920;padding:10px 12px 8px';
-
   const hdrTop = document.createElement('div');
   hdrTop.style.cssText = 'display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px';
   hdrTop.innerHTML =
@@ -658,20 +644,14 @@ function generateReport(reporter, count, snap) {
       '<div style="font-size:12px;font-weight:900;color:#fff;letter-spacing:.5px;text-transform:uppercase;line-height:1.2;font-family:BwGradualEB,Arial,sans-serif">CABIN FINDING REPORT</div>' +
     '</div>' +
     '<div style="background:rgba(255,255,255,.12);border-radius:7px;padding:5px 8px;text-align:center">' +
-      '<div style="font-size:20px;font-weight:900;color:#fff;line-height:1">' + validFindings.length + '</div>' +
-      '<div style="font-size:8px;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:1px">Finding' + (validFindings.length>1?'s':'') + '</div>' +
+      '<div style="font-size:18px;font-weight:900;color:#fff;line-height:1;font-family:BwGradualEB,Arial,sans-serif">' + pageFindings.length + '</div>' +
+      '<div style="font-size:8px;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:1px">Finding' + (pageFindings.length>1?'s':'') + '</div>' +
     '</div>';
   hdr.appendChild(hdrTop);
 
-  // Info grid
   const grid = document.createElement('div');
   grid.style.cssText = 'display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-top:6px';
-  [
-    ['Aircraft', ac ],
-    ['By', reporter],
-    ['Date', dateStr],
-    ['Time', timeStr]
-  ].forEach(([label, val]) => {
+  [['Aircraft', ac], ['By', reporter], ['Date', dateStr], ['Time', timeStr]].forEach(([label, val]) => {
     const cell = document.createElement('div');
     cell.style.cssText = 'background:rgba(255,255,255,.08);border-radius:5px;padding:4px 7px';
     cell.innerHTML = '<div style="font-size:8px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:1px;margin-bottom:1px;font-family:BwGradualEB,Arial,sans-serif">' + label + '</div>' +
@@ -679,13 +659,20 @@ function generateReport(reporter, count, snap) {
     grid.appendChild(cell);
   });
   hdr.appendChild(grid);
+  
+  if (totalPages > 1) {
+    const pgNum = document.createElement('div');
+    pgNum.style.cssText = 'text-align:right;font-size:8px;color:rgba(255,255,255,.4);margin-top:4px;font-family:BwGradualEB,Arial,sans-serif;letter-spacing:.5px';
+    pgNum.textContent = pageNum + ' / ' + totalPages;
+    hdr.appendChild(pgNum);
+  }
   card.appendChild(hdr);
 
-  // ── Findings ────────────────────────────────────────────────────────────────
   const body = document.createElement('div');
-  body.style.cssText = 'padding:12px;display:flex;flex-direction:column;gap:8px';
+  body.style.cssText = 'padding:10px;display:flex;flex-direction:column;gap:8px';
 
-  validFindings.forEach((f, idx) => {
+  pageFindings.forEach((f, idx) => {
+    const globalIdx = (pageNum-1)*5 + idx;
     const rmkEl = document.getElementById('rmk-' + f.id);
     const rmk   = rmkEl ? rmkEl.value.trim() : '';
     const photos = f.photos && f.photos.length > 0 ? f.photos : [];
@@ -693,20 +680,18 @@ function generateReport(reporter, count, snap) {
     const item = document.createElement('div');
     item.style.cssText = 'background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08)';
 
-    // Item header — number + category
     const ih = document.createElement('div');
-    ih.style.cssText = 'display:flex;align-items:center;gap:10px;padding:9px 12px;background:#F8F8F4;border-bottom:1px solid #EDEDEA';
+    ih.style.cssText = 'display:flex;align-items:center;gap:10px;padding:8px 12px;background:#F8F8F4;border-bottom:1px solid #EDEDEA';
     ih.innerHTML =
-      '<div style="width:24px;height:24px;border-radius:50%;background:#0F2920;color:#fff;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0">' + (idx+1) + '</div>' +
+      '<div style="width:22px;height:22px;border-radius:50%;background:#0F2920;color:#fff;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:BwGradualEB,Arial,sans-serif">' + (globalIdx+1) + '</div>' +
       '<div style="flex:1;min-width:0">' +
-        '<div style="font-size:12px;font-weight:800;color:#0F2920;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' + (f.cat||'') + '</div>' +
+        '<div style="font-size:12px;font-weight:800;color:#0F2920;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-family:BwGradualEB,Arial,sans-serif">' + (f.cat||'') + '</div>' +
         (f.sub ? '<div style="font-size:10px;color:#888;text-transform:uppercase">' + (f.sub||'') + '</div>' : '') +
       '</div>';
     item.appendChild(ih);
 
-    // Item body
     const ib = document.createElement('div');
-    ib.style.cssText = 'padding:10px 12px';
+    ib.style.cssText = 'padding:8px 12px';
 
     const desc = document.createElement('div');
     desc.style.cssText = 'font-size:12px;color:#222;line-height:1.55;text-transform:uppercase;font-weight:500';
@@ -726,10 +711,10 @@ function generateReport(reporter, count, snap) {
       photoGrid.style.cssText = 'display:grid;grid-template-columns:repeat(' + cols + ',1fr);gap:4px;margin-top:8px';
       photos.forEach(p => {
         const wrapper = document.createElement('div');
-        wrapper.style.cssText = 'position:relative;width:100%;padding-top:133%;overflow:hidden;border-radius:6px'; // 3:4 ratio
+        wrapper.style.cssText = 'position:relative;width:100%;padding-top:65%;overflow:hidden;border-radius:6px';
         const img = document.createElement('img');
         img.src = p.data;
-        img.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover';
+        img.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:center top';
         wrapper.appendChild(img);
         photoGrid.appendChild(wrapper);
       });
@@ -739,31 +724,29 @@ function generateReport(reporter, count, snap) {
     item.appendChild(ib);
     body.appendChild(item);
   });
-
   card.appendChild(body);
 
-  // ── Footer ──────────────────────────────────────────────────────────────────
-
-
-  // Bottom stripe
   const stripe2 = document.createElement('div');
   stripe2.style.cssText = 'background:#006937;height:3px';
   card.appendChild(stripe2);
 
-  // ── Show in success area ────────────────────────────────────────────────────
-  const successArea = document.getElementById('success-area');
-  const existing = document.getElementById('report-preview');
-  if (existing) existing.remove();
+  return card;
+}
 
-  const wrap = document.createElement('div');
-  wrap.id = 'report-preview';
-  wrap.style.cssText = 'margin-top:16px';
+function generateReport(reporter, count, snap) {
+  const validFindings = snap || findings.filter(f => f.cat && f.desc && f.desc.trim());
+  window._lastSnap = validFindings;
+  window._lastReporter = reporter;
+  if (!validFindings.length) return;
 
-  const lbl = document.createElement('div');
-  lbl.style.cssText = 'font-size:11px;color:#888;margin-bottom:8px;text-align:center;text-transform:uppercase;letter-spacing:.5px';
-  lbl.textContent = 'Your Report';
-  wrap.appendChild(lbl);
-  wrap.appendChild(card);
+  const ac      = currentAircraft();
+  const chk     = currentCheck();
+  const now     = new Date();
+  const dateStr = now.toLocaleDateString('en-GB', {day:'2-digit',month:'short',year:'numeric'});
+  const timeStr = now.toLocaleTimeString('en-GB', {hour:'2-digit',minute:'2-digit'});
+
+  // Card is built per-page in buildReportCard
+  const card = buildReportCard(validFindings.slice(0,5), reporter, ac, chk, dateStr, timeStr, 1, 1); // placeholder
 
   const btn = document.createElement('button');
   btn.textContent = 'SAVE AS IMAGE';
