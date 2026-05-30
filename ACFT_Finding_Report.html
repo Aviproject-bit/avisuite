@@ -176,12 +176,12 @@ function renderFindings() {
 
         <div class="field">
           <label>Finding Description <span class="req">*</span></label>
-          <textarea id="desc-${f.id}" placeholder="Describe the finding..." oninput="updatePreview(${f.id})" autocomplete="on" autocorrect="on" autocapitalize="characters" spellcheck="true"></textarea>
+          <textarea id="desc-${f.id}" placeholder="Describe the finding..." oninput="this.value=this.value.toUpperCase();updatePreview(${f.id})" autocomplete="on" autocorrect="off" autocapitalize="characters" spellcheck="false"></textarea>
         </div>
 
         <div class="field">
           <label>Remarks <span class="opt">(optional)</span></label>
-          <input type="text" id="rmk-${f.id}" placeholder="Additional notes..." autocomplete="on" autocorrect="on" autocapitalize="characters" spellcheck="true">
+          <input type="text" id="rmk-${f.id}" placeholder="Additional notes..." oninput="this.value=this.value.toUpperCase()" autocomplete="on" autocorrect="off" autocapitalize="characters" spellcheck="false">
         </div>
 
         <div class="field">
