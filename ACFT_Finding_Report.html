@@ -409,14 +409,12 @@ async function submitAll() {
     }))
   };
 
-  // 3. Send via no-cors POST
+  // 3. Send via GET
   try {
-    await fetch(FLOW_URL, {
-      method: 'POST',
-      headers: {'Content-Type': 'text/plain'},
-      body: JSON.stringify(payload),
-      mode: 'no-cors'
-    });
+    const dataParam = encodeURIComponent(JSON.stringify(payload));
+    const res = await fetch(FLOW_URL + '?data=' + dataParam);
+    const result = await res.json();
+    if (result.status !== 'success') throw new Error(result.message || 'Error');
     showSuccess(reporter, valid.length, valid);
   } catch(err) {
     document.getElementById('sending-area').style.display = 'none';
