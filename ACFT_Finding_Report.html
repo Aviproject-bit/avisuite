@@ -725,11 +725,13 @@ function generateReport(reporter, count, snap) {
       const cols = photos.length === 1 ? 1 : 2;
       photoGrid.style.cssText = 'display:grid;grid-template-columns:repeat(' + cols + ',1fr);gap:4px;margin-top:8px';
       photos.forEach(p => {
+        const wrapper = document.createElement('div');
+        wrapper.style.cssText = 'position:relative;width:100%;padding-top:133%;overflow:hidden;border-radius:6px'; // 3:4 ratio
         const img = document.createElement('img');
         img.src = p.data;
-        const h = photos.length === 1 ? '140px' : '80px';
-        img.style.cssText = 'width:100%;height:' + h + ';object-fit:cover;border-radius:6px';
-        photoGrid.appendChild(img);
+        img.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover';
+        wrapper.appendChild(img);
+        photoGrid.appendChild(wrapper);
       });
       ib.appendChild(photoGrid);
     }
@@ -796,22 +798,7 @@ function saveReportImage() {
     const date  = new Date().toLocaleDateString('en-GB').replace(/\//g,'-');
     const fname = 'finding_report_' + ac + '_' + date + '.png';
     
-    // Fit canvas into 3:4 phone ratio with white/dark padding
-    const targetRatio = 4/3; // 3:4 portrait
-    const cW = canvas.width;
-    const cH = canvas.height;
-    const targetH = Math.max(cH, Math.round(cW * targetRatio));
-    const out = document.createElement('canvas');
-    out.width  = cW;
-    out.height = targetH;
-    const ctx2 = out.getContext('2d');
-    ctx2.fillStyle = '#F4F4F0';
-    ctx2.fillRect(0, 0, cW, targetH);
-    // Center vertically
-    const offsetY = Math.round((targetH - cH) / 2);
-    ctx2.drawImage(canvas, 0, offsetY);
-    
-    out.toBlob(async blob => {
+    canvas.toBlob(async blob => {
       const jpegName = fname.replace('.png', '.jpg');
       const file = new File([blob], jpegName, {type:'image/jpeg'});
       if (navigator.share) {
