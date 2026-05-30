@@ -399,6 +399,50 @@ function showSuccess(reporter, count) {
   const time = new Date().toLocaleTimeString('en-GB', {hour:'2-digit',minute:'2-digit'});
   document.getElementById('success-stats').innerHTML =
     `<strong>${count}</strong> finding${count>1?'s':''} submitted by <strong>${reporter}</strong><br>${date} at ${time}`;
+  
+  // Show save photos button if any findings have photos
+  const hasPhotos = findings.some(f => f.photos && f.photos.length > 0);
+  const existingPhotoBtn = document.getElementById('save-photos-btn');
+  if (existingPhotoBtn) existingPhotoBtn.remove();
+  
+  if (hasPhotos) {
+    const photoBtn = document.createElement('button');
+    photoBtn.id = 'save-photos-btn';
+    photoBtn.textContent = 'SAVE PHOTOS TO DEVICE';
+    photoBtn.style.cssText = 'width:100%;margin-top:10px;padding:11px;background:transparent;color:#0F2920;border:1.5px solid #0F2920;border-radius:8px;font-size:12px;font-weight:800;cursor:pointer;letter-spacing:1px;font-family:BwGradualEB,Arial,sans-serif';
+    photoBtn.onclick = saveAllPhotos;
+    document.getElementById('success-area').appendChild(photoBtn);
+  }
+}
+
+function saveAllPhotos() {
+  const allPhotos = [];
+  findings.forEach((f, fi) => {
+    const photos = f.photos && f.photos.length > 0 ? f.photos : (f.photoData ? [{data:f.photoData}] : []);
+    photos.forEach((p, pi) => {
+      allPhotos.push({data: p.data, name: 'photo_finding' + (fi+1) + '_' + (pi+1) + '.jpg'});
+    });
+  });
+  
+  if (!allPhotos.length) { showToast('No photos'); return; }
+  
+  allPhotos.forEach((p, i) => {
+    setTimeout(() => {
+      fetch(p.data)
+        .then(r => r.blob())
+        .then(blob => {
+          const url  = URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          link.href     = url;
+          link.download = p.name;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          setTimeout(() => URL.revokeObjectURL(url), 1000);
+        });
+    }, i * 300);
+  });
+  showToast(allPhotos.length + ' photo' + (allPhotos.length>1?'s':'') + ' saving...');
 }
 
 function resetAll() {
@@ -523,15 +567,11 @@ function editAircraft() {
   overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:999;display:flex;align-items:center;justify-content:center;padding:20px';
   overlay.innerHTML = `
     <div style="background:#fff;border-radius:14px;padding:20px;width:100%;max-width:340px">
-      <div style="font-family:'BwGradualEB',sans-serif;font-size:14px;font-weight:800;color:#0F2920;letter-spacing:.5px;margin-bottom:16px;text-transform:uppercase">Aircraft Settings</div>
+      <div style="font-family:'BwGradualEB',sans-serif;font-size:14px;font-weight:800;color:#0F2920;letter-spacing:.5px;margin-bottom:16px;text-transform:uppercase">Aircraft</div>
       <div style="display:flex;flex-direction:column;gap:12px">
         <div>
           <div style="font-size:11px;font-weight:800;color:#555;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;font-family:'BwGradualEB',sans-serif">Registration</div>
           <input id="ac-reg" type="text" value="${ac}" placeholder="HZ-AK35" style="width:100%;padding:9px 10px;border:1px solid #D8D8D0;border-radius:8px;font-size:14px;font-family:'BwGradual',sans-serif;text-transform:uppercase">
-        </div>
-        <div>
-          <div style="font-size:11px;font-weight:800;color:#555;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;font-family:'BwGradualEB',sans-serif">Check / Phase</div>
-          <input id="ac-check" type="text" value="${chk}" placeholder="C3 CHECK" style="width:100%;padding:9px 10px;border:1px solid #D8D8D0;border-radius:8px;font-size:14px;font-family:'BwGradual',sans-serif;text-transform:uppercase">
         </div>
         <div style="display:flex;gap:8px;margin-top:4px">
           <button onclick="saveAircraft()" style="flex:1;padding:11px;background:#0F2920;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:800;cursor:pointer;font-family:'BwGradualEB',sans-serif;letter-spacing:.5px">SAVE</button>
@@ -848,20 +888,18 @@ function saveTextReport() {
     showToast('Generating...');
     html2canvas(wrap, {scale:2.5, useCORS:true, backgroundColor:'#fff', logging:false})
       .then(c => {
-        const imgData = c.toDataURL('image/png', 0.92);
-        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-        if (isMobile) {
-          const w = window.open('', '_blank');
-          w.document.write('<html><body style="margin:0;background:#000;display:flex;justify-content:center;align-items:flex-start;min-height:100vh"><img src="' + imgData + '" style="max-width:100%;display:block"><p style="color:#fff;text-align:center;font-family:sans-serif;font-size:12px;padding:10px">Hold image to save</p></body></html>');
-          w.document.close();
-        } else {
-          const ac2  = currentAircraft().replace(/[^A-Z0-9]/g,'_');
-          const dt   = new Date().toLocaleDateString('en-GB').replace(/\//g,'-');
-          const lnk  = document.createElement('a');
-          lnk.download = 'text_report_' + ac2 + '_' + dt + '.png';
-          lnk.href = imgData;
+        const ac2  = currentAircraft().replace(/[^A-Z0-9]/g,'_');
+        const dt   = new Date().toLocaleDateString('en-GB').replace(/\//g,'-');
+        c.toBlob(blob => {
+          const blobUrl = URL.createObjectURL(blob);
+          const lnk = document.createElement('a');
+          lnk.download = 'table_report_' + ac2 + '_' + dt + '.png';
+          lnk.href = blobUrl;
+          document.body.appendChild(lnk);
           lnk.click();
-        }
+          document.body.removeChild(lnk);
+          setTimeout(() => URL.revokeObjectURL(blobUrl), 1000);
+        }, 'image/png', 0.95);
         showToast('Saved');
       }).catch(() => showToast('Take a screenshot to save'));
   };
