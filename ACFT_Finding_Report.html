@@ -123,7 +123,7 @@ const CATEGORIES = [
 ];
 
 // Power Automate HTTP trigger URL — paste here after creating the Flow
-const FLOW_URL = 'https://script.google.com/macros/s/AKfycbwC5ahZ9ORC-dfLSXEQX5nrev6rRc8svw2j80nwXgyUVhHgRAIFqZeSPMFFETkN-1lNLQ/exec';
+const FLOW_URL = 'https://script.google.com/macros/s/AKfycbxsXIwew4hqsd6YGDaUaDtXW8ptdiEdIrJCtPKLw191XqF8eQ222Cz4_PkGbF6XL8-5eA/exec';
 
 let findings = [];
 let nextId = 1;
@@ -385,27 +385,9 @@ async function submitAll() {
   const date = now.toLocaleDateString('en-GB');
   const time = now.toLocaleTimeString('en-GB', {hour:'2-digit',minute:'2-digit'});
 
-  // 1. Upload photos to ImgBB first (all photos per finding)
+  // 1. Prepare photos — send as base64 to Google Drive via Apps Script
   const photoUrls = {};
-  for (let i = 0; i < valid.length; i++) {
-    const f = valid[i];
-    const photos = f.photos && f.photos.length > 0 ? f.photos : (f.photoData ? [{data: f.photoData}] : []);
-    if (photos.length > 0) {
-      const urls = [];
-      for (const photo of photos) {
-        try {
-          const base64 = photo.data.split(',')[1];
-          const fd = new FormData();
-          fd.append('key', 'a72386b4ada67f2fdefd06144f01adfd');
-          fd.append('image', base64);
-          const r = await fetch('https://api.imgbb.com/1/upload', {method:'POST', body:fd});
-          const d = await r.json();
-          if (d.success) urls.push(d.data.url);
-        } catch(e) { }
-      }
-      if (urls.length) photoUrls[i] = urls.join(' | ');
-    }
-  }
+  // Photos will be uploaded by the Apps Script — just flag them
 
   // 2. Build small payload (no base64)
   const payload = {
@@ -413,14 +395,18 @@ async function submitAll() {
     aircraft: currentAircraft(),
     date,
     time,
-    findings: valid.map((f, i) => ({
-      category: f.cat,
-      subCategory: f.sub || '',
-      description: f.desc,
-      remarks: document.getElementById(`rmk-${f.id}`)?.value || '',
-      hasPhoto: !!f.photoData,
-      photoUrl: photoUrls[i] || ''
-    }))
+    findings: valid.map((f, i) => {
+      const photos = f.photos && f.photos.length > 0 ? f.photos : (f.photoData ? [{data:f.photoData, name:'photo.jpg'}] : []);
+      return {
+        category: f.cat,
+        subCategory: f.sub || '',
+        description: f.desc,
+        remarks: document.getElementById(`rmk-${f.id}`)?.value || '',
+        hasPhoto: photos.length > 0,
+        photoBase64: photos.length > 0 ? photos[0].data : null,
+        photoName: photos.length > 0 ? (photos[0].name || 'photo.jpg') : null
+      };
+    })
   };
 
   console.log('Payload size:', JSON.stringify(payload).length, 'chars');
