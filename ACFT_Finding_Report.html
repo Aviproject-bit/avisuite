@@ -123,7 +123,7 @@ const CATEGORIES = [
 ];
 
 // Power Automate HTTP trigger URL — paste here after creating the Flow
-const FLOW_URL = 'https://script.google.com/macros/s/AKfycbzBdgjR1Goo-yzKk5ksW42pTh1Tn0ahAd6aJFZebWHRYpvdLDAMT9eDUxJj09-foIcPbA/exec';
+const FLOW_URL = 'https://script.google.com/macros/s/AKfycby2i8YxfDaANzHPhXKUF1NN24ZYKorbY1QO_6uoOqxB8iiF2NAV1VOL0iLgi73hFs4cKA/exec';
 
 let findings = [];
 let nextId = 1;
@@ -420,11 +420,11 @@ async function submitAll() {
     if (result.status !== 'success') throw new Error(result.message || 'Error');
     showSuccess(reporter, valid.length, valid);
     
-    // Send photos separately (no-cors to avoid CORS issues with large payload)
+    // Send photos via no-cors POST (avoids URL length limit)
     valid.forEach((f, i) => {
       const photos = f.photos && f.photos.length > 0 ? f.photos : (f.photoData ? [{data:f.photoData,name:'photo.jpg'}] : []);
       if (photos.length > 0) {
-        const photoPayload = {
+        const photoPayload = JSON.stringify({
           action: 'photo',
           reporter: reporter,
           aircraft: currentAircraft(),
@@ -432,9 +432,13 @@ async function submitAll() {
           findingIndex: i + 1,
           photoBase64: photos[0].data,
           photoName: photos[0].name || 'photo.jpg'
-        };
-        const photoParam = encodeURIComponent(JSON.stringify(photoPayload));
-        fetch(FLOW_URL + '?data=' + photoParam).catch(() => {});
+        });
+        fetch(FLOW_URL, {
+          method: 'POST',
+          headers: {'Content-Type': 'text/plain'},
+          body: photoPayload,
+          mode: 'no-cors'
+        }).catch(() => {});
       }
     });
     
