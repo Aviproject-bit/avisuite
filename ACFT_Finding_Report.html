@@ -326,8 +326,51 @@ document.getElementById('reporter').addEventListener('input', updateUI);
 async function submitAll() {
   const reporter = document.getElementById('reporter').value.trim();
   if (!reporter) { showToast('Please enter your name'); document.getElementById('reporter').focus(); return; }
-  const valid = findings.filter(f => f.cat && f.desc?.trim());
-  if (!valid.length) { showToast('Fill in at least one finding'); return; }
+  // Collect latest values from DOM
+  findings.forEach(f => {
+    const catEl  = document.getElementById('cat-'  + f.id);
+    const subEl  = document.getElementById('sub-'  + f.id);
+    const descEl = document.getElementById('desc-' + f.id);
+    if (catEl)  f.cat  = catEl.value  || f.cat  || '';
+    if (subEl)  f.sub  = subEl.value  || f.sub  || '';
+    if (descEl) f.desc = descEl.value || f.desc || '';
+  });
+
+  // Validate — all findings must have Category AND Description
+  const incomplete = findings.filter(f => !f.cat?.trim() || !f.desc?.trim());
+  if (incomplete.length) {
+    const nums = incomplete.map((f, _) => {
+      const idx = findings.indexOf(f) + 1;
+      const missing = [];
+      if (!f.cat?.trim())  missing.push('Category');
+      if (!f.desc?.trim()) missing.push('Description');
+      return 'Finding #' + idx + ': missing ' + missing.join(' & ');
+    }).join('\n');
+    showToast('Complete all findings first');
+    // Highlight incomplete cards
+    incomplete.forEach(f => {
+      const card = document.getElementById('card-' + f.id);
+      if (card) {
+        card.style.border = '2px solid #C62828';
+        // Expand the card
+        const body = document.getElementById('body-' + f.id);
+        if (body) body.style.display = 'flex';
+        // Scroll to first incomplete
+        if (f === incomplete[0]) card.scrollIntoView({behavior:'smooth', block:'center'});
+      }
+    });
+    // Show which are incomplete
+    alert(nums);
+    return;
+  }
+  // Clear any error highlights
+  findings.forEach(f => {
+    const card = document.getElementById('card-' + f.id);
+    if (card) card.style.border = '';
+  });
+
+  const valid = findings;
+  if (!valid.length) { showToast('Add at least one finding'); return; }
 
   document.getElementById('main-area').style.display = 'none';
   document.getElementById('sending-area').style.display = 'block';
@@ -708,7 +751,7 @@ function buildReportCard(pageFindings, reporter, ac, chk, dateStr, timeStr, page
     if (photos.length > 0) {
       const photoGrid = document.createElement('div');
       const cols = photos.length === 1 ? 1 : 2;
-      photoGrid.style.cssText = 'display:grid;grid-template-columns:repeat(' + cols + ',1fr);gap:4px;margin-top:8px';
+      photoGrid.style.cssText = 'display:grid;grid-template-columns:repeat(' + cols + ',1fr);gap:4px;margin-top:8px;align-items:start';
       photos.forEach(p => {
         const wrapper = document.createElement('div');
         wrapper.style.cssText = 'position:relative;width:100%;padding-top:65%;overflow:hidden;border-radius:6px';
