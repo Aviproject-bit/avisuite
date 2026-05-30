@@ -72,162 +72,7 @@ select{font-family:'BwGradual',sans-serif;text-transform:uppercase}
 .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(80px);background:#0F2920;color:#fff;padding:10px 20px;border-radius:20px;font-size:13px;transition:transform .3s;z-index:999;white-space:nowrap;font-family:'BwGradualEB',sans-serif;letter-spacing:.5px}
 .toast.show{transform:translateX(-50%) translateY(0)}
 </style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js">
-async function saveReportImage() {
-  const pages = window._reportPages;
-  if (!pages || !pages.length) { showToast('Report not found'); return; }
-  showToast('Generating...');
-
-  const ac   = currentAircraft().replace(/[^A-Z0-9]/g,'_');
-  const date = new Date().toLocaleDateString('en-GB').replace(/\//g,'-');
-  const files = [];
-
-  for (let i = 0; i < pages.length; i++) {
-    try {
-      const canvas = await html2canvas(pages[i], {
-        scale: 2, useCORS: true, backgroundColor: '#F4F4F0',
-        logging: false, allowTaint: true
-      });
-      await new Promise(res => {
-        const suffix = pages.length > 1 ? '_p' + (i+1) : '';
-        const fname  = 'finding_report_' + ac + '_' + date + suffix + '.jpg';
-        canvas.toBlob(blob => {
-          if (blob) files.push(new File([blob], fname, {type:'image/jpeg'}));
-          res();
-        }, 'image/jpeg', 0.92);
-      });
-    } catch(e) { console.error('Page', i, e); }
-  }
-
-  if (!files.length) { showToast('Error generating'); return; }
-  if (navigator.share) {
-    try { await navigator.share({files, title:'Cabin Finding Report'}); return; }
-    catch(e) { if (e.name === 'AbortError') return; }
-  }
-  files.forEach((file, i) => {
-    setTimeout(() => {
-      const url  = URL.createObjectURL(file);
-      const link = document.createElement('a');
-      link.download = file.name; link.href = url;
-      document.body.appendChild(link); link.click();
-      document.body.removeChild(link);
-      setTimeout(() => URL.revokeObjectURL(url), 1000);
-    }, i * 600);
-  });
-}
-
-function saveTextReport() {
-  const snap = window._lastSnap;
-  if (!snap || !snap.length) { showToast('No findings'); return; }
-
-  const ac       = currentAircraft();
-  const reporter = window._lastReporter || '';
-  const now      = new Date();
-  const dateStr  = now.toLocaleDateString('en-GB', {day:'2-digit',month:'short',year:'numeric'});
-  const timeStr  = now.toLocaleTimeString('en-GB', {hour:'2-digit',minute:'2-digit'});
-
-  const wrap = document.createElement('div');
-  wrap.id = 'txt-rpt-card';
-  wrap.style.cssText = 'background:#fff;font-family:BwGradual,Arial,sans-serif;max-width:480px;margin:0 auto;border:1px solid #DDD;border-radius:12px;overflow:hidden';
-
-  const h = document.createElement('div');
-  h.style.cssText = 'background:#0F2920;color:#fff;padding:12px 16px;display:flex;align-items:center;justify-content:space-between';
-  h.innerHTML =
-    '<div>' +
-      '<div style="font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.5px;font-family:BwGradualEB,Arial,sans-serif">Finding Report</div>' +
-      '<div style="font-size:10px;opacity:.6;margin-top:1px">' + ac + ' · ' + dateStr + ' ' + timeStr + '</div>' +
-    '</div>' +
-    '<div style="text-align:right">' +
-      '<div style="font-size:18px;font-weight:900;font-family:BwGradualEB,Arial,sans-serif">' + snap.length + '</div>' +
-      '<div style="font-size:8px;opacity:.6;text-transform:uppercase">Finding' + (snap.length>1?'s':'') + '</div>' +
-    '</div>';
-  wrap.appendChild(h);
-
-  const sub = document.createElement('div');
-  sub.style.cssText = 'background:#F0F5F2;padding:6px 16px;font-size:10px;color:#0F2920;font-weight:700;text-transform:uppercase;letter-spacing:.5px;border-bottom:2px solid #0F2920;font-family:BwGradualEB,Arial,sans-serif';
-  sub.textContent = 'BY: ' + reporter.toUpperCase();
-  wrap.appendChild(sub);
-
-  const tblWrap = document.createElement('div');
-  tblWrap.style.cssText = 'overflow:hidden';
-  const tblHdr = document.createElement('div');
-  tblHdr.style.cssText = 'display:grid;grid-template-columns:28px 110px 1fr;background:#1A3D30;padding:6px 12px;gap:8px';
-  tblHdr.innerHTML =
-    '<div style="font-size:9px;font-weight:800;color:rgba(255,255,255,.7);text-transform:uppercase">#</div>' +
-    '<div style="font-size:9px;font-weight:800;color:rgba(255,255,255,.7);text-transform:uppercase">Category</div>' +
-    '<div style="font-size:9px;font-weight:800;color:rgba(255,255,255,.7);text-transform:uppercase">Description</div>';
-  tblWrap.appendChild(tblHdr);
-
-  snap.forEach((f, idx) => {
-    const rmkEl = document.getElementById('rmk-' + f.id);
-    const rmk   = rmkEl ? rmkEl.value.trim().toUpperCase() : '';
-    const bg    = idx % 2 === 0 ? '#fff' : '#F8FAF8';
-    const hasP  = f.photos && f.photos.length > 0;
-    const row   = document.createElement('div');
-    row.style.cssText = 'display:grid;grid-template-columns:28px 110px 1fr;background:' + bg + ';padding:7px 12px;gap:8px;border-bottom:1px solid #EBEBEB;align-items:start';
-    const numDiv = document.createElement('div');
-    numDiv.style.cssText = 'font-size:11px;font-weight:800;color:#0F2920;padding-top:1px;font-family:BwGradualEB,Arial,sans-serif';
-    numDiv.textContent = idx + 1;
-    const catDiv = document.createElement('div');
-    catDiv.style.cssText = 'font-size:10px;font-weight:700;color:#0F2920;text-transform:uppercase;line-height:1.4;font-family:BwGradualEB,Arial,sans-serif';
-    catDiv.innerHTML = (f.cat||'') + (f.sub ? '<br><span style="font-weight:400;color:#888;font-size:9px">' + (f.sub||'').toUpperCase() + '</span>' : '');
-    const descDiv = document.createElement('div');
-    descDiv.style.cssText = 'font-size:10px;color:#222;text-transform:uppercase;line-height:1.5';
-    descDiv.innerHTML = (f.desc||'').toUpperCase().replace(/\n/g, '<br>');
-    if (rmk) {
-      const rmkSpan = document.createElement('div');
-      rmkSpan.style.cssText = 'font-size:9px;color:#888;margin-top:2px;font-style:italic';
-      rmkSpan.textContent = 'NOTE: ' + rmk;
-      descDiv.appendChild(rmkSpan);
-    }
-    if (hasP) {
-      const photoTag = document.createElement('div');
-      photoTag.style.cssText = 'display:inline-block;font-size:8px;background:#E1F0EA;color:#0F5C30;border-radius:4px;padding:1px 5px;margin-top:3px;font-weight:700';
-      photoTag.textContent = f.photos.length + ' PHOTO' + (f.photos.length>1?'S':'');
-      descDiv.appendChild(photoTag);
-    }
-    row.appendChild(numDiv); row.appendChild(catDiv); row.appendChild(descDiv);
-    tblWrap.appendChild(row);
-  });
-  wrap.appendChild(tblWrap);
-
-  const existing = document.getElementById('txt-rpt-wrap');
-  if (existing) existing.remove();
-  const outer = document.createElement('div');
-  outer.id = 'txt-rpt-wrap';
-  outer.style.cssText = 'margin-top:10px';
-  outer.appendChild(wrap);
-
-  const saveBtn2 = document.createElement('button');
-  saveBtn2.textContent = 'SAVE AS TABLE';
-  saveBtn2.style.cssText = 'width:100%;margin-top:8px;padding:11px;background:#0F2920;color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:800;cursor:pointer;letter-spacing:1px;text-transform:uppercase;font-family:BwGradualEB,Arial,sans-serif';
-  saveBtn2.onclick = async () => {
-    showToast('Generating...');
-    try {
-      const c = await html2canvas(wrap, {scale:2.5, useCORS:true, backgroundColor:'#fff', logging:false});
-      const ac2   = currentAircraft().replace(/[^A-Z0-9]/g,'_');
-      const dt    = new Date().toLocaleDateString('en-GB').replace(/\//g,'-');
-      const fname = 'table_report_' + ac2 + '_' + dt + '.jpg';
-      c.toBlob(async blob => {
-        const file = new File([blob], fname, {type:'image/jpeg'});
-        if (navigator.share) {
-          try { await navigator.share({files:[file], title:'Finding Table Report'}); return; }
-          catch(e) { if (e.name === 'AbortError') return; }
-        }
-        const url = URL.createObjectURL(blob);
-        const lnk = document.createElement('a');
-        lnk.download = fname; lnk.href = url;
-        document.body.appendChild(lnk); lnk.click();
-        document.body.removeChild(lnk);
-        setTimeout(() => URL.revokeObjectURL(url), 1000);
-      }, 'image/jpeg', 0.92);
-    } catch(e) { showToast('Take a screenshot to save'); }
-  };
-  outer.appendChild(saveBtn2);
-  const rptPreview = document.getElementById('report-preview');
-  if (rptPreview) rptPreview.after(outer);
-}
-</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body>
 
@@ -952,6 +797,162 @@ function generateReport(reporter, count, snap) {
   successArea.appendChild(wrap);
 }
 
+
+
+async function saveReportImage() {
+  const pages = window._reportPages;
+  if (!pages || !pages.length) { showToast('Report not found'); return; }
+  showToast('Generating...');
+
+  const ac   = currentAircraft().replace(/[^A-Z0-9]/g,'_');
+  const date = new Date().toLocaleDateString('en-GB').replace(/\//g,'-');
+  const files = [];
+
+  for (let i = 0; i < pages.length; i++) {
+    try {
+      const canvas = await html2canvas(pages[i], {
+        scale: 2, useCORS: true, backgroundColor: '#F4F4F0',
+        logging: false, allowTaint: true
+      });
+      await new Promise(res => {
+        const suffix = pages.length > 1 ? '_p' + (i+1) : '';
+        const fname  = 'finding_report_' + ac + '_' + date + suffix + '.jpg';
+        canvas.toBlob(blob => {
+          if (blob) files.push(new File([blob], fname, {type:'image/jpeg'}));
+          res();
+        }, 'image/jpeg', 0.92);
+      });
+    } catch(e) { console.error('Page', i, e); }
+  }
+
+  if (!files.length) { showToast('Error generating'); return; }
+  if (navigator.share) {
+    try { await navigator.share({files, title:'Cabin Finding Report'}); return; }
+    catch(e) { if (e.name === 'AbortError') return; }
+  }
+  files.forEach((file, i) => {
+    setTimeout(() => {
+      const url  = URL.createObjectURL(file);
+      const link = document.createElement('a');
+      link.download = file.name; link.href = url;
+      document.body.appendChild(link); link.click();
+      document.body.removeChild(link);
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }, i * 600);
+  });
+}
+
+function saveTextReport() {
+  const snap = window._lastSnap;
+  if (!snap || !snap.length) { showToast('No findings'); return; }
+
+  const ac       = currentAircraft();
+  const reporter = window._lastReporter || '';
+  const now      = new Date();
+  const dateStr  = now.toLocaleDateString('en-GB', {day:'2-digit',month:'short',year:'numeric'});
+  const timeStr  = now.toLocaleTimeString('en-GB', {hour:'2-digit',minute:'2-digit'});
+
+  const wrap = document.createElement('div');
+  wrap.id = 'txt-rpt-card';
+  wrap.style.cssText = 'background:#fff;font-family:BwGradual,Arial,sans-serif;max-width:480px;margin:0 auto;border:1px solid #DDD;border-radius:12px;overflow:hidden';
+
+  const h = document.createElement('div');
+  h.style.cssText = 'background:#0F2920;color:#fff;padding:12px 16px;display:flex;align-items:center;justify-content:space-between';
+  h.innerHTML =
+    '<div>' +
+      '<div style="font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.5px;font-family:BwGradualEB,Arial,sans-serif">Finding Report</div>' +
+      '<div style="font-size:10px;opacity:.6;margin-top:1px">' + ac + ' · ' + dateStr + ' ' + timeStr + '</div>' +
+    '</div>' +
+    '<div style="text-align:right">' +
+      '<div style="font-size:18px;font-weight:900;font-family:BwGradualEB,Arial,sans-serif">' + snap.length + '</div>' +
+      '<div style="font-size:8px;opacity:.6;text-transform:uppercase">Finding' + (snap.length>1?'s':'') + '</div>' +
+    '</div>';
+  wrap.appendChild(h);
+
+  const sub = document.createElement('div');
+  sub.style.cssText = 'background:#F0F5F2;padding:6px 16px;font-size:10px;color:#0F2920;font-weight:700;text-transform:uppercase;letter-spacing:.5px;border-bottom:2px solid #0F2920;font-family:BwGradualEB,Arial,sans-serif';
+  sub.textContent = 'BY: ' + reporter.toUpperCase();
+  wrap.appendChild(sub);
+
+  const tblWrap = document.createElement('div');
+  tblWrap.style.cssText = 'overflow:hidden';
+  const tblHdr = document.createElement('div');
+  tblHdr.style.cssText = 'display:grid;grid-template-columns:28px 110px 1fr;background:#1A3D30;padding:6px 12px;gap:8px';
+  tblHdr.innerHTML =
+    '<div style="font-size:9px;font-weight:800;color:rgba(255,255,255,.7);text-transform:uppercase">#</div>' +
+    '<div style="font-size:9px;font-weight:800;color:rgba(255,255,255,.7);text-transform:uppercase">Category</div>' +
+    '<div style="font-size:9px;font-weight:800;color:rgba(255,255,255,.7);text-transform:uppercase">Description</div>';
+  tblWrap.appendChild(tblHdr);
+
+  snap.forEach((f, idx) => {
+    const rmkEl = document.getElementById('rmk-' + f.id);
+    const rmk   = rmkEl ? rmkEl.value.trim().toUpperCase() : '';
+    const bg    = idx % 2 === 0 ? '#fff' : '#F8FAF8';
+    const hasP  = f.photos && f.photos.length > 0;
+    const row   = document.createElement('div');
+    row.style.cssText = 'display:grid;grid-template-columns:28px 110px 1fr;background:' + bg + ';padding:7px 12px;gap:8px;border-bottom:1px solid #EBEBEB;align-items:start';
+    const numDiv = document.createElement('div');
+    numDiv.style.cssText = 'font-size:11px;font-weight:800;color:#0F2920;padding-top:1px;font-family:BwGradualEB,Arial,sans-serif';
+    numDiv.textContent = idx + 1;
+    const catDiv = document.createElement('div');
+    catDiv.style.cssText = 'font-size:10px;font-weight:700;color:#0F2920;text-transform:uppercase;line-height:1.4;font-family:BwGradualEB,Arial,sans-serif';
+    catDiv.innerHTML = (f.cat||'') + (f.sub ? '<br><span style="font-weight:400;color:#888;font-size:9px">' + (f.sub||'').toUpperCase() + '</span>' : '');
+    const descDiv = document.createElement('div');
+    descDiv.style.cssText = 'font-size:10px;color:#222;text-transform:uppercase;line-height:1.5';
+    descDiv.innerHTML = (f.desc||'').toUpperCase().replace(/\n/g, '<br>');
+    if (rmk) {
+      const rmkSpan = document.createElement('div');
+      rmkSpan.style.cssText = 'font-size:9px;color:#888;margin-top:2px;font-style:italic';
+      rmkSpan.textContent = 'NOTE: ' + rmk;
+      descDiv.appendChild(rmkSpan);
+    }
+    if (hasP) {
+      const photoTag = document.createElement('div');
+      photoTag.style.cssText = 'display:inline-block;font-size:8px;background:#E1F0EA;color:#0F5C30;border-radius:4px;padding:1px 5px;margin-top:3px;font-weight:700';
+      photoTag.textContent = f.photos.length + ' PHOTO' + (f.photos.length>1?'S':'');
+      descDiv.appendChild(photoTag);
+    }
+    row.appendChild(numDiv); row.appendChild(catDiv); row.appendChild(descDiv);
+    tblWrap.appendChild(row);
+  });
+  wrap.appendChild(tblWrap);
+
+  const existing = document.getElementById('txt-rpt-wrap');
+  if (existing) existing.remove();
+  const outer = document.createElement('div');
+  outer.id = 'txt-rpt-wrap';
+  outer.style.cssText = 'margin-top:10px';
+  outer.appendChild(wrap);
+
+  const saveBtn2 = document.createElement('button');
+  saveBtn2.textContent = 'SAVE AS TABLE';
+  saveBtn2.style.cssText = 'width:100%;margin-top:8px;padding:11px;background:#0F2920;color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:800;cursor:pointer;letter-spacing:1px;text-transform:uppercase;font-family:BwGradualEB,Arial,sans-serif';
+  saveBtn2.onclick = async () => {
+    showToast('Generating...');
+    try {
+      const c = await html2canvas(wrap, {scale:2.5, useCORS:true, backgroundColor:'#fff', logging:false});
+      const ac2   = currentAircraft().replace(/[^A-Z0-9]/g,'_');
+      const dt    = new Date().toLocaleDateString('en-GB').replace(/\//g,'-');
+      const fname = 'table_report_' + ac2 + '_' + dt + '.jpg';
+      c.toBlob(async blob => {
+        const file = new File([blob], fname, {type:'image/jpeg'});
+        if (navigator.share) {
+          try { await navigator.share({files:[file], title:'Finding Table Report'}); return; }
+          catch(e) { if (e.name === 'AbortError') return; }
+        }
+        const url = URL.createObjectURL(blob);
+        const lnk = document.createElement('a');
+        lnk.download = fname; lnk.href = url;
+        document.body.appendChild(lnk); lnk.click();
+        document.body.removeChild(lnk);
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+      }, 'image/jpeg', 0.92);
+    } catch(e) { showToast('Take a screenshot to save'); }
+  };
+  outer.appendChild(saveBtn2);
+  const rptPreview = document.getElementById('report-preview');
+  if (rptPreview) rptPreview.after(outer);
+}
 
 </script>
 </body>
