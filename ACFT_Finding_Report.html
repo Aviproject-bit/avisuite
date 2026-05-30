@@ -395,18 +395,13 @@ async function submitAll() {
     aircraft: currentAircraft(),
     date,
     time,
-    findings: valid.map((f, i) => {
-      const photos = f.photos && f.photos.length > 0 ? f.photos : (f.photoData ? [{data:f.photoData, name:'photo.jpg'}] : []);
-      return {
-        category: f.cat,
-        subCategory: f.sub || '',
-        description: f.desc,
-        remarks: document.getElementById(`rmk-${f.id}`)?.value || '',
-        hasPhoto: photos.length > 0,
-        photoBase64: photos.length > 0 ? photos[0].data : null,
-        photoName: photos.length > 0 ? (photos[0].name || 'photo.jpg') : null
-      };
-    })
+    findings: valid.map((f, i) => ({
+      category: f.cat,
+      subCategory: f.sub || '',
+      description: f.desc,
+      remarks: document.getElementById(`rmk-${f.id}`)?.value || '',
+      hasPhoto: !!(f.photos && f.photos.length > 0) || !!f.photoData
+    }))
   };
 
   console.log('Payload size:', JSON.stringify(payload).length, 'chars');
