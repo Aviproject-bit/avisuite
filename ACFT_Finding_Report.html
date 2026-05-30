@@ -62,7 +62,7 @@ select{font-family:'BwGradual',sans-serif;text-transform:uppercase}
 .submit-note{font-size:11px;color:#888;text-align:center;margin-top:8px;font-family:'BwGradual',sans-serif}
 .success{display:none;text-align:center;padding:40px 20px}
 .success-icon{font-size:56px;margin-bottom:16px}
-.success h2{font-size:20px;font-weight:800;color:#0F2920;margin-bottom:8px;font-family:'BwGradualEB',sans-serif}
+.success h2{font-size:18px;font-weight:800;color:#0F2920;margin-bottom:8px;font-family:'BwGradualEB',sans-serif;letter-spacing:.5px;text-transform:uppercase}
 .success p{font-size:14px;color:#666;margin-bottom:24px;font-family:'BwGradual',sans-serif}
 .success-stats{background:#F0F5F2;border-radius:10px;padding:14px;margin-bottom:20px;font-size:14px;color:#0F2920;font-family:'BwGradual',sans-serif}
 .new-session-btn{padding:12px 28px;background:#0F2920;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:800;cursor:pointer;font-family:'BwGradualEB',sans-serif;letter-spacing:.5px}
@@ -81,7 +81,7 @@ select{font-family:'BwGradual',sans-serif;text-transform:uppercase}
   <div class="tb-div"></div>
   <div style="flex:1"></div>
   <div class="tb-right">
-    <div class="tb-ac" id="hdr-aircraft" onclick="editAircraft()">HZ-AK35 · C3</div>
+    <div class="tb-ac" id="hdr-aircraft" onclick="editAircraft()">HZ-AK35</div>
     <div class="badge-count" id="count-badge">0</div>
   </div>
 </div>
@@ -90,13 +90,13 @@ select{font-family:'BwGradual',sans-serif;text-transform:uppercase}
   <div id="main-area">
     <div style="height:12px"></div>
     <div class="findings-list" id="findings-list"></div>
-    <button class="add-btn" onclick="addFinding()">+ ADD FINDING</button>
+    <button class="add-btn" onclick="addFinding()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> ADD FINDING</button>
     <div class="submit-section">
       <div class="field reporter-field">
-        <label>Raised by <span class="req">*</span></label>
-        <input type="text" id="reporter" placeholder="NAME OR PRN" autocomplete="name" autocorrect="off" autocapitalize="words" spellcheck="false">
+        <label>By <span class="req">*</span></label>
+        <input type="text" id="reporter" placeholder="PRN/NAME" autocomplete="name" autocorrect="off" autocapitalize="characters" spellcheck="false" oninput="this.value=this.value.toUpperCase()">
       </div>
-      <button class="submit-btn" id="submit-btn" onclick="submitAll()" disabled>SUBMIT ALL FINDINGS</button>
+      <button class="submit-btn" id="submit-btn" onclick="submitAll()" disabled><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> SUBMIT ALL FINDINGS</button>
       <div class="submit-note" id="submit-note">Add at least one finding to submit</div>
     </div>
   </div>
@@ -105,11 +105,11 @@ select{font-family:'BwGradual',sans-serif;text-transform:uppercase}
     <p style="font-size:15px;color:#444;font-family:'BwGradual',sans-serif">Submitting findings...</p>
   </div>
   <div class="success" id="success-area">
-    <div class="success-icon">✅</div>
+    <div class="success-icon" style="font-size:0"><svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="28" cy="28" r="28" fill="#0F2920"/><polyline points="16,28 24,36 40,20" stroke="#006937" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></div>
     <h2>SUBMITTED SUCCESSFULLY</h2>
     <p>Your findings have been added to the Findings Draft</p>
     <div class="success-stats" id="success-stats"></div>
-    <button class="new-session-btn" onclick="resetAll()">SUBMIT MORE FINDINGS</button>
+    <button class="new-session-btn" onclick="resetAll()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> SUBMIT MORE FINDINGS</button>
   </div>
 </div>
 
@@ -170,7 +170,7 @@ function renderFindings() {
           </div>
           <div class="field">
             <label>Sub-category <span class="opt">(optional)</span></label>
-            <input type="text" id="sub-${f.id}" placeholder="E.G. LAV 2A-1R" onchange="updatePreview(${f.id})" autocomplete="on" autocorrect="off" autocapitalize="characters" spellcheck="false">
+            <input type="text" id="sub-${f.id}" placeholder="E.G. LAV 2A-1R" onchange="updatePreview(${f.id})" oninput="this.value=this.value.toUpperCase()" autocomplete="on" autocorrect="off" autocapitalize="characters" spellcheck="false">
           </div>
         </div>
 
@@ -189,11 +189,11 @@ function renderFindings() {
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
             <label class="photo-label" style="font-size:12px">
               <input type="file" accept="image/*" capture="environment" multiple id="photo-cam-${f.id}" onchange="handlePhotos(${f.id},'cam')">
-              📷 CAMERA
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg> CAMERA
             </label>
             <label class="photo-label" style="font-size:12px">
               <input type="file" accept="image/*" multiple id="photo-gal-${f.id}" onchange="handlePhotos(${f.id},'gal')">
-              🖼 GALLERY
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg> GALLERY
             </label>
           </div>
           <div id="photo-status-${f.id}" style="font-size:11px;color:#0F2920;font-weight:700;display:none;margin-top:6px;font-family:'BwGradualEB',sans-serif"></div>
@@ -293,7 +293,7 @@ function renderPhotoPreviews(id) {
   if (stat) {
     const count = (f.photos || []).length;
     stat.style.display = count > 0 ? 'block' : 'none';
-    stat.textContent = count > 0 ? `✓ ${count} PHOTO${count>1?'S':''} ATTACHED` : '';
+    stat.textContent = count > 0 ? `${count} PHOTO${count>1?'S':''} ATTACHED` : '';
   }
 }
 
@@ -508,7 +508,7 @@ function updateAircraftDisplay() {
   const ac  = currentAircraft();
   const chk = currentCheck();
   const hdrAc = document.getElementById('hdr-aircraft');
-  if (hdrAc) hdrAc.textContent = ac + ' · ' + chk;
+  if (hdrAc) hdrAc.textContent = ac ;
   const badge = document.getElementById('count-badge');
   // Update page title
   document.title = ac + ' · Cabin Finding Report';
@@ -585,21 +585,21 @@ function generateReport(reporter, count, snap) {
 
   // ── Top stripe ──────────────────────────────────────────────────────────────
   const stripe = document.createElement('div');
-  stripe.style.cssText = 'background:#006937;height:5px';
+  stripe.style.cssText = 'background:#006937;height:3px';
   card.appendChild(stripe);
 
   // ── Header ──────────────────────────────────────────────────────────────────
   const hdr = document.createElement('div');
-  hdr.style.cssText = 'background:#0F2920;padding:18px 16px 14px';
+  hdr.style.cssText = 'background:#0F2920;padding:10px 12px 8px';
 
   const hdrTop = document.createElement('div');
-  hdrTop.style.cssText = 'display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px';
+  hdrTop.style.cssText = 'display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px';
   hdrTop.innerHTML =
     '<div>' +
-      '<div style="font-size:8px;font-weight:700;letter-spacing:2.5px;color:rgba(255,255,255,.45);text-transform:uppercase;margin-bottom:3px">Saudia Technic · CA&QC</div>' +
-      '<div style="font-size:16px;font-weight:900;color:#fff;letter-spacing:.5px;text-transform:uppercase;line-height:1.1">Cabin Finding<br>Report</div>' +
+      '<div style="font-size:8px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,.5);text-transform:uppercase;margin-bottom:2px;font-family:BwGradualEB,Arial,sans-serif">SAUDIA TECHNIC</div>' +
+      '<div style="font-size:12px;font-weight:900;color:#fff;letter-spacing:.5px;text-transform:uppercase;line-height:1.2;font-family:BwGradualEB,Arial,sans-serif">CABIN FINDING REPORT</div>' +
     '</div>' +
-    '<div style="background:rgba(255,255,255,.12);border-radius:8px;padding:6px 10px;text-align:center">' +
+    '<div style="background:rgba(255,255,255,.12);border-radius:7px;padding:5px 8px;text-align:center">' +
       '<div style="font-size:20px;font-weight:900;color:#fff;line-height:1">' + validFindings.length + '</div>' +
       '<div style="font-size:8px;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:1px">Finding' + (validFindings.length>1?'s':'') + '</div>' +
     '</div>';
@@ -607,17 +607,17 @@ function generateReport(reporter, count, snap) {
 
   // Info grid
   const grid = document.createElement('div');
-  grid.style.cssText = 'display:grid;grid-template-columns:1fr 1fr;gap:6px';
+  grid.style.cssText = 'display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-top:6px';
   [
-    ['Aircraft', ac + ' · ' + chk],
-    ['Raised By', reporter],
+    ['Aircraft', ac ],
+    ['By', reporter],
     ['Date', dateStr],
     ['Time', timeStr]
   ].forEach(([label, val]) => {
     const cell = document.createElement('div');
-    cell.style.cssText = 'background:rgba(255,255,255,.08);border-radius:8px;padding:7px 10px';
-    cell.innerHTML = '<div style="font-size:8px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:1px;margin-bottom:2px">' + label + '</div>' +
-      '<div style="font-size:12px;font-weight:700;color:#fff">' + val + '</div>';
+    cell.style.cssText = 'background:rgba(255,255,255,.08);border-radius:5px;padding:4px 7px';
+    cell.innerHTML = '<div style="font-size:8px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:1px;margin-bottom:1px;font-family:BwGradualEB,Arial,sans-serif">' + label + '</div>' +
+      '<div style="font-size:11px;font-weight:700;color:#fff;font-family:BwGradualEB,Arial,sans-serif">' + val + '</div>';
     grid.appendChild(cell);
   });
   hdr.appendChild(grid);
@@ -683,16 +683,11 @@ function generateReport(reporter, count, snap) {
   card.appendChild(body);
 
   // ── Footer ──────────────────────────────────────────────────────────────────
-  const ftr = document.createElement('div');
-  ftr.style.cssText = 'background:#0F2920;padding:10px 16px;display:flex;align-items:center;justify-content:space-between';
-  ftr.innerHTML =
-    '<div style="font-size:9px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px">Saudia Technic CA&QC</div>' +
-    '<div style="font-size:9px;color:rgba(255,255,255,.4)">' + dateStr + ' · ' + timeStr + '</div>';
-  card.appendChild(ftr);
+
 
   // Bottom stripe
   const stripe2 = document.createElement('div');
-  stripe2.style.cssText = 'background:#006937;height:5px';
+  stripe2.style.cssText = 'background:#006937;height:3px';
   card.appendChild(stripe2);
 
   // ── Show in success area ────────────────────────────────────────────────────
@@ -711,13 +706,13 @@ function generateReport(reporter, count, snap) {
   wrap.appendChild(card);
 
   const btn = document.createElement('button');
-  btn.textContent = '⬇ SAVE VISUAL REPORT';
+  btn.textContent = 'SAVE AS IMAGE';
   
   const btn2 = document.createElement('button');
-  btn2.textContent = '≡ SAVE TEXT REPORT';
-  btn2.style.cssText = 'width:100%;margin-top:6px;padding:11px;background:#1A7A4A;color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:800;cursor:pointer;letter-spacing:.5px';
+  btn2.textContent = 'SAVE AS TABLE';
+  btn2.style.cssText = 'width:100%;margin-top:6px;padding:11px;background:transparent;color:#0F2920;border:1.5px solid #0F2920;border-radius:8px;font-size:12px;font-weight:800;cursor:pointer;letter-spacing:1px;text-transform:uppercase;font-family:BwGradualEB,Arial,sans-serif';
   btn2.onclick = saveTextReport;
-  btn.style.cssText = 'width:100%;margin-top:10px;padding:12px;background:#0F2920;color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:800;cursor:pointer;letter-spacing:.5px';
+  btn.style.cssText = 'width:100%;margin-top:10px;padding:11px;background:#0F2920;color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:800;cursor:pointer;letter-spacing:1px;text-transform:uppercase;font-family:BwGradualEB,Arial,sans-serif';
   btn.onclick = saveReportImage;
   wrap.appendChild(btn);
   wrap.appendChild(btn2);
@@ -731,7 +726,7 @@ function saveReportImage() {
   if (!card) { showToast('Report not found'); return; }
   showToast('Generating image...');
   html2canvas(card, {
-    scale: 1.5,
+    scale: 2,
     useCORS: true,
     backgroundColor: '#F4F4F0',
     logging: false,
@@ -743,7 +738,7 @@ function saveReportImage() {
     link.download = 'finding_report_' + ac + '_' + date + '.png';
     link.href = canvas.toDataURL('image/png', 0.92);
     link.click();
-    showToast('Report saved ✓');
+    showToast('Saved');
   }).catch(() => showToast('Take a screenshot to save'));
 }
 
@@ -769,7 +764,7 @@ function saveTextReport() {
   h.innerHTML =
     '<div>' +
       '<div style="font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.5px">Finding Report</div>' +
-      '<div style="font-size:10px;opacity:.6;margin-top:1px">' + ac + ' · ' + chk + ' · ' + dateStr + ' ' + timeStr + '</div>' +
+      '<div style="font-size:10px;opacity:.6;margin-top:1px">' + ac  + ' · ' + dateStr + ' ' + timeStr + '</div>' +
     '</div>' +
     '<div style="text-align:right">' +
       '<div style="font-size:18px;font-weight:900">' + snap.length + '</div>' +
@@ -780,7 +775,7 @@ function saveTextReport() {
   // Sub-header: raised by
   const sub = document.createElement('div');
   sub.style.cssText = 'background:#F0F5F2;padding:6px 16px;font-size:10px;color:#0F2920;font-weight:700;text-transform:uppercase;letter-spacing:.5px;border-bottom:2px solid #0F2920';
-  sub.textContent = 'Raised By: ' + reporter.toUpperCase();
+  sub.textContent = 'By: ' + reporter.toUpperCase();
   wrap.appendChild(sub);
 
   // Table header
@@ -824,7 +819,7 @@ function saveTextReport() {
     if (hasP) {
       const photoTag = document.createElement('div');
       photoTag.style.cssText = 'display:inline-block;font-size:8px;background:#E1F0EA;color:#0F5C30;border-radius:4px;padding:1px 5px;margin-top:3px;font-weight:700';
-      photoTag.textContent = '📷 ' + f.photos.length + ' photo' + (f.photos.length>1?'s':'');
+      photoTag.textContent = f.photos.length + ' PHOTO' + (f.photos.length>1?'s':'');
       descDiv.appendChild(photoTag);
     }
 
@@ -836,11 +831,7 @@ function saveTextReport() {
 
   wrap.appendChild(tblWrap);
 
-  // Footer
-  const ftr = document.createElement('div');
-  ftr.style.cssText = 'background:#0F2920;padding:7px 16px;font-size:9px;color:rgba(255,255,255,.4);display:flex;justify-content:space-between';
-  ftr.innerHTML = '<span>Saudia Technic</span><span>' + dateStr + ' · ' + timeStr + '</span>';
-  wrap.appendChild(ftr);
+
 
   // Show below save button
   const existing = document.getElementById('txt-rpt-wrap');
@@ -852,11 +843,11 @@ function saveTextReport() {
   outer.appendChild(wrap);
 
   const saveBtn2 = document.createElement('button');
-  saveBtn2.textContent = '⬇ SAVE TEXT REPORT';
+  saveBtn2.textContent = 'SAVE AS TABLE';
   saveBtn2.style.cssText = 'width:100%;margin-top:8px;padding:11px;background:#1A7A4A;color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:800;cursor:pointer;letter-spacing:.5px';
   saveBtn2.onclick = () => {
     showToast('Generating...');
-    html2canvas(wrap, {scale:1.5, useCORS:true, backgroundColor:'#fff', logging:false})
+    html2canvas(wrap, {scale:2.5, useCORS:true, backgroundColor:'#fff', logging:false})
       .then(c => {
         const ac2  = currentAircraft().replace(/[^A-Z0-9]/g,'_');
         const dt   = new Date().toLocaleDateString('en-GB').replace(/\//g,'-');
@@ -864,7 +855,7 @@ function saveTextReport() {
         lnk.download = 'text_report_' + ac2 + '_' + dt + '.png';
         lnk.href = c.toDataURL('image/png', 0.92);
         lnk.click();
-        showToast('Text report saved ✓');
+        showToast('Saved');
       }).catch(() => showToast('Take a screenshot to save'));
   };
   outer.appendChild(saveBtn2);
