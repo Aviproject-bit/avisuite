@@ -785,27 +785,33 @@ function saveReportImage() {
   const card = document.getElementById('rpt-card');
   if (!card) { showToast('Report not found'); return; }
   showToast('Generating...');
-  // Fix: constrain width for proper mobile proportions
-  const origWidth = card.style.width;
-  card.style.width = '390px'; // iPhone 14 width
-  card.style.maxWidth = '390px';
-  
   html2canvas(card, {
     scale: 2,
     useCORS: true,
     backgroundColor: '#F4F4F0',
     logging: false,
-    allowTaint: true,
-    width: 390,
-    windowWidth: 390
+    allowTaint: true
   }).then(canvas => {
-    card.style.width = origWidth;
-    card.style.maxWidth = '420px';
     const ac    = currentAircraft().replace(/[^A-Z0-9]/g,'_');
     const date  = new Date().toLocaleDateString('en-GB').replace(/\//g,'-');
     const fname = 'finding_report_' + ac + '_' + date + '.png';
-    // Use JPEG for Web Share API compatibility on iOS/Android
-    canvas.toBlob(async blob => {
+    
+    // Fit canvas into 3:4 phone ratio with white/dark padding
+    const targetRatio = 4/3; // 3:4 portrait
+    const cW = canvas.width;
+    const cH = canvas.height;
+    const targetH = Math.max(cH, Math.round(cW * targetRatio));
+    const out = document.createElement('canvas');
+    out.width  = cW;
+    out.height = targetH;
+    const ctx2 = out.getContext('2d');
+    ctx2.fillStyle = '#F4F4F0';
+    ctx2.fillRect(0, 0, cW, targetH);
+    // Center vertically
+    const offsetY = Math.round((targetH - cH) / 2);
+    ctx2.drawImage(canvas, 0, offsetY);
+    
+    out.toBlob(async blob => {
       const jpegName = fname.replace('.png', '.jpg');
       const file = new File([blob], jpegName, {type:'image/jpeg'});
       if (navigator.share) {
@@ -819,11 +825,7 @@ function saveReportImage() {
       document.body.removeChild(link);
       setTimeout(() => URL.revokeObjectURL(url), 1000);
     }, 'image/jpeg', 0.92);
-  }).catch(() => {
-    card.style.width = origWidth;
-    card.style.maxWidth = '420px';
-    showToast('Take a screenshot to save');
-  });
+  }).catch(() => showToast('Take a screenshot to save'));
 }
 
 function saveTextReport() {
