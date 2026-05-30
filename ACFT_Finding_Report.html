@@ -94,7 +94,7 @@ select{font-family:'BwGradual',sans-serif;text-transform:uppercase}
     <div class="submit-section">
       <div class="field reporter-field">
         <label>By <span class="req">*</span></label>
-        <input type="text" id="reporter" placeholder="PRN/NAME" autocomplete="name" autocorrect="off" autocapitalize="characters" spellcheck="false" oninput="this.value=this.value.toUpperCase()">
+        <input type="text" id="reporter" placeholder="PRN/NAME" autocomplete="name" autocorrect="off" autocapitalize="characters" spellcheck="false" oninput="this.value=this.value.toUpperCase();localStorage.setItem('ak35_reporter_name',this.value)">
       </div>
       <button class="submit-btn" id="submit-btn" onclick="submitAll()" disabled><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> SUBMIT ALL FINDINGS</button>
       <div class="submit-note" id="submit-note">Add at least one finding to submit</div>
@@ -609,6 +609,13 @@ updateUI();
 loadSession();
 updateAircraftDisplay();
 
+// Restore reporter name
+const _savedReporter = localStorage.getItem('ak35_reporter_name');
+if (_savedReporter) {
+  const repInput = document.getElementById('reporter');
+  if (repInput && !repInput.value) repInput.value = _savedReporter;
+}
+
 
 function generateReport(reporter, count, snap) {
   const validFindings = snap || findings.filter(f => f.cat && f.desc && f.desc.trim());
@@ -775,21 +782,27 @@ function generateReport(reporter, count, snap) {
 function saveReportImage() {
   const card = document.getElementById('rpt-card');
   if (!card) { showToast('Report not found'); return; }
-  showToast('Generating image...');
+  showToast('Generating...');
   html2canvas(card, {
-    scale: 2,
-    useCORS: true,
-    backgroundColor: '#F4F4F0',
-    logging: false,
-    allowTaint: true
+    scale: 2, useCORS: true, backgroundColor: '#F4F4F0',
+    logging: false, allowTaint: true
   }).then(canvas => {
-    const ac   = currentAircraft().replace(/[^A-Z0-9]/g,'_');
-    const date = new Date().toLocaleDateString('en-GB').replace(/\//g,'-');
-    const link = document.createElement('a');
-    link.download = 'finding_report_' + ac + '_' + date + '.png';
-    link.href = canvas.toDataURL('image/png', 0.92);
-    link.click();
-    showToast('Saved');
+    const ac    = currentAircraft().replace(/[^A-Z0-9]/g,'_');
+    const date  = new Date().toLocaleDateString('en-GB').replace(/\//g,'-');
+    const fname = 'finding_report_' + ac + '_' + date + '.png';
+    canvas.toBlob(async blob => {
+      const file = new File([blob], fname, {type:'image/png'});
+      if (navigator.canShare && navigator.canShare({files:[file]})) {
+        try { await navigator.share({files:[file], title:'Cabin Finding Report'}); return; }
+        catch(e) { if (e.name === 'AbortError') return; }
+      }
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.download = fname; link.href = url;
+      document.body.appendChild(link); link.click();
+      document.body.removeChild(link);
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }, 'image/png', 0.95);
   }).catch(() => showToast('Take a screenshot to save'));
 }
 
