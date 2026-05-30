@@ -425,16 +425,19 @@ async function submitAll() {
     for (let i = 0; i < valid.length; i++) {
       const f = valid[i];
       const photos = f.photos && f.photos.length > 0 ? f.photos : (f.photoData ? [{data:f.photoData,name:'photo.jpg'}] : []);
+      console.log('Finding', i+1, 'photos:', photos.length);
       if (photos.length > 0) {
         try {
           const base64 = photos[0].data.split(',')[1];
+          console.log('Uploading to ImgBB, base64 length:', base64.length);
           const fd = new FormData();
           fd.append('key', 'a72386b4ada67f2fdefd06144f01adfd');
           fd.append('image', base64);
           const r = await fetch('https://api.imgbb.com/1/upload', {method:'POST', body:fd});
           const d = await r.json();
+          console.log('ImgBB response:', d.success, d.error);
           if (d.success) {
-            // Update sheet with photo URL via Apps Script
+            console.log('Photo URL:', d.data.url);
             const photoPayload = {
               action: 'photo',
               reporter: reporter,
@@ -444,9 +447,9 @@ async function submitAll() {
               photoUrl: d.data.url
             };
             const param = encodeURIComponent(JSON.stringify(photoPayload));
-            fetch(FLOW_URL + '?data=' + param).catch(() => {});
+            fetch(FLOW_URL + '?data=' + param).catch(e => console.log('Sheet update error:', e));
           }
-        } catch(e) {}
+        } catch(e) { console.log('Photo error:', e); }
       }
     }
     
