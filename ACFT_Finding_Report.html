@@ -429,7 +429,7 @@ async function submitAll() {
   try {
     const dataParam = encodeURIComponent(JSON.stringify(payload));
     console.log('URL param size:', dataParam.length);
-    const res = await fetch('https://script.google.com/macros/s/AKfycbyByEVKTjy_cYKHhC23_LwF3YE8IC1HoKumqTwunr7L2VYfAqvApcATekUo4a26VgOT/exec?data=' + dataParam);
+    const res = await fetch(FLOW_URL + '?data=' + dataParam);
     const result = await res.json();
     if (result.status !== 'success') throw new Error(result.message || 'Error');
     showSuccess(reporter, valid.length, valid);
