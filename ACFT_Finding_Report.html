@@ -411,33 +411,41 @@ async function submitAll() {
 
   console.log('Payload size:', JSON.stringify(payload).length, 'chars');
 
-  // 3. Send to Google Sheets via GET param
+  // 3. Send to Google Sheets via no-cors POST
   try {
-    const dataParam = encodeURIComponent(JSON.stringify(payload));
-    console.log('URL param size:', dataParam.length);
-    const res = await fetch(FLOW_URL + '?data=' + dataParam);
-    const result = await res.json();
-    if (result.status !== 'success') throw new Error(result.message || 'Error');
+    await fetch(FLOW_URL, {
+      method: 'POST',
+      headers: {'Content-Type': 'text/plain'},
+      body: JSON.stringify(payload),
+      mode: 'no-cors'
+    });
     showSuccess(reporter, valid.length, valid);
     
-    // Send photos compressed via GET (compress to fit URL limit)
+    // Upload photos to ImgBB
     for (let i = 0; i < valid.length; i++) {
       const f = valid[i];
       const photos = f.photos && f.photos.length > 0 ? f.photos : (f.photoData ? [{data:f.photoData,name:'photo.jpg'}] : []);
       if (photos.length > 0) {
         try {
-          const compressed = await compressImage(photos[0].data, 400, 0.4);
-          const photoPayload = {
-            action: 'photo',
-            reporter: reporter,
-            aircraft: currentAircraft(),
-            date: date,
-            findingIndex: i + 1,
-            photoBase64: compressed,
-            photoName: photos[0].name || 'photo.jpg'
-          };
-          const param = encodeURIComponent(JSON.stringify(photoPayload));
-          fetch(FLOW_URL + '?data=' + param).catch(() => {});
+          const base64 = photos[0].data.split(',')[1];
+          const fd = new FormData();
+          fd.append('key', 'a72386b4ada67f2fdefd06144f01adfd');
+          fd.append('image', base64);
+          const r = await fetch('https://api.imgbb.com/1/upload', {method:'POST', body:fd});
+          const d = await r.json();
+          if (d.success) {
+            // Update sheet with photo URL via Apps Script
+            const photoPayload = {
+              action: 'photo',
+              reporter: reporter,
+              aircraft: currentAircraft(),
+              date: date,
+              findingIndex: i + 1,
+              photoUrl: d.data.url
+            };
+            const param = encodeURIComponent(JSON.stringify(photoPayload));
+            fetch(FLOW_URL + '?data=' + param).catch(() => {});
+          }
         } catch(e) {}
       }
     }
