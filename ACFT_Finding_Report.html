@@ -426,23 +426,35 @@ function saveAllPhotos() {
   
   if (!allPhotos.length) { showToast('No photos'); return; }
   
-  allPhotos.forEach((p, i) => {
-    setTimeout(() => {
-      fetch(p.data)
-        .then(r => r.blob())
-        .then(blob => {
-          const url  = URL.createObjectURL(blob);
-          const link = document.createElement('a');
-          link.href     = url;
-          link.download = p.name;
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-          setTimeout(() => URL.revokeObjectURL(url), 1000);
-        });
-    }, i * 300);
+  // Build file objects
+  const filePromises = allPhotos.map(p =>
+    fetch(p.data).then(r => r.blob()).then(blob => new File([blob], p.name, {type:'image/jpeg'}))
+  );
+  
+  Promise.all(filePromises).then(async files => {
+    if (navigator.canShare && navigator.canShare({ files })) {
+      try {
+        await navigator.share({ files, title: 'Finding Photos' });
+        return;
+      } catch(e) {
+        if (e.name === 'AbortError') return;
+      }
+    }
+    // Fallback: download one by one
+    files.forEach((file, i) => {
+      setTimeout(() => {
+        const url  = URL.createObjectURL(file);
+        const link = document.createElement('a');
+        link.href     = url;
+        link.download = file.name;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+      }, i * 400);
+    });
+    showToast(files.length + ' photo' + (files.length>1?'s':'') + ' saving...');
   });
-  showToast(allPhotos.length + ' photo' + (allPhotos.length>1?'s':'') + ' saving...');
 }
 
 function resetAll() {
@@ -890,17 +902,28 @@ function saveTextReport() {
       .then(c => {
         const ac2  = currentAircraft().replace(/[^A-Z0-9]/g,'_');
         const dt   = new Date().toLocaleDateString('en-GB').replace(/\//g,'-');
-        c.toBlob(blob => {
-          const blobUrl = URL.createObjectURL(blob);
-          const lnk = document.createElement('a');
-          lnk.download = 'table_report_' + ac2 + '_' + dt + '.png';
-          lnk.href = blobUrl;
+        const fname = 'table_report_' + ac2 + '_' + dt + '.png';
+        c.toBlob(async blob => {
+          if (navigator.canShare && navigator.canShare({ files: [new File([blob], fname, {type:'image/png'})] })) {
+            try {
+              await navigator.share({
+                files: [new File([blob], fname, {type:'image/png'})],
+                title: 'Finding Table Report'
+              });
+              return;
+            } catch(e) {
+              if (e.name === 'AbortError') return;
+            }
+          }
+          const url  = URL.createObjectURL(blob);
+          const lnk  = document.createElement('a');
+          lnk.download = fname;
+          lnk.href = url;
           document.body.appendChild(lnk);
           lnk.click();
           document.body.removeChild(lnk);
-          setTimeout(() => URL.revokeObjectURL(blobUrl), 1000);
+          setTimeout(() => URL.revokeObjectURL(url), 1000);
         }, 'image/png', 0.95);
-        showToast('Saved');
       }).catch(() => showToast('Take a screenshot to save'));
   };
   outer.appendChild(saveBtn2);
