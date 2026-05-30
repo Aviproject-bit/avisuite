@@ -808,8 +808,18 @@ async function saveReportImage() {
   const date = new Date().toLocaleDateString('en-GB').replace(/\//g,'-');
   const files = [];
 
+  // Temp container — off screen
+  const tempWrap = document.createElement('div');
+  tempWrap.style.cssText = 'position:fixed;left:-9999px;top:0;width:420px;z-index:-1';
+  document.body.appendChild(tempWrap);
+
   for (let i = 0; i < pages.length; i++) {
     try {
+      // Must be in DOM for html2canvas
+      tempWrap.innerHTML = '';
+      tempWrap.appendChild(pages[i]);
+      await new Promise(r => setTimeout(r, 100)); // wait for render
+
       const canvas = await html2canvas(pages[i], {
         scale: 2, useCORS: true, backgroundColor: '#F4F4F0',
         logging: false, allowTaint: true
@@ -824,6 +834,7 @@ async function saveReportImage() {
       });
     } catch(e) { console.error('Page', i, e); }
   }
+  document.body.removeChild(tempWrap);
 
   if (!files.length) { showToast('Error generating'); return; }
   if (navigator.share) {
@@ -838,7 +849,7 @@ async function saveReportImage() {
       document.body.appendChild(link); link.click();
       document.body.removeChild(link);
       setTimeout(() => URL.revokeObjectURL(url), 1000);
-    }, i * 600);
+    }, i * 800);
   });
 }
 
@@ -929,8 +940,14 @@ function saveTextReport() {
   saveBtn2.style.cssText = 'width:100%;margin-top:8px;padding:11px;background:#0F2920;color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:800;cursor:pointer;letter-spacing:1px;text-transform:uppercase;font-family:BwGradualEB,Arial,sans-serif';
   saveBtn2.onclick = async () => {
     showToast('Generating...');
+    // Append to DOM for html2canvas
+    const tmpDiv = document.createElement('div');
+    tmpDiv.style.cssText = 'position:fixed;left:-9999px;top:0;width:480px;z-index:-1';
+    tmpDiv.appendChild(wrap);
+    document.body.appendChild(tmpDiv);
+    await new Promise(r => setTimeout(r, 100));
     try {
-      const c = await html2canvas(wrap, {scale:2.5, useCORS:true, backgroundColor:'#fff', logging:false});
+      const c = await html2canvas(wrap, {scale:2, useCORS:true, backgroundColor:'#fff', logging:false});
       const ac2   = currentAircraft().replace(/[^A-Z0-9]/g,'_');
       const dt    = new Date().toLocaleDateString('en-GB').replace(/\//g,'-');
       const fname = 'table_report_' + ac2 + '_' + dt + '.jpg';
