@@ -420,27 +420,27 @@ async function submitAll() {
     if (result.status !== 'success') throw new Error(result.message || 'Error');
     showSuccess(reporter, valid.length, valid);
     
-    // Send photos via no-cors POST (avoids URL length limit)
-    valid.forEach((f, i) => {
+    // Send photos compressed via GET (compress to fit URL limit)
+    for (let i = 0; i < valid.length; i++) {
+      const f = valid[i];
       const photos = f.photos && f.photos.length > 0 ? f.photos : (f.photoData ? [{data:f.photoData,name:'photo.jpg'}] : []);
       if (photos.length > 0) {
-        const photoPayload = JSON.stringify({
-          action: 'photo',
-          reporter: reporter,
-          aircraft: currentAircraft(),
-          date: date,
-          findingIndex: i + 1,
-          photoBase64: photos[0].data,
-          photoName: photos[0].name || 'photo.jpg'
-        });
-        fetch(FLOW_URL, {
-          method: 'POST',
-          headers: {'Content-Type': 'text/plain'},
-          body: photoPayload,
-          mode: 'no-cors'
-        }).catch(() => {});
+        try {
+          const compressed = await compressImage(photos[0].data, 400, 0.4);
+          const photoPayload = {
+            action: 'photo',
+            reporter: reporter,
+            aircraft: currentAircraft(),
+            date: date,
+            findingIndex: i + 1,
+            photoBase64: compressed,
+            photoName: photos[0].name || 'photo.jpg'
+          };
+          const param = encodeURIComponent(JSON.stringify(photoPayload));
+          fetch(FLOW_URL + '?data=' + param).catch(() => {});
+        } catch(e) {}
       }
-    });
+    }
     
   } catch(err) {
     document.getElementById('sending-area').style.display = 'none';
@@ -1079,6 +1079,23 @@ function showValidationModal(items) {
   overlay.appendChild(modal);
   overlay.onclick = e => { if (e.target === overlay) overlay.remove(); };
   document.body.appendChild(overlay);
+}
+
+function compressImage(dataUrl, maxWidth, quality) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      const ratio  = Math.min(maxWidth / img.width, maxWidth / img.height, 1);
+      canvas.width  = Math.round(img.width  * ratio);
+      canvas.height = Math.round(img.height * ratio);
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      resolve(canvas.toDataURL('image/jpeg', quality));
+    };
+    img.onerror = reject;
+    img.src = dataUrl;
+  });
 }
 </script>
 </body>
