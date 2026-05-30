@@ -336,31 +336,18 @@ async function submitAll() {
     if (descEl) f.desc = descEl.value || f.desc || '';
   });
 
-  // Validate — all findings must have Category AND Description
+  // Validate
   const incomplete = findings.filter(f => !f.cat?.trim() || !f.desc?.trim());
   if (incomplete.length) {
-    const nums = incomplete.map((f, _) => {
-      const idx = findings.indexOf(f) + 1;
-      const missing = [];
-      if (!f.cat?.trim())  missing.push('Category');
-      if (!f.desc?.trim()) missing.push('Description');
-      return 'Finding #' + idx + ': missing ' + missing.join(' & ');
-    }).join('\n');
     showToast('Complete all findings first');
-    // Highlight incomplete cards
     incomplete.forEach(f => {
       const card = document.getElementById('card-' + f.id);
-      if (card) {
-        card.style.border = '2px solid #C62828';
-        // Expand the card
-        const body = document.getElementById('body-' + f.id);
-        if (body) body.style.display = 'flex';
-        // Scroll to first incomplete
-        if (f === incomplete[0]) card.scrollIntoView({behavior:'smooth', block:'center'});
-      }
+      if (card) { card.style.border = '2px solid #C62828'; }
+      const body = document.getElementById('body-' + f.id);
+      if (body) body.style.display = 'flex';
+      if (f === incomplete[0]) card?.scrollIntoView({behavior:'smooth', block:'center'});
     });
-    // Show custom modal
-    showValidationModal(incomplete.map((f) => {
+    showValidationModal(incomplete.map(f => {
       const idx = findings.indexOf(f) + 1;
       const missing = [];
       if (!f.cat?.trim())  missing.push('CATEGORY');
@@ -369,7 +356,6 @@ async function submitAll() {
     }));
     return;
   }
-  // Clear any error highlights
   findings.forEach(f => {
     const card = document.getElementById('card-' + f.id);
     if (card) card.style.border = '';
@@ -381,15 +367,33 @@ async function submitAll() {
   document.getElementById('main-area').style.display = 'none';
   document.getElementById('sending-area').style.display = 'block';
 
-  const now = new Date();
+  const now  = new Date();
   const date = now.toLocaleDateString('en-GB');
   const time = now.toLocaleTimeString('en-GB', {hour:'2-digit',minute:'2-digit'});
 
-  // 1. Prepare photos — send as base64 to Google Drive via Apps Script
+  // 1. Upload photos to ImgBB
   const photoUrls = {};
-  // Photos will be uploaded by the Apps Script — just flag them
+  for (let i = 0; i < valid.length; i++) {
+    const f = valid[i];
+    const photos = f.photos && f.photos.length > 0 ? f.photos : (f.photoData ? [{data: f.photoData}] : []);
+    if (photos.length > 0) {
+      const urls = [];
+      for (const photo of photos) {
+        try {
+          const base64 = photo.data.split(',')[1];
+          const fd = new FormData();
+          fd.append('key', 'a72386b4ada67f2fdefd06144f01adfd');
+          fd.append('image', base64);
+          const r = await fetch('https://api.imgbb.com/1/upload', {method:'POST', body:fd});
+          const d = await r.json();
+          if (d.success) urls.push(d.data.url);
+        } catch(e) { }
+      }
+      if (urls.length) photoUrls[i] = urls.join(' | ');
+    }
+  }
 
-  // 2. Build small payload (no base64)
+  // 2. Build payload
   const payload = {
     reporter,
     aircraft: currentAircraft(),
@@ -400,13 +404,12 @@ async function submitAll() {
       subCategory: f.sub || '',
       description: f.desc,
       remarks: document.getElementById(`rmk-${f.id}`)?.value || '',
-      hasPhoto: !!(f.photos && f.photos.length > 0) || !!f.photoData
+      hasPhoto: !!(photoUrls[i]),
+      photoUrl: photoUrls[i] || ''
     }))
   };
 
-  console.log('Payload size:', JSON.stringify(payload).length, 'chars');
-
-  // 3. Send to Google Sheets via no-cors POST
+  // 3. Send via no-cors POST
   try {
     await fetch(FLOW_URL, {
       method: 'POST',
@@ -415,39 +418,6 @@ async function submitAll() {
       mode: 'no-cors'
     });
     showSuccess(reporter, valid.length, valid);
-    
-    // Upload photos to ImgBB
-    for (let i = 0; i < validSnapshot.length; i++) {
-      const f = validSnapshot[i];
-      const photos = f.photos && f.photos.length > 0 ? f.photos : (f.photoData ? [{data:f.photoData,name:'photo.jpg'}] : []);
-      console.log('Finding', i+1, 'photos:', photos.length);
-      if (photos.length > 0) {
-        try {
-          const base64 = photos[0].data.split(',')[1];
-          console.log('Uploading to ImgBB, base64 length:', base64.length);
-          const fd = new FormData();
-          fd.append('key', 'a72386b4ada67f2fdefd06144f01adfd');
-          fd.append('image', base64);
-          const r = await fetch('https://api.imgbb.com/1/upload', {method:'POST', body:fd});
-          const d = await r.json();
-          console.log('ImgBB response:', d.success, d.error);
-          if (d.success) {
-            console.log('Photo URL:', d.data.url);
-            const photoPayload = {
-              action: 'photo',
-              reporter: reporter,
-              aircraft: currentAircraft(),
-              date: date,
-              findingIndex: i + 1,
-              photoUrl: d.data.url
-            };
-            const param = encodeURIComponent(JSON.stringify(photoPayload));
-            fetch(FLOW_URL + '?data=' + param).catch(e => console.log('Sheet update error:', e));
-          }
-        } catch(e) { console.log('Photo error:', e); }
-      }
-    }
-    
   } catch(err) {
     document.getElementById('sending-area').style.display = 'none';
     document.getElementById('main-area').style.display = 'block';
