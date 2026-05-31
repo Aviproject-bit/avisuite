@@ -66,7 +66,7 @@ select{font-family:'BwGradual',sans-serif;text-transform:uppercase}
 .success p{font-size:14px;color:#666;margin-bottom:24px;font-family:'BwGradual',sans-serif}
 .success-stats{background:#F0F5F2;border-radius:10px;padding:14px;margin-bottom:20px;font-size:14px;color:#0F2920;font-family:'BwGradual',sans-serif}
 .new-session-btn{padding:12px 28px;background:#0F2920;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:800;cursor:pointer;font-family:'BwGradualEB',sans-serif;letter-spacing:.5px}
-.sending{display:none;text-align:center;padding:40px 20px}
+.sending{display:none;text-align:center;padding:60px 20px;min-height:200px;justify-content:center;align-items:center;flex-direction:column}
 .sending-spinner{width:40px;height:40px;border:3px solid #E0E0D8;border-top-color:#0F2920;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px}
 @keyframes spin{to{transform:rotate(360deg)}}
 .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(80px);background:#0F2920;color:#fff;padding:10px 20px;border-radius:20px;font-size:13px;transition:transform .3s;z-index:999;white-space:nowrap;font-family:'BwGradualEB',sans-serif;letter-spacing:.5px}
@@ -112,7 +112,7 @@ select{font-family:'BwGradual',sans-serif;text-transform:uppercase}
   </div>
   <div class="sending" id="sending-area">
     <div class="sending-spinner"></div>
-    <p style="font-size:15px;color:#444;font-family:'BwGradual',sans-serif">Submitting findings...</p>
+    <p style="font-size:15px;color:#0F2920;font-family:'BwGradual',sans-serif;margin-top:8px;font-weight:500">Submitting findings...</p>
   </div>
   <div class="success" id="success-area">
     <div class="success-icon" style="font-size:0"><svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="28" cy="28" r="28" fill="#0F2920"/><polyline points="16,28 24,36 40,20" stroke="#006937" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></div>
@@ -377,7 +377,6 @@ async function submitAll() {
   if (!valid.length) { showToast('Add at least one finding'); return; }
 
   hideArea('main-area');
-  await new Promise(r => setTimeout(r, 200));
   showArea('sending-area');
 
   const now  = new Date();
@@ -853,8 +852,8 @@ function generateReport(reporter, count, snap) {
   wrap.appendChild(btn);
   successArea.appendChild(wrap);
 
-  // Build table inline — no extra click needed
-  setTimeout(() => saveTextReport(), 50);
+  // Build table preview inline
+  setTimeout(() => _buildTablePreview(validFindings, successArea), 50);
 }
 
 
@@ -911,6 +910,121 @@ async function saveReportImage() {
       setTimeout(() => URL.revokeObjectURL(url), 1000);
     }, i * 800);
   });
+}
+
+function _buildTablePreview(snap, successArea) {
+  if (!snap || !snap.length) return;
+  const ac       = currentAircraft();
+  const reporter = window._lastReporter || '';
+  const now      = new Date();
+  const dateStr  = now.toLocaleDateString('en-GB', {day:'2-digit',month:'short',year:'numeric'});
+  const timeStr  = now.toLocaleTimeString('en-GB', {hour:'2-digit',minute:'2-digit'});
+
+  const wrap = document.createElement('div');
+  wrap.id = 'txt-rpt-card';
+  wrap.style.cssText = 'background:#fff;font-family:BwGradual,Arial,sans-serif;max-width:480px;margin:0 auto;border:1px solid #DDD;border-radius:12px;overflow:hidden';
+
+  const h = document.createElement('div');
+  h.style.cssText = 'background:#0F2920;color:#fff;padding:12px 16px;display:flex;align-items:center;justify-content:space-between';
+  h.innerHTML =
+    '<div>' +
+      '<div style="font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.5px;font-family:BwGradualEB,Arial,sans-serif">Finding Report</div>' +
+      '<div style="font-size:10px;opacity:.6;margin-top:1px">' + ac + ' · ' + dateStr + ' ' + timeStr + '</div>' +
+    '</div>' +
+    '<div style="text-align:right">' +
+      '<div style="font-size:18px;font-weight:900;font-family:BwGradualEB,Arial,sans-serif">' + snap.length + '</div>' +
+      '<div style="font-size:8px;opacity:.6;text-transform:uppercase">Finding' + (snap.length>1?'s':'') + '</div>' +
+    '</div>';
+  wrap.appendChild(h);
+
+  const sub = document.createElement('div');
+  sub.style.cssText = 'background:#F0F5F2;padding:6px 16px;font-size:10px;color:#0F2920;font-weight:700;text-transform:uppercase;letter-spacing:.5px;border-bottom:2px solid #0F2920;font-family:BwGradualEB,Arial,sans-serif';
+  sub.textContent = 'BY: ' + reporter.toUpperCase();
+  wrap.appendChild(sub);
+
+  const tblWrap = document.createElement('div');
+  tblWrap.style.cssText = 'overflow:hidden';
+  const tblHdr = document.createElement('div');
+  tblHdr.style.cssText = 'display:grid;grid-template-columns:28px 110px 1fr;background:#1A3D30;padding:6px 12px;gap:8px';
+  tblHdr.innerHTML =
+    '<div style="font-size:9px;font-weight:800;color:rgba(255,255,255,.7);text-transform:uppercase">#</div>' +
+    '<div style="font-size:9px;font-weight:800;color:rgba(255,255,255,.7);text-transform:uppercase">Category</div>' +
+    '<div style="font-size:9px;font-weight:800;color:rgba(255,255,255,.7);text-transform:uppercase">Description</div>';
+  tblWrap.appendChild(tblHdr);
+
+  snap.forEach((f, idx) => {
+    const rmkEl = document.getElementById('rmk-' + f.id);
+    const rmk   = rmkEl ? rmkEl.value.trim().toUpperCase() : (f.remarks||'');
+    const bg    = idx % 2 === 0 ? '#fff' : '#F8FAF8';
+    const hasP  = f.photos && f.photos.length > 0;
+    const row   = document.createElement('div');
+    row.style.cssText = 'display:grid;grid-template-columns:28px 110px 1fr;background:' + bg + ';padding:7px 12px;gap:8px;border-bottom:1px solid #EBEBEB;align-items:start';
+    const numDiv = document.createElement('div');
+    numDiv.style.cssText = 'font-size:11px;font-weight:800;color:#0F2920;padding-top:1px;font-family:BwGradualEB,Arial,sans-serif';
+    numDiv.textContent = idx + 1;
+    const catDiv = document.createElement('div');
+    catDiv.style.cssText = 'font-size:10px;font-weight:700;color:#0F2920;text-transform:uppercase;line-height:1.4;font-family:BwGradualEB,Arial,sans-serif';
+    catDiv.innerHTML = (f.cat||'') + (f.sub ? '<br><span style="font-weight:400;color:#888;font-size:9px">' + (f.sub||'').toUpperCase() + '</span>' : '');
+    const descDiv = document.createElement('div');
+    descDiv.style.cssText = 'font-size:10px;color:#222;text-transform:uppercase;line-height:1.5';
+    descDiv.innerHTML = (f.desc||'').toUpperCase().split('\n').join('<br>');
+    if (rmk) {
+      const rmkSpan = document.createElement('div');
+      rmkSpan.style.cssText = 'font-size:9px;color:#888;margin-top:2px;font-style:italic';
+      rmkSpan.textContent = 'NOTE: ' + rmk;
+      descDiv.appendChild(rmkSpan);
+    }
+    if (hasP) {
+      const photoTag = document.createElement('div');
+      photoTag.style.cssText = 'display:inline-block;font-size:8px;background:#E1F0EA;color:#0F5C30;border-radius:4px;padding:1px 5px;margin-top:3px;font-weight:700';
+      photoTag.textContent = f.photos.length + ' PHOTO' + (f.photos.length>1?'S':'');
+      descDiv.appendChild(photoTag);
+    }
+    row.appendChild(numDiv); row.appendChild(catDiv); row.appendChild(descDiv);
+    tblWrap.appendChild(row);
+  });
+  wrap.appendChild(tblWrap);
+
+  const existing = document.getElementById('txt-rpt-wrap');
+  if (existing) existing.remove();
+  const outer = document.createElement('div');
+  outer.id = 'txt-rpt-wrap';
+  outer.style.cssText = 'margin-top:10px';
+  outer.appendChild(wrap);
+
+  const saveBtn = document.createElement('button');
+  saveBtn.textContent = 'SAVE AS TABLE';
+  saveBtn.style.cssText = 'width:100%;margin-top:8px;padding:11px;background:#0F2920;color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:800;cursor:pointer;letter-spacing:1px;text-transform:uppercase;font-family:BwGradualEB,Arial,sans-serif';
+  saveBtn.onclick = async () => {
+    showToast('Generating...');
+    const tmpDiv = document.createElement('div');
+    tmpDiv.style.cssText = 'position:fixed;left:-9999px;top:0;width:480px;z-index:-1';
+    tmpDiv.appendChild(wrap.cloneNode(true));
+    document.body.appendChild(tmpDiv);
+    await new Promise(r => setTimeout(r, 100));
+    try {
+      const c = await html2canvas(tmpDiv.firstChild, {scale:2, useCORS:true, backgroundColor:'#fff', logging:false});
+      const ac2   = currentAircraft().replace(/[^A-Z0-9]/g,'_');
+      const dt    = new Date().toLocaleDateString('en-GB').replace(/\//g,'-');
+      const fname = 'table_report_' + ac2 + '_' + dt + '.jpg';
+      c.toBlob(async blob => {
+        const file = new File([blob], fname, {type:'image/jpeg'});
+        if (navigator.share) {
+          try { await navigator.share({files:[file], title:'Finding Table Report'}); return; }
+          catch(e) { if (e.name === 'AbortError') return; }
+        }
+        const url = URL.createObjectURL(blob);
+        const lnk = document.createElement('a');
+        lnk.download = fname; lnk.href = url;
+        document.body.appendChild(lnk); lnk.click();
+        document.body.removeChild(lnk);
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+      }, 'image/jpeg', 0.92);
+    } catch(e) { showToast('Take a screenshot to save'); }
+    finally { document.body.removeChild(tmpDiv); }
+  };
+  outer.appendChild(saveBtn);
+  successArea.appendChild(outer);
 }
 
 function saveTextReport() {
