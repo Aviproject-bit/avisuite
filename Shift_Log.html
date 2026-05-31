@@ -433,21 +433,16 @@ input[type=checkbox]:checked+.tog::after{left:21px;}
 
   /* ── Topbar ── */
   .tb-hide-mobile{ display:none !important; }
-  #tb-dept{ display:none !important; }
+  #tb-title-wrap{ display:none !important; }
   .topbar{
     height:50px !important; flex-wrap:nowrap !important;
     overflow:hidden !important; padding:0 10px !important; gap:8px !important;
   }
-  .tb-brand{ padding-right:8px !important; }
-  .tb-brand img{ height:26px !important; }
-  .tb-title{
-    font-size:9px !important; letter-spacing:1px !important;
-    white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:80px;
-  }
+  .tb-brand{ padding-right:0 !important; border-right:none !important; }
+  .tb-brand img{ height:30px !important; }
   .tb-btns{ flex-wrap:nowrap !important; flex-shrink:0 !important; margin-left:auto !important; gap:4px !important; }
   /* Hide Save/Reset from topbar on mobile — they're in the bottom bar */
-  .tb-btns .tbtn.save{ display:none !important; }
-  .tb-btns .tbtn:not(.save){ display:none !important; }
+  .tb-btns .tbtn{ display:none !important; }
 
   /* ── Layout ── */
   .wrap{ padding:8px !important; }
@@ -611,15 +606,30 @@ input[type=checkbox]:checked+.tog::after{left:21px;}
   #mob-roster-banner{ display:flex !important; }
   .rm-day-cell{
     pointer-events:none !important;
-    min-width:22px !important; max-width:22px !important;
-    width:22px !important; font-size:9px !important;
+    min-width:28px !important; max-width:28px !important;
+    width:28px !important; height:28px !important;
+    font-size:10px !important; border-radius:4px !important;
   }
-  #roster-mgr-wrap{ overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  #roster-scroll-wrap{
+    display:block !important;
+    width:100% !important;
+    max-width:100% !important;
+    overflow-x:auto !important;
+    overflow-y:visible !important;
+    -webkit-overflow-scrolling:touch;
+  }
+  #roster-mgr-wrap{ overflow-x:visible; width:max-content; }
+  .rm-table th{ font-size:10px !important; padding:4px 2px !important; }
+  .rm-table td{ padding:4px 2px !important; }
   .rm-prn-col{ display:none !important; }
-  .rm-name-in{ pointer-events:none !important; }
-  .rm-pos-sel{ pointer-events:none !important; }
+  .rm-pos-col{ display:none !important; }
+  .rm-name-col{ min-width:110px !important; max-width:130px !important; }
+  .rm-name-in{
+    pointer-events:none !important;
+    font-size:12px !important; font-weight:700 !important;
+  }
+  .rm-pos-sel{ pointer-events:none !important; font-size:10px !important; }
   .rm-del-btn{ display:none !important; }
-  /* Hide editing buttons in roster toolbar on mobile */
   #rm-add-member-btn,#rm-add-crew-btn{ display:none !important; }
 
   /* ── Log tab ── */
@@ -813,7 +823,7 @@ input[type=checkbox]:checked+.tog::after{left:21px;}
   <div class="tb-brand">
     <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQ4IiBoZWlnaHQ9IjU0IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik03My4wNTkgMTUuNzloOS42OTR2My4yMzdoLTkuNjk0djMuMjM2aDkuNjk0djYuNDY2bC0zLjIzNCAzLjIzNmgtOS42OTR2LTMuMjM2aDkuNjk0di0zLjIzNmgtOS42OTR2LTYuNDY2bDMuMjM0LTMuMjM2Wm0xMS43MTUgNi40Njd2OS43MDFoNi40NmwzLjIzNC0zLjIzNWgtNi40NnYtNi40NjZoNi40NnY5LjcwMUg5Ny43di0xMi45M2gtOS42OTRsLTMuMjMzIDMuMjM2di0uMDA2Wm01My4zMS0zLjIzLTMuMjMzIDMuMjN2OS43MDFoNi40NjFsMy4yMzMtMy4yMzVoLTYuNDYxdi02LjQ2Nmg2LjQ2MXY5LjcwMWgzLjIzM3YtMTIuOTNoLTkuNjk0Wm0tMTMuNzMxIDBoLTYuNDZsLTMuMjM0IDMuMjM2djkuNzAxaDYuNDYxbDMuMjMzLTMuMjM1aC02LjQ2di02LjQ2Nmg2LjQ2djkuNzAxaDMuMjM0VjEyLjU2MmgtMy4yMzR2Ni40NjZabS0xNC45NDIgOS43MDJoLTYuNDYxdi05LjcwMmgtMy4yMzN2MTIuOTMxaDkuNjk0bDMuMjMzLTMuMjM1VjE5LjAyaC0zLjIzM3Y5LjcwOFptMjAuMTkxLTEyLjkzMmgzLjIzM1YxMi41NmgtMy4yMzN2My4yMzZabTAgMTYuMTY4aDMuMjMzVjE5LjAzMmgtMy4yMzN2MTIuOTMxWm0tMTA2LjAyIDYuOTgyLTEuODcyIDEuMTg4LTEuNjgtMS44NmMxLjEzNC0uNjMxIDIuMjY4LTEuMjYxIDMuMzktMS45MSAxLjg3Ny0xLjA4NyAzLjcyNS0yLjI0IDUuNjA4LTMuMzI2LS4wNTQtLjAzLS4xMDgtLjA2Ni0uMTYyLS4wOTYtMy4zNDctMS44ODUtNi43NjYtMy43MjgtMTAuNDMxLTQuOTgzLTIuODY4LTEuMTI5LTYuMDExLTEuMzU3LTkuMDY0LTEuNDY1bDEwLjY0MSAxMS43NjdjLS4wNDguMDM2LS40MDIuMy0uOTkuNjQ5LTMuNTIgMi4wODktNS42NjIgMi4zNzctOC41MjQgMi41ODcgMi42MzQuNTUzIDMuNzUgMS4yNzMgNy42MDcuNDAzIDEuMzU1LS4zMDcgMy41MzMtMS43MTIgMy42MDUtMS43Nmw4Ljk2MiA5LjkxMi0uNTY0LTE1LjE2NWEzMDMuMjk2IDMwMy4yOTYgMCAwIDAtNi41MjcgNC4wNTNNMTcuOTIgMjYuNTc5YzQuMjI5LjkyNSA4LjE3NiAyLjc5OCAxMi4wNTcgNC42ODNsLS4zNi05LjU4OEwuMjk1IDE1Ljc5MWMtLjIzNC0uMDQ4LS4zOS4yMzQtLjIyOC40MDhsOS4zMSAxMC4yOTZjMi44NDktLjUwNCA1LjcyMi0uNTI4IDguNTQ4LjA5bTQ0LjkzLTEwLjc4OEwzMy41MzMgMjEuNjhsLS4zNiA5LjU4OGMzLjg3NS0xLjg4NSA3LjgyMy0zLjc1MiAxMi4wNTgtNC42ODMgMi44MjUtLjYxOCA1LjY5OC0uNTk0IDguNTQ4LS4wOWw5LjMxLTEwLjI5NmMuMTYyLS4xNzQgMC0uNDU2LS4yMjgtLjQwOG0tMjguMzI2IDQuMDIyczEuMDYyLTMuNzUyLjAzNi03LjU3Yy44NTguNzAyIDEuODg0IDEuNzI5IDIuNjgxIDMuMDggMS4xMTYgMS44OTcgMS40MjIgMy4zNTUgMS40MjIgMy4zNTVzLjQ2OC0yLjIzMy0uMjY0LTQuMjM4Yy0uMjQtLjY2LS44MjgtMi40MDEtMi4wMjEtMy41My45MzUuNDM4IDIuMDUxIDEuMDggMy4xNzkgMi4wMzUgMS45MTMgMS42MjcgMy4wNTMgMy4wODYgMy4wNTMgMy4wODZzLS4zNi0yLjQ5OC0xLjc1Ny00LjI4N2MtMS42MDgtMi4wNTMtMy43OTEtMi44NjMtNS4zNTEtMy4yMDZhOS4zMSA5LjMxIDAgMCAxIDMuMzQxLjE1YzIuNDkuNTgzIDQuMTUxIDEuODY4IDQuMTUxIDEuODY4cy0xLjQ4OC0yLjM0Mi0zLjkyOS0zLjQyMmMtMS44MTgtLjgwNS0zLjU5My0uODEtNC45OS0uNmEyLjE1IDIuMTUgMCAwIDEgLjQzNy0uNTk1Yy40MjYtLjM5Ni45MTItLjYyNS45MTItLjYyNXMtMS4wMzItLjI1OC0xLjkzMi4wNzlhMy42NDUgMy42NDUgMCAwIDAtMS4xMDMuNjcyIDcuMTgzIDcuMTgzIDAgMCAwLS4xNS0uNzg3Yy0uMTA4LS40MzItLjYxMi0xLjM1LS42NTQtMS40MjgtLjA0Mi4wNzgtLjU1MiAxLjAwMi0uNjU0IDEuNDI4LS4wNjYuMjc3LS4xMTQuNTQtLjE1Ljc4N2EzLjY0NSAzLjY0NSAwIDAgMC0xLjEwNC0uNjcyYy0uODk0LS4zMzctMS45MzEtLjA3OS0xLjkzMS0uMDc5cy40OC4yMjkuOTExLjYyNWMuMTguMTY4LjMyNC4zNzIuNDM4LjU5NC0xLjM5Mi0uMjEtMy4xNzMtLjE5OC00Ljk5LjYtMi40NDggMS4wODEtMy45MyAzLjQyMy0zLjkzIDMuNDIzczEuNjYyLTEuMjg1IDQuMTUxLTEuODY3YTkuMzA2IDkuMzA2IDAgMCAxIDMuMzQxLS4xNWMtMS41Ni4zNDItMy43NDMgMS4xNTItNS4zNSAzLjIwNS0xLjQwNCAxLjc5LTEuNzU4IDQuMjg3LTEuNzU4IDQuMjg3czEuMTQtMS40NTkgMy4wNTMtMy4wODZhMTQuMDcyIDE0LjA3MiAwIDAgMSAzLjE4LTIuMDM1Yy0xLjE5NCAxLjEzNC0xLjc4MiAyLjg3Ni0yLjAyMiAzLjUzLS43MjYgMi4wMTEtLjI2NCA0LjIzOS0uMjY0IDQuMjM5cy4zMDYtMS40NiAxLjQyMi0zLjM1NmMuNzk4LTEuMzUxIDEuODE3LTIuMzc4IDIuNjgxLTMuMDgtMS4wMjYgMy44MTIuMDMgNy41Ny4wMyA3LjU3cy42NDItMi44ODcgMS42MTQtNS4zNDNjLjQxNC0xLjA0NS44ODItMS44MzEgMS4zMzgtMi40Mi40NS41ODkuOTI0IDEuMzc1IDEuMzM3IDIuNDIuOTY2IDIuNDUgMS42MTQgNS4zNDMgMS42MTQgNS4zNDNtLS4yNCAxMy4xMjRjLS4wNTQuMDMtLjEwOC4wNjYtLjE2OC4wOTYgMS44ODQgMS4wOCAzLjczMSAyLjI0IDUuNjA5IDMuMzI2IDEuMTIyLjY0OSAyLjI1NSAxLjI4NSAzLjM5IDEuOTFsLTEuNjggMS44Ni0xLjg3Mi0xLjE4OGEzMTguOTk3IDMxOC45OTcgMCAwIDAtNi41MzMtNC4wNTNsLS41NjMgMTUuMTY1IDguOTYyLTkuOTEyYy4wNzIuMDQ5IDIuMjQ5IDEuNDUzIDMuNjA1IDEuNzYgMy44NTcuODcgNC45NzMuMTUgNy42MDYtLjQwMy0yLjg2MS0uMjEtNS4wMDMtLjUwNC04LjUyNC0yLjU4N2ExMS4zNjUgMTEuMzY1IDAgMCAxLS45OS0uNjQ5bDEwLjY0Mi0xMS43NjdjLTMuMDUzLjEwOC02LjE5Ny4zMy05LjA2NCAxLjQ2NS0zLjY2IDEuMjU1LTcuMDc5IDMuMDkyLTEwLjQzMiA0Ljk4M200NS41NjYgNS4xOTNINzUuOHYxMS45NDFoLTEuOTA4di0xMS45NGgtNC4wNjd2LTEuNTA4aDEwLjA0MnYxLjUwN1ptNy44MSA3LjY3M2gtNi43OWMuMDcyIDEuOTA5IDEuMDIgMy4wMzIgMi41MjUgMy4wMzIgMS4zMjYgMCAyLjI1LS43MjcgMi40OS0xLjk2NGgxLjc4MWMtLjMxMiAyLjEyNi0xLjg5IDMuMzgtNC4yNjUgMy4zOC0yLjcwNSAwLTQuMjgzLTEuNzQ2LTQuMjgzLTQuNzA2IDAtMi45NiAxLjU3OC00LjcwNyA0LjI4My00LjcwNyAyLjcwNiAwIDQuMjY1IDEuNzQ3IDQuMjY1IDQuNzA3di4yNTJsLS4wMDYuMDA2Wm0tNi43NzItLjc2M2g0Ljk3M2MtLjE0NC0xLjc2NS0xLjAzMi0yLjc4LTIuNDcyLTIuNzhzLTIuMzYzIDEuMDE1LTIuNTA3IDIuNzhtOC4zOTIuNTA0YzAtMi45NiAxLjY3NC00LjcwNiA0LjQ4Ny00LjcwNiAyLjI5MSAwIDMuODE1IDEuMjE5IDQuMjMgMy4zMDhoLTEuOGMtLjM2Ni0xLjE2NS0xLjItMS44MzctMi40MzYtMS44MzctMS42NjggMC0yLjYzMyAxLjItMi42MzMgMy4yMzYgMCAyLjAzNS45NiAzLjIzNiAyLjYzMyAzLjIzNiAxLjI5IDAgMi4xNi0uNzI3IDIuNDcxLTIuMDE4aDEuODE4Yy0uMzg0IDIuMjE2LTEuOTI2IDMuNDg5LTQuMjgzIDMuNDg5LTIuODEzIDAtNC40ODctMS43NDgtNC40ODctNC43MDdabTE4Ljg1NC0xLjA1djUuNTc3aC0xLjgxOHYtNS41MjNjMC0xLjQxNy0uNzgtMi4yMzMtMi4xMDUtMi4yMzMtMS40ODggMC0yLjM4MiAxLjA1Ni0yLjM4MiAyLjgzNHY0LjkyMmgtMS44MTdWMzYuMDgzaDEuODE3djguMDg3aC4wMzZjMC0yLjA5IDEuMTI4LTMuMzI2IDMuMDM2LTMuMzI2IDIuMDMzIDAgMy4yMzMgMS4zNjMgMy4yMzMgMy42NW0xMC42NzguMDA2djUuNTc3aC0xLjgxOHYtNS41MjNjMC0xLjQxNy0uNzgtMi4yMzMtMi4xMDYtMi4yMzMtMS40ODcgMC0yLjM4MSAxLjA1Ni0yLjM4MSAyLjgzNHY0LjkyMkgxMTAuN1Y0MS4wM2gxLjgxOHYzLjE0NmguMDM2YzAtMi4wOSAxLjEyOC0zLjMyNiAzLjAyOS0zLjMyNiAyLjAzNCAwIDMuMjM0IDEuMzYzIDMuMjM0IDMuNjVtMi41NjctNy40MTRoMS44MTh2Mi4wNTNoLTEuODE4di0yLjA1M1ptMCAzLjk0NGgxLjgxOHY5LjA1M2gtMS44MThWNDEuMDNabTMuOTU5IDQuNTJjMC0yLjk2IDEuNjc0LTQuNzA2IDQuNDg3LTQuNzA2IDIuMjg2IDAgMy44MTUgMS4yMTkgNC4yMjkgMy4zMDhoLTEuNzk5Yy0uMzY2LTEuMTY1LTEuMi0xLjgzNy0yLjQzNi0xLjgzNy0xLjY3MyAwLTIuNjMzIDEuMi0yLjYzMyAzLjIzNiAwIDIuMDM1Ljk2IDMuMjM2IDIuNjMzIDMuMjM2IDEuMjkgMCAyLjE2LS43MjcgMi40NzItMi4wMThoMS44MTdjLS4zODQgMi4yMTYtMS45MjUgMy40ODktNC4yODMgMy40ODktMi44MTMgMC00LjQ4Ny0xLjc0OC00LjQ4Ny00LjcwN1oiIGZpbGw9IiNmZmYiLz48L3N2Zz4=" style="height:38px;width:auto;" alt="Saudia Technic">
   </div>
-  <div style="display:flex;flex-direction:column;gap:2px;">
+  <div id="tb-title-wrap" style="display:flex;flex-direction:column;gap:2px;">
     <div class="tb-title" style="flex:none;">SHIFT TURNOVER LOG / SHEET</div>
     <div id="tb-dept" style="font-size:8px;font-weight:600;color:rgba(255,255,255,.45);letter-spacing:.5px;white-space:nowrap;">AIRCRAFT HEAVY MAINTENANCE · SPV CABIN</div>
   </div>
@@ -868,7 +878,7 @@ input[type=checkbox]:checked+.tog::after{left:21px;}
           <div class="fg"><label>SPECIALTY</label><input type="text" id="f-spec" value="CAB" spellcheck="true"></div>
           <div class="fg">
             <label>SHIFT</label>
-            <select id="f-shift">
+            <select id="f-shift" onchange="onShiftChange()">
               <option value="">-- SELECT --</option>
               <option>DAY</option><option>TWILIGHT</option><option>GRAVE</option>
             </select>
@@ -1138,8 +1148,8 @@ input[type=checkbox]:checked+.tog::after{left:21px;}
   <div class="tab-panel" id="roster-tab" style="max-width:none;width:100%;">
     <!-- Mobile read-only notice -->
     <div id="mob-roster-banner">
-      <span>👁️</span>
-      <span>وضع القراءة على الجوال — التعديل متاح على الديسكتوب</span>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+      <span>READ-ONLY ON MOBILE — USE DESKTOP TO EDIT</span>
     </div>
     <div class="card">
       <div class="card-hd" style="display:flex;flex-direction:column;gap:6px;padding:10px 14px;">
@@ -3802,6 +3812,12 @@ function sortByCrew(arr){
   });
 }
 
+function onShiftChange(){
+  const hasMp   = document.querySelectorAll('#mp-grid .mp-cell').length > 0;
+  const hasSupv = document.querySelectorAll('.supv-tag').length > 0;
+  if(hasMp || hasSupv) loadRoster();
+}
+
 function loadRoster(){
   const date  = document.getElementById('f-date').value;
   const shift = document.getElementById('f-shift').value;
@@ -5227,8 +5243,8 @@ function renderRosterMgr(){
     html += '<tr style="background:var(--surface);">';
     html += `<th style="font-size:9px;color:var(--muted);padding:5px 4px;border-bottom:2px solid var(--border);text-align:center;">#</th>`;
     html += `<th style="font-size:9px;color:var(--muted);padding:5px 6px;border-bottom:2px solid var(--border);text-align:left;font-family:BwGradual,sans-serif;font-weight:700;letter-spacing:1px;">NAME</th>`;
-    html += `<th style="font-size:9px;color:var(--muted);padding:5px 4px;border-bottom:2px solid var(--border);text-align:left;font-family:BwGradual,sans-serif;font-weight:700;letter-spacing:1px;">PRN</th>`;
-    html += `<th style="font-size:9px;color:var(--muted);padding:5px 4px;border-bottom:2px solid var(--border);text-align:left;font-family:BwGradual,sans-serif;font-weight:700;letter-spacing:1px;">POS</th>`;
+    html += `<th class="rm-prn-col" style="font-size:9px;color:var(--muted);padding:5px 4px;border-bottom:2px solid var(--border);text-align:left;font-family:BwGradual,sans-serif;font-weight:700;letter-spacing:1px;">PRN</th>`;
+    html += `<th class="rm-pos-col" style="font-size:9px;color:var(--muted);padding:5px 4px;border-bottom:2px solid var(--border);text-align:left;font-family:BwGradual,sans-serif;font-weight:700;letter-spacing:1px;">POS</th>`;
     days.forEach(d=>{
       const dt=new Date(d+'T00:00:00');
       const dn=dt.getDate();
@@ -5280,12 +5296,12 @@ function renderRosterMgr(){
       </td>`;
 
       // PRN
-      html += `<td style="padding:4px 4px;border-bottom:1px solid var(--border);">
+      html += `<td class="rm-prn-col" style="padding:4px 4px;border-bottom:1px solid var(--border);">
         <input class="rm-prn-in" value="${m.prn||''}" onchange="updateMember('${crewName}',${mi},'prn',this.value)" placeholder="—" style="width:100%;font-size:10px;">
       </td>`;
 
       // POS - display only, edit via ✎ button
-      html += `<td style="padding:4px 6px;border-bottom:1px solid var(--border);font-size:10px;font-weight:700;color:var(--text2);text-transform:uppercase;">${m.pos||'—'}</td>`;
+      html += `<td class="rm-pos-col" style="padding:4px 6px;border-bottom:1px solid var(--border);font-size:10px;font-weight:700;color:var(--text2);text-transform:uppercase;">${m.pos||'—'}</td>`;
 
       // Day cells
       const _hasData = memberHasDataInMonth(m, activeMonth);
@@ -10032,6 +10048,18 @@ function showMobileExport(){
   document.getElementById('mob-export-sheet')?.remove();
   const activeTab = document.querySelector('.tab-btn.active')?.textContent?.trim() || '';
   const isRoster = activeTab.includes('ROSTER');
+  const _btn=(svg,title,sub,fn)=>`
+    <button class="mob-sheet-btn" onclick="${fn};this.closest('#mob-export-sheet').remove()">
+      <span class="msb-icon">${svg}</span>
+      <div><div>${title}</div><div class="msb-sub">${sub}</div></div>
+    </button>`;
+  const _img = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>`;
+  const _xls = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></svg>`;
+  const _bar = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg>`;
+  const _cal = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`;
+  const _grid= `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>`;
+  const _trend=`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>`;
+
   const sheet = document.createElement('div');
   sheet.id = 'mob-export-sheet';
   sheet.innerHTML = `
@@ -10041,45 +10069,17 @@ function showMobileExport(){
       <div class="mob-sheet-title">EXPORT</div>
       ${!isRoster ? `
       <div class="mob-sheet-sep">SHIFT ENTRY</div>
-      <button class="mob-sheet-btn" onclick="exportImage('normal');this.closest('#mob-export-sheet').remove()">
-        <span class="msb-icon">🖼️</span>
-        <div><div>TURNOVER IMAGE</div><div class="msb-sub">Desktop layout · PNG</div></div>
-      </button>
-      <button class="mob-sheet-btn" onclick="exportImage('mobile');this.closest('#mob-export-sheet').remove()">
-        <span class="msb-icon">📱</span>
-        <div><div>MOBILE IMAGE</div><div class="msb-sub">Portrait · compact PNG</div></div>
-      </button>
-      <button class="mob-sheet-btn" onclick="exportMhrReport();this.closest('#mob-export-sheet').remove()">
-        <span class="msb-icon">📊</span>
-        <div><div>MHR REPORT</div><div class="msb-sub">Production manhours image</div></div>
-      </button>
-      <button class="mob-sheet-btn" onclick="exportMhrExcel();this.closest('#mob-export-sheet').remove()">
-        <span class="msb-icon">📋</span>
-        <div><div>MHR → EXCEL</div><div class="msb-sub">Manhours spreadsheet</div></div>
-      </button>
-      <button class="mob-sheet-btn" onclick="exportCSV();this.closest('#mob-export-sheet').remove()">
-        <span class="msb-icon">📄</span>
-        <div><div>EXCEL / CSV</div><div class="msb-sub">Full shift data</div></div>
-      </button>
+      ${_btn(_img,'TURNOVER IMAGE','Full-width desktop layout · PNG',"exportImage('normal')")}
+      ${_btn(_bar,'MHR REPORT','Production manhours image',"exportMhrReport()")}
+      ${_btn(_xls,'MHR → EXCEL','Manhours spreadsheet',"exportMhrExcel()")}
+      ${_btn(_xls,'EXCEL / CSV','Full shift data',"exportCSV()")}
       ` : ''}
       ${isRoster ? `
       <div class="mob-sheet-sep">ROSTER</div>
-      <button class="mob-sheet-btn" onclick="exportRosterPDF();this.closest('#mob-export-sheet').remove()">
-        <span class="msb-icon">📅</span>
-        <div><div>ROSTER IMAGE</div><div class="msb-sub">Monthly roster PNG</div></div>
-      </button>
-      <button class="mob-sheet-btn" onclick="buildRosterXlsxBlob&&exportRosterExcel();this.closest('#mob-export-sheet').remove()">
-        <span class="msb-icon">📋</span>
-        <div><div>ROSTER EXCEL</div><div class="msb-sub">Spreadsheet format</div></div>
-      </button>
-      <button class="mob-sheet-btn" onclick="exportMatrixImage();this.closest('#mob-export-sheet').remove()">
-        <span class="msb-icon">🎯</span>
-        <div><div>QUAL MATRIX</div><div class="msb-sub">Qualifications matrix PNG</div></div>
-      </button>
-      <button class="mob-sheet-btn" onclick="exportCoverageImage();this.closest('#mob-export-sheet').remove()">
-        <span class="msb-icon">📈</span>
-        <div><div>COVERAGE</div><div class="msb-sub">Qualifications coverage PNG</div></div>
-      </button>
+      ${_btn(_cal,'ROSTER IMAGE','Monthly roster PNG',"exportRosterPDF()")}
+      ${_btn(_xls,'ROSTER EXCEL','Spreadsheet format',"exportRosterExcel&&exportRosterExcel()")}
+      ${_btn(_grid,'QUAL MATRIX','Qualifications matrix PNG',"exportMatrixImage()")}
+      ${_btn(_trend,'COVERAGE','Qualifications coverage PNG',"exportCoverageImage()")}
       ` : ''}
     </div>`;
   document.body.appendChild(sheet);
