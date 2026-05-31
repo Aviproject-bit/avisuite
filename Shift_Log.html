@@ -39,7 +39,7 @@ textarea{resize:none;overflow:hidden;}
 .tbtn.save:hover{background:#1447c0;}
 
 /* LAYOUT */
-.wrap{width:100%;max-width:1400px;margin:0 auto;padding:20px 24px;box-sizing:border-box;padding-top:16px;}
+.wrap{width:100%;max-width:1400px;margin:0 auto;padding:20px 24px;box-sizing:border-box;}
 .tab-nav{display:flex;gap:4px;margin-bottom:16px;}
 .tab-btn{background:var(--surface);border:1px solid var(--border);border-radius:4px 4px 0 0;border-bottom:none;font-family:'BwGradual', sans-serif;font-weight:700;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);padding:8px 18px;cursor:pointer;transition:all .15s;}
 .tab-btn.active{background:var(--white);color:var(--navy);border-bottom:2px solid var(--accent);}
@@ -55,7 +55,7 @@ textarea{resize:none;overflow:hidden;}
 
 /* FORM */
 .info-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;}
-
+@media(max-width:600px){.info-grid{grid-template-columns:1fr 1fr;}}
 .fg label{display:block;font-size:9px;font-weight:700;letter-spacing:2px;color:var(--muted);margin-bottom:4px;text-transform:uppercase;}
 .fg input,.fg select{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:4px;color:var(--text);font-weight:600;font-size:13px;padding:7px 10px;outline:none;text-transform:uppercase;transition:border-color .15s,box-shadow .15s;}
 .fg input:focus,.fg select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(26,86,219,.1);}
@@ -80,7 +80,7 @@ input[type=checkbox]:checked+.tog::after{left:21px;}
 /* MAN POWER */
 .mp-grid{columns:3;column-gap:6px;display:block;}
 .mp-cell{break-inside:avoid;margin-bottom:6px;display:flex;}
-
+@media(max-width:600px){.mp-grid{columns:2;}}
 .mp-add{width:100%;margin-bottom:6px;display:block;}
 .mp-cell{display:flex;align-items:center;gap:5px;background:var(--surface);border:1px solid var(--border);border-radius:5px;padding:5px 7px;min-width:0;cursor:grab;position:relative;width:100%;}
 .mp-cell.dragging{opacity:.4;}
@@ -210,7 +210,7 @@ input[type=checkbox]:checked+.tog::after{left:21px;}
 
 /* BOTTOM */
 .bottom-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
-
+@media(max-width:560px){.bottom-grid{grid-template-columns:1fr;}}
 .check-group{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
 .check-group input[type=checkbox]{width:15px;height:15px;accent-color:var(--accent);cursor:pointer;flex-shrink:0;}
 .check-lbl{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--text2);}
@@ -338,10 +338,58 @@ input[type=checkbox]:checked+.tog::after{left:21px;}
 }
 
 /* ══ MOBILE FRIENDLY ════════════════════════════════════ */
+@media(max-width:768px){
+  .wrap{ padding:8px !important; }
+  .topbar{ flex-wrap:wrap; gap:6px; padding:8px 10px !important; }
+  .tb-btns{ flex-wrap:wrap; gap:4px; }
+  .tbtn{ font-size:10px !important; padding:5px 8px !important; }
+  .tab-nav{ gap:4px !important; overflow-x:auto; }
+  .tab-btn{ font-size:9px !important; padding:5px 8px !important; white-space:nowrap; }
+  .card{ margin-bottom:8px; }
+  .card-hd{ padding:10px 12px !important; }
+  .card-hd-title{ font-size:11px !important; }
+  .card-bd{ padding:8px !important; }
+  /* Roster table mobile */
+  #roster-mgr-wrap{ overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  .rm-name-col{ min-width:90px !important; max-width:90px !important; }
+  .rm-prn-col{ display:none !important; }
+  .rm-num-col{ min-width:22px !important; width:22px !important; }
+  .rm-day-cell{ min-width:22px !important; max-width:22px !important; width:22px !important; font-size:9px !important; }
+  /* Shift entry mobile */
+  .mp-row{ flex-direction:column; gap:4px; }
+  .fmt-bar{ flex-wrap:wrap; }
+  /* Scale controls */
+  #layout-width-slider{ width:80px !important; }
+  /* Total panel mobile */
+  #total-panel-body table{ font-size:9px !important; }
+  #total-panel-body th, #total-panel-body td{ padding:2px 1px !important; min-width:20px !important; }
+  #total-panel-body .tp-row:hover td{ filter: brightness(0.93); }
 
+  /* Topbar: single row, hide ZOOM/WIDTH */
+  .tb-hide-mobile{ display:none !important; }
+  .topbar{ height:50px !important; flex-wrap:nowrap !important; overflow:hidden !important; padding:0 10px !important; gap:6px !important; }
+  .tb-brand img{ height:28px !important; }
+  .tb-btns{ flex-wrap:nowrap !important; flex-shrink:0 !important; margin-left:auto !important; }
+  .tbtn{ height:32px !important; min-height:32px !important; }
 
+  /* Info grid: 2 cols */
+  .info-grid{ grid-template-columns:1fr 1fr !important; }
 
+  /* Man power: 1 col */
+  .mp-grid{ columns:1 !important; }
 
+  /* Bottom grid: 1 col */
+  .bottom-grid{ grid-template-columns:1fr !important; }
+
+  /* iOS: prevent zoom on input */
+  input:not([type=range]):not([type=checkbox]), select, textarea{ font-size:16px !important; }
+}
+@media(max-width:480px){
+  .topbar-title{ font-size:11px !important; letter-spacing:1px !important; }
+  .rm-pos-col{ display:none !important; }
+  .rm-day-cell{ min-width:18px !important; max-width:18px !important; font-size:8px !important; }
+  .info-grid{ grid-template-columns:1fr !important; }
+}
 /* Touch improvements */
 .rm-day-cell, .mp-del, .acft-del, .t-del{ 
   -webkit-tap-highlight-color:transparent;
@@ -512,77 +560,6 @@ input[type=checkbox]:checked+.tog::after{left:21px;}
 .mh-badge{background:var(--accent);color:#fff;font-size:10px;padding:2px 8px;border-radius:10px;font-weight:700;}
 
 #hk-explain-wrap.hk-hidden{display:none;}
-
-/* ── Mobile Touch UX ────────────────────────── */
-
-
-
-/* ── Mobile/Desktop visibility ── */
-.tb-mobile-only{ display:none; }
-@media(max-width:768px){
-  .tb-desktop-only{ display:none !important; }
-  .tb-mobile-only{ display:inline !important; }
-  /* Topbar على الجوال: صف واحد نظيف */
-  .topbar{
-    height:48px !important;
-    flex-wrap:nowrap !important;
-    padding:0 10px !important;
-    gap:6px !important;
-    overflow:hidden;
-  }
-  .tb-brand img{ height:26px !important; }
-  .tb-title{ font-size:11px !important; letter-spacing:.5px !important; white-space:nowrap; }
-  .tb-btns{
-    display:flex !important;
-    align-items:center !important;
-    gap:4px !important;
-    flex-wrap:nowrap !important;
-    margin-left:auto;
-  }
-  .tbtn{
-    font-size:10px !important;
-    padding:5px 8px !important;
-    white-space:nowrap !important;
-    min-height:32px !important;
-  }
-  /* Tab nav */
-  .tab-nav{
-    overflow-x:auto !important;
-    -webkit-overflow-scrolling:touch !important;
-    scrollbar-width:none !important;
-    flex-wrap:nowrap !important;
-    gap:4px !important;
-    padding-bottom:4px;
-  }
-  .tab-nav::-webkit-scrollbar{ display:none; }
-  .tab-btn{
-    flex-shrink:0 !important;
-    white-space:nowrap !important;
-    font-size:10px !important;
-    padding:6px 10px !important;
-    min-height:34px !important;
-  }
-  /* Info grid — 2 cols on mobile */
-  .info-grid{
-    grid-template-columns:1fr 1fr !important;
-    gap:8px !important;
-  }
-  /* Man Power — 1 col */
-  .mp-grid{ columns:1 !important; }
-  /* Inputs — منع zoom في iOS */
-  input:not([type=range]),select,textarea{ font-size:16px !important; }
-  /* Roster — scroll أفقي */
-  #roster-mgr-wrap{ overflow-x:auto; -webkit-overflow-scrolling:touch; }
-  .rm-day-cell{ min-width:20px !important; max-width:20px !important; font-size:8px !important; }
-  /* Wrap */
-  .wrap{ padding:8px !important; }
-  .card{ margin-bottom:8px; }
-  .card-hd{ padding:10px 12px !important; }
-}
-@media(max-width:400px){
-  .info-grid{ grid-template-columns:1fr !important; }
-  .tbtn svg + span{ display:none; }
-}
 </style>
 </head>
 <body>
@@ -592,22 +569,22 @@ input[type=checkbox]:checked+.tog::after{left:21px;}
     <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQ4IiBoZWlnaHQ9IjU0IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik03My4wNTkgMTUuNzloOS42OTR2My4yMzdoLTkuNjk0djMuMjM2aDkuNjk0djYuNDY2bC0zLjIzNCAzLjIzNmgtOS42OTR2LTMuMjM2aDkuNjk0di0zLjIzNmgtOS42OTR2LTYuNDY2bDMuMjM0LTMuMjM2Wm0xMS43MTUgNi40Njd2OS43MDFoNi40NmwzLjIzNC0zLjIzNWgtNi40NnYtNi40NjZoNi40NnY5LjcwMUg5Ny43di0xMi45M2gtOS42OTRsLTMuMjMzIDMuMjM2di0uMDA2Wm01My4zMS0zLjIzLTMuMjMzIDMuMjN2OS43MDFoNi40NjFsMy4yMzMtMy4yMzVoLTYuNDYxdi02LjQ2Nmg2LjQ2MXY5LjcwMWgzLjIzM3YtMTIuOTNoLTkuNjk0Wm0tMTMuNzMxIDBoLTYuNDZsLTMuMjM0IDMuMjM2djkuNzAxaDYuNDYxbDMuMjMzLTMuMjM1aC02LjQ2di02LjQ2Nmg2LjQ2djkuNzAxaDMuMjM0VjEyLjU2MmgtMy4yMzR2Ni40NjZabS0xNC45NDIgOS43MDJoLTYuNDYxdi05LjcwMmgtMy4yMzN2MTIuOTMxaDkuNjk0bDMuMjMzLTMuMjM1VjE5LjAyaC0zLjIzM3Y5LjcwOFptMjAuMTkxLTEyLjkzMmgzLjIzM1YxMi41NmgtMy4yMzN2My4yMzZabTAgMTYuMTY4aDMuMjMzVjE5LjAzMmgtMy4yMzN2MTIuOTMxWm0tMTA2LjAyIDYuOTgyLTEuODcyIDEuMTg4LTEuNjgtMS44NmMxLjEzNC0uNjMxIDIuMjY4LTEuMjYxIDMuMzktMS45MSAxLjg3Ny0xLjA4NyAzLjcyNS0yLjI0IDUuNjA4LTMuMzI2LS4wNTQtLjAzLS4xMDgtLjA2Ni0uMTYyLS4wOTYtMy4zNDctMS44ODUtNi43NjYtMy43MjgtMTAuNDMxLTQuOTgzLTIuODY4LTEuMTI5LTYuMDExLTEuMzU3LTkuMDY0LTEuNDY1bDEwLjY0MSAxMS43NjdjLS4wNDguMDM2LS40MDIuMy0uOTkuNjQ5LTMuNTIgMi4wODktNS42NjIgMi4zNzctOC41MjQgMi41ODcgMi42MzQuNTUzIDMuNzUgMS4yNzMgNy42MDcuNDAzIDEuMzU1LS4zMDcgMy41MzMtMS43MTIgMy42MDUtMS43Nmw4Ljk2MiA5LjkxMi0uNTY0LTE1LjE2NWEzMDMuMjk2IDMwMy4yOTYgMCAwIDAtNi41MjcgNC4wNTNNMTcuOTIgMjYuNTc5YzQuMjI5LjkyNSA4LjE3NiAyLjc5OCAxMi4wNTcgNC42ODNsLS4zNi05LjU4OEwuMjk1IDE1Ljc5MWMtLjIzNC0uMDQ4LS4zOS4yMzQtLjIyOC40MDhsOS4zMSAxMC4yOTZjMi44NDktLjUwNCA1LjcyMi0uNTI4IDguNTQ4LjA5bTQ0LjkzLTEwLjc4OEwzMy41MzMgMjEuNjhsLS4zNiA5LjU4OGMzLjg3NS0xLjg4NSA3LjgyMy0zLjc1MiAxMi4wNTgtNC42ODMgMi44MjUtLjYxOCA1LjY5OC0uNTk0IDguNTQ4LS4wOWw5LjMxLTEwLjI5NmMuMTYyLS4xNzQgMC0uNDU2LS4yMjgtLjQwOG0tMjguMzI2IDQuMDIyczEuMDYyLTMuNzUyLjAzNi03LjU3Yy44NTguNzAyIDEuODg0IDEuNzI5IDIuNjgxIDMuMDggMS4xMTYgMS44OTcgMS40MjIgMy4zNTUgMS40MjIgMy4zNTVzLjQ2OC0yLjIzMy0uMjY0LTQuMjM4Yy0uMjQtLjY2LS44MjgtMi40MDEtMi4wMjEtMy41My45MzUuNDM4IDIuMDUxIDEuMDggMy4xNzkgMi4wMzUgMS45MTMgMS42MjcgMy4wNTMgMy4wODYgMy4wNTMgMy4wODZzLS4zNi0yLjQ5OC0xLjc1Ny00LjI4N2MtMS42MDgtMi4wNTMtMy43OTEtMi44NjMtNS4zNTEtMy4yMDZhOS4zMSA5LjMxIDAgMCAxIDMuMzQxLjE1YzIuNDkuNTgzIDQuMTUxIDEuODY4IDQuMTUxIDEuODY4cy0xLjQ4OC0yLjM0Mi0zLjkyOS0zLjQyMmMtMS44MTgtLjgwNS0zLjU5My0uODEtNC45OS0uNmEyLjE1IDIuMTUgMCAwIDEgLjQzNy0uNTk1Yy40MjYtLjM5Ni45MTItLjYyNS45MTItLjYyNXMtMS4wMzItLjI1OC0xLjkzMi4wNzlhMy42NDUgMy42NDUgMCAwIDAtMS4xMDMuNjcyIDcuMTgzIDcuMTgzIDAgMCAwLS4xNS0uNzg3Yy0uMTA4LS40MzItLjYxMi0xLjM1LS42NTQtMS40MjgtLjA0Mi4wNzgtLjU1MiAxLjAwMi0uNjU0IDEuNDI4LS4wNjYuMjc3LS4xMTQuNTQtLjE1Ljc4N2EzLjY0NSAzLjY0NSAwIDAgMC0xLjEwNC0uNjcyYy0uODk0LS4zMzctMS45MzEtLjA3OS0xLjkzMS0uMDc5cy40OC4yMjkuOTExLjYyNWMuMTguMTY4LjMyNC4zNzIuNDM4LjU5NC0xLjM5Mi0uMjEtMy4xNzMtLjE5OC00Ljk5LjYtMi40NDggMS4wODEtMy45MyAzLjQyMy0zLjkzIDMuNDIzczEuNjYyLTEuMjg1IDQuMTUxLTEuODY3YTkuMzA2IDkuMzA2IDAgMCAxIDMuMzQxLS4xNWMtMS41Ni4zNDItMy43NDMgMS4xNTItNS4zNSAzLjIwNS0xLjQwNCAxLjc5LTEuNzU4IDQuMjg3LTEuNzU4IDQuMjg3czEuMTQtMS40NTkgMy4wNTMtMy4wODZhMTQuMDcyIDE0LjA3MiAwIDAgMSAzLjE4LTIuMDM1Yy0xLjE5NCAxLjEzNC0xLjc4MiAyLjg3Ni0yLjAyMiAzLjUzLS43MjYgMi4wMTEtLjI2NCA0LjIzOS0uMjY0IDQuMjM5cy4zMDYtMS40NiAxLjQyMi0zLjM1NmMuNzk4LTEuMzUxIDEuODE3LTIuMzc4IDIuNjgxLTMuMDgtMS4wMjYgMy44MTIuMDMgNy41Ny4wMyA3LjU3cy42NDItMi44ODcgMS42MTQtNS4zNDNjLjQxNC0xLjA0NS44ODItMS44MzEgMS4zMzgtMi40Mi40NS41ODkuOTI0IDEuMzc1IDEuMzM3IDIuNDIuOTY2IDIuNDUgMS42MTQgNS4zNDMgMS42MTQgNS4zNDNtLS4yNCAxMy4xMjRjLS4wNTQuMDMtLjEwOC4wNjYtLjE2OC4wOTYgMS44ODQgMS4wOCAzLjczMSAyLjI0IDUuNjA5IDMuMzI2IDEuMTIyLjY0OSAyLjI1NSAxLjI4NSAzLjM5IDEuOTFsLTEuNjggMS44Ni0xLjg3Mi0xLjE4OGEzMTguOTk3IDMxOC45OTcgMCAwIDAtNi41MzMtNC4wNTNsLS41NjMgMTUuMTY1IDguOTYyLTkuOTEyYy4wNzIuMDQ5IDIuMjQ5IDEuNDUzIDMuNjA1IDEuNzYgMy44NTcuODcgNC45NzMuMTUgNy42MDYtLjQwMy0yLjg2MS0uMjEtNS4wMDMtLjUwNC04LjUyNC0yLjU4N2ExMS4zNjUgMTEuMzY1IDAgMCAxLS45OS0uNjQ5bDEwLjY0Mi0xMS43NjdjLTMuMDUzLjEwOC02LjE5Ny4zMy05LjA2NCAxLjQ2NS0zLjY2IDEuMjU1LTcuMDc5IDMuMDkyLTEwLjQzMiA0Ljk4M200NS41NjYgNS4xOTNINzUuOHYxMS45NDFoLTEuOTA4di0xMS45NGgtNC4wNjd2LTEuNTA4aDEwLjA0MnYxLjUwN1ptNy44MSA3LjY3M2gtNi43OWMuMDcyIDEuOTA5IDEuMDIgMy4wMzIgMi41MjUgMy4wMzIgMS4zMjYgMCAyLjI1LS43MjcgMi40OS0xLjk2NGgxLjc4MWMtLjMxMiAyLjEyNi0xLjg5IDMuMzgtNC4yNjUgMy4zOC0yLjcwNSAwLTQuMjgzLTEuNzQ2LTQuMjgzLTQuNzA2IDAtMi45NiAxLjU3OC00LjcwNyA0LjI4My00LjcwNyAyLjcwNiAwIDQuMjY1IDEuNzQ3IDQuMjY1IDQuNzA3di4yNTJsLS4wMDYuMDA2Wm0tNi43NzItLjc2M2g0Ljk3M2MtLjE0NC0xLjc2NS0xLjAzMi0yLjc4LTIuNDcyLTIuNzhzLTIuMzYzIDEuMDE1LTIuNTA3IDIuNzhtOC4zOTIuNTA0YzAtMi45NiAxLjY3NC00LjcwNiA0LjQ4Ny00LjcwNiAyLjI5MSAwIDMuODE1IDEuMjE5IDQuMjMgMy4zMDhoLTEuOGMtLjM2Ni0xLjE2NS0xLjItMS44MzctMi40MzYtMS44MzctMS42NjggMC0yLjYzMyAxLjItMi42MzMgMy4yMzYgMCAyLjAzNS45NiAzLjIzNiAyLjYzMyAzLjIzNiAxLjI5IDAgMi4xNi0uNzI3IDIuNDcxLTIuMDE4aDEuODE4Yy0uMzg0IDIuMjE2LTEuOTI2IDMuNDg5LTQuMjgzIDMuNDg5LTIuODEzIDAtNC40ODctMS43NDgtNC40ODctNC43MDdabTE4Ljg1NC0xLjA1djUuNTc3aC0xLjgxOHYtNS41MjNjMC0xLjQxNy0uNzgtMi4yMzMtMi4xMDUtMi4yMzMtMS40ODggMC0yLjM4MiAxLjA1Ni0yLjM4MiAyLjgzNHY0LjkyMmgtMS44MTdWMzYuMDgzaDEuODE3djguMDg3aC4wMzZjMC0yLjA5IDEuMTI4LTMuMzI2IDMuMDM2LTMuMzI2IDIuMDMzIDAgMy4yMzMgMS4zNjMgMy4yMzMgMy42NW0xMC42NzguMDA2djUuNTc3aC0xLjgxOHYtNS41MjNjMC0xLjQxNy0uNzgtMi4yMzMtMi4xMDYtMi4yMzMtMS40ODcgMC0yLjM4MSAxLjA1Ni0yLjM4MSAyLjgzNHY0LjkyMkgxMTAuN1Y0MS4wM2gxLjgxOHYzLjE0NmguMDM2YzAtMi4wOSAxLjEyOC0zLjMyNiAzLjAyOS0zLjMyNiAyLjAzNCAwIDMuMjM0IDEuMzYzIDMuMjM0IDMuNjVtMi41NjctNy40MTRoMS44MTh2Mi4wNTNoLTEuODE4di0yLjA1M1ptMCAzLjk0NGgxLjgxOHY5LjA1M2gtMS44MThWNDEuMDNabTMuOTU5IDQuNTJjMC0yLjk2IDEuNjc0LTQuNzA2IDQuNDg3LTQuNzA2IDIuMjg2IDAgMy44MTUgMS4yMTkgNC4yMjkgMy4zMDhoLTEuNzk5Yy0uMzY2LTEuMTY1LTEuMi0xLjgzNy0yLjQzNi0xLjgzNy0xLjY3MyAwLTIuNjMzIDEuMi0yLjYzMyAzLjIzNiAwIDIuMDM1Ljk2IDMuMjM2IDIuNjMzIDMuMjM2IDEuMjkgMCAyLjE2LS43MjcgMi40NzItMi4wMThoMS44MTdjLS4zODQgMi4yMTYtMS45MjUgMy40ODktNC4yODMgMy40ODktMi44MTMgMC00LjQ4Ny0xLjc0OC00LjQ4Ny00LjcwN1oiIGZpbGw9IiNmZmYiLz48L3N2Zz4=" style="height:38px;width:auto;" alt="Saudia Technic">
   </div>
   <div style="display:flex;flex-direction:column;gap:2px;">
-    <div class="tb-title" style="flex:none;"><span class="tb-desktop-only">SHIFT TURNOVER LOG / SHEET</span><span class="tb-mobile-only">SHIFT LOG</span></div>
-    <div id="tb-dept" class="tb-desktop-only" style="font-size:8px;font-weight:600;color:rgba(255,255,255,.45);letter-spacing:.5px;white-space:nowrap;">AIRCRAFT HEAVY MAINTENANCE · SPV CABIN</div>
+    <div class="tb-title" style="flex:none;">SHIFT TURNOVER LOG / SHEET</div>
+    <div id="tb-dept" style="font-size:8px;font-weight:600;color:rgba(255,255,255,.45);letter-spacing:.5px;white-space:nowrap;">AIRCRAFT HEAVY MAINTENANCE · SPV CABIN</div>
   </div>
   <div class="tb-btns">
     
     
     
-    <button class="tbtn save" onclick="saveEntry()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0;"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg><span class="tb-desktop-only"> SAVE TO LOG</span><span class="tb-mobile-only"> SAVE</span></button>
-    <button class="tbtn" onclick="confirmReset()" style="background:rgba(220,38,38,.15);border-color:rgba(220,38,38,.3);color:#FCA5A5;" title="RESET SHIFT ENTRY">↺ <span class="tb-desktop-only">RESET</span></button>
-  <div class="tb-desktop-only" style="display:flex;align-items:center;gap:4px;border-left:1px solid var(--border);padding-left:10px;margin-left:4px;">
+    <button class="tbtn save" onclick="saveEntry()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0;"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg> SAVE TO LOG</button>
+    <button class="tbtn" onclick="confirmReset()" style="background:rgba(220,38,38,.15);border-color:rgba(220,38,38,.3);color:#FCA5A5;" title="RESET SHIFT ENTRY">↺ RESET</button>
+  <div class="tb-hide-mobile" style="display:flex;align-items:center;gap:4px;border-left:1px solid var(--border);padding-left:10px;margin-left:4px;">
     <span style="font-size:9px;font-weight:700;letter-spacing:1px;color:var(--muted);">ZOOM</span>
     <button class="tbtn" id="se-scale-down" onclick="changeShiftScale(-1);changeRosterScale(-1)" style="font-size:13px;padding:2px 8px;min-width:0;line-height:1;" title="Zoom Out">−</button>
     <span id="se-scale-label" style="font-size:11px;font-weight:800;min-width:40px;text-align:center;color:var(--text);background:var(--white);border:1.5px solid var(--accent);border-radius:4px;padding:2px 6px;cursor:default;font-family:'BwGradual', sans-serif;" title="Current zoom level">100%</span>
     <button class="tbtn" id="se-scale-up" onclick="changeShiftScale(+1)" style="font-size:13px;padding:2px 8px;min-width:0;line-height:1;" title="Zoom In">+</button>
   </div>
-  <div class="tb-desktop-only" style="display:flex;align-items:center;gap:6px;border-left:1px solid var(--border);padding-left:10px;margin-left:2px;" title="Adjust layout width">
+  <div class="tb-hide-mobile" style="display:flex;align-items:center;gap:6px;border-left:1px solid var(--border);padding-left:10px;margin-left:2px;" title="Adjust layout width">
     <span style="font-size:9px;font-weight:700;letter-spacing:1px;color:var(--muted);">WIDTH</span>
     <input type="range" id="layout-width-slider" min="600" max="1800" value="1400" step="50"
       oninput="applyLayoutWidth(this.value)"
@@ -4550,6 +4527,22 @@ async function exportImage(mode='normal'){
 
   // Shared clone preparation
   function prepareClone(cloneDoc, mobileMode){
+    // ── Force desktop layout in exported clone ──────────────
+    const forceDesktop = cloneDoc.createElement('style');
+    forceDesktop.textContent = [
+      // إلغاء كل الـ mobile CSS
+      '.tb-hide-mobile{display:flex !important;}',
+      '.info-grid{grid-template-columns:1fr 1fr 1fr 1fr !important;}',
+      '.mp-grid{columns:3 !important;}',
+      '.bottom-grid{grid-template-columns:1fr 1fr !important;}',
+      '.topbar{height:50px !important;flex-wrap:nowrap !important;overflow:visible !important;padding:0 24px !important;}',
+      '.rm-prn-col{display:table-cell !important;}',
+      '.rm-pos-col{display:table-cell !important;}',
+      '.rm-day-cell{min-width:26px !important;max-width:26px !important;width:26px !important;font-size:9px !important;}',
+      'input,select,textarea{font-size:12px !important;}',
+    ].join('');
+    cloneDoc.head.appendChild(forceDesktop);
+    // ────────────────────────────────────────────────────────
     const hideSelectors='button,.mp-drag,.mp-del,.mp-add,.acft-del,.t-del,.t-rows-ctrl,.task-controls,.custom-type-wrap,.acft-caret,.crit-toggle,.add-acft-btn,.tab-nav,.topbar,.mp-ac,.fmt-bar,.sig-block,#crit-aog-fmtbar,#crit-note-fmtbar,.supv-tag-add-mp,.no-print';
     // ── السوبرفايزر: أضف MHR جنب الاسم في الـ supv-tags ──
     if(_mhOn){
@@ -4718,8 +4711,7 @@ async function exportImage(mode='normal'){
     const _lastVis=_visCards[_visCards.length-1];
     const _visH=_lastVis ? Math.ceil(_lastVis.getBoundingClientRect().bottom - _pRect.top)+20 : panel.scrollHeight;
     html2canvas(panel,{
-      scale: window.innerWidth < 768 ? Math.min(2, dpr*1.5) : Math.max(4,dpr*2),
-      backgroundColor:'#F4F6F8', useCORS:true, allowTaint:true,
+      scale: Math.max(4,dpr*2), backgroundColor:'#F4F6F8', useCORS:true, allowTaint:true,
       scrollY:-window.scrollY, height:_visH,
       onclone:(cloneDoc)=>prepareClone(cloneDoc, false)
     }).then(canvas=>{
