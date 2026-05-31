@@ -377,6 +377,7 @@ async function submitAll() {
   if (!valid.length) { showToast('Add at least one finding'); return; }
 
   hideArea('main-area');
+  await new Promise(r => setTimeout(r, 200));
   showArea('sending-area');
 
   const now  = new Date();
@@ -603,7 +604,7 @@ const _origShowSuccess = showSuccess;
 window.showSuccess = function(reporter, count, snap) {
   localStorage.removeItem(SAVE_KEY);
   _origShowSuccess(reporter, count, snap);
-  setTimeout(() => generateReport(reporter, count, snap), 600);
+  setTimeout(() => generateReport(reporter, count, snap), 400);
 };
 
 // ── Aircraft config ──────────────────────────────────────────────────────────
@@ -849,15 +850,11 @@ function generateReport(reporter, count, snap) {
   btn.textContent = totalPages > 1 ? 'SAVE ALL (' + totalPages + ' IMAGES)' : 'SAVE AS IMAGE';
   btn.style.cssText = 'width:100%;margin-top:10px;padding:11px;background:#0F2920;color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:800;cursor:pointer;letter-spacing:1px;text-transform:uppercase;font-family:BwGradualEB,Arial,sans-serif';
   btn.onclick = saveReportImage;
-
-  const btn2 = document.createElement('button');
-  btn2.textContent = 'SAVE AS TABLE';
-  btn2.style.cssText = 'width:100%;margin-top:6px;padding:11px;background:transparent;color:#0F2920;border:1.5px solid #0F2920;border-radius:8px;font-size:12px;font-weight:800;cursor:pointer;letter-spacing:1px;text-transform:uppercase;font-family:BwGradualEB,Arial,sans-serif';
-  btn2.onclick = saveTextReport;
-
   wrap.appendChild(btn);
-  wrap.appendChild(btn2);
   successArea.appendChild(wrap);
+
+  // Build table inline — no extra click needed
+  setTimeout(() => saveTextReport(), 50);
 }
 
 
