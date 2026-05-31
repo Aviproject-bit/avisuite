@@ -1452,6 +1452,12 @@ function addTask(acftId, type='C/W', text=''){
     <button class="t-del" onclick="this.closest('.task-row').remove()" title="DELETE">✕</button>`;
   list.appendChild(row);
   updateTaskType(row.querySelector('.t-type'));
+  // Fix mobile keyboard autocomplete: track IME composition state
+  const desc = row.querySelector('.t-desc');
+  if(desc){
+    desc.addEventListener('compositionstart', ()=>{ desc._composing=true; });
+    desc.addEventListener('compositionend',   ()=>{ desc._composing=false; highlightKeywords(desc); });
+  }
 }
 
 function setActiveFmtBar(descEl){
@@ -1502,6 +1508,8 @@ function fmtFontSize(delta){
 
 
 function highlightKeywords(el){
+  // Skip during IME composition (mobile keyboard autocomplete/suggestions)
+  if(el._composing) return;
   // Triggered on every input - but only do expensive DOM work on space
   // The _lastKey is set by handleDescKey keydown (fires before input)
   if(el._lastKey === ' '){
@@ -3846,7 +3854,7 @@ function loadRoster(){
     const pa=prnSort(findPrn(a.name)), pb=prnSort(findPrn(b.name));
     return pa!==pb?pa-pb:findPrn(a.name).localeCompare(findPrn(b.name));
   });
-  if(sortedSupvs.length) setSupvNames(sortedSupvs.map(m=>m.name));
+  setSupvNames(sortedSupvs.map(m=>m.name)); // always clear + refill (handles empty shift)
   staff.forEach(m=>addMpRow(m.name, STATUS_MAP[m.shiftCode]||'P'));
   _autoFilled = true;
   showToast(`${crew.length} CREW LOADED ✓`);
@@ -10085,6 +10093,246 @@ function exportSkillsMatrix(){
 })();
 
 /* ══ MOBILE EXPORT SHEET JS ══════════════════════════════ */
+/* ══ CUSTOM TURNOVER EXPORT PAGE ══════════════════════ */
+function openTurnoverExport(){
+  // ── Read all form data ──
+  const date    = document.getElementById('f-date').value || '';
+  const spec    = document.getElementById('f-spec').value || '';
+  const shift   = document.getElementById('f-shift').value || '';
+  const safety  = document.getElementById('safety-cb').checked;
+  const org     = (typeof ORG_NAME!=='undefined'?ORG_NAME:localStorage.getItem('org_name')||'SAUDIA TECHNIC');
+  const dept    = (typeof DEPT_NAME!=='undefined'?DEPT_NAME:localStorage.getItem('dept_name')||'SPV CABIN');
+
+  // Date formatted
+  const dateLabel = date ? new Date(date+'T00:00:00').toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'}).toUpperCase() : '—';
+
+  // Supervisors
+  const supvs = [...document.querySelectorAll('.supv-tags-wrap .supv-tag')].map(t=>({
+    name:   (t.querySelector('.supv-tag-name')||{}).textContent?.trim()||'',
+    status: (t.querySelector('.supv-tag-status')||{}).textContent?.replace('▾','').trim()||'REGULAR',
+    mhr:    (()=>{ const n=(t.querySelector('.supv-tag-name')||{}).textContent?.trim().toUpperCase()||'';
+                   const sc=[...document.querySelectorAll('#mp-grid .mp-supv-cell')].find(c=>(c.querySelector('.mp-in')||{}).value?.trim().toUpperCase()===n);
+                   return sc?(sc.querySelector('.mp-mh')||{}).value?.trim()||'':''; })()
+  }));
+
+  // Man power (non-supv)
+  const mpRows = [...document.querySelectorAll('#mp-grid .mp-cell:not(.mp-supv-cell)')].map((c,i)=>({
+    num:    i+1,
+    name:   (c.querySelector('.mp-in')||{}).value?.trim()||'',
+    status: (c.querySelector('.mp-st')||{}).value||'P',
+    mhr:    _mhOn ? (c.querySelector('.mp-mh')||{}).value?.trim()||'' : ''
+  })).filter(r=>r.name);
+
+  // Aircraft
+  const aircraft = [...document.querySelectorAll('.acft-block')].map(a=>({
+    reg:   (a.querySelector('.acft-reg-in')||{}).value?.trim()||'',
+    tasks: [...a.querySelectorAll('.task-row')].map(r=>({
+      type: (r.querySelector('.t-type')||{}).value||'',
+      html: (r.querySelector('.t-desc')||{}).innerHTML||''
+    }))
+  })).filter(a=>a.reg);
+
+  // General notes
+  const genNotes = (document.getElementById('gen-notes-desc')||{}).innerHTML||'';
+  const hasGenNotes = (document.getElementById('gen-notes-desc')||{}).innerText?.trim();
+
+  // Critical sections
+  const aogHTML  = (document.getElementById('crit-aog-edit')||{}).innerHTML||'';
+  const noteHTML = (document.getElementById('crit-note-edit')||{}).innerHTML||'';
+  const hasAOG   = (document.getElementById('crit-aog-edit')||{}).innerText?.trim();
+  const hasNote  = (document.getElementById('crit-note-edit')||{}).innerText?.trim();
+
+  // Tools & Housekeeping
+  const toolsOk  = (document.getElementById('tools-ok')||{}).checked;
+  const hkArea   = (document.getElementById('hk-area')||{}).checked;
+  const hkEquip  = (document.getElementById('hk-equip')||{}).checked;
+  const hkVehicle= (document.getElementById('hk-vehicle')||{}).checked;
+  const hkAck    = getRadio('ack-hk');
+  const hkExplain= (document.getElementById('ack-explain')||{}).value?.trim()||'';
+  const sigCur   = (document.getElementById('sig-current')||{}).value?.trim()||'';
+  const sigNext  = (document.getElementById('sig-next')||{}).value?.trim()||'';
+
+  // ── Status colours ──
+  const ST_BG  = {P:'#DEF7EC',A:'#FDE8E8',S:'#FEF3C7',L:'#FEF3C7',OT:'#FFF7ED',TR:'#EDEBFE',OS:'#E1EFFE',V:'#F3F4F6'};
+  const ST_FG  = {P:'#057A55',A:'#C81E1E',S:'#B45309',L:'#B45309',OT:'#1A56DB',TR:'#5521B5',OS:'#1A56DB',V:'#4B5E70'};
+  const TYPE_COLORS = {'STATUS':'#EFF6FF|#93C5FD|#1D4ED8','C/W':'#DEF7EC|#84E1BC|#057A55','TO DO':'#FEF3C7|#FBBF24|#B45309','F/UP':'#E1EFFE|#93C5FD|#1A56DB','I/W':'#FEF0E6|#FDBA74|#C2410C','NOTE':'#EDEBFE|#C4B5FD|#5521B5'};
+
+  const _stBadge=(st)=>`<span style="background:${ST_BG[st]||'#F3F4F6'};color:${ST_FG[st]||'#4B5E70'};font-weight:800;font-size:10px;padding:2px 7px;border-radius:3px;">${st}</span>`;
+  const _mhrBadge=(v)=>v?`<span style="background:#1D4ED8;color:#fff;font-size:10px;font-weight:800;padding:2px 8px;border-radius:10px;margin-left:6px;">${v}</span>`:'';
+
+  // ── Build HTML ──
+  const W=1100;
+  const COL='#0F2920', BORDER='#C8D0DA', MUTED='#8898A8', TEXT='#1C2B3A';
+
+  let body = '';
+
+  // Shift Info section
+  body += `<div style="background:#fff;border:1px solid ${BORDER};border-radius:8px;margin-bottom:12px;overflow:hidden;">
+  <div style="background:${COL};padding:8px 16px;"><span style="font-weight:700;font-size:11px;letter-spacing:3px;color:rgba(255,255,255,.8);text-transform:uppercase;">SHIFT INFORMATION</span></div>
+  <div style="padding:14px 16px;">
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;margin-bottom:12px;">
+      <div><div style="font-size:9px;font-weight:700;letter-spacing:2px;color:${MUTED};margin-bottom:4px;">DATE</div><div style="font-weight:700;font-size:14px;">${dateLabel}</div></div>
+      <div><div style="font-size:9px;font-weight:700;letter-spacing:2px;color:${MUTED};margin-bottom:4px;">SPECIALTY</div><div style="font-weight:700;font-size:14px;">${spec||'—'}</div></div>
+      <div><div style="font-size:9px;font-weight:700;letter-spacing:2px;color:${MUTED};margin-bottom:4px;">SHIFT</div><div style="font-weight:700;font-size:14px;">${shift||'—'}</div></div>
+      <div><div style="font-size:9px;font-weight:700;letter-spacing:2px;color:${MUTED};margin-bottom:4px;">SUPERVISOR NAME(S)</div>
+        <div style="display:flex;flex-wrap:wrap;gap:4px;">
+          ${supvs.length ? supvs.map(s=>`<div style="background:${COL};color:#fff;font-weight:700;font-size:11px;padding:3px 10px;border-radius:4px;display:inline-flex;align-items:center;gap:6px;">
+            ${s.name}
+            <span style="font-size:8px;background:rgba(255,255,255,.15);padding:1px 5px;border-radius:3px;">${s.status}</span>
+            ${_mhrBadge(s.mhr)}
+          </div>`).join('') : '<span style="color:'+MUTED+'">—</span>'}
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;padding-top:10px;border-top:1px solid ${BORDER};">
+      <div style="width:36px;height:20px;background:${safety?'#057A55':'#CBD5E0'};border-radius:10px;position:relative;flex-shrink:0;">
+        <div style="position:absolute;width:14px;height:14px;background:#fff;border-radius:50%;top:3px;left:${safety?'19px':'3px'};box-shadow:0 1px 3px rgba(0,0,0,.2);"></div>
+      </div>
+      <span style="font-size:10px;font-weight:700;letter-spacing:1.5px;color:${TEXT};">SHIFT SAFETY BRIEFING ${safety?'CONDUCTED':'NOT CONDUCTED'}</span>
+    </div>
+  </div></div>`;
+
+  // Man Power section
+  if(mpRows.length){
+    body += `<div style="background:#fff;border:1px solid ${BORDER};border-radius:8px;margin-bottom:12px;overflow:hidden;">
+    <div style="background:${COL};padding:8px 16px;"><span style="font-weight:700;font-size:11px;letter-spacing:3px;color:rgba(255,255,255,.8);">MAN POWER</span></div>
+    <div style="padding:14px 16px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+        ${mpRows.map(r=>`<div style="display:flex;align-items:center;gap:6px;background:#F4F6F8;border:1px solid ${BORDER};border-radius:5px;padding:6px 10px;">
+          <span style="font-size:10px;color:${MUTED};min-width:18px;text-align:right;font-weight:700;">${r.num}</span>
+          <span style="flex:1;font-weight:700;font-size:13px;">${r.name}</span>
+          ${_stBadge(r.status)}
+          ${_mhrBadge(r.mhr)}
+        </div>`).join('')}
+      </div>
+    </div></div>`;
+  }
+
+  // Aircraft sections
+  aircraft.forEach(a=>{
+    if(!a.reg) return;
+    body += `<div style="background:#fff;border:1px solid ${BORDER};border-radius:8px;margin-bottom:12px;overflow:hidden;">
+    <div style="background:#F4F6F8;border-bottom:1px solid ${BORDER};padding:8px 16px;display:flex;align-items:center;gap:10px;">
+      <span style="background:${COL};color:#fff;border-radius:5px;padding:3px 7px;font-size:14px;font-weight:800;">✈</span>
+      <span style="font-family:sans-serif;font-weight:800;font-size:24px;letter-spacing:3px;color:${COL};border-bottom:3px solid #1A56DB;">${a.reg}</span>
+    </div>
+    <div style="padding:10px 16px 14px;">
+      ${a.tasks.filter(t=>t.html&&t.html.trim()&&t.html!=='<br>').map(t=>{
+        const c=(TYPE_COLORS[t.type]||'#F3F4F6|#D1D5DB|#4B5E70').split('|');
+        return `<div style="display:grid;grid-template-columns:88px 1fr;gap:8px;margin-bottom:6px;align-items:start;">
+          <div style="background:${c[0]};border:1px solid ${c[1]};color:${c[2]};font-weight:700;font-size:11px;padding:5px 8px;border-radius:4px;text-align:center;">${t.type}</div>
+          <div style="background:#fff;border:1px solid ${BORDER};border-left:3px solid ${c[1]};border-radius:5px;padding:8px 12px;font-size:14px;font-weight:600;line-height:1.6;text-transform:uppercase;">${t.html}</div>
+        </div>`;
+      }).join('')}
+    </div></div>`;
+  });
+
+  // General Notes
+  if(hasGenNotes){
+    body += `<div style="background:#fff;border:1px solid ${BORDER};border-radius:8px;margin-bottom:12px;overflow:hidden;">
+    <div style="background:${COL};padding:8px 16px;"><span style="font-weight:700;font-size:11px;letter-spacing:3px;color:rgba(255,255,255,.8);">GENERAL NOTES</span></div>
+    <div style="padding:12px 16px;font-size:14px;font-weight:600;line-height:1.6;text-transform:uppercase;">${genNotes}</div>
+    </div>`;
+  }
+
+  // Critical AOG
+  if(hasAOG){
+    body += `<div style="background:#7B1D1D;border-radius:8px;margin-bottom:12px;overflow:hidden;">
+    <div style="padding:10px 16px;display:flex;align-items:center;gap:8px;">
+      <span style="font-weight:700;font-size:11px;letter-spacing:2.5px;color:#fff;">⚠ CRITICAL AOG</span></div>
+    <div style="background:#fff;padding:12px 16px;font-size:14px;font-weight:600;line-height:1.6;">${aogHTML}</div>
+    </div>`;
+  }
+
+  // Critical Note
+  if(hasNote){
+    body += `<div style="background:#1E429F;border-radius:8px;margin-bottom:12px;overflow:hidden;">
+    <div style="padding:10px 16px;"><span style="font-weight:700;font-size:11px;letter-spacing:2.5px;color:#fff;">📋 CRITICAL NOTE</span></div>
+    <div style="background:#fff;padding:12px 16px;font-size:14px;font-weight:600;line-height:1.6;">${noteHTML}</div>
+    </div>`;
+  }
+
+  // Tools + Housekeeping
+  const _chk=(v,lbl)=>`<div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;">
+    <div style="width:16px;height:16px;border:2px solid ${v?'#1A56DB':BORDER};border-radius:3px;background:${v?'#1A56DB':'#fff'};display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+      ${v?'<span style="color:#fff;font-size:10px;font-weight:800;">✓</span>':''}
+    </div><span style="font-size:11px;font-weight:600;letter-spacing:1px;">${lbl}</span></div>`;
+  body += `<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+    <div style="background:#fff;border:1px solid ${BORDER};border-radius:8px;overflow:hidden;">
+      <div style="background:${COL};padding:8px 16px;"><span style="font-weight:700;font-size:11px;letter-spacing:3px;color:rgba(255,255,255,.8);">TOOLS ACCOUNTABILITY</span></div>
+      <div style="padding:12px 16px;">${_chk(toolsOk,'ALL TOOLS ACCOUNTED FOR')}</div>
+    </div>
+    <div style="background:#fff;border:1px solid ${BORDER};border-radius:8px;overflow:hidden;">
+      <div style="background:${COL};padding:8px 16px;"><span style="font-weight:700;font-size:11px;letter-spacing:3px;color:rgba(255,255,255,.8);">HOUSEKEEPING</span></div>
+      <div style="padding:12px 16px;">${_chk(hkArea,'WORK AREA')}${_chk(hkEquip,'EQUIPMENT')}${_chk(hkVehicle,'VEHICLE')}</div>
+    </div>
+  </div>`;
+
+  // Next Shift Acknowledgement
+  body += `<div style="background:#fff;border:1px solid ${BORDER};border-radius:8px;margin-bottom:12px;overflow:hidden;">
+  <div style="background:${COL};padding:8px 16px;"><span style="font-weight:700;font-size:11px;letter-spacing:3px;color:rgba(255,255,255,.8);">NEXT SHIFT SUPV. — TURNOVER ACKNOWLEDGEMENT</span></div>
+  <div style="padding:12px 16px;display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+    <div>
+      <div style="font-size:9px;font-weight:700;letter-spacing:2px;color:${MUTED};margin-bottom:6px;">HOUSEKEEPING ACCEPTABLE?</div>
+      <div style="display:flex;gap:16px;">
+        ${['yes','no'].map(v=>`<div style="display:flex;align-items:center;gap:6px;">
+          <div style="width:14px;height:14px;border-radius:50%;border:2px solid ${hkAck===v?'#1A56DB':BORDER};background:${hkAck===v?'#1A56DB':'#fff'};flex-shrink:0;"></div>
+          <span style="font-size:11px;font-weight:600;">${v.toUpperCase()}</span>
+        </div>`).join('')}
+      </div>
+      ${hkAck==='no'&&hkExplain?`<div style="margin-top:8px;font-size:11px;color:${TEXT};">${hkExplain}</div>`:''}
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <div>
+        <div style="font-size:9px;font-weight:700;letter-spacing:2px;color:${MUTED};margin-bottom:6px;">CURRENT SHIFT SUPV.</div>
+        <div style="border-bottom:1px solid #777;padding-bottom:4px;min-height:28px;font-size:12px;font-weight:700;">${sigCur}</div>
+      </div>
+      <div>
+        <div style="font-size:9px;font-weight:700;letter-spacing:2px;color:${MUTED};margin-bottom:6px;">NEXT SHIFT SUPV.</div>
+        <div style="border-bottom:1px solid #777;padding-bottom:4px;min-height:28px;font-size:12px;font-weight:700;">${sigNext}</div>
+      </div>
+    </div>
+  </div></div>`;
+
+  // ── Build full HTML document ──
+  const logoB64 = (document.querySelector('.tb-brand img')||{}).src||'';
+  const html = `<!DOCTYPE html><html><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TURNOVER — ${shift} ${dateLabel}</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:#E8ECF0;font-family:Arial,'Helvetica Neue',sans-serif;padding:0;}
+.page{width:${W}px;margin:0 auto;padding:16px;}
+@media print{body{background:#fff;}.page{width:100%;padding:8mm;}}
+@media(max-width:${W+40}px){.page{width:100%;}}
+</style></head>
+<body><div class="page">
+<div style="background:#0F2920;padding:10px 20px;border-radius:8px 8px 0 0;display:flex;align-items:center;gap:14px;margin-bottom:0;">
+  <img src="${logoB64}" style="height:36px;width:auto;" alt="Saudia Technic">
+  <div style="width:1px;height:28px;background:rgba(255,255,255,.25);"></div>
+  <div>
+    <div style="font-size:7px;letter-spacing:3px;color:rgba(255,255,255,.5);">SHIFT TURNOVER LOG</div>
+    <div style="font-size:13px;font-weight:800;color:#fff;">${org}${dept?' · '+dept:''}</div>
+  </div>
+  <div style="margin-left:auto;text-align:right;">
+    <div style="font-size:20px;font-weight:800;color:#fff;letter-spacing:1px;">${shift}</div>
+    <div style="font-size:10px;color:rgba(255,255,255,.6);">${dateLabel}</div>
+  </div>
+</div>
+<div style="background:#fff;padding:12px 16px 16px;border-radius:0 0 8px 8px;margin-bottom:16px;">
+</div>
+${body}
+<div style="text-align:center;padding:12px;font-size:9px;color:#8898A8;letter-spacing:1px;">
+  GENERATED ${new Date().toLocaleString('en-GB').toUpperCase()} · SAUDIA TECHNIC SPV CABIN
+</div>
+</div></body></html>`;
+
+  const w = window.open('','_blank','width=1140,height=900');
+  if(!w){ showToast('ALLOW POPUPS TO OPEN EXPORT'); return; }
+  w.document.write(html);
+  w.document.close();
+}
+
 function showMobileExport(){
   document.getElementById('mob-export-sheet')?.remove();
   const activeTab = document.querySelector('.tab-btn.active')?.textContent?.trim() || '';
@@ -10110,7 +10358,7 @@ function showMobileExport(){
       <div class="mob-sheet-title">EXPORT</div>
       ${!isRoster ? `
       <div class="mob-sheet-sep">SHIFT ENTRY</div>
-      ${_btn(_img,'TURNOVER IMAGE','Full-width desktop layout · PNG',"exportImage('normal')")}
+      ${_btn(_img,'TURNOVER PAGE','Clean export — full desktop layout',"openTurnoverExport()")}
       ${_btn(_bar,'MHR REPORT','Production manhours image',"exportMhrReport()")}
       ${_btn(_xls,'MHR → EXCEL','Manhours spreadsheet',"exportMhrExcel()")}
       ${_btn(_xls,'EXCEL / CSV','Full shift data',"exportCSV()")}
