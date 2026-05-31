@@ -66,7 +66,7 @@ select{font-family:'BwGradual',sans-serif;text-transform:uppercase}
 .success p{font-size:14px;color:#666;margin-bottom:24px;font-family:'BwGradual',sans-serif}
 .success-stats{background:#F0F5F2;border-radius:10px;padding:14px;margin-bottom:20px;font-size:14px;color:#0F2920;font-family:'BwGradual',sans-serif}
 .new-session-btn{padding:12px 28px;background:#0F2920;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:800;cursor:pointer;font-family:'BwGradualEB',sans-serif;letter-spacing:.5px}
-.sending{display:none;text-align:center;padding:60px 20px;min-height:200px;justify-content:center;align-items:center;flex-direction:column}
+.sending{display:none;text-align:center;padding:0 20px;min-height:60vh;justify-content:center;align-items:center;flex-direction:column}
 .sending-spinner{width:40px;height:40px;border:3px solid #E0E0D8;border-top-color:#0F2920;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px}
 @keyframes spin{to{transform:rotate(360deg)}}
 .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(80px);background:#0F2920;color:#fff;padding:10px 20px;border-radius:20px;font-size:13px;transition:transform .3s;z-index:999;white-space:nowrap;font-family:'BwGradualEB',sans-serif;letter-spacing:.5px}
@@ -844,7 +844,7 @@ function generateReport(reporter, count, snap) {
     }
   }
 
-  // Buttons
+  // SAVE AS IMAGE button
   const btn = document.createElement('button');
   btn.textContent = totalPages > 1 ? 'SAVE ALL (' + totalPages + ' IMAGES)' : 'SAVE AS IMAGE';
   btn.style.cssText = 'width:100%;margin-top:10px;padding:11px;background:#0F2920;color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:800;cursor:pointer;letter-spacing:1px;text-transform:uppercase;font-family:BwGradualEB,Arial,sans-serif';
@@ -852,8 +852,13 @@ function generateReport(reporter, count, snap) {
   wrap.appendChild(btn);
   successArea.appendChild(wrap);
 
-  // Build table preview inline
-  setTimeout(() => _buildTablePreview(validFindings, successArea), 50);
+  // Divider
+  const divider = document.createElement('div');
+  divider.style.cssText = 'height:1px;background:#E0E0D8;margin:16px 0';
+  successArea.appendChild(divider);
+
+  // Table preview + SAVE AS TABLE — shown immediately
+  _buildTablePreview(validFindings, successArea);
 }
 
 
