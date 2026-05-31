@@ -71,6 +71,11 @@ select{font-family:'BwGradual',sans-serif;text-transform:uppercase}
 @keyframes spin{to{transform:rotate(360deg)}}
 .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(80px);background:#0F2920;color:#fff;padding:10px 20px;border-radius:20px;font-size:13px;transition:transform .3s;z-index:999;white-space:nowrap;font-family:'BwGradualEB',sans-serif;letter-spacing:.5px}
 .toast.show{transform:translateX(-50%) translateY(0)}
+
+  @keyframes cardIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+  .finding-card { animation: cardIn 0.2s ease forwards; }
+  #empty-state { transition: opacity 0.2s ease; }
+  #success-area, #sending-area { transition: opacity 0.3s ease; }
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
@@ -90,11 +95,16 @@ select{font-family:'BwGradual',sans-serif;text-transform:uppercase}
   <div id="main-area">
     <div style="height:12px"></div>
     <div class="findings-list" id="findings-list"></div>
+    <div id="empty-state" style="text-align:center;padding:28px 16px 20px;border:1.5px dashed;border-color:var(--clr-border);border-radius:12px;margin-bottom:4px;transition:opacity .3s">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#8A9E96" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:8px"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg>
+      <div style="font-size:14px;font-weight:500;color:#8A9E96;margin-bottom:4px">No findings yet</div>
+      <div style="font-size:12px;color:#AEAAA0">Tap below to add your first finding</div>
+    </div>
     <button class="add-btn" onclick="addFinding()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> ADD FINDING</button>
     <div class="submit-section">
       <div class="field reporter-field">
         <label>By <span class="req">*</span></label>
-        <input type="text" id="reporter" placeholder="PRN/NAME" autocomplete="name" autocorrect="off" autocapitalize="characters" spellcheck="false" oninput="this.value=this.value.toUpperCase();localStorage.setItem('ak35_reporter_name',this.value)">
+        <input type="text" id="reporter" placeholder="Enter your PRN / Name..." autocomplete="name" autocorrect="off" autocapitalize="characters" spellcheck="false" oninput="this.value=this.value.toUpperCase();localStorage.setItem('ak35_reporter_name',this.value)">
       </div>
       <button class="submit-btn" id="submit-btn" onclick="submitAll()" disabled><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> SUBMIT ALL FINDINGS</button>
       <div class="submit-note" id="submit-note">Add at least one finding to submit</div>
@@ -149,6 +159,8 @@ function removeFinding(id) {
 
 function renderFindings() {
   const list = document.getElementById('findings-list');
+  const empty = document.getElementById('empty-state');
+  if (empty) empty.style.display = findings.length === 0 ? 'block' : 'none';
   list.innerHTML = findings.map((f, idx) => `
     <div class="finding-card" id="card-${f.id}">
       <div class="finding-card-header" onclick="toggleCard(${f.id})">
@@ -364,8 +376,8 @@ async function submitAll() {
   const valid = findings;
   if (!valid.length) { showToast('Add at least one finding'); return; }
 
-  document.getElementById('main-area').style.display = 'none';
-  document.getElementById('sending-area').style.display = 'block';
+  hideArea('main-area');
+  showArea('sending-area');
 
   const now  = new Date();
   const date = now.toLocaleDateString('en-GB');
@@ -410,24 +422,42 @@ async function submitAll() {
     }))
   };
 
-  // 3. Send via GET
+  // 3. Send via GET with retry
+  const MAX_RETRIES = 3;
+  const RETRY_DELAY = 3000;
+  let lastErr;
   try {
     const dataParam = encodeURIComponent(JSON.stringify(payload));
-    const res = await fetch(FLOW_URL + '?data=' + dataParam);
-    const result = await res.json();
-    if (result.status !== 'success') throw new Error(result.message || 'Error');
-    showSuccess(reporter, valid.length, valid);
+    let success = false;
+    for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+      try {
+        const res = await fetch(FLOW_URL + '?data=' + dataParam);
+        const result = await res.json();
+        if (result.status !== 'success') throw new Error(result.message || 'Error');
+        success = true;
+        showSuccess(reporter, valid.length, valid);
+        success = true;
+        break;
+      } catch(e) {
+        lastErr = e;
+        if (attempt < MAX_RETRIES) {
+          showToast(`Retrying... (${attempt}/${MAX_RETRIES - 1})`);
+          await new Promise(r => setTimeout(r, RETRY_DELAY));
+        }
+      }
+    }
+    if (!success) throw lastErr;
   } catch(err) {
-    document.getElementById('sending-area').style.display = 'none';
-    document.getElementById('main-area').style.display = 'block';
+    hideArea('sending-area');
+    showArea('main-area');
     showToast('Error: ' + err.message);
   }
 }
 
 
 function showSuccess(reporter, count) {
-  document.getElementById('sending-area').style.display = 'none';
-  document.getElementById('success-area').style.display = 'block';
+  hideArea('sending-area');
+  showArea('success-area');
   const date = new Date().toLocaleDateString('en-GB');
   const time = new Date().toLocaleTimeString('en-GB', {hour:'2-digit',minute:'2-digit'});
   document.getElementById('success-stats').innerHTML =
@@ -495,8 +525,8 @@ function resetAll() {
   nextId = 1;
   document.getElementById('findings-list').innerHTML = '';
   document.getElementById('reporter').value = '';
-  document.getElementById('success-area').style.display = 'none';
-  document.getElementById('main-area').style.display = 'block';
+  hideArea('success-area');
+  showArea('main-area');
   updateUI();
 }
 
@@ -1072,6 +1102,27 @@ function compressImage(dataUrl, maxWidth, quality) {
     img.src = dataUrl;
   });
 }
+
+function showArea(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.style.display = (id === 'sending-area') ? 'flex' : 'block';
+  el.style.opacity = '0';
+  requestAnimationFrame(() => { el.style.opacity = '1'; });
+}
+function hideArea(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.style.opacity = '0';
+  setTimeout(() => { el.style.display = 'none'; }, 250);
+}
+
+
+// Init on load
+window.addEventListener('DOMContentLoaded', function() {
+  renderFindings();
+  updateUI();
+});
 </script>
 </body>
 </html>
