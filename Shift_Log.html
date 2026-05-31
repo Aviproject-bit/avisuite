@@ -433,15 +433,17 @@ input[type=checkbox]:checked+.tog::after{left:21px;}
 
   /* ── Topbar ── */
   .tb-hide-mobile{ display:none !important; }
-  #tb-title-wrap{ display:none !important; }
   .topbar{
-    height:50px !important; flex-wrap:nowrap !important;
-    overflow:hidden !important; padding:0 10px !important; gap:8px !important;
+    height:auto !important; min-height:50px !important;
+    flex-wrap:nowrap !important; overflow:hidden !important;
+    padding:6px 10px !important; gap:8px !important;
   }
-  .tb-brand{ padding-right:0 !important; border-right:none !important; }
-  .tb-brand img{ height:30px !important; }
+  .tb-brand{ padding-right:8px !important; border-right:1px solid rgba(255,255,255,.15) !important; flex-shrink:0; }
+  .tb-brand img{ height:26px !important; }
+  #tb-title-wrap{ display:flex !important; flex-direction:column !important; gap:1px !important; min-width:0; overflow:hidden; flex-shrink:1; }
+  .tb-title{ font-size:8px !important; letter-spacing:1.5px !important; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  #tb-dept{ display:block !important; font-size:7px !important; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
   .tb-btns{ flex-wrap:nowrap !important; flex-shrink:0 !important; margin-left:auto !important; gap:4px !important; }
-  /* Hide Save/Reset from topbar on mobile — they're in the bottom bar */
   .tb-btns .tbtn{ display:none !important; }
 
   /* ── Layout ── */
@@ -631,6 +633,14 @@ input[type=checkbox]:checked+.tog::after{left:21px;}
   .rm-pos-sel{ pointer-events:none !important; font-size:10px !important; }
   .rm-del-btn{ display:none !important; }
   #rm-add-member-btn,#rm-add-crew-btn{ display:none !important; }
+  /* Hide editing toolbar, fill legend, and editing controls on mobile */
+  #rm-edit-toolbar{ display:none !important; }
+  .quick-fill-bar{ display:none !important; }
+  #quals-filter-bar{ display:none !important; }
+  /* Hide Import / Add Month buttons */
+  #rm-import-btn, #rm-addmonth-btn{ display:none !important; }
+  /* Hide drag handles in roster rows */
+  #roster-mgr-wrap span[draggable]{ display:none !important; }
 
   /* ── Log tab ── */
   .log-tbl{ font-size:11px !important; }
@@ -1165,14 +1175,14 @@ input[type=checkbox]:checked+.tog::after{left:21px;}
         <option value="">ALL CREWS</option>
       </select>
       <!-- Excel import -->
-      <label class="tbtn" style="font-size:10px;padding:4px 10px;cursor:pointer;gap:5px;background:rgba(5,150,105,.25);border-color:rgba(5,150,105,.6);color:#D1FAE5;" title="Import from Excel (.xlsx)">
+      <label id="rm-import-btn" class="tbtn" style="font-size:10px;padding:4px 10px;cursor:pointer;gap:5px;background:rgba(5,150,105,.25);border-color:rgba(5,150,105,.6);color:#D1FAE5;" title="Import from Excel (.xlsx)">
         <svg width="11" height="11" viewBox="0 0 20 20" fill="none">
           <rect x="2" y="2" width="16" height="16" rx="2" stroke="currentColor" stroke-width="1.5"/>
           <path d="M6 7l4 6 4-6M10 13V5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
         </svg> IMPORT
         <input type="file" accept=".xlsx,.xls,.csv" style="display:none" onchange="importExcel(this)">
       </label>
-      <button class="tbtn" onclick="openAddDateRange()" style="font-size:10px;padding:4px 10px;" title="Add month">
+      <button id="rm-addmonth-btn" class="tbtn" onclick="openAddDateRange()" style="font-size:10px;padding:4px 10px;" title="Add month">
         <svg width="11" height="11" viewBox="0 0 20 20" fill="none">
           <rect x="2" y="4" width="16" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/>
           <path d="M6 2v4M14 2v4M2 9h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
@@ -1183,7 +1193,7 @@ input[type=checkbox]:checked+.tog::after{left:21px;}
   </div>
 
   <!-- ROW 2: Action toolbar — 4 groups -->
-  <div style="display:flex;gap:3px;flex-wrap:wrap;align-items:center;padding-top:6px;border-top:1px solid rgba(255,255,255,.15);">
+  <div id="rm-edit-toolbar" style="display:flex;gap:3px;flex-wrap:wrap;align-items:center;padding-top:6px;border-top:1px solid rgba(255,255,255,.15);">
 
     <!-- ── GROUP 1: PEOPLE ── -->
     <span style="font-size:7px;font-weight:700;letter-spacing:1.5px;color:rgba(255,255,255,.3);margin-right:1px;">PEOPLE</span>
@@ -3812,10 +3822,10 @@ function sortByCrew(arr){
   });
 }
 
+let _autoFilled = false;
+
 function onShiftChange(){
-  const hasMp   = document.querySelectorAll('#mp-grid .mp-cell').length > 0;
-  const hasSupv = document.querySelectorAll('.supv-tag').length > 0;
-  if(hasMp || hasSupv) loadRoster();
+  if(_autoFilled) loadRoster();
 }
 
 function loadRoster(){
@@ -3838,6 +3848,7 @@ function loadRoster(){
   });
   if(sortedSupvs.length) setSupvNames(sortedSupvs.map(m=>m.name));
   staff.forEach(m=>addMpRow(m.name, STATUS_MAP[m.shiftCode]||'P'));
+  _autoFilled = true;
   showToast(`${crew.length} CREW LOADED ✓`);
 }
 
@@ -4796,15 +4807,45 @@ async function exportImage(mode='normal'){
     // ── Force desktop layout in exported clone ──────────────
     const forceDesktop = cloneDoc.createElement('style');
     forceDesktop.textContent = [
-      // إلغاء كل الـ mobile CSS
+      // ── Reset ALL mobile CSS for clean desktop export ──
+      '#mob-bar{display:none !important;}',
+      '#mob-roster-banner{display:none !important;}',
+      '#mob-export-sheet{display:none !important;}',
+      'body{padding-bottom:0 !important;}',
       '.tb-hide-mobile{display:flex !important;}',
+      '#tb-title-wrap{display:flex !important;}',
+      '.topbar{height:50px !important;flex-wrap:nowrap !important;overflow:visible !important;padding:0 24px !important;gap:14px !important;}',
+      '.tb-brand{padding-right:16px !important;border-right:1px solid rgba(255,255,255,.15) !important;}',
+      '.tb-brand img{height:38px !important;}',
+      '.tb-title{font-size:12px !important;letter-spacing:3px !important;max-width:none !important;}',
+      '.tb-btns .tbtn{display:flex !important;}',
       '.info-grid{grid-template-columns:1fr 1fr 1fr 1fr !important;}',
+      '.info-grid .fg:first-child{grid-column:auto !important;}',
+      '.fg input,.fg select{height:auto !important;padding:7px 10px !important;}',
+      '.supv-tag{font-size:11px !important;padding:3px 8px 3px 10px !important;}',
+      '.supv-tag-in{min-width:80px !important;}',
       '.mp-grid{columns:3 !important;}',
+      '.mp-drag{display:inline !important;}',
+      '.mp-cell{flex-wrap:nowrap !important;padding:5px 7px !important;align-items:center !important;}',
+      '.mp-in{white-space:nowrap !important;overflow:hidden !important;text-overflow:ellipsis !important;font-size:13px !important;}',
+      '.mp-mh-wrap{flex:0 0 auto !important;min-width:0 !important;margin-top:0 !important;padding-left:0 !important;}',
+      '.task-row{display:grid !important;flex-direction:unset !important;grid-template-columns:90px 1fr auto 22px !important;gap:6px !important;margin-bottom:5px !important;align-items:start !important;}',
+      '.task-row .t-type{grid-column:auto !important;grid-row:auto !important;order:unset !important;width:auto !important;height:30px !important;font-size:11px !important;}',
+      '.task-row .t-desc{grid-column:auto !important;grid-row:auto !important;order:unset !important;font-size:14px !important;}',
+      '.task-row .t-del{position:static !important;min-width:22px !important;min-height:auto !important;font-size:13px !important;order:unset !important;}',
+      '.task-row .t-rows-ctrl{display:flex !important;grid-column:auto !important;grid-row:auto !important;}',
+      '.fmt-bar{flex-wrap:wrap !important;overflow-x:visible !important;}',
       '.bottom-grid{grid-template-columns:1fr 1fr !important;}',
-      '.topbar{height:50px !important;flex-wrap:nowrap !important;overflow:visible !important;padding:0 24px !important;}',
+      '.check-group{min-height:auto !important;}',
+      '.check-group input[type=checkbox]{width:15px !important;height:15px !important;}',
+      '.radio-group input[type=radio]{width:14px !important;height:14px !important;}',
+      '.sig-block{grid-template-columns:1fr 1fr !important;}',
+      '.sig-cell:first-child{border-right:1px solid var(--border) !important;border-bottom:none !important;}',
+      '.acft-reg-in{font-size:26px !important;letter-spacing:3px !important;}',
       '.rm-prn-col{display:table-cell !important;}',
       '.rm-pos-col{display:table-cell !important;}',
       '.rm-day-cell{min-width:26px !important;max-width:26px !important;width:26px !important;font-size:9px !important;}',
+      '#roster-scroll-wrap{display:inline-block !important;max-width:none !important;width:auto !important;}',
       'input,select,textarea{font-size:12px !important;}',
     ].join('');
     cloneDoc.head.appendChild(forceDesktop);
