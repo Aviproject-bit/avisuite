@@ -393,19 +393,20 @@ async function submitAll() {
     }
   }
 
-  // 2. Build payload
+  // 2. Build payload — pad short values to prevent Google Sheets auto-resize
+  const pad = (s, n) => { s = (s||'').toString(); return s.length >= n ? s : s + ' '.repeat(n - s.length); };
   const payload = {
     reporter,
     aircraft: currentAircraft(),
     date,
     time,
     findings: valid.map((f, i) => ({
-      category: f.cat,
-      subCategory: f.sub || '',
-      description: f.desc,
-      remarks: document.getElementById(`rmk-${f.id}`)?.value || '',
-      hasPhoto: !!(photoUrls[i]),
-      photoUrl: photoUrls[i] || ''
+      category:    pad(f.cat, 18),
+      subCategory: pad(f.sub || 'N/A', 18),
+      description: pad(f.desc, 60),
+      remarks:     pad(document.getElementById(`rmk-${f.id}`)?.value || '', 25),
+      hasPhoto:    !!(photoUrls[i]),
+      photoUrl:    pad(photoUrls[i] || 'N/A', 30)
     }))
   };
 
