@@ -1106,7 +1106,7 @@ input[type=checkbox]:checked+.tog::after{left:21px;}
         <button class="fmt-btn" title="UPPERCASE SELECTION" onmousedown="event.preventDefault()" onclick="fmtUpper()">AA</button>
         <span style="width:1px;height:16px;background:var(--border);margin:0 4px;display:inline-block;"></span>
         <button class="fmt-btn" title="DECREASE FONT SIZE" onmousedown="event.preventDefault()" onclick="fmtFontSize(-1)" style="font-size:10px;font-weight:700;">A−</button>
-        <input type="number" min="8" max="48" value="15" id="fmt-size-input"
+        <input type="number" min="8" max="48" value="15" id="${id}-fmt-size"
           onchange="fmtSetFontSize(this.value)"
           style="width:38px;height:22px;border:1px solid var(--border);border-radius:3px;background:var(--surface);color:var(--text);font-size:11px;font-weight:700;text-align:center;padding:0 2px;font-family:'BwGradual',sans-serif;outline:none;"
           title="Font size (px)">
@@ -1492,7 +1492,7 @@ function addAcft(reg=''){
         <span class="acft-caret">▾</span>
       </div>
     </div>
-    <div class="acft-body" id="${id}-body">
+    <div class="acft-body" id="${id}-body" onclick="event.stopPropagation()">
       <div class="fmt-bar" id="${id}-fmtbar" style="margin-bottom:8px;padding:6px 0 4px;border-bottom:1px solid var(--border);display:flex;align-items:center;flex-wrap:wrap;gap:3px;">
         <span style="font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--muted);margin-right:4px;text-transform:uppercase;">FORMAT:</span>
         <button class="fmt-btn" title="BOLD (Ctrl+B)" onmousedown="event.preventDefault()" onclick="fmtCmd('bold',this)"><b>B</b></button>
@@ -1552,7 +1552,7 @@ const TYPE_COLOR_MAP = {'C/W':'cw','TO DO':'todo','F/UP':'fup','I/W':'iw','NOTE'
 function addTask(acftId, type='C/W', text=''){
   const list = document.getElementById(acftId+'-tasks');
   if(!list){ console.warn('addTask: no tasks container for',acftId); return; }
-  const row  = document.createElement('div'); row.className='task-row'; row.dataset.type=type;
+  const row  = document.createElement('div'); row.className='task-row'; row.dataset.type=type; row.addEventListener('click',e=>e.stopPropagation());
   // Include custom type in options if not in standard list
   const allTypes = TASK_TYPES.includes(type) ? TASK_TYPES : [...TASK_TYPES, type];
   const opts = allTypes.map(t=>`<option value="${t}" ${t===type?'selected':''}>${t}</option>`).join('');
@@ -1623,7 +1623,7 @@ function fmtFontSize(delta){
   const idx=SIZES.reduce((b,s,i)=>Math.abs(s-curSize)<Math.abs(SIZES[b]-curSize)?i:b,0);
   const newIdx=Math.max(0,Math.min(SIZES.length-1,idx+delta));
   const newSize=SIZES[newIdx];
-  const inp=document.getElementById('fmt-size-input');
+  const inp=document.querySelector('#'+((window._activeDesc&&window._activeDesc.closest('.acft-body'))?window._activeDesc.closest('.acft-body').id.replace('-body','-fmt-size'):'fmt-size-input'));
   if(inp) inp.value=newSize;
   applyFontSizePx(newSize);
 }
@@ -2846,19 +2846,6 @@ async function exportRosterPDF(){
     ['R','CBD5E1','1A1A1A','RDO'],['TR','C4B5FD','1A1A1A','T/R'],['V','E0F2FE','1A1A1A','VACATION'],
     ['S/L','FFE4E6','1A1A1A','S/L'],['H','DDD6FE','1A1A1A','H'],['A','1F2937','F9FAFB','ABSENT'],
     ['OT','FED7AA','1A1A1A','O/T'],['OS','E0E7FF','1A1A1A','OUTSTATION'],['C/T','D9F99D','1A1A1A','C/T']];
-// ── inject dynamic CSS for rm-day-cell colors ──────────
-function _injectShcCss(){
-  const styleId='_shc_dyn';
-  if(document.getElementById(styleId)) return;
-  const el=document.createElement('style'); el.id=styleId;
-  el.textContent=SHC.map(function(s){
-    var code=s[0],bg=s[1];
-    return '';
-  }).join('');
-  document.head.appendChild(el);
-}
-document.addEventListener('DOMContentLoaded', _injectShcCss);
-document.addEventListener('DOMContentLoaded', _checkPasscode);
 
   const container=document.createElement('div');
   container.style.cssText=`background:#fff;font-family:"BwGradual",Calibri,sans-serif;font-size:12px;display:inline-flex;flex-direction:column;`;
@@ -10512,6 +10499,15 @@ function _showPasscodeScreen(){
   `;
   document.body.appendChild(screen);
   screen.addEventListener('touchmove',e=>e.preventDefault(),{passive:false});
+  // Keyboard support
+  const _pcKeyHandler = function(e){
+    if(!document.getElementById('passcode-screen')) return;
+    if(e.key>='0'&&e.key<='9') _pcKey(e.key);
+    else if(e.key==='Backspace') _pcKey('del');
+    else if(e.key==='Escape') {}
+  };
+  document.addEventListener('keydown', _pcKeyHandler);
+  screen._pcKeyHandler = _pcKeyHandler;
 }
 
 function _pcKey(k){
@@ -10532,7 +10528,11 @@ function _pcKey(k){
         localStorage.setItem('_app_trusted','1');
         localStorage.setItem('_app_lock_ver',_APP_LOCK_VER);
         const screen=document.getElementById('passcode-screen');
-        if(screen){ screen.style.opacity='0'; screen.style.transition='opacity .3s'; setTimeout(()=>screen.remove(),300); }
+        if(screen){
+          if(screen._pcKeyHandler) document.removeEventListener('keydown',screen._pcKeyHandler);
+          screen.style.opacity='0'; screen.style.transition='opacity .3s';
+          setTimeout(()=>screen.remove(),300);
+        }
       } else {
         // Wrong
         if(errEl) errEl.textContent='INCORRECT PASSCODE';
@@ -11282,6 +11282,20 @@ function showMobileExport(){
   document.body.appendChild(sheet);
 }
 
+
+// ── Inject SHC colors as CSS ──────────────────────────
+function _injectShcCss(){
+  const styleId='_shc_dyn';
+  if(document.getElementById(styleId)) return;
+  const el=document.createElement('style'); el.id=styleId;
+  el.textContent=SHC.map(function(s){
+    var code=s[0],bg=s[1];
+    return '.rm-day-cell[data-code="'+code+'"]{background:#'+bg+' !important;color:#1A1A1A !important;font-weight:700;}';
+  }).join('');
+  document.head.appendChild(el);
+}
+document.addEventListener('DOMContentLoaded', _injectShcCss);
+document.addEventListener('DOMContentLoaded', _checkPasscode);
 </script>
 
 <!-- ══ MOBILE BOTTOM ACTION BAR ══════════════════════════ -->
