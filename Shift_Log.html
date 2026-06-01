@@ -735,10 +735,10 @@ input[type=checkbox]:checked+.tog::after{left:21px;}
   #roster-mgr-wrap table{ border-collapse:collapse !important; border-spacing:0 !important; }
   .rm-table th, #roster-mgr-wrap table th{ font-size:10px !important; padding:4px 2px !important; }
   .rm-table td{ padding:4px 2px !important; }
-  /* Hide PRN + POS columns including their colgroup entries */
-  .rm-prn-col{ display:none !important; visibility:collapse !important; width:0 !important; }
-  .rm-pos-col{ display:none !important; visibility:collapse !important; width:0 !important; }
-  col.rm-prn-col, col.rm-pos-col{ width:0 !important; visibility:collapse !important; }
+  /* PRN: compact on mobile, POS: visible */
+  .rm-prn-col{ min-width:60px !important; max-width:60px !important; }
+  .rm-prn-in{ font-size:9px !important; color:var(--muted) !important; width:58px !important; }
+  .rm-pos-sel{ font-size:9px !important; padding:1px 2px !important; }
   .rm-name-in{
     pointer-events:none !important;
     font-size:12px !important; font-weight:700 !important;
@@ -1117,10 +1117,10 @@ input[type=checkbox]:checked+.tog::after{left:21px;}
           data-ph="TYPE GENERAL NOTES HERE..."
           onfocus="window._activeDesc=this"
           onpaste="handlePaste(event)"
-          oninput="highlightKeywordsLater(this)"
+          oninput=""
           onblur="if(window.innerWidth<=768){enforceUppercase(this);forceHighlight(this);}"
           oncompositionstart="this._composing=true"
-          oncompositionend="this._composing=false;highlightKeywords(this)"
+          oncompositionend="this._composing=false"
           style="min-height:80px;font-size:12px;"></div>
       </div>
     </div>
@@ -1554,7 +1554,7 @@ function addTask(acftId, type='C/W', text=''){
       onkeydown="handleDescKey(event,this)"
       autocapitalize="characters" autocorrect="off" spellcheck="false"
       onfocus="setActiveFmtBar(this)"
-      oninput="highlightKeywordsLater(this)"
+      oninput=""
       onblur="if(window.innerWidth<=768){enforceUppercase(this);forceHighlight(this);}"
       onpaste="handlePaste(event)">${text}</div>
     <div class="t-rows-ctrl">
@@ -1568,7 +1568,7 @@ function addTask(acftId, type='C/W', text=''){
   const desc = row.querySelector('.t-desc');
   if(desc){
     desc.addEventListener('compositionstart', ()=>{ desc._composing=true; });
-    desc.addEventListener('compositionend',   ()=>{ desc._composing=false; highlightKeywords(desc); });
+    desc.addEventListener('compositionend',   ()=>{ desc._composing=false; }); // highlight on blur only
   }
 }
 
@@ -1630,9 +1630,7 @@ function highlightKeywords(el){
   // Skip during IME composition (mobile keyboard autocomplete/suggestions)
   if(el._composing) return;
   // Triggered on every input - but only do expensive DOM work on space
-  // Debounced — runs after user pauses typing (no space gate)
-  clearTimeout(el._hlTimer);
-  el._hlTimer = setTimeout(()=>applyKeywordHighlight(el), 600);
+  // Highlight only fires on blur (forceHighlight) — never during typing
 }
 
 const KW_STYLES = {
@@ -10460,36 +10458,37 @@ function _checkPasscode(){
 
 let _pcEntry='';
 function _showPasscodeScreen(){
-  const logoSrc=(document.querySelector('.tb-brand img')||{}).src||'';
   const screen=document.createElement('div');
   screen.id='passcode-screen';
+  // Build keypad HTML
+  const keys=[1,2,3,4,5,6,7,8,9,'',0,'⌫'];
+  let keyHTML='';
+  keys.forEach(k=>{
+    if(k==='') keyHTML+=`<button class="pc-key pc-empty" disabled></button>`;
+    else if(k==='⌫') keyHTML+=`<button class="pc-key pc-del" onclick="_pcKey('del')">⌫</button>`;
+    else keyHTML+=`<button class="pc-key" onclick="_pcKey('${k}')">${k}</button>`;
+  });
   screen.innerHTML=`
     <div class="pc-logo">
-      ${logoSrc?`<img src="${logoSrc}" style="height:48px;width:auto;" alt="">`:'<div style="color:#fff;font-size:22px;font-weight:800;">SHIFT LOG</div>'}
+      <svg width="60" height="22" viewBox="0 0 148 54" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:.7"><path d="M73.059 15.79h9.694v3.237h-9.694v3.236h9.694v6.466l-3.234 3.236h-9.694v-3.236h9.694v-3.236h-9.694v-6.466l3.234-3.236z" fill="#fff"/></svg>
     </div>
     <div class="pc-title">SECURE ACCESS</div>
-    <div class="pc-sub">Enter your passcode to continue</div>
+    <div class="pc-sub">Enter your passcode</div>
     <div class="pc-dots" id="pc-dots">
       <div class="pc-dot" id="pc-d0"></div>
       <div class="pc-dot" id="pc-d1"></div>
       <div class="pc-dot" id="pc-d2"></div>
     </div>
-    <div class="pc-grid" id="pc-grid">
-      ${[1,2,3,4,5,6,7,8,9,'',0,'⌫'].map((k,i)=>`
-        <button class="pc-key${k===''?' pc-empty':k==='⌫'?' pc-del':''}"
-          ${k!==''?`onclick="_pcKey('${k}')"`:''}>${k}</button>
-      `).join('')}
-    </div>
+    <div class="pc-grid">${keyHTML}</div>
     <div class="pc-err" id="pc-err"></div>
   `;
   document.body.appendChild(screen);
-  // Prevent any interaction with the app behind
   screen.addEventListener('touchmove',e=>e.preventDefault(),{passive:false});
 }
 
 function _pcKey(k){
   const errEl=document.getElementById('pc-err');
-  if(k==='⌫'){
+  if(k==='del'||k==='⌫'){
     _pcEntry=_pcEntry.slice(0,-1);
     _pcUpdateDots();
     if(errEl) errEl.textContent='';
@@ -10790,10 +10789,10 @@ async function openTurnoverExport(){
     body += `<div style="background:#fff;border:1px solid ${BORDER};border-radius:8px;margin-bottom:12px;overflow:hidden;">
     <div style="background:${COL};padding:8px 16px;"><span style="font-weight:700;font-size:11px;letter-spacing:3px;color:rgba(255,255,255,.8);">MAN POWER</span></div>
     <div style="padding:14px 16px;">
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(${W2>600?'300px':'100%'},1fr));gap:8px;">
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:8px;">
         ${mpRows.map(r=>`<div style="display:flex;align-items:flex-start;gap:6px;background:#F4F6F8;border:1px solid ${BORDER};border-radius:5px;padding:6px 10px;min-width:0;overflow:hidden;box-sizing:border-box;">
           <span style="font-size:10px;color:${MUTED};min-width:18px;text-align:right;font-weight:700;padding-top:2px;flex-shrink:0;">${r.num}</span>
-          <span style="flex:1;font-weight:700;font-size:13px;word-break:break-word;overflow-wrap:anywhere;white-space:normal;min-width:0;max-width:100%;">${r.name}</span>
+          <span style="flex:1;font-weight:700;font-size:13px;word-break:break-word;overflow-wrap:anywhere;white-space:normal;min-width:0;max-width:100%;">${r.name||''}</span>
           ${_stBadge(r.status)}
           ${_mhrBadge(r.mhr)}
         </div>`).join('')}
@@ -11128,51 +11127,76 @@ async function exportRosterMobileImage(){
   }
   showToast('GENERATING ROSTER IMAGE...');
   const mgr=document.getElementById('roster-mgr-wrap');
-  if(!mgr){ showToast('ROSTER NOT LOADED'); return; }
-
-  // Get the actual table inside mgr
-  const tbl=mgr.querySelector('table');
+  const tbl=mgr?.querySelector('table');
   if(!tbl){ showToast('NO ROSTER DATA'); return; }
 
-  // Measure full table dimensions
+  const ym=document.getElementById('rm-month-filter')?.value||'';
   const tblW=tbl.scrollWidth;
-  const tblH=tbl.scrollHeight;
 
-  // Create an offscreen container at full table size — bypasses scroll clipping
+  // Offscreen container with table clone
   const container=document.createElement('div');
-  container.style.cssText=`position:fixed;left:-${tblW+200}px;top:0;width:${tblW}px;overflow:visible;background:#F4F6F8;z-index:-1;padding:0;`;
-  const clone=tbl.cloneNode(true);
-  clone.style.cssText=`border-collapse:collapse;width:${tblW}px;table-layout:fixed;`;
-  // Remove action columns (last col with buttons) from clone
-  clone.querySelectorAll('td:last-child,th:last-child').forEach(el=>{
-    if(el.querySelector('button,.rm-del-btn')||el.style.width==='56px') el.remove();
-  });
-  clone.querySelectorAll('.rm-del-btn,[draggable],.rm-prn-in').forEach(el=>el.remove());
-  container.appendChild(clone);
-  document.body.appendChild(container);
+  container.style.cssText=`position:fixed;left:-${tblW+500}px;top:0;width:${tblW}px;overflow:visible;background:#F4F6F8;z-index:-1;`;
 
+  // Clone table and remove action buttons/drag handles
+  const clone=tbl.cloneNode(true);
+  clone.style.cssText=`border-collapse:collapse;width:${tblW}px;`;
+  clone.querySelectorAll('.rm-del-btn,[draggable]').forEach(el=>el.remove());
+  // Remove last action column (56px wide)
+  clone.querySelectorAll('tr').forEach(tr=>{
+    const cells=[...tr.children];
+    const last=cells[cells.length-1];
+    if(last&&(last.style.width==='56px'||last.querySelector('button'))) last.remove();
+  });
+  container.appendChild(clone);
+
+  // TOTAL DAILY MANPOWER footer
+  if(ym){
+    const [yr,mo]=ym.split('-').map(Number);
+    const dim=new Date(yr,mo,0).getDate();
+    // Build totals row matching the table column widths
+    const totalsDiv=document.createElement('div');
+    totalsDiv.style.cssText=`background:#1F2937;display:flex;align-items:center;font-family:Arial,sans-serif;`;
+    // Name-like label cell
+    const labelCell=document.createElement('div');
+    labelCell.style.cssText=`min-width:${28+tbl.querySelector('col:nth-child(2)')?.offsetWidth||200}px;padding:4px 8px;color:rgba(255,255,255,.7);font-size:8px;font-weight:700;letter-spacing:1px;`;
+    labelCell.textContent='TOTAL DAILY MANPOWER';
+    totalsDiv.appendChild(labelCell);
+    // Day counts
+    for(let d=1;d<=dim;d++){
+      const dateStr=ym+'-'+String(d).padStart(2,'0');
+      let cnt=0;
+      Object.values(ROSTER).flat().forEach(m=>{ const c=(m.schedule||{})[dateStr]||''; if(c&&c!=='R'&&c!=='V'&&c!=='S/L'&&c!=='H') cnt++; });
+      const cell=document.createElement('div');
+      cell.style.cssText=`width:28px;min-width:28px;text-align:center;font-size:9px;font-weight:800;color:${cnt>0?'#86EFAC':'rgba(255,255,255,.3)'};padding:4px 0;`;
+      cell.textContent=cnt||'';
+      totalsDiv.appendChild(cell);
+    }
+    container.appendChild(totalsDiv);
+  }
+
+  document.body.appendChild(container);
   try{
     const canvas=await html2canvas(container,{
       scale:2, backgroundColor:'#F4F6F8', useCORS:true, allowTaint:true,
-      width:tblW, height:tblH, windowWidth:tblW+200
+      width:tblW, height:container.scrollHeight, windowWidth:tblW+500
     });
     document.body.removeChild(container);
-    // Add header strip
-    const ym=document.getElementById('rm-month-filter')?.value||'';
+
+    // Add header
     const hdrH=Math.round(canvas.width*0.04);
     const final=document.createElement('canvas');
     final.width=canvas.width; final.height=canvas.height+hdrH;
     const ctx=final.getContext('2d');
     ctx.fillStyle='#0F2920';
     ctx.fillRect(0,0,final.width,hdrH);
-    ctx.fillStyle='rgba(255,255,255,0.9)';
+    ctx.fillStyle='rgba(255,255,255,.9)';
     ctx.font=`bold ${Math.round(hdrH*0.4)}px Arial`;
     ctx.textAlign='center';
-    ctx.fillText('ROSTER · '+(ym||''), final.width/2, hdrH*0.68);
+    ctx.fillText('ROSTER · '+(ym||'ALL'), final.width/2, hdrH*0.68);
     ctx.drawImage(canvas,0,hdrH);
 
     final.toBlob(async blob=>{
-      const fn='roster-full.png';
+      const fn='roster.png';
       const file=new File([blob],fn,{type:'image/png'});
       const isMob=/iPhone|iPad|Android/i.test(navigator.userAgent);
       if(isMob&&navigator.canShare&&navigator.canShare({files:[file]})){
