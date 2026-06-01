@@ -167,8 +167,13 @@ input[type=checkbox]:checked+.tog::after{left:21px;}
 .task-row[data-type="NOTE"]  .t-desc{border-left:3px solid var(--purp-b);}
 .task-row[data-type="STATUS"] .t-desc{border-left:3px solid #93C5FD;}
 
-/* Aircraft description fields - uppercase */
+/* Aircraft description fields - uppercase (desktop only; mobile uses autocapitalize) */
 .acft-body .t-desc{text-transform:uppercase!important;font-size:15px!important;font-weight:600!important;}
+@media(max-width:768px){
+  /* Remove text-transform on mobile — conflicts with iOS QuickType. autocapitalize="characters" handles it */
+  .acft-body .t-desc{ text-transform:none !important; }
+  #gen-notes-desc{ text-transform:none !important; }
+}
 
 /* General notes - uppercase */
 #gen-notes-desc{text-transform:uppercase!important;font-size:15px!important;font-weight:600!important;}
@@ -190,7 +195,7 @@ input[type=checkbox]:checked+.tog::after{left:21px;}
 .task-add-btn.iw:hover  {border-color:var(--oran);color:var(--oran);background:var(--oran-l);}
 .task-add-btn.note:hover{border-color:var(--purp);color:var(--purp);background:var(--purp-l);}
 .custom-type-wrap{display:flex;gap:4px;align-items:center;}
-.custom-type-in{background:var(--surface);border:1px dashed var(--border2);border-radius:4px;color:var(--text);font-weight:600;font-size:10px;padding:5px 8px;outline:none;text-transform:uppercase;width:80px;}
+.custom-type-in{background:var(--surface);border:1px dashed var(--border2);border-radius:4px;color:var(--text);font-weight:600;font-size:10px;padding:5px 8px;outline:none;text-transform:uppercase;width:80px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .custom-type-in:focus{border-color:var(--accent);border-style:solid;}
 .custom-add-btn{background:none;border:1px solid var(--border2);color:var(--text2);font-size:10px;font-weight:700;padding:5px 8px;border-radius:4px;cursor:pointer;transition:all .15s;text-transform:uppercase;}
 .custom-add-btn:hover{background:var(--gray-l);}
@@ -262,14 +267,20 @@ input[type=checkbox]:checked+.tog::after{left:21px;}
 
 /* ROSTER MANAGER */
 .rm-table{width:100%;border-collapse:collapse;}
-/* Fix: generated roster table has no class — force collapse globally */
+/* Fix: generated roster table has no class — force collapse + fixed layout globally */
 #roster-mgr-wrap table,
-#roster-scroll-wrap table{border-collapse:collapse !important;border-spacing:0 !important;}
+#roster-scroll-wrap table{
+  border-collapse:collapse !important;
+  border-spacing:0 !important;
+  table-layout:fixed !important;
+}
 .rm-table th{background:var(--surface);font-family:'BwGradual', sans-serif;font-size:9px;font-weight:700;letter-spacing:.5px;color:var(--muted);padding:5px 1px;text-align:center;border-bottom:1px solid var(--border);text-transform:uppercase;white-space:nowrap;min-width:24px;}
 .rm-table th.rm-th-fixed{text-align:left;padding:5px 8px;min-width:unset;}
 .rm-table td{padding:3px 1px;border-bottom:1px solid var(--border);font-size:12px;vertical-align:middle;text-align:center;}
 .rm-table td.rm-td-fixed{padding:3px 8px;text-align:left;}
-.rm-table tr:hover td{background:#F8FAFC;}
+.rm-table tr:hover td{background:#EEF2F7;}
+/* Mobile/desktop row highlight */
+.rm-row-hl td{background:#DBEAFE !important;}
 .rm-crew-hd{background:var(--navy);color:#fff;font-family:'BwGradual', sans-serif;font-weight:800;font-size:11px;letter-spacing:2.5px;padding:8px 14px;display:flex;align-items:center;justify-content:space-between;}
 .rm-day-cell{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;text-align:center;font-size:10px;font-weight:900;font-family:'BwGradualEB','BwGradual',sans-serif;border-radius:3px;cursor:pointer;border:1px solid transparent;transition:all .1s;letter-spacing:0;}
 .rm-day-cell:hover{border-color:var(--accent);transform:scale(1.15);}
@@ -474,10 +485,10 @@ input[type=checkbox]:checked+.tog::after{left:21px;}
     grid-template-columns:1fr !important;
     gap:8px !important;
   }
-  .fg input,.fg select{ height:40px !important; padding:8px 12px !important; }
-  /* Date: compact on mobile */
-  #f-date{ height:40px !important; font-size:15px !important; }
-  .fg label{ font-size:8px !important; margin-bottom:3px !important; }
+  .fg input,.fg select{ height:40px !important; padding:8px 12px !important; font-size:15px !important; }
+  /* Date: same height and font as other fields */
+  #f-date{ height:40px !important; font-size:14px !important; padding:8px 10px !important; }
+  .fg label{ font-size:8px !important; letter-spacing:1.5px !important; margin-bottom:3px !important; }
 
   /* ── Supervisor tags ── */
   .supv-tags-wrap{ min-height:44px; padding:6px 10px; }
@@ -1000,7 +1011,8 @@ input[type=checkbox]:checked+.tog::after{left:21px;}
         <button class="fmt-btn" title="HIGHLIGHT ORANGE" onmousedown="event.preventDefault()" onclick="fmtHighlight('#FED7AA')" style="background:#FED7AA;color:#9A3412;">■</button>
         <button class="fmt-btn" title="REMOVE HIGHLIGHT" onmousedown="event.preventDefault()" onclick="fmtHighlight('transparent')" style="font-size:9px;letter-spacing:0;color:var(--muted);">H✕</button>
       </div>
-        <div id="gen-notes-desc" class="t-desc" contenteditable="true" spellcheck="true"
+        <div id="gen-notes-desc" class="t-desc" contenteditable="true" spellcheck="false"
+          autocapitalize="characters" autocorrect="off"
           data-ph="TYPE GENERAL NOTES HERE..."
           onfocus="window._activeDesc=this"
           onpaste="handlePaste(event)"
@@ -1458,6 +1470,7 @@ function addTask(acftId, type='C/W', text=''){
     </select>
     <div class="t-desc" contenteditable="true" spellcheck="true" data-ph="DESCRIPTION..."
       onkeydown="handleDescKey(event,this)"
+      autocapitalize="characters" autocorrect="off" spellcheck="false"
       onfocus="setActiveFmtBar(this)" oninput="highlightKeywordsLater(this)" onpaste="handlePaste(event)">${text}</div>
     <div class="t-rows-ctrl">
       <button class="t-rows-btn" title="EXPAND" onclick="adjDescHeight(this,40)">▲</button>
@@ -2202,8 +2215,9 @@ function getQualBadge(prnOrName){
   const label = myQuals.map(q=>q.name).join('·');
   const catColor = cats.includes('AP') ? '#0369A1' : '#065F46';
   const catBg    = cats.includes('AP') ? '#E0F2FE' : '#D1FAE5';
+  const _planeSvg=`<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:2px;"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21 4 19 4s-2 1-3.5 2.5L11 8 2.8 6.2c-.5-.1-.9.4-.7.9l1.3 3.2c.2.5.7.8 1.2.8H8l-1 3H5l-1 2h4l1-2h2l-1 4 3.2 1.3c.5.2 1-.2.9-.7z"/></svg>`;
   return `<span title="${myQuals.map(q=>q.name+(q.category?' ('+q.category+')':'')).join(', ')}"
-    style="font-size:7px;font-weight:700;color:${catColor};background:${catBg};border-radius:3px;padding:0 4px;cursor:help;flex-shrink:0;white-space:nowrap;">✈ ${label}</span>`;
+    style="display:inline-flex;align-items:center;font-size:7px;font-weight:700;color:${catColor};background:${catBg};border-radius:3px;padding:1px 4px;cursor:help;flex-shrink:0;white-space:nowrap;">${_planeSvg}${label}</span>`;
 }
 
 function openQualsManager(){
@@ -3863,6 +3877,13 @@ function onShiftChange(){
   if(_autoFilled) loadRoster();
 }
 
+function rmToggleRowHL(tr){
+  // Clear all highlighted rows first (deselect)
+  const wasHL = tr.classList.contains('rm-row-hl');
+  document.querySelectorAll('#roster-mgr-wrap .rm-row-hl').forEach(r=>r.classList.remove('rm-row-hl'));
+  if(!wasHL) tr.classList.add('rm-row-hl');
+}
+
 function loadRoster(){
   const date  = document.getElementById('f-date').value;
   const shift = document.getElementById('f-shift').value;
@@ -5327,7 +5348,7 @@ function renderRosterMgr(){
       const dow=dt.toLocaleString('en',{weekday:'short'}).charAt(0);
       const isFri=dt.getDay()===5, isSat=dt.getDay()===6;
       const isToday=d===new Date().toISOString().split('T')[0];
-      html+=`<th style="font-size:8px;font-weight:700;padding:2px 0;border-bottom:2px solid var(--border);text-align:center;line-height:1.2;
+      html+=`<th style="font-size:8px;font-weight:700;padding:2px 0;border-bottom:2px solid var(--border);text-align:center;line-height:1.2;width:26px;min-width:26px;max-width:26px;
         ${isFri||isSat?'background:#FEF3C7;color:#B45309;':'color:var(--muted);'}
         ${isToday?'background:#EBF5FF;color:var(--accent);':''}">
         ${dn}<br><span style="font-size:6px;opacity:.7;">${dow}</span>
@@ -5350,7 +5371,7 @@ function renderRosterMgr(){
       const _opCrew = m._primaryCrew || crewName;
       const _opIdx  = (()=>{ const arr=ROSTER[_opCrew]; if(!arr)return mi; const fi=arr.findIndex(x=>x.name===m.name&&x.prn===m.prn); return fi>=0?fi:mi; })();
       const _isGuest = !!(m._primaryCrew && m._primaryCrew !== crewName);
-      html += `<tr style="background:${_rowBg};${_rowOpacity}" ondragover="rmDragOver(event)" ondrop="rmDrop(event,'${crewName}',${mi})" ondragleave="this.style.background='${_defBg}'">`;
+      html += `<tr style="background:${_rowBg};${_rowOpacity}" ondragover="rmDragOver(event)" ondrop="rmDrop(event,'${crewName}',${mi})" ondragleave="this.style.background='${_defBg}'" onclick="rmToggleRowHL(this)">`;
 
       // # number
       html += `<td style="text-align:center;font-size:10px;color:var(--muted);font-family:BwGradual,sans-serif;padding:4px 2px;border-bottom:1px solid var(--border);">${rowNum}</td>`;
@@ -10660,13 +10681,13 @@ ${hasNote ? `<div style="background:#1E429F;border-radius:8px;margin-bottom:12px
   </div>
 </div>
 
-<div style="display:flex;justify-content:center;gap:10px;padding:12px 0 4px;flex-wrap:wrap;">
-  <button onclick="doExportImg()" style="display:inline-flex;align-items:center;gap:7px;background:#0F2920;color:#fff;border:none;border-radius:8px;padding:10px 20px;font-family:'BwGradual',Arial,sans-serif;font-weight:700;font-size:12px;letter-spacing:1px;cursor:pointer;text-transform:uppercase;">
+<div id="exp-actions" style="display:flex;justify-content:center;gap:10px;padding:12px 0 4px;flex-wrap:wrap;">
+  <button id="btn-img" onclick="doExportImg()" style="display:inline-flex;align-items:center;gap:7px;background:#0F2920;color:#fff;border:none;border-radius:8px;padding:10px 20px;font-family:'BwGradual',Arial,sans-serif;font-weight:700;font-size:12px;letter-spacing:1px;cursor:pointer;text-transform:uppercase;">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
     SAVE AS IMAGE
   </button>
   <button onclick="window.print()" style="display:inline-flex;align-items:center;gap:7px;background:rgba(15,41,32,.1);color:#0F2920;border:1px solid #0F2920;border-radius:8px;padding:10px 20px;font-family:'BwGradual',Arial,sans-serif;font-weight:700;font-size:12px;letter-spacing:1px;cursor:pointer;text-transform:uppercase;">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
     PRINT / PDF
   </button>
 </div>
@@ -10677,12 +10698,20 @@ ${hasNote ? `<div style="background:#1E429F;border-radius:8px;margin-bottom:12px
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"><\/script>
 <script>
 async function doExportImg(){
-  const btn=event.currentTarget; btn.textContent='GENERATING...'; btn.disabled=true;
+  const btn=document.getElementById('btn-img');
+  const actions=document.getElementById('exp-actions');
+  const footer=actions.nextElementSibling;
+  // Hide action buttons and footer before capture
+  actions.style.display='none';
+  if(footer) footer.style.display='none';
+  btn.textContent='GENERATING...';
   try{
     const el=document.querySelector('.page');
     const canvas=await html2canvas(el,{scale:2,backgroundColor:'#E8ECF0',useCORS:true,allowTaint:true});
+    // Restore
+    actions.style.display='';
+    if(footer) footer.style.display='';
     btn.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg> SAVE AS IMAGE';
-    btn.disabled=false;
     canvas.toBlob(async blob=>{
       const fn='turnover.png';
       const file=new File([blob],fn,{type:'image/png'});
@@ -10691,7 +10720,10 @@ async function doExportImg(){
       }
       const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=fn;a.click();
     },'image/png');
-  }catch(e){btn.textContent='SAVE AS IMAGE';btn.disabled=false;}
+  }catch(e){
+    actions.style.display=''; if(footer) footer.style.display='';
+    btn.textContent='SAVE AS IMAGE'; alert(e.message);
+  }
 }
 <\/script>
 </body></html>`;
@@ -10735,7 +10767,6 @@ function showMobileExport(){
       ${_btn(_iPage,'TURNOVER PAGE','Clean page — print · PDF · share',"openTurnoverExport()")}
       ${_btn(_iImg,'SAVE AS IMAGE','Phone-width PNG · share to WhatsApp · gallery',"exportTurnoverImage()")}
       ${_btn(_bar,'MHR REPORT','Production manhours image',"exportMhrReport()")}
-      ${_btn(_xls,'MHR → EXCEL','Manhours spreadsheet',"exportMhrExcel()")}
       ${_btn(_xls,'EXCEL / CSV','Full shift data',"exportCSV()")}
       ` : ''}
       ${isRoster ? `
