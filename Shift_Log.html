@@ -5728,6 +5728,7 @@ function renderRosterMgr(){
   // Debounced to avoid multiple rapid calls
   clearTimeout(window._tpTimer);
   window._tpTimer=setTimeout(renderTotalPanel,50);
+  setTimeout(_initRosterScrollHint,200);
 }
 
 function setRosterMonth(ym){
@@ -11488,25 +11489,23 @@ document.addEventListener('DOMContentLoaded', _checkPasscode);
 // ── Roster scroll hint ──────────────────────────────
 function _initRosterScrollHint(){
   if(window.innerWidth > 768) return;
+  // أضف الـ hint بعد ما يُبنى الروستر
+  const existing=document.querySelector('.rm-scroll-hint');
+  if(existing) existing.remove();
   const wrap=document.getElementById('roster-scroll-wrap');
   if(!wrap) return;
-  // Add hint badge above the table
-  const rosterCard=wrap.closest('.card')||wrap.parentElement;
-  if(!rosterCard||rosterCard.querySelector('.rm-scroll-hint')) return;
-  if(wrap.scrollWidth <= wrap.clientWidth + 10) return; // no scroll needed
+  // أضف الـ hint مباشرة قبل الـ scroll wrap
   const hint=document.createElement('div');
   hint.className='rm-scroll-hint hint-visible';
-  hint.innerHTML=`<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>SCROLL TO VIEW ALL DAYS`;
-  // أضف في أعلى الـ card-bd
-  const cardBd=rosterCard.querySelector('.card-bd')||wrap.parentElement;
-  cardBd.insertBefore(hint, cardBd.firstChild);
+  hint.innerHTML='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="flex-shrink:0"><path d="M5 12h14M12 5l7 7-7 7"/></svg>SCROLL TO VIEW ALL DAYS';
+  wrap.parentNode.insertBefore(hint, wrap);
   // أخفِ عند scroll
   wrap.addEventListener('scroll',function(){
-    if(wrap.scrollLeft > 40) hint.style.display='none';
+    if(wrap.scrollLeft > 30){ hint.style.opacity='0'; setTimeout(()=>hint.remove(),300); }
   },{passive:true,once:true});
 }
 document.addEventListener('DOMContentLoaded',()=>{
-  setTimeout(_initRosterScrollHint, 600);
+  setTimeout(_initRosterScrollHint, 800);
 });
 </script>
 
