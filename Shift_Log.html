@@ -958,6 +958,52 @@ input[type=checkbox]:checked+.tog::after{left:21px;}
 
 #hk-explain-wrap.hk-hidden{display:none;}
 
+
+/* ── Roster horizontal scroll hint ── */
+.rm-scroll-wrap{
+  position:relative;
+}
+.rm-scroll-wrap::after{
+  content:'';
+  position:absolute;
+  top:0; right:0; bottom:0;
+  width:40px;
+  background:linear-gradient(to right, transparent, rgba(255,255,255,.95));
+  pointer-events:none;
+  transition:opacity .3s;
+  z-index:2;
+}
+.rm-scroll-wrap.scrolled-end::after{
+  opacity:0;
+}
+.rm-scroll-arrow{
+  position:absolute;
+  right:6px;
+  top:50%;
+  transform:translateY(-50%);
+  background:#1E293B;
+  color:#fff;
+  border-radius:50%;
+  width:24px; height:24px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:12px;
+  pointer-events:none;
+  z-index:3;
+  opacity:.75;
+  animation:rm-pulse 1.8s ease-in-out infinite;
+  box-shadow:0 2px 8px rgba(0,0,0,.25);
+}
+@keyframes rm-pulse{
+  0%,100%{opacity:.75;transform:translateY(-50%) translateX(0);}
+  50%{opacity:1;transform:translateY(-50%) translateX(-3px);}
+}
+.rm-scroll-wrap.scrolled-end .rm-scroll-arrow{
+  display:none;
+}
+@media(min-width:769px){
+  .rm-scroll-arrow{display:none !important;}
+  .rm-scroll-wrap::after{display:none !important;}
+}
 </style>
 </head>
 <body>
@@ -11198,40 +11244,52 @@ async function exportRosterMobileImage(){
   const ym=document.getElementById('rm-month-filter')?.value||'';
   const tblW=tbl.scrollWidth;
 
-  // Offscreen container with table clone
+  // ── Offscreen container ──
   const container=document.createElement('div');
-  container.style.cssText=`position:fixed;left:-${tblW+500}px;top:0;width:${tblW}px;overflow:visible;background:#F4F6F8;z-index:-1;`;
+  container.style.cssText=`position:fixed;left:-${tblW+500}px;top:0;`+
+    `width:${tblW}px;overflow:visible;background:#F4F6F8;z-index:-1;font-family:'BwGradual',Arial,sans-serif;`;
 
-  // Clone table and remove action buttons/drag handles
+  // ── Clone table ──
   const clone=tbl.cloneNode(true);
-  clone.style.cssText=`border-collapse:collapse;width:${tblW}px;`;
+  clone.style.cssText=`border-collapse:collapse;width:${tblW}px;table-layout:fixed;`;
   clone.querySelectorAll('.rm-del-btn,[draggable]').forEach(el=>el.remove());
-  // Remove last action column (56px wide)
+  // Remove action column
   clone.querySelectorAll('tr').forEach(tr=>{
     const cells=[...tr.children];
     const last=cells[cells.length-1];
     if(last&&(last.style.width==='56px'||last.querySelector('button'))) last.remove();
   });
-  container.appendChild(clone);
 
-  // TOTAL DAILY MANPOWER — add from total-panel-content
-  const totalPanel=document.getElementById('total-panel-content');
-  if(totalPanel&&totalPanel.innerHTML.trim()){
-    const tpClone=totalPanel.cloneNode(true);
-    tpClone.style.cssText='background:#fff;padding:6px 0;overflow:visible;width:'+tblW+'px;box-sizing:border-box;';
-    // match desktop styling
-    tpClone.querySelectorAll('table').forEach(t=>{
-      t.style.cssText='width:100%;border-collapse:collapse;';
+  // ── Count fixed cols in the clone ──
+  // Fixed cols: # + Name + (PRN if visible) + (POS if visible)
+  // We detect by looking at the header row
+  let fixedCols=2; // # + Name minimum
+  const hdrRow=clone.querySelector('thead tr');
+  if(hdrRow){
+    [...hdrRow.children].forEach((th,i)=>{
+      const txt=(th.textContent||'').trim().toUpperCase();
+      if(i<5&&(txt==='PRN'||txt==='POS')) fixedCols++;
     });
-    tpClone.querySelectorAll('th,td').forEach(cell=>{
-      cell.style.fontSize='9px';
-      cell.style.minWidth='20px';
-      cell.style.padding='2px 1px';
-    });
-    container.appendChild(tpClone);
   }
 
+  // ── Inject TOTAL DAILY MANPOWER as tfoot — uses same cols as table ──
+  // Remove existing tfoot if any
+  clone.querySelector('tfoot')?.remove();
+  const tfootHtml=_buildOnDutyTfoot(ym,false);
+  if(tfootHtml){
+    // _buildOnDutyTfoot uses colspan=4 for label col
+    // We need to match the actual fixedCols in this clone
+    // Replace colspan="4" with actual fixedCols
+    const tfootFixed=tfootHtml.replace(/colspan="4"/g, `colspan="${fixedCols}"`);
+    const tmp2=document.createElement('table');
+    tmp2.innerHTML=tfootFixed;
+    const tfoot=tmp2.querySelector('tfoot');
+    if(tfoot) clone.appendChild(tfoot);
+  }
+
+  container.appendChild(clone);
   document.body.appendChild(container);
+
   try{
     const canvas=await html2canvas(container,{
       scale:2, backgroundColor:'#F4F6F8', useCORS:true, allowTaint:true,
@@ -11239,27 +11297,38 @@ async function exportRosterMobileImage(){
     });
     document.body.removeChild(container);
 
-    // Add header
-    const hdrH=Math.round(canvas.width*0.04);
+    // ── Header bar ──
+    const SC=canvas.width/tblW;
+    const hdrH=Math.round(44*SC);
     const final=document.createElement('canvas');
     final.width=canvas.width; final.height=canvas.height+hdrH;
     const ctx=final.getContext('2d');
-    ctx.fillStyle='#0F2920';
-    ctx.fillRect(0,0,final.width,hdrH);
+    // header gradient
+    const g=ctx.createLinearGradient(0,0,final.width,0);
+    g.addColorStop(0,'#0A2218'); g.addColorStop(1,'#196B24');
+    ctx.fillStyle=g; ctx.fillRect(0,0,final.width,hdrH);
+    // title
     ctx.fillStyle='rgba(255,255,255,.9)';
-    ctx.font=`bold ${Math.round(hdrH*0.4)}px Arial`;
-    ctx.textAlign='center';
-    ctx.fillText('ROSTER · '+(ym||'ALL'), final.width/2, hdrH*0.68);
+    ctx.font=`800 ${Math.round(hdrH*0.38)}px Arial`;
+    ctx.textAlign='left';
+    ctx.fillText('ROSTER — '+(ym||'ALL'), Math.round(16*SC), hdrH*0.68);
+    // date
+    ctx.fillStyle='rgba(255,255,255,.5)';
+    ctx.font=`400 ${Math.round(hdrH*0.26)}px Arial`;
+    ctx.textAlign='right';
+    ctx.fillText('Generated '+new Date().toLocaleDateString('en-GB').toUpperCase(),
+      final.width-Math.round(16*SC), hdrH*0.68);
     ctx.drawImage(canvas,0,hdrH);
 
     final.toBlob(async blob=>{
-      const fn='roster.png';
-      const file=new File([blob],fn,{type:'image/png'});
+      const fname='ROSTER_'+(ym||'ALL')+'.png';
+      const file=new File([blob],fname,{type:'image/png'});
       const isMob=/iPhone|iPad|Android/i.test(navigator.userAgent);
       if(isMob&&navigator.canShare&&navigator.canShare({files:[file]})){
         try{await navigator.share({files:[file],title:'ROSTER'});return;}catch(e){}
       }
-      const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=fn;a.click();
+      const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=fname;a.click();
+      showToast('ROSTER IMAGE ✓');
     },'image/png');
   }catch(e){
     if(document.body.contains(container)) document.body.removeChild(container);
@@ -11329,6 +11398,29 @@ function _injectShcCss(){
 }
 document.addEventListener('DOMContentLoaded', _injectShcCss);
 document.addEventListener('DOMContentLoaded', _checkPasscode);
+
+// ── Roster scroll hint ──────────────────────────────
+function _initRosterScrollHint(){
+  const wrap=document.getElementById('roster-scroll-wrap');
+  if(!wrap) return;
+  // Add class for CSS targeting
+  wrap.classList.add('rm-scroll-wrap');
+  // Add arrow indicator
+  if(!wrap.querySelector('.rm-scroll-arrow')){
+    const arr=document.createElement('div');
+    arr.className='rm-scroll-arrow';
+    arr.innerHTML='&#8250;';
+    wrap.appendChild(arr);
+  }
+  // Hide when scrolled to end
+  wrap.addEventListener('scroll',function(){
+    const atEnd=wrap.scrollLeft+wrap.clientWidth>=wrap.scrollWidth-8;
+    wrap.classList.toggle('scrolled-end',atEnd);
+  },{passive:true});
+}
+document.addEventListener('DOMContentLoaded',()=>{
+  setTimeout(_initRosterScrollHint, 500);
+});
 </script>
 
 <!-- ══ MOBILE BOTTOM ACTION BAR ══════════════════════════ -->
