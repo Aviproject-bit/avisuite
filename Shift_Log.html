@@ -1057,13 +1057,13 @@ input[type=checkbox]:checked+.tog::after{left:21px;}
   box-shadow:0 2px 6px rgba(0,0,0,.15);
 }
 
-/* Tab panels */
-.tab-panel{
-  animation:tab-fadein .2s ease;
-}
+/* Tab panels — animation on switch only */
 @keyframes tab-fadein{
   from{opacity:0;transform:translateY(4px);}
   to{opacity:1;transform:translateY(0);}
+}
+.tab-panel-switching{
+  animation:tab-fadein .2s ease;
 }
 
 /* Passcode dots */
@@ -1101,8 +1101,8 @@ input[type=checkbox]:checked+.tog::after{left:21px;}
   to{opacity:1;transform:translateY(0);}
 }
 
-/* Aircraft block enter */
-.acft-block{
+/* Aircraft block enter — class-based */
+.acft-block-new{
   animation:acft-enter .22s ease;
   transform-origin:top center;
 }
@@ -1726,8 +1726,9 @@ function addAcft(reg=''){
     </div>`;
   if(addBtn) wrap.insertBefore(div,addBtn); else wrap.appendChild(div);
   addTask(id,'STATUS');
-  // Scroll only when manually added (not during page load/restore)
   if(reg==='' && !window._restoringEntry){
+    div.classList.add('acft-block-new');
+    div.addEventListener('animationend',()=>div.classList.remove('acft-block-new'),{once:true});
     setTimeout(()=>div.scrollIntoView({behavior:'smooth',block:'nearest'}),50);
   }
 }
@@ -2105,7 +2106,9 @@ function setSupvNames(names){
 function switchTab(id,btn){
   document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
+  const panel=document.getElementById(id);
+  panel.classList.add('active','tab-panel-switching');
+  panel.addEventListener('animationend',()=>panel.classList.remove('tab-panel-switching'),{once:true});
   btn.classList.add('active');
   if(id==='dashboard-tab') setTimeout(renderDashboard,50);
   if(id==='skills-tab')    setTimeout(renderSkillsMatrix,50);
