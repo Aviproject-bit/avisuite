@@ -2846,6 +2846,18 @@ async function exportRosterPDF(){
     ['R','CBD5E1','1A1A1A','RDO'],['TR','C4B5FD','1A1A1A','T/R'],['V','E0F2FE','1A1A1A','VACATION'],
     ['S/L','FFE4E6','1A1A1A','S/L'],['H','DDD6FE','1A1A1A','H'],['A','1F2937','F9FAFB','ABSENT'],
     ['OT','FED7AA','1A1A1A','O/T'],['OS','E0E7FF','1A1A1A','OUTSTATION'],['C/T','D9F99D','1A1A1A','C/T']];
+// ── inject dynamic CSS for rm-day-cell colors ──────────
+function _injectShcCss(){
+  const styleId='_shc_dyn';
+  if(document.getElementById(styleId)) return;
+  const el=document.createElement('style'); el.id=styleId;
+  el.textContent=SHC.map(function(s){
+    var code=s[0],bg=s[1];
+    return '';
+  }).join('');
+  document.head.appendChild(el);
+}
+document.addEventListener('DOMContentLoaded', _injectShcCss);
 
   const container=document.createElement('div');
   container.style.cssText=`background:#fff;font-family:"BwGradual",Calibri,sans-serif;font-size:12px;display:inline-flex;flex-direction:column;`;
@@ -10463,11 +10475,15 @@ function _pcVerify(entry){ return String(entry)===_PC_VALID; }
 
 const _APP_LOCK_VER='v3'; // bump this to force re-auth on all devices
 function _checkPasscode(){
-  // Check if device is trusted AND version matches
-  if(localStorage.getItem('_app_trusted')==='1'&&localStorage.getItem('_app_lock_ver')===_APP_LOCK_VER) return;
-  // Clear stale trust from older versions
+  const TRUST_HOURS = 36; // re-ask every 36 hours
+  const trusted   = localStorage.getItem('_app_trusted')==='1';
+  const verMatch  = localStorage.getItem('_app_lock_ver')===_APP_LOCK_VER;
+  const lastAuth  = parseInt(localStorage.getItem('_app_auth_ts')||'0');
+  const elapsed   = (Date.now()-lastAuth)/(1000*60*60); // hours
+  if(trusted && verMatch && elapsed < TRUST_HOURS) return;
   localStorage.removeItem('_app_trusted');
   localStorage.removeItem('_app_lock_ver');
+  localStorage.removeItem('_app_auth_ts');
   setTimeout(_showPasscodeScreen, 80);
 }
 
@@ -10527,6 +10543,7 @@ function _pcKey(k){
         // Correct — trust device and dismiss
         localStorage.setItem('_app_trusted','1');
         localStorage.setItem('_app_lock_ver',_APP_LOCK_VER);
+        localStorage.setItem('_app_auth_ts',String(Date.now()));
         const screen=document.getElementById('passcode-screen');
         if(screen){
           if(screen._pcKeyHandler) document.removeEventListener('keydown',screen._pcKeyHandler);
@@ -11197,7 +11214,22 @@ async function exportRosterMobileImage(){
   });
   container.appendChild(clone);
 
-  // TOTAL DAILY MANPOWER is already in the table (added by renderRosterMgr) — no extra code needed
+  // TOTAL DAILY MANPOWER — add from total-panel-content
+  const totalPanel=document.getElementById('total-panel-content');
+  if(totalPanel&&totalPanel.innerHTML.trim()){
+    const tpClone=totalPanel.cloneNode(true);
+    tpClone.style.cssText='background:#fff;padding:6px 0;overflow:visible;width:'+tblW+'px;box-sizing:border-box;';
+    // match desktop styling
+    tpClone.querySelectorAll('table').forEach(t=>{
+      t.style.cssText='width:100%;border-collapse:collapse;';
+    });
+    tpClone.querySelectorAll('th,td').forEach(cell=>{
+      cell.style.fontSize='9px';
+      cell.style.minWidth='20px';
+      cell.style.padding='2px 1px';
+    });
+    container.appendChild(tpClone);
+  }
 
   document.body.appendChild(container);
   try{
@@ -11285,6 +11317,7 @@ function showMobileExport(){
 
 // ── Inject SHC colors as CSS ──────────────────────────
 function _injectShcCss(){
+  if(typeof SHC==='undefined') return;
   const styleId='_shc_dyn';
   if(document.getElementById(styleId)) return;
   const el=document.createElement('style'); el.id=styleId;
