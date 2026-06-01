@@ -1630,12 +1630,9 @@ function highlightKeywords(el){
   // Skip during IME composition (mobile keyboard autocomplete/suggestions)
   if(el._composing) return;
   // Triggered on every input - but only do expensive DOM work on space
-  // The _lastKey is set by handleDescKey keydown (fires before input)
-  if(el._lastKey === ' '){
-    // Small delay to let browser finish updating DOM
-    clearTimeout(el._hlTimer);
-    el._hlTimer = setTimeout(()=>applyKeywordHighlight(el), 80);
-  }
+  // Debounced — runs after user pauses typing (no space gate)
+  clearTimeout(el._hlTimer);
+  el._hlTimer = setTimeout(()=>applyKeywordHighlight(el), 600);
 }
 
 const KW_STYLES = {
@@ -3878,10 +3875,8 @@ function handleDescKey(e, el){
       }
     }
   }
-  // On Space: highlight keywords typed so far
-  if(e.key===' '){
-    setTimeout(()=>applyKeywordHighlight(el), 50);
-  }
+  // NOTE: Space-triggered highlight removed — caused cursor jumps.
+  // Keyword colors apply on blur (forceHighlight) and Enter only.
 }
 
 function handlePaste(e){
@@ -10450,31 +10445,10 @@ function _restoreDraft(){
 }
 
 /* ══ PASSCODE ══════════════════════════════════════════════ */
-const _PC_HASH = '902eea9f3f781e18e41b5c3e83fae9da'; // md5("321") — stored obfuscated
-function _pc_md5(str){
-  // Simple hash for passcode verification — not for security, for obscurity
-  function rotl(x,n){return(x<<n)|(x>>>(32-n));}
-  function add(a,b){return(a+b)&0xFFFFFFFF;}
-  const msg=unescape(encodeURIComponent(str));
-  const bytes=[];for(let i=0;i<msg.length;i++)bytes.push(msg.charCodeAt(i));
-  bytes.push(0x80);
-  while(bytes.length%64!==56)bytes.push(0);
-  const bits=str.length*8;
-  bytes.push(bits&0xff,(bits>>8)&0xff,(bits>>16)&0xff,(bits>>24)&0xff,0,0,0,0);
-  const T=[];for(let i=1;i<=64;i++)T[i]=Math.floor(4294967296*Math.abs(Math.sin(i)))|0;
-  let a=0x67452301,b=0xEFCDAB89,c=0x98BADCFE,d=0x10325476;
-  for(let i=0;i<bytes.length;i+=64){
-    const M=[];for(let j=0;j<16;j++)M[j]=(bytes[i+4*j])|(bytes[i+4*j+1]<<8)|(bytes[i+4*j+2]<<16)|(bytes[i+4*j+3]<<24);
-    let A=a,B=b,C=c,D=d;
-    const F=(x,y,z)=>(x&y)|(~x&z),G=(x,y,z)=>(x&z)|(y&~z),H=(x,y,z)=>x^y^z,I=(x,y,z)=>y^(x|~z);
-    const R=(f,a,b,c,d,k,s,t)=>add(b,rotl(add(add(a,f(b,c,d)),add(M[k],T[t])),s));
-    for(let t=1;t<=16;t++){const s=[7,12,17,22];const k=(t-1)%16;[D,A,B,C]=[C,D,A,R(F,A,B,C,D,k,s[(t-1)%4],t)];}
-    for(let t=1;t<=16;t++){const s=[5,9,14,20];const k=(5*(t-1)+1)%16;[D,A,B,C]=[C,D,A,R(G,A,B,C,D,k,s[(t-1)%4],t+16)];}
-    for(let t=1;t<=16;t++){const s=[4,11,16,23];const k=(3*(t-1)+5)%16;[D,A,B,C]=[C,D,A,R(H,A,B,C,D,k,s[(t-1)%4],t+32)];}
-    for(let t=1;t<=16;t++){const s=[6,10,15,21];const k=(7*(t-1))%16;[D,A,B,C]=[C,D,A,R(I,A,B,C,D,k,s[(t-1)%4],t+48)];}
-    a=add(a,A);b=add(b,B);c=add(c,C);d=add(d,D);
-  }
-  return [a,b,c,d].map(v=>(((v&0xFF)<<24)|((v>>8&0xFF)<<16)|((v>>16&0xFF)<<8)|(v>>>24)).toString(16).padStart(8,'0')).join('');
+// Verify passcode using base64 transform (obfuscated, not cryptographic)
+// btoa('123') = 'MTIz'  (where '123' = reverse of '321')
+function _pcVerify(entry){
+  try{ return btoa(entry.split('').reverse().join('')) === 'MTIz'; }catch(e){ return false; }
 }
 
 function _checkPasscode(){
@@ -10526,7 +10500,7 @@ function _pcKey(k){
   _pcUpdateDots();
   if(_pcEntry.length===3){
     setTimeout(()=>{
-      if(_pc_md5(_pcEntry)===_PC_HASH){
+      if(_pcVerify(_pcEntry)){
         // Correct — trust device and dismiss
         localStorage.setItem('_app_trusted','1');
         const screen=document.getElementById('passcode-screen');
@@ -10709,36 +10683,8 @@ async function exportTurnoverImage(){
 }
 
 async function exportTurnoverImageDesktop(){
-  if(typeof html2canvas==='undefined'){
-    showToast('LOADING LIBRARY...');
-    const s=document.createElement('script');
-    s.src='https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
-    s.onload=()=>exportTurnoverImageDesktop(); document.head.appendChild(s); return;
-  }
-  showToast('GENERATING DESKTOP IMAGE...');
-  const W_D = 1100;
-  // Collect data same way as openTurnoverExport
-  const date    = document.getElementById('f-date').value||'';
-  const spec    = document.getElementById('f-spec').value||'';
-  const shift   = document.getElementById('f-shift').value||'SHIFT';
-  const safety  = document.getElementById('safety-cb').checked;
-  const org     = (typeof ORG_NAME!=='undefined'?ORG_NAME:localStorage.getItem('org_name')||'SAUDIA TECHNIC');
-  const dept    = (typeof DEPT_NAME!=='undefined'?DEPT_NAME:localStorage.getItem('dept_name')||'SPV CABIN');
-  const dateLabel = date ? new Date(date+'T00:00:00').toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'}).toUpperCase() : '—';
-
-  // Pre-convert logo
-  const logoB64d2 = await (async ()=>{
-    const img=document.querySelector('.tb-brand img');
-    if(!img) return '';
-    const cvs=document.createElement('canvas'); cvs.width=148; cvs.height=54;
-    try{ cvs.getContext('2d').drawImage(img,0,0,148,54); const d=cvs.toDataURL('image/png'); if(d.length>100) return d; }catch(e){}
-    return img.src;
-  })();
-
-  // Open the same export page at 1100px
-  const win = window.open('','_blank','width=1160,height=900');
-  if(!win){ showToast('ALLOW POPUPS TO OPEN EXPORT'); return; }
-  await openTurnoverExport(); // This already opens the page at 1100px with SAVE AS IMAGE button
+  // Same as openTurnoverExport — opens full-width page with SAVE AS IMAGE button
+  await openTurnoverExport();
 }
 
 async function openTurnoverExport(){
@@ -11159,10 +11105,17 @@ async function doExportImg(){
 <\/script>
 </body></html>`;
 
-  const w = window.open('','_blank','width=1140,height=900');
-  if(!w){ showToast('ALLOW POPUPS TO OPEN EXPORT'); return; }
-  w.document.write(html);
-  w.document.close();
+  // Try popup first; fallback to blob URL (works when popups are blocked)
+  try{
+    const w = window.open('','_blank','width=1140,height=900');
+    if(w){ w.document.write(html); w.document.close(); return; }
+  }catch(e){}
+  // Blob URL fallback
+  const blob=new Blob([html],{type:'text/html;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a'); a.href=url; a.target='_blank'; a.rel='noopener';
+  document.body.appendChild(a); a.click();
+  setTimeout(()=>{ document.body.removeChild(a); URL.revokeObjectURL(url); },1000);
 }
 
 /* ── MOBILE ROSTER IMAGE EXPORT ────────────────────────── */
@@ -11187,9 +11140,14 @@ async function exportRosterMobileImage(){
 
   // Create an offscreen container at full table size — bypasses scroll clipping
   const container=document.createElement('div');
-  container.style.cssText=`position:fixed;left:-${tblW+100}px;top:0;width:${tblW}px;height:${tblH}px;overflow:visible;background:#F4F6F8;z-index:-1;`;
+  container.style.cssText=`position:fixed;left:-${tblW+200}px;top:0;width:${tblW}px;overflow:visible;background:#F4F6F8;z-index:-1;padding:0;`;
   const clone=tbl.cloneNode(true);
-  clone.style.cssText=`border-collapse:collapse;width:${tblW}px;`;
+  clone.style.cssText=`border-collapse:collapse;width:${tblW}px;table-layout:fixed;`;
+  // Remove action columns (last col with buttons) from clone
+  clone.querySelectorAll('td:last-child,th:last-child').forEach(el=>{
+    if(el.querySelector('button,.rm-del-btn')||el.style.width==='56px') el.remove();
+  });
+  clone.querySelectorAll('.rm-del-btn,[draggable],.rm-prn-in').forEach(el=>el.remove());
   container.appendChild(clone);
   document.body.appendChild(container);
 
