@@ -960,49 +960,127 @@ input[type=checkbox]:checked+.tog::after{left:21px;}
 
 
 /* ── Roster horizontal scroll hint ── */
-.rm-scroll-wrap{
-  position:relative;
-}
-.rm-scroll-wrap::after{
-  content:'';
-  position:absolute;
-  top:0; right:0; bottom:0;
-  width:40px;
-  background:linear-gradient(to right, transparent, rgba(255,255,255,.95));
-  pointer-events:none;
-  transition:opacity .3s;
-  z-index:2;
-}
-.rm-scroll-wrap.scrolled-end::after{
-  opacity:0;
-}
-.rm-scroll-arrow{
-  position:absolute;
-  right:6px;
-  top:50%;
-  transform:translateY(-50%);
-  background:#1E293B;
-  color:#fff;
-  border-radius:50%;
-  width:24px; height:24px;
-  display:flex; align-items:center; justify-content:center;
-  font-size:12px;
-  pointer-events:none;
-  z-index:3;
-  opacity:.75;
-  animation:rm-pulse 1.8s ease-in-out infinite;
-  box-shadow:0 2px 8px rgba(0,0,0,.25);
-}
-@keyframes rm-pulse{
-  0%,100%{opacity:.75;transform:translateY(-50%) translateX(0);}
-  50%{opacity:1;transform:translateY(-50%) translateX(-3px);}
-}
-.rm-scroll-wrap.scrolled-end .rm-scroll-arrow{
+.rm-scroll-hint{
   display:none;
 }
-@media(min-width:769px){
-  .rm-scroll-arrow{display:none !important;}
-  .rm-scroll-wrap::after{display:none !important;}
+@media(max-width:768px){
+  .rm-scroll-hint{
+    display:flex;
+    align-items:center;
+    gap:5px;
+    padding:4px 10px;
+    background:#F1F5F9;
+    border-radius:5px;
+    margin-bottom:6px;
+    font-size:9px;
+    font-weight:700;
+    letter-spacing:.5px;
+    color:#64748B;
+    width:fit-content;
+    animation:rm-hint-fade 2.5s ease-out forwards;
+    animation-delay:.5s;
+    opacity:0;
+  }
+  .rm-scroll-hint.hint-visible{
+    opacity:1;
+    animation:rm-hint-slide 1.8s ease-in-out infinite;
+    animation-delay:0s;
+  }
+  .rm-scroll-hint svg{
+    flex-shrink:0;
+    animation:rm-arrow-move 1.8s ease-in-out infinite;
+  }
+}
+@keyframes rm-hint-slide{
+  0%,100%{opacity:.8;}
+  50%{opacity:1;}
+}
+@keyframes rm-arrow-move{
+  0%,100%{transform:translateX(0);}
+  50%{transform:translateX(4px);}
+}
+
+/* ── Micro-animations & transitions ───────────────── */
+
+/* Cards */
+.card{
+  transition:box-shadow .2s ease;
+}
+
+/* Buttons */
+.tbtn, .task-add-btn, .tab-btn, .rm-btn{
+  transition:background .15s ease, transform .1s ease, box-shadow .15s ease, opacity .15s;
+}
+.tbtn:active, .task-add-btn:active, .rm-btn:active{
+  transform:scale(.96);
+}
+.tab-btn{
+  transition:background .15s ease, color .15s ease, border-color .15s ease;
+}
+
+/* MHR input */
+.mp-mh{
+  transition:border-color .15s ease, box-shadow .15s ease, background .15s ease !important;
+}
+
+/* Checkboxes & toggles */
+.toggle-switch{
+  transition:background .2s ease;
+}
+
+/* Aircraft blocks */
+.acft-block{
+  transition:box-shadow .2s ease;
+}
+.acft-block:focus-within{
+  box-shadow:0 0 0 2px rgba(26,86,219,.15);
+}
+
+/* Supv tags */
+.supv-tag{
+  transition:background .15s ease, box-shadow .15s ease;
+}
+
+/* Toast */
+.toast{
+  transition:opacity .25s ease, transform .25s ease;
+}
+
+/* Roster cells */
+.rm-day-cell{
+  transition:transform .1s ease, box-shadow .1s ease;
+}
+.rm-day-cell:hover{
+  transform:scale(1.15);
+  z-index:1;
+  position:relative;
+  box-shadow:0 2px 6px rgba(0,0,0,.15);
+}
+
+/* Tab panels */
+.tab-panel{
+  animation:tab-fadein .2s ease;
+}
+@keyframes tab-fadein{
+  from{opacity:0;transform:translateY(4px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+/* Passcode dots */
+.pc-dot{
+  transition:background .15s ease, transform .1s ease;
+}
+.pc-dot.filled{
+  transform:scale(1.1);
+}
+
+/* Modal overlays */
+.ff-modal{
+  animation:modal-in .18s ease;
+}
+@keyframes modal-in{
+  from{opacity:0;transform:translateY(8px) scale(.97);}
+  to{opacity:1;transform:translateY(0) scale(1);}
 }
 </style>
 </head>
@@ -11260,26 +11338,34 @@ async function exportRosterMobileImage(){
     if(last&&(last.style.width==='56px'||last.querySelector('button'))) last.remove();
   });
 
-  // ── Count fixed cols in the clone ──
-  // Fixed cols: # + Name + (PRN if visible) + (POS if visible)
-  // We detect by looking at the header row
-  let fixedCols=2; // # + Name minimum
-  const hdrRow=clone.querySelector('thead tr');
-  if(hdrRow){
-    [...hdrRow.children].forEach((th,i)=>{
-      const txt=(th.textContent||'').trim().toUpperCase();
-      if(i<5&&(txt==='PRN'||txt==='POS')) fixedCols++;
+  // ── Count actual fixed cols from colgroup ──
+  // colgroup always has: # + Name + PRN + POS + days... + actions
+  // but actions col gets removed, and we need to count only fixed (non-day) cols
+  let fixedCols = 0;
+  const colgroup = clone.querySelector('colgroup');
+  if(colgroup){
+    const cols = [...colgroup.querySelectorAll('col')];
+    // day cols are identified by NOT having rm-prn-col/rm-pos-col class
+    // fixed cols = # (28px) + Name (varies) + PRN (80px) + POS (65px) = 4
+    // but check actual visible count by examining header cells
+    const hdrCells = clone.querySelectorAll('thead tr th');
+    const totalCols = hdrCells.length;
+    // Count day header cells (they contain numbers 1-31)
+    let dayCols = 0;
+    hdrCells.forEach(th => {
+      const txt = (th.textContent||'').trim();
+      if(/^[0-9]+$/.test(txt) || th.querySelector('b')) dayCols++;
     });
+    fixedCols = totalCols - dayCols;
+    if(fixedCols < 2) fixedCols = 4; // fallback
+  } else {
+    fixedCols = 4; // default: # + Name + PRN + POS
   }
 
-  // ── Inject TOTAL DAILY MANPOWER as tfoot — uses same cols as table ──
-  // Remove existing tfoot if any
+  // ── Inject TOTAL DAILY MANPOWER as tfoot ──
   clone.querySelector('tfoot')?.remove();
   const tfootHtml=_buildOnDutyTfoot(ym,false);
   if(tfootHtml){
-    // _buildOnDutyTfoot uses colspan=4 for label col
-    // We need to match the actual fixedCols in this clone
-    // Replace colspan="4" with actual fixedCols
     const tfootFixed=tfootHtml.replace(/colspan="4"/g, `colspan="${fixedCols}"`);
     const tmp2=document.createElement('table');
     tmp2.innerHTML=tfootFixed;
@@ -11401,25 +11487,26 @@ document.addEventListener('DOMContentLoaded', _checkPasscode);
 
 // ── Roster scroll hint ──────────────────────────────
 function _initRosterScrollHint(){
+  if(window.innerWidth > 768) return;
   const wrap=document.getElementById('roster-scroll-wrap');
   if(!wrap) return;
-  // Add class for CSS targeting
-  wrap.classList.add('rm-scroll-wrap');
-  // Add arrow indicator
-  if(!wrap.querySelector('.rm-scroll-arrow')){
-    const arr=document.createElement('div');
-    arr.className='rm-scroll-arrow';
-    arr.innerHTML='&#8250;';
-    wrap.appendChild(arr);
-  }
-  // Hide when scrolled to end
+  // Add hint badge above the table
+  const rosterCard=wrap.closest('.card')||wrap.parentElement;
+  if(!rosterCard||rosterCard.querySelector('.rm-scroll-hint')) return;
+  if(wrap.scrollWidth <= wrap.clientWidth + 10) return; // no scroll needed
+  const hint=document.createElement('div');
+  hint.className='rm-scroll-hint hint-visible';
+  hint.innerHTML=`<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>SCROLL TO VIEW ALL DAYS`;
+  // أضف في أعلى الـ card-bd
+  const cardBd=rosterCard.querySelector('.card-bd')||wrap.parentElement;
+  cardBd.insertBefore(hint, cardBd.firstChild);
+  // أخفِ عند scroll
   wrap.addEventListener('scroll',function(){
-    const atEnd=wrap.scrollLeft+wrap.clientWidth>=wrap.scrollWidth-8;
-    wrap.classList.toggle('scrolled-end',atEnd);
-  },{passive:true});
+    if(wrap.scrollLeft > 40) hint.style.display='none';
+  },{passive:true,once:true});
 }
 document.addEventListener('DOMContentLoaded',()=>{
-  setTimeout(_initRosterScrollHint, 500);
+  setTimeout(_initRosterScrollHint, 600);
 });
 </script>
 
