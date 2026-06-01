@@ -627,7 +627,9 @@ input[type=checkbox]:checked+.tog::after{left:21px;}
     -webkit-overflow-scrolling:touch;
   }
   #roster-mgr-wrap{ overflow-x:visible; width:max-content; }
-  .rm-table th{ font-size:10px !important; padding:4px 2px !important; }
+  /* Fix border-collapse — generated table has no class */
+  #roster-mgr-wrap table{ border-collapse:collapse !important; border-spacing:0 !important; }
+  .rm-table th, #roster-mgr-wrap table th{ font-size:10px !important; padding:4px 2px !important; }
   .rm-table td{ padding:4px 2px !important; }
   .rm-prn-col{ display:none !important; }
   .rm-pos-col{ display:none !important; }
@@ -1526,6 +1528,8 @@ function highlightKeywordsLater(el){
 function highlightKeywords(el){
   // Skip during IME composition (mobile keyboard autocomplete/suggestions)
   if(el._composing) return;
+  // On mobile (≤768px): skip DOM replacement — prevents QuickType/autocomplete breaking
+  if(window.innerWidth <= 768) return;
   // Triggered on every input - but only do expensive DOM work on space
   // The _lastKey is set by handleDescKey keydown (fires before input)
   if(el._lastKey === ' '){
@@ -10130,7 +10134,146 @@ function _getEmbeddedFontCSS(){
   return '';
 }
 
-function openTurnoverExport(){
+/* ── MOBILE IMAGE EXPORT at phone width ─────────────── */
+async function exportTurnoverImage(){
+  if(typeof html2canvas==='undefined'){
+    showToast('LOADING...');
+    const s=document.createElement('script');
+    s.src='https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+    s.onload=()=>exportTurnoverImage(); document.head.appendChild(s); return;
+  }
+  showToast('GENERATING IMAGE...');
+
+  // Build export content at phone width inside a hidden offscreen container
+  const W_MOB = 390;
+
+  // Pre-convert logo to PNG
+  const logoB64m = await (async ()=>{
+    const img=document.querySelector('.tb-brand img');
+    if(!img) return '';
+    const cvs=document.createElement('canvas'); cvs.width=148; cvs.height=54;
+    try{ cvs.getContext('2d').drawImage(img,0,0,148,54); const d=cvs.toDataURL('image/png'); if(d.length>100)return d; }catch(e){}
+    return img.src;
+  })();
+
+  // Collect data (reuse same logic as openTurnoverExport)
+  const date    = document.getElementById('f-date').value||'';
+  const spec    = document.getElementById('f-spec').value||'';
+  const shift   = document.getElementById('f-shift').value||'SHIFT';
+  const safety  = document.getElementById('safety-cb').checked;
+  const org     = (typeof ORG_NAME!=='undefined'?ORG_NAME:localStorage.getItem('org_name')||'SAUDIA TECHNIC');
+  const dept    = (typeof DEPT_NAME!=='undefined'?DEPT_NAME:localStorage.getItem('dept_name')||'SPV CABIN');
+  const dateLabel = date ? new Date(date+'T00:00:00').toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'}).toUpperCase() : '—';
+  const supvs = [...document.querySelectorAll('.supv-tags-wrap .supv-tag')].map(t=>({name:(t.querySelector('.supv-tag-name')||{}).textContent?.trim()||'',status:(t.querySelector('.supv-tag-status')||{}).textContent?.replace('▾','').trim()||'REGULAR',mhr:''}));
+  const mpRows = [...document.querySelectorAll('#mp-grid .mp-cell:not(.mp-supv-cell)')].map((c,i)=>({num:i+1,name:(c.querySelector('.mp-in')||{}).value?.trim()||'',status:(c.querySelector('.mp-st')||{}).value||'P',mhr:_mhOn?(c.querySelector('.mp-mh')||{}).value?.trim()||'':''})).filter(r=>r.name);
+  const aircraft = [...document.querySelectorAll('.acft-block')].map(a=>({reg:(a.querySelector('.acft-reg-in')||{}).value?.trim()||'',tasks:[...a.querySelectorAll('.task-row')].map(r=>({type:(r.querySelector('.t-type')||{}).value||'',html:(r.querySelector('.t-desc')||{}).innerHTML||''}))})).filter(a=>a.reg);
+  const toolsOk=(document.getElementById('tools-ok')||{}).checked;
+  const hkArea=(document.getElementById('hk-area')||{}).checked;
+  const hkEquip=(document.getElementById('hk-equip')||{}).checked;
+  const hkVehicle=(document.getElementById('hk-vehicle')||{}).checked;
+  const hkAck=getRadio('ack-hk');
+  const ST_BG={P:'#DEF7EC',A:'#FDE8E8',S:'#FEF3C7',L:'#FEF3C7',OT:'#EFF6FF',TR:'#EDEBFE',OS:'#E1EFFE',V:'#F3F4F6'};
+  const ST_FG={P:'#057A55',A:'#C81E1E',S:'#B45309',L:'#B45309',OT:'#1A56DB',TR:'#5521B5',OS:'#1A56DB',V:'#4B5E70'};
+  const TYPE_COLORS={'STATUS':'#EFF6FF|#93C5FD|#1D4ED8','C/W':'#DEF7EC|#84E1BC|#057A55','TO DO':'#FEF3C7|#FBBF24|#B45309','F/UP':'#E1EFFE|#93C5FD|#1A56DB','I/W':'#FEF0E6|#FDBA74|#C2410C','NOTE':'#EDEBFE|#C4B5FD|#5521B5'};
+  const COL='#0F2920', BORDER='#C8D0DA', MUTED='#8898A8', TEXT='#1C2B3A';
+  const _stBadge=(st)=>`<span style="background:${ST_BG[st]||'#F3F4F6'};color:${ST_FG[st]||'#4B5E70'};font-weight:800;font-size:10px;padding:2px 7px;border-radius:3px;">${st}</span>`;
+
+  let mbody = `<div style="background:${COL};padding:10px 14px;display:flex;align-items:center;gap:10px;">
+    <img src="${logoB64m}" style="height:28px;" alt="">
+    <div style="flex:1;min-width:0;">
+      <div style="font-size:6px;letter-spacing:2px;color:rgba(255,255,255,.45);">SHIFT TURNOVER LOG</div>
+      <div style="font-size:11px;font-weight:800;color:#fff;">${org.toUpperCase()}</div>
+    </div>
+    <div style="background:rgba(255,255,255,.15);border-radius:6px;padding:4px 10px;text-align:center;">
+      <div style="font-size:6px;letter-spacing:1.5px;color:rgba(255,255,255,.5);">SHIFT</div>
+      <div style="font-size:16px;font-weight:800;color:#fff;letter-spacing:2px;">${shift.toUpperCase()}</div>
+      <div style="font-size:8px;color:rgba(255,255,255,.5);">${dateLabel}</div>
+    </div>
+  </div>`;
+
+  // Shift info
+  mbody += `<div style="background:#fff;border-bottom:1px solid ${BORDER};padding:10px 14px;">
+    <div style="font-size:8px;font-weight:700;letter-spacing:2px;color:${MUTED};margin-bottom:4px;">SPECIALTY</div>
+    <div style="font-weight:700;font-size:13px;margin-bottom:8px;">${(spec||'—').toUpperCase()}</div>
+    <div style="font-size:8px;font-weight:700;letter-spacing:2px;color:${MUTED};margin-bottom:4px;">SUPERVISORS</div>
+    <div style="display:flex;flex-wrap:wrap;gap:4px;">
+      ${supvs.map(s=>`<span style="background:${COL};color:#fff;font-weight:700;font-size:10px;padding:3px 8px;border-radius:4px;">${s.name.toUpperCase()}</span>`).join('')||'—'}
+    </div>
+    <div style="display:flex;align-items:center;gap:6px;margin-top:8px;padding-top:8px;border-top:1px solid ${BORDER};">
+      <div style="width:28px;height:16px;background:${safety?'#057A55':'#CBD5E0'};border-radius:8px;position:relative;">
+        <div style="position:absolute;width:12px;height:12px;background:#fff;border-radius:50%;top:2px;left:${safety?'14px':'2px'};"></div>
+      </div>
+      <span style="font-size:9px;font-weight:700;letter-spacing:1px;">SAFETY BRIEFING ${safety?'CONDUCTED':'NOT CONDUCTED'}</span>
+    </div>
+  </div>`;
+
+  // Man power
+  if(mpRows.length){
+    mbody += `<div style="background:${COL};padding:6px 14px;"><span style="font-weight:700;font-size:9px;letter-spacing:2.5px;color:rgba(255,255,255,.8);">MAN POWER</span></div>
+    <div style="background:#fff;padding:10px 14px;border-bottom:1px solid ${BORDER};">
+      ${mpRows.map(r=>`<div style="display:flex;align-items:center;gap:6px;padding:5px 8px;background:#F4F6F8;border-radius:4px;margin-bottom:4px;">
+        <span style="font-size:9px;color:${MUTED};min-width:14px;">${r.num}</span>
+        <span style="flex:1;font-weight:700;font-size:12px;">${r.name.toUpperCase()}</span>
+        ${_stBadge(r.status)}
+        ${r.mhr?`<span style="background:#1A56DB;color:#fff;font-size:9px;font-weight:800;padding:2px 6px;border-radius:8px;">${r.mhr}</span>`:''}
+      </div>`).join('')}
+    </div>`;
+  }
+
+  // Aircraft
+  aircraft.forEach(a=>{
+    mbody += `<div style="border:2px solid ${COL};border-radius:6px;margin:8px 0;overflow:hidden;">
+      <div style="background:${COL};padding:8px 12px;display:flex;align-items:center;gap:8px;">
+        <span style="color:#fff;font-size:16px;">✈</span>
+        <span style="font-weight:800;font-size:20px;color:#fff;letter-spacing:3px;">${a.reg.toUpperCase()}</span>
+      </div>
+      <div style="background:#fff;padding:8px 12px;">
+        ${a.tasks.filter(t=>t.html&&t.html.trim()&&t.html!=='<br>').map(t=>{
+          const c=(TYPE_COLORS[t.type]||'#F3F4F6|#D1D5DB|#4B5E70').split('|');
+          return `<div style="display:flex;gap:6px;margin-bottom:5px;align-items:start;">
+            <div style="background:${c[0]};border:1px solid ${c[1]};color:${c[2]};font-weight:800;font-size:10px;padding:4px 6px;border-radius:4px;flex-shrink:0;min-width:50px;text-align:center;">${t.type}</div>
+            <div style="font-size:13px;font-weight:600;line-height:1.5;border-left:3px solid ${c[1]};padding-left:8px;text-transform:uppercase;">${t.html}</div>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>`;
+  });
+
+  // Tools + HK
+  mbody += `<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px;">
+    <div style="background:#fff;border-radius:6px;overflow:hidden;"><div style="background:${COL};padding:5px 10px;font-size:8px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,.8);">TOOLS</div>
+    <div style="padding:8px 10px;font-size:11px;font-weight:600;display:flex;align-items:center;gap:6px;">
+      <div style="width:14px;height:14px;border-radius:3px;background:${toolsOk?'#057A55':'#fff'};border:2px solid ${toolsOk?'#057A55':BORDER};display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:800;flex-shrink:0;">${toolsOk?'✓':''}</div>ALL ACCOUNTED
+    </div></div>
+    <div style="background:#fff;border-radius:6px;overflow:hidden;"><div style="background:${COL};padding:5px 10px;font-size:8px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,.8);">HOUSEKEEPING</div>
+    <div style="padding:8px 10px;">
+      ${[['WORK AREA',hkArea],['EQUIPMENT',hkEquip],['VEHICLE',hkVehicle]].map(([lbl,v])=>`<div style="display:flex;align-items:center;gap:5px;margin-bottom:3px;font-size:10px;font-weight:600;">
+        <div style="width:12px;height:12px;border-radius:2px;background:${v?'#057A55':'#fff'};border:2px solid ${v?'#057A55':BORDER};flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:9px;font-weight:800;">${v?'✓':''}</div>${lbl}</div>`).join('')}
+    </div></div>
+  </div>
+  <div style="text-align:center;padding:8px;font-size:8px;color:${MUTED};">${new Date().toLocaleString('en-GB').toUpperCase()}</div>`;
+
+  // Build container
+  const tmp = document.createElement('div');
+  tmp.style.cssText=`position:fixed;left:-9999px;top:0;width:${W_MOB}px;background:#E8ECF0;padding:0;font-family:'BwGradual',Arial,sans-serif;color:${TEXT};text-transform:uppercase;`;
+  tmp.innerHTML=mbody;
+  document.body.appendChild(tmp);
+
+  try{
+    const canvas = await html2canvas(tmp,{scale:2,backgroundColor:'#E8ECF0',useCORS:true,allowTaint:true,width:W_MOB,windowWidth:W_MOB});
+    document.body.removeChild(tmp);
+    canvas.toBlob(async blob=>{
+      const fn=`turnover-${shift}-${dateLabel.replace(/ /g,'-')}.png`;
+      const file=new File([blob],fn,{type:'image/png'});
+      if(navigator.canShare&&navigator.canShare({files:[file]})){
+        try{ await navigator.share({files:[file],title:`TURNOVER ${shift} ${dateLabel}`}); return; }catch(e){}
+      }
+      const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=fn; a.click();
+    },'image/png');
+  }catch(e){ document.body.removeChild(tmp); showToast('ERROR: '+e.message); }
+}
+
+async function openTurnoverExport(){
   // ── Read all form data ──
   const date    = document.getElementById('f-date').value || '';
   const spec    = document.getElementById('f-spec').value || '';
@@ -10331,7 +10474,15 @@ function openTurnoverExport(){
   </div></div>`;
 
   // ── Build full HTML document ──
-  const logoB64  = (document.querySelector('.tb-brand img')||{}).src||'';
+  // Pre-convert logo SVG → PNG (fixes html2canvas rendering)
+  const logoB64 = await (async ()=>{
+    const img = document.querySelector('.tb-brand img');
+    if(!img) return '';
+    const cvs=document.createElement('canvas'); cvs.width=148; cvs.height=54;
+    const ctx=cvs.getContext('2d');
+    try{ ctx.drawImage(img,0,0,148,54); const d=cvs.toDataURL('image/png'); if(d.length>100) return d; }catch(e){}
+    return img.src;
+  })();
   const fontCSS  = _getEmbeddedFontCSS();
   const PLANE_SVG= `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21 4 19 4s-2 1-3.5 2.5L11 8 2.8 6.2c-.5-.1-.9.4-.7.9l1.3 3.2c.2.5.7.8 1.2.8H8l-1 3H5l-1 2h4l1-2h2l-1 4 3.2 1.3c.5.2 1-.2.9-.7z"/></svg>`;
   const W2=1100;
@@ -10371,51 +10522,11 @@ body{background:#E8ECF0;font-family:'BwGradual',Arial,sans-serif;font-size:13px;
 .chk-lbl{font-size:11px;font-weight:600;letter-spacing:.8px;}
 .safe-tog{width:38px;height:20px;border-radius:10px;position:relative;flex-shrink:0;}
 .safe-dot{position:absolute;width:14px;height:14px;background:#fff;border-radius:50%;top:3px;box-shadow:0 1px 3px rgba(0,0,0,.25);}
-/* action bar */
-.act-bar{position:sticky;top:0;z-index:999;background:#0F2920;display:flex;gap:8px;padding:8px 16px;border-bottom:2px solid rgba(255,255,255,.1);}
-.act-btn{display:flex;align-items:center;gap:6px;padding:8px 16px;border:none;border-radius:6px;font-family:'BwGradual',Arial,sans-serif;font-weight:700;font-size:11px;letter-spacing:1px;cursor:pointer;text-transform:uppercase;transition:opacity .15s;}
-.act-btn:active{opacity:.7;}
-.act-btn-save{background:#057A55;color:#fff;}
-.act-btn-pdf{background:rgba(255,255,255,.12);color:rgba(255,255,255,.9);border:1px solid rgba(255,255,255,.2);}
-.act-btn-img{background:#1A56DB;color:#fff;}
-.act-bar-title{color:rgba(255,255,255,.5);font-size:9px;font-weight:600;letter-spacing:1.5px;align-self:center;margin-right:auto;}
-@media print{
-  .act-bar{display:none!important;}
-  body{background:#fff;}
-  .page{width:100%;padding:0 8mm 8mm;}
-}
+@media print{body{background:#fff;}.page{width:100%;padding:0 8mm 8mm;}}
 @media(max-width:${W2+40}px){.page{width:100%;padding:0;}}
 </style>
-<script>
-async function doSaveImg(){
-  const btn = document.querySelector('.act-btn-save');
-  if(btn){btn.textContent='GENERATING...';btn.disabled=true;}
-  try{
-    const canvas = await html2canvas(document.querySelector('.page'),{scale:2,backgroundColor:'#E8ECF0',useCORS:true,allowTaint:true});
-    canvas.toBlob(async blob=>{
-      if(btn){btn.textContent='SAVE IMAGE';btn.disabled=false;}
-      const file = new File([blob],'turnover-${shift}-${dateLabel.replace(/ /g,'-')}.png',{type:'image/png'});
-      if(navigator.canShare && navigator.canShare({files:[file]})){
-        try{ await navigator.share({files:[file],title:'TURNOVER ${shift} ${dateLabel}'}); return; }catch(e){}
-      }
-      const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=file.name; a.click();
-    },'image/png');
-  }catch(e){if(btn){btn.textContent='SAVE IMAGE';btn.disabled=false;}alert('Error: '+e.message);}
-}
-<\/script>
 </head>
 <body>
-<div class="act-bar">
-  <span class="act-bar-title">TURNOVER · ${shift} · ${dateLabel}</span>
-  <button class="act-btn act-btn-save" onclick="doSaveImg()">
-    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-    SAVE IMAGE
-  </button>
-  <button class="act-btn act-btn-pdf" onclick="window.print()">
-    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-    PRINT / PDF
-  </button>
-</div>
 <div class="page">
 
 <!-- HEADER BANNER -->
@@ -10426,11 +10537,12 @@ async function doSaveImg(){
     <div style="font-size:7px;letter-spacing:3px;color:rgba(255,255,255,.45);font-weight:600;">SHIFT TURNOVER LOG</div>
     <div style="font-size:14px;font-weight:800;color:#fff;letter-spacing:.5px;">${org.toUpperCase()}${dept?' · '+dept.toUpperCase():''}</div>
   </div>
-  <div style="margin-left:auto;display:flex;align-items:center;gap:24px;">
-    <div style="text-align:right;">
-      <div style="font-size:26px;font-weight:800;color:#fff;letter-spacing:2px;">${shift.toUpperCase()}</div>
-      <div style="font-size:11px;color:rgba(255,255,255,.55);letter-spacing:1px;font-weight:600;">${dateLabel}</div>
+  <div style="margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
+    <div style="background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:8px;padding:5px 14px;text-align:center;">
+      <div style="font-size:7px;letter-spacing:2px;color:rgba(255,255,255,.5);font-weight:600;margin-bottom:2px;">SHIFT</div>
+      <div style="font-size:22px;font-weight:800;color:#fff;letter-spacing:3px;font-family:'BwGradualEB','BwGradual',Arial,sans-serif;">${shift.toUpperCase()}</div>
     </div>
+    <div style="font-size:11px;color:rgba(255,255,255,.55);letter-spacing:1px;font-weight:600;">${dateLabel}</div>
   </div>
 </div>
 
@@ -10576,7 +10688,8 @@ function showMobileExport(){
       <div class="mob-sheet-title">EXPORT</div>
       ${!isRoster ? `
       <div class="mob-sheet-sep">SHIFT ENTRY</div>
-      ${_btn(_img,'TURNOVER PAGE','Opens export page — save image / print / PDF',"openTurnoverExport()")}
+      ${_btn(_img,'TURNOVER PAGE','Clean page — print · PDF · share',"openTurnoverExport()")}
+      ${_btn(`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>`,'SAVE AS IMAGE','Phone-width PNG · share to WhatsApp / gallery',"exportTurnoverImage()")}
       ${_btn(_bar,'MHR REPORT','Production manhours image',"exportMhrReport()")}
       ${_btn(_xls,'MHR → EXCEL','Manhours spreadsheet',"exportMhrExcel()")}
       ${_btn(_xls,'EXCEL / CSV','Full shift data',"exportCSV()")}
