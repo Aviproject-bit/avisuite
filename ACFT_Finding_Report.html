@@ -91,7 +91,7 @@ select{font-family:'BwGradual',sans-serif;text-transform:uppercase}
   word-break:break-word;
 }
 @media(min-width:480px){
-  .tb-app-title{ white-space:nowrap; }
+  .tb-app-title{white-space:nowrap;}
 }
 
 /* ══ PASSCODE SCREEN ══════════════════════════════════════ */
@@ -1394,6 +1394,48 @@ function _showPasscodeScreen(){
   };
   document.addEventListener('keydown', _pcKeyHandler);
   screen._pcKeyHandler = _pcKeyHandler;
+}
+
+function _pcKey(k){
+  const errEl=document.getElementById('pc-err');
+  if(k==='del'||k==='⌫'){
+    _pcEntry=_pcEntry.slice(0,-1);
+    _pcUpdateDots();
+    if(errEl) errEl.textContent='';
+    return;
+  }
+  if(_pcEntry.length>=3) return;
+  _pcEntry+=k;
+  _pcUpdateDots();
+  if(_pcEntry.length===3){
+    setTimeout(()=>{
+      if(_pcVerify(_pcEntry)){
+        // Correct — trust device and dismiss
+        localStorage.setItem('_app_trusted','1');
+        localStorage.setItem('_app_lock_ver',_APP_LOCK_VER);
+        localStorage.setItem('_app_auth_ts',String(Date.now()));
+        const screen=document.getElementById('passcode-screen');
+        if(screen){
+          if(screen._pcKeyHandler) document.removeEventListener('keydown',screen._pcKeyHandler);
+          screen.classList.add('pc-exit');
+          screen.addEventListener('animationend',()=>screen.remove(),{once:true});
+        }
+      } else {
+        // Wrong
+        if(errEl) errEl.textContent='INCORRECT PASSCODE';
+        const dots=document.querySelectorAll('.pc-dot');
+        dots.forEach(d=>d.classList.add('error'));
+        setTimeout(()=>{ dots.forEach(d=>{d.classList.remove('error','filled');}); if(errEl)errEl.textContent=''; _pcEntry=''; },800);
+      }
+    },120);
+  }
+}
+
+function _pcUpdateDots(){
+  for(let i=0;i<3;i++){
+    const d=document.getElementById('pc-d'+i);
+    if(d){ d.classList.toggle('filled',i<_pcEntry.length); }
+  }
 }
 
 _checkPasscode();
