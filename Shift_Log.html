@@ -3820,6 +3820,8 @@ function restoreCursor(el, offset){
 function applyKeywordHighlight(el){
   if(!el) el=window._activeDesc;
   if(!el) return;
+  // CRITICAL: never run while element is focused — prevents stealing focus from other fields
+  if(document.activeElement === el) return;
   const cursorPos = saveCursor(el);
   let html = el.innerHTML;
   // Clean HTML entities that appear as literal text (&nbsp; → space)
@@ -3965,6 +3967,18 @@ let _autoFilled = false;
 
 function onShiftChange(){
   if(_autoFilled) loadRoster();
+}
+
+/* ── Unified image share/download helper ───────────────── */
+async function _shareOrDownload(blob, filename, title){
+  const file=new File([blob],filename,{type:'image/png'});
+  const isMob=/iPhone|iPad|Android/i.test(navigator.userAgent);
+  // Mobile: always try share sheet first
+  if(isMob && navigator.canShare && navigator.canShare({files:[file]})){
+    try{ await navigator.share({files:[file],title:title||filename}); return; }catch(e){}
+  }
+  // Desktop or share failed: direct download
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=filename; a.click();
 }
 
 // Apply keyword highlight on blur — SAFE because element has lost focus (no cursor to disturb)
@@ -5570,6 +5584,19 @@ function renderRosterMgr(){
 
     // Spacer between crews
     html += `<tr><td colspan="${totalCols}" style="height:12px;background:var(--bg);"></td></tr>`;
+  }
+
+  // ── TOTAL DAILY MANPOWER row (added to table for both desktop and mobile export) ──
+  if(activeMonth && days.length){
+    html += `<tr style="background:#1F2937;">
+      <td colspan="4" style="padding:5px 8px;color:rgba(255,255,255,.65);font-size:8px;font-weight:700;letter-spacing:1px;white-space:nowrap;">TOTAL DAILY MANPOWER</td>
+      ${days.map(d=>{
+        let cnt=0;
+        Object.values(ROSTER).flat().forEach(m=>{const c=(m.schedule||{})[d]||'';if(c==='D'||c==='T'||c==='G'||c==='OT'||c==='C/T')cnt++;});
+        return `<td style="text-align:center;font-size:9px;font-weight:800;color:${cnt>0?'#86EFAC':'rgba(255,255,255,.3)'};padding:4px 0;">${cnt||''}</td>`;
+      }).join('')}
+      <td></td>
+    </tr>`;
   }
 
   html += '</table>';
@@ -10973,6 +11000,18 @@ body{background:#E8ECF0;font-family:'BwGradual',Arial,sans-serif;font-size:13px;
 <body>
 <div class="page">
 
+<!-- ACTION BUTTONS — TOP -->
+<div id="exp-actions" style="display:flex;justify-content:center;gap:10px;padding:10px 0 14px;flex-wrap:wrap;">
+  <button id="btn-img" onclick="doExportImg()" style="display:inline-flex;align-items:center;gap:7px;background:#0F2920;color:#fff;border:none;border-radius:8px;padding:10px 20px;font-family:'BwGradual',Arial,sans-serif;font-weight:700;font-size:12px;letter-spacing:1px;cursor:pointer;text-transform:uppercase;">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+    SAVE AS IMAGE
+  </button>
+  <button onclick="window.print()" style="display:inline-flex;align-items:center;gap:7px;background:rgba(15,41,32,.1);color:#0F2920;border:1px solid #0F2920;border-radius:8px;padding:10px 20px;font-family:'BwGradual',Arial,sans-serif;font-weight:700;font-size:12px;letter-spacing:1px;cursor:pointer;text-transform:uppercase;">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+    PRINT / PDF
+  </button>
+</div>
+
 <!-- HEADER BANNER -->
 <div style="background:#0F2920;padding:12px 22px;display:flex;align-items:center;gap:16px;margin-bottom:12px;border-radius:0 0 8px 8px;">
   <img src="${logoB64}" style="height:38px;width:auto;" alt="">
@@ -11082,17 +11121,7 @@ ${hasNote ? `<div style="background:#1E429F;border-radius:8px;margin-bottom:12px
 
 <!-- ACK section removed per user request -->
 
-<div id="exp-actions" style="display:flex;justify-content:center;gap:10px;padding:12px 0 4px;flex-wrap:wrap;">
-  <button id="btn-img" onclick="doExportImg()" style="display:inline-flex;align-items:center;gap:7px;background:#0F2920;color:#fff;border:none;border-radius:8px;padding:10px 20px;font-family:'BwGradual',Arial,sans-serif;font-weight:700;font-size:12px;letter-spacing:1px;cursor:pointer;text-transform:uppercase;">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-    SAVE AS IMAGE
-  </button>
-  <button onclick="window.print()" style="display:inline-flex;align-items:center;gap:7px;background:rgba(15,41,32,.1);color:#0F2920;border:1px solid #0F2920;border-radius:8px;padding:10px 20px;font-family:'BwGradual',Arial,sans-serif;font-weight:700;font-size:12px;letter-spacing:1px;cursor:pointer;text-transform:uppercase;">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-    PRINT / PDF
-  </button>
-</div>
-<div style="text-align:center;padding:8px;font-size:8px;color:#8898A8;letter-spacing:1.5px;font-weight:600;">
+<div style="text-align:center;padding:10px;font-size:8px;color:#8898A8;letter-spacing:1.5px;font-weight:600;">
   GENERATED ${new Date().toLocaleString('en-GB').toUpperCase()} · ${(dept||org).toUpperCase()}
 </div>
 </div>
@@ -11101,18 +11130,15 @@ ${hasNote ? `<div style="background:#1E429F;border-radius:8px;margin-bottom:12px
 async function doExportImg(){
   const btn=document.getElementById('btn-img');
   const actions=document.getElementById('exp-actions');
-  const footer=actions.nextElementSibling;
-  // Hide action buttons and footer before capture
-  actions.style.display='none';
-  if(footer) footer.style.display='none';
-  btn.textContent='GENERATING...';
+  // Hide action buttons before capture
+  if(actions) actions.style.display='none';
+  if(btn) btn.textContent='GENERATING...';
   try{
     const el=document.querySelector('.page');
     const canvas=await html2canvas(el,{scale:2,backgroundColor:'#E8ECF0',useCORS:true,allowTaint:true});
     // Restore
-    actions.style.display='';
-    if(footer) footer.style.display='';
-    btn.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg> SAVE AS IMAGE';
+    if(actions) actions.style.display='';
+    if(btn) btn.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg> SAVE AS IMAGE';
     canvas.toBlob(async blob=>{
       const fn='turnover.png';
       const isMob = /iPhone|iPad|Android/i.test(navigator.userAgent);
@@ -11124,8 +11150,8 @@ async function doExportImg(){
       const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=fn;a.click();
     },'image/png');
   }catch(e){
-    actions.style.display=''; if(footer) footer.style.display='';
-    btn.textContent='SAVE AS IMAGE'; alert(e.message);
+    if(actions) actions.style.display='';
+    if(btn) btn.textContent='SAVE AS IMAGE'; alert(e.message);
   }
 }
 <\/script>
@@ -11176,34 +11202,7 @@ async function exportRosterMobileImage(){
   });
   container.appendChild(clone);
 
-  // TOTAL DAILY MANPOWER — added as a proper <tr> inside the table (auto-aligns with columns)
-  if(ym){
-    const [yr,mo]=ym.split('-').map(Number);
-    const dim=new Date(yr,mo,0).getDate();
-    const tbody=clone.querySelector('tbody')||clone;
-    // Count columns before days (# + NAME + PRN + POS)
-    const firstDataRow=clone.querySelector('tr:nth-child(3)');
-    const preCols=firstDataRow?[...firstDataRow.children].findIndex(td=>td.querySelector('.rm-day-cell')):4;
-    const preCount=preCols>=0?preCols:4;
-    const totalTr=document.createElement('tr');
-    totalTr.style.cssText='background:#1F2937;';
-    // Label cell spanning pre-day columns
-    const labelTd=document.createElement('td');
-    labelTd.colSpan=preCount;
-    labelTd.style.cssText='padding:5px 8px;color:rgba(255,255,255,.7);font-size:8px;font-weight:700;letter-spacing:1px;white-space:nowrap;';
-    labelTd.textContent='TOTAL DAILY MANPOWER';
-    totalTr.appendChild(labelTd);
-    for(let d=1;d<=dim;d++){
-      const dateStr=ym+'-'+String(d).padStart(2,'0');
-      let cnt=0;
-      Object.values(ROSTER).flat().forEach(m=>{ const c=(m.schedule||{})[dateStr]||''; if(c==='D'||c==='T'||c==='G'||c==='OT'||c==='C/T') cnt++; });
-      const td=document.createElement('td');
-      td.style.cssText=`width:26px;min-width:26px;text-align:center;font-size:9px;font-weight:800;color:${cnt>0?'#86EFAC':'rgba(255,255,255,.3)'};padding:4px 0;`;
-      td.textContent=cnt||'';
-      totalTr.appendChild(td);
-    }
-    tbody.appendChild(totalTr);
-  }
+  // TOTAL DAILY MANPOWER is already in the table (added by renderRosterMgr) — no extra code needed
 
   document.body.appendChild(container);
   try{
