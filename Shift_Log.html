@@ -357,6 +357,64 @@ input[type=checkbox]:checked+.tog::after{left:21px;}
 }
 .rm-day-cell:active{ transform:scale(0.9); }
 
+/* ══ PASSCODE SCREEN ══════════════════════════════════════ */
+#passcode-screen{
+  position:fixed;inset:0;background:#0F2920;z-index:99999;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  font-family:'BwGradual',sans-serif;
+}
+#passcode-screen .pc-logo{ margin-bottom:32px; }
+#passcode-screen .pc-title{
+  color:rgba(255,255,255,.55);font-size:9px;font-weight:700;
+  letter-spacing:3px;text-transform:uppercase;margin-bottom:8px;
+}
+#passcode-screen .pc-sub{
+  color:rgba(255,255,255,.3);font-size:10px;letter-spacing:1px;
+  margin-bottom:36px;
+}
+#passcode-screen .pc-dots{
+  display:flex;gap:16px;margin-bottom:36px;
+}
+#passcode-screen .pc-dot{
+  width:14px;height:14px;border-radius:50%;
+  border:2px solid rgba(255,255,255,.3);
+  background:transparent;transition:all .2s;
+}
+#passcode-screen .pc-dot.filled{
+  background:#fff;border-color:#fff;
+}
+#passcode-screen .pc-dot.error{
+  background:#EF4444;border-color:#EF4444;
+  animation:pcShake .3s ease;
+}
+@keyframes pcShake{
+  0%,100%{transform:translateX(0)}
+  20%,60%{transform:translateX(-4px)}
+  40%,80%{transform:translateX(4px)}
+}
+#passcode-screen .pc-grid{
+  display:grid;grid-template-columns:repeat(3,72px);
+  grid-template-rows:repeat(4,72px);gap:10px;
+}
+#passcode-screen .pc-key{
+  background:rgba(255,255,255,.1);border:none;
+  border-radius:50%;color:#fff;
+  font-family:'BwGradual',sans-serif;font-size:20px;font-weight:700;
+  cursor:pointer;transition:background .1s;
+  -webkit-tap-highlight-color:transparent;
+}
+#passcode-screen .pc-key:active{ background:rgba(255,255,255,.25); }
+#passcode-screen .pc-key.pc-del{
+  background:transparent;font-size:18px;
+}
+#passcode-screen .pc-key.pc-empty{
+  background:transparent;cursor:default;pointer-events:none;
+}
+#passcode-screen .pc-err{
+  color:#FCA5A5;font-size:11px;font-weight:700;letter-spacing:1.5px;
+  margin-top:16px;height:20px;text-align:center;
+}
+
 /* ══ MOBILE BOTTOM ACTION BAR ════════════════════════════ */
 #mob-bar{
   display:none;
@@ -1456,7 +1514,7 @@ function addAcft(reg=''){
         <button class="task-add-btn todo" onclick="addTask('${id}','TO DO')">+ TO DO</button>
         <button class="task-add-btn note" onclick="addTask('${id}','NOTE')">+ NOTE</button>
         <div class="custom-type-wrap">
-          <input class="custom-type-in" type="text" placeholder="CUSTOM..." id="${id}-custom" maxlength="8" onkeydown="if(event.key==='Enter'){event.preventDefault();addCustomTask('${id}')}">
+          <input class="custom-type-in" type="text" placeholder="FILL..." id="${id}-custom" maxlength="8" onkeydown="if(event.key==='Enter'){event.preventDefault();addCustomTask('${id}')}">
           <button class="custom-add-btn" onmousedown="event.preventDefault()" onclick="addCustomTask('${id}')">+ ADD</button>
         </div>
       </div>
@@ -2795,6 +2853,7 @@ function _injectShcCss(){
   document.head.appendChild(el);
 }
 document.addEventListener('DOMContentLoaded', _injectShcCss);
+document.addEventListener('DOMContentLoaded', _checkPasscode);
 
   const container=document.createElement('div');
   container.style.cssText=`background:#fff;font-family:"BwGradual",Calibri,sans-serif;font-size:12px;display:inline-flex;flex-direction:column;`;
@@ -3762,6 +3821,8 @@ function applyKeywordHighlight(el){
   let html = el.innerHTML;
   // Clean HTML entities that appear as literal text (&nbsp; → space)
   html = html.replace(/&nbsp;/gi,' ').replace(/&amp;nbsp;/gi,' ');
+  // Auto-correct: CW (outside tags) → C/W
+  html = html.replace(/(?<=>|^|\s)(CW)(?=\s|$|<)/g, '$1C/W');
   // Strip old kw spans
   html = html.replace(/<span class="kw-hl"[^>]*>(.*?)<\/span>/gi,'$1');
   // Apply per keyword - only match whole word occurrences
@@ -3817,12 +3878,9 @@ function handleDescKey(e, el){
       }
     }
   }
-  // On Space: highlight keywords typed so far, then move cursor out of any highlight span
+  // On Space: highlight keywords typed so far
   if(e.key===' '){
-    setTimeout(()=>{
-      applyKeywordHighlight(el);
-      _moveCursorOutOfKwSpan();
-    }, 50);
+    setTimeout(()=>applyKeywordHighlight(el), 50);
   }
 }
 
@@ -3909,24 +3967,6 @@ function onShiftChange(){
 }
 
 // Force-run keyword highlight regardless of last key (mobile blur)
-// Move cursor out of .kw-hl span so new text doesn't inherit the keyword color
-function _moveCursorOutOfKwSpan(){
-  const sel=window.getSelection();
-  if(!sel||!sel.rangeCount) return;
-  const r=sel.getRangeAt(0);
-  const node=r.startContainer;
-  const span=node.nodeType===3
-    ? node.parentElement?.closest('.kw-hl')
-    : (node.closest&&node.closest('.kw-hl'));
-  if(span){
-    // Insert a zero-width space AFTER the span to anchor the cursor outside
-    const zws=document.createTextNode('​');
-    span.parentNode.insertBefore(zws,span.nextSibling);
-    const r2=document.createRange();
-    r2.setStart(zws,1); r2.collapse(true);
-    sel.removeAllRanges(); sel.addRange(r2);
-  }
-}
 
 function forceHighlight(el){
   const saved = el._lastKey;
@@ -10409,6 +10449,106 @@ function _restoreDraft(){
   }catch(e){ localStorage.removeItem('st_draft'); }
 }
 
+/* ══ PASSCODE ══════════════════════════════════════════════ */
+const _PC_HASH = '902eea9f3f781e18e41b5c3e83fae9da'; // md5("321") — stored obfuscated
+function _pc_md5(str){
+  // Simple hash for passcode verification — not for security, for obscurity
+  function rotl(x,n){return(x<<n)|(x>>>(32-n));}
+  function add(a,b){return(a+b)&0xFFFFFFFF;}
+  const msg=unescape(encodeURIComponent(str));
+  const bytes=[];for(let i=0;i<msg.length;i++)bytes.push(msg.charCodeAt(i));
+  bytes.push(0x80);
+  while(bytes.length%64!==56)bytes.push(0);
+  const bits=str.length*8;
+  bytes.push(bits&0xff,(bits>>8)&0xff,(bits>>16)&0xff,(bits>>24)&0xff,0,0,0,0);
+  const T=[];for(let i=1;i<=64;i++)T[i]=Math.floor(4294967296*Math.abs(Math.sin(i)))|0;
+  let a=0x67452301,b=0xEFCDAB89,c=0x98BADCFE,d=0x10325476;
+  for(let i=0;i<bytes.length;i+=64){
+    const M=[];for(let j=0;j<16;j++)M[j]=(bytes[i+4*j])|(bytes[i+4*j+1]<<8)|(bytes[i+4*j+2]<<16)|(bytes[i+4*j+3]<<24);
+    let A=a,B=b,C=c,D=d;
+    const F=(x,y,z)=>(x&y)|(~x&z),G=(x,y,z)=>(x&z)|(y&~z),H=(x,y,z)=>x^y^z,I=(x,y,z)=>y^(x|~z);
+    const R=(f,a,b,c,d,k,s,t)=>add(b,rotl(add(add(a,f(b,c,d)),add(M[k],T[t])),s));
+    for(let t=1;t<=16;t++){const s=[7,12,17,22];const k=(t-1)%16;[D,A,B,C]=[C,D,A,R(F,A,B,C,D,k,s[(t-1)%4],t)];}
+    for(let t=1;t<=16;t++){const s=[5,9,14,20];const k=(5*(t-1)+1)%16;[D,A,B,C]=[C,D,A,R(G,A,B,C,D,k,s[(t-1)%4],t+16)];}
+    for(let t=1;t<=16;t++){const s=[4,11,16,23];const k=(3*(t-1)+5)%16;[D,A,B,C]=[C,D,A,R(H,A,B,C,D,k,s[(t-1)%4],t+32)];}
+    for(let t=1;t<=16;t++){const s=[6,10,15,21];const k=(7*(t-1))%16;[D,A,B,C]=[C,D,A,R(I,A,B,C,D,k,s[(t-1)%4],t+48)];}
+    a=add(a,A);b=add(b,B);c=add(c,C);d=add(d,D);
+  }
+  return [a,b,c,d].map(v=>(((v&0xFF)<<24)|((v>>8&0xFF)<<16)|((v>>16&0xFF)<<8)|(v>>>24)).toString(16).padStart(8,'0')).join('');
+}
+
+function _checkPasscode(){
+  // Check if device is trusted
+  if(localStorage.getItem('_app_trusted')==='1') return;
+  // Show passcode screen
+  _showPasscodeScreen();
+}
+
+let _pcEntry='';
+function _showPasscodeScreen(){
+  const logoSrc=(document.querySelector('.tb-brand img')||{}).src||'';
+  const screen=document.createElement('div');
+  screen.id='passcode-screen';
+  screen.innerHTML=`
+    <div class="pc-logo">
+      ${logoSrc?`<img src="${logoSrc}" style="height:48px;width:auto;" alt="">`:'<div style="color:#fff;font-size:22px;font-weight:800;">SHIFT LOG</div>'}
+    </div>
+    <div class="pc-title">SECURE ACCESS</div>
+    <div class="pc-sub">Enter your passcode to continue</div>
+    <div class="pc-dots" id="pc-dots">
+      <div class="pc-dot" id="pc-d0"></div>
+      <div class="pc-dot" id="pc-d1"></div>
+      <div class="pc-dot" id="pc-d2"></div>
+    </div>
+    <div class="pc-grid" id="pc-grid">
+      ${[1,2,3,4,5,6,7,8,9,'',0,'⌫'].map((k,i)=>`
+        <button class="pc-key${k===''?' pc-empty':k==='⌫'?' pc-del':''}"
+          ${k!==''?`onclick="_pcKey('${k}')"`:''}>${k}</button>
+      `).join('')}
+    </div>
+    <div class="pc-err" id="pc-err"></div>
+  `;
+  document.body.appendChild(screen);
+  // Prevent any interaction with the app behind
+  screen.addEventListener('touchmove',e=>e.preventDefault(),{passive:false});
+}
+
+function _pcKey(k){
+  const errEl=document.getElementById('pc-err');
+  if(k==='⌫'){
+    _pcEntry=_pcEntry.slice(0,-1);
+    _pcUpdateDots();
+    if(errEl) errEl.textContent='';
+    return;
+  }
+  if(_pcEntry.length>=3) return;
+  _pcEntry+=k;
+  _pcUpdateDots();
+  if(_pcEntry.length===3){
+    setTimeout(()=>{
+      if(_pc_md5(_pcEntry)===_PC_HASH){
+        // Correct — trust device and dismiss
+        localStorage.setItem('_app_trusted','1');
+        const screen=document.getElementById('passcode-screen');
+        if(screen){ screen.style.opacity='0'; screen.style.transition='opacity .3s'; setTimeout(()=>screen.remove(),300); }
+      } else {
+        // Wrong
+        if(errEl) errEl.textContent='INCORRECT PASSCODE';
+        const dots=document.querySelectorAll('.pc-dot');
+        dots.forEach(d=>d.classList.add('error'));
+        setTimeout(()=>{ dots.forEach(d=>{d.classList.remove('error','filled');}); if(errEl)errEl.textContent=''; _pcEntry=''; },800);
+      }
+    },120);
+  }
+}
+
+function _pcUpdateDots(){
+  for(let i=0;i<3;i++){
+    const d=document.getElementById('pc-d'+i);
+    if(d){ d.classList.toggle('filled',i<_pcEntry.length); }
+  }
+}
+
 /* ══ MOBILE EXPORT SHEET JS ══════════════════════════════ */
 /* ══ CUSTOM TURNOVER EXPORT PAGE ══════════════════════ */
 function _getEmbeddedFontCSS(){
@@ -10704,10 +10844,10 @@ async function openTurnoverExport(){
     body += `<div style="background:#fff;border:1px solid ${BORDER};border-radius:8px;margin-bottom:12px;overflow:hidden;">
     <div style="background:${COL};padding:8px 16px;"><span style="font-weight:700;font-size:11px;letter-spacing:3px;color:rgba(255,255,255,.8);">MAN POWER</span></div>
     <div style="padding:14px 16px;">
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:8px;">
-        ${mpRows.map(r=>`<div style="display:flex;align-items:flex-start;gap:6px;background:#F4F6F8;border:1px solid ${BORDER};border-radius:5px;padding:6px 10px;min-width:0;overflow:hidden;">
-          <span style="font-size:10px;color:${MUTED};min-width:18px;text-align:right;font-weight:700;padding-top:2px;">${r.num}</span>
-          <span style="flex:1;font-weight:700;font-size:13px;word-break:break-word;white-space:normal;min-width:0;">${r.name}</span>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(${W2>600?'300px':'100%'},1fr));gap:8px;">
+        ${mpRows.map(r=>`<div style="display:flex;align-items:flex-start;gap:6px;background:#F4F6F8;border:1px solid ${BORDER};border-radius:5px;padding:6px 10px;min-width:0;overflow:hidden;box-sizing:border-box;">
+          <span style="font-size:10px;color:${MUTED};min-width:18px;text-align:right;font-weight:700;padding-top:2px;flex-shrink:0;">${r.num}</span>
+          <span style="flex:1;font-weight:700;font-size:13px;word-break:break-word;overflow-wrap:anywhere;white-space:normal;min-width:0;max-width:100%;">${r.name}</span>
           ${_stBadge(r.status)}
           ${_mhrBadge(r.mhr)}
         </div>`).join('')}
@@ -11034,28 +11174,56 @@ async function exportRosterMobileImage(){
     s.onload=()=>exportRosterMobileImage(); document.head.appendChild(s); return;
   }
   showToast('GENERATING ROSTER IMAGE...');
-  const scrollWrap=document.getElementById('roster-scroll-wrap');
   const mgr=document.getElementById('roster-mgr-wrap');
-  if(!scrollWrap||!mgr){ showToast('ROSTER NOT LOADED'); return; }
-  // Temporarily expand scroll wrap to full table width for screenshot
-  const origStyle=scrollWrap.style.cssText;
-  scrollWrap.style.cssText=scrollWrap.style.cssText+'overflow:visible!important;max-width:none!important;width:auto!important;';
+  if(!mgr){ showToast('ROSTER NOT LOADED'); return; }
+
+  // Get the actual table inside mgr
+  const tbl=mgr.querySelector('table');
+  if(!tbl){ showToast('NO ROSTER DATA'); return; }
+
+  // Measure full table dimensions
+  const tblW=tbl.scrollWidth;
+  const tblH=tbl.scrollHeight;
+
+  // Create an offscreen container at full table size — bypasses scroll clipping
+  const container=document.createElement('div');
+  container.style.cssText=`position:fixed;left:-${tblW+100}px;top:0;width:${tblW}px;height:${tblH}px;overflow:visible;background:#F4F6F8;z-index:-1;`;
+  const clone=tbl.cloneNode(true);
+  clone.style.cssText=`border-collapse:collapse;width:${tblW}px;`;
+  container.appendChild(clone);
+  document.body.appendChild(container);
+
   try{
-    const canvas=await html2canvas(mgr,{
+    const canvas=await html2canvas(container,{
       scale:2, backgroundColor:'#F4F6F8', useCORS:true, allowTaint:true,
-      width:mgr.scrollWidth, windowWidth:mgr.scrollWidth+100
+      width:tblW, height:tblH, windowWidth:tblW+200
     });
-    scrollWrap.style.cssText=origStyle;
-    canvas.toBlob(async blob=>{
-      const fn='roster.png';
+    document.body.removeChild(container);
+    // Add header strip
+    const ym=document.getElementById('rm-month-filter')?.value||'';
+    const hdrH=Math.round(canvas.width*0.04);
+    const final=document.createElement('canvas');
+    final.width=canvas.width; final.height=canvas.height+hdrH;
+    const ctx=final.getContext('2d');
+    ctx.fillStyle='#0F2920';
+    ctx.fillRect(0,0,final.width,hdrH);
+    ctx.fillStyle='rgba(255,255,255,0.9)';
+    ctx.font=`bold ${Math.round(hdrH*0.4)}px Arial`;
+    ctx.textAlign='center';
+    ctx.fillText('ROSTER · '+(ym||''), final.width/2, hdrH*0.68);
+    ctx.drawImage(canvas,0,hdrH);
+
+    final.toBlob(async blob=>{
+      const fn='roster-full.png';
       const file=new File([blob],fn,{type:'image/png'});
-      if(navigator.canShare&&navigator.canShare({files:[file]})){
+      const isMob=/iPhone|iPad|Android/i.test(navigator.userAgent);
+      if(isMob&&navigator.canShare&&navigator.canShare({files:[file]})){
         try{await navigator.share({files:[file],title:'ROSTER'});return;}catch(e){}
       }
       const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=fn;a.click();
     },'image/png');
   }catch(e){
-    scrollWrap.style.cssText=origStyle;
+    if(document.body.contains(container)) document.body.removeChild(container);
     showToast('ERROR: '+e.message);
   }
 }
