@@ -735,16 +735,20 @@ input[type=checkbox]:checked+.tog::after{left:21px;}
   #roster-mgr-wrap table{ border-collapse:collapse !important; border-spacing:0 !important; }
   .rm-table th, #roster-mgr-wrap table th{ font-size:10px !important; padding:4px 2px !important; }
   .rm-table td{ padding:4px 2px !important; }
-  /* PRN: compact, no overflow */
-  .rm-prn-col{ min-width:68px !important; max-width:68px !important; overflow:hidden !important; }
-  .rm-prn-in{
-    font-size:8px !important; color:var(--muted) !important;
+  /* PRN: compact — override the global 16px iOS zoom rule with high specificity */
+  #roster-mgr-wrap .rm-prn-col,
+  #roster-scroll-wrap .rm-prn-col{ min-width:68px !important; max-width:68px !important; overflow:hidden !important; }
+  #roster-mgr-wrap .rm-prn-in,
+  #roster-scroll-wrap .rm-prn-in{
+    font-size:9px !important; color:var(--muted) !important;
     width:66px !important; max-width:66px !important;
     overflow:hidden !important; text-overflow:ellipsis !important;
-    white-space:nowrap !important; letter-spacing:0 !important;
+    white-space:nowrap !important; letter-spacing:-0.5px !important;
   }
-  .rm-pos-sel{ font-size:8px !important; padding:1px 2px !important; max-width:50px !important; }
-  .rm-pos-col{ min-width:52px !important; max-width:52px !important; overflow:hidden !important; }
+  #roster-mgr-wrap .rm-pos-sel,
+  #roster-scroll-wrap .rm-pos-sel{ font-size:9px !important; padding:1px 2px !important; max-width:50px !important; }
+  #roster-mgr-wrap .rm-pos-col,
+  #roster-scroll-wrap .rm-pos-col{ min-width:50px !important; max-width:50px !important; overflow:hidden !important; }
   .rm-name-in{
     pointer-events:none !important;
     font-size:12px !important; font-weight:700 !important;
@@ -3963,13 +3967,10 @@ function onShiftChange(){
   if(_autoFilled) loadRoster();
 }
 
-// Force-run keyword highlight regardless of last key (mobile blur)
-
+// Apply keyword highlight on blur — SAFE because element has lost focus (no cursor to disturb)
 function forceHighlight(el){
-  const saved = el._lastKey;
-  el._lastKey = ' ';
-  highlightKeywords(el);
-  el._lastKey = saved;
+  if(!el||el._composing) return;
+  applyKeywordHighlight(el); // directly call — skips all typing guards
 }
 
 // Force uppercase text in contenteditable (mobile only — preserves HTML tags/formatting)
@@ -10451,12 +10452,14 @@ function _restoreDraft(){
 const _PC_VALID=[51,50,49].map(c=>String.fromCharCode(c)).join('');
 function _pcVerify(entry){ return String(entry)===_PC_VALID; }
 
+const _APP_LOCK_VER='v3'; // bump this to force re-auth on all devices
 function _checkPasscode(){
-  // Temporarily reset for testing — remove after confirming it works
-  // localStorage.removeItem('_app_trusted');
-  if(localStorage.getItem('_app_trusted')==='1') return;
-  // Delay slightly to ensure body is rendered
-  setTimeout(_showPasscodeScreen, 50);
+  // Check if device is trusted AND version matches
+  if(localStorage.getItem('_app_trusted')==='1'&&localStorage.getItem('_app_lock_ver')===_APP_LOCK_VER) return;
+  // Clear stale trust from older versions
+  localStorage.removeItem('_app_trusted');
+  localStorage.removeItem('_app_lock_ver');
+  setTimeout(_showPasscodeScreen, 80);
 }
 
 let _pcEntry='';
@@ -10505,6 +10508,7 @@ function _pcKey(k){
       if(_pcVerify(_pcEntry)){
         // Correct — trust device and dismiss
         localStorage.setItem('_app_trusted','1');
+        localStorage.setItem('_app_lock_ver',_APP_LOCK_VER);
         const screen=document.getElementById('passcode-screen');
         if(screen){ screen.style.opacity='0'; screen.style.transition='opacity .3s'; setTimeout(()=>screen.remove(),300); }
       } else {
@@ -10608,7 +10612,7 @@ async function exportTurnoverImage(){
     <div style="font-weight:700;font-size:13px;margin-bottom:8px;">${(spec||'—').toUpperCase()}</div>
     <div style="font-size:8px;font-weight:700;letter-spacing:2px;color:${MUTED};margin-bottom:4px;">SUPERVISORS</div>
     <div style="display:flex;flex-wrap:wrap;gap:4px;">
-      ${supvs.map(s=>`<span style="background:${COL};color:#fff;font-weight:700;font-size:10px;padding:3px 8px;border-radius:4px;">${s.name.toUpperCase()}</span>`).join('')||'—'}
+      ${supvs.map(s=>`<span style="background:${COL};color:#fff;font-weight:700;font-size:10px;padding:3px 8px;border-radius:4px;display:inline-flex;align-items:center;gap:5px;">${s.name.toUpperCase()}${s.mhr?`<span style="background:#1A56DB;color:#fff;font-size:9px;font-weight:800;padding:1px 6px;border-radius:8px;">${s.mhr}</span>`:''}</span>`).join('')||'—'}
     </div>
     <div style="display:flex;align-items:center;gap:6px;margin-top:8px;padding-top:8px;border-top:1px solid ${BORDER};">
       <div style="width:28px;height:16px;background:${safety?'#057A55':'#CBD5E0'};border-radius:8px;position:relative;">
@@ -11172,29 +11176,33 @@ async function exportRosterMobileImage(){
   });
   container.appendChild(clone);
 
-  // TOTAL DAILY MANPOWER footer
+  // TOTAL DAILY MANPOWER — added as a proper <tr> inside the table (auto-aligns with columns)
   if(ym){
     const [yr,mo]=ym.split('-').map(Number);
     const dim=new Date(yr,mo,0).getDate();
-    // Build totals row matching the table column widths
-    const totalsDiv=document.createElement('div');
-    totalsDiv.style.cssText=`background:#1F2937;display:flex;align-items:center;font-family:Arial,sans-serif;`;
-    // Name-like label cell
-    const labelCell=document.createElement('div');
-    labelCell.style.cssText=`min-width:${28+tbl.querySelector('col:nth-child(2)')?.offsetWidth||200}px;padding:4px 8px;color:rgba(255,255,255,.7);font-size:8px;font-weight:700;letter-spacing:1px;`;
-    labelCell.textContent='TOTAL DAILY MANPOWER';
-    totalsDiv.appendChild(labelCell);
-    // Day counts
+    const tbody=clone.querySelector('tbody')||clone;
+    // Count columns before days (# + NAME + PRN + POS)
+    const firstDataRow=clone.querySelector('tr:nth-child(3)');
+    const preCols=firstDataRow?[...firstDataRow.children].findIndex(td=>td.querySelector('.rm-day-cell')):4;
+    const preCount=preCols>=0?preCols:4;
+    const totalTr=document.createElement('tr');
+    totalTr.style.cssText='background:#1F2937;';
+    // Label cell spanning pre-day columns
+    const labelTd=document.createElement('td');
+    labelTd.colSpan=preCount;
+    labelTd.style.cssText='padding:5px 8px;color:rgba(255,255,255,.7);font-size:8px;font-weight:700;letter-spacing:1px;white-space:nowrap;';
+    labelTd.textContent='TOTAL DAILY MANPOWER';
+    totalTr.appendChild(labelTd);
     for(let d=1;d<=dim;d++){
       const dateStr=ym+'-'+String(d).padStart(2,'0');
       let cnt=0;
       Object.values(ROSTER).flat().forEach(m=>{ const c=(m.schedule||{})[dateStr]||''; if(c==='D'||c==='T'||c==='G'||c==='OT'||c==='C/T') cnt++; });
-      const cell=document.createElement('div');
-      cell.style.cssText=`width:28px;min-width:28px;text-align:center;font-size:9px;font-weight:800;color:${cnt>0?'#86EFAC':'rgba(255,255,255,.3)'};padding:4px 0;`;
-      cell.textContent=cnt||'';
-      totalsDiv.appendChild(cell);
+      const td=document.createElement('td');
+      td.style.cssText=`width:26px;min-width:26px;text-align:center;font-size:9px;font-weight:800;color:${cnt>0?'#86EFAC':'rgba(255,255,255,.3)'};padding:4px 0;`;
+      td.textContent=cnt||'';
+      totalTr.appendChild(td);
     }
-    container.appendChild(totalsDiv);
+    tbody.appendChild(totalTr);
   }
 
   document.body.appendChild(container);
