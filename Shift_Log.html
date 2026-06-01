@@ -3826,8 +3826,8 @@ function applyKeywordHighlight(el){
   let html = el.innerHTML;
   // Clean HTML entities that appear as literal text (&nbsp; → space)
   html = html.replace(/&nbsp;/gi,' ').replace(/&amp;nbsp;/gi,' ');
-  // Auto-correct: CW (outside tags) → C/W
-  html = html.replace(/(?<=>|^|\s)(CW)(?=\s|$|<)/g, '$1C/W');
+  // Auto-correct: CW → C/W (word boundary — lookbehind is zero-width, so just replace CW)
+  html = html.replace(/\bCW\b/g, 'C/W');
   // Strip old kw spans
   html = html.replace(/<span class="kw-hl"[^>]*>(.*?)<\/span>/gi,'$1');
   // Apply per keyword - only match whole word occurrences
@@ -3981,10 +3981,13 @@ async function _shareOrDownload(blob, filename, title){
   const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=filename; a.click();
 }
 
-// Apply keyword highlight on blur — SAFE because element has lost focus (no cursor to disturb)
+// Apply keyword highlight on blur — deferred with setTimeout to let focus fully move first
 function forceHighlight(el){
   if(!el||el._composing) return;
-  applyKeywordHighlight(el); // directly call — skips all typing guards
+  // setTimeout(0) ensures focus has fully moved to the next element before DOM manipulation
+  setTimeout(()=>{
+    if(document.activeElement !== el) applyKeywordHighlight(el);
+  }, 0);
 }
 
 // Force uppercase text in contenteditable (mobile only — preserves HTML tags/formatting)
@@ -4539,11 +4542,10 @@ function exportMhrReport(){
   ctx.fillStyle='#94A3B8'; ctx.font='400 9px '+BW;
   ctx.fillText('Generated  '+new Date().toLocaleString('en-GB').toUpperCase(),PAD+16,ty+22);
 
-  cv.toBlob(function(blob){
-    var url=URL.createObjectURL(blob);
-    var a=document.createElement('a');
-    a.href=url; a.download='MHR_'+(date||'blank')+'_'+(shift||'SHIFT')+'.png';
-    a.click(); URL.revokeObjectURL(url); showToast('MHR REPORT ✓');
+  cv.toBlob(async function(blob){
+    const fn='MHR_'+(date||'blank')+'_'+(shift||'SHIFT')+'.png';
+    await _shareOrDownload(blob,fn,'MHR REPORT');
+    showToast('MHR REPORT ✓');
   },'image/png');
   } // end _draw
 }
@@ -5586,16 +5588,15 @@ function renderRosterMgr(){
     html += `<tr><td colspan="${totalCols}" style="height:12px;background:var(--bg);"></td></tr>`;
   }
 
-  // ── TOTAL DAILY MANPOWER row (added to table for both desktop and mobile export) ──
+  // ── TOTAL DAILY MANPOWER row (added to table — no actions column) ──
   if(activeMonth && days.length){
     html += `<tr style="background:#1F2937;">
-      <td colspan="4" style="padding:5px 8px;color:rgba(255,255,255,.65);font-size:8px;font-weight:700;letter-spacing:1px;white-space:nowrap;">TOTAL DAILY MANPOWER</td>
+      <td colspan="4" style="padding:5px 8px;color:rgba(255,255,255,.65);font-size:8px;font-weight:700;letter-spacing:1px;white-space:nowrap;border-top:2px solid rgba(255,255,255,.2);">TOTAL DAILY MANPOWER</td>
       ${days.map(d=>{
         let cnt=0;
         Object.values(ROSTER).flat().forEach(m=>{const c=(m.schedule||{})[d]||'';if(c==='D'||c==='T'||c==='G'||c==='OT'||c==='C/T')cnt++;});
-        return `<td style="text-align:center;font-size:9px;font-weight:800;color:${cnt>0?'#86EFAC':'rgba(255,255,255,.3)'};padding:4px 0;">${cnt||''}</td>`;
+        return `<td style="text-align:center;font-size:9px;font-weight:800;color:${cnt>0?'#86EFAC':'rgba(255,255,255,.3)'};padding:4px 0;border-top:2px solid rgba(255,255,255,.2);">${cnt||''}</td>`;
       }).join('')}
-      <td></td>
     </tr>`;
   }
 
@@ -7357,10 +7358,10 @@ async function exportRoster(fmt){
     html2canvas(container,{scale:2,backgroundColor:'#fff',useCORS:true,allowTaint:true,logging:false,width:CW,height:CH,windowWidth:CW,windowHeight:CH})
     .then(canvas=>{
       document.body.removeChild(container);
-      const a=document.createElement('a');
-      a.download='ROSTER_'+month+'.png';
-      a.href=canvas.toDataURL('image/png');a.click();
-      showToast('IMAGE EXPORTED \u2713');
+      canvas.toBlob(async blob=>{
+        await _shareOrDownload(blob,'ROSTER_'+month+'.png','ROSTER '+month);
+        showToast('IMAGE EXPORTED \u2713');
+      },'image/png');
     }).catch(err=>{
       if(document.body.contains(container))document.body.removeChild(container);
       showToast('ERROR: '+err.message);
@@ -10070,11 +10071,8 @@ function exportMatrixImage(){
       html2canvas(wrap,{scale:2,backgroundColor:'#fff',useCORS:true,allowTaint:true,logging:false,width:W,height:H,windowWidth:W,windowHeight:H})
       .then(canvas=>{
         document.body.removeChild(wrap);
-        const a=document.createElement('a');
-        a.href=canvas.toDataURL('image/png');
-        a.download=`QUALS_MATRIX_${new Date().toISOString().split('T')[0]}.png`;
-        a.click();
-        showToast('✓ MATRIX IMAGE EXPORTED');
+        const fn=`QUALS_MATRIX_${new Date().toISOString().split('T')[0]}.png`;
+        canvas.toBlob(async b=>{ await _shareOrDownload(b,fn,'QUALIFICATION MATRIX'); showToast('✓ MATRIX IMAGE EXPORTED'); },'image/png');
       }).catch(err=>{if(document.body.contains(wrap))document.body.removeChild(wrap);showToast('ERROR: '+err.message.slice(0,50));});
     }));
   }).catch(()=>showToast('NETWORK ERROR'));
@@ -10207,11 +10205,8 @@ function exportCoverageImage(){
       html2canvas(wrap,{scale:2,backgroundColor:'#fff',useCORS:true,allowTaint:true,logging:false,width:W,height:H,windowWidth:W,windowHeight:H})
       .then(canvas=>{
         document.body.removeChild(wrap);
-        const a=document.createElement('a');
-        a.href=canvas.toDataURL('image/png');
-        a.download=`QUALS_COVERAGE_ALL_${ym}.png`;
-        a.click();
-        showToast('✓ COVERAGE IMAGE EXPORTED');
+        const fn2=`QUALS_COVERAGE_ALL_${ym}.png`;
+        canvas.toBlob(async b=>{ await _shareOrDownload(b,fn2,'COVERAGE'); showToast('✓ COVERAGE IMAGE EXPORTED'); },'image/png');
       }).catch(err=>{if(document.body.contains(wrap))document.body.removeChild(wrap);showToast('ERROR: '+err.message.slice(0,50));});
     }));
   }).catch(()=>showToast('NETWORK ERROR'));
@@ -10710,7 +10705,7 @@ async function exportTurnoverImage(){
       if(navigator.canShare&&navigator.canShare({files:[file]})){
         try{ await navigator.share({files:[file],title:`TURNOVER ${shift} ${dateLabel}`}); return; }catch(e){}
       }
-      const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=fn; a.click();
+      await _shareOrDownload(blob,fn,`TURNOVER ${shift} ${dateLabel}`);
     },'image/png');
   }catch(e){ document.body.removeChild(tmp); showToast('ERROR: '+e.message); }
 }
