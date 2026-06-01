@@ -262,6 +262,9 @@ input[type=checkbox]:checked+.tog::after{left:21px;}
 
 /* ROSTER MANAGER */
 .rm-table{width:100%;border-collapse:collapse;}
+/* Fix: generated roster table has no class — force collapse globally */
+#roster-mgr-wrap table,
+#roster-scroll-wrap table{border-collapse:collapse !important;border-spacing:0 !important;}
 .rm-table th{background:var(--surface);font-family:'BwGradual', sans-serif;font-size:9px;font-weight:700;letter-spacing:.5px;color:var(--muted);padding:5px 1px;text-align:center;border-bottom:1px solid var(--border);text-transform:uppercase;white-space:nowrap;min-width:24px;}
 .rm-table th.rm-th-fixed{text-align:left;padding:5px 8px;min-width:unset;}
 .rm-table td{padding:3px 1px;border-bottom:1px solid var(--border);font-size:12px;vertical-align:middle;text-align:center;}
@@ -3740,6 +3743,8 @@ function applyKeywordHighlight(el){
 
 function handleDescKey(e, el){
   el._lastKey = e.key;
+  // ── MOBILE: skip ALL preventDefault/execCommand — lets iOS QuickType/autocomplete work ──
+  if(window.innerWidth <= 768) return;
   // Ctrl+B = Bold, Ctrl+U = Underline, Ctrl+I = Italic
   if(e.ctrlKey && e.key==='b'){ e.preventDefault(); document.execCommand('bold',false,null); }
   if(e.ctrlKey && e.key==='u'){ e.preventDefault(); document.execCommand('underline',false,null); }
@@ -10522,7 +10527,11 @@ body{background:#E8ECF0;font-family:'BwGradual',Arial,sans-serif;font-size:13px;
 .chk-lbl{font-size:11px;font-weight:600;letter-spacing:.8px;}
 .safe-tog{width:38px;height:20px;border-radius:10px;position:relative;flex-shrink:0;}
 .safe-dot{position:absolute;width:14px;height:14px;background:#fff;border-radius:50%;top:3px;box-shadow:0 1px 3px rgba(0,0,0,.25);}
-@media print{body{background:#fff;}.page{width:100%;padding:0 8mm 8mm;}}
+@media print{
+  body{background:#fff;}
+  .page{width:100%;padding:0 8mm 8mm;}
+  button[onclick*="doExportImg"],button[onclick*="window.print"]{display:none!important;}
+}
 @media(max-width:${W2+40}px){.page{width:100%;padding:0;}}
 </style>
 </head>
@@ -10651,10 +10660,40 @@ ${hasNote ? `<div style="background:#1E429F;border-radius:8px;margin-bottom:12px
   </div>
 </div>
 
-<div style="text-align:center;padding:10px;font-size:8px;color:#8898A8;letter-spacing:1.5px;font-weight:600;">
+<div style="display:flex;justify-content:center;gap:10px;padding:12px 0 4px;flex-wrap:wrap;">
+  <button onclick="doExportImg()" style="display:inline-flex;align-items:center;gap:7px;background:#0F2920;color:#fff;border:none;border-radius:8px;padding:10px 20px;font-family:'BwGradual',Arial,sans-serif;font-weight:700;font-size:12px;letter-spacing:1px;cursor:pointer;text-transform:uppercase;">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+    SAVE AS IMAGE
+  </button>
+  <button onclick="window.print()" style="display:inline-flex;align-items:center;gap:7px;background:rgba(15,41,32,.1);color:#0F2920;border:1px solid #0F2920;border-radius:8px;padding:10px 20px;font-family:'BwGradual',Arial,sans-serif;font-weight:700;font-size:12px;letter-spacing:1px;cursor:pointer;text-transform:uppercase;">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+    PRINT / PDF
+  </button>
+</div>
+<div style="text-align:center;padding:8px;font-size:8px;color:#8898A8;letter-spacing:1.5px;font-weight:600;">
   GENERATED ${new Date().toLocaleString('en-GB').toUpperCase()} · ${org.toUpperCase()} ${dept.toUpperCase()}
 </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"><\/script>
+<script>
+async function doExportImg(){
+  const btn=event.currentTarget; btn.textContent='GENERATING...'; btn.disabled=true;
+  try{
+    const el=document.querySelector('.page');
+    const canvas=await html2canvas(el,{scale:2,backgroundColor:'#E8ECF0',useCORS:true,allowTaint:true});
+    btn.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg> SAVE AS IMAGE';
+    btn.disabled=false;
+    canvas.toBlob(async blob=>{
+      const fn='turnover.png';
+      const file=new File([blob],fn,{type:'image/png'});
+      if(navigator.canShare&&navigator.canShare({files:[file]})){
+        try{await navigator.share({files:[file]});return;}catch(e){}
+      }
+      const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=fn;a.click();
+    },'image/png');
+  }catch(e){btn.textContent='SAVE AS IMAGE';btn.disabled=false;}
+}
+<\/script>
 </body></html>`;
 
   const w = window.open('','_blank','width=1140,height=900');
@@ -10672,12 +10711,17 @@ function showMobileExport(){
       <span class="msb-icon">${svg}</span>
       <div><div>${title}</div><div class="msb-sub">${sub}</div></div>
     </button>`;
-  const _img = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>`;
-  const _xls = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></svg>`;
-  const _bar = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg>`;
-  const _cal = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`;
-  const _grid= `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>`;
-  const _trend=`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>`;
+  // Consistent SVG icon set — same style as app
+  const _ico=(p)=>`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
+  const _iPage = _ico(`<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/>`);
+  const _iImg  = _ico(`<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>`);
+  const _iXls  = _ico(`<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/>`);
+  const _iBar  = _ico(`<path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/>`);
+  const _iCal  = _ico(`<rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>`);
+  const _iGrid = _ico(`<rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>`);
+  const _iTrend= _ico(`<polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>`);
+  // Legacy aliases
+  const _img=_iImg, _xls=_iXls, _bar=_iBar, _cal=_iCal, _grid=_iGrid, _trend=_iTrend;
 
   const sheet = document.createElement('div');
   sheet.id = 'mob-export-sheet';
@@ -10688,8 +10732,8 @@ function showMobileExport(){
       <div class="mob-sheet-title">EXPORT</div>
       ${!isRoster ? `
       <div class="mob-sheet-sep">SHIFT ENTRY</div>
-      ${_btn(_img,'TURNOVER PAGE','Clean page — print · PDF · share',"openTurnoverExport()")}
-      ${_btn(`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>`,'SAVE AS IMAGE','Phone-width PNG · share to WhatsApp / gallery',"exportTurnoverImage()")}
+      ${_btn(_iPage,'TURNOVER PAGE','Clean page — print · PDF · share',"openTurnoverExport()")}
+      ${_btn(_iImg,'SAVE AS IMAGE','Phone-width PNG · share to WhatsApp · gallery',"exportTurnoverImage()")}
       ${_btn(_bar,'MHR REPORT','Production manhours image',"exportMhrReport()")}
       ${_btn(_xls,'MHR → EXCEL','Manhours spreadsheet',"exportMhrExcel()")}
       ${_btn(_xls,'EXCEL / CSV','Full shift data',"exportCSV()")}
