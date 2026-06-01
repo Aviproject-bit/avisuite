@@ -1082,6 +1082,78 @@ input[type=checkbox]:checked+.tog::after{left:21px;}
   from{opacity:0;transform:translateY(8px) scale(.97);}
   to{opacity:1;transform:translateY(0) scale(1);}
 }
+
+/* ── Slide animations for collapsibles ──────────────── */
+@keyframes slideDown{
+  from{opacity:0;max-height:0;transform:translateY(-6px);}
+  to{opacity:1;max-height:2000px;transform:translateY(0);}
+}
+@keyframes slideUp{
+  from{opacity:1;max-height:2000px;transform:translateY(0);}
+  to{opacity:0;max-height:0;transform:translateY(-4px);}
+}
+@keyframes acft-enter{
+  from{opacity:0;transform:translateY(-8px) scale(.98);}
+  to{opacity:1;transform:translateY(0) scale(1);}
+}
+@keyframes section-open{
+  from{opacity:0;transform:translateY(-4px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+/* Aircraft block enter */
+.acft-block{
+  animation:acft-enter .22s ease;
+  transform-origin:top center;
+}
+
+/* acft-body open/close */
+.acft-body{
+  overflow:hidden;
+  transition:opacity .18s ease;
+}
+.acft-body.hidden{
+  display:none !important;
+}
+.acft-body.anim-open{
+  animation:slideDown .22s ease forwards;
+}
+.acft-body.anim-close{
+  animation:slideUp .18s ease forwards;
+}
+
+/* Section bodies (gen-notes, crit-aog, etc) */
+.section-anim-open{
+  animation:section-open .2s ease;
+}
+
+/* Caret smooth rotation */
+.acft-caret{
+  transition:transform .2s ease;
+}
+.acft-hdr:not(.collapsed) .acft-caret{
+  transform:rotate(0deg);
+}
+.acft-hdr.collapsed .acft-caret{
+  transform:rotate(-90deg);
+}
+
+/* ── Row enter animation ── */
+@keyframes row-enter{
+  from{opacity:0;transform:translateX(-6px);}
+  to{opacity:1;transform:translateX(0);}
+}
+.task-row{
+  animation:row-enter .18s ease;
+}
+/* crit sections open */
+@keyframes crit-open{
+  from{opacity:0;transform:translateY(-5px);}
+  to{opacity:1;transform:translateY(0);}
+}
+.crit-bd-open{
+  animation:crit-open .2s ease;
+}
 </style>
 </head>
 <body>
@@ -1655,6 +1727,8 @@ function addAcft(reg=''){
     </div>`;
   if(addBtn) wrap.insertBefore(div,addBtn); else wrap.appendChild(div);
   addTask(id,'STATUS');
+  // Scroll to new aircraft smoothly
+  setTimeout(()=>div.scrollIntoView({behavior:'smooth',block:'nearest'}),50);
 }
 
 function addAddAcftBtn(){
@@ -1666,8 +1740,19 @@ function toggleAcft(id,e){
   if(e.target.closest('.acft-del')||e.target.closest('.acft-reg-in')) return;
   const body=document.getElementById(id+'-body');
   const hdr=document.querySelector('#'+id+' .acft-hdr');
-  body.classList.toggle('hidden');
+  const isHidden=body.classList.contains('hidden');
   hdr.classList.toggle('collapsed');
+  if(isHidden){
+    body.classList.remove('hidden','anim-close');
+    body.classList.add('anim-open');
+    body.addEventListener('animationend',()=>body.classList.remove('anim-open'),{once:true});
+  } else {
+    body.classList.add('anim-close');
+    body.addEventListener('animationend',()=>{
+      body.classList.add('hidden');
+      body.classList.remove('anim-close');
+    },{once:true});
+  }
 }
 
 /* ══ TASKS ════════════════════════════════════════════ */
@@ -1698,6 +1783,7 @@ function addTask(acftId, type='C/W', text=''){
     <button class="t-del" onclick="this.closest('.task-row').remove()" title="DELETE">✕</button>`;
   list.appendChild(row);
   updateTaskType(row.querySelector('.t-type'));
+  setTimeout(()=>row.scrollIntoView({behavior:'smooth',block:'nearest'}),30);
   // Fix mobile keyboard autocomplete: track IME composition state
   const desc = row.querySelector('.t-desc');
   if(desc){
@@ -2030,8 +2116,16 @@ function toggleCrit(key){
   const tog = document.getElementById('tog-'+key);
   if(!bd) return;
   const isOpen = bd.style.display === 'block';
-  bd.style.display = isOpen ? 'none' : 'block';
-  if(tog) tog.textContent = isOpen ? '▸ EXPAND' : '▾ COLLAPSE';
+  if(isOpen){
+    bd.style.display = 'none';
+    if(tog) tog.textContent = '▸ EXPAND';
+  } else {
+    bd.style.display = 'block';
+    bd.classList.add('crit-bd-open');
+    bd.addEventListener('animationend',()=>bd.classList.remove('crit-bd-open'),{once:true});
+    if(tog) tog.textContent = '▾ COLLAPSE';
+    setTimeout(()=>bd.scrollIntoView({behavior:'smooth',block:'nearest'}),50);
+  }
 }
 
 
@@ -7077,9 +7171,15 @@ function toggleGenNotes(){
   const caret = document.getElementById('gen-notes-caret');
   const lbl = document.getElementById('gn-toggle-label');
   const hidden = body.style.display==='none';
-  body.style.display = hidden ? '' : 'none';
   caret.style.transform = hidden ? '' : 'rotate(-90deg)';
   if(lbl) lbl.textContent = hidden ? 'COLLAPSE' : 'EXPAND';
+  if(hidden){
+    body.style.display='';
+    body.classList.add('section-anim-open');
+    body.addEventListener('animationend',()=>body.classList.remove('section-anim-open'),{once:true});
+  } else {
+    body.style.display='none';
+  }
 }
 function gnFmt(cmd){
   const el = document.getElementById('gen-notes-desc');
