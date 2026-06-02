@@ -380,7 +380,7 @@ function handlePhotos(id, src) {
     if (f.photos.length >= 5) return;
     const reader = new FileReader();
     reader.onload = async e => {
-      const compressed = await compressImage(e.target.result, 1920, 0.82);
+      const compressed = await compressImage(e.target.result, 1600, 0.80);
       f.photos.push({ data: compressed, name: file.name });
       // Backward compat
       if (!f.photoData) { f.photoData = compressed; f.photoName = file.name; }
