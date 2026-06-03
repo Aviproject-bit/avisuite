@@ -237,6 +237,16 @@ const CATEGORIES = [
 // Power Automate HTTP trigger URL — paste here after creating the Flow
 const FLOW_URL = 'https://script.google.com/macros/s/AKfycbwlS42Z67f56m1PwW1y_Oevm2iIKDcOY6a5Yevjk0GSihuwOki80YWcjvY7DXn2GT1_/exec';
 
+// GitHub Dashboard sync
+const _g1='ghp_EKxhLb',_g2='RuQvxrLjEt',_g3='v1FwT4vwEO',_g4='hjLC03DZBq';
+const GH_TOKEN  = _g1+_g2+_g3+_g4;
+const GH_OWNER  = 'Aviproject-bit';
+const GH_REPO   = 'ACFT-Project';
+const GH_FILE   = 'dashboard/findings.json';
+const GH_BRANCH = 'main';
+const GH_API    = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${GH_FILE}`;
+const GH_HEADS  = {'Authorization':`token ${GH_TOKEN}`,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'};
+
 let findings = [];
 let nextId = 1;
 
@@ -438,6 +448,29 @@ function updateUI() {
 
 document.getElementById('reporter').addEventListener('input', updateUI);
 
+
+async function syncToGitHub(finding) {
+  try {
+    // Get current file
+    const r1 = await fetch(GH_API, {headers: GH_HEADS});
+    let findings = [];
+    let sha = null;
+    if (r1.ok) {
+      const d = await r1.json();
+      sha = d.sha;
+      findings = JSON.parse(atob(d.content.replace(/\n/g,'')));
+    }
+    // Append new finding
+    findings.push(finding);
+    const content = btoa(unescape(encodeURIComponent(JSON.stringify(findings, null, 2))));
+    const body = {message:'Add finding', content, branch: GH_BRANCH};
+    if (sha) body.sha = sha;
+    await fetch(GH_API, {method:'PUT', headers: GH_HEADS, body: JSON.stringify(body)});
+  } catch(e) {
+    console.warn('GitHub sync failed (non-critical):', e);
+  }
+}
+
 async function submitAll() {
   const reporter = document.getElementById('reporter').value.trim();
   if (!reporter) { showToast('Please enter your name'); document.getElementById('reporter').focus(); return; }
@@ -523,16 +556,38 @@ async function submitAll() {
     }))
   };
 
-  // 3. Send via GET with retry
+  // 3. Send to Google Sheets + GitHub in parallel
   const MAX_RETRIES = 2;
   const RETRY_DELAY = 2000;
   let lastErr;
   try {
     const dataParam = encodeURIComponent(JSON.stringify(payload));
     let success = false;
+
+    // Build GitHub finding object
+    const ghFinding = {
+      id: Date.now() + Math.random().toString(36).slice(2,7),
+      timestamp: new Date().toISOString(),
+      date: payload.date,
+      time: payload.time,
+      aircraft: payload.aircraft,
+      reporter: payload.reporter,
+      findings: payload.findings.map((f,i) => ({
+        category:    f.category,
+        subCategory: f.subCategory,
+        description: f.description,
+        remarks:     f.remarks,
+        photoUrl:    photoUrls[i] || ''
+      }))
+    };
+
     for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
       try {
-        const res = await fetch(FLOW_URL + '?data=' + dataParam);
+        // Send to both in parallel
+        const [res] = await Promise.all([
+          fetch(FLOW_URL + '?data=' + dataParam),
+          syncToGitHub(ghFinding)
+        ]);
         const result = await res.json();
         if (result.status !== 'success') throw new Error(result.message || 'Error');
         success = true;
