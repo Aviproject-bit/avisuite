@@ -1,247 +1,184 @@
 [
   {
-    "id": "17805157492008j4y5",
-    "timestamp": "2026-06-03T19:42:29.200Z",
-    "date": "03/06/2026",
-    "time": "22:42",
-    "aircraft": "HZ-AK35",
-    "reporter": "AHMED ALGHAMDI",
-    "findings": [
-      {
-        "category": "LAVATORY          ",
-        "subCategory": "N/A               ",
-        "description": "J                                                           ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/N6Z5FQQP/8698eeb000cb.jpg"
-      }
-    ]
-  },
-  {
-    "id": "17805158985591dq9b",
-    "timestamp": "2026-06-03T19:44:58.560Z",
-    "date": "03/06/2026",
-    "time": "22:44",
-    "aircraft": "HZ-AK35",
-    "reporter": "AHMED ALGHAMDI",
-    "findings": [
-      {
-        "category": "F/A SEAT          ",
-        "subCategory": "N/A               ",
-        "description": "HH                                                          ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/5hc8CHKz/65ee7552f8d3.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1780516085241cl8nc",
-    "timestamp": "2026-06-03T19:48:05.241Z",
-    "date": "03/06/2026",
-    "time": "22:48",
-    "aircraft": "HZ-AK35",
-    "reporter": "AHMED ALGHAMDI",
-    "findings": [
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "N/A               ",
-        "description": "H                                                           ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/WNMGqb98/cffe0299d112.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1780516117598cczsi",
-    "timestamp": "2026-06-03T19:48:37.598Z",
-    "date": "03/06/2026",
-    "time": "22:48",
-    "aircraft": "HZ-AK35",
-    "reporter": "AHMED ALGHAMDI",
-    "findings": [
-      {
-        "category": "FLIGHT DECK       ",
-        "subCategory": "N/A               ",
-        "description": "J                                                           ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/FLcxNV8T/f2e5b197a8ff.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1780516320660zinv4",
-    "timestamp": "2026-06-03T19:52:00.660Z",
-    "date": "03/06/2026",
-    "time": "22:51",
-    "aircraft": "HZ-AK35",
-    "reporter": "AHMED ALGHAMDI",
-    "findings": [
-      {
-        "category": "PAX SEAT          ",
-        "subCategory": "N/A               ",
-        "description": "HH                                                          ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/B52sWshF/660d854467f4.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1780516537239dfjrz",
-    "timestamp": "2026-06-03T19:55:37.239Z",
-    "date": "03/06/2026",
-    "time": "22:55",
-    "aircraft": "HZ-AK35",
-    "reporter": "AHMED ALGHAMDI",
-    "findings": [
-      {
-        "category": "PAX DOORS         ",
-        "subCategory": "N/A               ",
-        "description": "H                                                           ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/C53YmhmS/68160b0d4102.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1780516776649451qc",
-    "timestamp": "2026-06-03T19:59:36.649Z",
-    "date": "03/06/2026",
-    "time": "22:59",
-    "aircraft": "HZ-AK35",
-    "reporter": "AHMED ALGHAMDI",
-    "findings": [
-      {
-        "category": "PAX DOORS         ",
-        "subCategory": "N/A               ",
-        "description": "H                                                           ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/MyTPcb6R/faa91a4ec9bf.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1780516910050qzbfo",
-    "timestamp": "2026-06-03T20:01:50.050Z",
-    "date": "03/06/2026",
-    "time": "23:01",
-    "aircraft": "HZ-AK35",
-    "reporter": "A",
-    "findings": [
-      {
-        "category": "PAX DOORS         ",
-        "subCategory": "N/A               ",
-        "description": "A                                                           ",
-        "remarks": "                         ",
-        "photoUrl": ""
-      }
-    ]
-  },
-  {
-    "id": "17805171758319b2ju",
-    "timestamp": "2026-06-03T20:06:15.831Z",
-    "date": "03/06/2026",
-    "time": "23:06",
-    "aircraft": "HZ-AK35",
-    "reporter": "AHMED ALGHAMDI",
-    "findings": [
-      {
-        "category": "LAVATORY          ",
-        "subCategory": "N/A               ",
-        "description": "A                                                           ",
-        "remarks": "                         ",
-        "photoUrl": ""
-      }
-    ]
-  },
-  {
-    "id": "1780517501046aa1an",
-    "timestamp": "2026-06-03T20:11:41.046Z",
-    "date": "03/06/2026",
-    "time": "23:11",
-    "aircraft": "HZ-AR22",
-    "reporter": "AA",
-    "findings": [
-      {
-        "category": "F/A SEAT          ",
-        "subCategory": "N/A               ",
-        "description": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "remarks": "                         ",
-        "photoUrl": ""
-      }
-    ]
-  },
-  {
-    "id": "1780518252193a97fb",
-    "timestamp": "2026-06-03T20:24:12.193Z",
-    "date": "03/06/2026",
-    "time": "23:24",
-    "aircraft": "HZ-AR22",
-    "reporter": "13010253",
-    "findings": [
-      {
-        "category": "TEDLAR/SIDEWALL   ",
-        "subCategory": "SIDEWALL 93       ",
-        "description": "ITEM ONE G/C SEATS#32D, 33D, 34D, 36D, 37D, 39D, 41D, 43D, 44D, 45D, 46D, 47D, 49D, 53D, 54D, 55D, 56D, 57D, 60D, 61D, 62D, 63D, 66D, 67D, 68D, 70D, 71D, 72D, 73D, BUMPER - ENDBAY DAMAGE.\n",
-        "remarks": "ITEM ONE G/C SEATS#32D, 33D, 34D, 36D, 37D, 39D, 41D, 43D, 44D, 45D, 46D, 47D, 49D, 53D, 54D, 55D, 56D, 57D, 60D, 61D, 62D, 63D, 66D, 67D, 68D, 70D, 71D, 72D, 73D, BUMPER - ENDBAY DAMAGE.",
-        "photoUrl": ""
-      }
-    ]
-  },
-  {
-    "id": "1780520457476enwye",
-    "timestamp": "2026-06-03T21:00:57.477Z",
-    "date": "04/06/2026",
-    "time": "00:00",
-    "aircraft": "HZ-AK35",
-    "reporter": "A",
-    "findings": [
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "HUH               ",
-        "description": "HHH                                                         ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/20BvrgXc/5e61f646c5ef.jpg | https://i.ibb.co/nNyqDLyH/9f846bb78f8e.jpg | https://i.ibb.co/tpLxRS39/770ad58b125e.jpg | https://i.ibb.co/NggthXDb/ba874c0adc93.jpg"
-      },
-      {
-        "category": "GALLEY            ",
-        "subCategory": "N/A               ",
-        "description": "HH                                                          ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/BHWB2FBB/5e0cda55be5e.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1780520925468nyx2s",
-    "timestamp": "2026-06-03T21:08:45.469Z",
-    "date": "04/06/2026",
-    "time": "00:08",
-    "aircraft": "HZ-AK35",
-    "reporter": "AHMED ALGHAMDI",
-    "findings": [
-      {
-        "category": "FLIGHT DECK       ",
-        "subCategory": "N/A               ",
-        "description": "A                                                           ",
-        "remarks": "                         ",
-        "photoUrl": ""
-      }
-    ]
-  },
-  {
-    "id": "1780521163182zs1cq",
+    "_id": "1780521163182zs1cq",
     "timestamp": "2026-06-03T21:12:43.183Z",
     "date": "04/06/2026",
     "time": "00:12",
     "aircraft": "HZ-AK35",
     "reporter": "AHMED ALGHAMDI",
-    "findings": [
-      {
-        "category": "F/A SEAT          ",
-        "subCategory": "N/A               ",
-        "description": "DJ YTTGGUHYYY                                               ",
-        "remarks": "                         ",
-        "photoUrl": ""
-      }
-    ]
+    "category": "F/A SEAT",
+    "subCategory": "N/A",
+    "description": "DJ YTTGGUHYYY",
+    "remarks": "",
+    "photoUrl": ""
+  },
+  {
+    "_id": "1780520457476enwye",
+    "timestamp": "2026-06-03T21:00:57.477Z",
+    "date": "04/06/2026",
+    "time": "00:00",
+    "aircraft": "HZ-AK35",
+    "reporter": "A",
+    "category": "GENERAL CABIN",
+    "subCategory": "HUH",
+    "description": "HHH",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/20BvrgXc/5e61f646c5ef.jpg | https://i.ibb.co/nNyqDLyH/9f846bb78f8e.jpg | https://i.ibb.co/tpLxRS39/770ad58b125e.jpg | https://i.ibb.co/NggthXDb/ba874c0adc93.jpg"
+  },
+  {
+    "_id": "1780520457476enwye",
+    "timestamp": "2026-06-03T21:00:57.477Z",
+    "date": "04/06/2026",
+    "time": "00:00",
+    "aircraft": "HZ-AK35",
+    "reporter": "A",
+    "category": "GALLEY",
+    "subCategory": "N/A",
+    "description": "HH",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/BHWB2FBB/5e0cda55be5e.jpg"
+  },
+  {
+    "_id": "1780518252193a97fb",
+    "timestamp": "2026-06-03T20:24:12.193Z",
+    "date": "03/06/2026",
+    "time": "23:24",
+    "aircraft": "HZ-AR22",
+    "reporter": "13010253",
+    "category": "TEDLAR/SIDEWALL",
+    "subCategory": "SIDEWALL 93",
+    "description": "ITEM ONE G/C SEATS#32D, 33D, 34D, 36D, 37D, 39D, 41D, 43D, 44D, 45D, 46D, 47D, 49D, 53D, 54D, 55D, 56D, 57D, 60D, 61D, 62D, 63D, 66D, 67D, 68D, 70D, 71D, 72D, 73D, BUMPER - ENDBAY DAMAGE.",
+    "remarks": "ITEM ONE G/C SEATS#32D, 33D, 34D, 36D, 37D, 39D, 41D, 43D, 44D, 45D, 46D, 47D, 49D, 53D, 54D, 55D, 56D, 57D, 60D, 61D, 62D, 63D, 66D, 67D, 68D, 70D, 71D, 72D, 73D, BUMPER - ENDBAY DAMAGE.",
+    "photoUrl": ""
+  },
+  {
+    "_id": "1780517501046aa1an",
+    "timestamp": "2026-06-03T20:11:41.046Z",
+    "date": "03/06/2026",
+    "time": "23:11",
+    "aircraft": "HZ-AR22",
+    "reporter": "AA",
+    "category": "F/A SEAT",
+    "subCategory": "N/A",
+    "description": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+    "remarks": "",
+    "photoUrl": ""
+  },
+  {
+    "_id": "17805171758319b2ju",
+    "timestamp": "2026-06-03T20:06:15.831Z",
+    "date": "03/06/2026",
+    "time": "23:06",
+    "aircraft": "HZ-AK35",
+    "reporter": "AHMED ALGHAMDI",
+    "category": "LAVATORY",
+    "subCategory": "N/A",
+    "description": "A",
+    "remarks": "",
+    "photoUrl": ""
+  },
+  {
+    "_id": "1780516910050qzbfo",
+    "timestamp": "2026-06-03T20:01:50.050Z",
+    "date": "03/06/2026",
+    "time": "23:01",
+    "aircraft": "HZ-AK35",
+    "reporter": "A",
+    "category": "PAX DOORS",
+    "subCategory": "N/A",
+    "description": "A",
+    "remarks": "",
+    "photoUrl": ""
+  },
+  {
+    "_id": "1780516776649451qc",
+    "timestamp": "2026-06-03T19:59:36.649Z",
+    "date": "03/06/2026",
+    "time": "22:59",
+    "aircraft": "HZ-AK35",
+    "reporter": "AHMED ALGHAMDI",
+    "category": "PAX DOORS",
+    "subCategory": "N/A",
+    "description": "H",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/MyTPcb6R/faa91a4ec9bf.jpg"
+  },
+  {
+    "_id": "1780516537239dfjrz",
+    "timestamp": "2026-06-03T19:55:37.239Z",
+    "date": "03/06/2026",
+    "time": "22:55",
+    "aircraft": "HZ-AK35",
+    "reporter": "AHMED ALGHAMDI",
+    "category": "PAX DOORS",
+    "subCategory": "N/A",
+    "description": "H",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/C53YmhmS/68160b0d4102.jpg"
+  },
+  {
+    "_id": "1780516320660zinv4",
+    "timestamp": "2026-06-03T19:52:00.660Z",
+    "date": "03/06/2026",
+    "time": "22:51",
+    "aircraft": "HZ-AK35",
+    "reporter": "AHMED ALGHAMDI",
+    "category": "PAX SEAT",
+    "subCategory": "N/A",
+    "description": "HH",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/B52sWshF/660d854467f4.jpg"
+  },
+  {
+    "_id": "1780516117598cczsi",
+    "timestamp": "2026-06-03T19:48:37.598Z",
+    "date": "03/06/2026",
+    "time": "22:48",
+    "aircraft": "HZ-AK35",
+    "reporter": "AHMED ALGHAMDI",
+    "category": "FLIGHT DECK",
+    "subCategory": "N/A",
+    "description": "J",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/FLcxNV8T/f2e5b197a8ff.jpg"
+  },
+  {
+    "_id": "1780516085241cl8nc",
+    "timestamp": "2026-06-03T19:48:05.241Z",
+    "date": "03/06/2026",
+    "time": "22:48",
+    "aircraft": "HZ-AK35",
+    "reporter": "AHMED ALGHAMDI",
+    "category": "GENERAL CABIN",
+    "subCategory": "N/A",
+    "description": "H",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/WNMGqb98/cffe0299d112.jpg"
+  },
+  {
+    "_id": "17805158985591dq9b",
+    "timestamp": "2026-06-03T19:44:58.560Z",
+    "date": "03/06/2026",
+    "time": "22:44",
+    "aircraft": "HZ-AK35",
+    "reporter": "AHMED ALGHAMDI",
+    "category": "F/A SEAT",
+    "subCategory": "N/A",
+    "description": "HH",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/5hc8CHKz/65ee7552f8d3.jpg"
+  },
+  {
+    "_id": "17805157492008j4y5",
+    "timestamp": "2026-06-03T19:42:29.200Z",
+    "date": "03/06/2026",
+    "time": "22:42",
+    "aircraft": "HZ-AK35",
+    "reporter": "AHMED ALGHAMDI",
+    "category": "LAVATORY",
+    "subCategory": "N/A",
+    "description": "J",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/N6Z5FQQP/8698eeb000cb.jpg"
   }
 ]
