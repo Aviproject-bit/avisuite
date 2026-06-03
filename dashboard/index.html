@@ -243,13 +243,17 @@ body { font-family: var(--sans); background: var(--bg); color: var(--text); min-
 .toast.show { transform: translateX(-50%) translateY(0); }
 
 /* ── RESPONSIVE ──────────────────────────── */
-@media(max-width:768px) {
+input[type="date"].filter-select{color:var(--text-2);cursor:pointer}
+.photo-inline{max-width:100px;max-height:70px;border-radius:6px;object-fit:cover;cursor:zoom-in;border:1px solid var(--border);transition:transform .15s}
+.photo-inline:hover{transform:scale(1.05)}
+@media(max-width:768px){
   .layout { padding: 16px 12px; }
   .stats { grid-template-columns: repeat(2,1fr); }
   .table th:nth-child(n+5), .table td:nth-child(n+5) { display: none; }
   .desc-cell { max-width: 180px; }
 }
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
 <body>
 
@@ -282,13 +286,7 @@ body { font-family: var(--sans); background: var(--bg); color: var(--text); min-
 
 <!-- MAIN -->
 <div class="layout">
-  <!-- Stats -->
-  <div class="stats">
-    <div class="stat"><div class="stat-label">Total</div><div class="stat-val total" id="s-total">—</div><div class="stat-sub">findings</div></div>
-    <div class="stat"><div class="stat-label">Open</div><div class="stat-val open" id="s-open">—</div><div class="stat-sub">pending</div></div>
-    <div class="stat"><div class="stat-label">Closed</div><div class="stat-val closed" id="s-closed">—</div><div class="stat-sub">completed</div></div>
-    <div class="stat"><div class="stat-label">Parts Req.</div><div class="stat-val parts" id="s-parts">—</div><div class="stat-sub">requested</div></div>
-  </div>
+
 
   <!-- Toolbar -->
   <div class="toolbar">
@@ -309,8 +307,18 @@ body { font-family: var(--sans); background: var(--bg); color: var(--text); min-
     <select class="filter-select" id="f-ac" onchange="applyFilters()">
       <option value="">All Aircraft</option>
     </select>
+    <input type="date" class="filter-select" id="f-date-from" onchange="applyFilters()" title="From">
+    <input type="date" class="filter-select" id="f-date-to" onchange="applyFilters()" title="To">
     <button class="btn btn-ghost" onclick="resetFilters()">Reset</button>
-    <button class="btn btn-primary" id="refresh-btn" onclick="loadFindings()">↻ Refresh</button>
+    <button class="btn btn-ghost" onclick="exportExcel()" title="Export Excel">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg> Excel
+    </button>
+    <button class="btn btn-ghost" onclick="exportPDF()" title="Export PDF">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> PDF
+    </button>
+    <button class="btn btn-primary" id="refresh-btn" onclick="loadFindings()">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg> Refresh
+    </button>
   </div>
 
   <!-- Table -->
@@ -454,7 +462,7 @@ async function loadFindings() {
     const res = await fetch(rawUrl);
     if (!res.ok) { allFindings = []; renderAll(); return; }
     const text = await res.text();
-    allFindings = JSON.parse(text).sort((a,b) => new Date(b.timestamp||0) - new Date(a.timestamp||0));
+    allFindings = flattenFindings(JSON.parse(text)).sort((a,b) => new Date(b.timestamp||0) - new Date(a.timestamp||0));
     // Get SHA for writes (using API)
     const r2 = await fetch(API, { headers: HEADERS });
     if (r2.ok) { const d = await r2.json(); fileSha = d.sha; }
@@ -491,12 +499,17 @@ function applyFilters() {
   const status = document.getElementById('f-status').value;
   const ac     = document.getElementById('f-ac').value;
 
+  const dateFrom = document.getElementById('f-date-from').value;
+  const dateTo   = document.getElementById('f-date-to').value;
   filtered = allFindings.filter(f => {
-    const matchQ   = !q || [f.wo,f.description,f.reporter,f.category,f.aircraft].some(v=>v&&v.toLowerCase().includes(q));
-    const matchCat = !cat    || f.category === cat;
-    const matchSt  = !status || f.status === status;
-    const matchAc  = !ac     || f.aircraft === ac;
-    return matchQ && matchCat && matchSt && matchAc;
+    const matchQ    = !q || [f.wo,f.description,f.reporter,f.category,f.aircraft].some(v=>v&&v.toLowerCase().includes(q));
+    const matchCat  = !cat    || f.category === cat;
+    const matchSt   = !status || f.status === status;
+    const matchAc   = !ac     || f.aircraft === ac;
+    const ts = f.timestamp ? new Date(f.timestamp) : null;
+    const matchFrom = !dateFrom || (ts && ts >= new Date(dateFrom));
+    const matchTo   = !dateTo   || (ts && ts <= new Date(dateTo + 'T23:59:59'));
+    return matchQ && matchCat && matchSt && matchAc && matchFrom && matchTo;
   });
 
   currentPage = 1;
@@ -510,6 +523,8 @@ function resetFilters() {
   document.getElementById('f-cat').value = '';
   document.getElementById('f-status').value = '';
   document.getElementById('f-ac').value = '';
+  document.getElementById('f-date-from').value = '';
+  document.getElementById('f-date-to').value = '';
   applyFilters();
 }
 
@@ -529,6 +544,35 @@ function updateStats() {
   // Show aircraft in header
   const acs = [...new Set(allFindings.map(f=>f.aircraft).filter(Boolean))];
   document.getElementById('ac-badge').textContent = acs.length === 1 ? acs[0] : `${acs.length} Aircraft`;
+}
+
+function flattenFindings(raw) {
+  const out = [];
+  raw.forEach(entry => {
+    if (entry.findings && Array.isArray(entry.findings)) {
+      entry.findings.forEach(f => {
+        out.push({
+          id:          entry.id,
+          timestamp:   entry.timestamp,
+          date:        entry.date,
+          time:        entry.time,
+          aircraft:    entry.aircraft,
+          reporter:    entry.reporter,
+          wo:          f.wo || entry.wo || '',
+          category:    (f.category||'').trim(),
+          subCategory: (f.subCategory||'').trim(),
+          description: (f.description||'').trim(),
+          remarks:     (f.remarks||'').trim(),
+          photoUrl:    f.photoUrl || '',
+          status:      f.status || entry.status || 'Open',
+          partsRequested: f.partsRequested || false,
+        });
+      });
+    } else {
+      out.push(entry);
+    }
+  });
+  return out;
 }
 
 function renderTable() {
@@ -652,6 +696,55 @@ function showToast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg; t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+function exportExcel() {
+  const data = filtered.map(f => ({
+    'Date':        formatDate(f.timestamp),
+    'Aircraft':    f.aircraft||'',
+    'Reporter':    f.reporter||'',
+    'Category':    (f.category||'').trim(),
+    'Sub-Cat':     (f.subCategory||'').trim(),
+    'Description': (f.description||'').trim(),
+    'Remarks':     (f.remarks||'').trim(),
+    'Photo URL':   f.photoUrl||'',
+    'Status':      f.status||'',
+  }));
+  const ws = XLSX.utils.json_to_sheet(data);
+  ws['!cols'] = [{wch:12},{wch:10},{wch:18},{wch:16},{wch:16},{wch:50},{wch:25},{wch:40},{wch:12}];
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'Findings');
+  XLSX.writeFile(wb, `ACFT_Findings_${new Date().toISOString().slice(0,10)}.xlsx`);
+  showToast(`Exported ${data.length} findings ✓`);
+}
+
+function exportPDF() {
+  const dateStr = new Date().toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
+  const rows = filtered.map((f,i) => `
+    <tr style="background:${i%2===0?'#f8faf7':'#fff'}">
+      <td>${formatDate(f.timestamp)}</td>
+      <td>${f.aircraft||'—'}</td>
+      <td><span style="background:#d6ead8;color:#1a5c3a;padding:2px 6px;border-radius:4px;font-size:9px">${(f.category||'').trim()||'—'}</span></td>
+      <td>${(f.description||'').trim().slice(0,120)}</td>
+      <td>${f.reporter||'—'}</td>
+      ${f.photoUrl?`<td><img src="${f.photoUrl.split(' | ')[0]}" style="width:60px;height:40px;object-fit:cover;border-radius:4px" crossorigin="anonymous"></td>`:'<td>—</td>'}
+    </tr>`).join('');
+  const win = window.open('','_blank');
+  win.document.write(`<!DOCTYPE html><html><head>
+    <title>ACFT Findings — ${dateStr}</title>
+    <style>body{font-family:Arial,sans-serif;font-size:11px;margin:20px}
+    .hdr{background:#0F2920;color:#fff;padding:14px 18px;border-radius:8px;margin-bottom:16px;display:flex;justify-content:space-between}
+    table{width:100%;border-collapse:collapse;font-size:10px}
+    th{background:#0F2920;color:#fff;padding:7px 10px;text-align:left;font-size:9px;letter-spacing:1px;text-transform:uppercase}
+    td{padding:6px 10px;border-bottom:1px solid #e2e5df;vertical-align:top}
+    .ft{margin-top:16px;font-size:9px;color:#9aa098;text-align:center}
+    </style></head><body>
+    <div class="hdr"><b>ACFT FINDINGS REPORT</b><span>Generated: ${dateStr} | Total: ${filtered.length}</span></div>
+    <table><thead><tr><th>Date</th><th>Aircraft</th><th>Category</th><th>Description</th><th>Reporter</th><th>Photo</th></tr></thead>
+    <tbody>${rows}</tbody></table>
+    <div class="ft">SAUDIA TECHNIC — CA&QC DIVISION</div>
+    <script>window.onload=()=>window.print()<\/script></body></html>`);
+  win.document.close();
 }
 
 // ── INIT ──────────────────────────────────────────────────────
