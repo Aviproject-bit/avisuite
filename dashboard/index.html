@@ -844,7 +844,6 @@ function copyCell(td) {
 }
 
 // ── FONT SIZE ─────────────────────────────────────────────────
-let tableFontSize = 12;
 function changeFontSize(delta) {
   tableFontSize = Math.max(9, Math.min(16, tableFontSize + delta));
   document.querySelectorAll('.table td').forEach(td => td.style.fontSize = tableFontSize + 'px');
@@ -853,7 +852,6 @@ function changeFontSize(delta) {
 }
 
 // ── COLUMN RESIZE ─────────────────────────────────────────────
-let colWidths = {};
 
 function initColumnResize() {
   const ths = document.querySelectorAll('.table thead th');
@@ -925,3 +923,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 </body>
 </html>
+
+// ── GLOBAL STATE ───────────────────────────────────────────
+let tableFontSize = 12;
+let colWidths = {};
