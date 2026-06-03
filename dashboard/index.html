@@ -36,6 +36,7 @@
   --text-3:   #9AA098;
   --mono:     'DM Mono', monospace;
   --sans: 'BwGradual', sans-serif;
+  --table-font: 'Calibri', 'Segoe UI', sans-serif;
   --radius:   12px;
   --shadow:   0 2px 12px rgba(0,0,0,.08);
 }
@@ -145,19 +146,25 @@ body { font-family: var(--sans); background: var(--bg); color: var(--text); min-
 /* ── TABLE ────────────────────────────────── */
 .table-wrap {
   background: var(--surface); border-radius: var(--radius);
-  border: 1px solid var(--border); box-shadow: var(--shadow); overflow-x: auto;
+  border: 1px solid #D0D7DE; box-shadow: var(--shadow); overflow-x: auto;
 }
 .table { width: 100%; border-collapse: collapse; table-layout: fixed; }
 .table thead { background: var(--green-d); }
 .table th {
-  padding: 9px 12px; text-align: left;
-  font-size: 10px; letter-spacing: 1.2px; text-transform: uppercase;
-  color: rgba(255,255,255,.6); font-weight: 500; white-space: nowrap;
-  overflow: hidden;
+  padding: 8px 10px; text-align: left;
+  font-size: 11px; font-family: var(--table-font);
+  color: rgba(255,255,255,.85); font-weight: 600; white-space: nowrap;
+  overflow: hidden; cursor: pointer; user-select: none;
 }
-.table td { padding: 10px 12px; font-size: 12px; border-bottom: 1px solid var(--border); vertical-align: top; word-break: break-word; }
+.table th:hover { background: rgba(255,255,255,.08); }
+.table th .sort-icon { opacity: .4; margin-left: 4px; font-size: 10px; }
+.table th.sorted-asc .sort-icon::after { content: " ↑"; opacity: 1; }
+.table th.sorted-desc .sort-icon::after { content: " ↓"; opacity: 1; }
+.table td { padding: 7px 10px; font-size: 12px; font-family: var(--table-font); border-bottom: 1px solid #D0D7DE; vertical-align: top; word-break: break-word; line-height: 1.4; }
 .table tr:last-child td { border-bottom: none; }
-.table tr:hover td { background: #F8FAF7; }
+.table tr:hover td { background: #EDF4FF; }
+.table tbody tr:nth-child(even) td { background: #F6F8FA; }
+.table tbody tr:nth-child(even):hover td { background: #EDF4FF; }
 
 /* Fixed column widths — Excel style */
 .table th:nth-child(1), .table td:nth-child(1) { width: 90px; }   /* Date */
@@ -311,8 +318,11 @@ input[type="date"].filter-select{color:var(--text-2);cursor:pointer}
     <select class="filter-select" id="f-ac" onchange="applyFilters()">
       <option value="">All Aircraft</option>
     </select>
-    <input type="date" class="filter-select" id="f-date-from" onchange="applyFilters()" title="From">
-    <input type="date" class="filter-select" id="f-date-to" onchange="applyFilters()" title="To">
+    <select class="filter-select" id="f-reporter" onchange="applyFilters()">
+      <option value="">All Reporters</option>
+    </select>
+    <input type="date" class="filter-select" id="f-date-from" onchange="applyFilters()" title="From date" style="width:130px">
+    <input type="date" class="filter-select" id="f-date-to" onchange="applyFilters()" title="To date" style="width:130px">
     <button class="btn btn-ghost" onclick="resetFilters()">Reset</button>
     <button class="btn btn-ghost" onclick="exportExcel()" title="Export Excel">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg> Excel
@@ -385,6 +395,8 @@ const ADMIN_KEY   = 'acft_dash_admin';
 
 // ── STATE ────────────────────────────────────────────────────
 let allFindings = [];
+let sortCol = 'timestamp';
+let sortDir = 'desc';
 let filtered    = [];
 let currentPage = 1;
 const PER_PAGE  = 25;
@@ -493,19 +505,23 @@ async function saveFindings() {
 
 // ── FILTERS ──────────────────────────────────────────────────
 function populateFilters() {
-  const cats = [...new Set(allFindings.map(f=>f.category).filter(Boolean))].sort();
+  const cats = [...new Set(allFindings.map(f=>(f.category||'').trim()).filter(Boolean))].sort();
   const acs  = [...new Set(allFindings.map(f=>f.aircraft).filter(Boolean))].sort();
+  const reps = [...new Set(allFindings.map(f=>f.reporter).filter(Boolean))].sort();
   const fCat = document.getElementById('f-cat');
   const fAc  = document.getElementById('f-ac');
+  const fRep = document.getElementById('f-reporter');
   fCat.innerHTML = '<option value="">All Categories</option>' + cats.map(c=>`<option>${c}</option>`).join('');
   fAc.innerHTML  = '<option value="">All Aircraft</option>'  + acs.map(a=>`<option>${a}</option>`).join('');
+  if (fRep) fRep.innerHTML = '<option value="">All Reporters</option>' + reps.map(r=>`<option>${r}</option>`).join('');
 }
 
 function applyFilters() {
   const q      = document.getElementById('search-inp').value.toLowerCase();
   const cat    = document.getElementById('f-cat').value;
   const status = '';
-  const ac     = document.getElementById('f-ac').value;
+  const ac       = document.getElementById('f-ac').value;
+  const reporter = document.getElementById('f-reporter')?.value || '';
 
   const dateFrom = document.getElementById('f-date-from').value;
   const dateTo   = document.getElementById('f-date-to').value;
@@ -517,13 +533,39 @@ function applyFilters() {
     const ts = f.timestamp ? new Date(f.timestamp) : null;
     const matchFrom = !dateFrom || (ts && ts >= new Date(dateFrom));
     const matchTo   = !dateTo   || (ts && ts <= new Date(dateTo + 'T23:59:59'));
-    return matchQ && matchCat && matchSt && matchAc && matchFrom && matchTo;
+    return matchQ && matchCat && matchSt && matchAc && matchRep && matchFrom && matchTo;
+  });
+
+  // Apply sort
+  const colMap = {timestamp: f=>f.timestamp||'', aircraft: f=>(f.aircraft||'').toLowerCase(),
+    reporter: f=>(f.reporter||'').toLowerCase(), category: f=>(f.category||'').toLowerCase(),
+    description: f=>(f.description||'').toLowerCase()};
+  const getter = colMap[sortCol] || (f=>f.timestamp||'');
+  filtered.sort((a,b) => {
+    const va = getter(a), vb = getter(b);
+    return sortDir === 'asc' ? (va>vb?1:-1) : (va<vb?1:-1);
   });
 
   currentPage = 1;
   renderTable();
   renderPagination();
   updateStats();
+  updateSortHeaders();
+}
+
+function sortTable(col) {
+  if (sortCol === col) { sortDir = sortDir === 'asc' ? 'desc' : 'asc'; }
+  else { sortCol = col; sortDir = col === 'timestamp' ? 'desc' : 'asc'; }
+  applyFilters();
+}
+
+function updateSortHeaders() {
+  ['timestamp','aircraft','reporter','category','description'].forEach(col => {
+    const th = document.getElementById('th-' + col);
+    if (!th) return;
+    th.classList.remove('sorted-asc','sorted-desc');
+    if (sortCol === col) th.classList.add('sorted-' + sortDir);
+  });
 }
 
 function resetFilters() {
@@ -532,6 +574,7 @@ function resetFilters() {
   document.getElementById('f-ac').value = '';
   document.getElementById('f-date-from').value = '';
   document.getElementById('f-date-to').value = '';
+  const fRep = document.getElementById('f-reporter'); if(fRep) fRep.value = '';
   applyFilters();
 }
 
@@ -616,9 +659,15 @@ function renderTable() {
   document.getElementById('table-container').innerHTML = `
     <table class="table">
       <thead><tr>
-        <th>Date</th><th>Time</th><th>Aircraft</th><th>By</th>
-        <th>Category</th><th>Sub-Category</th><th>Description</th>
-        <th>Remarks</th><th>Photo</th>${adminTh}
+        <th onclick="sortTable('timestamp')" id="th-timestamp">Date<span class="sort-icon"></span></th>
+        <th>Time</th>
+        <th onclick="sortTable('aircraft')" id="th-aircraft">Aircraft<span class="sort-icon"></span></th>
+        <th onclick="sortTable('reporter')" id="th-reporter">By<span class="sort-icon"></span></th>
+        <th onclick="sortTable('category')" id="th-category">Category<span class="sort-icon"></span></th>
+        <th>Sub-Category</th>
+        <th onclick="sortTable('description')" id="th-description">Description<span class="sort-icon"></span></th>
+        <th>Remarks</th>
+        <th>Photo</th>${adminTh}
       </tr></thead>
       <tbody>${rows}</tbody>
     </table>`;
