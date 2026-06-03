@@ -913,13 +913,15 @@ function loadSavedPrefs() {
 }
 
 // ── INIT ──────────────────────────────────────────────────────
-buildKeypad();
-try { loadSavedPrefs(); } catch(e) {}
-if (sessionStorage.getItem(SESSION_KEY) === '1') {
-  document.getElementById('pc-screen').style.display = 'none';
-  updateAdminUI();
-  loadFindings();
-}
+document.addEventListener('DOMContentLoaded', function() {
+  try { loadSavedPrefs(); } catch(e) {}
+  buildKeypad();
+  if (sessionStorage.getItem(SESSION_KEY) === '1') {
+    document.getElementById('pc-screen').style.display = 'none';
+    updateAdminUI();
+    loadFindings();
+  }
+});
 </script>
 </body>
 </html>
