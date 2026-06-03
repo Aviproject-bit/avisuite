@@ -579,29 +579,25 @@ function renderTable() {
   }
 
   const rows = page.map((f,i) => {
-    const statusBadge = {
-      'Open':        '<span class="badge badge-open">Open</span>',
-      'Closed':      '<span class="badge badge-closed">Closed</span>',
-      'In Progress': '<span class="badge badge-progress">In Progress</span>',
-      'AOG':         '<span class="badge badge-aog">AOG</span>',
-    }[f.status] || `<span class="badge">${f.status||'—'}</span>`;
-
-    const photo = f.photoUrl ? `<img class="photo-thumb" src="${f.photoUrl.split(' | ')[0]}" onclick="showPhoto('${f.photoUrl.split(' | ')[0]}')" onerror="this.style.display='none'">` : '—';
-    const parts = f.partsRequested ? `<span class="parts-badge">REQ</span>` : '—';
+    const photoUrls2 = f.photoUrl ? f.photoUrl.split(' | ') : [];
+    const photo = photoUrls2.length ? photoUrls2.map(url =>
+      `<img class="photo-inline" src="${url}" onclick="showPhoto('${url}')" onerror="this.style.display='none'">`
+    ).join('') : '—';
     const adminActions = isAdmin ? `
       <button class="action-btn edit" onclick="openEdit(${start+i})">Edit</button>
       <button class="action-btn" onclick="deleteFinding(${start+i})">Del</button>
     ` : '';
 
     return `<tr>
-      <td class="wo-cell">${f.wo||'—'}</td>
-      <td><span class="cat-tag">${f.category||'—'}</span></td>
-      <td class="desc-cell" title="${(f.description||'').replace(/"/g,'&quot;')}">${f.description||'—'}</td>
-      <td>${statusBadge}</td>
-      <td>${parts}</td>
-      <td>${photo}</td>
       <td class="date-cell">${formatDate(f.timestamp)}</td>
+      <td class="date-cell">${f.time||'—'}</td>
+      <td class="wo-cell">${f.aircraft||'—'}</td>
       <td class="wo-cell">${f.reporter||'—'}</td>
+      <td><span class="cat-tag">${(f.category||'').trim()||'—'}</span></td>
+      <td style="font-size:11px;color:var(--text-2)">${(f.subCategory||'').trim()||'—'}</td>
+      <td class="desc-cell" title="${(f.description||'').replace(/"/g,'&quot;')}">${(f.description||'').trim()||'—'}</td>
+      <td style="font-size:11px;max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${(f.remarks||'').trim()||'—'}</td>
+      <td>${photo}</td>
       ${isAdmin ? `<td>${adminActions}</td>` : ''}
     </tr>`;
   }).join('');
