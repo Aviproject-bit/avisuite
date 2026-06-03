@@ -1,18 +1,5 @@
 [
   {
-    "_id": "1780520457476enwye",
-    "timestamp": "2026-06-03T21:00:57.477Z",
-    "date": "04/06/2026",
-    "time": "00:00",
-    "aircraft": "HZ-AK35",
-    "reporter": "A",
-    "category": "GALLEY",
-    "subCategory": "N/A",
-    "description": "HH",
-    "remarks": "",
-    "photoUrl": "https://i.ibb.co/BHWB2FBB/5e0cda55be5e.jpg"
-  },
-  {
     "_id": "1780518252193a97fb",
     "timestamp": "2026-06-03T20:24:12.193Z",
     "date": "03/06/2026",
