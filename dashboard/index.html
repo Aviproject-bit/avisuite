@@ -702,7 +702,7 @@ function renderTable() {
 }
   initColumnResize();
   // Apply saved font size
-  if (tableFontSize !== 12) document.querySelectorAll('.table td').forEach(td => td.style.fontSize = tableFontSize + 'px');
+  try { if (tableFontSize !== 12) document.querySelectorAll('.table td').forEach(td => td.style.fontSize = tableFontSize + 'px'); } catch(e) {}
 
 function renderPagination() {
   const total = Math.ceil(filtered.length / PER_PAGE);
@@ -925,5 +925,5 @@ document.addEventListener('DOMContentLoaded', function() {
 </html>
 
 // ── GLOBAL STATE ───────────────────────────────────────────
-let tableFontSize = 12;
-let colWidths = {};
+var tableFontSize = 12;
+var colWidths = {};
