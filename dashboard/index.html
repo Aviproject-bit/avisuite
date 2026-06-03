@@ -189,7 +189,7 @@ body { font-family:'BwGradual',sans-serif; background:var(--bg); color:var(--tex
   <div class="hdr-right">
     <button class="font-btn" onclick="chgFont(-1)">A−</button>
     <button class="font-btn" onclick="chgFont(+1)">A+</button>
-    <span class="admin-badge" id="admin-badge">Admin</span>
+    <span class="admin-badge" id="admin-badge" style="display:none;padding:3px 10px;font-size:10px;background:rgba(23,184,200,.2);color:#17B8C8;border:1px solid rgba(23,184,200,.3);border-radius:20px;">● Admin</span>
   </div>
 </div>
 
@@ -269,7 +269,7 @@ const GH_BRANCH = 'main';
 const GH_FILE   = 'dashboard/findings.json';
 const GH_API    = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${GH_FILE}`;
 const GH_HEADS  = {'Authorization':`token ${GH_TOKEN}`,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'};
-const RAW_URL   = `https://${GH_OWNER}.github.io/${GH_REPO}/dashboard/findings.json`;
+const RAW_URL   = `https://raw.githubusercontent.com/${GH_OWNER}/${GH_REPO}/${GH_BRANCH}/${GH_FILE}`;
 
 const PC_VIEW  = '321';
 const PC_ADMIN = '9955';
