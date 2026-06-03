@@ -180,22 +180,5 @@
     "description": "J",
     "remarks": "",
     "photoUrl": "https://i.ibb.co/N6Z5FQQP/8698eeb000cb.jpg"
-  },
-  {
-    "id": "1780521718714os01v",
-    "timestamp": "2026-06-03T21:21:58.714Z",
-    "date": "04/06/2026",
-    "time": "00:21",
-    "aircraft": "HZ-AK35",
-    "reporter": "AHMED ALGHAMDI",
-    "findings": [
-      {
-        "category": "LAVATORY          ",
-        "subCategory": "N/A               ",
-        "description": "THIS WATER FROM THE LINE IS A EXCESS IF AIRCRAFT IS ON THE HOT WEATHER PRESSURE WILL BE CREATED AUTOMATIC ..ITS ALWAYS HAPPEN IN AIRBUS..DURING CHECK FOUND WATER LEAK AT FILTER COVER BOWL..R/R C/W",
-        "remarks": "                         ",
-        "photoUrl": ""
-      }
-    ]
   }
 ]
