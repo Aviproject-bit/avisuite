@@ -457,7 +457,7 @@ const HEADERS = {
 async function loadFindings() {
   document.getElementById('table-container').innerHTML = '<div class="loading"><div class="spinner"></div><p>Loading findings...</p></div>';
   try {
-    const rawUrl = `https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/${FILE}?t=${Date.now()}`;
+    const rawUrl = `https://${OWNER}.github.io/${REPO}/dashboard/findings.json?t=${Date.now()}`;
     const res = await fetch(rawUrl);
     if (!res.ok) throw new Error('HTTP ' + res.status);
     const text = await res.text();
