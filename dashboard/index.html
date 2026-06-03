@@ -297,13 +297,7 @@ input[type="date"].filter-select{color:var(--text-2);cursor:pointer}
     <select class="filter-select" id="f-cat" onchange="applyFilters()">
       <option value="">All Categories</option>
     </select>
-    <select class="filter-select" id="f-status" onchange="applyFilters()">
-      <option value="">All Status</option>
-      <option value="Open">Open</option>
-      <option value="Closed">Closed</option>
-      <option value="In Progress">In Progress</option>
-      <option value="AOG">AOG</option>
-    </select>
+
     <select class="filter-select" id="f-ac" onchange="applyFilters()">
       <option value="">All Aircraft</option>
     </select>
@@ -500,7 +494,7 @@ function populateFilters() {
 function applyFilters() {
   const q      = document.getElementById('search-inp').value.toLowerCase();
   const cat    = document.getElementById('f-cat').value;
-  const status = document.getElementById('f-status').value;
+  const status = '';
   const ac     = document.getElementById('f-ac').value;
 
   const dateFrom = document.getElementById('f-date-from').value;
@@ -525,7 +519,6 @@ function applyFilters() {
 function resetFilters() {
   document.getElementById('search-inp').value = '';
   document.getElementById('f-cat').value = '';
-  document.getElementById('f-status').value = '';
   document.getElementById('f-ac').value = '';
   document.getElementById('f-date-from').value = '';
   document.getElementById('f-date-to').value = '';
@@ -617,9 +610,9 @@ function renderTable() {
   document.getElementById('table-container').innerHTML = `
     <table class="table">
       <thead><tr>
-        <th>WO / Event</th><th>Category</th><th>Description</th>
-        <th>Status</th><th>Parts</th><th>Photo</th>
-        <th>Date</th><th>Reporter</th>${adminTh}
+        <th>Date</th><th>Time</th><th>Aircraft</th><th>By</th>
+        <th>Category</th><th>Sub-Category</th><th>Description</th>
+        <th>Remarks</th><th>Photo</th>${adminTh}
       </tr></thead>
       <tbody>${rows}</tbody>
     </table>`;
