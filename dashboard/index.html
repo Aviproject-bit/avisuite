@@ -145,19 +145,30 @@ body { font-family: var(--sans); background: var(--bg); color: var(--text); min-
 /* ── TABLE ────────────────────────────────── */
 .table-wrap {
   background: var(--surface); border-radius: var(--radius);
-  border: 1px solid var(--border); box-shadow: var(--shadow); overflow: hidden;
+  border: 1px solid var(--border); box-shadow: var(--shadow); overflow-x: auto;
 }
-.table { width: 100%; border-collapse: collapse; }
+.table { width: 100%; border-collapse: collapse; table-layout: fixed; }
 .table thead { background: var(--green-d); }
 .table th {
-  padding: 10px 14px; text-align: left;
-  font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 9px 12px; text-align: left;
+  font-size: 10px; letter-spacing: 1.2px; text-transform: uppercase;
   color: rgba(255,255,255,.6); font-weight: 500; white-space: nowrap;
+  overflow: hidden;
 }
-.table td { padding: 11px 14px; font-size: 12px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+.table td { padding: 10px 12px; font-size: 12px; border-bottom: 1px solid var(--border); vertical-align: top; word-break: break-word; }
 .table tr:last-child td { border-bottom: none; }
 .table tr:hover td { background: #F8FAF7; }
-.table tr.new-row td { background: rgba(23,184,200,.05); }
+
+/* Fixed column widths — Excel style */
+.table th:nth-child(1), .table td:nth-child(1) { width: 90px; }   /* Date */
+.table th:nth-child(2), .table td:nth-child(2) { width: 60px; }   /* Time */
+.table th:nth-child(3), .table td:nth-child(3) { width: 90px; }   /* Aircraft */
+.table th:nth-child(4), .table td:nth-child(4) { width: 140px; }  /* By */
+.table th:nth-child(5), .table td:nth-child(5) { width: 130px; }  /* Category */
+.table th:nth-child(6), .table td:nth-child(6) { width: 110px; }  /* Sub-Cat */
+.table th:nth-child(7), .table td:nth-child(7) { width: auto; }   /* Description — takes remaining space */
+.table th:nth-child(8), .table td:nth-child(8) { width: 160px; }  /* Remarks */
+.table th:nth-child(9), .table td:nth-child(9) { width: 110px; }  /* Photo */
 
 /* Status badges */
 .badge {
@@ -180,7 +191,7 @@ body { font-family: var(--sans); background: var(--bg); color: var(--text); min-
 }
 
 .wo-cell { font-family: var(--mono); font-size: 11px; color: var(--text-2); }
-.desc-cell { max-width: 340px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.desc-cell { line-height: 1.5; }
 .date-cell { font-family: var(--mono); font-size: 11px; color: var(--text-3); white-space: nowrap; }
 .cat-tag {
   font-size: 10px; padding: 2px 8px; border-radius: 4px;
@@ -279,8 +290,7 @@ input[type="date"].filter-select{color:var(--text-2);cursor:pointer}
     <div class="h-title">ACFT Findings</div>
   </div>
   <div class="h-right">
-    <div class="h-badge" id="ac-badge">—</div>
-    <div class="h-badge" id="mode-badge">View</div>
+    <div class="h-badge admin" id="ac-badge" style="display:none">—</div>
   </div>
 </div>
 
@@ -595,7 +605,7 @@ function renderTable() {
       <td class="wo-cell">${f.reporter||'—'}</td>
       <td><span class="cat-tag">${(f.category||'').trim()||'—'}</span></td>
       <td style="font-size:11px;color:var(--text-2)">${(f.subCategory||'').trim()||'—'}</td>
-      <td class="desc-cell" title="${(f.description||'').replace(/"/g,'&quot;')}">${(f.description||'').trim()||'—'}</td>
+      <td style="line-height:1.5" title="${(f.description||'').replace(/"/g,'&quot;')}">${(f.description||'').trim()||'—'}</td>
       <td style="font-size:11px;max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${(f.remarks||'').trim()||'—'}</td>
       <td>${photo}</td>
       ${isAdmin ? `<td>${adminActions}</td>` : ''}
