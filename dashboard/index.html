@@ -282,12 +282,18 @@ body { font-family: var(--sans); background: var(--bg); color: var(--text); min-
 
 <!-- MAIN -->
 <div class="layout">
-
+  <!-- Stats -->
+  <div class="stats">
+    <div class="stat"><div class="stat-label">Total</div><div class="stat-val total" id="s-total">—</div><div class="stat-sub">findings</div></div>
+    <div class="stat"><div class="stat-label">Open</div><div class="stat-val open" id="s-open">—</div><div class="stat-sub">pending</div></div>
+    <div class="stat"><div class="stat-label">Closed</div><div class="stat-val closed" id="s-closed">—</div><div class="stat-sub">completed</div></div>
+    <div class="stat"><div class="stat-label">Parts Req.</div><div class="stat-val parts" id="s-parts">—</div><div class="stat-sub">requested</div></div>
+  </div>
 
   <!-- Toolbar -->
   <div class="toolbar">
     <div class="search-wrap">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
       <input class="search-input" type="text" placeholder="Search WO, description, reporter..." id="search-inp" oninput="applyFilters()">
     </div>
     <select class="filter-select" id="f-cat" onchange="applyFilters()">
@@ -304,9 +310,7 @@ body { font-family: var(--sans); background: var(--bg); color: var(--text); min-
       <option value="">All Aircraft</option>
     </select>
     <button class="btn btn-ghost" onclick="resetFilters()">Reset</button>
-    <button class="btn btn-primary" id="refresh-btn" onclick="loadFindings()">
-    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
-    Refresh</button>
+    <button class="btn btn-primary" id="refresh-btn" onclick="loadFindings()">↻ Refresh</button>
   </div>
 
   <!-- Table -->
@@ -445,17 +449,15 @@ const HEADERS = {
 async function loadFindings() {
   document.getElementById('table-container').innerHTML = '<div class="loading"><div class="spinner"></div><p>Loading findings...</p></div>';
   try {
-    const res = await fetch(API, { headers: HEADERS });
-    if (res.status === 404) {
-      allFindings = [];
-      fileSha = null;
-      renderAll();
-      return;
-    }
-    const data = await res.json();
-    fileSha = data.sha;
-    const decoded = JSON.parse(atob(data.content.replace(/\n/g,'')));
-    allFindings = decoded.sort((a,b) => new Date(b.timestamp||0) - new Date(a.timestamp||0));
+    // Use raw URL for reading (no auth needed, avoids CORS issues)
+    const rawUrl = `https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/${FILE}?t=${Date.now()}`;
+    const res = await fetch(rawUrl);
+    if (!res.ok) { allFindings = []; renderAll(); return; }
+    const text = await res.text();
+    allFindings = JSON.parse(text).sort((a,b) => new Date(b.timestamp||0) - new Date(a.timestamp||0));
+    // Get SHA for writes (using API)
+    const r2 = await fetch(API, { headers: HEADERS });
+    if (r2.ok) { const d = await r2.json(); fileSha = d.sha; }
     populateFilters();
     applyFilters();
     updateStats();
