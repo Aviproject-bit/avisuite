@@ -243,13 +243,6 @@ body { font-family: var(--sans); background: var(--bg); color: var(--text); min-
 .toast.show { transform: translateX(-50%) translateY(0); }
 
 /* ── RESPONSIVE ──────────────────────────── */
-input[type="date"].filter-select { color: var(--text-2); cursor: pointer; }
-input[type="date"].filter-select::-webkit-calendar-picker-indicator { opacity: 0.5; cursor: pointer; }
-
-/* Inline photo in table */
-.photo-inline { max-width: 120px; max-height: 80px; border-radius: 8px; object-fit: cover; cursor: zoom-in; border: 1px solid var(--border); transition: transform .15s; }
-.photo-inline:hover { transform: scale(1.05); }
-
 @media(max-width:768px) {
   .layout { padding: 16px 12px; }
   .stats { grid-template-columns: repeat(2,1fr); }
@@ -257,7 +250,6 @@ input[type="date"].filter-select::-webkit-calendar-picker-indicator { opacity: 0
   .desc-cell { max-width: 180px; }
 }
 </style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
 <body>
 
@@ -290,18 +282,12 @@ input[type="date"].filter-select::-webkit-calendar-picker-indicator { opacity: 0
 
 <!-- MAIN -->
 <div class="layout">
-  <!-- Stats -->
-  <div class="stats">
-    <div class="stat"><div class="stat-label">Total</div><div class="stat-val total" id="s-total">—</div><div class="stat-sub">findings</div></div>
-    <div class="stat"><div class="stat-label">Open</div><div class="stat-val open" id="s-open">—</div><div class="stat-sub">pending</div></div>
-    <div class="stat"><div class="stat-label">Closed</div><div class="stat-val closed" id="s-closed">—</div><div class="stat-sub">completed</div></div>
-    <div class="stat"><div class="stat-label">Parts Req.</div><div class="stat-val parts" id="s-parts">—</div><div class="stat-sub">requested</div></div>
-  </div>
+
 
   <!-- Toolbar -->
   <div class="toolbar">
     <div class="search-wrap">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
       <input class="search-input" type="text" placeholder="Search WO, description, reporter..." id="search-inp" oninput="applyFilters()">
     </div>
     <select class="filter-select" id="f-cat" onchange="applyFilters()">
@@ -317,12 +303,10 @@ input[type="date"].filter-select::-webkit-calendar-picker-indicator { opacity: 0
     <select class="filter-select" id="f-ac" onchange="applyFilters()">
       <option value="">All Aircraft</option>
     </select>
-    <input type="date" class="filter-select" id="f-date-from" onchange="applyFilters()" title="From date">
-    <input type="date" class="filter-select" id="f-date-to" onchange="applyFilters()" title="To date">
     <button class="btn btn-ghost" onclick="resetFilters()">Reset</button>
-    <button class="btn btn-ghost" onclick="exportExcel()" title="Export to Excel">⬇ Excel</button>
-    <button class="btn btn-ghost" onclick="exportPDF()" title="Export to PDF">⬇ PDF</button>
-    <button class="btn btn-primary" id="refresh-btn" onclick="loadFindings()">↻ Refresh</button>
+    <button class="btn btn-primary" id="refresh-btn" onclick="loadFindings()">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+    Refresh</button>
   </div>
 
   <!-- Table -->
@@ -505,18 +489,12 @@ function applyFilters() {
   const status = document.getElementById('f-status').value;
   const ac     = document.getElementById('f-ac').value;
 
-  const dateFrom = document.getElementById('f-date-from').value;
-  const dateTo   = document.getElementById('f-date-to').value;
-
   filtered = allFindings.filter(f => {
     const matchQ   = !q || [f.wo,f.description,f.reporter,f.category,f.aircraft].some(v=>v&&v.toLowerCase().includes(q));
     const matchCat = !cat    || f.category === cat;
     const matchSt  = !status || f.status === status;
     const matchAc  = !ac     || f.aircraft === ac;
-    const ts = f.timestamp ? new Date(f.timestamp) : null;
-    const matchFrom = !dateFrom || (ts && ts >= new Date(dateFrom));
-    const matchTo   = !dateTo   || (ts && ts <= new Date(dateTo + 'T23:59:59'));
-    return matchQ && matchCat && matchSt && matchAc && matchFrom && matchTo;
+    return matchQ && matchCat && matchSt && matchAc;
   });
 
   currentPage = 1;
@@ -530,8 +508,6 @@ function resetFilters() {
   document.getElementById('f-cat').value = '';
   document.getElementById('f-status').value = '';
   document.getElementById('f-ac').value = '';
-  document.getElementById('f-date-from').value = '';
-  document.getElementById('f-date-to').value = '';
   applyFilters();
 }
 
@@ -674,76 +650,6 @@ function showToast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg; t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 2500);
-}
-
-// ── EXPORT EXCEL ──────────────────────────────────────────────
-function exportExcel() {
-  const data = filtered.map(f => ({
-    'Date':        formatDate(f.timestamp),
-    'Time':        f.time || '',
-    'Aircraft':    f.aircraft || '',
-    'Reporter':    f.reporter || '',
-    'Category':    f.category || '',
-    'Sub-Category':f.subCategory || '',
-    'Description': f.description || '',
-    'Remarks':     f.remarks || '',
-    'Photo URL':   f.photoUrl || '',
-    'Status':      f.status || '',
-  }));
-
-  const ws = XLSX.utils.json_to_sheet(data);
-  // Column widths
-  ws['!cols'] = [
-    {wch:12},{wch:8},{wch:10},{wch:18},{wch:16},{wch:16},{wch:50},{wch:25},{wch:40},{wch:12}
-  ];
-  const wb = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb, ws, 'Findings');
-  const dateStr = new Date().toISOString().slice(0,10);
-  XLSX.writeFile(wb, `ACFT_Findings_${dateStr}.xlsx`);
-  showToast(`Exported ${data.length} findings ✓`);
-}
-
-// ── EXPORT PDF ────────────────────────────────────────────────
-function exportPDF() {
-  const dateStr = new Date().toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
-  const rows = filtered.map((f,i) => `
-    <tr style="background:${i%2===0?'#f8faf7':'#fff'}">
-      <td>${formatDate(f.timestamp)}</td>
-      <td style="font-family:monospace;font-size:10px">${f.aircraft||'—'}</td>
-      <td><span style="background:#d6ead8;color:#1a5c3a;padding:2px 6px;border-radius:4px;font-size:9px;font-weight:600">${f.category||'—'}</span></td>
-      <td style="max-width:300px">${(f.description||'').slice(0,120)}${f.description&&f.description.length>120?'…':''}</td>
-      <td>${f.reporter||'—'}</td>
-      <td style="font-family:monospace;font-size:10px">${f.wo||'—'}</td>
-      ${f.photoUrl?`<td><img src="${f.photoUrl.split(' | ')[0]}" style="width:60px;height:40px;object-fit:cover;border-radius:4px"></td>`:'<td>—</td>'}
-    </tr>`).join('');
-
-  const win = window.open('','_blank');
-  win.document.write(`<!DOCTYPE html><html><head>
-    <title>ACFT Findings Report — ${dateStr}</title>
-    <style>
-      body{font-family:Arial,sans-serif;font-size:11px;color:#1a1f1a;margin:0;padding:20px}
-      .report-header{background:#0F2920;color:#fff;padding:16px 20px;border-radius:8px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center}
-      .report-title{font-size:16px;font-weight:700;letter-spacing:1px}
-      .report-meta{font-size:10px;opacity:.7}
-      table{width:100%;border-collapse:collapse;font-size:10px}
-      th{background:#0F2920;color:#fff;padding:8px 10px;text-align:left;font-size:9px;letter-spacing:1px;text-transform:uppercase}
-      td{padding:7px 10px;border-bottom:1px solid #e2e5df;vertical-align:top}
-      .footer{margin-top:20px;font-size:9px;color:#9aa098;text-align:center}
-      @media print{body{padding:0}.report-header{border-radius:0}}
-    </style>
-  </head><body>
-    <div class="report-header">
-      <div class="report-title">ACFT FINDINGS REPORT</div>
-      <div class="report-meta">Generated: ${dateStr} &nbsp;|&nbsp; Total: ${filtered.length} findings</div>
-    </div>
-    <table>
-      <thead><tr><th>Date</th><th>Aircraft</th><th>Category</th><th>Description</th><th>Reporter</th><th>WO</th><th>Photo</th></tr></thead>
-      <tbody>${rows}</tbody>
-    </table>
-    <div class="footer">SAUDIA TECHNIC — CA&QC DIVISION — Confidential</div>
-    <script>window.onload=()=>{window.print()}<\/script>
-  </body></html>`);
-  win.document.close();
 }
 
 // ── INIT ──────────────────────────────────────────────────────
