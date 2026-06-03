@@ -904,15 +904,17 @@ function initColumnResize() {
 }
 
 function loadSavedPrefs() {
-  const saved = localStorage.getItem('dash_col_widths');
-  if (saved) { try { colWidths = JSON.parse(saved); } catch(e) {} }
-  const savedFont = localStorage.getItem('dash_font_size');
-  if (savedFont) { tableFontSize = parseInt(savedFont); }
+  try {
+    const saved = localStorage.getItem('dash_col_widths');
+    if (saved) colWidths = JSON.parse(saved);
+    const savedFont = localStorage.getItem('dash_font_size');
+    if (savedFont) tableFontSize = parseInt(savedFont) || 12;
+  } catch(e) { console.warn('loadSavedPrefs:', e); }
 }
 
 // ── INIT ──────────────────────────────────────────────────────
 buildKeypad();
-loadSavedPrefs();
+try { loadSavedPrefs(); } catch(e) {}
 if (sessionStorage.getItem(SESSION_KEY) === '1') {
   document.getElementById('pc-screen').style.display = 'none';
   updateAdminUI();
