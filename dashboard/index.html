@@ -140,6 +140,22 @@ th:nth-child(10),td:nth-child(10){width:75px}
 .lb{position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:500;display:flex;align-items:center;justify-content:center;cursor:zoom-out}
 .lb img{max-width:93vw;max-height:93vh;border-radius:7px}
 
+/* Confirm Delete Modal */
+.modal-bg { position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:400; display:flex; align-items:center; justify-content:center; padding:20px; animation:fadeIn .2s; }
+.del-modal { background:var(--sur); border-radius:14px; width:100%; max-width:340px; overflow:hidden; box-shadow:0 20px 60px rgba(0,0,0,.25); text-align:center; padding:28px 24px 20px; }
+.del-icon { margin-bottom:14px; }
+.del-title { font-size:16px; font-weight:600; color:var(--txt); margin-bottom:8px; font-family:'BwGradual',sans-serif; }
+.del-msg { font-size:13px; color:var(--t2); margin-bottom:20px; font-family:'BwGradual',sans-serif; line-height:1.5; }
+.del-footer { display:flex; gap:10px; justify-content:center; }
+.del-confirm-btn { background:#ef4444; color:#fff; border-color:#ef4444; }
+.del-confirm-btn:hover { background:#dc2626; }
+
+/* Checkboxes */
+.cb-cell { width:36px!important; padding:6px 8px!important; text-align:center; }
+.row-cb { width:15px; height:15px; cursor:pointer; accent-color:var(--g); }
+.del-sel-btn { background:#fef2f2; border-color:#fca5a5; color:#ef4444; }
+.del-sel-btn:hover { background:#fee2e2; }
+
 /* Toast */
 .toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%) translateY(70px);background:var(--gd);color:#fff;padding:9px 18px;border-radius:9px;font-size:13px;z-index:600;transition:transform .3s;box-shadow:0 4px 20px rgba(0,0,0,.3);white-space:nowrap}
 .toast.show{transform:translateX(-50%) translateY(0)}
@@ -204,6 +220,10 @@ th:nth-child(10),td:nth-child(10){width:75px}
     <button class="tb tg" onclick="doPDFExport()">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>PDF
     </button>
+    <button class="tb del-sel-btn" id="del-sel-btn" style="display:none" onclick="openDelModal()">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
+      <span id="del-sel-count">Delete</span>
+    </button>
     <button class="tb tp" onclick="loadData()">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>Refresh
     </button>
@@ -239,6 +259,7 @@ var colW=JSON.parse(localStorage.getItem('acft_cw')||'{}');
 var allData=[],filtered=[],pg=1,perPg=30;
 var sCol='timestamp',sDir='desc';
 var fileSha=null;
+var selected=new Set();
 
 // ── PASSCODE (Main) ──────────────────────────────────────────
 var mainEntry='';
@@ -410,6 +431,7 @@ function render(){
   const rows=filtered.slice((pg-1)*perPg,pg*perPg);
   if(!rows.length){document.getElementById('tcon').innerHTML='<div class="empty">No findings match.</div>';return;}
   const admTh=isAdmin?'<th style="width:75px">Actions</th>':'';
+  const cbTh=isAdmin?`<th class="cb-cell"><input type="checkbox" class="row-cb" id="cb-all" onclick="toggleAll(this)"></th>`:'';
   const body=rows.map((f,i)=>{
     const idx=(pg-1)*perPg+i;
     const ph=f.photoUrl?f.photoUrl.split(' | ').map(u=>`<img class="ph" src="${u}" onclick="showLB('${u}')" onerror="this.style.display='none'">`).join(''):'—';
@@ -428,6 +450,7 @@ function render(){
   }).join('');
   document.getElementById('tcon').innerHTML=`<table>
     <thead><tr>
+      ${{cbTh}}
       <th id="th-timestamp" onclick="sortBy('timestamp')">Date<span class="sa"></span></th>
       <th>Time</th>
       <th id="th-aircraft" onclick="sortBy('aircraft')">Aircraft<span class="sa"></span></th>
