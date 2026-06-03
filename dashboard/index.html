@@ -446,8 +446,8 @@ function unlock() {
 
 function updateAdminUI() {
   const isAdmin = sessionStorage.getItem(ADMIN_KEY) === '1';
-  document.getElementById('mode-badge').textContent = isAdmin ? 'Admin' : 'View';
-  document.getElementById('mode-badge').className = 'h-badge' + (isAdmin ? ' admin' : '');
+  const mb = document.getElementById('mode-badge');
+  if (mb) { mb.textContent = isAdmin ? 'Admin' : 'View'; mb.className = 'h-badge' + (isAdmin ? ' admin' : ''); }
 }
 
 // ── GITHUB API ───────────────────────────────────────────────
