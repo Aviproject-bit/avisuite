@@ -83,6 +83,24 @@ body { font-family: var(--sans); background: var(--bg); color: var(--text); min-
 .h-div { width: 1px; height: 20px; background: rgba(255,255,255,.15); }
 .h-title { font-size: 9px; letter-spacing: 2px; color: rgba(255,255,255,.5); text-transform: uppercase; font-weight: 400; }
 .h-right { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+.h-font-ctrl { display:flex; gap:4px; align-items:center; }
+.h-font-btn {
+  background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15);
+  color: rgba(255,255,255,.7); border-radius: 6px; padding: 4px 8px;
+  font-size: 11px; font-weight: 700; cursor: pointer; font-family: var(--mono);
+  transition: all .15s; line-height: 1;
+}
+.h-font-btn:hover { background: rgba(255,255,255,.18); color: #fff; }
+
+/* Column resize */
+.table th { position: relative; }
+.col-resizer {
+  position: absolute; right: 0; top: 0; bottom: 0;
+  width: 5px; cursor: col-resize;
+  background: transparent;
+}
+.col-resizer:hover, .col-resizer.resizing { background: rgba(255,255,255,.3); }
+
 .h-badge {
   font-size: 10px; font-family: var(--mono); letter-spacing: .5px;
   background: rgba(255,255,255,.1); color: rgba(255,255,255,.7);
@@ -299,6 +317,10 @@ input[type="date"].filter-select{color:var(--text-2);cursor:pointer}
     <div class="h-title">ACFT Findings</div>
   </div>
   <div class="h-right">
+    <div class="h-font-ctrl">
+      <button class="h-font-btn" onclick="changeFontSize(-1)" title="Decrease font size">A−</button>
+      <button class="h-font-btn" onclick="changeFontSize(1)"  title="Increase font size">A+</button>
+    </div>
     <div class="h-badge admin" id="ac-badge" style="display:none">—</div>
   </div>
 </div>
@@ -456,6 +478,9 @@ function unlock() {
   setTimeout(() => scr.style.display = 'none', 400);
   updateAdminUI();
   loadFindings();
+}
+function isAdminMode() {
+  return sessionStorage.getItem(ADMIN_KEY) === '1';
 }
 
 function updateAdminUI() {
@@ -675,6 +700,9 @@ function renderTable() {
       <tbody>${rows}</tbody>
     </table>`;
 }
+  initColumnResize();
+  // Apply saved font size
+  if (tableFontSize !== 12) document.querySelectorAll('.table td').forEach(td => td.style.fontSize = tableFontSize + 'px');
 
 function renderPagination() {
   const total = Math.ceil(filtered.length / PER_PAGE);
@@ -815,8 +843,76 @@ function copyCell(td) {
   });
 }
 
+// ── FONT SIZE ─────────────────────────────────────────────────
+let tableFontSize = 12;
+function changeFontSize(delta) {
+  tableFontSize = Math.max(9, Math.min(16, tableFontSize + delta));
+  document.querySelectorAll('.table td').forEach(td => td.style.fontSize = tableFontSize + 'px');
+  localStorage.setItem('dash_font_size', tableFontSize);
+  showToast('Font: ' + tableFontSize + 'px');
+}
+
+// ── COLUMN RESIZE ─────────────────────────────────────────────
+let colWidths = {};
+
+function initColumnResize() {
+  const ths = document.querySelectorAll('.table thead th');
+  ths.forEach((th, idx) => {
+    // Apply saved width
+    if (colWidths[idx]) th.style.width = colWidths[idx] + 'px';
+
+    // Add resizer handle
+    const resizer = document.createElement('div');
+    resizer.className = 'col-resizer';
+    th.appendChild(resizer);
+
+    let startX, startW;
+    resizer.addEventListener('mousedown', e => {
+      e.preventDefault();
+      e.stopPropagation();
+      startX = e.pageX;
+      startW = th.offsetWidth;
+      resizer.classList.add('resizing');
+      document.body.style.cursor = 'col-resize';
+      document.body.style.userSelect = 'none';
+
+      const onMove = e2 => {
+        const newW = Math.max(40, startW + (e2.pageX - startX));
+        th.style.width = newW + 'px';
+        colWidths[idx] = newW;
+      };
+      const onUp = () => {
+        resizer.classList.remove('resizing');
+        document.body.style.cursor = '';
+        document.body.style.userSelect = '';
+        localStorage.setItem('dash_col_widths', JSON.stringify(colWidths));
+        document.removeEventListener('mousemove', onMove);
+        document.removeEventListener('mouseup', onUp);
+      };
+      document.addEventListener('mousemove', onMove);
+      document.addEventListener('mouseup', onUp);
+    });
+
+    // Double-click to auto-fit
+    resizer.addEventListener('dblclick', e => {
+      e.stopPropagation();
+      th.style.width = '';
+      delete colWidths[idx];
+      localStorage.setItem('dash_col_widths', JSON.stringify(colWidths));
+    });
+  });
+}
+
+function loadSavedPrefs() {
+  const saved = localStorage.getItem('dash_col_widths');
+  if (saved) { try { colWidths = JSON.parse(saved); } catch(e) {} }
+  const savedFont = localStorage.getItem('dash_font_size');
+  if (savedFont) { tableFontSize = parseInt(savedFont); }
+}
+
 // ── INIT ──────────────────────────────────────────────────────
 buildKeypad();
+loadSavedPrefs();
 if (sessionStorage.getItem(SESSION_KEY) === '1') {
   document.getElementById('pc-screen').style.display = 'none';
   updateAdminUI();
