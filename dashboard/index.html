@@ -540,14 +540,10 @@ function renderAll() {
 }
 
 function updateStats() {
-  const src = filtered.length ? filtered : allFindings;
-  document.getElementById('s-total').textContent  = allFindings.length;
-  document.getElementById('s-open').textContent   = allFindings.filter(f=>f.status==='Open'||f.status==='AOG').length;
-  document.getElementById('s-closed').textContent = allFindings.filter(f=>f.status==='Closed').length;
-  document.getElementById('s-parts').textContent  = allFindings.filter(f=>f.partsRequested).length;
   // Show aircraft in header
   const acs = [...new Set(allFindings.map(f=>f.aircraft).filter(Boolean))];
-  document.getElementById('ac-badge').textContent = acs.length === 1 ? acs[0] : `${acs.length} Aircraft`;
+  const acBadge = document.getElementById('ac-badge');
+  if (acBadge) acBadge.textContent = acs.length === 1 ? acs[0] : acs.length ? `${acs.length} Aircraft` : '—';
 }
 
 function flattenFindings(raw) {
