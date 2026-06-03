@@ -457,24 +457,28 @@ const HEADERS = {
 async function loadFindings() {
   document.getElementById('table-container').innerHTML = '<div class="loading"><div class="spinner"></div><p>Loading findings...</p></div>';
   try {
-    // Use raw URL for reading (no auth needed, avoids CORS issues)
     const rawUrl = `https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/${FILE}?t=${Date.now()}`;
     const res = await fetch(rawUrl);
-    if (!res.ok) { allFindings = []; renderAll(); return; }
+    if (!res.ok) throw new Error('HTTP ' + res.status);
     const text = await res.text();
     allFindings = flattenFindings(JSON.parse(text)).sort((a,b) => new Date(b.timestamp||0) - new Date(a.timestamp||0));
-    // Get SHA for writes (using API)
-    const r2 = await fetch(API, { headers: HEADERS });
-    if (r2.ok) { const d = await r2.json(); fileSha = d.sha; }
     populateFilters();
     applyFilters();
     updateStats();
   } catch(e) {
-    document.getElementById('table-container').innerHTML = `<div class="empty"><div class="empty-icon">⚠️</div><p>Failed to load findings. Check connection.</p></div>`;
+    document.getElementById('table-container').innerHTML = `<div class="empty"><div class="empty-icon">⚠️</div><p>Failed to load findings.<br><small>${e.message}</small></p></div>`;
   }
 }
 
+async function fetchSha() {
+  try {
+    const r = await fetch(API, { headers: HEADERS });
+    if (r.ok) { const d = await r.json(); fileSha = d.sha; }
+  } catch(e) {}
+}
+
 async function saveFindings() {
+  if (!fileSha) await fetchSha();
   const content = btoa(unescape(encodeURIComponent(JSON.stringify(allFindings, null, 2))));
   const body = { message: 'Update findings', content, branch: BRANCH };
   if (fileSha) body.sha = fileSha;
