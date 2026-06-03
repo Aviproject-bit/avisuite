@@ -160,7 +160,9 @@ body { font-family: var(--sans); background: var(--bg); color: var(--text); min-
 .table th .sort-icon { opacity: .4; margin-left: 4px; font-size: 10px; }
 .table th.sorted-asc .sort-icon::after { content: " ↑"; opacity: 1; }
 .table th.sorted-desc .sort-icon::after { content: " ↓"; opacity: 1; }
-.table td { padding: 7px 10px; font-size: 12px; font-family: var(--table-font); border-bottom: 1px solid #D0D7DE; vertical-align: top; word-break: break-word; line-height: 1.4; }
+.table td { padding: 7px 10px; font-size: 12px; font-family: var(--table-font); border-bottom: 1px solid #D0D7DE; vertical-align: top; word-break: break-word; line-height: 1.4; cursor: pointer; }
+.table td:hover { position: relative; }
+.table td.copied { background: #D1FAE5 !important; transition: background .3s; }
 .table tr:last-child td { border-bottom: none; }
 .table tr:hover td { background: #EDF4FF; }
 .table tbody tr:nth-child(even) td { background: #F6F8FA; }
@@ -533,6 +535,7 @@ function applyFilters() {
     const ts = f.timestamp ? new Date(f.timestamp) : null;
     const matchFrom = !dateFrom || (ts && ts >= new Date(dateFrom));
     const matchTo   = !dateTo   || (ts && ts <= new Date(dateTo + 'T23:59:59'));
+    const matchRep = !reporter || f.reporter === reporter;
     return matchQ && matchCat && matchSt && matchAc && matchRep && matchFrom && matchTo;
   });
 
@@ -642,14 +645,14 @@ function renderTable() {
     ` : '';
 
     return `<tr>
-      <td class="date-cell">${formatDate(f.timestamp)}</td>
-      <td class="date-cell">${f.time||'—'}</td>
-      <td class="wo-cell">${f.aircraft||'—'}</td>
-      <td class="wo-cell">${f.reporter||'—'}</td>
-      <td><span class="cat-tag">${(f.category||'').trim()||'—'}</span></td>
-      <td style="font-size:11px;color:var(--text-2)">${(f.subCategory||'').trim()||'—'}</td>
-      <td style="line-height:1.5" title="${(f.description||'').replace(/"/g,'&quot;')}">${(f.description||'').trim()||'—'}</td>
-      <td style="font-size:11px;max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${(f.remarks||'').trim()||'—'}</td>
+      <td class="date-cell" onclick="copyCell(this)">${formatDate(f.timestamp)}</td>
+      <td class="date-cell" onclick="copyCell(this)">${f.time||'—'}</td>
+      <td class="wo-cell" onclick="copyCell(this)">${f.aircraft||'—'}</td>
+      <td class="wo-cell" onclick="copyCell(this)">${f.reporter||'—'}</td>
+      <td onclick="copyCell(this)"><span class="cat-tag">${(f.category||'').trim()||'—'}</span></td>
+      <td style="font-size:11px;color:var(--text-2)" onclick="copyCell(this)">${(f.subCategory||'').trim()||'—'}</td>
+      <td style="line-height:1.5" onclick="copyCell(this)" title="${(f.description||'').replace(/"/g,'&quot;')}">${(f.description||'').trim()||'—'}</td>
+      <td style="font-size:11px;max-width:160px" onclick="copyCell(this)";overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${(f.remarks||'').trim()||'—'}</td>
       <td>${photo}</td>
       ${isAdmin ? `<td>${adminActions}</td>` : ''}
     </tr>`;
@@ -793,6 +796,23 @@ function exportPDF() {
     <div class="ft">SAUDIA TECHNIC — CA&QC DIVISION</div>
     <script>window.onload=()=>window.print()<\/script></body></html>`);
   win.document.close();
+}
+
+function copyCell(td) {
+  const text = td.innerText.trim();
+  if (!text || text === '—') return;
+  navigator.clipboard.writeText(text).then(() => {
+    td.classList.add('copied');
+    showToast('Copied: ' + text.slice(0,40) + (text.length>40?'…':''));
+    setTimeout(() => td.classList.remove('copied'), 800);
+  }).catch(() => {
+    // Fallback
+    const ta = document.createElement('textarea');
+    ta.value = text; document.body.appendChild(ta);
+    ta.select(); document.execCommand('copy');
+    document.body.removeChild(ta);
+    showToast('Copied ✓');
+  });
 }
 
 // ── INIT ──────────────────────────────────────────────────────
