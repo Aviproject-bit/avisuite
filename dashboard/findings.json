@@ -129,7 +129,7 @@
       {
         "category": "PAINT             ",
         "subCategory": "N/A               ",
-        "description": "DURING DCC FOUND ÃÂÃÂ·ÃÂÃÂÃÂÃÂ³ FADED.                                 ",
+        "description": "DURING DCC FOUND ÃÂÃÂÃÂÃÂ·ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ³ FADED.                                 ",
         "remarks": "                         ",
         "photoUrl": ""
       }
@@ -183,6 +183,23 @@
         "description": "PLEEEEASE BOSS I NEEEED THIS.                               ",
         "remarks": "                         ",
         "photoUrl": "https://i.ibb.co/BVZjn5D4/3ba3ae9458d5.jpg"
+      }
+    ]
+  },
+  {
+    "id": "17805828420838usrt",
+    "timestamp": "2026-06-04T14:20:42.083Z",
+    "date": "04/06/2026",
+    "time": "17:20",
+    "aircraft": "HZ-AK35",
+    "reporter": "AHMED AL SHARIF (SHEREEF)",
+    "findings": [
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "N/A               ",
+        "description": "DURING DCC FOUND CHECK ENGINE LIGHT ON.                     ",
+        "remarks": "WHY????                  ",
+        "photoUrl": "https://i.ibb.co/8gvYDmG5/ff6655c46f6c.jpg"
       }
     ]
   }
