@@ -117,5 +117,22 @@
         "photoUrl": ""
       }
     ]
+  },
+  {
+    "id": "1780581589234r8uov",
+    "timestamp": "2026-06-04T13:59:49.234Z",
+    "date": "04/06/2026",
+    "time": "16:59",
+    "aircraft": "HZ-AK35",
+    "reporter": "AHMED ALSHARIF (SHEREEF)",
+    "findings": [
+      {
+        "category": "PAINT             ",
+        "subCategory": "N/A               ",
+        "description": "DURING DCC FOUND طيس FADED.                                 ",
+        "remarks": "                         ",
+        "photoUrl": ""
+      }
+    ]
   }
 ]
