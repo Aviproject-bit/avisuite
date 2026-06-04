@@ -100,5 +100,22 @@
         "photoUrl": ""
       }
     ]
+  },
+  {
+    "id": "1780581523426h05bc",
+    "timestamp": "2026-06-04T13:58:43.426Z",
+    "date": "04/06/2026",
+    "time": "16:58",
+    "aircraft": "HZ-AK35",
+    "reporter": "AHMED AL SHARIF (SHEREEF)",
+    "findings": [
+      {
+        "category": "TEDLAR/SIDEWALL   ",
+        "subCategory": "N/A               ",
+        "description": "DURING DCC FOUND DENT ON SIDEWALL.                          ",
+        "remarks": "                         ",
+        "photoUrl": ""
+      }
+    ]
   }
 ]
