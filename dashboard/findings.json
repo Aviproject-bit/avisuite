@@ -49,5 +49,22 @@
         "photoUrl": ""
       }
     ]
+  },
+  {
+    "id": "1780545397362z7zdo",
+    "timestamp": "2026-06-04T03:56:37.362Z",
+    "date": "04/06/2026",
+    "time": "06:56",
+    "aircraft": "HZ-AK35",
+    "reporter": "30001451",
+    "findings": [
+      {
+        "category": "GALLEY            ",
+        "subCategory": "M5                ",
+        "description": "SLIDE EXT. INOP                                             ",
+        "remarks": "                         ",
+        "photoUrl": ""
+      }
+    ]
   }
 ]
