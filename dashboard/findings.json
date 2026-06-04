@@ -129,7 +129,7 @@
       {
         "category": "PAINT             ",
         "subCategory": "N/A               ",
-        "description": "DURING DCC FOUND Ø·ÙØ³ FADED.                                 ",
+        "description": "DURING DCC FOUND ÃÂ·ÃÂÃÂ³ FADED.                                 ",
         "remarks": "                         ",
         "photoUrl": ""
       }
@@ -149,6 +149,23 @@
         "description": "PLEASE GIVE ME VACATION BOSS I WORK HARD                    ",
         "remarks": "                         ",
         "photoUrl": "https://i.ibb.co/bMwNqchT/915ae246754e.jpg"
+      }
+    ]
+  },
+  {
+    "id": "17805820629637vyc3",
+    "timestamp": "2026-06-04T14:07:42.963Z",
+    "date": "04/06/2026",
+    "time": "17:07",
+    "aircraft": "HZ-AK35",
+    "reporter": "AHMED AL SHARIF (SHEREEF)",
+    "findings": [
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "N/A               ",
+        "description": "DURING DCC FOUND CABIN DIRTY.                               ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/mr7P23r6/c8825c17947c.jpg"
       }
     ]
   }
