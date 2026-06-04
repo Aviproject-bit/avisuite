@@ -15,5 +15,22 @@
         "photoUrl": "https://i.ibb.co/kVkKXZdh/ec0bcd77ebce.jpg"
       }
     ]
+  },
+  {
+    "id": "1780543806353m8sqr",
+    "timestamp": "2026-06-04T03:30:06.353Z",
+    "date": "04/06/2026",
+    "time": "06:30",
+    "aircraft": "HZ-AK35",
+    "reporter": "30001452",
+    "findings": [
+      {
+        "category": "GALLEY            ",
+        "subCategory": "G1                ",
+        "description": "...                                                         ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/1fkGSG2Y/21913600695c.jpg"
+      }
+    ]
   }
 ]
