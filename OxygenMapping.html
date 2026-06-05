@@ -1587,7 +1587,6 @@ function onAcftTypeChange(silent){
   updateTbLabel();
   if(!curType){ showEmpty(); return; }
 
-  // Build SECS with guaranteed fallback
   const SECS_DEFAULT = [
     {id:'lh',label:'LH'},{id:'ctr',label:'CTR'},{id:'rh',label:'RH'},
     {id:'ofcr',label:'OFCR/OFAR'},{id:'prayer',label:'Prayer'},
@@ -1595,30 +1594,31 @@ function onAcftTypeChange(silent){
   ];
   const secs = SECTIONS_MAP[curType] || SECS_DEFAULT;
   curSec = secs[0].id;
-
   injectDefaults(curType);
 
-  // Render tabs
+  // Build tabs using template literals — no quote escaping needed
   const tabsEl = document.getElementById('tabs');
   if(tabsEl){
-    tabsEl.innerHTML = secs.map(function(s){
-      return '<div class="tab'+(s.id===curSec?' active':''  +'" data-sec="'+s.id+'">'+s.label+'</div>';
-    }).join('');
+    tabsEl.innerHTML = secs.map(s =>
+      `<div class="tab${s.id===curSec?' active':''}" data-sec="${s.id}">${s.label}</div>`
+    ).join('');
+    tabsEl.querySelectorAll('.tab').forEach(t => {
+      t.addEventListener('click', () => switchSec(t.dataset.sec));
+    });
   }
 
-  // Render content
+  // Build content
   const contentEl = document.getElementById('content');
   if(contentEl){
-    const LOCS = LOCS_MAP[curType] || {};
-    const locs = LOCS[curSec] || [];
+    const locs = (LOCS_MAP[curType]||{})[curSec] || [];
     if(!locs.length){
-      contentEl.innerHTML = '<div class="empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:40px;height:40px;opacity:.3;display:block;margin:0 auto 10px"><path d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg><p>No locations in this section</p></div>';
+      contentEl.innerHTML = `<div class="empty"><p>No locations in this section</p></div>`;
     } else {
       try {
         contentEl.innerHTML = locs.map(renderCard).join('');
-        locs.forEach(function(l){ updateDot(l.id); });
+        locs.forEach(l => updateDot(l.id));
       } catch(err){
-        contentEl.innerHTML = '<div class="empty"><p>'+err.message+'</p></div>';
+        contentEl.innerHTML = `<div class="empty"><p>${err.message}</p></div>`;
       }
     }
   }
