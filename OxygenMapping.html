@@ -1621,19 +1621,14 @@ function renderSec(id){
     updateProg();
     return;
   }
-  // Clear first to force repaint
-  el.innerHTML = '';
-  // Use requestAnimationFrame to ensure DOM cleared before refill
-  requestAnimationFrame(function(){
-    try {
-      el.innerHTML = locs.map(renderCard).join('');
-    } catch(e) {
-      el.innerHTML = '<div class="empty"><p>Error: '+e.message+'</p></div>';
-      return;
-    }
-    updateProg();
-    locs.forEach(function(l){ updateDot(l.id); });
-  });
+  try {
+    el.innerHTML = locs.map(renderCard).join('');
+  } catch(e) {
+    el.innerHTML = '<div class="empty"><p>Error: '+e.message+'</p></div>';
+    return;
+  }
+  updateProg();
+  locs.forEach(function(l){ updateDot(l.id); });
 }
 
 function showEmpty(){
