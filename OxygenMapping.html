@@ -32,7 +32,7 @@ input,select,button{font-family:'BwGradual',sans-serif;}
 /* ── TOPBAR ── */
 .tb{background:var(--navy);display:flex;align-items:center;gap:10px;
   padding:10px 14px;position:sticky;top:0;z-index:200;
-  box-shadow:0 2px 14px rgba(0,0,0,.35);}
+  box-shadow:0 2px 0 rgba(0,0,0,.1);}
 .tb-logo img{height:26px;display:block;flex-shrink:0;}
 .tb-div{width:1px;height:24px;background:rgba(255,255,255,.2);flex-shrink:0;}
 .tb-info{flex:1;min-width:0;}
@@ -49,7 +49,8 @@ input,select,button{font-family:'BwGradual',sans-serif;}
 
 /* ── TYPE BAR ── */
 .typebar{background:var(--navy);border-top:1px solid rgba(255,255,255,.1);
-  display:grid;grid-template-columns:1.6fr 1fr;padding:4px 6px 8px;gap:4px;}
+  display:grid;grid-template-columns:1.6fr 1fr;padding:4px 6px 8px;gap:4px;
+  position:sticky;z-index:199;}
 .mf{padding:3px 8px;}
 .mf-type{}
 .mf label{display:block;font-size:8px;font-weight:800;color:rgba(255,255,255,.45);
@@ -114,10 +115,17 @@ input,select,button{font-family:'BwGradual',sans-serif;}
 .field-pn,.field-sn,.field-mfg{width:100%;}
 .field-mfg input{width:100%;}
 .field input,.field select{
-  width:100%;padding:9px 10px;
+  width:100%;padding:0 10px;
   border:1.5px solid var(--bdr);border-radius:7px;
   font-family:'BwGradual',sans-serif;font-size:13px;color:var(--txt);
   background:var(--wh);outline:none;transition:border-color .15s;
+  height:44px;box-sizing:border-box;
+  -webkit-appearance:none;appearance:none;
+  display:block;
+}
+.field input[type=month]{
+  -webkit-appearance:none;appearance:none;
+  padding:0 10px;height:44px;line-height:44px;
 }
 .field input:focus{border-color:var(--grn);}
 .field input::placeholder{color:#bbb;font-size:11px;}
@@ -1529,11 +1537,9 @@ function sv(id,f,u,val){ S[gk(id,f,u)]=val; save(); updateProg(); updateDot(id);
 function save(){
   try{
     localStorage.setItem('oxy_s', JSON.stringify(S));
+    const g=function(id){const el=document.getElementById(id);return el?el.value:'';};
     localStorage.setItem('oxy_h', JSON.stringify({
-      type: document.getElementById('acftType').value,
-      acft: document.getElementById('acft').value,
-      wp:   document.getElementById('wp').value,
-      date: document.getElementById('date').value,
+      type: g('acftType'), acft: g('acft'), wp: g('wp'), date: g('date'),
     }));
   }catch(e){}
 }
@@ -1573,10 +1579,11 @@ function onAcftTypeChange(silent){
   // Force DOM repaint before render
   const el = document.getElementById('content');
   el.innerHTML = '<div style="padding:20px;text-align:center;color:var(--mut)">Loading...</div>';
-  requestAnimationFrame(function(){
+  setTimeout(function(){
     renderSec(curSec);
-    renderTabs(); // re-render tabs to mark active correctly
-  });
+    renderTabs();
+    fixTabsTop();
+  }, 0);
   if(!silent) save();
 }
 
@@ -2442,6 +2449,50 @@ function exportRawAll(){
   a.click();
   showToast('✓ Raw barcode data exported');
 }
+// ── INIT ──
+function fixTabsTop(){
+  const tb = document.querySelector('.tb');
+  const typebar = document.querySelector('.typebar');
+  const tabs = document.querySelector('.tabs');
+  if(tb && typebar && tabs){
+    const h = tb.getBoundingClientRect().height + typebar.getBoundingClientRect().height;
+    tabs.style.top = Math.round(h) + 'px';
+  }
+}
+
+function init(){
+  // Hidden wp and date — ensure they exist in DOM for export
+  if(!document.getElementById('wp')){
+    const wp=document.createElement('input');
+    wp.type='hidden'; wp.id='wp'; wp.value='';
+    document.body.appendChild(wp);
+  }
+  if(!document.getElementById('date')){
+    const dt=document.createElement('input');
+    dt.type='hidden'; dt.id='date'; dt.value='';
+    document.body.appendChild(dt);
+  }
+  // Load saved state
+  try{
+    const s=localStorage.getItem('oxy_s'); if(s) S=JSON.parse(s);
+    const h=localStorage.getItem('oxy_h');
+    if(h){
+      const d=JSON.parse(h);
+      const at=document.getElementById('acftType');
+      const ac=document.getElementById('acft');
+      if(at) at.value=d.type||'';
+      if(ac) ac.value=d.acft||'';
+      if(document.getElementById('wp')) document.getElementById('wp').value=d.wp||'';
+      if(document.getElementById('date')) document.getElementById('date').value=d.date||'';
+      if(d.type) onAcftTypeChange(true);
+    }
+  }catch(e){}
+  if(!curType) showEmpty();
+  setTimeout(fixTabsTop, 150);
+  window.addEventListener('resize', fixTabsTop);
+}
+
+init();
 </script>
 </body>
 </html>
