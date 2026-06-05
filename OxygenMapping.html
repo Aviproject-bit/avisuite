@@ -310,10 +310,20 @@ input,select,button{font-family:'BwGradual',sans-serif;}
   <div class="scan-modal">
     <div class="scan-title" id="scanTitle">Scan Barcode / QR Code</div>
     <div class="scan-sub" id="scanSub">Point camera at the label</div>
-    <video id="scanVideo" autoplay playsinline muted webkit-playsinline
-  style="width:100%;border-radius:10px;background:#000;display:block;max-height:55vh;object-fit:cover;"></video>
-<div id="scanOverlay2" style="display:none;position:relative;margin-top:-60px;text-align:center;pointer-events:none;">
-  <div style="display:inline-block;width:200px;height:200px;border:3px solid #C8A84B;border-radius:12px;box-shadow:0 0 0 2000px rgba(0,0,0,.4);"></div>
+    <div style="position:relative;border-radius:10px;overflow:hidden;background:#000;max-height:55vh;">
+  <video id="scanVideo" autoplay playsinline muted webkit-playsinline
+    style="width:100%;display:block;max-height:55vh;object-fit:cover;"></video>
+  <div id="scanOverlay2" style="display:none;position:absolute;inset:0;pointer-events:none;
+    display:flex;align-items:center;justify-content:center;">
+    <div style="width:220px;height:220px;border:3px solid #C8A84B;border-radius:14px;
+      box-shadow:0 0 0 9999px rgba(0,0,0,.45);position:relative;">
+      <!-- corners -->
+      <div style="position:absolute;top:-3px;left:-3px;width:24px;height:24px;border-top:4px solid #C8A84B;border-left:4px solid #C8A84B;border-radius:4px 0 0 0;"></div>
+      <div style="position:absolute;top:-3px;right:-3px;width:24px;height:24px;border-top:4px solid #C8A84B;border-right:4px solid #C8A84B;border-radius:0 4px 0 0;"></div>
+      <div style="position:absolute;bottom:-3px;left:-3px;width:24px;height:24px;border-bottom:4px solid #C8A84B;border-left:4px solid #C8A84B;border-radius:0 0 0 4px;"></div>
+      <div style="position:absolute;bottom:-3px;right:-3px;width:24px;height:24px;border-bottom:4px solid #C8A84B;border-right:4px solid #C8A84B;border-radius:0 0 4px 0;"></div>
+    </div>
+  </div>
 </div>
     <div class="scan-result" id="scanResult"></div>
     <div class="scan-actions">
@@ -707,6 +717,14 @@ function renderFields(locId, unit){
       </svg>
       Apply P/N to Multiple Locations
     </button>
+    <button class="btn-multi" style="margin-top:6px;color:#1a5fac;border-color:#c8d8f0;background:#f0f4ff;"
+      onclick="exportRawBarcode('${locId}','${unit}')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16">
+        <polyline points="8,17 12,21 16,17"/><line x1="12" y1="12" x2="12" y2="21"/>
+        <path d="M20.88 18.09A5 5 0 0018 9h-1.26A8 8 0 103 16.29"/>
+      </svg>
+      Export Raw Barcode Data
+    </button>
   `;
 }
 
@@ -881,37 +899,63 @@ function startBarcodeLoop(){
 function showScanResult(raw){
   const el=document.getElementById('scanResult');
   el.className='scan-result show';
-  // Try to parse structured data
-  let display=raw;
-  // Common patterns: PNR/SNR/DMF
-  const pnr=raw.match(/PNR[:\s]*([^\s]+)/i);
-  const snr=raw.match(/SNR[:\s]*([^\s]+)/i);
-  const dmf=raw.match(/DMF[:\s]*([^\s]+)/i);
-  if(pnr||snr||dmf){
-    display=`${pnr?'P/N: '+pnr[1]+'\n':''}${snr?'S/N: '+snr[1]+'\n':''}${dmf?'MFG: '+dmf[1]:''}`;
-  }
-  el.textContent=display;
+  const {pn,sn,mfg}=parseScanData(raw);
+  let lines=[];
+  if(pn)  lines.push('P/N: '+pn);
+  if(sn)  lines.push('S/N: '+sn);
+  if(mfg) lines.push('MFG: '+mfg);
+  if(!lines.length) lines.push('Raw: '+raw);
+  el.innerHTML='<strong style="font-size:10px;color:var(--mut);text-transform:uppercase;letter-spacing:.4px;">Detected</strong><br>'
+    +lines.map(l=>'<span style="font-size:13px;font-weight:700;">'+l+'</span>').join('<br>')
+    +'<br><span style="font-size:10px;color:var(--mut);">Raw: '+raw+'</span>';
   document.getElementById('btnScanUse').className='btn-scan-use show';
+}
+
+function parseScanData(raw){
+  // Format A: "P/N: 4441158-002/DMF S/N: 9130456/PNR MFG: 102024"
+  const pn_a  = raw.match(/P\/N:\s*([^/\s]+(?:-[^/\s]+)*)\/(?:DMF|PNR|SER|PN)/i);
+  const sn_a  = raw.match(/S\/N:\s*([^/\s]+)\/(?:PNR|SER|SNR)/i);
+  const mfg_a = raw.match(/MFG:\s*(\d{6})/i);
+  // Format B: "PNR 4441158-002 SNR 9130456 DMF 102024"
+  const pn_b  = raw.match(/PNR[:\s]+([^\s]+)/i);
+  const sn_b  = raw.match(/S[NR]{2}[:\s]+([^\s]+)/i);
+  const mfg_b = raw.match(/DMF[:\s]+(\d{6})/i);
+  // Format C: "E63440-00/SER ..." generator style
+  const pn_c  = raw.match(/^([A-Z0-9]+-[A-Z0-9]+)\/(?:SER|PNR|DMF)/i);
+
+  const pn  = (pn_a&&pn_a[1])  || (pn_b&&pn_b[1])  || (pn_c&&pn_c[1])  || null;
+  const sn  = (sn_a&&sn_a[1])  || (sn_b&&sn_b[1])  || null;
+  const mfg_raw = (mfg_a&&mfg_a[1]) || (mfg_b&&mfg_b[1]) || null;
+
+  let mfg = null;
+  if(mfg_raw && mfg_raw.length===6){
+    // MMYYYY or MMYY
+    const mm = mfg_raw.slice(0,2);
+    const yy = mfg_raw.slice(2);
+    mfg = (yy.length===4 ? yy : '20'+yy) + '-' + mm.padStart(2,'0');
+  }
+  return {pn, sn, mfg};
 }
 
 function useScanResult(){
   if(!lastScanResult||!scanCtx) return;
   const {locId,component,unit}=scanCtx;
   const raw=lastScanResult;
-  const pnr=raw.match(/PNR[:\s]*([^\s]+)/i);
-  const snr=raw.match(/SNR[:\s]*([^\s]+)/i);
-  const dmf=raw.match(/DMF[:\s]*([0-9]+)/i);
   const pre=component==='container'?'c':'g';
-  if(pnr){ sv(locId,pre+'pn',unit,pnr[1]); }
-  else   { sv(locId,pre+'pn',unit,raw); }
-  if(snr)  sv(locId,pre+'sn',unit,snr[1]);
-  if(dmf){
-    const d=dmf[1];
-    if(d.length===6) sv(locId,pre+'mfg',unit,`20${d.slice(2)}-${d.slice(0,2)}`);
-  }
+  const {pn,sn,mfg}=parseScanData(raw);
+
+  if(pn)  sv(locId,pre+'pn', unit, pn);
+  else    sv(locId,pre+'pn', unit, raw); // fallback: raw value
+  if(sn)  sv(locId,pre+'sn', unit, sn);
+  if(mfg) sv(locId,pre+'mfg',unit, mfg);
+
+  // Save raw barcode string
+  const rawKey = component==='container' ? 'raw_c' : 'raw_g';
+  sv(locId, rawKey, unit, raw);
   closeScanner();
   renderSec(curSec);
-  showToast(`✓ ${component==='container'?'Container':'Generator'} data filled from scan`);
+  const filled=[pn&&'P/N',sn&&'S/N',mfg&&'MFG'].filter(Boolean).join(', ');
+  showToast('✓ Filled: '+(filled||'raw value'));
 }
 
 function closeScanner(){
@@ -970,9 +1014,36 @@ function applyMulti(){
 }
 
 // ── EXPORTS ──
-function exportPDF(){ showToast('PDF export — coming soon'); }
-function exportWord(){ showToast('Word export — coming soon'); }
-function submitData(){ showToast('Submit to GitHub — coming soon'); }
+function exportPDF()  { showToast('PDF export — coming soon'); }
+function exportWord() { showToast('Word export — coming soon'); }
+function submitData() { showToast('Submit to GitHub — coming soon'); }
+
+function exportRawBarcode(locId, unit){
+  const u=unit;
+  const fields={
+    'Container P/N': gv(locId,'cpn',u),
+    'Container S/N': gv(locId,'csn',u),
+    'Container MFG': gv(locId,'cmfg',u),
+    'Generator P/N': gv(locId,'gpn',u),
+    'Generator S/N': gv(locId,'gsn',u),
+    'Generator MFG': gv(locId,'gmfg',u),
+  };
+  const rawC = gv(locId,'raw_c',u);
+  const rawG = gv(locId,'raw_g',u);
+  let txt = `=== ${locId.replace(/_/g,' ')} ===\n`;
+  if(rawC) txt+=`\n[Container Raw Barcode]\n${rawC}\n`;
+  if(rawG) txt+=`\n[Generator Raw Barcode]\n${rawG}\n`;
+  txt+='\n[Parsed Fields]\n';
+  Object.entries(fields).forEach(([k,v])=>{ if(v) txt+=`${k}: ${v}\n`; });
+  if(!rawC&&!rawG&&!Object.values(fields).some(v=>v)){
+    showToast('No data to export for this location'); return;
+  }
+  const blob=new Blob([txt],{type:'text/plain'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download=`barcode_${locId}.txt`;
+  a.click();
+}
 
 // ── TOAST ──
 function showToast(msg){
