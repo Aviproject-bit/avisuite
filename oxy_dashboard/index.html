@@ -215,9 +215,6 @@ const SECS={
   A320_AS51:['lh','rh','doors'], A320_ASA:['lh','rh','doors'],
 };
 
-// LOCS_MAP must be loaded — we embed it from the app
-// Since dashboard and app share same data, we inline the same LOCS_MAP here
-// ----- LOCS DATA PLACEHOLDER -----
 const LOCS_B777 = {
   lh:[
     {id:'R1_LH_BAS',name:'ROW 1 LH',tag:'bas',sub:'BASSINET'},
@@ -1256,14 +1253,7 @@ const SECS_B777    = [{id:'lh',label:'LH'},{id:'ctr',label:'CTR'},{id:'rh',label
 const SECS_B787    = [{id:'lh',label:'LH'},{id:'ctr',label:'CTR'},{id:'rh',label:'RH'},{id:'doors',label:'Doors'},{id:'crew',label:'Crew'},{id:'ofcr',label:'OFCR/OFAR'},{id:'prayer',label:'Prayer/Misc'}];
 const SECS_A330    = [{id:'lh',label:'LH'},{id:'ctr',label:'CTR'},{id:'rh',label:'RH'},{id:'doors',label:'Doors'},{id:'prayer',label:'Prayer'},{id:'crew',label:'Crew/G4'}];
 const SECS_A320_21 = [{id:'lh',label:'LH'},{id:'rh',label:'RH'},{id:'doors',label:'Doors'}];
-Object.keys(LOCS_MAP).forEach(k=>{
-  if(!SECTIONS_MAP[k]){
-    if(k.startsWith('B777')) SECTIONS_MAP[k]=SECS_B777;
-    else if(k.startsWith('B787')) SECTIONS_MAP[k]=SECS_B787;
-    else if(k.startsWith('A330')) SECTIONS_MAP[k]=SECS_A330;
-    else SECTIONS_MAP[k]=SECS_A320_21;
-  }
-});
+// SECTIONS_MAP populated via SECS object above
 
 
 
