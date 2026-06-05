@@ -201,8 +201,7 @@ async function loadData(){
     if(!res.ok) throw new Error('HTTP '+res.status);
     const d = await res.json();
     fileSha = d.sha;
-    allData = JSON.parse(atob(d.content.replace(/\n/g,'')));
-    document.getElementById('fRefresh').textContent='Updated: '+new Date().toLocaleTimeString();
+    allData = JSON.parse(atob(d.content.split('\n').join(''))yId('fRefresh').textContent='Updated: '+new Date().toLocaleTimeString();
   }catch(e){
     allData=[];
     document.getElementById('emptyEl').style.display='block';
