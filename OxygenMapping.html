@@ -1588,16 +1588,11 @@ function onAcftTypeChange(silent){
   if(!curType) return;
   const secs = SECTIONS_MAP[curType] || SECTIONS_MAP['B777_AK3135'];
   curSec = secs[0].id;
-  renderTabs();
   injectDefaults(curType);
-  renderSec(curSec);
+  switchSec(curSec);  // switchSec handles renderTabs + renderSec
   fixTabsTop();
-  if(!silent){
-    save();
-    window.scrollTo(0, 0);
-  } else {
-    window.scrollTo(0, 0);
-  }
+  window.scrollTo(0, 0);
+  if(!silent) save();
 }
 
 // ── TABS ──
@@ -1608,7 +1603,11 @@ function renderTabs(){
   ).join('');
   setTimeout(fixTabsTop, 0);
 }
-function switchSec(id){ curSec=id; renderTabs(); renderSec(id); }
+function switchSec(id){
+  curSec = id;
+  renderTabs();
+  renderSec(id);
+}
 
 // ── SECTION ──
 function renderSec(id){
