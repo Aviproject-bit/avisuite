@@ -129,7 +129,7 @@
       {
         "category": "PAINT             ",
         "subCategory": "N/A               ",
-        "description": "DURING DCC FOUND ÃÂÃÂÃÂÃÂ·ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ³ FADED.                                 ",
+        "description": "DURING DCC FOUND ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ·ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ³ FADED.                                 ",
         "remarks": "                         ",
         "photoUrl": ""
       }
@@ -200,6 +200,23 @@
         "description": "DURING DCC FOUND CHECK ENGINE LIGHT ON.                     ",
         "remarks": "WHY????                  ",
         "photoUrl": "https://i.ibb.co/8gvYDmG5/ff6655c46f6c.jpg"
+      }
+    ]
+  },
+  {
+    "id": "1780632840573ziyoz",
+    "timestamp": "2026-06-05T04:14:00.573Z",
+    "date": "05/06/2026",
+    "time": "07:13",
+    "aircraft": "HZ-AK35",
+    "reporter": "30001461",
+    "findings": [
+      {
+        "category": "GALLEY            ",
+        "subCategory": "AFT GALLEY        ",
+        "description": "SEALANT MISSING                                             ",
+        "remarks": "RTV157                   ",
+        "photoUrl": "https://i.ibb.co/MkgRwJyB/25dd76ac48ff.jpg"
       }
     ]
   }
