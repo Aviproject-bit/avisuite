@@ -1972,14 +1972,21 @@ function exportRaw(){
   const SEP1='='.repeat(44);
   const SEP2='-'.repeat(40);
   const lines=['OXYGEN MAPPING - RAW BARCODE DATA',SEP1,'ACFT: '+acft,'TYPE: '+curType,SEP1,''];
-  Object.values(LOCS).flat().forEach(loc=>{
-    const units=(loc.dual&&!loc.sub)?['u1','u2']:[''];
-    units.forEach(u=>{
-      const rc=gv(loc.id,'raw_c',u), rg=gv(loc.id,'raw_g',u);
-      if(!rc&&!rg)return;
-      lines.push(''); lines.push(loc.name+(u?' '+(u==='u1'?'#1':'#2'):'')); lines.push(SEP2);
-      if(rc) lines.push('  Container: '+rc);
-      if(rg) lines.push('  Generator: '+rg);
+  const secIds = SECS[curType]||[];
+  secIds.forEach(sid=>{
+    const locs = LOCS[sid]||[];
+    if(!locs.length) return;
+    locs.forEach(loc=>{
+      const units=(loc.dual&&!loc.sub)?['u1','u2']:[''];
+      units.forEach(u=>{
+        const rc=gv(loc.id,'raw_c',u), rg=gv(loc.id,'raw_g',u);
+        if(!rc&&!rg)return;
+        lines.push('');
+        lines.push('['+SEC_LABELS[sid]+'] '+loc.name+(u?' '+(u==='u1'?'#1':'#2'):''));
+        lines.push(SEP2);
+        if(rc) lines.push('  Container: '+rc);
+        if(rg) lines.push('  Generator: '+rg);
+      });
     });
   });
   if(lines.length<=6){ showToast('No barcode data yet'); return; }
