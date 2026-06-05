@@ -2002,60 +2002,63 @@ async function submitData(){
   if(!curType){ showToast('Select aircraft type first'); return; }
   showToast('Uploading...');
 
-  const TOKEN = 'GITHUB_TOKEN_PLACEHOLDER';
-  const REPO  = 'aviproject-bit/ACFT-Project';
-  const PATH  = 'oxy_data/data.json';
+  const SCRIPT_URL =  + APPS_SCRIPT_URL + ;
+  const IMGBB_KEY  =  + IMGBB_KEY + ;
 
   try{
-    // Load existing data
-    let records = [];
-    let sha = null;
-    try{
-      const res = await fetch(
-        `https://api.github.com/repos/${REPO}/contents/${PATH}`,
-        {headers:{Authorization:`token ${TOKEN}`}}
-      );
-      if(res.ok){
-        const f = await res.json();
-        sha = f.sha;
-        records = JSON.parse(atob(f.content.replace(/
-/g,'')));
+    // 1. Upload photos to ImgBB
+    const photoMap = {};
+    const allLocs = Object.values(LOCS_MAP[curType]||{}).flat();
+    for(const loc of allLocs){
+      const units = (loc.dual&&!loc.sub)?['u1','u2']:[''];
+      for(const u of units){
+        const photos = JSON.parse(gv(loc.id,'photos',u)||'[]');
+        if(!photos.length) continue;
+        const urls = [];
+        for(const ph of photos){
+          try{
+            const fd = new FormData();
+            fd.append('key', IMGBB_KEY);
+            fd.append('image', ph.split(',')[1]);
+            const r = await fetch('https://api.imgbb.com/1/upload',{method:'POST',body:fd});
+            const d = await r.json();
+            if(d.success) urls.push(d.data.url);
+          }catch(e){}
+        }
+        if(urls.length){
+          const key = u ? loc.id+'_'+u+'_photoUrls' : loc.id+'_photoUrls';
+          photoMap[key] = urls.join(' | ');
+        }
       }
-    }catch(e){}
+    }
 
-    // Build record
-    const record = {
-      id: acft+'_'+curType+'_'+Date.now(),
+    // 2. Build data payload (exclude base64 photos, add ImgBB URLs)
+    const cleanData = {};
+    Object.entries(S).forEach(([k,v])=>{
+      if(k.includes('photos')) return; // skip base64
+      cleanData[k] = v;
+    });
+    Object.assign(cleanData, photoMap);
+
+    // 3. Submit to Apps Script
+    const payload = {
+      sheet: 'OxygenMapping',
       acft, type: curType,
-      submittedBy: acft,
       savedAt: new Date().toISOString(),
-      data: S,
+      data: cleanData,
     };
 
-    // Replace existing record for same acft+type, or add new
-    const idx = records.findIndex(r=>r.acft===acft&&r.type===curType);
-    if(idx>=0) records[idx]=record;
-    else records.push(record);
+    fetch(SCRIPT_URL, {
+      method:'POST',
+      mode:'no-cors',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify(payload),
+    });
 
-    // Save back to GitHub
-    const b64 = btoa(unescape(encodeURIComponent(JSON.stringify(records, null, 2))));
-    const body = {message:`Oxygen mapping: ${acft} ${curType}`, content: b64};
-    if(sha) body.sha = sha;
+    showToast('✓ Submitted — '+acft);
 
-    const saveRes = await fetch(
-      `https://api.github.com/repos/${REPO}/contents/${PATH}`,
-      {method:'PUT', headers:{Authorization:`token ${TOKEN}`,'Content-Type':'application/json'},
-       body:JSON.stringify(body)}
-    );
-
-    if(saveRes.ok){
-      showToast('✓ Submitted — '+acft);
-    } else {
-      const err = await saveRes.json();
-      showToast('Error: '+(err.message||saveRes.status));
-    }
   }catch(e){
-    showToast('Network error');
+    showToast('Error: '+e.message);
   }
 }
 
