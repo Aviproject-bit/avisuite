@@ -1632,9 +1632,13 @@ function onAcftTypeChange(silent){
 // ── TABS ──
 function renderTabs(){
   const secs = SECTIONS_MAP[curType] || [];
-  document.getElementById('tabs').innerHTML = secs.map(s=>
-    `<div class="tab${s.id===curSec?' active':''}" onclick="switchSec('${s.id}')">${s.label}</div>`
+  const el = document.getElementById('tabs');
+  el.innerHTML = secs.map(s=>
+    `<div class="tab${s.id===curSec?' active':''}" data-sec="${s.id}">${s.label}</div>`
   ).join('');
+  el.querySelectorAll('.tab').forEach(function(t){
+    t.addEventListener('click', function(){ switchSec(this.dataset.sec); });
+  });
   setTimeout(fixTabsTop, 0);
 }
 function switchSec(id){
