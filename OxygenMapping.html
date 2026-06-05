@@ -1564,11 +1564,21 @@ function load(){
   }catch(e){}
 }
 
+const ACFT_PLACEHOLDERS = {
+  'B777_AK3135':'HZ-AK31','B777_AK3643':'HZ-AK36',
+  'B787_10':'HZ-AR32','B787_9':'HZ-AR32',
+  'A330_AQA':'HZ-AQA',
+  'A321':'HZ-ASAA','A321_NEO':'HZ-ASAA',
+  'A320_AS51':'HZ-AS67','A320_ASA':'HZ-AS67',
+};
 function updateTbLabel(){
   const sel = document.getElementById('acftType');
   const lbl = sel.options[sel.selectedIndex]?.text || '';
   const sub = document.getElementById('tb-type-sub');
   if(sub) sub.textContent = lbl || 'Passenger Oxygen Mapping';
+  const ph = ACFT_PLACEHOLDERS[document.getElementById('acftType').value] || 'HZ-XXXX';
+  const acftEl = document.getElementById('acft');
+  if(acftEl) acftEl.placeholder = ph;
 }
 
 // ── ACFT TYPE CHANGE ──
@@ -1582,7 +1592,10 @@ function onAcftTypeChange(silent){
   injectDefaults(curType);
   renderSec(curSec);
   fixTabsTop();
-  if(!silent) save();
+  if(!silent){
+    save();
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
 }
 
 // ── TABS ──
@@ -1598,23 +1611,29 @@ function switchSec(id){ curSec=id; renderTabs(); renderSec(id); }
 // ── SECTION ──
 function renderSec(id){
   curSec = id;
+  const el = document.getElementById('content');
+  if(!el) return;
   if(!curType){ showEmpty(); return; }
   const LOCS = LOCS_MAP[curType] || {};
   const locs = LOCS[id] || [];
-  const el = document.getElementById('content');
-  if(!el) return;
   if(!locs.length){
     el.innerHTML = '<div class="empty"><p>No locations in this section</p></div>';
+    updateProg();
     return;
   }
-  try {
-    el.innerHTML = locs.map(renderCard).join('');
-  } catch(e) {
-    el.innerHTML = '<div class="empty"><p>Error: '+e.message+'</p></div>';
-    return;
-  }
-  updateProg();
-  locs.forEach(function(l){ updateDot(l.id); });
+  // Clear first to force repaint
+  el.innerHTML = '';
+  // Use requestAnimationFrame to ensure DOM cleared before refill
+  requestAnimationFrame(function(){
+    try {
+      el.innerHTML = locs.map(renderCard).join('');
+    } catch(e) {
+      el.innerHTML = '<div class="empty"><p>Error: '+e.message+'</p></div>';
+      return;
+    }
+    updateProg();
+    locs.forEach(function(l){ updateDot(l.id); });
+  });
 }
 
 function showEmpty(){
