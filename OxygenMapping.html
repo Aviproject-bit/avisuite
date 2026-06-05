@@ -1602,7 +1602,7 @@ function onAcftTypeChange(silent){
   const tabsEl = document.getElementById('tabs');
   if(tabsEl){
     tabsEl.innerHTML = secs.map(function(s){
-      return '<div class="tab'+(s.id===curSec?' active':'')+'" onclick="switchSec(''+s.id+'')">'+s.label+'</div>';
+      return '<div class="tab'+(s.id===curSec?' active':''  +'" data-sec="'+s.id+'">'+s.label+'</div>';
     }).join('');
   }
 
