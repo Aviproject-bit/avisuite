@@ -419,9 +419,9 @@ const LOCS_B777 = {
     {id:'R70_CTR',name:'ROW 70 CTR',tag:'ctr',dual:true},{id:'R71_CTR',name:'ROW 71 CTR',tag:'ctr',dual:true},
     {id:'R72_CTR',name:'ROW 72 CTR',tag:'ctr',dual:true},{id:'R73_CTR',name:'ROW 73 CTR',tag:'ctr',dual:true},
     // Prayer Area
-    {id:'PRAY1',name:'Prayer Area #1',tag:'oth',dual:true},
-    {id:'PRAY2',name:'Prayer Area #2',tag:'oth',dual:true},
-    {id:'PRAY3',name:'Prayer Area #3',tag:'oth',dual:true},
+    {id:'PRAY1',name:'Prayer Room #1',tag:'oth',dual:true},
+    {id:'PRAY2',name:'Prayer Room #2',tag:'oth',dual:true},
+    {id:'PRAY3',name:'Prayer Room #3',tag:'oth',dual:true},
   ],
   ofcr:[
     {id:'OFCR_LH_SEAT',name:'OFCR LH SEAT',tag:'oth'},{id:'OFCR_RH_SEAT',name:'OFCR RH SEAT',tag:'oth'},
@@ -747,9 +747,9 @@ const LOCS_B787_10 = {
     mk787('B10_R65_CTR','ROW 65 CTR','ctr',PN_787_CYL_STD),
     mk787('B10_R66_CTR','ROW 66 CTR','ctr',PN_787_CYL_STD),
     // Prayer Area
-    mk787('B10_PR1','Prayer Area (X-1652)','oth',PN_787_CYL_STD),
-    mk787('B10_PR2','Prayer Area (X-1682)','oth',PN_787_CYL_STD),
-    mk787('B10_PR3','Prayer Area (X-1706)','oth',PN_787_CYL_STD),
+    mk787('B10_PR1','PR (X-1652, BL0)','oth',PN_787_CYL_STD),
+    mk787('B10_PR2','PR (X-1682, BL0)','oth',PN_787_CYL_STD),
+    mk787('B10_PR3','PR (X-1706, BL0)','oth',PN_787_CYL_STD),
   ],
   rh:[
     mk787('B10_STA395_RH_BAS','STA 395 RH BASSINET','bas',PN_787_CYL_BAS,'BASSINET'),
@@ -811,7 +811,8 @@ const LOCS_B787_10 = {
     mk787('B10_DR4LH_AFT','DR 4 LH AFT','oth',PN_787_CYL_CTR),
     mk787('B10_DR4RH_FWD','DR 4 RH FWD','oth',PN_787_CYL_CTR),
     mk787('B10_DR4RH_AFT','DR 4 RH AFT','oth',PN_787_CYL_CTR),
-    mk787('B10_STA1769','CTR ATTN SEAT','oth',PN_787_CYL_CTR),
+    mk787('B10_STA678','STA 678 CROSS AISLE','oth',PN_787_CYL_SPEC),
+    mk787('B10_STA1769','STA 1769 CTR ATTN SEAT','oth',PN_787_CYL_CTR),
     mk787('B10_G4A1C','G4A-1C','oth',PN_787_CYL_SPEC),
   ],
   lavs:[
@@ -922,9 +923,9 @@ const LOCS_B787_9 = {
     mk787('B9_R58_CTR','ROW 58 CTR','ctr',PN_787_CYL_CTR2),
     mk787('B9_R59_CTR','ROW 59 CTR','ctr',PN_787_CYL_STD),
     // Prayer Area
-    mk787('B9_PR_STA1653','Prayer Area STA 1653','oth',PN_787_CYL_STD),
-    mk787('B9_PR_STA1677','Prayer Area STA 1677','oth',PN_787_CYL_STD),
-    mk787('B9_PR_STA1707','Prayer Area STA 1707','oth',PN_787_CYL_STD),
+    mk787('B9_PR_STA1653','Prayer Room STA 1653 CTR','oth',PN_787_CYL_STD),
+    mk787('B9_PR_STA1677','Prayer Room STA 1677 CTR','oth',PN_787_CYL_STD),
+    mk787('B9_PR_STA1707','Prayer Room STA 1707 CTR','oth',PN_787_CYL_STD),
   ],
   rh:[
     mk787('B9_RH_BAS','RH BASSINET','bas',PN_787_CYL_BAS,'BASSINET'),
@@ -979,8 +980,8 @@ const LOCS_B787_9 = {
     mk787('B9_DR4LH_FWD','DR 4 LH FWD','oth',PN_787_CYL_CTR),
     mk787('B9_DR4RH_AFT','DR 4 RH AFT','oth',PN_787_CYL_CTR),
     mk787('B9_DR4RH_FWD','DR 4 RH FWD','oth',PN_787_CYL_CTR),
-    mk787('B9_XAISLE','Cross Aisle (X-635)','oth',PN_787_CYL_SPEC),
-    mk787('B9_CTR_ATTN','CTR ATTN SEAT','oth',PN_787_CYL_CTR),
+    mk787('B9_XAISLE','CROSS AISLE','oth',PN_787_CYL_SPEC,null,false,{note:'X-635, BL0, Z-289'}),PN_787_CYL_SPEC),
+    mk787('B9_CTR_ATTN','CTR ATTN SEAT ( X-loc:1789, Y-Loc:BL0, Z-Loc:282 )','oth',PN_787_CYL_CTR),
     mk787('B9_G4A1C','G4A-1C','oth',PN_787_CYL_SPEC),
   ],
   lavs:[
