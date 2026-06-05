@@ -43,7 +43,7 @@ input,select,button{font-family:'BwGradual',sans-serif;}
 .ring-fill{fill:none;stroke:#C8A84B;stroke-width:3;stroke-linecap:round;transition:stroke-dashoffset .5s ease;}
 
 /* ── META ── */
-.meta{background:var(--navy);border-top:1px solid rgba(255,255,255,.08);display:grid;grid-template-columns:1fr 1fr 1fr 1.4fr;padding:0 4px 8px;gap:0;}
+.meta{background:var(--navy);border-top:1px solid rgba(255,255,255,.08);display:grid;grid-template-columns:1fr 1fr;padding:0 4px 6px;gap:0;}
 .mf{padding:5px 10px;}
 .mf label{display:block;font-size:8.5px;font-weight:700;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.7px;margin-bottom:3px;}
 .mf input,.mf select{
@@ -96,11 +96,16 @@ input,select,button{font-family:'BwGradual',sans-serif;}
 .sdiv::before,.sdiv::after{content:'';flex:1;height:1px;background:var(--bdr);}
 
 /* ── FIELD GRID ── */
-.fg{display:grid;grid-template-columns:1.3fr 1.3fr 0.9fr;gap:7px;margin-bottom:2px;}
+.fg{display:flex;flex-direction:column;gap:8px;margin-bottom:2px;}
 .field label{display:block;font-size:8.5px;font-weight:700;color:var(--mut);text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px;}
 .fw{display:flex;gap:5px;align-items:center;}
-.fw input{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;}
-.fw input:focus{overflow:visible;}
+.fw input{flex:1;min-width:0;}
+/* Field layout — P/N+S/N side by side, MFG full width */
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;}
+.field-pn{}
+.field-sn{}
+.field-mfg{margin-bottom:4px;}
+.field-mfg input{width:100%;}
 .field input,.field select{
   width:100%;padding:9px 10px;
   border:1.5px solid var(--bdr);border-radius:7px;
@@ -1560,9 +1565,10 @@ function onAcftTypeChange(silent){
   if(!curType) return;
   const secs = SECTIONS_MAP[curType] || SECTIONS_MAP['B777_AK3135'];
   curSec = secs[0].id;
+  document.getElementById('content').innerHTML = '';
   renderTabs();
   injectDefaults(curType);
-  renderSec(curSec);
+  setTimeout(function(){ renderSec(curSec); }, 30);
   if(!silent) save();
 }
 
@@ -1646,67 +1652,62 @@ function renderFields(locId, unit){
       <button class="photo-del" onclick="delPhoto('${locId}','${u}',${i});event.stopPropagation()">✕</button>
     </div>`).join('');
 
+  const scanIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <path d="M3 7V5a2 2 0 012-2h2M17 3h2a2 2 0 012 2v2M21 17v2a2 2 0 01-2 2h-2M7 21H5a2 2 0 01-2-2v-2"/>
+    <line x1="7" y1="8" x2="7" y2="16"/><line x1="10" y1="8" x2="10" y2="16"/>
+    <line x1="13" y1="8" x2="13" y2="13"/><line x1="16" y1="8" x2="16" y2="16"/>
+  </svg>`;
   return `
     <div class="sdiv"><span>
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:middle;margin-right:4px"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
       ${getFieldLabels().cont}
     </span></div>
-    <div class="fg">
-      <div class="field">
+
+    <div class="field-row">
+      <div class="field field-pn">
         <label>P/N</label>
         <div class="fw">
-          <input type="text" placeholder="P/N" value="${fv('cpn')}"
+          <input type="text" placeholder="Part Number" value="${fv('cpn')}"
             oninput="sv('${locId}','cpn','${u}',this.value)">
-          <button class="btn-scan" title="Scan Container Barcode" onclick="openScanner('${locId}','container','${u}')">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M3 7V5a2 2 0 012-2h2M17 3h2a2 2 0 012 2v2M21 17v2a2 2 0 01-2 2h-2M7 21H5a2 2 0 01-2-2v-2"/>
-              <line x1="7" y1="8" x2="7" y2="16"/><line x1="10" y1="8" x2="10" y2="16"/>
-              <line x1="13" y1="8" x2="13" y2="13"/><line x1="16" y1="8" x2="16" y2="16"/>
-            </svg>
-          </button>
+          <button class="btn-scan" title="Scan" onclick="openScanner('${locId}','container','${u}')">${scanIcon}</button>
         </div>
       </div>
-      <div class="field">
+      <div class="field field-sn">
         <label>S/N</label>
-        <input type="text" placeholder="S/N" value="${fv('csn')}"
+        <input type="text" placeholder="Serial Number" value="${fv('csn')}"
           oninput="sv('${locId}','csn','${u}',this.value)">
       </div>
-      <div class="field">
-        <label>MFG Date</label>
-        <input type="month" value="${fv('cmfg')}"
-          onchange="sv('${locId}','cmfg','${u}',this.value)">
-      </div>
+    </div>
+    <div class="field field-mfg">
+      <label>MFG Date</label>
+      <input type="month" value="${fv('cmfg')}"
+        onchange="sv('${locId}','cmfg','${u}',this.value)">
     </div>
 
-    <div class="sdiv"><span>
+    <div class="sdiv" style="margin-top:10px;"><span>
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:middle;margin-right:4px"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
       ${getFieldLabels().gen}
     </span></div>
-    <div class="fg">
-      <div class="field">
+
+    <div class="field-row">
+      <div class="field field-pn">
         <label>P/N</label>
         <div class="fw">
-          <input type="text" placeholder="P/N" value="${fv('gpn')}"
+          <input type="text" placeholder="Part Number" value="${fv('gpn')}"
             oninput="sv('${locId}','gpn','${u}',this.value)">
-          <button class="btn-scan" title="Scan Generator Barcode" onclick="openScanner('${locId}','generator','${u}')">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M3 7V5a2 2 0 012-2h2M17 3h2a2 2 0 012 2v2M21 17v2a2 2 0 01-2 2h-2M7 21H5a2 2 0 01-2-2v-2"/>
-              <line x1="7" y1="8" x2="7" y2="16"/><line x1="10" y1="8" x2="10" y2="16"/>
-              <line x1="13" y1="8" x2="13" y2="13"/><line x1="16" y1="8" x2="16" y2="16"/>
-            </svg>
-          </button>
+          <button class="btn-scan" title="Scan" onclick="openScanner('${locId}','generator','${u}')">${scanIcon}</button>
         </div>
       </div>
-      <div class="field">
+      <div class="field field-sn">
         <label>S/N</label>
-        <input type="text" placeholder="S/N" value="${fv('gsn')}"
+        <input type="text" placeholder="Serial Number" value="${fv('gsn')}"
           oninput="sv('${locId}','gsn','${u}',this.value)">
       </div>
-      <div class="field">
-        <label>MFG Date</label>
-        <input type="month" value="${fv('gmfg')}"
-          onchange="sv('${locId}','gmfg','${u}',this.value)">
-      </div>
+    </div>
+    <div class="field field-mfg">
+      <label>MFG Date</label>
+      <input type="month" value="${fv('gmfg')}"
+        onchange="sv('${locId}','gmfg','${u}',this.value)">
     </div>
 
     <div class="photos-area">
@@ -2252,20 +2253,18 @@ function exportWord(){
   const cLbl  = is787 ? 'Cylinder'  : 'Container';
   const gLbl  = is787 ? 'Initiator' : 'Generator';
   const TYPE_LABELS = {
-    'B777_AK3135':'SVA B777 AK31-AK35','B777_AK3643':'SVA B777 AK36-AK43',
+    'B777_AK3135':'SVA B777 (AK31-AK35)','B777_AK3643':'SVA B777 (AK36-AK43)',
     'B787_10':'SVA B787-10','B787_9':'SVA B787-9',
-    'A330_AQA':'SVA A330 AQA-AQH','A321':'SVA A321','A321_NEO':'SVA A321 NEO',
-    'A320_AS51':'SVA A320 AS51-AS84','A320_ASA':'SVA A320 ASA-ASG',
+    'A330_AQA':'SVA A330 (AQA-AQH)','A321':'SVA A321','A321_NEO':'SVA A321 NEO',
+    'A320_AS51':'SVA A320 (AS51-AS84)','A320_ASA':'SVA A320 (ASA-ASG)',
   };
   const typeTitle = TYPE_LABELS[curType]||curType;
 
+  // Build rows exactly matching original PDF format
   let rows = '';
   SECS.forEach(function(sec){
     const locs = LOCS[sec.id]||[];
     if(!locs.length) return;
-    rows += '<tr style="background:#e6f2ec;"><td colspan="7" style="font-weight:bold;'
-      +'color:#004d28;padding:5px 8px;border:1px solid #aaa;text-transform:uppercase;'
-      +'font-size:9pt;">'+sec.label+'</td></tr>';
     locs.forEach(function(loc){
       const units=(loc.dual&&!loc.sub)?['u1','u2']:[''];
       units.forEach(function(u){
@@ -2275,47 +2274,80 @@ function exportWord(){
         const gpn=gv(loc.id,'gpn',u)||'';
         const gsn=gv(loc.id,'gsn',u)||'';
         const gmfg=gv(loc.id,'gmfg',u)||'';
-        let locName=loc.name;
-        if(loc.sub) locName+=' ['+loc.sub+']';
-        if(u) locName+=' '+(u==='u1'?'#1':'#2');
-        if(loc.fin) locName=loc.fin+' '+locName;
-        rows+='<tr>'
-          +'<td style="border:1px solid #ccc;padding:4px 6px;font-size:9pt;">'+locName+'</td>'
-          +'<td style="border:1px solid #ccc;padding:4px 6px;font-size:9pt;">'+cpn+'</td>'
-          +'<td style="border:1px solid #ccc;padding:4px 6px;font-size:9pt;">'+csn+'</td>'
-          +'<td style="border:1px solid #ccc;padding:4px 6px;font-size:9pt;">'+cmfg+'</td>'
-          +'<td style="border:1px solid #ccc;padding:4px 6px;font-size:9pt;">'+gpn+'</td>'
-          +'<td style="border:1px solid #ccc;padding:4px 6px;font-size:9pt;">'+gsn+'</td>'
-          +'<td style="border:1px solid #ccc;padding:4px 6px;font-size:9pt;">'+gmfg+'</td>'
+
+        let locCell = '';
+        if(loc.fin) locCell += '<span style="color:#455a64;font-size:8pt;">'+loc.fin+'</span><br>';
+        locCell += loc.name;
+        if(loc.sub) locCell += '<br><span style="background:#fff3cd;color:#856404;font-size:7pt;padding:1px 4px;border-radius:2px;">'+loc.sub+'</span>';
+        if(u) locCell += ' <span style="font-size:8pt;color:#006937;">'+(u==='u1'?'#1':'#2')+'</span>';
+
+        const td = 'style="border:1px solid #C8D0DA;padding:5px 7px;font-size:9pt;vertical-align:middle;"';
+        rows += '<tr>'
+          +'<td '+td+'>'+locCell+'</td>'
+          +'<td '+td+'>'+cpn+'</td>'
+          +'<td '+td+'>'+csn+'</td>'
+          +'<td '+td+'>'+cmfg+'</td>'
+          +'<td '+td+'>'+gpn+'</td>'
+          +'<td '+td+'>'+gsn+'</td>'
+          +'<td '+td+'>'+gmfg+'</td>'
           +'</tr>';
       });
     });
   });
 
+  // Header matching original PDF style
+  const thStyle = 'style="background:#006937;color:#fff;border:1px solid #004d28;'
+    +'padding:6px 7px;font-size:9pt;font-weight:bold;text-align:left;"';
+
   const docHtml = '<html xmlns:o="urn:schemas-microsoft-com:office:office"'
     +' xmlns:w="urn:schemas-microsoft-com:office:word"'
-    +' xmlns="http://www.w3.org/TR/REC-html40"><head>'
-    +'<meta charset="UTF-8">'
-    +'<!--[if gte mso 9]><xml><w:WordDocument><w:View>Print</w:View>'
-    +'<w:Zoom>90</w:Zoom><w:DoNotOptimizeForBrowser/></w:WordDocument></xml><![endif]-->'
-    +'<style>body{font-family:Arial,sans-serif;margin:1cm;}'
-    +'table{border-collapse:collapse;width:100%;}'
-    +'th{background:#006937;color:#fff;padding:5px 8px;border:1px solid #004d28;font-size:9pt;text-align:left;}'
+    +' xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="UTF-8">'
+    +'<!--[if gte mso 9]><xml><w:WordDocument>'
+    +'<w:View>Print</w:View><w:Zoom>85</w:Zoom>'
+    +'<w:DoNotOptimizeForBrowser/></w:WordDocument></xml><![endif]-->'
+    +'<style>'
+    +'@page{size:29.7cm 21cm;margin:1cm 1.2cm;}'  // A4 landscape
+    +'body{font-family:Arial,sans-serif;font-size:9pt;margin:0;}'
+    +'table{border-collapse:collapse;width:100%;font-size:9pt;}'
+    +'tr:nth-child(even) td{background:#f4f8f5;}'
     +'</style></head><body>'
-    +'<h2 style="color:#006937;margin-bottom:4px;">Passenger Oxygen Mapping</h2>'
-    +'<p style="margin:0 0 4px;font-size:10pt;">'+typeTitle+'</p>'
-    +'<table style="margin-bottom:10px;font-size:9pt;">'
-    +'<tr><td><strong>ACFT REG:</strong></td><td>'+acft+'</td>'
-    +'<td style="padding-left:20px;"><strong>WP:</strong></td><td>'+wp+'</td>'
-    +'<td style="padding-left:20px;"><strong>Date:</strong></td><td>'+date+'</td></tr>'
-    +'</table>'
-    +'<table><thead><tr>'
-    +'<th>Location</th><th>'+cLbl+' P/N</th><th>'+cLbl+' S/N</th><th>'+cLbl+' MFG</th>'
-    +'<th>'+gLbl+' P/N</th><th>'+gLbl+' S/N</th><th>'+gLbl+' MFG</th>'
-    +'</tr></thead><tbody>'+rows+'</tbody></table>'
-    +'</body></html>';
 
-  const blob = new Blob([docHtml], {type:'application/msword'});
+    // Page header - matching PDF style
+    +'<table style="margin-bottom:8px;border:none;">'
+    +'<tr>'
+    +'<td style="border:none;padding:0;width:40%;">'
+    +'<p style="margin:0;font-size:14pt;font-weight:bold;color:#006937;">SAUDIA TECHNIC</p>'
+    +'<p style="margin:2px 0 0;font-size:10pt;color:#1a2e23;">'+typeTitle+'</p>'
+    +'</td>'
+    +'<td style="border:none;padding:0;text-align:center;width:30%;">'
+    +'<p style="margin:0;font-size:13pt;font-weight:bold;color:#1a2e23;">Passenger Oxygen Mapping</p>'
+    +'</td>'
+    +'<td style="border:none;padding:0;text-align:right;width:30%;">'
+    +'<table style="margin-left:auto;border:1px solid #C8D0DA;font-size:9pt;">'
+    +'<tr><td style="border:1px solid #C8D0DA;padding:3px 8px;background:#f4f8f5;font-weight:bold;">ACFT REG</td>'
+    +'<td style="border:1px solid #C8D0DA;padding:3px 12px;">'+acft+'</td></tr>'
+    +'<tr><td style="border:1px solid #C8D0DA;padding:3px 8px;background:#f4f8f5;font-weight:bold;">WP</td>'
+    +'<td style="border:1px solid #C8D0DA;padding:3px 12px;">'+wp+'</td></tr>'
+    +'<tr><td style="border:1px solid #C8D0DA;padding:3px 8px;background:#f4f8f5;font-weight:bold;">Date</td>'
+    +'<td style="border:1px solid #C8D0DA;padding:3px 12px;">'+date+'</td></tr>'
+    +'</table>'
+    +'</td>'
+    +'</tr>'
+    +'</table>'
+    +'<table style="border:2px solid #006937;">'
+    +'<thead><tr>'
+    +'<th '+thStyle+' style="min-width:120px;">Location</th>'
+    +'<th '+thStyle+'>'+cLbl+' P/N</th>'
+    +'<th '+thStyle+'>'+cLbl+' S/N</th>'
+    +'<th '+thStyle+'>'+cLbl+' MFG Date</th>'
+    +'<th '+thStyle+'>'+gLbl+' P/N</th>'
+    +'<th '+thStyle+'>'+gLbl+' S/N</th>'
+    +'<th '+thStyle+'>'+gLbl+' MFG Date</th>'
+    +'</tr></thead>'
+    +'<tbody>'+rows+'</tbody>'
+    +'</table></body></html>';
+
+  const blob = new Blob(['﻿'+docHtml], {type:'application/msword;charset=utf-8'});
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
   a.download = 'OxyMapping_'+acft+'_'+date+'.doc';
