@@ -50,7 +50,7 @@ input,select,button{font-family:'BwGradual',sans-serif;}
 /* ── TYPE BAR ── */
 .typebar{background:var(--navy);border-top:1px solid rgba(255,255,255,.1);
   display:grid;grid-template-columns:1.6fr 1fr;padding:4px 6px 8px;gap:4px;
-  position:sticky;z-index:199;}
+  position:sticky;top:46px;z-index:199;}
 .mf{padding:3px 8px;}
 .mf-type{}
 .mf label{display:block;font-size:8px;font-weight:800;color:rgba(255,255,255,.45);
@@ -129,6 +129,10 @@ input,select,button{font-family:'BwGradual',sans-serif;}
 }
 .field input:focus{border-color:var(--grn);}
 .field input::placeholder{color:#bbb;font-size:11px;}
+.field input[type="month"],.field input[type=month]{
+  -webkit-appearance:none;appearance:none;
+  height:44px;padding:0 10px;color:var(--txt);
+}
 
 /* ── SCAN BTN ── */
 .btn-scan{
@@ -1583,7 +1587,7 @@ function onAcftTypeChange(silent){
     renderSec(curSec);
     renderTabs();
     fixTabsTop();
-  }, 0);
+  }, 50);
   if(!silent) save();
 }
 
@@ -1593,6 +1597,7 @@ function renderTabs(){
   document.getElementById('tabs').innerHTML = secs.map(s=>
     `<div class="tab${s.id===curSec?' active':''}" onclick="switchSec('${s.id}')">${s.label}</div>`
   ).join('');
+  setTimeout(fixTabsTop, 0);
 }
 function switchSec(id){ curSec=id; renderTabs(); renderSec(id); }
 
@@ -2454,9 +2459,14 @@ function fixTabsTop(){
   const tb = document.querySelector('.tb');
   const typebar = document.querySelector('.typebar');
   const tabs = document.querySelector('.tabs');
-  if(tb && typebar && tabs){
-    const h = tb.getBoundingClientRect().height + typebar.getBoundingClientRect().height;
-    tabs.style.top = Math.round(h) + 'px';
+  if(!tb) return;
+  const tbH = Math.round(tb.getBoundingClientRect().height);
+  if(typebar){
+    typebar.style.top = tbH + 'px';
+    const tyH = Math.round(typebar.getBoundingClientRect().height);
+    if(tabs) tabs.style.top = (tbH + tyH) + 'px';
+  } else {
+    if(tabs) tabs.style.top = tbH + 'px';
   }
 }
 
