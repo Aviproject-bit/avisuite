@@ -1580,14 +1580,8 @@ function onAcftTypeChange(silent){
   curSec = secs[0].id;
   renderTabs();
   injectDefaults(curType);
-  // Force DOM repaint before render
-  const el = document.getElementById('content');
-  el.innerHTML = '<div style="padding:20px;text-align:center;color:var(--mut)">Loading...</div>';
-  setTimeout(function(){
-    renderSec(curSec);
-    renderTabs();
-    fixTabsTop();
-  }, 50);
+  renderSec(curSec);
+  fixTabsTop();
   if(!silent) save();
 }
 
@@ -1608,9 +1602,19 @@ function renderSec(id){
   const LOCS = LOCS_MAP[curType] || {};
   const locs = LOCS[id] || [];
   const el = document.getElementById('content');
-  el.innerHTML = locs.map(renderCard).join('');
+  if(!el) return;
+  if(!locs.length){
+    el.innerHTML = '<div class="empty"><p>No locations in this section</p></div>';
+    return;
+  }
+  try {
+    el.innerHTML = locs.map(renderCard).join('');
+  } catch(e) {
+    el.innerHTML = '<div class="empty"><p>Error: '+e.message+'</p></div>';
+    return;
+  }
   updateProg();
-  locs.forEach(l => updateDot(l.id));
+  locs.forEach(function(l){ updateDot(l.id); });
 }
 
 function showEmpty(){
@@ -1626,7 +1630,27 @@ function showEmpty(){
 // ── CARD ──
 function renderCard(loc){
   const tc = {lh:'t-lh',rh:'t-rh',ctr:'t-ctr',bas:'t-bas',oth:'t-oth'}[loc.tag]||'t-oth';
-  const tl = loc.sub || loc.tag.toUpperCase();
+  // Smart label: use sub if exists, else derive from section or loc id
+  let tl = loc.sub || '';
+  if(!tl){
+    if(loc.tag==='lh') tl='LH';
+    else if(loc.tag==='rh') tl='RH';
+    else if(loc.tag==='ctr') tl='CTR';
+    else if(loc.tag==='bas') tl='BAS';
+    else {
+      // Derive from location name context
+      const n = loc.name.toUpperCase();
+      if(n.includes('DOOR')||n.includes('DR ')) tl='DOOR';
+      else if(n.includes('GALLEY')||n.includes('AISLE')) tl='GAL';
+      else if(n.includes('PRAYER')||n.includes('PR ')) tl='PRAY';
+      else if(n.includes('OFCR')||n.includes('OFAR')) tl='CREW';
+      else if(n.includes('BUNK')||n.includes('SEAT')) tl='CREW';
+      else if(n.match(/^[LR][0-9]/)) tl='CREW';
+      else if(n.includes('STA ')||n.includes('CTR ATTN')) tl='STA';
+      else if(n.includes('G4')) tl='GALLEY';
+      else tl = curSec ? curSec.toUpperCase().slice(0,4) : 'LOC';
+    }
+  }
   const isDual = !!loc.dual && !loc.sub;
   const noteHtml = loc.note ? `<div class="card-note">${loc.note}</div>` : '';
   const body = isDual
@@ -2502,7 +2526,11 @@ function init(){
   window.addEventListener('resize', fixTabsTop);
 }
 
-init();
+if(document.readyState === 'loading'){
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}
 </script>
 </body>
 </html>
