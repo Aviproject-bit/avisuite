@@ -1585,11 +1585,39 @@ function updateTbLabel(){
 function onAcftTypeChange(silent){
   curType = document.getElementById('acftType').value;
   updateTbLabel();
-  if(!curType) return;
-  const secs = SECTIONS_MAP[curType] || SECTIONS_MAP['B777_AK3135'];
+  if(!curType){ showEmpty(); return; }
+  // Get sections for this type
+  const secs = SECTIONS_MAP[curType];
+  if(!secs || !secs.length){ showEmpty(); return; }
+  // Set first section
   curSec = secs[0].id;
+  // Inject defaults (B787 P/N)
   injectDefaults(curType);
-  switchSec(curSec);  // switchSec handles renderTabs + renderSec
+  // Build tabs
+  const tabsEl = document.getElementById('tabs');
+  if(tabsEl){
+    tabsEl.innerHTML = secs.map(function(s){
+      const cls = 'tab'+(s.id===curSec?' active':'');
+      return '<div class="'+cls+'" onclick="switchSec(\'' +s.id+ '\')">'+s.label+'</div>';
+    }).join('');
+  }
+  // Build content
+  const LOCS = LOCS_MAP[curType] || {};
+  const locs = LOCS[curSec] || [];
+  const contentEl = document.getElementById('content');
+  if(contentEl){
+    if(!locs.length){
+      contentEl.innerHTML = '<div class="empty"><p>No locations</p></div>';
+    } else {
+      try {
+        contentEl.innerHTML = locs.map(renderCard).join('');
+      } catch(err){
+        contentEl.innerHTML = '<div class="empty"><p>Error: '+err.message+'</p></div>';
+      }
+    }
+  }
+  updateProg();
+  if(locs.length) locs.forEach(function(l){ updateDot(l.id); });
   fixTabsTop();
   window.scrollTo(0, 0);
   if(!silent) save();
