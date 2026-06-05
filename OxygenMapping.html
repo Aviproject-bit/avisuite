@@ -1996,7 +1996,68 @@ function exportRaw(){
   showToast('\u2713 Raw data exported');
 }
 
-function submitData(){ showToast('Submit — coming soon'); }
+async function submitData(){
+  const acft = document.getElementById('inpAcft').value.trim();
+  if(!acft){ showToast('Enter ACFT REG first'); return; }
+  if(!curType){ showToast('Select aircraft type first'); return; }
+  showToast('Uploading...');
+
+  const TOKEN = 'GITHUB_TOKEN_PLACEHOLDER';
+  const REPO  = 'aviproject-bit/ACFT-Project';
+  const PATH  = 'oxy_data/data.json';
+
+  try{
+    // Load existing data
+    let records = [];
+    let sha = null;
+    try{
+      const res = await fetch(
+        `https://api.github.com/repos/${REPO}/contents/${PATH}`,
+        {headers:{Authorization:`token ${TOKEN}`}}
+      );
+      if(res.ok){
+        const f = await res.json();
+        sha = f.sha;
+        records = JSON.parse(atob(f.content.replace(/
+/g,'')));
+      }
+    }catch(e){}
+
+    // Build record
+    const record = {
+      id: acft+'_'+curType+'_'+Date.now(),
+      acft, type: curType,
+      submittedBy: acft,
+      savedAt: new Date().toISOString(),
+      data: S,
+    };
+
+    // Replace existing record for same acft+type, or add new
+    const idx = records.findIndex(r=>r.acft===acft&&r.type===curType);
+    if(idx>=0) records[idx]=record;
+    else records.push(record);
+
+    // Save back to GitHub
+    const b64 = btoa(unescape(encodeURIComponent(JSON.stringify(records, null, 2))));
+    const body = {message:`Oxygen mapping: ${acft} ${curType}`, content: b64};
+    if(sha) body.sha = sha;
+
+    const saveRes = await fetch(
+      `https://api.github.com/repos/${REPO}/contents/${PATH}`,
+      {method:'PUT', headers:{Authorization:`token ${TOKEN}`,'Content-Type':'application/json'},
+       body:JSON.stringify(body)}
+    );
+
+    if(saveRes.ok){
+      showToast('✓ Submitted — '+acft);
+    } else {
+      const err = await saveRes.json();
+      showToast('Error: '+(err.message||saveRes.status));
+    }
+  }catch(e){
+    showToast('Network error');
+  }
+}
 
 function showToast(msg){
   const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show');
