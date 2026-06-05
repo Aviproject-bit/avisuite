@@ -313,7 +313,7 @@ input,select,button{font-family:'BwGradual',sans-serif;}
     <div style="position:relative;border-radius:10px;overflow:hidden;background:#000;max-height:55vh;">
   <video id="scanVideo" autoplay playsinline muted webkit-playsinline
     style="width:100%;display:block;max-height:55vh;object-fit:cover;"></video>
-  <div id="scanOverlay2" style="display:none;position:absolute;inset:0;pointer-events:none;
+  <div id="scanOverlay2" style="display:none;position:absolute;top:0;left:0;right:0;bottom:0;pointer-events:none;
     display:flex;align-items:center;justify-content:center;">
     <div style="width:220px;height:220px;border:3px solid #C8A84B;border-radius:14px;
       box-shadow:0 0 0 9999px rgba(0,0,0,.45);position:relative;">
@@ -813,9 +813,6 @@ function openScanner(locId, component, unit){
   document.getElementById('scanResult').textContent='';
   document.getElementById('btnScanUse').className='btn-scan-use';
   document.getElementById('scanOverlay').classList.add('open');
-  // Show frame overlay
-  const ov=document.getElementById('scanOverlay2');
-  if(ov) ov.style.display='block';
   startCamera();
 }
 
@@ -912,28 +909,47 @@ function showScanResult(raw){
 }
 
 function parseScanData(raw){
-  // Format A: "P/N: 4441158-002/DMF S/N: 9130456/PNR MFG: 102024"
-  const pn_a  = raw.match(/P\/N:\s*([^/\s]+(?:-[^/\s]+)*)\/(?:DMF|PNR|SER|PN)/i);
-  const sn_a  = raw.match(/S\/N:\s*([^/\s]+)\/(?:PNR|SER|SNR)/i);
-  const mfg_a = raw.match(/MFG:\s*(\d{6})/i);
-  // Format B: "PNR 4441158-002 SNR 9130456 DMF 102024"
-  const pn_b  = raw.match(/PNR[:\s]+([^\s]+)/i);
-  const sn_b  = raw.match(/S[NR]{2}[:\s]+([^\s]+)/i);
-  const mfg_b = raw.match(/DMF[:\s]+(\d{6})/i);
-  // Format C: "E63440-00/SER ..." generator style
-  const pn_c  = raw.match(/^([A-Z0-9]+-[A-Z0-9]+)\/(?:SER|PNR|DMF)/i);
+  // Logic: value/LABEL — the slash marks end of value, LABEL identifies the field
+  // Split into tokens by space, then find value/LABEL pairs
+  const PN_LABELS  = /^(PNR|PN|P\/N|PART[\s_]?N(?:UMBER|O)?)$/i;
+  const SN_LABELS  = /^(SNR|SER|SN|S\/N|SERIAL)$/i;
+  const MFG_LABELS = /^(DMF|MFD|MFG)$/i;
 
-  const pn  = (pn_a&&pn_a[1])  || (pn_b&&pn_b[1])  || (pn_c&&pn_c[1])  || null;
-  const sn  = (sn_a&&sn_a[1])  || (sn_b&&sn_b[1])  || null;
-  const mfg_raw = (mfg_a&&mfg_a[1]) || (mfg_b&&mfg_b[1]) || null;
+  let pn=null, sn=null, mfg_raw=null;
 
-  let mfg = null;
-  if(mfg_raw && mfg_raw.length===6){
-    // MMYYYY or MMYY
-    const mm = mfg_raw.slice(0,2);
-    const yy = mfg_raw.slice(2);
-    mfg = (yy.length===4 ? yy : '20'+yy) + '-' + mm.padStart(2,'0');
+  // Tokenize: split on whitespace, each token may be "VALUE/LABEL" or just "LABEL" or "VALUE"
+  const tokens = raw.trim().split(/\s+/);
+  for(let i=0; i<tokens.length; i++){
+    const t = tokens[i];
+    const slash = t.lastIndexOf('/');
+    if(slash > 0){
+      const val   = t.slice(0, slash);
+      const label = t.slice(slash + 1);
+      if(PN_LABELS.test(label)  && val) pn      = val;
+      if(SN_LABELS.test(label)  && val) sn      = val;
+      if(MFG_LABELS.test(label) && val) mfg_raw = val;
+    }
   }
+
+  // Format MFG date — accept MMYYYY, MMYY, YYYYMM
+  let mfg = null;
+  if(mfg_raw){
+    const d = mfg_raw.replace(/[^0-9]/g,'');
+    if(d.length === 6){
+      const mm = d.slice(0,2);
+      const yr = d.slice(2);   // YYYY or YY
+      const yyyy = yr.length===4 ? yr : '20'+yr;
+      const m = parseInt(mm,10);
+      if(m>=1 && m<=12) mfg = yyyy + '-' + mm.padStart(2,'0');
+    } else if(d.length === 4){
+      // MMYY
+      const mm=d.slice(0,2), yy=d.slice(2);
+      const m=parseInt(mm,10);
+      if(m>=1&&m<=12) mfg='20'+yy+'-'+mm;
+    }
+    // If format unrecognized, leave mfg null (leave field empty)
+  }
+
   return {pn, sn, mfg};
 }
 
@@ -964,6 +980,8 @@ function closeScanner(){
   if(scanStream){ scanStream.getTracks().forEach(t=>t.stop()); scanStream=null; }
   const vid=document.getElementById('scanVideo');
   if(vid){ vid.srcObject=null; }
+  const ov=document.getElementById('scanOverlay2');
+  if(ov) ov.style.display='none';
   scanCtx=null; lastScanResult='';
 }
 
