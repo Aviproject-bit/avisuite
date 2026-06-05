@@ -72,7 +72,7 @@ input,select,button{font-family:'BwGradual',sans-serif;}
 .tab.active{color:var(--grn);border-bottom-color:var(--grn);}
 
 /* ── CONTENT ── */
-.content{padding:10px 10px 16px;}
+.content{padding:12px 10px 20px;}
 
 /* ── CARD ── */
 .card{background:var(--wh);border:1px solid var(--bdr);border-radius:var(--r);margin-bottom:8px;box-shadow:var(--sh);overflow:hidden;}
@@ -1594,7 +1594,9 @@ function onAcftTypeChange(silent){
   fixTabsTop();
   if(!silent){
     save();
-    window.scrollTo({top:0, behavior:'smooth'});
+    window.scrollTo(0, 0);
+  } else {
+    window.scrollTo(0, 0);
   }
 }
 
@@ -1622,13 +1624,17 @@ function renderSec(id){
     return;
   }
   try {
-    el.innerHTML = locs.map(renderCard).join('');
+    const html = locs.map(renderCard).join('');
+    el.innerHTML = html;
   } catch(e) {
-    el.innerHTML = '<div class="empty"><p>Error: '+e.message+'</p></div>';
+    el.innerHTML = '<div class="empty"><p>Render error: '+e.message+'</p></div>';
     return;
   }
   updateProg();
   locs.forEach(function(l){ updateDot(l.id); });
+  // Ensure content is visible
+  el.style.display = 'block';
+  el.scrollTop = 0;
 }
 
 function showEmpty(){
