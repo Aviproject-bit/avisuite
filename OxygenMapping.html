@@ -310,7 +310,11 @@ input,select,button{font-family:'BwGradual',sans-serif;}
   <div class="scan-modal">
     <div class="scan-title" id="scanTitle">Scan Barcode / QR Code</div>
     <div class="scan-sub" id="scanSub">Point camera at the label</div>
-    <video id="scanVideo" autoplay playsinline muted></video>
+    <video id="scanVideo" autoplay playsinline muted webkit-playsinline
+  style="width:100%;border-radius:10px;background:#000;display:block;max-height:55vh;object-fit:cover;"></video>
+<div id="scanOverlay2" style="display:none;position:relative;margin-top:-60px;text-align:center;pointer-events:none;">
+  <div style="display:inline-block;width:200px;height:200px;border:3px solid #C8A84B;border-radius:12px;box-shadow:0 0 0 2000px rgba(0,0,0,.4);"></div>
+</div>
     <div class="scan-result" id="scanResult"></div>
     <div class="scan-actions">
       <button class="btn-scan-close" onclick="closeScanner()">Cancel</button>
@@ -323,6 +327,7 @@ input,select,button{font-family:'BwGradual',sans-serif;}
 <div class="toast" id="toast"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jsbarcode/3.11.6/JsBarcode.all.min.js"></script>
+<script src="https://unpkg.com/@zxing/library@0.19.1/umd/index.min.js"></script>
 <script>
 // ══════════════════════════════════════════════
 // LOCATIONS DATA — B777 (expandable per type)
@@ -779,50 +784,98 @@ function openScanner(locId, component, unit){
   scanCtx = {locId, component, unit};
   lastScanResult = '';
   document.getElementById('scanTitle').textContent =
-    `Scan ${component==='container'?'Container':'Generator'} Barcode`;
+    `Scan ${component==='container'?'Container':'Generator'} Label`;
   document.getElementById('scanSub').textContent =
-    'Point camera at the barcode / QR code on the label';
+    window.ZXing
+      ? 'Point camera at QR code or barcode'
+      : ('BarcodeDetector' in window)
+        ? 'Point camera at QR code or barcode'
+        : 'Loading scanner...';
   document.getElementById('scanResult').className='scan-result';
   document.getElementById('scanResult').textContent='';
   document.getElementById('btnScanUse').className='btn-scan-use';
   document.getElementById('scanOverlay').classList.add('open');
+  // Show frame overlay
+  const ov=document.getElementById('scanOverlay2');
+  if(ov) ov.style.display='block';
   startCamera();
 }
 
 function startCamera(){
-  navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'}})
-    .then(stream=>{
-      scanStream=stream;
-      const vid=document.getElementById('scanVideo');
-      vid.srcObject=stream;
-      vid.play();
-      startBarcodeLoop();
-    })
-    .catch(()=>showToast('Camera not available'));
+  navigator.mediaDevices.getUserMedia({
+    video:{facingMode:{ideal:'environment'}, width:{ideal:1280}, height:{ideal:720}}
+  })
+  .then(stream=>{
+    scanStream=stream;
+    const vid=document.getElementById('scanVideo');
+    vid.srcObject=stream;
+    vid.play().then(()=>{ startBarcodeLoop(); }).catch(()=>startBarcodeLoop());
+  })
+  .catch(err=>{
+    showToast('Camera error: '+err.message);
+    closeScanner();
+  });
 }
 
 function startBarcodeLoop(){
   const vid=document.getElementById('scanVideo');
   const canvas=document.createElement('canvas');
   const ctx=canvas.getContext('2d');
-  scanTimer=setInterval(()=>{
-    if(vid.readyState<2) return;
-    canvas.width=vid.videoWidth;
-    canvas.height=vid.videoHeight;
-    ctx.drawImage(vid,0,0);
-    // Use BarcodeDetector if available
-    if('BarcodeDetector' in window){
-      new BarcodeDetector().detect(canvas).then(barcodes=>{
-        if(barcodes.length>0){
-          const raw=barcodes[0].rawValue;
-          if(raw!==lastScanResult){
-            lastScanResult=raw;
-            showScanResult(raw);
-          }
-        }
-      }).catch(()=>{});
+
+  function tryDecode(){
+    if(!scanStream) return;
+    if(vid.readyState>=2 && vid.videoWidth>0){
+      canvas.width=vid.videoWidth;
+      canvas.height=vid.videoHeight;
+      ctx.drawImage(vid,0,0);
+
+      // Method 1: BarcodeDetector (Chrome/Android)
+      if('BarcodeDetector' in window){
+        BarcodeDetector.getSupportedFormats().then(formats=>{
+          new BarcodeDetector({formats}).detect(canvas).then(barcodes=>{
+            if(barcodes.length>0 && barcodes[0].rawValue!==lastScanResult){
+              lastScanResult=barcodes[0].rawValue;
+              showScanResult(lastScanResult);
+            }
+          }).catch(()=>{});
+        });
+      }
+      // Method 2: ZXing (Safari iOS + all browsers)
+      else if(window.ZXing){
+        const imgData=canvas.toDataURL('image/jpeg',0.8);
+        const img=new Image();
+        img.onload=()=>{
+          const hints=new Map();
+          const formats=[
+            ZXing.BarcodeFormat.QR_CODE,
+            ZXing.BarcodeFormat.DATA_MATRIX,
+            ZXing.BarcodeFormat.CODE_128,
+            ZXing.BarcodeFormat.CODE_39,
+            ZXing.BarcodeFormat.PDF_417,
+            ZXing.BarcodeFormat.EAN_13,
+          ];
+          hints.set(ZXing.DecodeHintType.POSSIBLE_FORMATS, formats);
+          hints.set(ZXing.DecodeHintType.TRY_HARDER, true);
+          const reader=new ZXing.MultiFormatReader();
+          reader.setHints(hints);
+          try{
+            const lum=new ZXing.HTMLCanvasElementLuminanceSource(canvas);
+            const bin=new ZXing.HybridBinarizer(lum);
+            const bmp=new ZXing.BinaryBitmap(bin);
+            const result=reader.decode(bmp);
+            const raw=result.getText();
+            if(raw && raw!==lastScanResult){
+              lastScanResult=raw;
+              showScanResult(raw);
+            }
+          }catch(e){}
+        };
+        img.src=imgData;
+      }
     }
-  }, 400);
+    scanTimer=setTimeout(tryDecode, 350);
+  }
+  tryDecode();
 }
 
 function showScanResult(raw){
@@ -863,9 +916,11 @@ function useScanResult(){
 
 function closeScanner(){
   document.getElementById('scanOverlay').classList.remove('open');
-  if(scanTimer){ clearInterval(scanTimer); scanTimer=null; }
+  if(scanTimer){ clearTimeout(scanTimer); scanTimer=null; }
   if(scanStream){ scanStream.getTracks().forEach(t=>t.stop()); scanStream=null; }
-  scanCtx=null;
+  const vid=document.getElementById('scanVideo');
+  if(vid){ vid.srcObject=null; }
+  scanCtx=null; lastScanResult='';
 }
 
 // ── MULTI MODAL ──
