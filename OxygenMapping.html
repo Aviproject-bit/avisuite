@@ -223,7 +223,7 @@ input,select,button{font-family:'BwGradual',sans-serif;}
   <div class="tb-div"></div>
   <div class="tb-info">
     <h1>Passenger Oxygen Mapping</h1>
-    <p id="tb-acft-label">Select aircraft type</p>
+    <p id="tb-acft-label">Select aircraft type to begin</p>
   </div>
   <div class="tb-prog">
     <span id="progTxt">0/0</span>
@@ -242,11 +242,25 @@ input,select,button{font-family:'BwGradual',sans-serif;}
     <label>Aircraft Type</label>
     <select id="acftType" onchange="onAcftTypeChange()">
       <option value="">— Select —</option>
-      <option value="B777_AK3135">B777 AK31–35</option>
-      <option value="B777_AK36xx">B777 AK36–40</option>
-      <option value="A320">A320 Family</option>
-      <option value="A330">A330 Family</option>
-      <option value="B787">B787 Dreamliner</option>
+      <optgroup label="B777">
+        <option value="B777_AK3135">B777 — AK31–AK35</option>
+        <option value="B777_AK3643">B777 — AK36–AK43</option>
+      </optgroup>
+      <optgroup label="B787">
+        <option value="B787_10">B787-10</option>
+        <option value="B787_9">B787-9</option>
+      </optgroup>
+      <optgroup label="A330">
+        <option value="A330_AQA">A330 — AQA–AQH</option>
+      </optgroup>
+      <optgroup label="A321">
+        <option value="A321">A321</option>
+        <option value="A321_NEO">A321 NEO</option>
+      </optgroup>
+      <optgroup label="A320">
+        <option value="A320_AS51">A320 — AS51–AS84</option>
+        <option value="A320_ASA">A320 — ASA–ASG</option>
+      </optgroup>
     </select>
   </div>
   <div class="mf">
@@ -477,13 +491,911 @@ const LOCS_B777 = {
   ],
 };
 
-// Map acft type → locs (extend for other types later)
+
+// ══════════════════════════════════════════════════════════
+// B777 AK36-AK43
+// ══════════════════════════════════════════════════════════
+const LOCS_B777_AK36 = {
+  lh:[
+    {id:'AK36_R1_LH_D1',name:'ROW 1 LH',tag:'lh',dual:true},
+    {id:'AK36_R2_LH_D1',name:'ROW 2 LH',tag:'lh',dual:true},
+    {id:'AK36_R3_LH_D1',name:'ROW 3 LH',tag:'lh',dual:true},
+    {id:'AK36_R15_LH',name:'ROW 15 LH',tag:'lh'},
+    {id:'AK36_R16_LH',name:'ROW 16 LH',tag:'lh'},
+    {id:'AK36_R17_LH',name:'ROW 17 LH',tag:'lh'},
+    {id:'AK36_R18_LH',name:'ROW 18 LH',tag:'lh'},
+    {id:'AK36_R19_LH',name:'ROW 19 LH',tag:'lh'},
+    {id:'AK36_R20_LH',name:'ROW 20 LH',tag:'lh'},
+    {id:'AK36_R21_LH',name:'ROW 21 LH',tag:'lh'},
+    {id:'AK36_R22_LH',name:'ROW 22 LH',tag:'lh'},
+    {id:'AK36_R23_LH',name:'ROW 23 LH',tag:'lh'},
+    {id:'AK36_R30_LH_BAS',name:'ROW 30 LH',tag:'bas',sub:'BASSINET'},
+    {id:'AK36_R30_LH',name:'ROW 30 LH',tag:'lh'},
+    {id:'AK36_R31_LH',name:'ROW 31 LH',tag:'lh'},
+    {id:'AK36_R33_LH',name:'ROW 33 LH',tag:'lh'},
+    {id:'AK36_R34_LH',name:'ROW 34 LH',tag:'lh'},
+    {id:'AK36_R35_LH',name:'ROW 35 LH',tag:'lh'},
+    {id:'AK36_R36_LH',name:'ROW 36 LH',tag:'lh'},
+    {id:'AK36_R37_LH',name:'ROW 37 LH',tag:'lh'},
+    {id:'AK36_R38_LH',name:'ROW 38 LH',tag:'lh'},
+    {id:'AK36_R39_LH',name:'ROW 39 LH',tag:'lh'},
+    {id:'AK36_R40_LH',name:'ROW 40 LH',tag:'lh'},
+    {id:'AK36_R41_LH',name:'ROW 41 LH',tag:'lh'},
+    {id:'AK36_R42_LH',name:'ROW 42 LH',tag:'lh'},
+    {id:'AK36_R43_LH',name:'ROW 43 LH',tag:'lh'},
+    {id:'AK36_R44_LH',name:'ROW 44 LH',tag:'lh'},
+    {id:'AK36_R45_LH',name:'ROW 45 LH',tag:'lh'},
+    {id:'AK36_R47_LH',name:'ROW 47 LH',tag:'lh'},
+    {id:'AK36_R48_LH',name:'ROW 48 LH',tag:'lh'},
+    {id:'AK36_R49_LH',name:'ROW 49 LH',tag:'lh'},
+    {id:'AK36_R50_LH',name:'ROW 50 LH',tag:'lh'},
+    {id:'AK36_R51_LH',name:'ROW 51 LH',tag:'lh'},
+    {id:'AK36_R52_LH',name:'ROW 52 LH',tag:'lh'},
+    {id:'AK36_R53_LH',name:'ROW 53 LH',tag:'lh'},
+    {id:'AK36_R54_LH',name:'ROW 54 LH',tag:'lh'},
+    {id:'AK36_R55_LH',name:'ROW 55 LH',tag:'lh'},
+    {id:'AK36_R56_LH',name:'ROW 56 LH',tag:'lh'},
+    {id:'AK36_R57_LH',name:'ROW 57 LH',tag:'lh'},
+    {id:'AK36_R58_LH',name:'ROW 58 LH',tag:'lh'},
+    {id:'AK36_R59_LH',name:'ROW 59 LH',tag:'lh'},
+  ],
+  ctr:[
+    {id:'AK36_R1_CTR',name:'ROW 1 CTR',tag:'ctr',dual:true},
+    {id:'AK36_R2L_CTR',name:'ROW 2L CTR',tag:'ctr'},
+    {id:'AK36_R2R_CTR',name:'ROW 2R CTR',tag:'ctr'},
+    {id:'AK36_STA569',name:'STA 569 CTR',tag:'ctr'},
+    {id:'AK36_R3_CTR',name:'ROW 3 CTR',tag:'ctr',dual:true},
+    {id:'AK36_R15_CTR',name:'ROW 15 CTR',tag:'ctr',dual:true},
+    {id:'AK36_R16_CTR',name:'ROW 16 CTR',tag:'ctr',dual:true},
+    {id:'AK36_R17_CTR',name:'ROW 17 CTR',tag:'ctr',dual:true},
+    {id:'AK36_R18_CTR',name:'ROW 18 CTR',tag:'ctr',dual:true},
+    {id:'AK36_R19_CTR',name:'ROW 19 CTR',tag:'ctr',dual:true},
+    {id:'AK36_R20_CTR',name:'ROW 20 CTR',tag:'ctr',dual:true},
+    {id:'AK36_R21_CTR',name:'ROW 21 CTR',tag:'ctr',dual:true},
+    {id:'AK36_R22_CTR',name:'ROW 22 CTR',tag:'ctr',dual:true},
+    {id:'AK36_R23_CTR',name:'ROW 23 CTR',tag:'ctr',dual:true},
+    {id:'AK36_R30_CTR',name:'ROW 30 CTR',tag:'ctr',dual:true},
+    {id:'AK36_R31_CTR',name:'ROW 31 CTR',tag:'ctr',dual:true},
+    {id:'AK36_R32_CTR',name:'ROW 32 CTR',tag:'ctr',dual:true},
+    {id:'AK36_R33_CTR_BAS',name:'ROW 33 CTR',tag:'bas',sub:'BASSINET',dual:true},
+    {id:'AK36_R33_CTR',name:'ROW 33 CTR',tag:'ctr',dual:true},
+    {id:'AK36_R34_CTR',name:'ROW 34 CTR',tag:'ctr',dual:true},
+    {id:'AK36_R35_CTR',name:'ROW 35 CTR',tag:'ctr',dual:true},
+    {id:'AK36_R36_CTR',name:'ROW 36 CTR',tag:'ctr',dual:true},
+    {id:'AK36_R37_CTR',name:'ROW 37 CTR',tag:'ctr',dual:true},
+    {id:'AK36_R38_CTR',name:'ROW 38 CTR',tag:'ctr',dual:true},
+    {id:'AK36_R39_CTR',name:'ROW 39 CTR',tag:'ctr',dual:true},
+    {id:'AK36_R40_CTR',name:'ROW 40 CTR',tag:'ctr',dual:true},
+    {id:'AK36_R41_CTR',name:'ROW 41 CTR',tag:'ctr',dual:true},
+    {id:'AK36_R42_CTR',name:'ROW 42 CTR',tag:'ctr',dual:true},
+    {id:'AK36_R43_CTR',name:'ROW 43 CTR',tag:'ctr',dual:true},
+    {id:'AK36_R44_CTR',name:'ROW 44 CTR',tag:'ctr',dual:true},
+    {id:'AK36_R45_CTR',name:'ROW 45 CTR',tag:'ctr',dual:true},
+    {id:'AK36_R46_CTR',name:'ROW 46 CTR',tag:'ctr',dual:true},
+    {id:'AK36_R48_CTR_BAS',name:'ROW 48 CTR',tag:'bas',sub:'BASSINET'},
+    {id:'AK36_R48_CTR',name:'ROW 48 CTR',tag:'ctr',dual:true},
+    {id:'AK36_R49_CTR',name:'ROW 49 CTR',tag:'ctr',dual:true},
+    {id:'AK36_R50_CTR',name:'ROW 50 CTR',tag:'ctr',dual:true},
+    {id:'AK36_R51_CTR',name:'ROW 51 CTR',tag:'ctr',dual:true},
+    {id:'AK36_R52_CTR',name:'ROW 52 CTR',tag:'ctr',dual:true},
+    {id:'AK36_R53_CTR',name:'ROW 53 CTR',tag:'ctr',dual:true},
+    {id:'AK36_R54_CTR',name:'ROW 54 CTR',tag:'ctr',dual:true},
+    {id:'AK36_R55_CTR',name:'ROW 55 CTR',tag:'ctr',dual:true},
+    {id:'AK36_R56_CTR',name:'ROW 56 CTR',tag:'ctr',dual:true},
+  ],
+  rh:[
+    {id:'AK36_R1_RH_D1',name:'ROW 1 RH',tag:'rh',dual:true},
+    {id:'AK36_R2_RH_D1',name:'ROW 2 RH',tag:'rh',dual:true},
+    {id:'AK36_R3_RH_D1',name:'ROW 3 RH',tag:'rh',dual:true},
+    {id:'AK36_R15_RH',name:'ROW 15 RH',tag:'rh'},
+    {id:'AK36_R16_RH',name:'ROW 16 RH',tag:'rh'},
+    {id:'AK36_R17_RH',name:'ROW 17 RH',tag:'rh'},
+    {id:'AK36_R18_RH',name:'ROW 18 RH',tag:'rh'},
+    {id:'AK36_R19_RH',name:'ROW 19 RH',tag:'rh'},
+    {id:'AK36_R20_RH',name:'ROW 20 RH',tag:'rh'},
+    {id:'AK36_R21_RH',name:'ROW 21 RH',tag:'rh'},
+    {id:'AK36_R22_RH',name:'ROW 22 RH',tag:'rh'},
+    {id:'AK36_R23_RH',name:'ROW 23 RH',tag:'rh'},
+    {id:'AK36_R30_RH_BAS',name:'ROW 30 RH',tag:'bas',sub:'BASSINET'},
+    {id:'AK36_R30_RH',name:'ROW 30 RH',tag:'rh'},
+    {id:'AK36_R31_RH',name:'ROW 31 RH',tag:'rh'},
+    {id:'AK36_R33_RH',name:'ROW 33 RH',tag:'rh'},
+    {id:'AK36_R34_RH',name:'ROW 34 RH',tag:'rh'},
+    {id:'AK36_R35_RH',name:'ROW 35 RH',tag:'rh'},
+    {id:'AK36_R36_RH',name:'ROW 36 RH',tag:'rh'},
+    {id:'AK36_R37_RH',name:'ROW 37 RH',tag:'rh'},
+    {id:'AK36_R38_RH',name:'ROW 38 RH',tag:'rh'},
+    {id:'AK36_R39_RH',name:'ROW 39 RH',tag:'rh'},
+    {id:'AK36_R40_RH',name:'ROW 40 RH',tag:'rh'},
+    {id:'AK36_R41_RH',name:'ROW 41 RH',tag:'rh'},
+    {id:'AK36_R42_RH',name:'ROW 42 RH',tag:'rh'},
+    {id:'AK36_R43_RH',name:'ROW 43 RH',tag:'rh'},
+    {id:'AK36_R44_RH',name:'ROW 44 RH',tag:'rh'},
+    {id:'AK36_R45_RH',name:'ROW 45 RH',tag:'rh'},
+    {id:'AK36_R47_RH',name:'ROW 47 RH',tag:'rh'},
+    {id:'AK36_R48_RH',name:'ROW 48 RH',tag:'rh'},
+    {id:'AK36_R49_RH',name:'ROW 49 RH',tag:'rh'},
+    {id:'AK36_R50_RH',name:'ROW 50 RH',tag:'rh'},
+    {id:'AK36_R51_RH',name:'ROW 51 RH',tag:'rh'},
+    {id:'AK36_R52_RH',name:'ROW 52 RH',tag:'rh'},
+    {id:'AK36_R53_RH',name:'ROW 53 RH',tag:'rh'},
+    {id:'AK36_R54_RH',name:'ROW 54 RH',tag:'rh'},
+    {id:'AK36_R55_RH',name:'ROW 55 RH',tag:'rh'},
+    {id:'AK36_R56_RH',name:'ROW 56 RH',tag:'rh'},
+    {id:'AK36_R57_RH',name:'ROW 57 RH',tag:'rh'},
+    {id:'AK36_R58_RH',name:'ROW 58 RH',tag:'rh'},
+    {id:'AK36_R59_RH',name:'ROW 59 RH',tag:'rh'},
+  ],
+  ofcr:[
+    {id:'AK36_OFCR_LH_SEAT',name:'OFCR LH SEAT',tag:'oth'},
+    {id:'AK36_OFCR_RH_SEAT',name:'OFCR RH SEAT',tag:'oth'},
+    {id:'AK36_OFCR_LH_BUNK',name:'OFCR LH BUNK',tag:'oth'},
+    {id:'AK36_OFCR_RH_BUNK',name:'OFCR RH BUNK',tag:'oth'},
+    {id:'AK36_OFAR_BNK1',name:'OFAR BUNK 1',tag:'oth'},
+    {id:'AK36_OFAR_BNK2',name:'OFAR BUNK 2',tag:'oth'},
+    {id:'AK36_OFAR_BNK3',name:'OFAR BUNK 3',tag:'oth'},
+    {id:'AK36_OFAR_BNK4',name:'OFAR BUNK 4',tag:'oth'},
+    {id:'AK36_OFAR_BNK5',name:'OFAR BUNK 5',tag:'oth'},
+    {id:'AK36_OFAR_BNK6',name:'OFAR BUNK 6',tag:'oth'},
+    {id:'AK36_OFAR_BNK7',name:'OFAR BUNK 7',tag:'oth'},
+    {id:'AK36_OFAR_BNK8',name:'OFAR BUNK 8',tag:'oth'},
+  ],
+  prayer:[
+    {id:'AK36_PRAY1',name:'Prayer Room #1',tag:'oth',dual:true},
+    {id:'AK36_PRAY2',name:'Prayer Room #2',tag:'oth',dual:true},
+    {id:'AK36_PRAY3',name:'Prayer Room #3',tag:'oth',dual:true},
+  ],
+  doors:[
+    {id:'AK36_D1L',name:'1L DOOR',tag:'oth'},{id:'AK36_D1R',name:'1R DOOR',tag:'oth'},
+    {id:'AK36_D2L',name:'2L DOOR',tag:'oth'},{id:'AK36_D2R',name:'2R DOOR',tag:'oth'},
+    {id:'AK36_D3L',name:'3L DOOR',tag:'oth'},{id:'AK36_D3R',name:'3R DOOR',tag:'oth'},
+    {id:'AK36_D4L',name:'4L DOOR',tag:'oth'},{id:'AK36_D4R',name:'4R DOOR',tag:'oth'},
+    {id:'AK36_D5L',name:'5L DOOR',tag:'oth'},{id:'AK36_D5R',name:'5R DOOR',tag:'oth'},
+  ],
+  galleys:[
+    {id:'AK36_GAL_F1',name:'FWD Galley (F-1)',tag:'oth',note:'X-300, R50'},
+    {id:'AK36_GAL_F2',name:'FWD Galley (F-2)',tag:'oth',note:'X-350, L20 · MID/LH'},
+    {id:'AK36_GAL_F3',name:'FWD Galley (F-3)',tag:'oth',note:'X-350, Y-R20 · MID/RH'},
+    {id:'AK36_GAL_M1',name:'Cross Aisle M1/M2',tag:'oth',note:'X-779, L20'},
+    {id:'AK36_GAL_M5',name:'Cross Aisle M5/M7',tag:'oth',note:'X-1538, R20'},
+    {id:'AK36_GAL_A1',name:'AFT Galley FWD/LH',tag:'oth',note:'X-2037, L30'},
+    {id:'AK36_GAL_A2',name:'AFT Galley FWD/RH',tag:'oth',note:'X-2037, R30'},
+    {id:'AK36_GAL_A3',name:'AFT Galley MID/AFT',tag:'oth',note:'X-2150, BL0'},
+  ],
+  crew:[
+    {id:'AK36_CR_1F1C',name:'1F-1C',tag:'oth'},{id:'AK36_CR_2F1L',name:'2F-1L',tag:'oth'},
+    {id:'AK36_CR_2F1R',name:'2F-1R',tag:'oth'},{id:'AK36_CR_2A1L',name:'2A-1L',tag:'oth'},
+    {id:'AK36_CR_2A1R',name:'2A-1R',tag:'oth'},{id:'AK36_CR_3FLC', name:'3F-LC', tag:'oth'},
+    {id:'AK36_CR_3FRC', name:'3F-RC', tag:'oth'},{id:'AK36_CR_4F1L',name:'4F-1L',tag:'oth'},
+    {id:'AK36_CR_4F1R',name:'4F-1R',tag:'oth'},{id:'AK36_CR_5A1L',name:'5A-1L',tag:'oth'},
+    {id:'AK36_CR_5A1R',name:'5A-1R',tag:'oth'},
+  ],
+};
+
+// ══════════════════════════════════════════════════════════
+// B787-10  (Cylinder = Container label, Initiator = Generator label)
+// Default P/Ns pre-filled per PDF
+// ══════════════════════════════════════════════════════════
+const PN_787_CYL_BAS  = '4441787-022';
+const PN_787_CYL_STD  = '4441787-024';
+const PN_787_CYL_WIDE = '4441787-025';
+const PN_787_CYL_CTR  = '4441787-023';
+const PN_787_CYL_CTR2 = '4441787-026';
+const PN_787_CYL_SPEC = '4441787-032';
+const PN_787_INIT     = '4441158-002';
+
+function mk787(id, name, tag, cpn, sub, dual){
+  const o={id,name,tag,cpn_default:cpn,ipn_default:PN_787_INIT};
+  if(sub)  o.sub=sub;
+  if(dual) o.dual=true;
+  return o;
+}
+
+const LOCS_B787_10 = {
+  lh:[
+    mk787('B10_STA395_LH_BAS','STA 395 LH BASSINET','bas',PN_787_CYL_BAS,'BASSINET'),
+    mk787('B10_R1_LH','ROW 1 LH','lh',PN_787_CYL_BAS),
+    mk787('B10_R2_LH','ROW 2 LH','lh',PN_787_CYL_BAS),
+    mk787('B10_R3_LH','ROW 3 LH','lh',PN_787_CYL_BAS),
+    mk787('B10_R4_LH','ROW 4 LH','lh',PN_787_CYL_BAS),
+    mk787('B10_R5_LH','ROW 5 LH','lh',PN_787_CYL_BAS),
+    mk787('B10_R6_LH','ROW 6 LH','lh',PN_787_CYL_BAS),
+    mk787('B10_R30_LH','ROW 30 LH','lh',PN_787_CYL_WIDE),
+    mk787('B10_R31_LH','ROW 31 LH','lh',PN_787_CYL_STD),
+    mk787('B10_R32_LH','ROW 32 LH','lh',PN_787_CYL_STD),
+    mk787('B10_R33_LH','ROW 33 LH','lh',PN_787_CYL_STD),
+    mk787('B10_R34_LH','ROW 34 LH','lh',PN_787_CYL_WIDE),
+    mk787('B10_R35_LH','ROW 35 LH','lh',PN_787_CYL_STD),
+    mk787('B10_R36_LH','ROW 36 LH','lh',PN_787_CYL_STD),
+    mk787('B10_R37_LH','ROW 37 LH','lh',PN_787_CYL_STD),
+    mk787('B10_R38_LH','ROW 38 LH','lh',PN_787_CYL_STD),
+    mk787('B10_R39_LH','ROW 39 LH','lh',PN_787_CYL_STD),
+    mk787('B10_R40_LH','ROW 40 LH','lh',PN_787_CYL_STD),
+    mk787('B10_R41_LH','ROW 41 LH','lh',PN_787_CYL_STD),
+    mk787('B10_R42_LH','ROW 42 LH','lh',PN_787_CYL_STD),
+    mk787('B10_R43_LH','ROW 43 LH','lh',PN_787_CYL_STD),
+    mk787('B10_R44_LH','ROW 44 LH','lh',PN_787_CYL_STD),
+    mk787('B10_R45_LH','ROW 45 LH','lh',PN_787_CYL_STD),
+    mk787('B10_R46_LH','ROW 46 LH','lh',PN_787_CYL_STD),
+    mk787('B10_R47_LH','ROW 47 LH','lh',PN_787_CYL_STD),
+    mk787('B10_R48_LH','ROW 48 LH','lh',PN_787_CYL_STD),
+    mk787('B10_R49_LH','ROW 49 LH','lh',PN_787_CYL_STD),
+    mk787('B10_R51_LH','ROW 51 LH','lh',PN_787_CYL_STD),
+    mk787('B10_R52_LH','ROW 52 LH','lh',PN_787_CYL_STD),
+    mk787('B10_R53_LH','ROW 53 LH','lh',PN_787_CYL_STD),
+    mk787('B10_R54_LH','ROW 54 LH','lh',PN_787_CYL_STD),
+    mk787('B10_R55_LH','ROW 55 LH','lh',PN_787_CYL_STD),
+    mk787('B10_R56_LH','ROW 56 LH','lh',PN_787_CYL_STD),
+    mk787('B10_R57_LH','ROW 57 LH','lh',PN_787_CYL_STD),
+    mk787('B10_R58_LH','ROW 58 LH','lh',PN_787_CYL_STD),
+    mk787('B10_R59_LH','ROW 59 LH','lh',PN_787_CYL_STD),
+    mk787('B10_R60_LH','ROW 60 LH','lh',PN_787_CYL_STD),
+    mk787('B10_R61_LH','ROW 61 LH','lh',PN_787_CYL_STD),
+    mk787('B10_R62_LH','ROW 62 LH','lh',PN_787_CYL_STD),
+    mk787('B10_R63_LH','ROW 63 LH','lh',PN_787_CYL_STD),
+    mk787('B10_R64_LH','ROW 64 LH','lh',PN_787_CYL_STD),
+    mk787('B10_R65_LH','ROW 65 LH','lh',PN_787_CYL_STD),
+    mk787('B10_R66_LH','ROW 66 LH','lh',PN_787_CYL_STD),
+    mk787('B10_R67_LH','ROW 67 LH','lh',PN_787_CYL_STD),
+  ],
+  ctr:[
+    mk787('B10_R1_CTR','ROW 1 CTR','ctr',PN_787_CYL_CTR),
+    mk787('B10_R2_CTR','ROW 2 CTR','ctr',PN_787_CYL_CTR),
+    mk787('B10_R3_CTR','ROW 3 CTR','ctr',PN_787_CYL_CTR),
+    mk787('B10_R4_CTR','ROW 4 CTR','ctr',PN_787_CYL_CTR),
+    mk787('B10_R5_CTR','ROW 5 CTR','ctr',PN_787_CYL_CTR),
+    mk787('B10_R6_CTR','ROW 6 CTR','ctr',PN_787_CYL_CTR),
+    mk787('B10_R30_CTR','ROW 30 CTR','ctr',PN_787_CYL_CTR2),
+    mk787('B10_R31_CTR','ROW 31 CTR','ctr',PN_787_CYL_STD),
+    mk787('B10_R32_CTR','ROW 32 CTR','ctr',PN_787_CYL_STD),
+    mk787('B10_R33_CTR','ROW 33 CTR','ctr',PN_787_CYL_STD),
+    mk787('B10_R34_CTR','ROW 34 CTR','ctr',PN_787_CYL_CTR2),
+    mk787('B10_R35_CTR','ROW 35 CTR','ctr',PN_787_CYL_STD),
+    mk787('B10_R36_CTR','ROW 36 CTR','ctr',PN_787_CYL_STD),
+    mk787('B10_R37_CTR','ROW 37 CTR','ctr',PN_787_CYL_STD),
+    mk787('B10_R38_CTR','ROW 38 CTR','ctr',PN_787_CYL_STD),
+    mk787('B10_R39_CTR','ROW 39 CTR','ctr',PN_787_CYL_STD),
+    mk787('B10_R40_CTR','ROW 40 CTR','ctr',PN_787_CYL_STD),
+    mk787('B10_R41_CTR','ROW 41 CTR','ctr',PN_787_CYL_STD),
+    mk787('B10_R42_CTR','ROW 42 CTR','ctr',PN_787_CYL_STD),
+    mk787('B10_R43_CTR','ROW 43 CTR','ctr',PN_787_CYL_CTR2),
+    mk787('B10_R44_CTR','ROW 44 CTR','ctr',PN_787_CYL_STD),
+    mk787('B10_R45_CTR','ROW 45 CTR','ctr',PN_787_CYL_STD),
+    mk787('B10_R46_CTR','ROW 46 CTR','ctr',PN_787_CYL_CTR2),
+    mk787('B10_R47_CTR','ROW 47 CTR','ctr',PN_787_CYL_STD),
+    mk787('B10_R48_CTR','ROW 48 CTR','ctr',PN_787_CYL_STD),
+    mk787('B10_R49_CTR','ROW 49 CTR','ctr',PN_787_CYL_STD),
+    mk787('B10_R50_CTR','ROW 50 CTR','ctr',PN_787_CYL_STD),
+    mk787('B10_R51_CTR','ROW 51 CTR','ctr',PN_787_CYL_CTR2),
+    mk787('B10_R52_CTR','ROW 52 CTR','ctr',PN_787_CYL_STD),
+    mk787('B10_R53_CTR','ROW 53 CTR','ctr',PN_787_CYL_STD),
+    mk787('B10_R54_CTR','ROW 54 CTR','ctr',PN_787_CYL_STD),
+    mk787('B10_R55_CTR','ROW 55 CTR','ctr',PN_787_CYL_STD),
+    mk787('B10_R56_CTR','ROW 56 CTR','ctr',PN_787_CYL_STD),
+    mk787('B10_R57_CTR','ROW 57 CTR','ctr',PN_787_CYL_STD),
+    mk787('B10_R58_CTR','ROW 58 CTR','ctr',PN_787_CYL_STD),
+    mk787('B10_R59_CTR','ROW 59 CTR','ctr',PN_787_CYL_STD),
+    mk787('B10_R60_CTR','ROW 60 CTR','ctr',PN_787_CYL_STD),
+    mk787('B10_R61_CTR','ROW 61 CTR','ctr',PN_787_CYL_STD),
+    mk787('B10_R62_CTR','ROW 62 CTR','ctr',PN_787_CYL_STD),
+    mk787('B10_R63_CTR','ROW 63 CTR','ctr',PN_787_CYL_CTR2),
+    mk787('B10_R64_CTR','ROW 64 CTR','ctr',PN_787_CYL_STD),
+    mk787('B10_R65_CTR','ROW 65 CTR','ctr',PN_787_CYL_STD),
+    mk787('B10_R66_CTR','ROW 66 CTR','ctr',PN_787_CYL_STD),
+  ],
+  rh:[
+    mk787('B10_STA395_RH_BAS','STA 395 RH BASSINET','bas',PN_787_CYL_BAS,'BASSINET'),
+    mk787('B10_R1_RH','ROW 1 RH','rh',PN_787_CYL_BAS),
+    mk787('B10_R2_RH','ROW 2 RH','rh',PN_787_CYL_BAS),
+    mk787('B10_R3_RH','ROW 3 RH','rh',PN_787_CYL_BAS),
+    mk787('B10_R4_RH','ROW 4 RH','rh',PN_787_CYL_BAS),
+    mk787('B10_R5_RH','ROW 5 RH','rh',PN_787_CYL_BAS),
+    mk787('B10_R6_RH','ROW 6 RH','rh',PN_787_CYL_BAS),
+    mk787('B10_R30_RH','ROW 30 RH','rh',PN_787_CYL_WIDE),
+    mk787('B10_R31_RH','ROW 31 RH','rh',PN_787_CYL_STD),
+    mk787('B10_R32_RH','ROW 32 RH','rh',PN_787_CYL_STD),
+    mk787('B10_R33_RH','ROW 33 RH','rh',PN_787_CYL_STD),
+    mk787('B10_R34_RH','ROW 34 RH','rh',PN_787_CYL_WIDE),
+    mk787('B10_R35_RH','ROW 35 RH','rh',PN_787_CYL_STD),
+    mk787('B10_R36_RH','ROW 36 RH','rh',PN_787_CYL_STD),
+    mk787('B10_R37_RH','ROW 37 RH','rh',PN_787_CYL_STD),
+    mk787('B10_R38_RH','ROW 38 RH','rh',PN_787_CYL_STD),
+    mk787('B10_R39_RH','ROW 39 RH','rh',PN_787_CYL_STD),
+    mk787('B10_R40_RH','ROW 40 RH','rh',PN_787_CYL_STD),
+    mk787('B10_R41_RH','ROW 41 RH','rh',PN_787_CYL_STD),
+    mk787('B10_R42_RH','ROW 42 RH','rh',PN_787_CYL_STD),
+    mk787('B10_R43_RH','ROW 43 RH','rh',PN_787_CYL_STD),
+    mk787('B10_R44_RH','ROW 44 RH','rh',PN_787_CYL_STD),
+    mk787('B10_R45_RH','ROW 45 RH','rh',PN_787_CYL_STD),
+    mk787('B10_R46_RH','ROW 46 RH','rh',PN_787_CYL_STD),
+    mk787('B10_R47_RH','ROW 47 RH','rh',PN_787_CYL_STD),
+    mk787('B10_R48_RH','ROW 48 RH','rh',PN_787_CYL_STD),
+    mk787('B10_R49_RH','ROW 49 RH','rh',PN_787_CYL_STD),
+    mk787('B10_R51_RH','ROW 51 RH','rh',PN_787_CYL_STD),
+    mk787('B10_R52_RH','ROW 52 RH','rh',PN_787_CYL_STD),
+    mk787('B10_R53_RH','ROW 53 RH','rh',PN_787_CYL_STD),
+    mk787('B10_R54_RH','ROW 54 RH','rh',PN_787_CYL_STD),
+    mk787('B10_R55_RH','ROW 55 RH','rh',PN_787_CYL_STD),
+    mk787('B10_R56_RH','ROW 56 RH','rh',PN_787_CYL_STD),
+    mk787('B10_R57_RH','ROW 57 RH','rh',PN_787_CYL_STD),
+    mk787('B10_R58_RH','ROW 58 RH','rh',PN_787_CYL_STD),
+    mk787('B10_R59_RH','ROW 59 RH','rh',PN_787_CYL_STD),
+    mk787('B10_R60_RH','ROW 60 RH','rh',PN_787_CYL_STD),
+    mk787('B10_R61_RH','ROW 61 RH','rh',PN_787_CYL_STD),
+    mk787('B10_R62_RH','ROW 62 RH','rh',PN_787_CYL_STD),
+    mk787('B10_R63_RH','ROW 63 RH','rh',PN_787_CYL_STD),
+    mk787('B10_R64_RH','ROW 64 RH','rh',PN_787_CYL_STD),
+    mk787('B10_R65_RH','ROW 65 RH','rh',PN_787_CYL_STD),
+    mk787('B10_R66_RH','ROW 66 RH','rh',PN_787_CYL_STD),
+    mk787('B10_R67_RH','ROW 67 RH','rh',PN_787_CYL_STD),
+  ],
+  doors:[
+    mk787('B10_DR1LH_FWD','DR 1 LH FWD','oth',PN_787_CYL_CTR),
+    mk787('B10_DR1LH_AFT','DR 1 LH AFT','oth',PN_787_CYL_CTR),
+    mk787('B10_DR1RH_AFT','DR 1 RH AFT','oth',PN_787_CYL_SPEC),
+    mk787('B10_DR2LH_FWD','DR 2 LH FWD','oth',PN_787_CYL_CTR),
+    mk787('B10_DR2LH_AFT','DR 2 LH AFT','oth',PN_787_CYL_CTR),
+    mk787('B10_DR2RH_FWD','DR 2 RH FWD','oth',PN_787_CYL_CTR),
+    mk787('B10_DR2RH_AFT','DR 2 RH AFT','oth',PN_787_CYL_CTR),
+    mk787('B10_DR3LH_FWD','DR 3 LH FWD','oth',PN_787_CYL_CTR),
+    mk787('B10_DR3RH_FWD','DR 3 RH FWD','oth',PN_787_CYL_CTR),
+    mk787('B10_DR4LH_FWD','DR 4 LH FWD','oth',PN_787_CYL_CTR),
+    mk787('B10_DR4LH_AFT','DR 4 LH AFT','oth',PN_787_CYL_CTR),
+    mk787('B10_DR4RH_FWD','DR 4 RH FWD','oth',PN_787_CYL_CTR),
+    mk787('B10_DR4RH_AFT','DR 4 RH AFT','oth',PN_787_CYL_CTR),
+  ],
+  crew:[
+    mk787('B10_L1F1L','L1F-1L','oth',PN_787_CYL_BAS),
+    mk787('B10_L1A1R','L1A-1R','oth',PN_787_CYL_BAS),
+    mk787('B10_L2A1L','L2A-1L','oth',PN_787_CYL_BAS),
+    mk787('B10_L2A1R','L2A-1R','oth',PN_787_CYL_BAS),
+    mk787('B10_L3F1L','L3F-1L','oth',PN_787_CYL_BAS),
+    mk787('B10_L3F1LC','L3F-1LC','oth',PN_787_CYL_BAS),
+    mk787('B10_L3F1RC','L3F-1RC','oth',PN_787_CYL_BAS),
+    mk787('B10_L3F1R','L3F-1R','oth',PN_787_CYL_BAS),
+    mk787('B10_L4F1L','L4F-1L','oth',PN_787_CYL_BAS),
+    mk787('B10_L4F1R','L4F-1R','oth',PN_787_CYL_BAS),
+  ],
+  ofcr:[
+    mk787('B10_OFCR_SEAT','OFCR CREW SEAT',  'oth',PN_787_CYL_CTR,null,false,{note:'X-330, R16, Z-310'}),
+    mk787('B10_OFCR_BNK1','OFCR BUNK 1','oth',PN_787_CYL_CTR),
+    mk787('B10_OFCR_BNK2','OFCR BUNK 2','oth',PN_787_CYL_CTR),
+    mk787('B10_OFAR_BNK1','OFAR BUNK 1','oth',PN_787_CYL_CTR),
+    mk787('B10_OFAR_BNK2','OFAR BUNK 2','oth',PN_787_CYL_CTR),
+    mk787('B10_OFAR_BNK3','OFAR BUNK 3','oth',PN_787_CYL_CTR),
+    mk787('B10_OFAR_BNK4','OFAR BUNK 4','oth',PN_787_CYL_CTR),
+    mk787('B10_OFAR_BNK5','OFAR BUNK 5','oth',PN_787_CYL_CTR),
+    mk787('B10_OFAR_BNK6','OFAR BUNK 6','oth',PN_787_CYL_CTR),
+    mk787('B10_STA678','STA 678 CROSS AISLE','oth',PN_787_CYL_SPEC),
+  ],
+  prayer:[
+    mk787('B10_PR1','PR (X-1652, BL0)','oth',PN_787_CYL_STD),
+    mk787('B10_PR2','PR (X-1682, BL0)','oth',PN_787_CYL_STD),
+    mk787('B10_PR3','PR (X-1706, BL0)','oth',PN_787_CYL_STD),
+    mk787('B10_STA1769','STA 1769 CTR ATTN SEAT','oth',PN_787_CYL_CTR),
+    mk787('B10_G4A1C','G4A-1C','oth',PN_787_CYL_SPEC,null,false),
+  ],
+};
+
+// ══════════════════════════════════════════════════════════
+// B787-9
+// ══════════════════════════════════════════════════════════
+const LOCS_B787_9 = {
+  lh:[
+    mk787('B9_LH_BAS','LH BASSINET','bas',PN_787_CYL_BAS,'BASSINET'),
+    mk787('B9_R1_LH','ROW 1 LH','lh',PN_787_CYL_BAS),
+    mk787('B9_R2_LH','ROW 2 LH','lh',PN_787_CYL_BAS),
+    mk787('B9_R3_LH','ROW 3 LH','lh',PN_787_CYL_BAS),
+    mk787('B9_R4_LH','ROW 4 LH','lh',PN_787_CYL_BAS),
+    mk787('B9_R5_LH','ROW 5 LH','lh',PN_787_CYL_BAS),
+    mk787('B9_R6_LH','ROW 6 LH','lh',PN_787_CYL_BAS),
+    mk787('B9_R30_LH','ROW 30 LH','lh',PN_787_CYL_WIDE),
+    mk787('B9_R31_LH','ROW 31 LH','lh',PN_787_CYL_STD),
+    mk787('B9_R32_LH','ROW 32 LH','lh',PN_787_CYL_STD),
+    mk787('B9_R33_LH','ROW 33 LH','lh',PN_787_CYL_STD),
+    mk787('B9_R34_LH','ROW 34 LH','lh',PN_787_CYL_STD),
+    mk787('B9_R35_LH','ROW 35 LH','lh',PN_787_CYL_STD),
+    mk787('B9_R36_LH','ROW 36 LH','lh',PN_787_CYL_STD),
+    mk787('B9_R37_LH','ROW 37 LH','lh',PN_787_CYL_STD),
+    mk787('B9_R38_LH','ROW 38 LH','lh',PN_787_CYL_STD),
+    mk787('B9_R39_LH','ROW 39 LH','lh',PN_787_CYL_STD),
+    mk787('B9_R40_LH','ROW 40 LH','lh',PN_787_CYL_STD),
+    mk787('B9_R41_LH','ROW 41 LH','lh',PN_787_CYL_STD),
+    mk787('B9_R42_LH','ROW 42 LH','lh',PN_787_CYL_STD),
+    mk787('B9_R43_LH','ROW 43 LH','lh',PN_787_CYL_STD),
+    mk787('B9_R44_LH','ROW 44 LH','lh',PN_787_CYL_STD),
+    mk787('B9_R45_LH','ROW 45 LH','lh',PN_787_CYL_STD),
+    mk787('B9_R46_LH','ROW 46 LH','lh',PN_787_CYL_STD),
+    mk787('B9_R48_LH','ROW 48 LH','lh',PN_787_CYL_STD),
+    mk787('B9_R49_LH','ROW 49 LH','lh',PN_787_CYL_STD),
+    mk787('B9_R50_LH','ROW 50 LH','lh',PN_787_CYL_STD),
+    mk787('B9_R51_LH','ROW 51 LH','lh',PN_787_CYL_STD),
+    mk787('B9_R52_LH','ROW 52 LH','lh',PN_787_CYL_STD),
+    mk787('B9_R53_LH','ROW 53 LH','lh',PN_787_CYL_STD),
+    mk787('B9_R54_LH','ROW 54 LH','lh',PN_787_CYL_STD),
+    mk787('B9_R55_LH','ROW 55 LH','lh',PN_787_CYL_STD),
+    mk787('B9_R56_LH','ROW 56 LH','lh',PN_787_CYL_STD),
+    mk787('B9_R57_LH','ROW 57 LH','lh',PN_787_CYL_STD),
+    mk787('B9_R58_LH','ROW 58 LH','lh',PN_787_CYL_STD),
+    mk787('B9_R59_LH','ROW 59 LH','lh',PN_787_CYL_STD),
+    mk787('B9_R60_LH','ROW 60 LH','lh',PN_787_CYL_STD),
+    mk787('B9_R61_LH','ROW 61 LH','lh',PN_787_CYL_CTR),
+  ],
+  ctr:[
+    mk787('B9_R1_CTR','ROW 1 CTR','ctr',PN_787_CYL_CTR),
+    mk787('B9_R2_CTR','ROW 2 CTR','ctr',PN_787_CYL_CTR),
+    mk787('B9_R3_CTR','ROW 3 CTR','ctr',PN_787_CYL_CTR),
+    mk787('B9_R4_CTR','ROW 4 CTR','ctr',PN_787_CYL_CTR),
+    mk787('B9_R5_CTR','ROW 5 CTR','ctr',PN_787_CYL_CTR),
+    mk787('B9_R6_CTR','ROW 6 CTR','ctr',PN_787_CYL_CTR),
+    mk787('B9_R30_CTR','ROW 30 CTR','ctr',PN_787_CYL_CTR2),
+    mk787('B9_R31_CTR','ROW 31 CTR','ctr',PN_787_CYL_CTR2),
+    mk787('B9_R32_CTR','ROW 32 CTR','ctr',PN_787_CYL_STD),
+    mk787('B9_R33_CTR','ROW 33 CTR','ctr',PN_787_CYL_CTR2),
+    mk787('B9_R34_CTR','ROW 34 CTR','ctr',PN_787_CYL_CTR2),
+    mk787('B9_R35_CTR','ROW 35 CTR','ctr',PN_787_CYL_STD),
+    mk787('B9_R36_CTR','ROW 36 CTR','ctr',PN_787_CYL_STD),
+    mk787('B9_R37_CTR','ROW 37 CTR','ctr',PN_787_CYL_CTR2),
+    mk787('B9_R38_CTR','ROW 38 CTR','ctr',PN_787_CYL_STD),
+    mk787('B9_R39_CTR','ROW 39 CTR','ctr',PN_787_CYL_CTR2),
+    mk787('B9_R40_CTR','ROW 40 CTR','ctr',PN_787_CYL_CTR2),
+    mk787('B9_R41_CTR','ROW 41 CTR','ctr',PN_787_CYL_STD),
+    mk787('B9_R42_CTR','ROW 42 CTR','ctr',PN_787_CYL_STD),
+    mk787('B9_R43_CTR','ROW 43 CTR','ctr',PN_787_CYL_CTR2),
+    mk787('B9_R44_CTR','ROW 44 CTR','ctr',PN_787_CYL_STD),
+    mk787('B9_R45_CTR','ROW 45 CTR','ctr',PN_787_CYL_STD),
+    mk787('B9_R46_CTR','ROW 46 CTR','ctr',PN_787_CYL_CTR2),
+    mk787('B9_R47_CTR','ROW 47 CTR','ctr',PN_787_CYL_CTR2),
+    mk787('B9_R48_CTR','ROW 48 CTR','ctr',PN_787_CYL_STD),
+    mk787('B9_R49_CTR','ROW 49 CTR','ctr',PN_787_CYL_STD),
+    mk787('B9_R50_CTR','ROW 50 CTR','ctr',PN_787_CYL_STD),
+    mk787('B9_R51_CTR','ROW 51 CTR','ctr',PN_787_CYL_STD),
+    mk787('B9_R52_CTR','ROW 52 CTR','ctr',PN_787_CYL_CTR2),
+    mk787('B9_R53_CTR','ROW 53 CTR','ctr',PN_787_CYL_STD),
+    mk787('B9_R54_CTR','ROW 54 CTR','ctr',PN_787_CYL_STD),
+    mk787('B9_R55_CTR','ROW 55 CTR','ctr',PN_787_CYL_CTR2),
+    mk787('B9_R56_CTR','ROW 56 CTR','ctr',PN_787_CYL_STD),
+    mk787('B9_R57_CTR','ROW 57 CTR','ctr',PN_787_CYL_STD),
+    mk787('B9_R58_CTR','ROW 58 CTR','ctr',PN_787_CYL_CTR2),
+    mk787('B9_R59_CTR','ROW 59 CTR','ctr',PN_787_CYL_STD),
+  ],
+  rh:[
+    mk787('B9_RH_BAS','RH BASSINET','bas',PN_787_CYL_BAS,'BASSINET'),
+    mk787('B9_R1_RH','ROW 1 RH','rh',PN_787_CYL_BAS),
+    mk787('B9_R2_RH','ROW 2 RH','rh',PN_787_CYL_BAS),
+    mk787('B9_R3_RH','ROW 3 RH','rh',PN_787_CYL_BAS),
+    mk787('B9_R4_RH','ROW 4 RH','rh',PN_787_CYL_BAS),
+    mk787('B9_R5_RH','ROW 5 RH','rh',PN_787_CYL_BAS),
+    mk787('B9_R6_RH','ROW 6 RH','rh',PN_787_CYL_BAS),
+    mk787('B9_R30_RH','ROW 30 RH','rh',PN_787_CYL_WIDE),
+    mk787('B9_R31_RH','ROW 31 RH','rh',PN_787_CYL_STD),
+    mk787('B9_R32_RH','ROW 32 RH','rh',PN_787_CYL_STD),
+    mk787('B9_R33_RH','ROW 33 RH','rh',PN_787_CYL_STD),
+    mk787('B9_R34_RH','ROW 34 RH','rh',PN_787_CYL_STD),
+    mk787('B9_R35_RH','ROW 35 RH','rh',PN_787_CYL_STD),
+    mk787('B9_R36_RH','ROW 36 RH','rh',PN_787_CYL_STD),
+    mk787('B9_R37_RH','ROW 37 RH','rh',PN_787_CYL_STD),
+    mk787('B9_R38_RH','ROW 38 RH','rh',PN_787_CYL_STD),
+    mk787('B9_R39_RH','ROW 39 RH','rh',PN_787_CYL_STD),
+    mk787('B9_R40_RH','ROW 40 RH','rh',PN_787_CYL_STD),
+    mk787('B9_R41_RH','ROW 41 RH','rh',PN_787_CYL_STD),
+    mk787('B9_R42_RH','ROW 42 RH','rh',PN_787_CYL_STD),
+    mk787('B9_R43_RH','ROW 43 RH','rh',PN_787_CYL_STD),
+    mk787('B9_R44_RH','ROW 44 RH','rh',PN_787_CYL_STD),
+    mk787('B9_R45_RH','ROW 45 RH','rh',PN_787_CYL_STD),
+    mk787('B9_R46_RH','ROW 46 RH','rh',PN_787_CYL_STD),
+    mk787('B9_R48_RH','ROW 48 RH','rh',PN_787_CYL_STD),
+    mk787('B9_R49_RH','ROW 49 RH','rh',PN_787_CYL_STD),
+    mk787('B9_R50_RH','ROW 50 RH','rh',PN_787_CYL_STD),
+    mk787('B9_R51_RH','ROW 51 RH','rh',PN_787_CYL_STD),
+    mk787('B9_R52_RH','ROW 52 RH','rh',PN_787_CYL_STD),
+    mk787('B9_R53_RH','ROW 53 RH','rh',PN_787_CYL_STD),
+    mk787('B9_R54_RH','ROW 54 RH','rh',PN_787_CYL_STD),
+    mk787('B9_R55_RH','ROW 55 RH','rh',PN_787_CYL_STD),
+    mk787('B9_R56_RH','ROW 56 RH','rh',PN_787_CYL_STD),
+    mk787('B9_R57_RH','ROW 57 RH','rh',PN_787_CYL_STD),
+    mk787('B9_R58_RH','ROW 58 RH','rh',PN_787_CYL_STD),
+    mk787('B9_R59_RH','ROW 59 RH','rh',PN_787_CYL_STD),
+    mk787('B9_R60_RH','ROW 60 RH','rh',PN_787_CYL_STD),
+    mk787('B9_R61_RH','ROW 61 RH','rh',PN_787_CYL_CTR),
+  ],
+  doors:[
+    mk787('B9_DR1LH_FWD','DR 1 LH FWD','oth',PN_787_CYL_CTR),
+    mk787('B9_DR1RH_AFT','DR 1 RH AFT','oth',PN_787_CYL_SPEC),
+    mk787('B9_DR2LH_AFT','DR 2 LH AFT','oth',PN_787_CYL_CTR),
+    mk787('B9_DR2LH_FWD','DR 2 LH FWD','oth',PN_787_CYL_CTR),
+    mk787('B9_XAISLE','CROSS AISLE','oth',PN_787_CYL_SPEC,null,false,{note:'X-635, BL0, Z-289'}),
+    mk787('B9_DR2RH_AFT','DR 2 RH AFT','oth',PN_787_CYL_CTR),
+    mk787('B9_DR2RH_FWD','DR 2 RH FWD','oth',PN_787_CYL_CTR),
+    mk787('B9_DR3LH_FWD','DR 3 LH FWD','oth',PN_787_CYL_CTR),
+    mk787('B9_DR3RH_FWD','DR 3 RH FWD','oth',PN_787_CYL_CTR),
+    mk787('B9_DR4LH_AFT','DR 4 LH AFT','oth',PN_787_CYL_CTR),
+    mk787('B9_DR4LH_FWD','DR 4 LH FWD','oth',PN_787_CYL_CTR),
+    mk787('B9_DR4RH_AFT','DR 4 RH AFT','oth',PN_787_CYL_CTR),
+    mk787('B9_DR4RH_FWD','DR 4 RH FWD','oth',PN_787_CYL_CTR),
+  ],
+  crew:[
+    mk787('B9_L1F1L','L1F-1L','oth',PN_787_CYL_BAS),
+    mk787('B9_L2F1L','L2F-1L','oth',PN_787_CYL_BAS),
+    mk787('B9_L2F1R','L2F-1R','oth',PN_787_CYL_BAS),
+    mk787('B9_L3F1L','L3F-1L','oth',PN_787_CYL_BAS),
+    mk787('B9_L3F1LC','L3F-1LC','oth',PN_787_CYL_BAS),
+    mk787('B9_L3F1R','L3F-1R','oth',PN_787_CYL_BAS),
+    mk787('B9_L3F1RC','L3F-1RC','oth',PN_787_CYL_BAS),
+    mk787('B9_L4F1L','L4F-1L','oth',PN_787_CYL_BAS),
+    mk787('B9_L4F1R','L4F-1R','oth',PN_787_CYL_BAS),
+  ],
+  ofcr:[
+    mk787('B9_OFCR_BNK1','OFCR BUNK 1','oth',PN_787_CYL_CTR),
+    mk787('B9_OFCR_BNK2','OFCR BUNK 2','oth',PN_787_CYL_CTR),
+    mk787('B9_OFCR_SEAT','OFCR CREW SEAT','oth',PN_787_CYL_CTR),
+    mk787('B9_OFAR_BNK1','OFAR BUNK 1','oth',PN_787_CYL_CTR),
+    mk787('B9_OFAR_BNK2','OFAR BUNK 2','oth',PN_787_CYL_CTR),
+    mk787('B9_OFAR_BNK3','OFAR BUNK 3','oth',PN_787_CYL_CTR),
+    mk787('B9_OFAR_BNK4','OFAR BUNK 4','oth',PN_787_CYL_CTR),
+    mk787('B9_OFAR_BNK5','OFAR BUNK 5','oth',PN_787_CYL_CTR),
+    mk787('B9_OFAR_BNK6','OFAR BUNK 6','oth',PN_787_CYL_CTR),
+  ],
+  prayer:[
+    mk787('B9_PR_STA1653','Prayer Room STA 1653 CTR','oth',PN_787_CYL_STD),
+    mk787('B9_PR_STA1677','Prayer Room STA 1677 CTR','oth',PN_787_CYL_STD),
+    mk787('B9_PR_STA1707','Prayer Room STA 1707 CTR','oth',PN_787_CYL_STD),
+    mk787('B9_CTR_ATTN','CTR ATTN SEAT','oth',PN_787_CYL_CTR),
+    mk787('B9_G4A1C','G4A-1C','oth',PN_787_CYL_SPEC),
+  ],
+};
+
+// ══════════════════════════════════════════════════════════
+// A330 AQA-AQH  (FIN stored in loc metadata for export only)
+// ══════════════════════════════════════════════════════════
+function mka330(id,name,tag,fin,sub,dual){
+  const o={id,name,tag,fin};
+  if(sub) o.sub=sub;
+  if(dual) o.dual=true;
+  return o;
+}
+const LOCS_A330_AQA = {
+  lh:[
+    mka330('A330_103WR','ROW 15 LH','bas','103WR','BASSINET'),
+    mka330('A330_105WR','ROW 15 LH','lh','105WR'),
+    mka330('A330_107WR','ROW 16 LH','lh','107WR'),
+    mka330('A330_111WR','ROW 17 LH','lh','111WR'),
+    mka330('A330_115WR','ROW 18 LH','lh','115WR'),
+    mka330('A330_119WR','ROW 19 LH','lh','119WR'),
+    mka330('A330_123WR','ROW 20 LH','lh','123WR'),
+    mka330('A330_139WR','ROW 30 LH','bas','139WR','BASSINET'),
+    mka330('A330_141WR','ROW 30 LH','lh','141WR'),
+    mka330('A330_143WR','ROW 31 LH','lh','143WR'),
+    mka330('A330_145WR','ROW 32 LH','lh','145WR'),
+    mka330('A330_147WR','ROW 33 LH','lh','147WR'),
+    mka330('A330_149WR','ROW 34 LH','lh','149WR'),
+    mka330('A330_151WR','ROW 35 LH','lh','151WR'),
+    mka330('A330_155WR','ROW 36 LH','lh','155WR'),
+    mka330('A330_157WR','ROW 37 LH','lh','157WR'),
+    mka330('A330_159WR','ROW 38 LH','lh','159WR'),
+    mka330('A330_161WR','ROW 39 LH','lh','161WR'),
+    mka330('A330_163WR','ROW 40 LH','lh','163WR'),
+    mka330('A330_165WR','ROW 41 LH','lh','165WR'),
+    mka330('A330_169WR','ROW 42 LH','lh','169WR'),
+    mka330('A330_171WR','ROW 43 LH','lh','171WR'),
+    mka330('A330_173WR','ROW 44 LH','lh','173WR'),
+    mka330('A330_175WR','ROW 45 LH','lh','175WR'),
+    mka330('A330_177WR','ROW 46 LH','lh','177WR'),
+    mka330('A330_181WR','ROW 47 LH','lh','181WR'),
+    mka330('A330_187WR','ROW 48 LH','lh','187WR'),
+    mka330('A330_191WR','ROW 49 LH','lh','191WR'),
+    mka330('A330_193WR','ROW 50 LH','lh','193WR'),
+    mka330('A330_195WR','ROW 51 LH','lh','195WR'),
+    mka330('A330_197WR','ROW 52 LH','lh','197WR'),
+    mka330('A330_199WR','ROW 53 LH','lh','199WR'),
+    mka330('A330_203WR','ROW 54 LH','lh','203WR'),
+    mka330('A330_205WR','ROW 55 LH','lh','205WR'),
+    mka330('A330_209WR','ROW 56 LH','lh','209WR'),
+    mka330('A330_211WR','ROW 57 LH','lh','211WR'),
+    mka330('A330_215WR','ROW 58 LH','lh','215WR'),
+    mka330('A330_217WR','ROW 59 LH','lh','217WR'),
+    mka330('A330_219WR','ROW 60 LH','lh','219WR'),
+    mka330('A330_221WR','ROW 61 LH','lh','221WR'),
+    mka330('A330_223WR','ROW 62 LH','lh','223WR'),
+  ],
+  ctr:[
+    mka330('A330_401WR','ROW 15 CTR','bas','401WR','BASSINET'),
+    mka330('A330_402WR','ROW 15 CTR','ctr','402WR'),
+    mka330('A330_404WR','ROW 16 CTR','ctr','404WR'),
+    mka330('A330_406WR','ROW 17 CTR','ctr','406WR'),
+    mka330('A330_408WR','ROW 18 CTR','ctr','408WR'),
+    mka330('A330_409WR','ROW 19 CTR','ctr','409WR'),
+    mka330('A330_411WR','ROW 20 CTR','ctr','411WR'),
+    mka330('A330_419WR','ROW 30 CTR','bas','419WR','BASSINET'),
+    mka330('A330_420WR','ROW 30 CTR','ctr','420WR',null,true),
+    mka330('A330_422WR','ROW 31 CTR','ctr','422WR',null,true),
+    mka330('A330_423WR','ROW 32 CTR','ctr','423WR',null,true),
+    mka330('A330_424WR','ROW 33 CTR','ctr','424WR',null,true),
+    mka330('A330_425WR','ROW 34 CTR','ctr','425WR',null,true),
+    mka330('A330_426WR','ROW 35 CTR','ctr','426WR',null,true),
+    mka330('A330_427WR','ROW 36 CTR','ctr','427WR',null,true),
+    mka330('A330_428WR','ROW 37 CTR','ctr','428WR',null,true),
+    mka330('A330_429WR','ROW 38 CTR','ctr','429WR',null,true),
+    mka330('A330_431WR','ROW 39 CTR','ctr','431WR',null,true),
+    mka330('A330_432WR','ROW 40 CTR','ctr','432WR',null,true),
+    mka330('A330_433WR','ROW 41 CTR','ctr','433WR',null,true),
+    mka330('A330_434WR','ROW 42 CTR','ctr','434WR',null,true),
+    mka330('A330_435WR','ROW 43 CTR','ctr','435WR',null,true),
+    mka330('A330_436WR','ROW 44 CTR','ctr','436WR',null,true),
+    mka330('A330_437WR','ROW 45 CTR','ctr','437WR',null,true),
+    mka330('A330_439WR','ROW 46 CTR','ctr','439WR',null,true),
+    mka330('A330_440WR','ROW 47 CTR','ctr','440WR',null,true),
+    mka330('A330_443WR','ROW 48 CTR','bas','443WR','BASSINET'),
+    mka330('A330_444WR','ROW 48 CTR','ctr','444WR',null,true),
+    mka330('A330_445WR','ROW 49 CTR','ctr','445WR',null,true),
+    mka330('A330_449WR','ROW 50 CTR','ctr','449WR',null,true),
+    mka330('A330_450WR','ROW 51 CTR','ctr','450WR',null,true),
+    mka330('A330_451WR','ROW 52 CTR','ctr','451WR',null,true),
+    mka330('A330_452WR','ROW 53 CTR','ctr','452WR',null,true),
+    mka330('A330_454WR','ROW 54 CTR','ctr','454WR',null,true),
+    mka330('A330_455WR','ROW 55 CTR','ctr','455WR',null,true),
+    mka330('A330_456WR','ROW 56 CTR','ctr','456WR',null,true),
+    mka330('A330_458WR','ROW 57 CTR','ctr','458WR',null,true),
+    mka330('A330_460WR','ROW 58 CTR','ctr','460WR',null,true),
+    mka330('A330_461WR','ROW 59 CTR','ctr','461WR',null,true),
+    mka330('A330_462WR','ROW 60 CTR','ctr','462WR',null,true),
+    mka330('A330_463WR','ROW 61 CTR','ctr','463WR'),
+    mka330('A330_464WR','ROW 62 CTR','ctr','464WR'),
+  ],
+  rh:[
+    mka330('A330_104WR','ROW 15 RH','bas','104WR','BASSINET'),
+    mka330('A330_106WR','ROW 15 RH','rh','106WR'),
+    mka330('A330_108WR','ROW 16 RH','rh','108WR'),
+    mka330('A330_112WR','ROW 17 RH','rh','112WR'),
+    mka330('A330_116WR','ROW 18 RH','rh','116WR'),
+    mka330('A330_120WR','ROW 19 RH','rh','120WR'),
+    mka330('A330_124WR','ROW 20 RH','rh','124WR'),
+    mka330('A330_140WR','ROW 30 RH','bas','140WR','BASSINET'),
+    mka330('A330_142WR','ROW 30 RH','rh','142WR'),
+    mka330('A330_144WR','ROW 31 RH','rh','144WR'),
+    mka330('A330_146WR','ROW 32 RH','rh','146WR'),
+    mka330('A330_148WR','ROW 33 RH','rh','148WR'),
+    mka330('A330_150WR','ROW 34 RH','rh','150WR'),
+    mka330('A330_152WR','ROW 35 RH','rh','152WR'),
+    mka330('A330_156WR','ROW 36 RH','rh','156WR'),
+    mka330('A330_158WR','ROW 37 RH','rh','158WR'),
+    mka330('A330_160WR','ROW 38 RH','rh','160WR'),
+    mka330('A330_162WR','ROW 39 RH','rh','162WR'),
+    mka330('A330_164WR','ROW 40 RH','rh','164WR'),
+    mka330('A330_166WR','ROW 41 RH','rh','166WR'),
+    mka330('A330_170WR','ROW 42 RH','rh','170WR'),
+    mka330('A330_172WR','ROW 43 RH','rh','172WR'),
+    mka330('A330_174WR','ROW 44 RH','rh','174WR'),
+    mka330('A330_176WR','ROW 45 RH','rh','176WR'),
+    mka330('A330_178WR','ROW 46 RH','rh','178WR'),
+    mka330('A330_182WR','ROW 47 RH','rh','182WR'),
+    mka330('A330_188WR','ROW 48 RH','rh','188WR'),
+    mka330('A330_192WR','ROW 49 RH','rh','192WR'),
+    mka330('A330_194WR','ROW 50 RH','rh','194WR'),
+    mka330('A330_196WR','ROW 51 RH','rh','196WR'),
+    mka330('A330_198WR','ROW 52 RH','rh','198WR'),
+    mka330('A330_200WR','ROW 53 RH','rh','200WR'),
+    mka330('A330_204WR','ROW 54 RH','rh','204WR'),
+    mka330('A330_206WR','ROW 55 RH','rh','206WR'),
+    mka330('A330_210WR','ROW 56 RH','rh','210WR'),
+    mka330('A330_212WR','ROW 57 RH','rh','212WR'),
+    mka330('A330_216WR','ROW 58 RH','rh','216WR'),
+    mka330('A330_218WR','ROW 59 RH','rh','218WR'),
+    mka330('A330_220WR','ROW 60 RH','rh','220WR'),
+    mka330('A330_222WR','ROW 61 RH','rh','222WR'),
+    mka330('A330_224WR','ROW 62 RH','rh','224WR'),
+  ],
+  doors:[
+    mka330('A330_603WR','DR 1 LH AFT ATTN SEAT','oth','603WR'),
+    mka330('A330_601WR','DR 1 LH FWD ATTN SEAT','oth','601WR'),
+    mka330('A330_602WR','DR 1 RH ATTN SEAT','oth','602WR'),
+    mka330('A330_605WR','DR 2 LH ATTN SEAT','oth','605WR'),
+    mka330('A330_320WR','DR 2 CTR (CROSS AISLE)','oth','320WR'),
+    mka330('A330_604WR','DR 2 RH ATTN SEAT','oth','604WR'),
+    mka330('A330_185WR','DR 3 LH ATTEN SEAT','oth','185WR'),
+    mka330('A330_186WR','DR 3 RH ATTEN SEAT','oth','186WR'),
+    mka330('A330_617WR','DR 4 LH ATTN SEAT','oth','617WR'),
+    mka330('A330_369WR','DR 4 CTR ATTN SEAT','oth','369WR'),
+    mka330('A330_616WR','DR 4 RH ATTN SEAT','oth','616WR'),
+  ],
+  prayer:[
+    mka330('A330_465WR','Prayer Room #1 FWD','oth','465WR',null,true),
+    mka330('A330_467WR','Prayer Room #2 CTR FWD','oth','467WR',null,true),
+    mka330('A330_468WR','Prayer Room #3 CTR AFT','oth','468WR',null,true),
+    mka330('A330_470WR','Prayer Room #4 AFT','oth','470WR',null,true),
+  ],
+  crew:[
+    mka330('A330_620WR','G4 ATTN SEAT','oth','620WR'),
+  ],
+};
+
+// ══════════════════════════════════════════════════════════
+// A321  (FIN for export only)
+// ══════════════════════════════════════════════════════════
+function mka3(id,name,tag,fin){return {id,name,tag,fin};}
+const LOCS_A321 = {
+  lh:[
+    mka3('A321_114WR','ROW 1 LH','lh','114WR'),mka3('A321_115WR','ROW 2 LH','lh','115WR'),
+    mka3('A321_131WR','ROW 3 LH','lh','131WR'),mka3('A321_133WR','ROW 4 LH','lh','133WR'),
+    mka3('A321_134WR','ROW 5 LH','lh','134WR'),mka3('A321_152WR','ROW 30 LH','lh','152WR'),
+    mka3('A321_154WR','ROW 31 LH','lh','154WR'),mka3('A321_155WR','ROW 32 LH','lh','155WR'),
+    mka3('A321_171WR','ROW 33 LH','lh','171WR'),mka3('A321_172WR','ROW 34 LH','lh','172WR'),
+    mka3('A321_173WR','ROW 35 LH','lh','173WR'),mka3('A321_174WR','ROW 36 LH','lh','174WR'),
+    mka3('A321_175WR','ROW 37 LH','lh','175WR'),mka3('A321_176WR','ROW 38 LH','lh','176WR'),
+    mka3('A321_191WR','ROW 39 LH','lh','191WR'),mka3('A321_192WR','ROW 40 LH','lh','192WR'),
+    mka3('A321_194WR','ROW 41 LH','lh','194WR'),mka3('A321_195WR','ROW 42 LH','lh','195WR'),
+    mka3('A321_196WR','ROW 43 LH','lh','196WR'),mka3('A321_213WR','ROW 44 LH','lh','213WR'),
+    mka3('A321_214WR','ROW 45 LH','lh','214WR'),mka3('A321_215WR','ROW 46 LH','lh','215WR'),
+    mka3('A321_216WR','ROW 47 LH','lh','216WR'),mka3('A321_231WR','ROW 48 LH','lh','231WR'),
+    mka3('A321_232WR','ROW 49 LH','lh','232WR'),mka3('A321_234WR','ROW 50 LH','lh','234WR'),
+    mka3('A321_235WR','ROW 51 LH','lh','235WR'),mka3('A321_236WR','ROW 52 LH','lh','236WR'),
+    mka3('A321_251WR','ROW 53 LH','lh','251WR'),mka3('A321_252WR','ROW 54 LH','lh','252WR'),
+  ],
+  rh:[
+    mka3('A321_124WR','ROW 1 RH','rh','124WR'),mka3('A321_125WR','ROW 2 RH','rh','125WR'),
+    mka3('A321_141WR','ROW 3 RH','rh','141WR'),mka3('A321_143WR','ROW 4 RH','rh','143WR'),
+    mka3('A321_144WR','ROW 5 RH','rh','144WR'),mka3('A321_162WR','ROW 30 RH','rh','162WR'),
+    mka3('A321_164WR','ROW 31 RH','rh','164WR'),mka3('A321_165WR','ROW 32 RH','rh','165WR'),
+    mka3('A321_181WR','ROW 33 RH','rh','181WR'),mka3('A321_182WR','ROW 34 RH','rh','182WR'),
+    mka3('A321_183WR','ROW 35 RH','rh','183WR'),mka3('A321_184WR','ROW 36 RH','rh','184WR'),
+    mka3('A321_185WR','ROW 37 RH','rh','185WR'),mka3('A321_186WR','ROW 38 RH','rh','186WR'),
+    mka3('A321_201WR','ROW 39 RH','rh','201WR'),mka3('A321_202WR','ROW 40 RH','rh','202WR'),
+    mka3('A321_204WR','ROW 41 RH','rh','204WR'),mka3('A321_205WR','ROW 42 RH','rh','205WR'),
+    mka3('A321_222WR','ROW 43 RH','rh','222WR'),mka3('A321_223WR','ROW 44 RH','rh','223WR'),
+    mka3('A321_224WR','ROW 45 RH','rh','224WR'),mka3('A321_225WR','ROW 46 RH','rh','225WR'),
+    mka3('A321_226WR','ROW 47 RH','rh','226WR'),mka3('A321_241WR','ROW 48 RH','rh','241WR'),
+    mka3('A321_242WR','ROW 49 RH','rh','242WR'),mka3('A321_244WR','ROW 50 RH','rh','244WR'),
+    mka3('A321_245WR','ROW 51 RH','rh','245WR'),mka3('A321_246WR','ROW 52 RH','rh','246WR'),
+    mka3('A321_261WR','ROW 53 RH','rh','261WR'),mka3('A321_262WR','ROW 54 RH','rh','262WR'),
+  ],
+  doors:[
+    mka3('A321_28WR','FWD DOOR LH','oth','28WR'),mka3('A321_40WR','FWD DOOR RH','oth','40WR'),
+    mka3('A321_146WR','DOOR 2 RH','oth','146WR'),
+    mka3('A321_30WR','AFT DOOR CTR #1','oth','30WR'),mka3('A321_33WR','AFT DOOR CTR #2','oth','33WR'),
+    mka3('A321_36WR','AFT DOOR RH','oth','36WR'),
+  ],
+};
+
+// ══════════════════════════════════════════════════════════
+// A321 NEO
+// ══════════════════════════════════════════════════════════
+const LOCS_A321_NEO = {
+  lh:[
+    mka3('NEO_114WR','ROW 1 LH','lh','114WR'),mka3('NEO_115WR','ROW 2 LH','lh','115WR'),
+    mka3('NEO_131WR','ROW 3 LH','lh','131WR'),mka3('NEO_132WR','ROW 4 LH','lh','132WR'),
+    mka3('NEO_134WR','ROW 5 LH','lh','134WR'),mka3('NEO_136WR','ROW 30 LH','lh','136WR'),
+    mka3('NEO_152WR','ROW 31 LH','lh','152WR'),mka3('NEO_153WR','ROW 32 LH','lh','153WR'),
+    mka3('NEO_154WR','ROW 33 LH','lh','154WR'),mka3('NEO_155WR','ROW 34 LH','lh','155WR'),
+    mka3('NEO_156WR','ROW 35 LH','lh','156WR'),mka3('NEO_172WR','ROW 36 LH','lh','172WR'),
+    mka3('NEO_173WR','ROW 37 LH','lh','173WR'),mka3('NEO_175WR','ROW 38 LH','lh','175WR'),
+    mka3('NEO_176WR','ROW 39 LH','lh','176WR'),mka3('NEO_191WR','ROW 40 LH','lh','191WR'),
+    mka3('NEO_192WR','ROW 41 LH','lh','192WR'),mka3('NEO_193WR','ROW 42 LH','lh','193WR'),
+    mka3('NEO_194WR','ROW 43 LH','lh','194WR'),mka3('NEO_195WR','ROW 44 LH','lh','195WR'),
+    mka3('NEO_196WR','ROW 45 LH','lh','196WR'),mka3('NEO_212WR','ROW 46 LH','lh','212WR'),
+    mka3('NEO_213WR','ROW 47 LH','lh','213WR'),mka3('NEO_215WR','ROW 48 LH','lh','215WR'),
+    mka3('NEO_216WR','ROW 49 LH','lh','216WR'),mka3('NEO_231WR','ROW 50 LH','lh','231WR'),
+    mka3('NEO_232WR','ROW 51 LH','lh','232WR'),mka3('NEO_233WR','ROW 52 LH','lh','233WR'),
+    mka3('NEO_234WR','ROW 53 LH','lh','234WR'),mka3('NEO_235WR','ROW 54 LH','lh','235WR'),
+    mka3('NEO_236WR','ROW 55 LH','lh','236WR'),mka3('NEO_251WR','ROW 56 LH','lh','251WR'),
+    mka3('NEO_252WR','ROW 57 LH','lh','252WR'),
+  ],
+  rh:[
+    mka3('NEO_124WR','ROW 1 RH','rh','124WR'),mka3('NEO_125WR','ROW 2 RH','rh','125WR'),
+    mka3('NEO_141WR','ROW 3 RH','rh','141WR'),mka3('NEO_142WR','ROW 4 RH','rh','142WR'),
+    mka3('NEO_144WR','ROW 5 RH','rh','144WR'),mka3('NEO_146WR','ROW 30 RH','rh','146WR'),
+    mka3('NEO_162WR','ROW 31 RH','rh','162WR'),mka3('NEO_163WR','ROW 32 RH','rh','163WR'),
+    mka3('NEO_164WR','ROW 33 RH','rh','164WR'),mka3('NEO_165WR','ROW 34 RH','rh','165WR'),
+    mka3('NEO_166WR','ROW 35 RH','rh','166WR'),mka3('NEO_182WR','ROW 36 RH','rh','182WR'),
+    mka3('NEO_183WR','ROW 37 RH','rh','183WR'),mka3('NEO_185WR','ROW 38 RH','rh','185WR'),
+    mka3('NEO_186WR','ROW 39 RH','rh','186WR'),mka3('NEO_201WR','ROW 40 RH','rh','201WR'),
+    mka3('NEO_202WR','ROW 41 RH','rh','202WR'),mka3('NEO_203WR','ROW 42 RH','rh','203WR'),
+    mka3('NEO_204WR','ROW 43 RH','rh','204WR'),mka3('NEO_205WR','ROW 44 RH','rh','205WR'),
+    mka3('NEO_206WR','ROW 45 RH','rh','206WR'),mka3('NEO_222WR','ROW 46 RH','rh','222WR'),
+    mka3('NEO_223WR','ROW 47 RH','rh','223WR'),mka3('NEO_225WR','ROW 48 RH','rh','225WR'),
+    mka3('NEO_226WR','ROW 49 RH','rh','226WR'),mka3('NEO_241WR','ROW 50 RH','rh','241WR'),
+    mka3('NEO_242WR','ROW 51 RH','rh','242WR'),mka3('NEO_243WR','ROW 52 RH','rh','243WR'),
+    mka3('NEO_244WR','ROW 53 RH','rh','244WR'),mka3('NEO_245WR','ROW 54 RH','rh','245WR'),
+    mka3('NEO_246WR','ROW 55 RH','rh','246WR'),mka3('NEO_261WR','ROW 56 RH','rh','261WR'),
+    mka3('NEO_262WR','ROW 57 RH','rh','262WR'),
+  ],
+  doors:[
+    mka3('NEO_28WR','FWD DOOR LH','oth','28WR'),mka3('NEO_40WR','FWD DOOR RH','oth','40WR'),
+    mka3('NEO_30WR','AFT DOOR CTR #1','oth','30WR'),mka3('NEO_33WR','AFT DOOR CTR #2','oth','33WR'),
+    mka3('NEO_35WR','AFT DOOR LH','oth','35WR'),mka3('NEO_36WR','AFT DOOR RH','oth','36WR'),
+  ],
+};
+
+// ══════════════════════════════════════════════════════════
+// A320 AS51-AS84
+// ══════════════════════════════════════════════════════════
+const LOCS_A320_AS51 = {
+  lh:[
+    mka3('AS51_114WR','ROW 1 LH','lh','114WR'),mka3('AS51_115WR','ROW 2 LH','lh','115WR'),
+    mka3('AS51_131WR','ROW 3 LH','lh','131WR'),mka3('AS51_133WR','ROW 30 LH','lh','133WR'),
+    mka3('AS51_134WR','ROW 31 LH','lh','134WR'),mka3('AS51_135WR','ROW 32 LH','lh','135WR'),
+    mka3('AS51_136WR','ROW 33 LH','lh','136WR'),mka3('AS51_171WR','ROW 34 LH','lh','171WR'),
+    mka3('AS51_173WR','ROW 35 LH','lh','173WR'),mka3('AS51_174WR','ROW 36 LH','lh','174WR'),
+    mka3('AS51_175WR','ROW 37 LH','lh','175WR'),mka3('AS51_176WR','ROW 38 LH','lh','176WR'),
+    mka3('AS51_211WR','ROW 39 LH','lh','211WR'),mka3('AS51_212WR','ROW 40 LH','lh','212WR'),
+    mka3('AS51_213WR','ROW 41 LH','lh','213WR'),mka3('AS51_214WR','ROW 42 LH','lh','214WR'),
+    mka3('AS51_215WR','ROW 43 LH','lh','215WR'),mka3('AS51_216WR','ROW 44 LH','lh','216WR'),
+    mka3('AS51_231WR','ROW 45 LH','lh','231WR'),mka3('AS51_233WR','ROW 46 LH','lh','233WR'),
+    mka3('AS51_234WR','ROW 47 LH','lh','234WR'),mka3('AS51_235WR','ROW 48 LH','lh','235WR'),
+    mka3('AS51_236WR','ROW 49 LH','lh','236WR'),mka3('AS51_251WR','ROW 50 LH','lh','251WR'),
+    mka3('AS51_252WR','ROW 51 LH','lh','252WR'),
+  ],
+  rh:[
+    mka3('AS51_124WR','ROW 1 RH','rh','124WR'),mka3('AS51_125WR','ROW 2 RH','rh','125WR'),
+    mka3('AS51_141WR','ROW 3 RH','rh','141WR'),mka3('AS51_143WR','ROW 30 RH','rh','143WR'),
+    mka3('AS51_144WR','ROW 31 RH','rh','144WR'),mka3('AS51_145WR','ROW 32 RH','rh','145WR'),
+    mka3('AS51_146WR','ROW 33 RH','rh','146WR'),mka3('AS51_181WR','ROW 34 RH','rh','181WR'),
+    mka3('AS51_183WR','ROW 35 RH','rh','183WR'),mka3('AS51_184WR','ROW 36 RH','rh','184WR'),
+    mka3('AS51_185WR','ROW 37 RH','rh','185WR'),mka3('AS51_186WR','ROW 38 RH','rh','186WR'),
+    mka3('AS51_221WR','ROW 39 RH','rh','221WR'),mka3('AS51_222WR','ROW 40 RH','rh','222WR'),
+    mka3('AS51_223WR','ROW 41 RH','rh','223WR'),mka3('AS51_224WR','ROW 42 RH','rh','224WR'),
+    mka3('AS51_225WR','ROW 43 RH','rh','225WR'),mka3('AS51_226WR','ROW 44 RH','rh','226WR'),
+    mka3('AS51_241WR','ROW 45 RH','rh','241WR'),mka3('AS51_243WR','ROW 46 RH','rh','243WR'),
+    mka3('AS51_244WR','ROW 47 RH','rh','244WR'),mka3('AS51_245WR','ROW 48 RH','rh','245WR'),
+    mka3('AS51_246WR','ROW 49 RH','rh','246WR'),mka3('AS51_261WR','ROW 50 RH','rh','261WR'),
+    mka3('AS51_262WR','ROW 51 RH','rh','262WR'),
+  ],
+  doors:[
+    mka3('AS51_28WR','FWD DOOR LH','oth','28WR'),mka3('AS51_40WR','FWD DOOR RH','oth','40WR'),
+    mka3('AS51_30WR','AFT DOOR CTR #1','oth','30WR'),mka3('AS51_33WR','AFT DOOR CTR #2','oth','33WR'),
+    mka3('AS51_36WR','AFT DOOR RH','oth','36WR'),
+  ],
+};
+
+// ══════════════════════════════════════════════════════════
+// A320 ASA-ASG
+// ══════════════════════════════════════════════════════════
+const LOCS_A320_ASA = {
+  lh:[
+    mka3('ASA_114WR','ROW 1 LH','lh','114WR'),mka3('ASA_131WR','ROW 2 LH','lh','131WR'),
+    mka3('ASA_133WR','ROW 3 LH','lh','133WR'),mka3('ASA_135WR','ROW 4 LH','lh','135WR'),
+    mka3('ASA_171WR','ROW 5 LH','lh','171WR'),mka3('ASA_174WR','ROW 30 LH','lh','174WR'),
+    mka3('ASA_175WR','ROW 31 LH','lh','175WR'),mka3('ASA_176WR','ROW 32 LH','lh','176WR'),
+    mka3('ASA_212WR','ROW 33 LH','lh','212WR'),mka3('ASA_213WR','ROW 34 LH','lh','213WR'),
+    mka3('ASA_214WR','ROW 35 LH','lh','214WR'),mka3('ASA_215WR','ROW 36 LH','lh','215WR'),
+    mka3('ASA_216WR','ROW 37 LH','lh','216WR'),mka3('ASA_231WR','ROW 38 LH','lh','231WR'),
+    mka3('ASA_232WR','ROW 39 LH','lh','232WR'),mka3('ASA_233WR','ROW 40 LH','lh','233WR'),
+    mka3('ASA_234WR','ROW 41 LH','lh','234WR'),mka3('ASA_236WR','ROW 42 LH','lh','236WR'),
+    mka3('ASA_251WR','ROW 43 LH','lh','251WR'),mka3('ASA_252WR','ROW 44 LH','lh','252WR'),
+  ],
+  rh:[
+    mka3('ASA_124WR','ROW 1 RH','rh','124WR'),mka3('ASA_141WR','ROW 2 RH','rh','141WR'),
+    mka3('ASA_143WR','ROW 3 RH','rh','143WR'),mka3('ASA_145WR','ROW 4 RH','rh','145WR'),
+    mka3('ASA_181WR','ROW 5 RH','rh','181WR'),mka3('ASA_184WR','ROW 30 RH','rh','184WR'),
+    mka3('ASA_185WR','ROW 31 RH','rh','185WR'),mka3('ASA_186WR','ROW 32 RH','rh','186WR'),
+    mka3('ASA_222WR','ROW 33 RH','rh','222WR'),mka3('ASA_223WR','ROW 34 RH','rh','223WR'),
+    mka3('ASA_224WR','ROW 35 RH','rh','224WR'),mka3('ASA_225WR','ROW 36 RH','rh','225WR'),
+    mka3('ASA_226WR','ROW 37 RH','rh','226WR'),mka3('ASA_241WR','ROW 38 RH','rh','241WR'),
+    mka3('ASA_242WR','ROW 39 RH','rh','242WR'),mka3('ASA_243WR','ROW 40 RH','rh','243WR'),
+    mka3('ASA_244WR','ROW 41 RH','rh','244WR'),mka3('ASA_246WR','ROW 42 RH','rh','246WR'),
+    mka3('ASA_261WR','ROW 43 RH','rh','261WR'),mka3('ASA_262WR','ROW 44 RH','rh','262WR'),
+  ],
+  doors:[
+    mka3('ASA_28WR','FWD DOOR LH','oth','28WR'),mka3('ASA_40WR','FWD DOOR RH','oth','40WR'),
+    mka3('ASA_30WR','AFT DOOR CTR #1','oth','30WR'),mka3('ASA_33WR','AFT DOOR CTR #2','oth','33WR'),
+    mka3('ASA_36WR','AFT DOOR RH','oth','36WR'),
+  ],
+};
+
+// ══════════════════════════════════════════════════════════
+// LOCS_MAP — all types
+// ══════════════════════════════════════════════════════════
+
+// Map acft type → locs
 const LOCS_MAP = {
   'B777_AK3135': LOCS_B777,
-  'B777_AK36xx': LOCS_B777, // same structure, diff reg
-  'A320': LOCS_B777,        // placeholder
-  'A330': LOCS_B777,        // placeholder
-  'B787': LOCS_B777,        // placeholder
+  'B777_AK3643': LOCS_B777_AK36,
+  'B787_10':     LOCS_B787_10,
+  'B787_9':      LOCS_B787_9,
+  'A330_AQA':    LOCS_A330_AQA,
+  'A321':        LOCS_A321,
+  'A321_NEO':    LOCS_A321_NEO,
+  'A320_AS51':   LOCS_A320_AS51,
+  'A320_ASA':    LOCS_A320_ASA,
 };
 
 const SECTIONS_MAP = {
@@ -494,7 +1406,19 @@ const SECTIONS_MAP = {
   ],
 };
 // Default sections for all types
-Object.keys(LOCS_MAP).forEach(k=>{ if(!SECTIONS_MAP[k]) SECTIONS_MAP[k]=SECTIONS_MAP['B777_AK3135']; });
+// Sections per aircraft type
+const SECS_B777    = [{id:'lh',label:'LH'},{id:'ctr',label:'CTR'},{id:'rh',label:'RH'},{id:'ofcr',label:'OFCR/OFAR'},{id:'prayer',label:'Prayer'},{id:'doors',label:'Doors'},{id:'galleys',label:'Galleys'},{id:'crew',label:'Crew'}];
+const SECS_B787    = [{id:'lh',label:'LH'},{id:'ctr',label:'CTR'},{id:'rh',label:'RH'},{id:'doors',label:'Doors'},{id:'crew',label:'Crew'},{id:'ofcr',label:'OFCR/OFAR'},{id:'prayer',label:'Prayer/Misc'}];
+const SECS_A330    = [{id:'lh',label:'LH'},{id:'ctr',label:'CTR'},{id:'rh',label:'RH'},{id:'doors',label:'Doors'},{id:'prayer',label:'Prayer'},{id:'crew',label:'Crew/G4'}];
+const SECS_A320_21 = [{id:'lh',label:'LH'},{id:'rh',label:'RH'},{id:'doors',label:'Doors'}];
+Object.keys(LOCS_MAP).forEach(k=>{
+  if(!SECTIONS_MAP[k]){
+    if(k.startsWith('B777')) SECTIONS_MAP[k]=SECS_B777;
+    else if(k.startsWith('B787')) SECTIONS_MAP[k]=SECS_B787;
+    else if(k.startsWith('A330')) SECTIONS_MAP[k]=SECS_A330;
+    else SECTIONS_MAP[k]=SECS_A320_21;
+  }
+});
 
 // ── STATE ──
 let S = {};
@@ -545,6 +1469,8 @@ function updateTbLabel(){
   const lbl  = sel.options[sel.selectedIndex]?.text || 'Select aircraft type';
   document.getElementById('tb-acft-label').textContent =
     acft ? `${lbl} · ${acft}` : lbl;
+  const sub = document.getElementById('tb-type-sub');
+  if(sub) sub.textContent = lbl || 'Passenger Oxygen Mapping';
 }
 
 // ── ACFT TYPE CHANGE ──
@@ -555,6 +1481,7 @@ function onAcftTypeChange(silent){
   const secs = SECTIONS_MAP[curType] || SECTIONS_MAP['B777_AK3135'];
   curSec = secs[0].id;
   renderTabs();
+  injectDefaults(curType);
   renderSec(curSec);
   if(!silent) save();
 }
@@ -595,8 +1522,8 @@ function renderCard(loc){
   const isDual = !!loc.dual && !loc.sub;
   const noteHtml = loc.note ? `<div class="card-note">${loc.note}</div>` : '';
   const body = isDual
-    ? `<div class="ubox"><div class="utitle">Unit #1 — Container & Generator</div>${renderFields(loc.id,'u1')}</div>
-       <div class="ubox"><div class="utitle">Unit #2 — Container & Generator</div>${renderFields(loc.id,'u2')}</div>`
+    ? `<div class="ubox"><div class="utitle">Unit #1 — ${getFieldLabels().cont} & ${getFieldLabels().gen}</div>${renderFields(loc.id,'u1')}</div>
+       <div class="ubox"><div class="utitle">Unit #2 — ${getFieldLabels().cont} & ${getFieldLabels().gen}</div>${renderFields(loc.id,'u2')}</div>`
     : renderFields(loc.id,'');
   return `
   <div class="card" id="card_${loc.id}">
@@ -621,6 +1548,13 @@ function renderCard(loc){
 }
 
 // ── FIELDS ──
+function getFieldLabels(){
+  const is787 = curType && curType.startsWith('B787');
+  return {
+    cont: is787 ? 'Cylinder'  : 'Container',
+    gen:  is787 ? 'Initiator' : 'Generator',
+  };
+}
 function renderFields(locId, unit){
   const u=unit;
   const fv=f=>gv(locId,f,u);
@@ -635,7 +1569,7 @@ function renderFields(locId, unit){
   return `
     <div class="sdiv"><span>
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:middle;margin-right:4px"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
-      Container
+      ${getFieldLabels().cont}
     </span></div>
     <div class="fg">
       <div class="field">
@@ -666,7 +1600,7 @@ function renderFields(locId, unit){
 
     <div class="sdiv"><span>
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:middle;margin-right:4px"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-      Generator
+      ${getFieldLabels().gen}
     </span></div>
     <div class="fg">
       <div class="field">
@@ -1192,6 +2126,20 @@ function showToast(msg){
   const t=document.getElementById('toast');
   t.textContent=msg; t.classList.add('show');
   setTimeout(()=>t.classList.remove('show'),2400);
+}
+
+// ── INJECT DEFAULT P/Ns (B787 pre-fill) ──
+function injectDefaults(type){
+  const LOCS = LOCS_MAP[type]||{};
+  const all  = Object.values(LOCS).flat();
+  all.forEach(loc=>{
+    if(!loc.cpn_default) return;
+    // Only pre-fill if field not already touched by user
+    const cpnKey = loc.id+'_cpn';
+    const gpnKey = loc.id+'_gpn';
+    if(!S[cpnKey]) S[cpnKey] = loc.cpn_default;
+    if(!S[gpnKey] && loc.ipn_default) S[gpnKey] = loc.ipn_default;
+  });
 }
 
 // ── INIT ──
