@@ -909,49 +909,96 @@ function showScanResult(raw){
 }
 
 function parseScanData(raw){
-  // Logic: value/LABEL — the slash marks end of value, LABEL identifies the field
-  // Split into tokens by space, then find value/LABEL pairs
-  const PN_LABELS  = /^(PNR|PN|P\/N|PART[\s_]?N(?:UMBER|O)?)$/i;
-  const SN_LABELS  = /^(SNR|SER|SN|S\/N|SERIAL)$/i;
-  const MFG_LABELS = /^(DMF|MFD|MFG)$/i;
+  const PN_RE  = /^(PNR|PN|P\/N:?|PART[\s_]?N(?:UMBER|O)?)$/i;
+  const SN_RE  = /^(SNR|SER|SN|S\/N:?|SERIAL)$/i;
+  const MFG_RE = /^(DMF|MFD|MFG)$/i;
+  function classify(s){
+    const t=s.replace(/:$/,'');
+    if(PN_RE.test(t)) return 'pn';
+    if(SN_RE.test(t)) return 'sn';
+    if(MFG_RE.test(t)) return 'mfg';
+    return null;
+  }
+  function isLabel(s){ return !!classify(s.replace(/:$/,'')); }
 
-  let pn=null, sn=null, mfg_raw=null;
+  const res={pn:null,sn:null,mfg:null};
+  const st = raw.trim().split(/\s+/);
 
-  // Tokenize: split on whitespace, each token may be "VALUE/LABEL" or just "LABEL" or "VALUE"
-  const tokens = raw.trim().split(/\s+/);
-  for(let i=0; i<tokens.length; i++){
-    const t = tokens[i];
-    const slash = t.lastIndexOf('/');
-    if(slash > 0){
-      const val   = t.slice(0, slash);
-      const label = t.slice(slash + 1);
-      if(PN_LABELS.test(label)  && val) pn      = val;
-      if(SN_LABELS.test(label)  && val) sn      = val;
-      if(MFG_LABELS.test(label) && val) mfg_raw = val;
+  // Detect format by first token:
+  // Format B: first token is a pure label (no slash, is a label word)
+  // Format A: first token contains a slash with value on left
+  const formatB = isLabel(st[0].replace(/:$/,''));
+
+  if(!formatB){
+    // FORMAT A: VALUE/LABEL — each slashed token maps left→right
+    for(const t of st){
+      const si=t.lastIndexOf('/');
+      if(si<=0) continue;
+      const val=t.slice(0,si).replace(/^[A-Z]\/[A-Z]:?\s*/i,'').replace(/:$/,'').trim();
+      const lbl=t.slice(si+1).trim();
+      if(!isLabel(lbl)||!val||isLabel(val)) continue;
+      const f=classify(lbl);
+      if(f&&!res[f]) res[f]=val;
+    }
+    // Also handle trailing standalone "LABEL: value" pairs (e.g. "MFG: 102024")
+    for(let i=0;i<st.length-1;i++){
+      const lbl=st[i].replace(/:$/,'');
+      const f=classify(lbl);
+      if(!f||res[f]) continue;
+      const val=st[i+1].replace(/\/.*$/,'').replace(/:$/,'').trim();
+      if(val&&!isLabel(val)) res[f]=val;
+    }
+  } else {
+    // FORMAT B: LABEL VALUE — label standalone, value is next token (bare, before any slash)
+    for(let i=0;i<st.length-1;i++){
+      const lbl=st[i].replace(/:$/,'');
+      const f=classify(lbl);
+      if(!f) continue;
+      const nt=st[i+1];
+      const ns=nt.indexOf('/');
+      const val=(ns>0?nt.slice(0,ns):nt).replace(/:$/,'').trim();
+      if(val&&!isLabel(val)&&!res[f]) res[f]=val;
+    }
+    // Handle VALUE/LABEL as field separator → next token = value for that label
+    for(let i=0;i<st.length-1;i++){
+      const t=st[i], si=t.lastIndexOf('/');
+      if(si<=0) continue;
+      const lbl=t.slice(si+1).trim();
+      if(!isLabel(lbl)) continue;
+      const f=classify(lbl);
+      if(!f||res[f]) continue;
+      const nt=st[i+1], ns=nt.indexOf('/');
+      const val=(ns>0?nt.slice(0,ns):nt).replace(/:$/,'').trim();
+      if(val&&!isLabel(val)) res[f]=val;
     }
   }
 
-  // Format MFG date — accept MMYYYY, MMYY, YYYYMM
-  let mfg = null;
-  if(mfg_raw){
-    const d = mfg_raw.replace(/[^0-9]/g,'');
-    if(d.length === 6){
-      const mm = d.slice(0,2);
-      const yr = d.slice(2);   // YYYY or YY
-      const yyyy = yr.length===4 ? yr : '20'+yr;
-      const m = parseInt(mm,10);
-      if(m>=1 && m<=12) mfg = yyyy + '-' + mm.padStart(2,'0');
-    } else if(d.length === 4){
-      // MMYY
-      const mm=d.slice(0,2), yy=d.slice(2);
-      const m=parseInt(mm,10);
-      if(m>=1&&m<=12) mfg='20'+yy+'-'+mm;
-    }
-    // If format unrecognized, leave mfg null (leave field empty)
+  // MFG → YYYY-MM
+  let mfg=null;
+  if(res.mfg){
+    const d=res.mfg.replace(/[^0-9]/g,'');
+    if(d.length===6){const mm=d.slice(0,2),yr=d.slice(2),yyyy=yr.length===4?yr:'20'+yr;if(+mm>=1&&+mm<=12)mfg=yyyy+'-'+mm.padStart(2,'0');}
+    else if(d.length===4){const mm=d.slice(0,2),yy=d.slice(2);if(+mm>=1&&+mm<=12)mfg='20'+yy+'-'+mm;}
   }
-
-  return {pn, sn, mfg};
+  return {pn:res.pn,sn:res.sn,mfg};
 }
+
+const tests=[
+  ["PNR E63440-00/SER CA547C685-083",                    {pn:'E63440-00',   sn:'CA547C685-083',mfg:null}],
+  ["P/N: 4441158-002/DMF S/N: 9130456/PNR MFG: 102024", {pn:'4441158-002', sn:'9130456',      mfg:'2024-10'}],
+  ["4441158-002/PNR 9130456/SER 102024/MFG",             {pn:'4441158-002', sn:'9130456',      mfg:'2024-10'}],
+  ["PNR 4441158-002 SER 9130456 MFG 102024",             {pn:'4441158-002', sn:'9130456',      mfg:'2024-10'}],
+  ["E63440-00/PNR CA547C685-083/SER",                    {pn:'E63440-00',   sn:'CA547C685-083',mfg:null}],
+  ["PNR E63440-00/SER CA547C685-083/MFD 102024",         {pn:'E63440-00',   sn:'CA547C685-083',mfg:'2024-10'}],
+];
+let p=0,f=0;
+tests.forEach(([input,exp])=>{
+  const r=parseScanData(input);
+  const ok=r.pn===exp.pn&&r.sn===exp.sn&&r.mfg===exp.mfg;
+  if(ok){p++;console.log("✓",input);}
+  else{f++;console.log("✗",input);console.log("  Exp:",JSON.stringify(exp));console.log("  Got:",JSON.stringify(r));}
+});
+console.log(`\n${p}/${p+f} passed`);
 
 function useScanResult(){
   if(!lastScanResult||!scanCtx) return;
