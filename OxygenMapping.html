@@ -2130,8 +2130,198 @@ function closeExportMenu(){
 }
 
 // ── EXPORTS ──
-function exportPDF()  { showToast('PDF export — coming soon'); }
-function exportWord() { showToast('Word export — coming soon'); }
+function exportPDF(){
+  const acft = document.getElementById('acft').value || '—';
+  const wp   = document.getElementById('wp').value   || '—';
+  const date = document.getElementById('date').value || '—';
+  if(!curType){ showToast('Select aircraft type first'); return; }
+
+  const LOCS  = LOCS_MAP[curType] || {};
+  const SECS  = SECTIONS_MAP[curType] || [];
+  const is787 = curType.startsWith('B787');
+  const cLbl  = is787 ? 'Cylinder'  : 'Container';
+  const gLbl  = is787 ? 'Initiator' : 'Generator';
+
+  // Build table rows
+  let rows = '';
+  SECS.forEach(function(sec){
+    const locs = LOCS[sec.id] || [];
+    if(!locs.length) return;
+    rows += '<tr class="sec-hdr"><td colspan="8">'+sec.label+'</td></tr>';
+    locs.forEach(function(loc){
+      const units = (loc.dual && !loc.sub) ? ['u1','u2'] : [''];
+      units.forEach(function(u, ui){
+        const cpn = gv(loc.id,'cpn',u)||'';
+        const csn = gv(loc.id,'csn',u)||'';
+        const cmfg= gv(loc.id,'cmfg',u)||'';
+        const gpn = gv(loc.id,'gpn',u)||'';
+        const gsn = gv(loc.id,'gsn',u)||'';
+        const gmfg= gv(loc.id,'gmfg',u)||'';
+        const fin = loc.fin ? '<span class="fin">'+loc.fin+'</span> ' : '';
+        let locName = loc.name;
+        if(loc.sub) locName += ' <span class="bas">'+loc.sub+'</span>';
+        if(u) locName += ' <span class="unit">'+(u==='u1'?'#1':'#2')+'</span>';
+        rows += '<tr>'
+          + '<td class="loc-col">'+fin+locName+'</td>'
+          + '<td>'+cpn+'</td>'
+          + '<td>'+csn+'</td>'
+          + '<td>'+cmfg+'</td>'
+          + '<td>'+gpn+'</td>'
+          + '<td>'+gsn+'</td>'
+          + '<td>'+gmfg+'</td>'
+          + '</tr>';
+      });
+    });
+  });
+
+  const TYPE_LABELS = {
+    'B777_AK3135':'SVA B777 — AK31–AK35','B777_AK3643':'SVA B777 — AK36–AK43',
+    'B787_10':'SVA B787-10','B787_9':'SVA B787-9',
+    'A330_AQA':'SVA A330 — AQA–AQH',
+    'A321':'SVA A321','A321_NEO':'SVA A321 NEO',
+    'A320_AS51':'SVA A320 — AS51–AS84','A320_ASA':'SVA A320 — ASA–ASG',
+  };
+  const typeTitle = TYPE_LABELS[curType] || curType;
+
+  const html = '<!DOCTYPE html><html><head><meta charset="UTF-8">'
+    + '<title>Oxygen Mapping — '+acft+'</title>'
+    + '<style>'
+    + 'body{font-family:Arial,sans-serif;font-size:8.5pt;margin:0;padding:0;}'
+    + '@page{size:A4 landscape;margin:10mm 8mm;}'
+    + '.page-header{display:flex;align-items:center;justify-content:space-between;'
+    +   'border-bottom:2px solid #006937;padding-bottom:6px;margin-bottom:8px;}'
+    + '.ph-logo{font-size:13pt;font-weight:bold;color:#006937;letter-spacing:1px;}'
+    + '.ph-title{font-size:11pt;font-weight:bold;color:#1a2e23;text-align:center;}'
+    + '.ph-meta{text-align:right;font-size:8pt;color:#555;}'
+    + '.ph-meta div{margin-bottom:2px;}'
+    + 'table{width:100%;border-collapse:collapse;margin-top:4px;}'
+    + 'th{background:#006937;color:#fff;padding:5px 6px;font-size:7.5pt;'
+    +   'text-align:left;border:1px solid #004d28;white-space:nowrap;}'
+    + 'td{padding:4px 6px;border:1px solid #c8d0da;font-size:8pt;vertical-align:top;}'
+    + 'tr:nth-child(even) td{background:#f4f8f5;}'
+    + '.sec-hdr td{background:#e6f2ec;color:#004d28;font-weight:bold;'
+    +   'font-size:8pt;letter-spacing:.5px;text-transform:uppercase;'
+    +   'border-top:2px solid #006937;}'
+    + '.loc-col{min-width:120px;font-weight:500;}'
+    + '.bas{background:#fff3cd;color:#856404;border-radius:3px;'
+    +   'padding:1px 4px;font-size:7pt;font-weight:bold;}'
+    + '.unit{background:#e8f5e9;color:#006937;border-radius:3px;'
+    +   'padding:1px 4px;font-size:7pt;font-weight:bold;}'
+    + '.fin{background:#f0f4f8;color:#455a64;border-radius:3px;'
+    +   'padding:1px 4px;font-size:7pt;}'
+    + '.empty-cell{color:#bbb;font-style:italic;}'
+    + '</style></head><body>'
+    + '<div class="page-header">'
+    +   '<div class="ph-logo">SAUDIA TECHNIC</div>'
+    +   '<div class="ph-title">Passenger Oxygen Mapping<br><span style="font-size:9pt;color:#006937;">'+typeTitle+'</span></div>'
+    +   '<div class="ph-meta">'
+    +     '<div><strong>ACFT REG:</strong> '+acft+'</div>'
+    +     '<div><strong>WP:</strong> '+wp+'</div>'
+    +     '<div><strong>Date:</strong> '+date+'</div>'
+    +   '</div>'
+    + '</div>'
+    + '<table>'
+    + '<thead><tr>'
+    +   '<th>Location</th>'
+    +   '<th>'+cLbl+' P/N</th>'
+    +   '<th>'+cLbl+' S/N</th>'
+    +   '<th>'+cLbl+' MFG</th>'
+    +   '<th>'+gLbl+' P/N</th>'
+    +   '<th>'+gLbl+' S/N</th>'
+    +   '<th>'+gLbl+' MFG</th>'
+    + '</tr></thead>'
+    + '<tbody>'+rows+'</tbody>'
+    + '</table></body></html>';
+
+  const w = window.open('','_blank');
+  w.document.write(html);
+  w.document.close();
+  w.onload = function(){ w.print(); };
+  showToast('Opening PDF print dialog...');
+}
+
+function exportWord(){
+  const acft = document.getElementById('acft').value || '—';
+  const wp   = document.getElementById('wp').value   || '—';
+  const date = document.getElementById('date').value || '—';
+  if(!curType){ showToast('Select aircraft type first'); return; }
+
+  const LOCS  = LOCS_MAP[curType] || {};
+  const SECS  = SECTIONS_MAP[curType] || [];
+  const is787 = curType.startsWith('B787');
+  const cLbl  = is787 ? 'Cylinder'  : 'Container';
+  const gLbl  = is787 ? 'Initiator' : 'Generator';
+  const TYPE_LABELS = {
+    'B777_AK3135':'SVA B777 AK31-AK35','B777_AK3643':'SVA B777 AK36-AK43',
+    'B787_10':'SVA B787-10','B787_9':'SVA B787-9',
+    'A330_AQA':'SVA A330 AQA-AQH','A321':'SVA A321','A321_NEO':'SVA A321 NEO',
+    'A320_AS51':'SVA A320 AS51-AS84','A320_ASA':'SVA A320 ASA-ASG',
+  };
+  const typeTitle = TYPE_LABELS[curType]||curType;
+
+  let rows = '';
+  SECS.forEach(function(sec){
+    const locs = LOCS[sec.id]||[];
+    if(!locs.length) return;
+    rows += '<tr style="background:#e6f2ec;"><td colspan="7" style="font-weight:bold;'
+      +'color:#004d28;padding:5px 8px;border:1px solid #aaa;text-transform:uppercase;'
+      +'font-size:9pt;">'+sec.label+'</td></tr>';
+    locs.forEach(function(loc){
+      const units=(loc.dual&&!loc.sub)?['u1','u2']:[''];
+      units.forEach(function(u){
+        const cpn=gv(loc.id,'cpn',u)||'';
+        const csn=gv(loc.id,'csn',u)||'';
+        const cmfg=gv(loc.id,'cmfg',u)||'';
+        const gpn=gv(loc.id,'gpn',u)||'';
+        const gsn=gv(loc.id,'gsn',u)||'';
+        const gmfg=gv(loc.id,'gmfg',u)||'';
+        let locName=loc.name;
+        if(loc.sub) locName+=' ['+loc.sub+']';
+        if(u) locName+=' '+(u==='u1'?'#1':'#2');
+        if(loc.fin) locName=loc.fin+' '+locName;
+        rows+='<tr>'
+          +'<td style="border:1px solid #ccc;padding:4px 6px;font-size:9pt;">'+locName+'</td>'
+          +'<td style="border:1px solid #ccc;padding:4px 6px;font-size:9pt;">'+cpn+'</td>'
+          +'<td style="border:1px solid #ccc;padding:4px 6px;font-size:9pt;">'+csn+'</td>'
+          +'<td style="border:1px solid #ccc;padding:4px 6px;font-size:9pt;">'+cmfg+'</td>'
+          +'<td style="border:1px solid #ccc;padding:4px 6px;font-size:9pt;">'+gpn+'</td>'
+          +'<td style="border:1px solid #ccc;padding:4px 6px;font-size:9pt;">'+gsn+'</td>'
+          +'<td style="border:1px solid #ccc;padding:4px 6px;font-size:9pt;">'+gmfg+'</td>'
+          +'</tr>';
+      });
+    });
+  });
+
+  const docHtml = '<html xmlns:o="urn:schemas-microsoft-com:office:office"'
+    +' xmlns:w="urn:schemas-microsoft-com:office:word"'
+    +' xmlns="http://www.w3.org/TR/REC-html40"><head>'
+    +'<meta charset="UTF-8">'
+    +'<!--[if gte mso 9]><xml><w:WordDocument><w:View>Print</w:View>'
+    +'<w:Zoom>90</w:Zoom><w:DoNotOptimizeForBrowser/></w:WordDocument></xml><![endif]-->'
+    +'<style>body{font-family:Arial,sans-serif;margin:1cm;}'
+    +'table{border-collapse:collapse;width:100%;}'
+    +'th{background:#006937;color:#fff;padding:5px 8px;border:1px solid #004d28;font-size:9pt;text-align:left;}'
+    +'</style></head><body>'
+    +'<h2 style="color:#006937;margin-bottom:4px;">Passenger Oxygen Mapping</h2>'
+    +'<p style="margin:0 0 4px;font-size:10pt;">'+typeTitle+'</p>'
+    +'<table style="margin-bottom:10px;font-size:9pt;">'
+    +'<tr><td><strong>ACFT REG:</strong></td><td>'+acft+'</td>'
+    +'<td style="padding-left:20px;"><strong>WP:</strong></td><td>'+wp+'</td>'
+    +'<td style="padding-left:20px;"><strong>Date:</strong></td><td>'+date+'</td></tr>'
+    +'</table>'
+    +'<table><thead><tr>'
+    +'<th>Location</th><th>'+cLbl+' P/N</th><th>'+cLbl+' S/N</th><th>'+cLbl+' MFG</th>'
+    +'<th>'+gLbl+' P/N</th><th>'+gLbl+' S/N</th><th>'+gLbl+' MFG</th>'
+    +'</tr></thead><tbody>'+rows+'</tbody></table>'
+    +'</body></html>';
+
+  const blob = new Blob([docHtml], {type:'application/msword'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'OxyMapping_'+acft+'_'+date+'.doc';
+  a.click();
+  showToast('✓ Word document downloaded');
+}
 
 function exportJSON(){
   const acft=document.getElementById('acft').value||'ACFT';
