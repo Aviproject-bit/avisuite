@@ -52,7 +52,8 @@ body{font-family:'BwGradual',sans-serif;background:var(--bg);color:var(--txt);pa
 .hf input::placeholder{color:rgba(255,255,255,.3);font-weight:400;}
 
 /* TABS */
-.tabs{background:var(--wh);border-bottom:2px solid var(--bdr);display:flex;overflow-x:auto;scrollbar-width:none;}
+.tabs{background:var(--wh);border-bottom:2px solid var(--bdr);display:flex;overflow-x:auto;scrollbar-width:none;position:sticky;top:0;z-index:50;}
+/* JS will set tabs top after header renders */
 .tabs::-webkit-scrollbar{display:none;}
 .tab{padding:10px 14px;font-size:10.5px;font-weight:800;color:var(--mut);white-space:nowrap;cursor:pointer;border-bottom:3px solid transparent;letter-spacing:.4px;text-transform:uppercase;transition:all .15s;flex-shrink:0;}
 .tab.active{color:var(--grn);border-bottom-color:var(--grn);}
@@ -1569,7 +1570,7 @@ function renderFields(locId,unit){
   const photos=JSON.parse(gv(locId,'photos',u)||'[]');
   const photoHtml=photos.map((p,i)=>`<div class="photo-item"><img src="${p}"><button class="photo-del" onclick="delPhoto('${locId}','${u}',${i})">✕</button></div>`).join('');
   return `
-    <div class="sdiv"><span>${PSU_ICON} ${cLbl()}</span></div>
+    <div class="sdiv"><span>${is787()?CYL_ICON:PSU_ICON} ${cLbl()}</span></div>
     <div class="field"><label>P/N</label>
       <div class="fw"><input type="text" placeholder="Part Number" value="${gv(locId,'cpn',u)}" oninput="sv('${locId}','cpn','${u}',this.value)">
       <button class="btn-scan" onclick="openScanner('${locId}','container','${u}')">${SCAN_ICON}</button></div>
@@ -1580,7 +1581,7 @@ function renderFields(locId,unit){
     <div class="field"><label>MFG Date</label>
       <input type="month" value="${gv(locId,'cmfg',u)}" onchange="sv('${locId}','cmfg','${u}',this.value)">
     </div>
-    <div class="sdiv" style="margin-top:6px"><span>${CYL_ICON} ${gLbl()}</span></div>
+    <div class="sdiv" style="margin-top:6px"><span>${is787()?INIT_ICON:CYL_ICON} ${gLbl()}</span></div>
     <div class="field"><label>P/N</label>
       <div class="fw"><input type="text" placeholder="Part Number" value="${gv(locId,'gpn',u)}" oninput="sv('${locId}','gpn','${u}',this.value)">
       <button class="btn-scan" onclick="openScanner('${locId}','generator','${u}')">${SCAN_ICON}</button></div>
@@ -1997,6 +1998,17 @@ function showToast(msg){
 // INIT
 // ══════════════════════════════════════════════
 document.addEventListener('DOMContentLoaded', function(){
+  // Set tabs sticky position after header renders
+  function fixTabs(){
+    const hdr = document.querySelector('.hdr');
+    const tabs = document.querySelector('.tabs');
+    if(hdr && tabs){
+      tabs.style.top = hdr.getBoundingClientRect().height + 'px';
+    }
+  }
+  setTimeout(fixTabs, 100);
+  window.addEventListener('resize', fixTabs);
+
   try{
     const s=localStorage.getItem('oxy_s'); if(s) S=JSON.parse(s);
     const h=localStorage.getItem('oxy_h');
@@ -2006,6 +2018,7 @@ document.addEventListener('DOMContentLoaded', function(){
         document.getElementById('selType').value=d.type;
         document.getElementById('inpAcft').value=d.acft||'';
         onTypeChange();
+        setTimeout(fixTabs, 150);
       }
     }
   }catch(e){}
