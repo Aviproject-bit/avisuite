@@ -1969,22 +1969,24 @@ function exportJSON(){
 function exportRaw(){
   const acft=document.getElementById('inpAcft').value||'ACFT';
   const LOCS=LOCS_MAP[curType]||{};
-  const lines=['OXYGEN MAPPING — RAW BARCODE DATA','═'.repeat(44),'ACFT: '+acft,'TYPE: '+curType,'═'.repeat(44),''];
+  const SEP1='='.repeat(44);
+  const SEP2='-'.repeat(40);
+  const lines=['OXYGEN MAPPING - RAW BARCODE DATA',SEP1,'ACFT: '+acft,'TYPE: '+curType,SEP1,''];
   Object.values(LOCS).flat().forEach(loc=>{
     const units=(loc.dual&&!loc.sub)?['u1','u2']:[''];
     units.forEach(u=>{
       const rc=gv(loc.id,'raw_c',u), rg=gv(loc.id,'raw_g',u);
       if(!rc&&!rg)return;
-      lines.push(''); lines.push(loc.name+(u?' '+(u==='u1'?'#1':'#2'):'')); lines.push('─'.repeat(40));
+      lines.push(''); lines.push(loc.name+(u?' '+(u==='u1'?'#1':'#2'):'')); lines.push(SEP2);
       if(rc) lines.push('  Container: '+rc);
       if(rg) lines.push('  Generator: '+rg);
     });
   });
   if(lines.length<=6){ showToast('No barcode data yet'); return; }
-  const blob=new Blob([lines.join('\n')],{type:'text/plain'});
+  const blob=new Blob([lines.join('\n')],{type:'text/plain;charset=utf-8'});
   const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
   a.download='RawBarcodes_'+acft+'.txt'; a.click();
-  showToast('✓ Raw data exported');
+  showToast('\u2713 Raw data exported');
 }
 
 function submitData(){ showToast('Submit — coming soon'); }
