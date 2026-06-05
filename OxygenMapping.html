@@ -65,7 +65,7 @@ input,select,button{font-family:'BwGradual',sans-serif;}
 .mf input::placeholder{color:rgba(255,255,255,.3);font-weight:400;}
 
 /* ── TABS ── */
-.tabs{background:var(--wh);border-bottom:2px solid var(--bdr);display:flex;overflow-x:auto;scrollbar-width:none;position:sticky;top:102px;z-index:150;}
+.tabs{background:var(--wh);border-bottom:2px solid var(--bdr);display:flex;overflow-x:auto;scrollbar-width:none;position:sticky;top:96px;z-index:150;}
 .tabs::-webkit-scrollbar{display:none;}
 .tab{padding:10px 13px;font-size:10.5px;font-weight:800;color:var(--mut);white-space:nowrap;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;letter-spacing:.5px;text-transform:uppercase;transition:all .18s;}
 .tab.active{color:var(--grn);border-bottom-color:var(--grn);}
@@ -240,15 +240,20 @@ input,select,button{font-family:'BwGradual',sans-serif;}
 .btn-mapply{flex:2;padding:11px;border:none;border-radius:8px;background:var(--grn);color:#fff;font-family:'BwGradual',sans-serif;font-size:12px;font-weight:800;cursor:pointer;}
 
 /* ── SCANNER MODAL ── */
-.scan-modal{background:var(--wh);border-radius:20px 20px 0 0;width:100%;padding:16px;}
-.scan-title{font-size:14px;font-weight:800;color:var(--txt);margin-bottom:4px;}
-.scan-sub{font-size:11px;color:var(--mut);margin-bottom:12px;}
-#scanVideo{width:100%;border-radius:10px;background:#000;display:block;max-height:260px;object-fit:cover;}
-.scan-result{margin-top:10px;padding:10px;background:var(--grn-lt);border:1px solid var(--bdr);border-radius:8px;font-size:12px;color:var(--txt);display:none;}
+.scan-modal{background:var(--wh);border-radius:20px 20px 0 0;width:100%;padding:14px 16px 24px;}
+.scan-title{font-size:14px;font-weight:800;color:var(--txt);margin-bottom:3px;}
+.scan-sub{font-size:11px;color:var(--mut);margin-bottom:10px;}
+.scan-result{margin-top:10px;padding:12px;background:var(--grn-lt);
+  border:1.5px solid var(--grn);border-radius:10px;font-size:12px;
+  color:var(--txt);display:none;line-height:1.6;}
 .scan-result.show{display:block;}
-.scan-actions{display:flex;gap:8px;margin-top:10px;}
-.btn-scan-close{flex:1;padding:11px;border:1.5px solid var(--bdr);border-radius:8px;background:var(--wh);color:var(--txt2);font-family:'BwGradual',sans-serif;font-size:12px;font-weight:700;cursor:pointer;}
-.btn-scan-use{flex:2;padding:11px;border:none;border-radius:8px;background:var(--grn);color:#fff;font-family:'BwGradual',sans-serif;font-size:12px;font-weight:800;cursor:pointer;display:none;}
+.scan-actions{display:flex;gap:8px;margin-top:12px;}
+.btn-scan-close{flex:1;padding:12px;border:1.5px solid var(--bdr);
+  border-radius:9px;background:var(--wh);color:var(--txt2);
+  font-family:'BwGradual',sans-serif;font-size:13px;font-weight:700;cursor:pointer;}
+.btn-scan-use{flex:2;padding:12px;border:none;border-radius:9px;
+  background:var(--grn);color:#fff;font-family:'BwGradual',sans-serif;
+  font-size:13px;font-weight:800;cursor:pointer;display:none;}
 .btn-scan-use.show{display:block;}
 
 /* ── TOAST ── */
@@ -409,18 +414,20 @@ input,select,button{font-family:'BwGradual',sans-serif;}
   <div class="scan-modal">
     <div class="scan-title" id="scanTitle">Scan Barcode / QR Code</div>
     <div class="scan-sub" id="scanSub">Point camera at the label</div>
-    <div style="position:relative;border-radius:10px;overflow:hidden;background:#000;max-height:55vh;">
+    <div style="position:relative;border-radius:10px;overflow:hidden;background:#000;
+  width:100%;aspect-ratio:4/3;">
   <video id="scanVideo" autoplay playsinline muted webkit-playsinline
-    style="width:100%;display:block;max-height:55vh;object-fit:cover;"></video>
-  <div id="scanOverlay2" style="display:none;position:absolute;top:0;left:0;right:0;bottom:0;pointer-events:none;
-    display:flex;align-items:center;justify-content:center;">
-    <div style="width:220px;height:220px;border:3px solid #C8A84B;border-radius:14px;
-      box-shadow:0 0 0 9999px rgba(0,0,0,.45);position:relative;">
-      <!-- corners -->
-      <div style="position:absolute;top:-3px;left:-3px;width:24px;height:24px;border-top:4px solid #C8A84B;border-left:4px solid #C8A84B;border-radius:4px 0 0 0;"></div>
-      <div style="position:absolute;top:-3px;right:-3px;width:24px;height:24px;border-top:4px solid #C8A84B;border-right:4px solid #C8A84B;border-radius:0 4px 0 0;"></div>
-      <div style="position:absolute;bottom:-3px;left:-3px;width:24px;height:24px;border-bottom:4px solid #C8A84B;border-left:4px solid #C8A84B;border-radius:0 0 0 4px;"></div>
-      <div style="position:absolute;bottom:-3px;right:-3px;width:24px;height:24px;border-bottom:4px solid #C8A84B;border-right:4px solid #C8A84B;border-radius:0 0 4px 0;"></div>
+    style="position:absolute;top:0;left:0;width:100%;height:100%;
+    object-fit:cover;display:block;"></video>
+  <div id="scanOverlay2" style="display:none;position:absolute;inset:0;
+    pointer-events:none;align-items:center;justify-content:center;">
+    <div style="width:65%;max-width:240px;aspect-ratio:1/1;
+      border:3px solid #C8A84B;border-radius:14px;
+      box-shadow:0 0 0 9999px rgba(0,0,0,.5);position:relative;">
+      <div style="position:absolute;top:-3px;left:-3px;width:22px;height:22px;border-top:4px solid #C8A84B;border-left:4px solid #C8A84B;border-radius:4px 0 0 0;"></div>
+      <div style="position:absolute;top:-3px;right:-3px;width:22px;height:22px;border-top:4px solid #C8A84B;border-right:4px solid #C8A84B;border-radius:0 4px 0 0;"></div>
+      <div style="position:absolute;bottom:-3px;left:-3px;width:22px;height:22px;border-bottom:4px solid #C8A84B;border-left:4px solid #C8A84B;border-radius:0 0 0 4px;"></div>
+      <div style="position:absolute;bottom:-3px;right:-3px;width:22px;height:22px;border-bottom:4px solid #C8A84B;border-right:4px solid #C8A84B;border-radius:0 0 4px 0;"></div>
     </div>
   </div>
 </div>
@@ -1563,7 +1570,13 @@ function onAcftTypeChange(silent){
   curSec = secs[0].id;
   renderTabs();
   injectDefaults(curType);
-  renderSec(curSec);
+  // Force DOM repaint before render
+  const el = document.getElementById('content');
+  el.innerHTML = '<div style="padding:20px;text-align:center;color:var(--mut)">Loading...</div>';
+  requestAnimationFrame(function(){
+    renderSec(curSec);
+    renderTabs(); // re-render tabs to mark active correctly
+  });
   if(!silent) save();
 }
 
@@ -1830,21 +1843,37 @@ function openScanner(locId, component, unit){
 }
 
 function startCamera(){
-  navigator.mediaDevices.getUserMedia({
-    video:{facingMode:{ideal:'environment'}, width:{ideal:1280}, height:{ideal:720}}
+  const tryCamera = function(facingMode){
+    return navigator.mediaDevices.getUserMedia({
+      video: typeof facingMode === 'string'
+        ? {facingMode: facingMode}
+        : {facingMode: {exact: 'environment'}, width:{ideal:1920}, height:{ideal:1440}}
+    });
+  };
+  tryCamera({exact:'environment'})
+  .catch(function(){ return tryCamera('environment'); })
+  .catch(function(){ return tryCamera('user'); })
+  .then(function(stream){
+    scanStream = stream;
+    const vid = document.getElementById('scanVideo');
+    vid.srcObject = stream;
+    vid.muted = true;
+    vid.setAttribute('playsinline','');
+    vid.setAttribute('webkit-playsinline','');
+    const p = vid.play();
+    if(p && p.then){
+      p.then(function(){
+        const ov = document.getElementById('scanOverlay2');
+        if(ov){ ov.style.display = 'flex'; }
+        startBarcodeLoop();
+      }).catch(function(){ startBarcodeLoop(); });
+    } else { startBarcodeLoop(); }
   })
-  .then(stream=>{
-    scanStream=stream;
-    const vid=document.getElementById('scanVideo');
-    vid.srcObject=stream;
-    vid.play().then(()=>{ startBarcodeLoop(); }).catch(()=>startBarcodeLoop());
-  })
-  .catch(err=>{
-    showToast('Camera error: '+err.message);
+  .catch(function(err){
+    showToast('Camera unavailable: '+err.message);
     closeScanner();
   });
 }
-
 function startBarcodeLoop(){
   const vid=document.getElementById('scanVideo');
   const canvas=document.createElement('canvas');
