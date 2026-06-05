@@ -96,10 +96,11 @@ input,select,button{font-family:'BwGradual',sans-serif;}
 .sdiv::before,.sdiv::after{content:'';flex:1;height:1px;background:var(--bdr);}
 
 /* ── FIELD GRID ── */
-.fg{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-bottom:2px;}
+.fg{display:grid;grid-template-columns:1.3fr 1.3fr 0.9fr;gap:7px;margin-bottom:2px;}
 .field label{display:block;font-size:8.5px;font-weight:700;color:var(--mut);text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px;}
 .fw{display:flex;gap:5px;align-items:center;}
-.fw input{flex:1;min-width:0;}
+.fw input{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;}
+.fw input:focus{overflow:visible;}
 .field input,.field select{
   width:100%;padding:9px 10px;
   border:1.5px solid var(--bdr);border-radius:7px;
@@ -167,9 +168,47 @@ input,select,button{font-family:'BwGradual',sans-serif;}
   font-family:'BwGradual',sans-serif;font-weight:800;
   cursor:pointer;border:none;letter-spacing:.4px;text-transform:uppercase;
 }
-.btn-exp.pdf{background:var(--red);color:#fff;}
-.btn-exp.word{background:var(--blue);color:#fff;}
-.btn-exp.sub{background:var(--grn);color:#fff;flex:1.5;}
+.btn-exp.sub{background:var(--grn);color:#fff;flex:1;}
+.btn-exp-menu{
+  flex:1.2;padding:11px 14px;border-radius:9px;font-size:11px;
+  font-family:'BwGradual',sans-serif;font-weight:800;
+  cursor:pointer;background:var(--navy);color:#fff;border:none;
+  letter-spacing:.3px;display:flex;align-items:center;justify-content:center;
+}
+.btn-exp-menu:active{background:var(--grn-dk);}
+
+/* ── EXPORT MENU ── */
+.export-backdrop{
+  display:none;position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.3);
+}
+.export-backdrop.open{display:block;}
+.export-menu{
+  display:none;position:fixed;bottom:76px;left:12px;right:12px;
+  background:var(--wh);border-radius:16px;z-index:400;
+  box-shadow:0 -4px 30px rgba(0,0,0,.18);overflow:hidden;
+}
+.export-menu.open{display:block;}
+.export-menu-title{
+  font-size:11px;font-weight:800;color:var(--mut);
+  text-transform:uppercase;letter-spacing:.6px;
+  padding:14px 16px 8px;border-bottom:1px solid var(--bdr);
+}
+.export-item{
+  width:100%;display:flex;align-items:center;gap:14px;
+  padding:13px 16px;background:transparent;border:none;
+  border-bottom:1px solid #f5f7f6;cursor:pointer;text-align:left;
+}
+.export-item:last-child{border-bottom:none;}
+.export-item:active{background:var(--grn-lt);}
+.export-item-icon{
+  width:38px;height:38px;border-radius:9px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.export-item-name{
+  font-size:13px;font-weight:700;color:var(--txt);
+  font-family:'BwGradual',sans-serif;
+}
+.export-item-sub{font-size:11px;color:var(--mut);margin-top:2px;}
 
 /* ── MODAL ── */
 .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:500;align-items:flex-end;}
@@ -293,14 +332,55 @@ input,select,button{font-family:'BwGradual',sans-serif;}
 
 <!-- BOTTOM BAR -->
 <div class="botbar">
-  <button class="btn-exp pdf"  onclick="exportPDF()">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="display:inline;vertical-align:middle;margin-right:4px"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>PDF
+  <button class="btn-exp sub" onclick="submitData()">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="display:inline;vertical-align:middle;margin-right:5px"><polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/></svg>Submit
   </button>
-  <button class="btn-exp word" onclick="exportWord()">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="display:inline;vertical-align:middle;margin-right:4px"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10,9 9,9 8,9"/></svg>Word
+  <button class="btn-exp-menu" onclick="toggleExportMenu()">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="display:inline;vertical-align:middle;margin-right:5px"><polyline points="8,17 12,21 16,17"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.88 18.09A5 5 0 0018 9h-1.26A8 8 0 103 16.29"/></svg>
+    Export
+    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="display:inline;vertical-align:middle;margin-left:4px"><polyline points="6,9 12,15 18,9"/></svg>
   </button>
-  <button class="btn-exp sub"  onclick="submitData()">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="display:inline;vertical-align:middle;margin-right:4px"><polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/></svg>Submit
+</div>
+
+<!-- EXPORT MENU -->
+<div class="export-backdrop" id="exportBackdrop" onclick="closeExportMenu()"></div>
+<div class="export-menu" id="exportMenu">
+  <div class="export-menu-title">Export Options</div>
+  <button class="export-item" onclick="exportPDF();closeExportMenu()">
+    <div class="export-item-icon" style="background:#fee2e2;color:#c81e1e">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+    </div>
+    <div class="export-item-info">
+      <div class="export-item-name">Export as PDF</div>
+      <div class="export-item-sub">Printable mapping sheet</div>
+    </div>
+  </button>
+  <button class="export-item" onclick="exportWord();closeExportMenu()">
+    <div class="export-item-icon" style="background:#dbeafe;color:#1a5fac">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10,9 9,9 8,9"/></svg>
+    </div>
+    <div class="export-item-info">
+      <div class="export-item-name">Export as Word</div>
+      <div class="export-item-sub">Editable .docx document</div>
+    </div>
+  </button>
+  <button class="export-item" onclick="exportRawAll();closeExportMenu()">
+    <div class="export-item-icon" style="background:#f0fdf4;color:#006937">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+    </div>
+    <div class="export-item-info">
+      <div class="export-item-name">Export Raw Barcode Data</div>
+      <div class="export-item-sub">All scanned barcodes — structured text</div>
+    </div>
+  </button>
+  <button class="export-item" onclick="exportJSON();closeExportMenu()">
+    <div class="export-item-icon" style="background:#fef9c3;color:#854d0e">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><path d="M10 13l2 2 4-4"/></svg>
+    </div>
+    <div class="export-item-info">
+      <div class="export-item-name">Export as JSON</div>
+      <div class="export-item-sub">Full data backup / import</div>
+    </div>
   </button>
 </div>
 
@@ -1575,7 +1655,7 @@ function renderFields(locId, unit){
       <div class="field">
         <label>P/N</label>
         <div class="fw">
-          <input type="text" placeholder="Part No." value="${fv('cpn')}"
+          <input type="text" placeholder="P/N" value="${fv('cpn')}"
             oninput="sv('${locId}','cpn','${u}',this.value)">
           <button class="btn-scan" title="Scan Container Barcode" onclick="openScanner('${locId}','container','${u}')">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -1588,7 +1668,7 @@ function renderFields(locId, unit){
       </div>
       <div class="field">
         <label>S/N</label>
-        <input type="text" placeholder="Serial No." value="${fv('csn')}"
+        <input type="text" placeholder="S/N" value="${fv('csn')}"
           oninput="sv('${locId}','csn','${u}',this.value)">
       </div>
       <div class="field">
@@ -1606,7 +1686,7 @@ function renderFields(locId, unit){
       <div class="field">
         <label>P/N</label>
         <div class="fw">
-          <input type="text" placeholder="Part No." value="${fv('gpn')}"
+          <input type="text" placeholder="P/N" value="${fv('gpn')}"
             oninput="sv('${locId}','gpn','${u}',this.value)">
           <button class="btn-scan" title="Scan Generator Barcode" onclick="openScanner('${locId}','generator','${u}')">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -1619,7 +1699,7 @@ function renderFields(locId, unit){
       </div>
       <div class="field">
         <label>S/N</label>
-        <input type="text" placeholder="Serial No." value="${fv('gsn')}"
+        <input type="text" placeholder="S/N" value="${fv('gsn')}"
           oninput="sv('${locId}','gsn','${u}',this.value)">
       </div>
       <div class="field">
@@ -1651,14 +1731,7 @@ function renderFields(locId, unit){
       </svg>
       Apply P/N to Multiple Locations
     </button>
-    <button class="btn-multi" style="margin-top:6px;color:#1a5fac;border-color:#c8d8f0;background:#f0f4ff;"
-      onclick="exportRawBarcode('${locId}','${unit}')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16">
-        <polyline points="8,17 12,21 16,17"/><line x1="12" y1="12" x2="12" y2="21"/>
-        <path d="M20.88 18.09A5 5 0 0018 9h-1.26A8 8 0 103 16.29"/>
-      </svg>
-      Export Raw Barcode Data
-    </button>
+
   `;
 }
 
@@ -2046,105 +2119,77 @@ function applyMulti(){
   renderSec(curSec);
 }
 
+// ── EXPORT MENU ──
+function toggleExportMenu(){
+  document.getElementById('exportMenu').classList.toggle('open');
+  document.getElementById('exportBackdrop').classList.toggle('open');
+}
+function closeExportMenu(){
+  document.getElementById('exportMenu').classList.remove('open');
+  document.getElementById('exportBackdrop').classList.remove('open');
+}
+
 // ── EXPORTS ──
 function exportPDF()  { showToast('PDF export — coming soon'); }
 function exportWord() { showToast('Word export — coming soon'); }
-async function submitData(){
-  const acft = document.getElementById('acft').value.trim();
-  const wp   = document.getElementById('wp').value.trim();
-  const date = document.getElementById('date').value;
-  const type = document.getElementById('acftType').value;
-  if(!acft){ showToast('Enter ACFT REG first'); return; }
-  if(!type){ showToast('Select aircraft type first'); return; }
-  showToast('Uploading...');
-  const record={id:acft+'_'+Date.now(),acft,wp,date,type,savedAt:new Date().toISOString(),data:S};
-  const TOKEN='GITHUB_TOKEN_PLACEHOLDER';
-  const REPO='aviproject-bit/ACFT-Project';
-  const path=`oxy_data/${acft}_${date||'nodate'}.json`;
-  const b64=btoa(unescape(encodeURIComponent(JSON.stringify(record,null,2))));
-  try{
-    let sha=null;
-    const chk=await fetch(`https://api.github.com/repos/${REPO}/contents/${path}`,
-      {headers:{Authorization:`token ${TOKEN}`}});
-    if(chk.ok){const d=await chk.json();sha=d.sha;}
-    const body={message:`Oxygen data: ${acft} ${date||''}`,content:b64};
-    if(sha) body.sha=sha;
-    const res=await fetch(`https://api.github.com/repos/${REPO}/contents/${path}`,{
-      method:'PUT',headers:{Authorization:`token ${TOKEN}`,'Content-Type':'application/json'},
-      body:JSON.stringify(body)
+
+function exportJSON(){
+  const acft=document.getElementById('acft').value||'ACFT';
+  const date=document.getElementById('date').value||'nodate';
+  const data=JSON.stringify({acft,date,type:curType,data:S},null,2);
+  const blob=new Blob([data],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download=`OxyMapping_${acft}_${date}.json`;
+  a.click();
+  showToast('✓ JSON exported');
+}
+
+function exportRawAll(){
+  const acft=document.getElementById('acft').value||'—';
+  const wp=document.getElementById('wp').value||'—';
+  const date=document.getElementById('date').value||'—';
+  const LOCS=LOCS_MAP[curType]||{};
+  const all=Object.values(LOCS).flat();
+  const ln44=Array(45).join('─');
+  const eq44=Array(45).join('═');
+  const lines=[];
+  lines.push('OXYGEN MAPPING — RAW BARCODE DATA');
+  lines.push(eq44);
+  lines.push('ACFT REG : '+acft);
+  lines.push('WP       : '+wp);
+  lines.push('DATE     : '+date);
+  lines.push('TYPE     : '+curType);
+  lines.push(eq44);
+  lines.push('');
+  let hasAny=false;
+  all.forEach(function(loc){
+    const units=(loc.dual&&!loc.sub)?['u1','u2']:[''];
+    units.forEach(function(u){
+      const rawC=gv(loc.id,'raw_c',u), rawG=gv(loc.id,'raw_g',u);
+      if(!rawC&&!rawG) return;
+      hasAny=true;
+      lines.push('');
+      lines.push(loc.name+(u?' — Unit '+(u==='u1'?'#1':'#2'):''));
+      lines.push(ln44);
+      if(rawC){
+        lines.push('  Container Raw : '+rawC);
+        lines.push(organizeRaw(rawC,'    '));
+      }
+      if(rawG){
+        lines.push('  Generator Raw : '+rawG);
+        lines.push(organizeRaw(rawG,'    '));
+      }
     });
-    if(res.ok){ showToast('✓ Submitted — '+acft); }
-    else{ const e=await res.json(); showToast('Error: '+(e.message||res.status)); }
-  }catch(e){ showToast('Network error'); }
-}
-
-function organizeRaw(raw, indent){
-  // Reprint raw tokens in clean "LABEL: VALUE" format without interpretation
-  const PN_RE=/^(PNR|PN|P\/N:?|PART[\s_]?N(?:UMBER|O)?)$/i;
-  const SN_RE=/^(SNR|SER|SN|S\/N:?|SERIAL)$/i;
-  const MFG_RE=/^(DMF|MFD|MFG)$/i;
-  function labelName(s){
-    if(PN_RE.test(s)) return 'PNR';
-    if(SN_RE.test(s)) return 'SER';
-    if(MFG_RE.test(s)) return 'MFG';
-    return null;
-  }
-  const st=raw.trim().split(/\s+/);
-  const formatB=!!labelName(st[0].replace(/:$/,''));
-  const pairs=[];
-  if(!formatB){
-    for(const t of st){
-      const si=t.lastIndexOf('/');if(si<=0)continue;
-      const val=t.slice(0,si).replace(/^[A-Z]\/[A-Z]:?\s*/i,'').replace(/:$/,'');
-      const lbl=t.slice(si+1);
-      const name=labelName(lbl);
-      if(name&&val) pairs.push([name,val]);
-    }
-  } else {
-    for(let i=0;i<st.length-1;i++){
-      const name=labelName(st[i].replace(/:$/,''));
-      if(!name)continue;
-      const nt=st[i+1],ns=nt.indexOf('/');
-      const val=(ns>0?nt.slice(0,ns):nt).replace(/:$/,'');
-      if(val) pairs.push([name,val]);
-    }
-    for(let i=0;i<st.length-1;i++){
-      const t=st[i],si=t.lastIndexOf('/');if(si<=0)continue;
-      const name=labelName(t.slice(si+1));if(!name)continue;
-      if(pairs.find(p=>p[0]===name))continue;
-      const nt=st[i+1],ns=nt.indexOf('/');
-      const val=(ns>0?nt.slice(0,ns):nt).replace(/:$/,'');
-      if(val)pairs.push([name,val]);
-    }
-  }
-  if(!pairs.length) return indent+'(raw: '+raw+')';
-  return pairs.map(([k,v])=>indent+k.padEnd(5)+': '+v).join('\n');
-}
-
-// ── TOAST ──
-function showToast(msg){
-  const t=document.getElementById('toast');
-  t.textContent=msg; t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2400);
-}
-
-// ── INJECT DEFAULT P/Ns (B787 pre-fill) ──
-function injectDefaults(type){
-  const LOCS = LOCS_MAP[type]||{};
-  const all  = Object.values(LOCS).flat();
-  all.forEach(loc=>{
-    if(!loc.cpn_default) return;
-    // Only pre-fill if field not already touched by user
-    const cpnKey = loc.id+'_cpn';
-    const gpnKey = loc.id+'_gpn';
-    if(!S[cpnKey]) S[cpnKey] = loc.cpn_default;
-    if(!S[gpnKey] && loc.ipn_default) S[gpnKey] = loc.ipn_default;
   });
+  if(!hasAny){showToast('No barcode data scanned yet');return;}
+  const blob=new Blob([lines.join('\n')],{type:'text/plain'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='Raw_Barcodes_'+acft+'_'+date+'.txt';
+  a.click();
+  showToast('✓ Raw barcode data exported');
 }
-
-// ── INIT ──
-load();
-if(!curType) showEmpty();
 </script>
 </body>
 </html>
