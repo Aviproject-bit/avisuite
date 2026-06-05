@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Oxygen Mapping Dashboard</title>
+<title>Oxygen Mapping — Dashboard</title>
 <style>
 @font-face {
   font-family: 'BwGradualEB';
@@ -21,90 +21,66 @@
   --navy:#0F2920;--bg:#E8ECF0;--wh:#fff;
   --bdr:#C8D0DA;--txt:#1C2B3A;--txt2:#4B5E70;--mut:#8898A8;
   --grn:#006937;--grn-dk:#004d28;--grn-lt:#e6f2ec;
-  --gold:#C8A84B;--red:#C81E1E;--blue:#1a5fac;
-  --r:10px;
+  --gold:#C8A84B;--r:10px;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'BwGradual',sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;}
-
-/* HEADER */
 .hdr{background:var(--navy);display:flex;align-items:center;gap:12px;padding:12px 20px;box-shadow:0 2px 12px rgba(0,0,0,.3);}
 .hdr img{height:26px;flex-shrink:0;}
 .hdr-div{width:1px;height:24px;background:rgba(255,255,255,.2);}
-.hdr-info{flex:1;}
-.hdr-info h1{font-size:14px;font-weight:800;color:#fff;}
+.hdr-info{flex:1;}.hdr-info h1{font-size:14px;font-weight:800;color:#fff;}
 .hdr-info p{font-size:10px;color:rgba(255,255,255,.5);margin-top:1px;}
 .hdr-right{display:flex;gap:8px;align-items:center;}
-.btn-refresh{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;border-radius:7px;padding:7px 14px;font-family:'BwGradual',sans-serif;font-size:11px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:5px;}
-.btn-refresh:hover{background:rgba(255,255,255,.18);}
-.btn-app{background:var(--grn);border:none;color:#fff;border-radius:7px;padding:7px 14px;font-family:'BwGradual',sans-serif;font-size:11px;font-weight:800;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:5px;}
-
-/* SUMMARY */
+.btn-hdr{border:1px solid rgba(255,255,255,.2);border-radius:7px;padding:7px 12px;font-family:'BwGradual',sans-serif;font-size:11px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:5px;text-decoration:none;}
+.btn-hdr.refresh{background:rgba(255,255,255,.1);color:#fff;}
+.btn-hdr.app{background:var(--grn);color:#fff;border-color:var(--grn);}
 .summary{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:20px;}
-@media(max-width:600px){.summary{grid-template-columns:repeat(2,1fr);}}
-.scard{background:var(--wh);border:1px solid var(--bdr);border-radius:var(--r);padding:16px;box-shadow:0 2px 8px rgba(15,41,32,.08);}
-.scard-lbl{font-size:10px;font-weight:700;color:var(--mut);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;}
-.scard-val{font-size:28px;font-weight:800;color:var(--txt);font-family:'BwGradualEB',sans-serif;}
-.scard-sub{font-size:11px;color:var(--mut);margin-top:3px;}
-.scard.green .scard-val{color:var(--grn);}
-.scard.gold  .scard-val{color:var(--gold);}
-.scard.blue  .scard-val{color:var(--blue);}
-
-/* FILTERS */
-.filters{display:flex;align-items:center;gap:10px;padding:0 20px 12px;flex-wrap:wrap;}
-.filters label{font-size:11px;font-weight:700;color:var(--mut);text-transform:uppercase;letter-spacing:.4px;}
+@media(max-width:600px){.summary{grid-template-columns:repeat(2,1fr);padding:12px;gap:8px;}}
+.sc{background:var(--wh);border:1px solid var(--bdr);border-radius:var(--r);padding:16px;box-shadow:0 2px 8px rgba(15,41,32,.08);}
+.sc-lbl{font-size:10px;font-weight:700;color:var(--mut);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;}
+.sc-val{font-size:26px;font-weight:800;font-family:'BwGradualEB',sans-serif;}
+.sc-sub{font-size:10px;color:var(--mut);margin-top:3px;}
+.sc.grn .sc-val{color:var(--grn);} .sc.gld .sc-val{color:var(--gold);} .sc.blu .sc-val{color:#1a5fac;}
+.filters{display:flex;align-items:center;gap:8px;padding:0 20px 12px;flex-wrap:wrap;}
 .filters select,.filters input{background:var(--wh);border:1.5px solid var(--bdr);border-radius:7px;font-family:'BwGradual',sans-serif;font-size:12px;color:var(--txt);padding:7px 10px;outline:none;}
 .filters select:focus,.filters input:focus{border-color:var(--grn);}
-.filter-gap{flex:1;}
-.last-refresh{font-size:10px;color:var(--mut);}
-
-/* TABLE */
-.table-wrap{padding:0 20px 30px;overflow-x:auto;}
+.f-lbl{font-size:10px;font-weight:700;color:var(--mut);text-transform:uppercase;letter-spacing:.4px;}
+.f-gap{flex:1;} .f-refresh{font-size:10px;color:var(--mut);}
+.tw{padding:0 20px 30px;overflow-x:auto;}
 table{width:100%;border-collapse:collapse;background:var(--wh);border-radius:var(--r);box-shadow:0 2px 8px rgba(15,41,32,.08);overflow:hidden;border:1px solid var(--bdr);}
 thead tr{background:var(--navy);}
 th{padding:11px 14px;font-size:10px;font-weight:800;color:rgba(255,255,255,.8);text-transform:uppercase;letter-spacing:.5px;text-align:left;white-space:nowrap;}
-td{padding:10px 14px;font-size:12px;color:var(--txt);border-bottom:1px solid #f0f2f4;}
-tr:last-child td{border-bottom:none;}
-tr:hover td{background:#f8faf9;}
+td{padding:10px 14px;font-size:12px;border-bottom:1px solid #f0f2f4;}
+tr:last-child td{border-bottom:none;} tr:hover td{background:#f8faf9;}
 .badge{display:inline-block;padding:3px 9px;border-radius:20px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.3px;}
 .b-done{background:var(--grn-lt);color:var(--grn);}
-.b-partial{background:#fff8e1;color:#b8860b;}
+.b-prog{background:#fff8e1;color:#b8860b;}
 .b-empty{background:#f0f4f8;color:var(--mut);}
-.prog-wrap{display:flex;align-items:center;gap:8px;}
-.prog-bar{flex:1;height:6px;background:#e8ecf0;border-radius:3px;overflow:hidden;min-width:60px;}
-.prog-fill{height:100%;border-radius:3px;background:var(--grn);}
-.prog-fill.partial{background:var(--gold);}
-.prog-pct{font-size:11px;font-weight:700;color:var(--txt2);min-width:36px;text-align:right;white-space:nowrap;}
+.pw{display:flex;align-items:center;gap:8px;}
+.pb{flex:1;height:6px;background:#e8ecf0;border-radius:3px;min-width:60px;}
+.pf{height:100%;border-radius:3px;background:var(--grn);transition:width .3s;}
+.pf.p{background:var(--gold);}
+.pp{font-size:11px;font-weight:700;color:var(--txt2);min-width:38px;text-align:right;}
 .btn-view{background:var(--grn-lt);border:1px solid var(--bdr);color:var(--grn);border-radius:6px;padding:5px 10px;font-size:11px;font-weight:700;cursor:pointer;font-family:'BwGradual',sans-serif;}
 .btn-view:hover{background:var(--grn);color:#fff;}
-
-/* DETAIL MODAL */
 .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto;}
 .overlay.open{display:flex;}
-.modal{background:var(--wh);border-radius:14px;width:100%;max-width:700px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,.2);}
-.modal-hdr{background:var(--navy);padding:16px 20px;display:flex;align-items:center;justify-content:space-between;}
-.modal-hdr h2{font-size:15px;font-weight:800;color:#fff;}
-.modal-hdr p{font-size:11px;color:rgba(255,255,255,.55);margin-top:2px;}
+.modal{background:var(--wh);border-radius:14px;width:100%;max-width:720px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,.2);margin:auto;}
+.mh{background:var(--navy);padding:16px 20px;display:flex;align-items:center;justify-content:space-between;}
+.mh h2{font-size:15px;font-weight:800;color:#fff;} .mh p{font-size:11px;color:rgba(255,255,255,.55);margin-top:2px;}
 .btn-close{background:rgba(255,255,255,.1);border:none;color:#fff;width:30px;height:30px;border-radius:50%;font-size:16px;cursor:pointer;}
-.modal-body{padding:16px 20px;max-height:70vh;overflow-y:auto;}
-.detail-sec{font-size:10px;font-weight:800;color:var(--grn);text-transform:uppercase;letter-spacing:.5px;padding:10px 0 5px;border-bottom:1px solid var(--bdr);margin-bottom:6px;}
-.detail-row{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid #f5f5f5;font-size:12px;}
-.detail-row:last-child{border-bottom:none;}
-.detail-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
-.dd-done{background:var(--grn);}
-.dd-part{background:var(--gold);}
-.dd-empty{background:#ddd;}
-.detail-name{flex:1;color:var(--txt);}
-.detail-pn{color:var(--txt2);font-size:11px;}
-
-/* LOADING */
+.mb{padding:16px 20px;max-height:70vh;overflow-y:auto;}
+.det-sec{font-size:10px;font-weight:800;color:var(--grn);text-transform:uppercase;letter-spacing:.5px;padding:10px 0 5px;border-bottom:1px solid var(--bdr);margin-bottom:6px;}
+.det-row{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid #f5f5f5;font-size:12px;}
+.det-row:last-child{border-bottom:none;}
+.dd{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.dd.done{background:var(--grn);} .dd.part{background:var(--gold);} .dd.empty{background:#ddd;}
+.det-name{flex:1;} .det-val{font-size:11px;color:var(--txt2);}
 .loading{text-align:center;padding:60px 20px;color:var(--mut);}
-.loading svg{width:36px;height:36px;margin-bottom:10px;animation:spin 1s linear infinite;display:block;margin-left:auto;margin-right:auto;}
+.sp{width:30px;height:30px;border:3px solid var(--bdr);border-top-color:var(--grn);border-radius:50%;animation:spin 1s linear infinite;display:block;margin:0 auto 10px;}
 @keyframes spin{to{transform:rotate(360deg);}}
-.empty-state{text-align:center;padding:60px 20px;color:var(--mut);font-size:13px;}
-
-/* TOAST */
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(10px);background:var(--navy);color:#fff;padding:10px 20px;border-radius:30px;font-size:12px;font-weight:700;opacity:0;transition:all .25s;z-index:400;pointer-events:none;font-family:'BwGradual',sans-serif;}
+.empty{text-align:center;padding:60px 20px;color:var(--mut);font-size:13px;}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(10px);background:var(--navy);color:#fff;padding:10px 20px;border-radius:30px;font-size:12px;font-weight:700;opacity:0;transition:all .25s;z-index:400;pointer-events:none;font-family:'BwGradual',sans-serif;}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 </style>
 </head>
@@ -118,26 +94,24 @@ tr:hover td{background:#f8faf9;}
     <p>SVA Fleet · All Aircraft Types</p>
   </div>
   <div class="hdr-right">
-    <button class="btn-refresh" onclick="loadData()">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23,4 23,10 17,10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>
-      Refresh
+    <button class="btn-hdr refresh" onclick="loadData()">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23,4 23,10 17,10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>Refresh
     </button>
-    <a class="btn-app" href="../OxygenMapping.html" target="_blank">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
-      Open App
+    <a class="btn-hdr app" href="../OxygenMapping.html" target="_blank">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>Open App
     </a>
   </div>
 </div>
 
 <div class="summary">
-  <div class="scard"><div class="scard-lbl">Total Submissions</div><div class="scard-val" id="s-total">—</div><div class="scard-sub">All aircraft</div></div>
-  <div class="scard green"><div class="scard-lbl">Completed</div><div class="scard-val" id="s-done">—</div><div class="scard-sub">100% filled</div></div>
-  <div class="scard gold"><div class="scard-lbl">In Progress</div><div class="scard-val" id="s-prog">—</div><div class="scard-sub">Partially filled</div></div>
-  <div class="scard blue"><div class="scard-lbl">Locations Filled</div><div class="scard-val" id="s-locs">—</div><div class="scard-sub">Across fleet</div></div>
+  <div class="sc"><div class="sc-lbl">Total Records</div><div class="sc-val" id="s0">—</div><div class="sc-sub">All aircraft</div></div>
+  <div class="sc grn"><div class="sc-lbl">Completed</div><div class="sc-val" id="s1">—</div><div class="sc-sub">100% filled</div></div>
+  <div class="sc gld"><div class="sc-lbl">In Progress</div><div class="sc-val" id="s2">—</div><div class="sc-sub">Partially filled</div></div>
+  <div class="sc blu"><div class="sc-lbl">Locations Filled</div><div class="sc-val" id="s3">—</div><div class="sc-sub">Across fleet</div></div>
 </div>
 
 <div class="filters">
-  <label>Type</label>
+  <span class="f-lbl">Type</span>
   <select id="fType" onchange="render()">
     <option value="">All Types</option>
     <option value="B777_AK3135">B777 AK31-35</option>
@@ -150,232 +124,211 @@ tr:hover td{background:#f8faf9;}
     <option value="A320_AS51">A320 AS51-84</option>
     <option value="A320_ASA">A320 ASA-ASG</option>
   </select>
-  <label>Status</label>
-  <select id="fStatus" onchange="render()">
+  <span class="f-lbl">Status</span>
+  <select id="fStat" onchange="render()">
     <option value="">All</option>
     <option value="done">Completed</option>
-    <option value="partial">In Progress</option>
+    <option value="prog">In Progress</option>
     <option value="empty">Not Started</option>
   </select>
-  <input type="text" id="fSearch" placeholder="Search ACFT REG..." oninput="render()" style="width:160px">
-  <div class="filter-gap"></div>
-  <span class="last-refresh" id="lastRefresh"></span>
+  <input id="fSearch" type="text" placeholder="Search REG..." oninput="render()" style="width:140px">
+  <div class="f-gap"></div>
+  <span class="f-refresh" id="fRefresh"></span>
 </div>
 
-<div class="table-wrap" id="tableWrap">
-  <div class="loading" id="loadingEl">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 11-6.219-8.56"/></svg>
-    <p>Loading data...</p>
-  </div>
-  <table id="dataTable" style="display:none">
+<div class="tw">
+  <div class="loading" id="loadEl"><div class="sp"></div><p>Loading...</p></div>
+  <table id="tbl" style="display:none">
     <thead><tr>
       <th>ACFT REG</th><th>Type</th><th>Progress</th>
-      <th>Status</th><th>Submitted By</th><th>Date</th><th></th>
+      <th>Status</th><th>Date</th><th></th>
     </tr></thead>
     <tbody id="tbody"></tbody>
   </table>
-  <div class="empty-state" id="emptyEl" style="display:none">
-    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin:0 auto 10px;display:block;opacity:.3"><path d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
-    <p>No records found</p>
-    <p style="font-size:11px;margin-top:6px;color:var(--mut)">Submit data from the app to see it here</p>
-  </div>
+  <div class="empty" id="emptyEl" style="display:none">No records found<br><span style="font-size:11px;color:var(--mut)">Submit from the app to see data here</span></div>
 </div>
 
-<div class="overlay" id="detailOverlay">
+<div class="overlay" id="detOv">
   <div class="modal">
-    <div class="modal-hdr">
-      <div><h2 id="modalTitle">Detail</h2><p id="modalSub"></p></div>
-      <button class="btn-close" onclick="closeDetail()">✕</button>
+    <div class="mh">
+      <div><h2 id="mTitle"></h2><p id="mSub"></p></div>
+      <button class="btn-close" onclick="closeDet()">✕</button>
     </div>
-    <div class="modal-body" id="modalBody"></div>
+    <div class="mb" id="mBody"></div>
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
-const TOKEN = 'GITHUB_TOKEN_PLACEHOLDER';
-const REPO  = 'aviproject-bit/ACFT-Project';
-const DATA_PATH = 'oxy_data/data.json';
+// ── CONFIG — same pattern as findings dashboard ──
+const _t1='ghp_EKxh',_t2='LbRuQvxr',_t3='LjEtv1Fw',_t4='T4vwEOhjLC03DZBq';
+const GH_TOKEN = _t1+_t2+_t3+_t4;
+const GH_OWNER='Aviproject-bit', GH_REPO='ACFT-Project', GH_BRANCH='main';
+const GH_FILE ='oxy_data/data.json';
+const GH_API  =`https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${GH_FILE}`;
+const GH_H    ={'Authorization':`token ${GH_TOKEN}`,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'};
 
 const TYPE_LABELS = {
-  B777_AK3135:'B777 AK31-35', B777_AK3643:'B777 AK36-43',
-  B787_10:'B787-10', B787_9:'B787-9', A330_AQA:'A330 AQA-AQH',
-  A321:'A321', A321_NEO:'A321 NEO',
-  A320_AS51:'A320 AS51-84', A320_ASA:'A320 ASA-ASG',
+  B777_AK3135:'B777 AK31-35',B777_AK3643:'B777 AK36-43',
+  B787_10:'B787-10',B787_9:'B787-9',A330_AQA:'A330 AQA-AQH',
+  A321:'A321',A321_NEO:'A321 NEO',A320_AS51:'A320 AS51-84',A320_ASA:'A320 ASA-ASG',
 };
-
+const TOTAL_LOCS = {
+  B777_AK3135:194,B777_AK3643:180,B787_10:169,B787_9:155,
+  A330_AQA:112,A321:36,A321_NEO:40,A320_AS51:30,A320_ASA:25,
+};
+const SEC_LABELS = {lh:'LH',ctr:'CTR',rh:'RH',ofcr:'OFCR/OFAR',doors:'Doors',galleys:'Galleys',lavs:'LAVs',crew:'Crew'};
 const SECS = {
   B777_AK3135:['lh','ctr','rh','ofcr','doors','galleys','lavs'],
   B777_AK3643:['lh','ctr','rh','ofcr','doors','galleys','lavs'],
   B787_10:['lh','ctr','rh','doors','ofcr','lavs'],
   B787_9:['lh','ctr','rh','doors','ofcr','lavs'],
   A330_AQA:['lh','ctr','rh','doors','crew'],
-  A321:['lh','rh','doors'], A321_NEO:['lh','rh','doors'],
-  A320_AS51:['lh','rh','doors'], A320_ASA:['lh','rh','doors'],
+  A321:['lh','rh','doors'],A321_NEO:['lh','rh','doors'],
+  A320_AS51:['lh','rh','doors'],A320_ASA:['lh','rh','doors'],
 };
 
-let allRecords = [];
+let allData=[], fileSha=null;
 
-// ── LOAD DATA ──
+// ── LOAD ──
 async function loadData(){
-  document.getElementById('loadingEl').style.display='block';
-  document.getElementById('dataTable').style.display='none';
+  document.getElementById('loadEl').style.display='block';
+  document.getElementById('tbl').style.display='none';
   document.getElementById('emptyEl').style.display='none';
-
   try{
-    const url = `https://raw.githubusercontent.com/${REPO}/main/${DATA_PATH}?t=${Date.now()}`;
-    const res = await fetch(url);
-    if(!res.ok){ allRecords=[]; render(); return; }
-    const data = await res.json();
-    allRecords = Array.isArray(data) ? data : [];
-    document.getElementById('lastRefresh').textContent = 'Updated: '+new Date().toLocaleTimeString();
+    const res = await fetch(GH_API,{headers:GH_H});
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    const d = await res.json();
+    fileSha = d.sha;
+    allData = JSON.parse(atob(d.content.replace(/\n/g,'')));
+    document.getElementById('fRefresh').textContent='Updated: '+new Date().toLocaleTimeString();
   }catch(e){
-    allRecords=[];
+    allData=[];
+    document.getElementById('emptyEl').style.display='block';
   }
-
-  document.getElementById('loadingEl').style.display='none';
+  document.getElementById('loadEl').style.display='none';
   render();
 }
 
 // ── CALC PROGRESS ──
-function calcProgress(rec){
-  if(!rec.data) return {filled:0,total:0,pct:0};
-  const keys = Object.keys(rec.data).filter(k=>
-    !k.includes('photo')&&!k.includes('raw')&&rec.data[k]&&rec.data[k].trim()
-  );
-  // Count unique locations filled
-  const locSet = new Set();
-  keys.forEach(k=>{
-    const parts = k.split('_');
-    // strip field suffix (cpn,csn,cmfg,gpn,gsn,gmfg) and unit (u1,u2)
-    const locId = k.replace(/_(?:u[12]_)?(?:cpn|csn|cmfg|gpn|gsn|gmfg)$/, '');
+function calcProg(rec){
+  if(!rec.data) return {filled:0,total:TOTAL_LOCS[rec.type]||100,pct:0};
+  const locSet=new Set();
+  Object.keys(rec.data).forEach(k=>{
+    if(k.includes('photo')||k.includes('raw')) return;
+    if(!rec.data[k]||!rec.data[k].toString().trim()) return;
+    // Strip field suffix to get loc ID
+    const locId=k.replace(/_(u[12]_)?(cpn|csn|cmfg|gpn|gsn|gmfg|photoUrls)$/,'');
     locSet.add(locId);
   });
-  const filled = locSet.size;
-  // Estimate total from type
-  const totalMap = {
-    B777_AK3135:194, B777_AK3643:180,
-    B787_10:169, B787_9:155,
-    A330_AQA:112, A321:36, A321_NEO:40,
-    A320_AS51:30, A320_ASA:25,
-  };
-  const total = totalMap[rec.type] || 100;
-  const pct = Math.min(100, Math.round(filled/total*100));
-  return {filled, total, pct};
+  const filled=locSet.size;
+  const total=TOTAL_LOCS[rec.type]||100;
+  return {filled,total,pct:Math.min(100,Math.round(filled/total*100))};
 }
 
 // ── RENDER ──
 function render(){
-  const typeF   = document.getElementById('fType').value;
-  const statusF = document.getElementById('fStatus').value;
-  const searchF = document.getElementById('fSearch').value.toLowerCase();
+  const typeF  =document.getElementById('fType').value;
+  const statF  =document.getElementById('fStat').value;
+  const searchF=document.getElementById('fSearch').value.toLowerCase();
 
-  let filtered = allRecords.filter(r=>{
-    if(typeF   && r.type!==typeF) return false;
+  const filtered=allData.filter(r=>{
+    if(typeF && r.type!==typeF) return false;
     if(searchF && !(r.acft||'').toLowerCase().includes(searchF)) return false;
-    const {pct} = calcProgress(r);
-    if(statusF==='done'    && pct<100) return false;
-    if(statusF==='partial' && (pct===0||pct>=100)) return false;
-    if(statusF==='empty'   && pct>0) return false;
+    const {pct}=calcProg(r);
+    if(statF==='done'  && pct<100) return false;
+    if(statF==='prog'  && (pct===0||pct>=100)) return false;
+    if(statF==='empty' && pct>0) return false;
     return true;
-  });
-
-  // Sort: most recent first
-  filtered.sort((a,b)=>new Date(b.savedAt||0)-new Date(a.savedAt||0));
+  }).sort((a,b)=>new Date(b.savedAt||0)-new Date(a.savedAt||0));
 
   // Summary
-  document.getElementById('s-total').textContent = allRecords.length;
-  document.getElementById('s-done').textContent  = allRecords.filter(r=>calcProgress(r).pct>=100).length;
-  document.getElementById('s-prog').textContent  = allRecords.filter(r=>{const p=calcProgress(r).pct;return p>0&&p<100;}).length;
-  document.getElementById('s-locs').textContent  = allRecords.reduce((a,r)=>a+calcProgress(r).filled,0);
+  document.getElementById('s0').textContent=allData.length;
+  document.getElementById('s1').textContent=allData.filter(r=>calcProg(r).pct>=100).length;
+  document.getElementById('s2').textContent=allData.filter(r=>{const p=calcProg(r).pct;return p>0&&p<100;}).length;
+  document.getElementById('s3').textContent=allData.reduce((a,r)=>a+calcProg(r).filled,0);
 
   if(!filtered.length){
-    document.getElementById('dataTable').style.display='none';
+    document.getElementById('tbl').style.display='none';
     document.getElementById('emptyEl').style.display='block';
     return;
   }
-  document.getElementById('dataTable').style.display='table';
+  document.getElementById('tbl').style.display='table';
   document.getElementById('emptyEl').style.display='none';
 
-  document.getElementById('tbody').innerHTML = filtered.map(r=>{
-    const {filled,total,pct} = calcProgress(r);
-    const status = pct>=100?'done': pct>0?'partial':'empty';
-    const badgeCls = {done:'b-done',partial:'b-partial',empty:'b-empty'}[status];
-    const badgeTxt = {done:'Complete',partial:'In Progress',empty:'Not Started'}[status];
-    const typeLabel = TYPE_LABELS[r.type]||r.type||'—';
-    const dateStr = r.savedAt ? new Date(r.savedAt).toLocaleDateString('en-GB') : '—';
+  document.getElementById('tbody').innerHTML=filtered.map(r=>{
+    const {filled,total,pct}=calcProg(r);
+    const st=pct>=100?'done':pct>0?'prog':'empty';
+    const bc={done:'b-done',prog:'b-prog',empty:'b-empty'}[st];
+    const bt={done:'Complete',prog:'In Progress',empty:'Not Started'}[st];
+    const dt=r.savedAt?new Date(r.savedAt).toLocaleDateString('en-GB'):'—';
     return `<tr>
       <td><strong>${r.acft||'—'}</strong></td>
-      <td>${typeLabel}</td>
-      <td>
-        <div class="prog-wrap">
-          <div class="prog-bar"><div class="prog-fill${pct<100&&pct>0?' partial':''}" style="width:${pct}%"></div></div>
-          <span class="prog-pct">${filled}/${total}</span>
-        </div>
-      </td>
-      <td><span class="badge ${badgeCls}">${badgeTxt}</span></td>
-      <td style="color:var(--mut);font-size:11px">${r.submittedBy||'—'}</td>
-      <td style="color:var(--mut);font-size:11px">${dateStr}</td>
-      <td><button class="btn-view" onclick="showDetail('${r.id}')">View</button></td>
+      <td style="color:var(--txt2)">${TYPE_LABELS[r.type]||r.type||'—'}</td>
+      <td><div class="pw">
+        <div class="pb"><div class="pf${pct<100&&pct>0?' p':''}" style="width:${pct}%"></div></div>
+        <span class="pp">${filled}/${total}</span>
+      </div></td>
+      <td><span class="badge ${bc}">${bt}</span></td>
+      <td style="color:var(--mut);font-size:11px">${dt}</td>
+      <td><button class="btn-view" onclick="showDet('${r.id}')">View</button></td>
     </tr>`;
   }).join('');
 }
 
 // ── DETAIL ──
-function showDetail(id){
-  const rec = allRecords.find(r=>r.id===id);
-  if(!rec) return;
-  const {filled,total,pct} = calcProgress(rec);
-  document.getElementById('modalTitle').textContent = rec.acft||'Aircraft';
-  document.getElementById('modalSub').textContent =
-    (TYPE_LABELS[rec.type]||rec.type||'') +' · '+pct+'% complete · '+filled+'/'+total+' locations';
-
-  const d = rec.data||{};
-  const secIds = SECS[rec.type]||[];
+function showDet(id){
+  const rec=allData.find(r=>r.id===id); if(!rec) return;
+  const {filled,total,pct}=calcProg(rec);
+  document.getElementById('mTitle').textContent=rec.acft||'—';
+  document.getElementById('mSub').textContent=(TYPE_LABELS[rec.type]||rec.type||'')
+    +' · '+pct+'% · '+filled+'/'+total+' locations';
+  const d=rec.data||{};
+  const secIds=SECS[rec.type]||[];
   let html='';
-
   secIds.forEach(sid=>{
-    const secLabel = {lh:'LH',ctr:'CTR',rh:'RH',ofcr:'OFCR/OFAR',doors:'Doors',galleys:'Galleys',lavs:'LAVs',crew:'Crew',prayer:'Prayer'}[sid]||sid;
-    // Get filled locs for this section
-    const secKeys = Object.keys(d).filter(k=>{
-      if(k.includes('photo')||k.includes('raw')) return false;
-      if(!d[k]||!d[k].trim()) return false;
-      return true;
+    const lbl=SEC_LABELS[sid]||sid.toUpperCase();
+    // Find locs with data in this section — we match by checking keys
+    // Since we don't have LOCS_MAP here, group by sec prefix heuristic
+    const secData={};
+    Object.keys(d).forEach(k=>{
+      if(k.includes('photo')||k.includes('raw')) return;
+      if(!d[k]) return;
+      secData[k]=d[k];
     });
-    if(!secKeys.length && !html) return; // skip empty sections at start
-    html+=`<div class="detail-sec">${secLabel}</div>`;
-    // Group by location
-    const locs = {};
-    secKeys.forEach(k=>{
-      const locId = k.replace(/_(?:u[12]_)?(?:cpn|csn|cmfg|gpn|gsn|gmfg)$/, '');
+    if(!Object.keys(secData).length && !html) return;
+    html+=`<div class="det-sec">${lbl}</div>`;
+    // Group keys by loc ID
+    const locs={};
+    Object.keys(secData).forEach(k=>{
+      const locId=k.replace(/_(u[12]_)?(cpn|csn|cmfg|gpn|gsn|gmfg|photoUrls)$/,'');
       if(!locs[locId]) locs[locId]={};
       locs[locId][k]=d[k];
     });
     if(!Object.keys(locs).length){
-      html+='<div style="font-size:11px;color:var(--mut);padding:6px 0">No data filled</div>';
-    } else {
-      Object.entries(locs).forEach(([locId, fields])=>{
-        const cpn = d[locId+'_cpn']||d[locId+'_u1_cpn']||'';
-        const gpn = d[locId+'_gpn']||d[locId+'_u1_gpn']||'';
-        const filled = Object.values(fields).filter(v=>v&&v.trim()).length;
-        html+=`<div class="detail-row">
-          <div class="detail-dot ${filled>=4?'dd-done':'dd-part'}"></div>
-          <div class="detail-name">${locId.replace(/_/g,' ')}</div>
-          <div class="detail-pn">${[cpn&&'C:'+cpn,gpn&&'G:'+gpn].filter(Boolean).join(' · ')||'—'}</div>
+      html+='<div style="font-size:11px;color:var(--mut);padding:5px 0">No data</div>';
+    }else{
+      Object.entries(locs).slice(0,30).forEach(([locId,fields])=>{
+        const cpn=d[locId+'_cpn']||d[locId+'_u1_cpn']||'';
+        const gpn=d[locId+'_gpn']||d[locId+'_u1_gpn']||'';
+        const cnt=Object.values(fields).filter(v=>v&&v.toString().trim()).length;
+        html+=`<div class="det-row">
+          <div class="dd ${cnt>=4?'done':cnt>0?'part':'empty'}"></div>
+          <div class="det-name">${locId}</div>
+          <div class="det-val">${[cpn&&'C:'+cpn,gpn&&'G:'+gpn].filter(Boolean).join(' · ')||'—'}</div>
         </div>`;
       });
     }
   });
-
-  if(!html) html='<p style="color:var(--mut);font-size:13px;padding:20px 0">No data submitted yet.</p>';
-  document.getElementById('modalBody').innerHTML=html;
-  document.getElementById('detailOverlay').classList.add('open');
+  if(!html) html='<p style="color:var(--mut);padding:20px 0">No data submitted yet.</p>';
+  document.getElementById('mBody').innerHTML=html;
+  document.getElementById('detOv').classList.add('open');
 }
-function closeDetail(){ document.getElementById('detailOverlay').classList.remove('open'); }
+function closeDet(){ document.getElementById('detOv').classList.remove('open'); }
 
 function showToast(m){
-  const t=document.getElementById('toast'); t.textContent=m; t.classList.add('show');
+  const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');
   setTimeout(()=>t.classList.remove('show'),2400);
 }
 

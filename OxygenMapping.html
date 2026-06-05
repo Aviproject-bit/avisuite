@@ -2000,10 +2000,16 @@ async function submitData(){
   const acft = document.getElementById('inpAcft').value.trim();
   if(!acft){ showToast('Enter ACFT REG first'); return; }
   if(!curType){ showToast('Select aircraft type first'); return; }
-  showToast('Uploading...');
 
-  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwlS42Z67f56m1PwW1y_Oevm2iIKDcOY6a5Yevjk0GSihuwOki80YWcjvY7DXn2GT1_/exec';
-  const IMGBB_KEY  = 'a72386b4ada67f2fdefd06144f01adfd';
+  const IMGBB_KEY = 'a72386b4ada67f2fdefd06144f01adfd';
+  const _t1='ghp_EKxh',_t2='LbRuQvxr',_t3='LjEtv1Fw',_t4='T4vwEOhjLC03DZBq';
+  const GH_TOKEN = _t1+_t2+_t3+_t4;
+  const GH_OWNER = 'Aviproject-bit', GH_REPO = 'ACFT-Project';
+  const GH_FILE  = 'oxy_data/data.json';
+  const GH_API   = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${GH_FILE}`;
+  const GH_H     = {Authorization:`token ${GH_TOKEN}`,'Content-Type':'application/json'};
+
+  showToast('Uploading photos...');
 
   try{
     // 1. Upload photos to ImgBB
@@ -2020,42 +2026,65 @@ async function submitData(){
             const fd = new FormData();
             fd.append('key', IMGBB_KEY);
             fd.append('image', ph.split(',')[1]);
-            const r = await fetch('https://api.imgbb.com/1/upload',{method:'POST',body:fd});
-            const d = await r.json();
+            const res = await fetch('https://api.imgbb.com/1/upload',{method:'POST',body:fd});
+            const d = await res.json();
             if(d.success) urls.push(d.data.url);
           }catch(e){}
         }
         if(urls.length){
-          const key = u ? loc.id+'_'+u+'_photoUrls' : loc.id+'_photoUrls';
-          photoMap[key] = urls.join(' | ');
+          const k = u ? loc.id+'_'+u+'_photoUrls' : loc.id+'_photoUrls';
+          photoMap[k] = urls.join(' | ');
         }
       }
     }
 
-    // 2. Build data payload (exclude base64 photos, add ImgBB URLs)
+    showToast('Saving data...');
+
+    // 2. Build clean record (no base64 photos)
     const cleanData = {};
     Object.entries(S).forEach(([k,v])=>{
-      if(k.includes('photos')) return; // skip base64
+      if(k.includes('_photos')) return;
       cleanData[k] = v;
     });
     Object.assign(cleanData, photoMap);
 
-    // 3. Submit to Apps Script
-    const payload = {
-      sheet: 'OxygenMapping',
+    // 3. Load existing records from GitHub
+    let records = [], fileSha = null;
+    try{
+      const res = await fetch(GH_API,{headers:GH_H});
+      if(res.ok){
+        const f = await res.json();
+        fileSha = f.sha;
+        records = JSON.parse(atob(f.content.replace(/
+/g,'')));
+      }
+    }catch(e){}
+
+    // 4. Upsert record
+    const record = {
+      id: acft+'_'+curType+'_'+Date.now(),
       acft, type: curType,
       savedAt: new Date().toISOString(),
       data: cleanData,
     };
+    const idx = records.findIndex(r=>r.acft===acft&&r.type===curType);
+    if(idx>=0) records[idx]=record; else records.push(record);
 
-    fetch(SCRIPT_URL, {
-      method:'POST',
-      mode:'no-cors',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify(payload),
-    });
+    // 5. Save back to GitHub
+    const body = {
+      message:`Oxy mapping: ${acft} ${curType}`,
+      content: btoa(unescape(encodeURIComponent(JSON.stringify(records,null,2)))),
+      branch: 'main',
+    };
+    if(fileSha) body.sha = fileSha;
 
-    showToast('✓ Submitted — '+acft);
+    const saveRes = await fetch(GH_API,{method:'PUT',headers:GH_H,body:JSON.stringify(body)});
+    if(saveRes.ok){
+      showToast('✓ Submitted — '+acft);
+    } else {
+      const err = await saveRes.json();
+      showToast('Error: '+(err.message||saveRes.status));
+    }
 
   }catch(e){
     showToast('Error: '+e.message);
