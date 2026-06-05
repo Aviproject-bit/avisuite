@@ -2094,6 +2094,16 @@ async function submitData(){
   }
 }
 
+function resetData(){
+  const acft = document.getElementById('inpAcft').value||'this aircraft';
+  if(!confirm('Reset all data for ' + acft + '?\n\nThis will clear all P/N, S/N, MFG Date and photos.\nThis cannot be undone.')) return;
+  S = {};
+  try{ localStorage.removeItem('oxy_s'); }catch(e){}
+  renderContent();
+  updateProg();
+  showToast('\u2713 Data reset');
+}
+
 function showToast(msg){
   const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show');
   setTimeout(()=>t.classList.remove('show'),2400);
