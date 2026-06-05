@@ -418,6 +418,10 @@ const LOCS_B777 = {
     {id:'R68_CTR',name:'ROW 68 CTR',tag:'ctr',dual:true},{id:'R69_CTR',name:'ROW 69 CTR',tag:'ctr',dual:true},
     {id:'R70_CTR',name:'ROW 70 CTR',tag:'ctr',dual:true},{id:'R71_CTR',name:'ROW 71 CTR',tag:'ctr',dual:true},
     {id:'R72_CTR',name:'ROW 72 CTR',tag:'ctr',dual:true},{id:'R73_CTR',name:'ROW 73 CTR',tag:'ctr',dual:true},
+    // Prayer Area
+    {id:'PRAY1',name:'Prayer Area #1',tag:'oth',dual:true},
+    {id:'PRAY2',name:'Prayer Area #2',tag:'oth',dual:true},
+    {id:'PRAY3',name:'Prayer Area #3',tag:'oth',dual:true},
   ],
   ofcr:[
     {id:'OFCR_LH_SEAT',name:'OFCR LH SEAT',tag:'oth'},{id:'OFCR_RH_SEAT',name:'OFCR RH SEAT',tag:'oth'},
@@ -427,11 +431,7 @@ const LOCS_B777 = {
     {id:'OFAR_BNK5',name:'OFAR BUNK 5',tag:'oth'},{id:'OFAR_BNK6',name:'OFAR BUNK 6',tag:'oth'},
     {id:'OFAR_BNK7',name:'OFAR BUNK 7',tag:'oth'},{id:'OFAR_BNK8',name:'OFAR BUNK 8',tag:'oth'},
   ],
-  prayer:[
-    {id:'PRAY1',name:'Prayer Room #1',tag:'oth',dual:true},
-    {id:'PRAY2',name:'Prayer Room #2',tag:'oth',dual:true},
-    {id:'PRAY3',name:'Prayer Room #3',tag:'oth',dual:true},
-  ],
+  prayer:[],
   doors:[
     {id:'D1L',name:'1L DOOR',tag:'oth'},{id:'D1R',name:'1R DOOR',tag:'oth'},
     {id:'D2L',name:'2L DOOR',tag:'oth'},{id:'D2R',name:'2R DOOR',tag:'oth'},
@@ -450,7 +450,7 @@ const LOCS_B777 = {
     {id:'GAL_A3',name:'AFT Galley MID/AFT',tag:'oth',note:'X-2150, BL0'},
   ],
   crew:[
-    {id:'CR_1F1C',name:'1F-1C',tag:'oth'},{id:'CR_1F2L',name:'1F-2L',tag:'oth'},
+    {id:'CR_1F1C',name:'1F-1C',tag:'oth',note:'LAV'},{id:'CR_1F2L',name:'1F-2L',tag:'oth'},
     {id:'CR_2A1L',name:'2A-1L',tag:'oth'},{id:'CR_2A1R',name:'2A-1R',tag:'oth'},
     {id:'CR_3F1L',name:'3F-1L',tag:'oth'},{id:'CR_3FLC',name:'3F-LC',tag:'oth'},
     {id:'CR_3FRC',name:'3F-RC',tag:'oth'},{id:'CR_4F1L',name:'4F-1L',tag:'oth'},
@@ -608,11 +608,7 @@ const LOCS_B777_AK36 = {
     {id:'AK36_OFAR_BNK7',name:'OFAR BUNK 7',tag:'oth'},
     {id:'AK36_OFAR_BNK8',name:'OFAR BUNK 8',tag:'oth'},
   ],
-  prayer:[
-    {id:'AK36_PRAY1',name:'Prayer Room #1',tag:'oth',dual:true},
-    {id:'AK36_PRAY2',name:'Prayer Room #2',tag:'oth',dual:true},
-    {id:'AK36_PRAY3',name:'Prayer Room #3',tag:'oth',dual:true},
-  ],
+  prayer:[],
   doors:[
     {id:'AK36_D1L',name:'1L DOOR',tag:'oth'},{id:'AK36_D1R',name:'1R DOOR',tag:'oth'},
     {id:'AK36_D2L',name:'2L DOOR',tag:'oth'},{id:'AK36_D2R',name:'2R DOOR',tag:'oth'},
@@ -630,7 +626,7 @@ const LOCS_B777_AK36 = {
     {id:'AK36_GAL_A2',name:'AFT Galley FWD/RH',tag:'oth',note:'X-2037, R30'},
     {id:'AK36_GAL_A3',name:'AFT Galley MID/AFT',tag:'oth',note:'X-2150, BL0'},
   ],
-  crew:[
+  lavs:[
     {id:'AK36_CR_1F1C',name:'1F-1C',tag:'oth'},{id:'AK36_CR_2F1L',name:'2F-1L',tag:'oth'},
     {id:'AK36_CR_2F1R',name:'2F-1R',tag:'oth'},{id:'AK36_CR_2A1L',name:'2A-1L',tag:'oth'},
     {id:'AK36_CR_2A1R',name:'2A-1R',tag:'oth'},{id:'AK36_CR_3FLC', name:'3F-LC', tag:'oth'},
@@ -750,6 +746,10 @@ const LOCS_B787_10 = {
     mk787('B10_R64_CTR','ROW 64 CTR','ctr',PN_787_CYL_STD),
     mk787('B10_R65_CTR','ROW 65 CTR','ctr',PN_787_CYL_STD),
     mk787('B10_R66_CTR','ROW 66 CTR','ctr',PN_787_CYL_STD),
+    // Prayer Area
+    mk787('B10_PR1','Prayer Area (X-1652)','oth',PN_787_CYL_STD),
+    mk787('B10_PR2','Prayer Area (X-1682)','oth',PN_787_CYL_STD),
+    mk787('B10_PR3','Prayer Area (X-1706)','oth',PN_787_CYL_STD),
   ],
   rh:[
     mk787('B10_STA395_RH_BAS','STA 395 RH BASSINET','bas',PN_787_CYL_BAS,'BASSINET'),
@@ -811,8 +811,10 @@ const LOCS_B787_10 = {
     mk787('B10_DR4LH_AFT','DR 4 LH AFT','oth',PN_787_CYL_CTR),
     mk787('B10_DR4RH_FWD','DR 4 RH FWD','oth',PN_787_CYL_CTR),
     mk787('B10_DR4RH_AFT','DR 4 RH AFT','oth',PN_787_CYL_CTR),
+    mk787('B10_STA1769','CTR ATTN SEAT','oth',PN_787_CYL_CTR),
+    mk787('B10_G4A1C','G4A-1C','oth',PN_787_CYL_SPEC),
   ],
-  crew:[
+  lavs:[
     mk787('B10_L1F1L','L1F-1L','oth',PN_787_CYL_BAS),
     mk787('B10_L1A1R','L1A-1R','oth',PN_787_CYL_BAS),
     mk787('B10_L2A1L','L2A-1L','oth',PN_787_CYL_BAS),
@@ -834,15 +836,8 @@ const LOCS_B787_10 = {
     mk787('B10_OFAR_BNK4','OFAR BUNK 4','oth',PN_787_CYL_CTR),
     mk787('B10_OFAR_BNK5','OFAR BUNK 5','oth',PN_787_CYL_CTR),
     mk787('B10_OFAR_BNK6','OFAR BUNK 6','oth',PN_787_CYL_CTR),
-    mk787('B10_STA678','STA 678 CROSS AISLE','oth',PN_787_CYL_SPEC),
   ],
-  prayer:[
-    mk787('B10_PR1','PR (X-1652, BL0)','oth',PN_787_CYL_STD),
-    mk787('B10_PR2','PR (X-1682, BL0)','oth',PN_787_CYL_STD),
-    mk787('B10_PR3','PR (X-1706, BL0)','oth',PN_787_CYL_STD),
-    mk787('B10_STA1769','STA 1769 CTR ATTN SEAT','oth',PN_787_CYL_CTR),
-    mk787('B10_G4A1C','G4A-1C','oth',PN_787_CYL_SPEC,null,false),
-  ],
+  prayer:[],
 };
 
 // ══════════════════════════════════════════════════════════
@@ -926,6 +921,10 @@ const LOCS_B787_9 = {
     mk787('B9_R57_CTR','ROW 57 CTR','ctr',PN_787_CYL_STD),
     mk787('B9_R58_CTR','ROW 58 CTR','ctr',PN_787_CYL_CTR2),
     mk787('B9_R59_CTR','ROW 59 CTR','ctr',PN_787_CYL_STD),
+    // Prayer Area
+    mk787('B9_PR_STA1653','Prayer Area STA 1653','oth',PN_787_CYL_STD),
+    mk787('B9_PR_STA1677','Prayer Area STA 1677','oth',PN_787_CYL_STD),
+    mk787('B9_PR_STA1707','Prayer Area STA 1707','oth',PN_787_CYL_STD),
   ],
   rh:[
     mk787('B9_RH_BAS','RH BASSINET','bas',PN_787_CYL_BAS,'BASSINET'),
@@ -972,7 +971,6 @@ const LOCS_B787_9 = {
     mk787('B9_DR1RH_AFT','DR 1 RH AFT','oth',PN_787_CYL_SPEC),
     mk787('B9_DR2LH_AFT','DR 2 LH AFT','oth',PN_787_CYL_CTR),
     mk787('B9_DR2LH_FWD','DR 2 LH FWD','oth',PN_787_CYL_CTR),
-    mk787('B9_XAISLE','CROSS AISLE','oth',PN_787_CYL_SPEC,null,false,{note:'X-635, BL0, Z-289'}),
     mk787('B9_DR2RH_AFT','DR 2 RH AFT','oth',PN_787_CYL_CTR),
     mk787('B9_DR2RH_FWD','DR 2 RH FWD','oth',PN_787_CYL_CTR),
     mk787('B9_DR3LH_FWD','DR 3 LH FWD','oth',PN_787_CYL_CTR),
@@ -981,8 +979,11 @@ const LOCS_B787_9 = {
     mk787('B9_DR4LH_FWD','DR 4 LH FWD','oth',PN_787_CYL_CTR),
     mk787('B9_DR4RH_AFT','DR 4 RH AFT','oth',PN_787_CYL_CTR),
     mk787('B9_DR4RH_FWD','DR 4 RH FWD','oth',PN_787_CYL_CTR),
+    mk787('B9_XAISLE','Cross Aisle (X-635)','oth',PN_787_CYL_SPEC),
+    mk787('B9_CTR_ATTN','CTR ATTN SEAT','oth',PN_787_CYL_CTR),
+    mk787('B9_G4A1C','G4A-1C','oth',PN_787_CYL_SPEC),
   ],
-  crew:[
+  lavs:[
     mk787('B9_L1F1L','L1F-1L','oth',PN_787_CYL_BAS),
     mk787('B9_L2F1L','L2F-1L','oth',PN_787_CYL_BAS),
     mk787('B9_L2F1R','L2F-1R','oth',PN_787_CYL_BAS),
@@ -1004,13 +1005,7 @@ const LOCS_B787_9 = {
     mk787('B9_OFAR_BNK5','OFAR BUNK 5','oth',PN_787_CYL_CTR),
     mk787('B9_OFAR_BNK6','OFAR BUNK 6','oth',PN_787_CYL_CTR),
   ],
-  prayer:[
-    mk787('B9_PR_STA1653','Prayer Room STA 1653 CTR','oth',PN_787_CYL_STD),
-    mk787('B9_PR_STA1677','Prayer Room STA 1677 CTR','oth',PN_787_CYL_STD),
-    mk787('B9_PR_STA1707','Prayer Room STA 1707 CTR','oth',PN_787_CYL_STD),
-    mk787('B9_CTR_ATTN','CTR ATTN SEAT','oth',PN_787_CYL_CTR),
-    mk787('B9_G4A1C','G4A-1C','oth',PN_787_CYL_SPEC),
-  ],
+  prayer:[],
 };
 
 // ══════════════════════════════════════════════════════════
@@ -1394,17 +1389,21 @@ Object.keys(LOCS_MAP).forEach(k=>{
 // SECTIONS PER TYPE
 // ══════════════════════════════════════════════
 const SECS = {
-  B777_AK3135: ['lh','ctr','rh','ofcr','prayer','doors','galleys','crew'],
-  B777_AK3643: ['lh','ctr','rh','ofcr','prayer','doors','galleys','crew'],
-  B787_10:     ['lh','ctr','rh','doors','crew','ofcr','prayer'],
-  B787_9:      ['lh','ctr','rh','doors','crew','ofcr','prayer'],
-  A330_AQA:    ['lh','ctr','rh','doors','prayer','crew'],
+  B777_AK3135: ['lh','ctr','rh','ofcr','doors','galleys','lavs'],
+  B777_AK3643: ['lh','ctr','rh','ofcr','doors','galleys','lavs'],
+  B787_10:     ['lh','ctr','rh','doors','ofcr','lavs'],
+  B787_9:      ['lh','ctr','rh','doors','ofcr','lavs'],
+  A330_AQA:    ['lh','ctr','rh','doors','crew'],
   A321:        ['lh','rh','doors'],
   A321_NEO:    ['lh','rh','doors'],
   A320_AS51:   ['lh','rh','doors'],
   A320_ASA:    ['lh','rh','doors'],
 };
-const SEC_LABELS = {lh:'LH',ctr:'CTR',rh:'RH',ofcr:'OFCR/OFAR',prayer:'Prayer',doors:'Doors',galleys:'Galleys',crew:'Crew'};
+const SEC_LABELS = {
+  lh:'LH', ctr:'CTR', rh:'RH',
+  ofcr:'OFCR/OFAR', doors:'Doors', galleys:'Galleys',
+  lavs:'LAVs', crew:'Crew',
+};
 
 const ACFT_PH = {
   B777_AK3135:'HZ-AK31',B777_AK3643:'HZ-AK36',
