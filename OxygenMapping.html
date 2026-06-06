@@ -1908,7 +1908,7 @@ function exportPDF(){
         if(u) nm+=' '+(u==='u1'?'#1':'#2');
         if(loc.fin) nm=`<span style="color:#666;font-size:8pt">${loc.fin}</span> `+nm;
         const td=s=>`<td style="border:1px solid #C8D0DA;padding:4px 7px;font-size:9pt">${s}</td>`;
-        rows+=`<tr>${td(nm)}${td(gv(loc.id,'cpn',u))}${td(gv(loc.id,'csn',u))}${td(gv(loc.id,'cmfg',u))}${td(gv(loc.id,'gpn',u))}${td(gv(loc.id,'gsn',u))}${td(gv(loc.id,'gmfg',u))}</tr>`;
+        rows+=`<tr>${td(nm)}${td(gv(loc.id,'cpn',u))}${td(gv(loc.id,'csn',u))}${td(fmtMfg(gv(loc.id,'cmfg',u)))}${td(gv(loc.id,'gpn',u))}${td(gv(loc.id,'gsn',u))}${td(fmtMfg(gv(loc.id,'gmfg',u)))}</tr>`;
       });
     });
   });
@@ -1945,7 +1945,7 @@ function exportWord(){
       units.forEach(u=>{
         let nm=(loc.fin?loc.fin+' ':'')+loc.name+(loc.sub?' [BASSINET]':'')+(u?' '+(u==='u1'?'#1':'#2'):'');
         const td=s=>`<td style="border:1px solid #C8D0DA;padding:5px 7px;font-size:9pt">${s}</td>`;
-        rows+=`<tr>${td(nm)}${td(gv(loc.id,'cpn',u))}${td(gv(loc.id,'csn',u))}${td(gv(loc.id,'cmfg',u))}${td(gv(loc.id,'gpn',u))}${td(gv(loc.id,'gsn',u))}${td(gv(loc.id,'gmfg',u))}</tr>`;
+        rows+=`<tr>${td(nm)}${td(gv(loc.id,'cpn',u))}${td(gv(loc.id,'csn',u))}${td(fmtMfg(gv(loc.id,'cmfg',u)))}${td(gv(loc.id,'gpn',u))}${td(gv(loc.id,'gsn',u))}${td(fmtMfg(gv(loc.id,'gmfg',u)))}</tr>`;
       });
     });
   });
