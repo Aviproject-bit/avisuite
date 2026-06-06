@@ -3,7 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23006937'/%3E%3Cpath d='M16 6l2 8h6l-5 4 2 8-5-4-5 4 2-8-5-4h6z' fill='white'/%3E%3C/svg%3E">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Oxy Mapping">
+<meta name="theme-color" content="#0F2920">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='40' fill='%23006937'/%3E%3Ctext x='90' y='125' font-size='100' text-anchor='middle' fill='white'%3E✈%3C/text%3E%3C/svg%3E">
 <title>Oxygen Mapping — Saudia Technic</title>
 <style>
 @font-face {
@@ -2139,6 +2145,10 @@ document.addEventListener('DOMContentLoaded', function(){
   }
   setTimeout(fixTabs, 100);
   window.addEventListener('resize', fixTabs);
+
+  // Set status bar color
+  document.querySelector('meta[name="theme-color"]') && 
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#0F2920');
 
   try{
     const s=localStorage.getItem('oxy_s'); if(s) S=JSON.parse(s);
