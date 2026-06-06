@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23006937'/%3E%3Cpath d='M16 6l2 8h6l-5 4 2 8-5-4-5 4 2-8-5-4h6z' fill='white'/%3E%3C/svg%3E">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-<title>Oxygen Mapping</title>
+<title>Oxygen Mapping — Saudia Technic</title>
 <style>
 @font-face {
   font-family: 'BwGradualEB';
@@ -2096,12 +2097,27 @@ async function submitData(){
 
 function resetData(){
   const acft = document.getElementById('inpAcft').value||'this aircraft';
-  if(!confirm('Reset all data for ' + acft + '?\n\nThis will clear all P/N, S/N, MFG Date and photos.\nThis cannot be undone.')) return;
-  S = {};
-  try{ localStorage.removeItem('oxy_s'); }catch(e){}
+  if(!confirm('Reset all data for ' + acft + '?\n\nThis will clear all S/N, MFG Date and photos.\nDefault P/N values will be kept.\nThis cannot be undone.')) return;
+  // Keep only default P/N keys (cpn/gpn that came from injectDefaults)
+  const newS = {};
+  Object.keys(S).forEach(k => {
+    // Keep default P/Ns — only cpn and gpn, not csn/cmfg/gsn/gmfg/photos/raw
+    if((k.endsWith('_cpn')||k.endsWith('_gpn')) && S[k]) {
+      newS[k] = S[k];
+    }
+  });
+  S = newS;
+  try{ localStorage.setItem('oxy_s', JSON.stringify(S)); }catch(e){}
   renderContent();
   updateProg();
   showToast('\u2713 Data reset');
+}
+
+function fmtMfg(v){
+  if(!v) return '';
+  // Convert YYYY-MM → MM/YYYY
+  const m = v.match(/^(\d{4})-(\d{2})$/);
+  return m ? m[2]+'/'+m[1] : v;
 }
 
 function showToast(msg){
