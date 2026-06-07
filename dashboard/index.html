@@ -629,8 +629,9 @@ function closeDelModal(){
 }
 
 function confirmDelete(){
+  const fn = _delFn;
   closeDelModal();
-  if(_delFn) _delFn();
+  if(fn) fn();
 }
 
 function delRow(idx){
