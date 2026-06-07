@@ -108,6 +108,11 @@ body{font-family:'BwGradual',sans-serif;background:var(--bg);color:var(--txt);pa
 }
 .field input:focus{border-color:var(--grn);}
 .field input::placeholder{color:#bbb;font-size:12px;}
+.field input[type=month]{
+  -webkit-appearance:none;appearance:none;
+  height:44px;padding:10px 12px;line-height:22px;
+  color:var(--txt);background:var(--wh);min-height:44px;
+}
 .field input[type=month]{color:var(--txt);}
 .fw{display:flex;gap:6px;}
 .fw input{flex:1;}
