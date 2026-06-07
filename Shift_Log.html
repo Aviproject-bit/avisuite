@@ -2,7 +2,7 @@
 <html lang="en" spellcheck="true">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,viewport-fit=cover">
 <title>SAUDIA TECHNIC – SHIFT TURNOVER LOG</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -156,8 +156,9 @@ input[type=checkbox]:checked+.tog::after{left:21px;}
 .t-type[data-v="NOTE"] {background:var(--purp-l); border-color:var(--purp-b); color:var(--purp);}
 .t-type[data-v="OTHER"] {background:var(--gray-l); border-color:var(--gray-b); color:var(--text2);}
 .t-type[data-v="STATUS"]{background:#EFF6FF;border-color:#93C5FD;color:#1D4ED8;}
-.t-desc{background:var(--white);border:1px solid var(--border);border-radius:5px;color:var(--text);font-weight:400;font-size:14px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Tahoma,sans-serif;padding:8px 11px;outline:none;width:100%;text-transform:none;line-height:1.6;min-height:38px;box-sizing:border-box;transition:border-color .15s,box-shadow .15s;}
+.t-desc{background:var(--white);border:1px solid var(--border);border-radius:5px;color:var(--text);font-weight:500;font-size:13px;font-family:'BwGradual',sans-serif;padding:8px 11px;outline:none;width:100%;text-transform:uppercase;line-height:1.6;min-height:38px;box-sizing:border-box;transition:border-color .15s,box-shadow .15s;resize:none;overflow:hidden;}
 .t-desc:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(26,86,219,.1);}
+.t-desc::placeholder{color:var(--muted);font-weight:400;text-transform:none;}
 .t-desc:empty::before{content:attr(data-ph);color:var(--muted);font-weight:400;text-transform:none;pointer-events:none;}
 /* left border only on desc - no background */
 .task-row[data-type="C/W"]   .t-desc{border-left:3px solid var(--green-b);}
@@ -1178,7 +1179,11 @@ input[type=checkbox]:checked+.tog::after{left:21px;}
 .crit-bd-open{
   animation:crit-open .2s ease;
 }
-</style>
+
+
+@media(max-width:768px){
+  .fmt-bar{ display:none !important; }
+}</style>
 </head>
 <body>
 
@@ -1248,7 +1253,7 @@ input[type=checkbox]:checked+.tog::after{left:21px;}
           </div>
           <div class="fg">
             <label>SUPERVISOR NAME(S)</label>
-            <div class="supv-tags-wrap" onclick="document.getElementById('supv-tag-in').focus()">
+            <div class="supv-tags-wrap" onclick="document.getElementById('supv-tag-in').focus({preventScroll:true})">
               <input id="supv-tag-in" class="supv-tag-in" type="text" placeholder="TYPE + ENTER"
                 onkeydown="handleSupvKey(event)" spellcheck="true"
                 oninput="this.style.width=Math.max(80,this.value.length*9)+'px'">
@@ -1348,7 +1353,7 @@ input[type=checkbox]:checked+.tog::after{left:21px;}
           onfocus="window._activeDesc=this"
           onpaste="handlePaste(event)"
           oninput=""
-          onblur="forceHighlight(this);if(window.innerWidth<=768)enforceUppercase(this);"
+          onblur="forceHighlight(this);"
           oncompositionstart="this._composing=true"
           oncompositionend="this._composing=false"
           style="min-height:80px;font-size:12px;"></div>
@@ -1713,7 +1718,7 @@ function addAcft(reg=''){
       </div>
     </div>
     <div class="acft-body" id="${id}-body" onclick="event.stopPropagation()">
-      <div class="fmt-bar" id="${id}-fmtbar" style="margin-bottom:8px;padding:6px 0 4px;border-bottom:1px solid var(--border);display:flex;align-items:center;flex-wrap:wrap;gap:3px;">
+      <div class="fmt-bar" id="${id}-fmtbar" onclick="event.stopPropagation()" style="margin-bottom:8px;padding:6px 0 4px;border-bottom:1px solid var(--border);display:flex;align-items:center;flex-wrap:wrap;gap:3px;">
         <span style="font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--muted);margin-right:4px;text-transform:uppercase;">FORMAT:</span>
         <button class="fmt-btn" title="BOLD (Ctrl+B)" onmousedown="event.preventDefault()" onclick="fmtCmd('bold',this)"><b>B</b></button>
         <button class="fmt-btn" title="UNDERLINE (Ctrl+U)" onmousedown="event.preventDefault()" onclick="fmtCmd('underline',this)"><u>U</u></button>
@@ -1737,8 +1742,8 @@ function addAcft(reg=''){
         <button class="fmt-btn" title="HIGHLIGHT ORANGE" onmousedown="event.preventDefault()" onclick="fmtHighlight('#FED7AA')" style="background:#FED7AA;color:#9A3412;">■</button>
         <button class="fmt-btn" title="REMOVE HIGHLIGHT" onmousedown="event.preventDefault()" onclick="fmtHighlight('transparent')" style="font-size:9px;letter-spacing:0;color:var(--muted);">H✕</button>
       </div>
-      <div id="${id}-tasks"></div>
-      <div class="task-controls">
+      <div id="${id}-tasks" onclick="event.stopPropagation()"></div>
+      <div class="task-controls" onclick="event.stopPropagation()">
         <button class="task-add-btn" onclick="addTask('${id}','STATUS')" style="border-color:#93C5FD;color:#1D4ED8;" onmouseover="this.style.background='#EFF6FF'" onmouseout="this.style.background='none'">+ STATUS</button>
         <button class="task-add-btn cw"   onclick="addTask('${id}','C/W')">+ C/W</button>
         <button class="task-add-btn todo" onclick="addTask('${id}','TO DO')">+ TO DO</button>
@@ -1754,7 +1759,6 @@ function addAcft(reg=''){
   if(reg==='' && !window._restoringEntry){
     div.classList.add('acft-block-new');
     div.addEventListener('animationend',()=>div.classList.remove('acft-block-new'),{once:true});
-    setTimeout(()=>div.scrollIntoView({behavior:'smooth',block:'nearest'}),50);
   }
 }
 
@@ -1789,7 +1793,7 @@ function toggleAcft(id,e){
 /* ══ TASKS ════════════════════════════════════════════ */
 const TYPE_COLOR_MAP = {'C/W':'cw','TO DO':'todo','F/UP':'fup','I/W':'iw','NOTE':'note','OTHER':'other'};
 
-function addTask(acftId, type='C/W', text=''){
+function addTask(acftId, type='C/W', text='', noFocus=false){
   const list = document.getElementById(acftId+'-tasks');
   if(!list){ console.warn('addTask: no tasks container for',acftId); return; }
   const row  = document.createElement('div'); row.className='task-row'; row.dataset.type=type; row.addEventListener('click',e=>e.stopPropagation());
@@ -1800,13 +1804,11 @@ function addTask(acftId, type='C/W', text=''){
     <select class="t-type" data-v="${type}" onchange="updateTaskType(this)">
       ${opts}
     </select>
-    <div class="t-desc" contenteditable="true" spellcheck="true" data-ph="DESCRIPTION..."
-      onkeydown="handleDescKey(event,this)"
-      autocapitalize="characters" autocorrect="off" spellcheck="false"
-      onfocus="setActiveFmtBar(this)"
-      oninput=""
-      onblur="forceHighlight(this);if(window.innerWidth<=768)enforceUppercase(this);"
-      onpaste="handlePaste(event)">${text}</div>
+    <textarea class="t-desc" placeholder="DESCRIPTION..."
+      spellcheck="false" autocorrect="off" autocomplete="off" autocapitalize="characters"
+      onfocus="if(!window._restoringEntry)setActiveFmtBar(this)"
+      oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px';"
+      onkeydown="handleDescKey(event,this)">${text}</textarea>
     <div class="t-rows-ctrl">
       <button class="t-rows-btn" title="EXPAND" onclick="adjDescHeight(this,40)">▲</button>
       <button class="t-rows-btn" title="SHRINK"  onclick="adjDescHeight(this,-40)">▼</button>
@@ -1817,7 +1819,6 @@ function addTask(acftId, type='C/W', text=''){
   if(!text){
     row.classList.add('task-row-new');
     row.addEventListener('animationend',()=>row.classList.remove('task-row-new'),{once:true});
-    setTimeout(()=>row.scrollIntoView({behavior:'smooth',block:'nearest'}),30);
   }
   // Fix mobile keyboard autocomplete: track IME composition state
   const desc = row.querySelector('.t-desc');
@@ -1828,18 +1829,26 @@ function addTask(acftId, type='C/W', text=''){
 }
 
 function setActiveFmtBar(descEl){
-  // Track which desc is focused for formatting
+  if(window._restoringEntry) return;
   window._activeDesc = descEl;
+  // Update fmt-bar visibility
+  const acftBody = descEl?.closest?.('.acft-body');
+  if(!acftBody) return;
+  document.querySelectorAll('.acft-body .fmt-bar').forEach(fb=>{
+    fb.style.display = 'none';
+  });
+  const fmtBar = acftBody.querySelector('.fmt-bar');
+  if(fmtBar) fmtBar.style.display = 'flex';
 }
 
 function fmtCmd(cmd, btn){
   // Re-focus the active desc before executing command
-  if(window._activeDesc) window._activeDesc.focus();
+  if(window._activeDesc) window._activeDesc.focus({preventScroll:true});
   document.execCommand(cmd, false, null);
 }
 
 function fmtUpper(){
-  if(window._activeDesc) window._activeDesc.focus();
+  if(window._activeDesc) window._activeDesc.focus({preventScroll:true});
   const sel = window.getSelection();
   if(!sel.rangeCount) return;
   const range = sel.getRangeAt(0);
@@ -1851,12 +1860,12 @@ function fmtUpper(){
 }
 
 function fmtHighlight(color){
-  if(window._activeDesc) window._activeDesc.focus();
+  if(window._activeDesc) window._activeDesc.focus({preventScroll:true});
   document.execCommand('hiliteColor', false, color||'#FEF08A');
 }
 
 function fmtFontSize(delta){
-  if(window._activeDesc) window._activeDesc.focus();
+  if(window._activeDesc) window._activeDesc.focus({preventScroll:true});
   const SIZES=[8,9,10,11,12,13,14,15,16,18,20,22,24,26,28,32,36,40,48];
   const sel=window.getSelection();
   let curSize=14;
@@ -2062,7 +2071,7 @@ function supvAutocomplete(inp){
       ev.preventDefault();
       list.remove();
       addSupvTag(name);
-      inp.value=''; inp.style.width='80px'; inp.focus();
+      inp.value=''; inp.style.width='80px'; inp.focus({preventScroll:true});
     };
     list.appendChild(item);
   });
@@ -2161,7 +2170,7 @@ function toggleCrit(key){
     bd.classList.add('crit-bd-open');
     bd.addEventListener('animationend',()=>bd.classList.remove('crit-bd-open'),{once:true});
     if(tog) tog.textContent = '▾ COLLAPSE';
-    setTimeout(()=>bd.scrollIntoView({behavior:'smooth',block:'nearest'}),50);
+
   }
 }
 
@@ -2260,12 +2269,12 @@ function openMergeModal(){
     </div>
   </div>`;
   document.body.appendChild(modal);
-  setTimeout(()=>document.getElementById('merge-label-in')?.focus(),50);
+  setTimeout(()=>document.getElementById('merge-label-in')?.focus({preventScroll:true}),50);
 }
 
 function applyMerge(){
   const label=document.getElementById('merge-label-in')?.value?.trim()||'';
-  if(!label){ document.getElementById('merge-label-in')?.focus(); return; }
+  if(!label){ document.getElementById('merge-label-in')?.focus({preventScroll:true}); return; }
 
   const groups={};
   _selectedCells.forEach(key=>{
@@ -3249,7 +3258,7 @@ function openOrgSettings(){
     </div>
   </div>`;
   document.body.appendChild(modal);
-  setTimeout(()=>document.getElementById('dept-name-in')?.focus(),50);
+  setTimeout(()=>document.getElementById('dept-name-in')?.focus({preventScroll:true}),50);
 }
 function showTopbarMenu(btn){
   document.querySelectorAll('.export-menu').forEach(m=>m.remove());
@@ -4004,7 +4013,7 @@ function updateBulkToolbar(){
 
 
 function applyFontSizePx(px){
-  if(window._activeDesc) window._activeDesc.focus();
+  if(window._activeDesc) window._activeDesc.focus({preventScroll:true});
   const sel=window.getSelection();
   if(!sel||!sel.rangeCount) return;
   const range=sel.getRangeAt(0);
@@ -4072,8 +4081,7 @@ function restoreCursor(el, offset){
 }
 
 function applyKeywordHighlight(el){
-  if(!el) el=window._activeDesc;
-  if(!el) return;
+  if(!el) return;  // Never fallback to _activeDesc
   // CRITICAL: never run while element is focused — prevents stealing focus from other fields
   if(document.activeElement === el) return;
   const cursorPos = saveCursor(el);
@@ -4117,12 +4125,8 @@ function handleDescKey(e, el){
     if(acftBody){
       const acftId = acftBody.id.replace('-body','');
       addTask(acftId,'C/W');
-    } else {
-      // Tab in list = indent
-      document.execCommand('indent', false, null);
     }
   }
-  if(e.key==='Tab' && e.shiftKey){ e.preventDefault(); document.execCommand('outdent', false, null); }
   // Enter key: use <br> instead of <div> for cleaner line breaks
   // Only when NOT inside a list (lists handle Enter naturally)
   if(e.key==='Enter' && !e.shiftKey){
@@ -4142,15 +4146,15 @@ function handleDescKey(e, el){
 }
 
 function handlePaste(e){
-  e.preventDefault();
-  // Get plain text only - strip all formatting + HTML entities from clipboard
-  let text = (e.clipboardData || window.clipboardData).getData('text/plain');
-  // Clean HTML entities: &nbsp; → space, &amp; → &, etc.
-  text = text.replace(/&nbsp;/gi,' ').replace(/&amp;/gi,'&').replace(/&lt;/gi,'<').replace(/&gt;/gi,'>').replace(/&quot;/gi,'"');
-  // Remove non-printable characters except newline/tab
-  text = text.replace(/[^\x09\x0A\x0D\x20-\x7E -￿]/g,'').trim();
-  const upper = text.toUpperCase();
-  document.execCommand('insertText', false, upper);
+  // textarea handles paste natively — just ensure uppercase
+  setTimeout(()=>{
+    const el = e.target;
+    if(el && el.tagName==='TEXTAREA'){
+      const start=el.selectionStart, end=el.selectionEnd;
+      el.value=el.value.toUpperCase();
+      el.selectionStart=start; el.selectionEnd=end;
+    }
+  }, 0);
 }
 
 function descChanged(el){
@@ -4159,9 +4163,12 @@ function descChanged(el){
 }
 
 function adjDescHeight(btn, delta){
-  const desc = btn.closest('.task-row').querySelector('.t-desc');
-  const cur = parseInt(desc.style.minHeight)||34;
-  desc.style.minHeight = Math.max(34, cur+delta)+'px';
+  const desc=btn.closest('.task-row').querySelector('.t-desc');
+  if(!desc) return;
+  const cur=parseInt(desc.style.minHeight)||38;
+  desc.style.minHeight=Math.max(38,cur+delta)+'px';
+  desc.style.height='auto';
+  desc.style.height=desc.scrollHeight+'px';
 }
 
 function getDescText(desc){
@@ -4182,13 +4189,13 @@ function addCustomTask(acftId){
   }
   if(!inp){ showToast('INPUT NOT FOUND'); return; }
   const val=inp.value.trim().toUpperCase();
-  if(!val){ inp.focus(); return; }
+  if(!val){ inp.focus({preventScroll:true}); return; }
   // Verify the tasks container exists
   const tasksEl=document.getElementById(acftId+'-tasks');
   if(!tasksEl){ showToast('TASKS AREA NOT FOUND'); return; }
   addTask(acftId,val);
   inp.value='';
-  inp.focus();
+  inp.focus({preventScroll:true});
 }
 
 function updateTaskType(sel){
@@ -4237,11 +4244,7 @@ async function _shareOrDownload(blob, filename, title){
 
 // Apply keyword highlight on blur — deferred with setTimeout to let focus fully move first
 function forceHighlight(el){
-  if(!el||el._composing) return;
-  // setTimeout(0) ensures focus has fully moved to the next element before DOM manipulation
-  setTimeout(()=>{
-    if(document.activeElement !== el) applyKeywordHighlight(el);
-  }, 0);
+  // textarea doesn't need keyword highlighting
 }
 
 // Force uppercase text in contenteditable (mobile only — preserves HTML tags/formatting)
@@ -4394,8 +4397,8 @@ function collectAcft(){
     const reg=b.querySelector('.acft-reg-in')?.value.trim()||'';
     const tasks=[...b.querySelectorAll('.task-row')].map(r=>{
       const descEl=r.querySelector('.t-desc');
-      const text=(descEl?.innerText||descEl?.textContent||'').trim();
-      const html=descEl?.innerHTML||'';
+      const text=(descEl?.value||'').trim();
+      const html=descEl?.value||'';
       return {type:r.querySelector('.t-type')?.value||'', text, html};
     }).filter(t=>t.text);
     return {reg,tasks};
@@ -4510,7 +4513,7 @@ function mhKeyNav(e,inp){
     var all=[...document.querySelectorAll('#mp-grid .mp-mh')].filter(function(x){
       return x.closest('.mp-mh-wrap')&&x.closest('.mp-mh-wrap').style.display!=='none';
     });
-    var i=all.indexOf(inp); if(i>-1&&i<all.length-1){all[i+1].focus();all[i+1].select();}
+    var i=all.indexOf(inp); if(i>-1&&i<all.length-1){all[i+1].focus({preventScroll:true});all[i+1].select();}
   }
 }
 function fillForwardMhr(btn){
@@ -5892,7 +5895,7 @@ function handleCellClick(e, el){
     // Focus but don't cycle
     if(_selCell) _selCell.style.outline = _selCell.classList.contains('cell-selected') ? '2px solid #6366F1' : '';
     _selCell = el;
-    el.focus();
+    el.focus({preventScroll:true});
     return;
   }
   // Normal click: clear selection, select this cell, show popup
@@ -5900,7 +5903,7 @@ function handleCellClick(e, el){
   if(_selCell && _selCell !== el) _selCell.style.outline = '';
   _selCell = el;
   el.style.outline = '2px solid var(--accent)';
-  el.focus();
+  el.focus({preventScroll:true});
   // If cell is already N, open note editor directly
   if(el.dataset.code === 'N'){
     openNoteEditor(el);
@@ -6022,7 +6025,7 @@ function moveCell(el, dir){
   const cells=[...row.querySelectorAll('.rm-day-cell')];
   const i=cells.indexOf(el);
   const next=cells[i+dir];
-  if(next){ if(_selCell) _selCell.style.outline=''; _selCell=next; next.style.outline='2px solid var(--accent)'; next.focus(); }
+  if(next){ if(_selCell) _selCell.style.outline=''; _selCell=next; next.style.outline='2px solid var(--accent)'; next.focus({preventScroll:true}); }
 }
 
 function moveCellRow(el, dir){
@@ -6034,7 +6037,7 @@ function moveCellRow(el, dir){
   if(targetRow){
     const cells=[...targetRow.querySelectorAll('.rm-day-cell')];
     const next=cells[di];
-    if(next){ if(_selCell) _selCell.style.outline=''; _selCell=next; next.style.outline='2px solid var(--accent)'; next.focus(); }
+    if(next){ if(_selCell) _selCell.style.outline=''; _selCell=next; next.style.outline='2px solid var(--accent)'; next.focus({preventScroll:true}); }
   }
 }
 
@@ -6944,7 +6947,7 @@ function openNoteEditor(el){
     </div>
   </div>`;
   document.body.appendChild(modal);
-  setTimeout(()=>document.getElementById('note-text')?.focus(), 100);
+  setTimeout(()=>document.getElementById('note-text')?.focus({preventScroll:true}), 100);
 }
 
 function saveNote(crew, idx, day){
@@ -7221,15 +7224,15 @@ function toggleGenNotes(){
 function gnFmt(cmd){
   const el = document.getElementById('gen-notes-desc');
   if(!el) return;
-  el.focus();
+  el.focus({preventScroll:true});
   // Small delay to ensure focus is set
   setTimeout(()=>{
     document.execCommand('styleWithCSS', false, true);
     document.execCommand(cmd, false, null);
-    el.focus();
+    el.focus({preventScroll:true});
   }, 10);
 }
-function gnHighlight(c){ document.getElementById('gen-notes-desc').focus(); document.execCommand('hiliteColor',false,c); }
+function gnHighlight(c){ document.getElementById('gen-notes-desc').focus({preventScroll:true}); document.execCommand('hiliteColor',false,c); }
 
 /* ══ RESET ════════════════════════════════════════════ */
 function confirmReset(){
@@ -8109,7 +8112,7 @@ function openAddCrew(){
     </div>
   </div>`;
   document.body.appendChild(modal);
-  setTimeout(()=>document.getElementById('ac-name')?.focus(),100);
+  setTimeout(()=>document.getElementById('ac-name')?.focus({preventScroll:true}),100);
 }
 
 function confirmAddCrewInline(){
@@ -9475,13 +9478,13 @@ function createBackup(){
 function critFmt(id, cmd){
   const el = document.getElementById(id);
   if(!el) return;
-  el.focus();
+  el.focus({preventScroll:true});
   setTimeout(()=>{
     document.execCommand('styleWithCSS', false, true);
     document.execCommand(cmd, false, null);
-    el.focus();
+    el.focus({preventScroll:true});
   }, 10);
-  el.focus();
+  el.focus({preventScroll:true});
 }
 
 function deleteBackup(idx){
@@ -10117,7 +10120,7 @@ function openAddSkillModal(){
     </div>
   </div>`;
   document.body.appendChild(modal);
-  setTimeout(()=>document.getElementById('sk-name')?.focus(),100);
+  setTimeout(()=>document.getElementById('sk-name')?.focus({preventScroll:true}),100);
 }
 
 function confirmAddSkill(){
@@ -10660,7 +10663,7 @@ function _saveDraft(){
         reg:a.querySelector('.acft-reg-in')?.value||'',
         tasks:[...a.querySelectorAll('.task-row')].map(r=>({
           type:r.querySelector('.t-type')?.value||'',
-          html:r.querySelector('.t-desc')?.innerHTML||''
+          html:r.querySelector('.t-desc')?.value||''
         }))
       })),
       genNotes:document.getElementById('gen-notes-desc')?.innerHTML||'',
@@ -10696,6 +10699,7 @@ function _restoreDraft(){
     }
     // Aircraft
     if(d.aircraft?.length){
+      window._restoringEntry=true;
       const wrap=document.getElementById('acft-wrap'); if(!wrap) return;
       wrap.innerHTML=''; addAddAcftBtn();
       d.aircraft.forEach(a=>{
@@ -10709,15 +10713,21 @@ function _restoreDraft(){
         if(a.tasks?.length){
           a.tasks.forEach(t=>{
             if(!t.type&&!t.html) return;
-            addTask(last.id, t.type||'STATUS', '');
+            addTask(last.id, t.type||'STATUS', '', true);
             const rows=last.querySelectorAll('.task-row');
             const lastRow=rows[rows.length-1];
-            if(lastRow&&t.html){ const desc=lastRow.querySelector('.t-desc'); if(desc) desc.innerHTML=t.html; }
+            if(lastRow&&t.html){ const desc=lastRow.querySelector('.t-desc');
+            if(desc){
+              desc.value=t.html||'';
+              setTimeout(()=>{desc.style.height='auto';desc.style.height=desc.scrollHeight+'px';},0);
+            }
+          }
           });
         } else {
-          addTask(last.id,'STATUS','');
+          addTask(last.id,'STATUS','',true);
         }
       });
+      window._restoringEntry=false;
     }
     // Notes + checks
     const gnEl=document.getElementById('gen-notes-desc'); if(gnEl&&d.genNotes) gnEl.innerHTML=d.genNotes;
