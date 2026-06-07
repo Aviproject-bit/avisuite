@@ -238,13 +238,9 @@ const CATEGORIES = [
 const FLOW_URL = 'https://script.google.com/macros/s/AKfycbwlS42Z67f56m1PwW1y_Oevm2iIKDcOY6a5Yevjk0GSihuwOki80YWcjvY7DXn2GT1_/exec';
 
 // GitHub Dashboard sync
-const _g1='ghp_EKxhLb',_g2='RuQvxrLjEt',_g3='v1FwT4vwEO',_g4='hjLC03DZBq';
-const GH_TOKEN  = _g1+_g2+_g3+_g4;
-const GH_OWNER  = 'Aviproject-bit';
-const GH_REPO   = 'ACFT-Project';
-const GH_FILE   = 'dashboard/findings.json';
+const GH_API_PROXY='https://acft-proxy.aviproject.workers.dev';
 const GH_BRANCH = 'main';
-const GH_API    = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${GH_FILE}`;
+const GH_API    = GH_API_PROXY+'?path=dashboard/findings.json';
 const GH_HEADS  = {'Authorization':`token ${GH_TOKEN}`,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'};
 
 let findings = [];
