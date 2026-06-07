@@ -1767,7 +1767,11 @@ function addAddAcftBtn(){
 }
 
 function toggleAcft(id,e){
+  // Only respond to click/mousedown, not keyboard events
+  if(e.type==='keydown'||e.type==='keyup'||e.type==='keypress') return;
   if(e.target.closest('.acft-del')||e.target.closest('.acft-reg-in')) return;
+  // Don't toggle if click came from inside acft-body
+  if(e.target.closest('.acft-body')) return;
   const body=document.getElementById(id+'-body');
   const hdr=document.querySelector('#'+id+' .acft-hdr');
   const isHidden=body.classList.contains('hidden');
