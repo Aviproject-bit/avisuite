@@ -2024,12 +2024,9 @@ async function submitData(){
   if(!curType){ showToast('Select aircraft type first'); return; }
 
   const IMGBB_KEY = 'a72386b4ada67f2fdefd06144f01adfd';
-  const _t1='ghp_EKxh',_t2='LbRuQvxr',_t3='LjEtv1Fw',_t4='T4vwEOhjLC03DZBq';
-  const GH_TOKEN = _t1+_t2+_t3+_t4;
-  const GH_OWNER = 'Aviproject-bit', GH_REPO = 'ACFT-Project';
-  const GH_FILE  = 'oxy_data/data.json';
-  const GH_API   = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${GH_FILE}`;
-  const GH_H     = {Authorization:`token ${GH_TOKEN}`,'Content-Type':'application/json'};
+  const PROXY_URL = 'https://acft-proxy.aviproject.workers.dev';
+  const GH_API   = PROXY_URL + '?path=oxy_data/data.json';
+  const GH_H     = {'Content-Type':'application/json'};
 
   showToast('Uploading photos...');
 

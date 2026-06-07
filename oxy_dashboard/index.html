@@ -189,12 +189,9 @@ body{font-family:'BwGradual',sans-serif;background:var(--bg);color:var(--txt);mi
 <div class="toast" id="toast"></div>
 
 <script>
-const _t1='ghp_EKxh',_t2='LbRuQvxr',_t3='LjEtv1Fw',_t4='T4vwEOhjLC03DZBq';
-const GH_TOKEN=_t1+_t2+_t3+_t4;
-const GH_OWNER='Aviproject-bit', GH_REPO='ACFT-Project';
-const GH_FILE='oxy_data/data.json';
-const GH_API=`https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${GH_FILE}`;
-const GH_H={'Authorization':`token ${GH_TOKEN}`,'Accept':'application/vnd.github.v3+json'};
+const PROXY_URL = 'https://acft-proxy.aviproject.workers.dev';
+const GH_API = PROXY_URL + '?path=oxy_data/data.json';
+const GH_H = {'Content-Type':'application/json'};
 
 const TYPE_LABELS={
   B777_AK3135:'B777 — AK31–AK35', B777_AK3643:'B777 — AK36–AK43',
