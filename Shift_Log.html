@@ -1792,7 +1792,7 @@ const TYPE_COLOR_MAP = {'C/W':'cw','TO DO':'todo','F/UP':'fup','I/W':'iw','NOTE'
 function addTask(acftId, type='C/W', text='', noFocus=false){
   const list = document.getElementById(acftId+'-tasks');
   if(!list){ console.warn('addTask: no tasks container for',acftId); return; }
-  const row  = document.createElement('div'); row.className='task-row'; row.dataset.type=type; row.addEventListener('click',e=>e.stopPropagation());
+  const row  = document.createElement('div'); row.className='task-row'; row.dataset.type=type;
   // Include custom type in options if not in standard list
   const allTypes = TASK_TYPES.includes(type) ? TASK_TYPES : [...TASK_TYPES, type];
   const opts = allTypes.map(t=>`<option value="${t}" ${t===type?'selected':''}>${t}</option>`).join('');
@@ -1800,11 +1800,9 @@ function addTask(acftId, type='C/W', text='', noFocus=false){
     <select class="t-type" data-v="${type}" onchange="updateTaskType(this)">
       ${opts}
     </select>
-    <textarea class="t-desc" placeholder="DESCRIPTION..."
-      spellcheck="false" autocorrect="off" autocomplete="off" autocapitalize="characters"
-      onfocus="if(!window._restoringEntry)setActiveFmtBar(this)"
-      oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px';"
-      onkeydown="handleDescKey(event,this)">${text}</textarea>
+    <div class="t-desc" contenteditable="true" spellcheck="true" data-ph="DESCRIPTION..."
+      onkeydown="handleDescKey(event,this)"
+      onfocus="if(!window._restoringEntry)setActiveFmtBar(this)" oninput="highlightKeywords(this)" onpaste="handlePaste(event)">${text}</div>
     <div class="t-rows-ctrl">
       <button class="t-rows-btn" title="EXPAND" onclick="adjDescHeight(this,40)">▲</button>
       <button class="t-rows-btn" title="SHRINK"  onclick="adjDescHeight(this,-40)">▼</button>
@@ -1812,15 +1810,14 @@ function addTask(acftId, type='C/W', text='', noFocus=false){
     <button class="t-del" onclick="this.closest('.task-row').remove()" title="DELETE">✕</button>`;
   list.appendChild(row);
   updateTaskType(row.querySelector('.t-type'));
-  if(!text){
+  if(!text && !noFocus){
     row.classList.add('task-row-new');
     row.addEventListener('animationend',()=>row.classList.remove('task-row-new'),{once:true});
   }
-  // Fix mobile keyboard autocomplete: track IME composition state
-  const desc = row.querySelector('.t-desc');
+  const desc=row.querySelector('.t-desc');
   if(desc){
-    desc.addEventListener('compositionstart', ()=>{ desc._composing=true; });
-    desc.addEventListener('compositionend',   ()=>{ desc._composing=false; }); // highlight on blur only
+    desc.addEventListener('compositionstart',()=>{desc._composing=true;});
+    desc.addEventListener('compositionend',()=>{desc._composing=false;});
   }
 }
 
@@ -5351,7 +5348,7 @@ async function exportImage(mode='normal'){
     });
     // Hide empty editable areas + hide their parent card if all empty
     cloneDoc.querySelectorAll('.t-desc').forEach(el=>{
-      if(!el.innerText.trim()) el.style.visibility='hidden';
+      if(!(el.textContent||el.innerText||'').trim()) el.style.visibility='hidden';
     });
     // Hide general notes card if empty
     const gnDesc = cloneDoc.getElementById('gen-notes-desc');
