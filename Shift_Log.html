@@ -1895,9 +1895,8 @@ function highlightKeywordsLater(el){
 }
 
 function highlightKeywords(el){
-  if(el._composing) return;
-  clearTimeout(el._hlTimer);
-  el._hlTimer = setTimeout(()=>applyKeywordHighlight(el), 120);
+  // Do NOT highlight during active typing — causes cursor/space issues
+  // Highlighting happens on blur via forceHighlight()
 }
 
 const KW_STYLES = {
