@@ -1,257 +1,197 @@
 [
   {
-    "id": "1780543654226y0pqv",
-    "timestamp": "2026-06-04T03:27:34.226Z",
-    "date": "04/06/2026",
-    "time": "06:27",
-    "aircraft": "HZ-AK35",
-    "reporter": "AHMED ALGHAMDI",
-    "findings": [
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "N/A               ",
-        "description": "ANC                                                         ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/kVkKXZdh/ec0bcd77ebce.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1780543806353m8sqr",
-    "timestamp": "2026-06-04T03:30:06.353Z",
-    "date": "04/06/2026",
-    "time": "06:30",
-    "aircraft": "HZ-AK35",
-    "reporter": "30001452",
-    "findings": [
-      {
-        "category": "GALLEY            ",
-        "subCategory": "G1                ",
-        "description": "...                                                         ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/1fkGSG2Y/21913600695c.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1780544053300i62oe",
-    "timestamp": "2026-06-04T03:34:13.300Z",
-    "date": "04/06/2026",
-    "time": "06:34",
-    "aircraft": "HZ-AK35",
-    "reporter": "AHMED",
-    "findings": [
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "N/A               ",
-        "description": "GG                                                          ",
-        "remarks": "GG                       ",
-        "photoUrl": ""
-      }
-    ]
-  },
-  {
-    "id": "1780545397362z7zdo",
-    "timestamp": "2026-06-04T03:56:37.362Z",
-    "date": "04/06/2026",
-    "time": "06:56",
-    "aircraft": "HZ-AK35",
-    "reporter": "30001451",
-    "findings": [
-      {
-        "category": "GALLEY            ",
-        "subCategory": "M5                ",
-        "description": "SLIDE EXT. INOP                                             ",
-        "remarks": "                         ",
-        "photoUrl": ""
-      }
-    ]
-  },
-  {
-    "id": "1780566150583owsyg",
-    "timestamp": "2026-06-04T09:42:30.583Z",
-    "date": "04/06/2026",
-    "time": "12:42",
-    "aircraft": "HZ-AK35",
-    "reporter": "NASSER",
-    "findings": [
-      {
-        "category": "PAX DOORS         ",
-        "subCategory": "L4                ",
-        "description": "AHMED                                                       ",
-        "remarks": "                         ",
-        "photoUrl": ""
-      }
-    ]
-  },
-  {
-    "id": "178058140916787snt",
-    "timestamp": "2026-06-04T13:56:49.167Z",
-    "date": "04/06/2026",
-    "time": "16:56",
-    "aircraft": "HZ-AK35",
-    "reporter": "AHMED AL SHARIF (SHEREEF)",
-    "findings": [
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "N/A               ",
-        "description": "DURING DCC FOUND FOD (SCREW) ON TIRE.                       ",
-        "remarks": "                         ",
-        "photoUrl": ""
-      }
-    ]
-  },
-  {
-    "id": "1780581523426h05bc",
-    "timestamp": "2026-06-04T13:58:43.426Z",
-    "date": "04/06/2026",
-    "time": "16:58",
-    "aircraft": "HZ-AK35",
-    "reporter": "AHMED AL SHARIF (SHEREEF)",
-    "findings": [
-      {
-        "category": "TEDLAR/SIDEWALL   ",
-        "subCategory": "N/A               ",
-        "description": "DURING DCC FOUND DENT ON SIDEWALL.                          ",
-        "remarks": "                         ",
-        "photoUrl": ""
-      }
-    ]
-  },
-  {
-    "id": "1780581589234r8uov",
-    "timestamp": "2026-06-04T13:59:49.234Z",
-    "date": "04/06/2026",
-    "time": "16:59",
-    "aircraft": "HZ-AK35",
-    "reporter": "AHMED ALSHARIF (SHEREEF)",
-    "findings": [
-      {
-        "category": "PAINT             ",
-        "subCategory": "N/A               ",
-        "description": "DURING DCC FOUND ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ·ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ³ FADED.                                 ",
-        "remarks": "                         ",
-        "photoUrl": ""
-      }
-    ]
-  },
-  {
-    "id": "17805819526033y14x",
-    "timestamp": "2026-06-04T14:05:52.603Z",
-    "date": "04/06/2026",
-    "time": "17:05",
-    "aircraft": "HZ-AK35",
-    "reporter": "AHMED ALSHARIF (SHEREEF)",
-    "findings": [
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "N/A               ",
-        "description": "PLEASE GIVE ME VACATION BOSS I WORK HARD                    ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/bMwNqchT/915ae246754e.jpg"
-      }
-    ]
-  },
-  {
-    "id": "17805820629637vyc3",
-    "timestamp": "2026-06-04T14:07:42.963Z",
-    "date": "04/06/2026",
-    "time": "17:07",
-    "aircraft": "HZ-AK35",
-    "reporter": "AHMED AL SHARIF (SHEREEF)",
-    "findings": [
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "N/A               ",
-        "description": "DURING DCC FOUND CABIN DIRTY.                               ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/mr7P23r6/c8825c17947c.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1780582144870m77ok",
-    "timestamp": "2026-06-04T14:09:04.870Z",
-    "date": "04/06/2026",
-    "time": "17:09",
-    "aircraft": "HZ-AK35",
-    "reporter": "AHMED AL SHARIF (SHEREEF)",
-    "findings": [
-      {
-        "category": "LAVATORY          ",
-        "subCategory": "N/A               ",
-        "description": "PLEEEEASE BOSS I NEEEED THIS.                               ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/BVZjn5D4/3ba3ae9458d5.jpg"
-      }
-    ]
-  },
-  {
-    "id": "17805828420838usrt",
-    "timestamp": "2026-06-04T14:20:42.083Z",
-    "date": "04/06/2026",
-    "time": "17:20",
-    "aircraft": "HZ-AK35",
-    "reporter": "AHMED AL SHARIF (SHEREEF)",
-    "findings": [
-      {
-        "category": "FLIGHT DECK       ",
-        "subCategory": "N/A               ",
-        "description": "DURING DCC FOUND CHECK ENGINE LIGHT ON.                     ",
-        "remarks": "WHY????                  ",
-        "photoUrl": "https://i.ibb.co/8gvYDmG5/ff6655c46f6c.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1780632840573ziyoz",
-    "timestamp": "2026-06-05T04:14:00.573Z",
-    "date": "05/06/2026",
-    "time": "07:13",
-    "aircraft": "HZ-AK35",
-    "reporter": "30001461",
-    "findings": [
-      {
-        "category": "GALLEY            ",
-        "subCategory": "AFT GALLEY        ",
-        "description": "SEALANT MISSING                                             ",
-        "remarks": "RTV157                   ",
-        "photoUrl": "https://i.ibb.co/MkgRwJyB/25dd76ac48ff.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1780645287163s0l69",
-    "timestamp": "2026-06-05T07:41:27.163Z",
-    "date": "05/06/2026",
-    "time": "10:41",
-    "aircraft": "HZ-AK35",
-    "reporter": "FADUL ETC..",
-    "findings": [
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "SUCTION FAN       ",
-        "description": "DURING DCC & CCC FAN FOUND FILTHY AND MUDDY                 ",
-        "remarks": "ACTION IS A MUST.        ",
-        "photoUrl": "https://i.ibb.co/bgTRHLsD/185db89d653c.jpg"
-      }
-    ]
-  },
-  {
-    "id": "17808392280764xx0j",
+    "_id": "17808392280764xx0j",
     "timestamp": "2026-06-07T13:33:48.076Z",
     "date": "07/06/2026",
     "time": "16:33",
     "aircraft": "HZ-AK35",
     "reporter": "AHMED ALGHAMDI",
-    "findings": [
-      {
-        "category": "PAX DOORS         ",
-        "subCategory": "N/A               ",
-        "description": "A                                                           ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/XfTjrwyC/ec0f71fca81e.jpg"
-      }
-    ]
+    "category": "PAX DOORS",
+    "subCategory": "N/A",
+    "description": "Aa",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/XfTjrwyC/ec0f71fca81e.jpg"
+  },
+  {
+    "_id": "1780645287163s0l69",
+    "timestamp": "2026-06-05T07:41:27.163Z",
+    "date": "05/06/2026",
+    "time": "10:41",
+    "aircraft": "HZ-AK35",
+    "reporter": "FADUL ETC..",
+    "category": "GENERAL CABIN",
+    "subCategory": "SUCTION FAN",
+    "description": "DURING DCC & CCC FAN FOUND FILTHY AND MUDDY",
+    "remarks": "ACTION IS A MUST.",
+    "photoUrl": "https://i.ibb.co/bgTRHLsD/185db89d653c.jpg"
+  },
+  {
+    "_id": "1780632840573ziyoz",
+    "timestamp": "2026-06-05T04:14:00.573Z",
+    "date": "05/06/2026",
+    "time": "07:13",
+    "aircraft": "HZ-AK35",
+    "reporter": "30001461",
+    "category": "GALLEY",
+    "subCategory": "AFT GALLEY",
+    "description": "SEALANT MISSING",
+    "remarks": "RTV157",
+    "photoUrl": "https://i.ibb.co/MkgRwJyB/25dd76ac48ff.jpg"
+  },
+  {
+    "_id": "17805828420838usrt",
+    "timestamp": "2026-06-04T14:20:42.083Z",
+    "date": "04/06/2026",
+    "time": "17:20",
+    "aircraft": "HZ-AK35",
+    "reporter": "AHMED AL SHARIF (SHEREEF)",
+    "category": "FLIGHT DECK",
+    "subCategory": "N/A",
+    "description": "DURING DCC FOUND CHECK ENGINE LIGHT ON.",
+    "remarks": "WHY????",
+    "photoUrl": "https://i.ibb.co/8gvYDmG5/ff6655c46f6c.jpg"
+  },
+  {
+    "_id": "1780582144870m77ok",
+    "timestamp": "2026-06-04T14:09:04.870Z",
+    "date": "04/06/2026",
+    "time": "17:09",
+    "aircraft": "HZ-AK35",
+    "reporter": "AHMED AL SHARIF (SHEREEF)",
+    "category": "LAVATORY",
+    "subCategory": "N/A",
+    "description": "PLEEEEASE BOSS I NEEEED THIS.",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/BVZjn5D4/3ba3ae9458d5.jpg"
+  },
+  {
+    "_id": "17805820629637vyc3",
+    "timestamp": "2026-06-04T14:07:42.963Z",
+    "date": "04/06/2026",
+    "time": "17:07",
+    "aircraft": "HZ-AK35",
+    "reporter": "AHMED AL SHARIF (SHEREEF)",
+    "category": "GENERAL CABIN",
+    "subCategory": "N/A",
+    "description": "DURING DCC FOUND CABIN DIRTY.",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/mr7P23r6/c8825c17947c.jpg"
+  },
+  {
+    "_id": "17805819526033y14x",
+    "timestamp": "2026-06-04T14:05:52.603Z",
+    "date": "04/06/2026",
+    "time": "17:05",
+    "aircraft": "HZ-AK35",
+    "reporter": "AHMED ALSHARIF (SHEREEF)",
+    "category": "GENERAL CABIN",
+    "subCategory": "N/A",
+    "description": "PLEASE GIVE ME VACATION BOSS I WORK HARD",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/bMwNqchT/915ae246754e.jpg"
+  },
+  {
+    "_id": "1780581589234r8uov",
+    "timestamp": "2026-06-04T13:59:49.234Z",
+    "date": "04/06/2026",
+    "time": "16:59",
+    "aircraft": "HZ-AK35",
+    "reporter": "AHMED ALSHARIF (SHEREEF)",
+    "category": "PAINT",
+    "subCategory": "N/A",
+    "description": "DURING DCC FOUND ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ·ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ³ FADED.",
+    "remarks": "",
+    "photoUrl": ""
+  },
+  {
+    "_id": "1780581523426h05bc",
+    "timestamp": "2026-06-04T13:58:43.426Z",
+    "date": "04/06/2026",
+    "time": "16:58",
+    "aircraft": "HZ-AK35",
+    "reporter": "AHMED AL SHARIF (SHEREEF)",
+    "category": "TEDLAR/SIDEWALL",
+    "subCategory": "N/A",
+    "description": "DURING DCC FOUND DENT ON SIDEWALL.",
+    "remarks": "",
+    "photoUrl": ""
+  },
+  {
+    "_id": "178058140916787snt",
+    "timestamp": "2026-06-04T13:56:49.167Z",
+    "date": "04/06/2026",
+    "time": "16:56",
+    "aircraft": "HZ-AK35",
+    "reporter": "AHMED AL SHARIF (SHEREEF)",
+    "category": "GENERAL CABIN",
+    "subCategory": "N/A",
+    "description": "DURING DCC FOUND FOD (SCREW) ON TIRE.",
+    "remarks": "",
+    "photoUrl": ""
+  },
+  {
+    "_id": "1780566150583owsyg",
+    "timestamp": "2026-06-04T09:42:30.583Z",
+    "date": "04/06/2026",
+    "time": "12:42",
+    "aircraft": "HZ-AK35",
+    "reporter": "NASSER",
+    "category": "PAX DOORS",
+    "subCategory": "L4",
+    "description": "AHMED",
+    "remarks": "",
+    "photoUrl": ""
+  },
+  {
+    "_id": "1780545397362z7zdo",
+    "timestamp": "2026-06-04T03:56:37.362Z",
+    "date": "04/06/2026",
+    "time": "06:56",
+    "aircraft": "HZ-AK35",
+    "reporter": "30001451",
+    "category": "GALLEY",
+    "subCategory": "M5",
+    "description": "SLIDE EXT. INOP",
+    "remarks": "",
+    "photoUrl": ""
+  },
+  {
+    "_id": "1780544053300i62oe",
+    "timestamp": "2026-06-04T03:34:13.300Z",
+    "date": "04/06/2026",
+    "time": "06:34",
+    "aircraft": "HZ-AK35",
+    "reporter": "AHMED",
+    "category": "GENERAL CABIN",
+    "subCategory": "N/A",
+    "description": "GG",
+    "remarks": "GG",
+    "photoUrl": ""
+  },
+  {
+    "_id": "1780543806353m8sqr",
+    "timestamp": "2026-06-04T03:30:06.353Z",
+    "date": "04/06/2026",
+    "time": "06:30",
+    "aircraft": "HZ-AK35",
+    "reporter": "30001452",
+    "category": "GALLEY",
+    "subCategory": "G1",
+    "description": "...",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/1fkGSG2Y/21913600695c.jpg"
+  },
+  {
+    "_id": "1780543654226y0pqv",
+    "timestamp": "2026-06-04T03:27:34.226Z",
+    "date": "04/06/2026",
+    "time": "06:27",
+    "aircraft": "HZ-AK35",
+    "reporter": "AHMED ALGHAMDI",
+    "category": "GENERAL CABIN",
+    "subCategory": "N/A",
+    "description": "ANC",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/kVkKXZdh/ec0bcd77ebce.jpg"
   }
 ]
