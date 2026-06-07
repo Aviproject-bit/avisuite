@@ -1179,7 +1179,10 @@ input[type=checkbox]:checked+.tog::after{left:21px;}
   animation:crit-open .2s ease;
 }
 
-</style>
+
+@media(max-width:768px){
+  .t-desc{text-transform:uppercase;}
+}</style>
 </head>
 <body>
 
@@ -1800,9 +1803,13 @@ function addTask(acftId, type='C/W', text='', noFocus=false){
     <select class="t-type" data-v="${type}" onchange="updateTaskType(this)">
       ${opts}
     </select>
-    <div class="t-desc" contenteditable="true" spellcheck="true" data-ph="DESCRIPTION..."
+    <div class="t-desc" contenteditable="true" spellcheck="false" data-ph="DESCRIPTION..."
+      autocapitalize="characters"
       onkeydown="handleDescKey(event,this)"
-      onfocus="if(!window._restoringEntry)setActiveFmtBar(this)" oninput="highlightKeywords(this)" onpaste="handlePaste(event)">${text}</div>
+      onfocus="if(!window._restoringEntry)setActiveFmtBar(this)"
+      oninput="highlightKeywords(this)"
+      onblur="forceHighlight(this);"
+      onpaste="handlePaste(event)">${text}</div>
     <div class="t-rows-ctrl">
       <button class="t-rows-btn" title="EXPAND" onclick="adjDescHeight(this,40)">▲</button>
       <button class="t-rows-btn" title="SHRINK"  onclick="adjDescHeight(this,-40)">▼</button>
@@ -1884,10 +1891,9 @@ function highlightKeywordsLater(el){
 }
 
 function highlightKeywords(el){
-  // Skip during IME composition (mobile keyboard autocomplete/suggestions)
   if(el._composing) return;
-  // Triggered on every input - but only do expensive DOM work on space
-  // Highlight only fires on blur (forceHighlight) — never during typing
+  clearTimeout(el._hlTimer);
+  el._hlTimer = setTimeout(()=>applyKeywordHighlight(el), 120);
 }
 
 const KW_STYLES = {
@@ -4074,9 +4080,7 @@ function restoreCursor(el, offset){
 }
 
 function applyKeywordHighlight(el){
-  if(!el) return;  // Never fallback to _activeDesc
-  // CRITICAL: never run while element is focused — prevents stealing focus from other fields
-  if(document.activeElement === el) return;
+  if(!el) return;
   const cursorPos = saveCursor(el);
   let html = el.innerHTML;
   // Clean HTML entities that appear as literal text (&nbsp; → space)
@@ -4230,7 +4234,11 @@ async function _shareOrDownload(blob, filename, title){
 
 // Apply keyword highlight on blur — deferred with setTimeout to let focus fully move first
 function forceHighlight(el){
-  // textarea doesn't need keyword highlighting
+  if(!el||el._composing) return;
+  const _el=el;
+  setTimeout(()=>{
+    if(document.activeElement !== _el) applyKeywordHighlight(_el);
+  }, 0);
 }
 
 // Force uppercase text in contenteditable (mobile only — preserves HTML tags/formatting)
