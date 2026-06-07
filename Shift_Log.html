@@ -156,9 +156,8 @@ input[type=checkbox]:checked+.tog::after{left:21px;}
 .t-type[data-v="NOTE"] {background:var(--purp-l); border-color:var(--purp-b); color:var(--purp);}
 .t-type[data-v="OTHER"] {background:var(--gray-l); border-color:var(--gray-b); color:var(--text2);}
 .t-type[data-v="STATUS"]{background:#EFF6FF;border-color:#93C5FD;color:#1D4ED8;}
-.t-desc{background:var(--white);border:1px solid var(--border);border-radius:5px;color:var(--text);font-weight:500;font-size:13px;font-family:'BwGradual',sans-serif;padding:8px 11px;outline:none;width:100%;text-transform:uppercase;line-height:1.6;min-height:38px;box-sizing:border-box;transition:border-color .15s,box-shadow .15s;resize:none;overflow:hidden;}
+.t-desc{background:var(--white);border:1px solid var(--border);border-radius:5px;color:var(--text);font-weight:400;font-size:14px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Tahoma,sans-serif;padding:8px 11px;outline:none;width:100%;line-height:1.6;min-height:38px;box-sizing:border-box;transition:border-color .15s,box-shadow .15s;}
 .t-desc:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(26,86,219,.1);}
-.t-desc::placeholder{color:var(--muted);font-weight:400;text-transform:none;}
 .t-desc:empty::before{content:attr(data-ph);color:var(--muted);font-weight:400;text-transform:none;pointer-events:none;}
 /* left border only on desc - no background */
 .task-row[data-type="C/W"]   .t-desc{border-left:3px solid var(--green-b);}
@@ -1180,10 +1179,7 @@ input[type=checkbox]:checked+.tog::after{left:21px;}
   animation:crit-open .2s ease;
 }
 
-
-@media(max-width:768px){
-  .fmt-bar{ display:none !important; }
-}</style>
+</style>
 </head>
 <body>
 
@@ -4146,15 +4142,10 @@ function handleDescKey(e, el){
 }
 
 function handlePaste(e){
-  // textarea handles paste natively — just ensure uppercase
-  setTimeout(()=>{
-    const el = e.target;
-    if(el && el.tagName==='TEXTAREA'){
-      const start=el.selectionStart, end=el.selectionEnd;
-      el.value=el.value.toUpperCase();
-      el.selectionStart=start; el.selectionEnd=end;
-    }
-  }, 0);
+  e.preventDefault();
+  const text=(e.clipboardData||window.clipboardData).getData('text/plain')||'';
+  const upper=text.trim().toUpperCase();
+  document.execCommand('insertText',false,upper);
 }
 
 function descChanged(el){
@@ -4162,13 +4153,11 @@ function descChanged(el){
   el.style.minHeight = '';
 }
 
-function adjDescHeight(btn, delta){
+function adjDescHeight(btn,delta){
   const desc=btn.closest('.task-row').querySelector('.t-desc');
   if(!desc) return;
-  const cur=parseInt(desc.style.minHeight)||38;
-  desc.style.minHeight=Math.max(38,cur+delta)+'px';
-  desc.style.height='auto';
-  desc.style.height=desc.scrollHeight+'px';
+  const cur=parseInt(desc.style.minHeight)||34;
+  desc.style.minHeight=Math.max(34,cur+delta)+'px';
 }
 
 function getDescText(desc){
@@ -4397,8 +4386,8 @@ function collectAcft(){
     const reg=b.querySelector('.acft-reg-in')?.value.trim()||'';
     const tasks=[...b.querySelectorAll('.task-row')].map(r=>{
       const descEl=r.querySelector('.t-desc');
-      const text=(descEl?.value||'').trim();
-      const html=descEl?.value||'';
+      const text=(descEl?.innerText||descEl?.textContent||'').trim();
+      const html=descEl?.innerHTML||'';
       return {type:r.querySelector('.t-type')?.value||'', text, html};
     }).filter(t=>t.text);
     return {reg,tasks};
@@ -10663,7 +10652,7 @@ function _saveDraft(){
         reg:a.querySelector('.acft-reg-in')?.value||'',
         tasks:[...a.querySelectorAll('.task-row')].map(r=>({
           type:r.querySelector('.t-type')?.value||'',
-          html:r.querySelector('.t-desc')?.value||''
+          html:r.querySelector('.t-desc')?.innerHTML||''
         }))
       })),
       genNotes:document.getElementById('gen-notes-desc')?.innerHTML||'',
@@ -10716,12 +10705,7 @@ function _restoreDraft(){
             addTask(last.id, t.type||'STATUS', '', true);
             const rows=last.querySelectorAll('.task-row');
             const lastRow=rows[rows.length-1];
-            if(lastRow&&t.html){ const desc=lastRow.querySelector('.t-desc');
-            if(desc){
-              desc.value=t.html||'';
-              setTimeout(()=>{desc.style.height='auto';desc.style.height=desc.scrollHeight+'px';},0);
-            }
-          }
+            if(lastRow&&t.html){ const desc=lastRow.querySelector('.t-desc'); if(desc) desc.innerHTML=t.html||''; }
           });
         } else {
           addTask(last.id,'STATUS','',true);
