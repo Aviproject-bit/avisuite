@@ -1182,7 +1182,10 @@ input[type=checkbox]:checked+.tog::after{left:21px;}
 
 @media(max-width:768px){
   .t-desc{text-transform:uppercase;}
-}</style>
+}
+/* ── Keyword highlighting via CSS ── */
+.t-desc b, .t-desc strong { color:#1D4ED8; }
+</style>
 </head>
 <body>
 
@@ -1811,8 +1814,6 @@ function addTask(acftId, type='C/W', text='', noFocus=false){
       autocapitalize="characters"
       onkeydown="handleDescKey(event,this)"
       onfocus="if(!window._restoringEntry)setActiveFmtBar(this)"
-      oninput="highlightKeywords(this)"
-      onblur="forceHighlight(this);"
       onpaste="handlePaste(event)">${text}</div>
     <div class="t-rows-ctrl">
       <button class="t-rows-btn" title="EXPAND" onclick="adjDescHeight(this,40)">▲</button>
@@ -1894,8 +1895,7 @@ function highlightKeywordsLater(el){
 }
 
 function highlightKeywords(el){
-  // Do NOT highlight during active typing — causes cursor/space issues
-  // Highlighting happens on blur via forceHighlight()
+  // Disabled
 }
 
 const KW_STYLES = {
@@ -4082,29 +4082,7 @@ function restoreCursor(el, offset){
 }
 
 function applyKeywordHighlight(el){
-  if(!el) return;
-  const cursorPos = saveCursor(el);
-  let html = el.innerHTML;
-  // Clean HTML entities that appear as literal text (&nbsp; → space)
-  html = html.replace(/&nbsp;/gi,' ').replace(/&amp;nbsp;/gi,' ');
-  // Auto-correct: CW → C/W (word boundary — lookbehind is zero-width, so just replace CW)
-  html = html.replace(/\bCW\b/g, 'C/W');
-  // Strip old kw spans
-  html = html.replace(/<span class="kw-hl"[^>]*>(.*?)<\/span>/gi,'$1');
-  // Apply per keyword - only match whole word occurrences
-  Object.entries(KW_STYLES).forEach(([kw,style])=>{
-    const escaped = kw.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
-    // Match keyword not inside a tag, not already wrapped
-    const re = new RegExp('(?<=>|^|\\s|[^\\w/])('+escaped+')(?=\\s|$|[^\\w/]|<)','gi');
-    html = html.replace(re, (m,p1,offset,str)=>{
-      // Don't double-wrap
-      const before = str.substring(Math.max(0,offset-10),offset);
-      if(before.includes('kw-hl')) return m;
-      return m.replace(p1,`<span class="kw-hl" style="${style}">${p1}</span>`);
-    });
-  });
-  el.innerHTML = html;
-  if(cursorPos !== null) restoreCursor(el, cursorPos);
+  // Disabled — innerHTML manipulation causes focus interference between aircraft blocks
 }
 
 function handleDescKey(e, el){
@@ -4247,24 +4225,7 @@ async function _shareOrDownload(blob, filename, title){
 
 // Apply keyword highlight on blur — deferred with setTimeout to let focus fully move first
 function forceHighlight(el){
-  if(!el||el._composing) return;
-  const _el=el;
-  // Long delay to ensure new element has focus before modifying old one
-  setTimeout(()=>{
-    // Only highlight if this element is truly unfocused AND
-    // the currently focused element is NOT another t-desc
-    if(document.activeElement === _el) return;
-    const newActive = document.activeElement;
-    const newIsDesc = newActive && newActive.classList.contains('t-desc');
-    // If user moved to another t-desc, delay more to avoid interference
-    if(newIsDesc){
-      setTimeout(()=>{
-        if(document.activeElement !== _el) applyKeywordHighlight(_el);
-      }, 300);
-    } else {
-      applyKeywordHighlight(_el);
-    }
-  }, 50);
+  // Disabled — no longer needed
 }
 
 // Force uppercase text in contenteditable (mobile only — preserves HTML tags/formatting)
