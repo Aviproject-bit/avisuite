@@ -250,6 +250,7 @@ th:nth-child(10),td:nth-child(10){width:75px}
 // CONFIG
 const PROXY_URL='https://acft-proxy.aviproject.workers.dev';
 const GH_API=PROXY_URL+'?path=dashboard/findings.json';
+const GH_BRANCH='main';
 const GH_H={'Content-Type':'application/json','Accept':'application/vnd.github.v3+json'};
 
 const PC_VIEW='321', PC_ADMIN='9955';
@@ -378,11 +379,22 @@ async function loadData(){
 }
 
 async function saveRaw(newRaw){
-  if(!fileSha){const r=await fetch(GH_API,{headers:GH_H});if(r.ok){const d=await r.json();fileSha=d.sha;}}
-  const content=btoa(unescape(encodeURIComponent(JSON.stringify(newRaw,null,2))));
-  const body={message:'Update findings',content,branch:GH_BRANCH,sha:fileSha};
-  const r=await fetch(GH_API,{method:'PUT',headers:GH_H,body:JSON.stringify(body)});
-  const d=await r.json(); if(d.content) fileSha=d.content.sha;
+  try {
+    // Get current SHA if not cached
+    if(!fileSha){
+      const rg=await fetch(GH_API,{headers:GH_H});
+      if(rg.ok){ const dg=await rg.json(); fileSha=dg.sha; }
+    }
+    const content=btoa(unescape(encodeURIComponent(JSON.stringify(newRaw,null,2))));
+    const body={message:'Update findings',content,branch:GH_BRANCH,sha:fileSha};
+    const rp=await fetch(GH_API,{method:'PUT',headers:GH_H,body:JSON.stringify(body)});
+    if(!rp.ok){ const err=await rp.json(); throw new Error(err.message||'Save failed'); }
+    const dp=await rp.json();
+    if(dp.content) fileSha=dp.content.sha;
+  } catch(e) {
+    console.error('saveRaw error:', e);
+    throw e;
+  }
 }
 
 // ── FILTERS ──────────────────────────────────────────────────
