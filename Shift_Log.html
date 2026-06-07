@@ -4107,8 +4107,19 @@ function applyKeywordHighlight(el){
 
 function handleDescKey(e, el){
   el._lastKey = e.key;
-  // ── MOBILE: skip ALL preventDefault/execCommand — lets iOS QuickType/autocomplete work ──
-  if(window.innerWidth <= 768) return;
+  // ── MOBILE: skip execCommand shortcuts only ──
+  if(window.innerWidth <= 768){
+    // Tab → add new task row
+    if(e.key==='Tab' && !e.shiftKey){
+      e.preventDefault();
+      const acftBody = el.closest('.acft-body');
+      if(acftBody){
+        const acftId = acftBody.id.replace('-body','');
+        addTask(acftId,'C/W');
+      }
+    }
+    return; // skip all other shortcuts
+  }
   // Ctrl+B = Bold, Ctrl+U = Underline, Ctrl+I = Italic
   if(e.ctrlKey && e.key==='b'){ e.preventDefault(); document.execCommand('bold',false,null); }
   if(e.ctrlKey && e.key==='u'){ e.preventDefault(); document.execCommand('underline',false,null); }
