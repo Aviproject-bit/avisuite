@@ -241,7 +241,7 @@ const FLOW_URL = 'https://script.google.com/macros/s/AKfycbwlS42Z67f56m1PwW1y_Oe
 const GH_API_PROXY='https://acft-proxy.aviproject.workers.dev';
 const GH_BRANCH = 'main';
 const GH_API    = GH_API_PROXY+'?path=dashboard/findings.json';
-const GH_HEADS  = {'Authorization':`token ${GH_TOKEN}`,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'};
+const GH_HEADS  = {'Content-Type':'application/json'};
 
 let findings = [];
 let nextId = 1;
@@ -1385,6 +1385,7 @@ function hideArea(id) {
 window.addEventListener('DOMContentLoaded', function() {
   renderFindings();
   updateUI();
+  _checkPasscode();
 });
 
 
@@ -1487,8 +1488,6 @@ function _pcUpdateDots(){
     if(d){ d.classList.toggle('filled',i<_pcEntry.length); }
   }
 }
-
-_checkPasscode();
 </script>
 </body>
 </html>
