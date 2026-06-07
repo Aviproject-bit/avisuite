@@ -1835,14 +1835,13 @@ function addTask(acftId, type='C/W', text='', noFocus=false){
 function setActiveFmtBar(descEl){
   if(window._restoringEntry) return;
   window._activeDesc = descEl;
-  // Update fmt-bar visibility
+  // Show fmt-bar for this aircraft only
   const acftBody = descEl?.closest?.('.acft-body');
   if(!acftBody) return;
+  // Hide others
   document.querySelectorAll('.acft-body .fmt-bar').forEach(fb=>{
-    fb.style.display = 'none';
+    fb.style.display = fb.closest('.acft-body') === acftBody ? 'flex' : 'none';
   });
-  const fmtBar = acftBody.querySelector('.fmt-bar');
-  if(fmtBar) fmtBar.style.display = 'flex';
 }
 
 function fmtCmd(cmd, btn){
@@ -4250,9 +4249,22 @@ async function _shareOrDownload(blob, filename, title){
 function forceHighlight(el){
   if(!el||el._composing) return;
   const _el=el;
+  // Long delay to ensure new element has focus before modifying old one
   setTimeout(()=>{
-    if(document.activeElement !== _el) applyKeywordHighlight(_el);
-  }, 0);
+    // Only highlight if this element is truly unfocused AND
+    // the currently focused element is NOT another t-desc
+    if(document.activeElement === _el) return;
+    const newActive = document.activeElement;
+    const newIsDesc = newActive && newActive.classList.contains('t-desc');
+    // If user moved to another t-desc, delay more to avoid interference
+    if(newIsDesc){
+      setTimeout(()=>{
+        if(document.activeElement !== _el) applyKeywordHighlight(_el);
+      }, 300);
+    } else {
+      applyKeywordHighlight(_el);
+    }
+  }, 50);
 }
 
 // Force uppercase text in contenteditable (mobile only — preserves HTML tags/formatting)
