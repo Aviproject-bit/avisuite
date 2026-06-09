@@ -256,6 +256,11 @@ body{font-family:'BwGradual',sans-serif;background:var(--bg);color:var(--txt);pa
         oninput="this.value=this.value.toUpperCase();save()">
     </div>
   </div>
+  <div class="hf" style="grid-column:1/-1;padding:0 8px 6px;">
+    <label>Technician Name</label>
+    <input id="inpTech" type="text" placeholder="Enter your name" maxlength="40"
+      oninput="save()">
+  </div>
 </div>
 
 <!-- TABS -->
@@ -297,6 +302,10 @@ body{font-family:'BwGradual',sans-serif;background:var(--bg);color:var(--txt);pa
   <button class="exp-item" onclick="exportRaw();closeExpMenu()">
     <div class="exp-ico" style="background:#f0fdf4;color:#006937"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
     <div><div class="exp-name">Raw Barcode Data</div><div class="exp-sub">All scanned barcodes</div></div>
+  </button>
+  <button class="exp-item" onclick="exportExcel();closeExpMenu()">
+    <div class="exp-ico" style="background:#dcfce7;color:#166534"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg></div>
+    <div><div class="exp-name">Export Excel</div><div class="exp-sub">CSV for any spreadsheet app</div></div>
   </button>
   <button class="exp-item" onclick="exportJSON();closeExpMenu()">
     <div class="exp-ico" style="background:#fef9c3;color:#854d0e"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><path d="M10 13l2 2 4-4"/></svg></div>
@@ -1453,9 +1462,9 @@ function sv(id,f,u,v){ S[(u?id+'_'+u+'_'+f:id+'_'+f)]=v; save(); updateDot(id); 
 function save(){
   try{
     localStorage.setItem('oxy_s',JSON.stringify(S));
+    const g=id=>{ const e=document.getElementById(id); return e?e.value:''; };
     localStorage.setItem('oxy_h',JSON.stringify({
-      type:curType,
-      acft:document.getElementById('inpAcft').value,
+      type:curType, acft:g('inpAcft'), tech:g('inpTech'),
     }));
   }catch(e){}
 }
@@ -2020,13 +2029,15 @@ function exportRaw(){
 
 async function submitData(){
   const acft = document.getElementById('inpAcft').value.trim();
+  const tech = document.getElementById('inpTech').value.trim();
   if(!acft){ showToast('Enter ACFT REG first'); return; }
+  if(!tech){ showToast('Enter Technician Name first'); return; }
   if(!curType){ showToast('Select aircraft type first'); return; }
 
   const IMGBB_KEY = 'a72386b4ada67f2fdefd06144f01adfd';
   const PROXY_URL = 'https://acft-proxy.aviproject.workers.dev';
-  const GH_API   = PROXY_URL + '?path=oxy_data/data.json';
-  const GH_H     = {'Content-Type':'application/json'};
+  const GH_API    = PROXY_URL + '?path=oxy_data/data.json';
+  const GH_H      = {'Content-Type':'application/json'};
 
   showToast('Uploading photos...');
 
@@ -2035,75 +2046,102 @@ async function submitData(){
     const photoMap = {};
     const allLocs = Object.values(LOCS_MAP[curType]||{}).flat();
     for(const loc of allLocs){
-      const units = (loc.dual&&!loc.sub)?['u1','u2']:[''];
+      const units=(loc.dual&&!loc.sub)?['u1','u2']:[''];
       for(const u of units){
-        const photos = JSON.parse(gv(loc.id,'photos',u)||'[]');
+        const photos=JSON.parse(gv(loc.id,'photos',u)||'[]');
         if(!photos.length) continue;
-        const urls = [];
+        const urls=[];
         for(const ph of photos){
           try{
-            const fd = new FormData();
-            fd.append('key', IMGBB_KEY);
-            fd.append('image', ph.split(',')[1]);
-            const res = await fetch('https://api.imgbb.com/1/upload',{method:'POST',body:fd});
-            const d = await res.json();
+            const fd=new FormData();
+            fd.append('key',IMGBB_KEY);
+            fd.append('image',ph.split(',')[1]);
+            const r=await fetch('https://api.imgbb.com/1/upload',{method:'POST',body:fd});
+            const d=await r.json();
             if(d.success) urls.push(d.data.url);
           }catch(e){}
         }
         if(urls.length){
-          const k = u ? loc.id+'_'+u+'_photoUrls' : loc.id+'_photoUrls';
-          photoMap[k] = urls.join(' | ');
+          const k=u?loc.id+'_'+u+'_photoUrls':loc.id+'_photoUrls';
+          photoMap[k]=urls.join(' | ');
         }
       }
     }
 
     showToast('Saving data...');
 
-    // 2. Build clean record (no base64 photos)
+    // 2. Build clean data with tech name per field
+    const now = new Date().toISOString();
     const cleanData = {};
+    const metaData  = {}; // tracks who/when per field
+
     Object.entries(S).forEach(([k,v])=>{
       if(k.includes('_photos')) return;
       cleanData[k] = v;
+      // Store tech+timestamp for each field
+      metaData[k] = {by: tech, at: now};
     });
     Object.assign(cleanData, photoMap);
 
-    // 3. Load existing records from GitHub
-    let records = [], fileSha = null;
+    // 3. Load existing record and MERGE
+    let records=[], fileSha=null;
     try{
-      const res = await fetch(GH_API,{headers:GH_H});
+      const res=await fetch(GH_API,{headers:GH_H});
       if(res.ok){
-        const f = await res.json();
-        fileSha = f.sha;
-        records = JSON.parse(atob(f.content.split('\n').join('')));
+        const f=await res.json();
+        fileSha=f.sha;
+        records=JSON.parse(atob(f.content.split('\n').join('')));
       }
     }catch(e){}
 
-    // 4. Upsert record
-    const record = {
-      id: acft+'_'+curType+'_'+Date.now(),
-      acft, type: curType,
-      savedAt: new Date().toISOString(),
-      data: cleanData,
-    };
-    const idx = records.findIndex(r=>r.acft===acft&&r.type===curType);
-    if(idx>=0) records[idx]=record; else records.push(record);
+    // Find existing record for same acft+type
+    const idx=records.findIndex(r=>r.acft===acft&&r.type===curType);
+    let record;
 
-    // 5. Save back to GitHub
-    const body = {
-      message:`Oxy mapping: ${acft} ${curType}`,
+    if(idx>=0){
+      // MERGE: keep existing fields, overwrite with new ones
+      // Also merge meta (who last edited each field)
+      const existing=records[idx];
+      const mergedData = Object.assign({}, existing.data||{}, cleanData);
+      const mergedMeta = Object.assign({}, existing.meta||{}, metaData);
+      record = {
+        id: existing.id,
+        acft, type: curType,
+        lastEditedBy: tech,
+        lastEditedAt: now,
+        createdAt: existing.createdAt||now,
+        data: mergedData,
+        meta: mergedMeta,
+      };
+      records[idx]=record;
+    } else {
+      record = {
+        id: acft+'_'+curType+'_'+Date.now(),
+        acft, type: curType,
+        lastEditedBy: tech,
+        lastEditedAt: now,
+        createdAt: now,
+        data: cleanData,
+        meta: metaData,
+      };
+      records.push(record);
+    }
+
+    // 4. Save back
+    const body={
+      message:`Oxy mapping: ${acft} ${curType} by ${tech}`,
       content: btoa(unescape(encodeURIComponent(JSON.stringify(records,null,2)))),
-      branch: 'main',
+      branch:'main',
     };
-    if(fileSha) body.sha = fileSha;
+    if(fileSha) body.sha=fileSha;
 
-    const saveRes = await fetch(GH_API,{method:'PUT',headers:GH_H,body:JSON.stringify(body)});
+    const saveRes=await fetch(GH_API,{method:'PUT',headers:GH_H,body:JSON.stringify(body)});
     if(saveRes.ok){
       showToast('✓ Submitted — '+acft);
     } else {
-      const err = await saveRes.json();
+      const err=await saveRes.json();
       showToast('Error: '+(err.message||saveRes.status));
     }
-
   }catch(e){
     showToast('Error: '+e.message);
   }
@@ -2132,6 +2170,58 @@ function fmtMfg(v){
   // Convert YYYY-MM → MM/YYYY
   const m = v.match(/^(\d{4})-(\d{2})$/);
   return m ? m[2]+'/'+m[1] : v;
+}
+
+function exportExcel(){
+  const acft = document.getElementById('inpAcft').value||'ACFT';
+  if(!curType){ showToast('Select aircraft type first'); return; }
+
+  const LOCS   = LOCS_MAP[curType]||{};
+  const secIds = SECS[curType]||[];
+  const is787  = curType.startsWith('B787');
+  const cL     = is787?'Cylinder':'Container';
+  const gL     = is787?'Initiator':'Generator';
+
+  // Build CSV rows
+  const rows = [
+    ['Location', 'FIN', cL+' P/N', cL+' S/N', cL+' MFG', gL+' P/N', gL+' S/N', gL+' MFG', 'Section', 'Unit']
+  ];
+
+  secIds.forEach(sid=>{
+    const locs = LOCS[sid]||[];
+    const secLabel = {lh:'LH',ctr:'CTR',rh:'RH',ofcr:'OFCR/OFAR',doors:'Doors',galleys:'Galleys',lavs:'LAVs',crew:'Crew'}[sid]||sid;
+    locs.forEach(loc=>{
+      const units=(loc.dual&&!loc.sub)?['u1','u2']:[''];
+      units.forEach(u=>{
+        const pref=u?loc.id+'_'+u+'_':loc.id+'_';
+        rows.push([
+          loc.name+(loc.sub?' ['+loc.sub+']':''),
+          loc.fin||'',
+          gv(loc.id,'cpn',u)||'',
+          gv(loc.id,'csn',u)||'',
+          fmtMfg(gv(loc.id,'cmfg',u))||'',
+          gv(loc.id,'gpn',u)||'',
+          gv(loc.id,'gsn',u)||'',
+          fmtMfg(gv(loc.id,'gmfg',u))||'',
+          secLabel,
+          u?( u==='u1'?'#1':'#2'):'',
+        ]);
+      });
+    });
+  });
+
+  // Convert to CSV
+  const csv = rows.map(r=>
+    r.map(v=>'"'+(String(v||'').replace(/"/g,'""'))+'"').join(',')
+  ).join('\n');
+
+  const BOM = '\uFEFF'; // UTF-8 BOM for Excel Arabic support
+  const blob = new Blob([BOM+csv],{type:'text/csv;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'OxyMapping_'+acft+'_'+curType+'.csv';
+  a.click();
+  showToast('✓ Excel exported');
 }
 
 function showToast(msg){
@@ -2164,8 +2254,10 @@ document.addEventListener('DOMContentLoaded', function(){
     if(h){
       const d=JSON.parse(h);
       if(d.type){
-        document.getElementById('selType').value=d.type;
+        document.getElementById('selType').value=d.type||'';
         document.getElementById('inpAcft').value=d.acft||'';
+        const techEl=document.getElementById('inpTech');
+        if(techEl) techEl.value=d.tech||'';
         onTypeChange();
         setTimeout(fixTabs, 150);
       }
