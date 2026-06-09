@@ -1453,6 +1453,50 @@ function buildCard(rec){
   </div>`;
 }
 
+function buildConflicts(rec){
+  if(!rec.conflicts||!rec.conflicts.length) return '';
+  const rows = rec.conflicts.map(c=>{
+    // Clean field name for display
+    const fieldName = c.field
+      .replace(/_(u[12]_)?/, ' ')
+      .replace(/(cpn|gpn)/, 'P/N')
+      .replace(/(csn|gsn)/, 'S/N')
+      .replace(/(cmfg|gmfg)/, 'MFG');
+    const oldDate = c.oldAt ? new Date(c.oldAt).toLocaleString('en-GB',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}) : '—';
+    const newDate = new Date(c.at||c.newAt||Date.now()).toLocaleString('en-GB',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'});
+    return `<tr>
+      <td style="padding:6px 10px;font-size:11px;border-bottom:1px solid #fecaca;font-weight:600">${fieldName}</td>
+      <td style="padding:6px 10px;font-size:11px;border-bottom:1px solid #fecaca">
+        <span style="color:#991b1b;font-weight:700">${c.oldVal||'—'}</span>
+        <span style="color:#aaa;font-size:10px;display:block">${c.oldBy} · ${oldDate}</span>
+      </td>
+      <td style="padding:6px 10px;font-size:11px;border-bottom:1px solid #fecaca">
+        <span style="color:#166534;font-weight:700">${c.newVal||'—'}</span>
+        <span style="color:#aaa;font-size:10px;display:block">${c.newBy} · ${newDate}</span>
+      </td>
+      <td style="padding:6px 10px;text-align:center;border-bottom:1px solid #fecaca">
+        <span style="background:#dcfce7;color:#166534;border-radius:10px;padding:2px 8px;font-size:9px;font-weight:800">KEPT</span>
+      </td>
+    </tr>`;
+  }).join('');
+
+  return `<div style="margin:0;background:#fff5f5;border-bottom:2px solid #fca5a5;">
+    <div style="padding:8px 16px;font-size:10px;font-weight:800;color:#991b1b;text-transform:uppercase;letter-spacing:.5px;display:flex;align-items:center;gap:6px;">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      ${rec.conflicts.length} Conflict${rec.conflicts.length>1?'s':''} Detected — Latest value kept
+    </div>
+    <table style="width:100%;border-collapse:collapse;">
+      <thead><tr style="background:#fee2e2;">
+        <th style="padding:5px 10px;font-size:9px;font-weight:800;color:#991b1b;text-align:left;text-transform:uppercase">Field</th>
+        <th style="padding:5px 10px;font-size:9px;font-weight:800;color:#991b1b;text-align:left;text-transform:uppercase">Previous Value</th>
+        <th style="padding:5px 10px;font-size:9px;font-weight:800;color:#166534;text-align:left;text-transform:uppercase">New Value (Kept)</th>
+        <th style="padding:5px 10px;font-size:9px;font-weight:800;color:#991b1b;text-align:center;text-transform:uppercase">Status</th>
+      </tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+  </div>`;
+}
+
 function toggleCard(id){
   document.getElementById('card_'+id).classList.toggle('open');
 }
