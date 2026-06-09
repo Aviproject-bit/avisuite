@@ -2029,7 +2029,7 @@ function exportRaw(){
 
 async function submitData(){
   const acft = document.getElementById('inpAcft').value.trim();
-  const tech = document.getElementById('inpTech').value.trim();
+  const tech = (document.getElementById('inpTech')||{}).value||'';
   if(!acft){ showToast('Enter ACFT REG first'); return; }
   if(!tech){ showToast('Enter Technician Name first'); return; }
   if(!curType){ showToast('Select aircraft type first'); return; }
@@ -2070,20 +2070,18 @@ async function submitData(){
 
     showToast('Saving data...');
 
-    // 2. Build clean data with tech name per field
+    // 2. Build clean data + meta (who/when per field)
     const now = new Date().toISOString();
     const cleanData = {};
-    const metaData  = {}; // tracks who/when per field
-
+    const metaData  = {};
     Object.entries(S).forEach(([k,v])=>{
       if(k.includes('_photos')) return;
       cleanData[k] = v;
-      // Store tech+timestamp for each field
-      metaData[k] = {by: tech, at: now};
+      metaData[k]  = {by: tech, at: now, val: v};
     });
     Object.assign(cleanData, photoMap);
 
-    // 3. Load existing record and MERGE
+    // 3. Load existing record
     let records=[], fileSha=null;
     try{
       const res=await fetch(GH_API,{headers:GH_H});
@@ -2094,16 +2092,35 @@ async function submitData(){
       }
     }catch(e){}
 
-    // Find existing record for same acft+type
-    const idx=records.findIndex(r=>r.acft===acft&&r.type===curType);
+    const recIdx=records.findIndex(r=>r.acft===acft&&r.type===curType);
     let record;
 
-    if(idx>=0){
-      // MERGE: keep existing fields, overwrite with new ones
-      // Also merge meta (who last edited each field)
-      const existing=records[idx];
-      const mergedData = Object.assign({}, existing.data||{}, cleanData);
-      const mergedMeta = Object.assign({}, existing.meta||{}, metaData);
+    if(recIdx>=0){
+      const existing = records[recIdx];
+      const existingData = existing.data||{};
+      const existingMeta = existing.meta||{};
+
+      // CONFLICT DETECTION: find fields changed by different person
+      const conflicts = [];
+      const mergedData = Object.assign({}, existingData);
+      const mergedMeta = Object.assign({}, existingMeta);
+
+      Object.entries(cleanData).forEach(([k,newVal])=>{
+        const oldVal = existingData[k];
+        const oldMeta = existingMeta[k];
+        // Conflict: field has value, was set by someone else, and new value is different
+        if(oldVal && oldVal !== newVal && oldMeta && oldMeta.by !== tech){
+          conflicts.push({
+            field: k,
+            oldVal: oldVal, oldBy: oldMeta.by, oldAt: oldMeta.at,
+            newVal: newVal, newBy: tech,
+          });
+        }
+        // Always take new value (last write wins) but log conflict
+        mergedData[k] = newVal;
+        mergedMeta[k] = metaData[k];
+      });
+
       record = {
         id: existing.id,
         acft, type: curType,
@@ -2112,8 +2129,15 @@ async function submitData(){
         createdAt: existing.createdAt||now,
         data: mergedData,
         meta: mergedMeta,
+        conflicts: conflicts.length ? [...(existing.conflicts||[]), ...conflicts] : (existing.conflicts||[]),
       };
-      records[idx]=record;
+      records[recIdx] = record;
+
+      if(conflicts.length){
+        console.warn('Conflicts detected:', conflicts);
+        // Show in toast
+        showToast('⚠️ '+conflicts.length+' conflict(s) — check dashboard');
+      }
     } else {
       record = {
         id: acft+'_'+curType+'_'+Date.now(),
@@ -2123,21 +2147,26 @@ async function submitData(){
         createdAt: now,
         data: cleanData,
         meta: metaData,
+        conflicts: [],
       };
       records.push(record);
     }
 
     // 4. Save back
     const body={
-      message:`Oxy mapping: ${acft} ${curType} by ${tech}`,
+      message: 'Oxy: '+acft+' '+curType+' by '+tech,
       content: btoa(unescape(encodeURIComponent(JSON.stringify(records,null,2)))),
-      branch:'main',
+      branch: 'main',
     };
     if(fileSha) body.sha=fileSha;
 
     const saveRes=await fetch(GH_API,{method:'PUT',headers:GH_H,body:JSON.stringify(body)});
     if(saveRes.ok){
-      showToast('✓ Submitted — '+acft);
+      if(record.conflicts&&record.conflicts.length){
+        showToast('✓ Submitted — '+record.conflicts.length+' conflict(s) logged');
+      } else {
+        showToast('\u2713 Submitted — '+acft);
+      }
     } else {
       const err=await saveRes.json();
       showToast('Error: '+(err.message||saveRes.status));
