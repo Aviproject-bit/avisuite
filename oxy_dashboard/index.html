@@ -190,8 +190,11 @@ body{font-family:'BwGradual',sans-serif;background:var(--bg);color:var(--txt);mi
 
 <script>
 const PROXY_URL = 'https://acft-proxy.aviproject.workers.dev';
-const GH_API = PROXY_URL + '?path=oxy_data/data.json';
-const GH_H = {'Content-Type':'application/json'};
+// Read directly from GitHub raw (public, no token needed)
+const GH_RAW  = 'https://raw.githubusercontent.com/aviproject-bit/ACFT-Project/main/oxy_data/data.json';
+// Write via proxy
+const GH_API  = PROXY_URL + '?path=oxy_data/data.json';
+const GH_H    = {'Content-Type':'application/json'};
 
 const TYPE_LABELS={
   B777_AK3135:'B777 — AK31–AK35', B777_AK3643:'B777 — AK36–AK43',
@@ -1282,12 +1285,15 @@ let allData=[], fileSha=null;
 async function loadData(){
   document.getElementById('listEl').innerHTML='<div class="loading"><div class="sp"></div><p>Loading...</p></div>';
   try{
-    const res=await fetch(GH_API,{headers:GH_H});
+    // Read from raw GitHub URL (fast, no auth, no cache issues with ?t=)
+    const res=await fetch(GH_RAW+'?t='+Date.now());
     if(!res.ok) throw new Error('HTTP '+res.status);
-    const f=await res.json();
-    fileSha=f.sha;
-    const raw=f.content.split('\n').join('');
-    allData=JSON.parse(atob(raw));
+    allData=await res.json();
+    // Get SHA for write operations
+    try{
+      const meta=await fetch(GH_API,{headers:GH_H});
+      if(meta.ok){ const m=await meta.json(); fileSha=m.sha; }
+    }catch(e2){}
     document.getElementById('fTime').textContent='Updated: '+new Date().toLocaleTimeString();
   }catch(e){
     document.getElementById('listEl').innerHTML=
