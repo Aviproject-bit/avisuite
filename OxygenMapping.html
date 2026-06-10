@@ -2191,7 +2191,7 @@ function exportRaw(){
 }
 
 async function submitData(){
-  const acft = document.getElementById('inpAcft').value.trim();
+  const acft = document.getElementById('inpAcft').value.trim().toUpperCase();
   const tech = (document.getElementById('inpTech')||{}).value||'';
   if(!acft){ showToast('Enter ACFT REG first'); return; }
   if(!tech){ showToast('Enter Technician Name first'); return; }
@@ -2255,7 +2255,7 @@ async function submitData(){
       }
     }catch(e){}
 
-    const recIdx=records.findIndex(r=>r.acft===acft&&r.type===curType);
+    const recIdx=records.findIndex(r=>(r.acft||'').toUpperCase()===acft&&r.type===curType);
     let record;
 
     if(recIdx>=0){
