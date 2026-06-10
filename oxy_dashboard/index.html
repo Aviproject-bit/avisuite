@@ -1282,6 +1282,73 @@ const LOCS_MAP = {
 let allData=[], fileSha=null;
 
 // ── LOAD ──
+function checkPass(){
+  const v = document.getElementById('lockInput').value;
+  if(v === '321'){
+    document.getElementById('lockScreen').style.display='none';
+    sessionStorage.setItem('oxy_dash_auth','1');
+    loadData();
+  } else {
+    document.getElementById('lockErr').style.display='block';
+    document.getElementById('lockInput').value='';
+    setTimeout(()=>document.getElementById('lockErr').style.display='none', 2000);
+  }
+}
+
+function fmtMfg(v){
+  if(!v) return '';
+  const m = v.match(/^(\d{4})-(\d{2})$/);
+  if(m) return m[2]+'/'+m[1];
+  return v;
+}
+
+function exportRecordExcel(id){
+  const rec = allData.find(r=>r.id===id); if(!rec) return;
+  const LOCS   = LOCS_MAP[rec.type]||{};
+  const secIds = SECS[rec.type]||[];
+  const is787  = rec.type&&rec.type.startsWith('B787');
+  const cL = is787?'Cylinder':'Container';
+  const gL = is787?'Initiator':'Generator';
+
+  const rows = [['Location','FIN',cL+' P/N',cL+' S/N',cL+' MFG',gL+' P/N',gL+' S/N',gL+' MFG','Section','Unit','Last Edited By']];
+  const secLabels = {lh:'LH',ctr:'CTR',rh:'RH',ofcr:'OFCR/OFAR',doors:'Doors',galleys:'Galleys',lavs:'LAVs',crew:'Crew'};
+
+  secIds.forEach(sid=>{
+    const locs = LOCS[sid]||[];
+    locs.forEach(loc=>{
+      const units=(loc.dual&&!loc.sub)?['u1','u2']:[''];
+      units.forEach(u=>{
+        const pref=u?loc.id+'_'+u+'_':loc.id+'_';
+        const d=rec.data||{};
+        const meta=rec.meta||{};
+        const cpn=d[pref+'cpn']||'';
+        const csn=d[pref+'csn']||'';
+        const cmfg=fmtMfg(d[pref+'cmfg']||'');
+        const gpn=d[pref+'gpn']||'';
+        const gsn=d[pref+'gsn']||'';
+        const gmfg=fmtMfg(d[pref+'gmfg']||'');
+        const editedBy=(meta[pref+'cpn']||meta[pref+'gpn']||{}).by||'';
+        rows.push([
+          loc.name+(loc.sub?' ['+loc.sub+']':''),
+          loc.fin||'',
+          cpn,csn,cmfg,gpn,gsn,gmfg,
+          secLabels[sid]||sid,
+          u?(u==='u1'?'#1':'#2'):'',
+          editedBy,
+        ]);
+      });
+    });
+  });
+
+  const csv = rows.map(r=>r.map(v=>'"'+(String(v||'').replace(/"/g,'""'))+'"').join(',')).join('\n');
+  const blob = new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'OxyMapping_'+rec.acft+'_'+rec.type+'.csv';
+  a.click();
+  showToast('\u2713 Excel exported');
+}
+
 async function loadData(){
   document.getElementById('listEl').innerHTML='<div class="loading"><div class="sp"></div><p>Loading...</p></div>';
   try{
@@ -1669,7 +1736,12 @@ function showToast(m){
   setTimeout(()=>t.classList.remove('show'),2400);
 }
 
-loadData();
+if(!sessionStorage.getItem('oxy_dash_auth')){
+  document.getElementById('lockScreen').style.display='flex';
+  setTimeout(()=>document.getElementById('lockInput').focus(), 300);
+} else {
+  loadData();
+}
 </script>
 </body>
 </html>
