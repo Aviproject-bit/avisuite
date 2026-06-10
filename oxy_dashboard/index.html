@@ -1424,15 +1424,9 @@ function exportRecordExcel(id){
 async function loadData(){
   document.getElementById('listEl').innerHTML='<div class="loading"><div class="sp"></div><p>Loading...</p></div>';
   try{
-    // Read from raw GitHub URL (fast, no auth, no cache issues with ?t=)
     const res=await fetch(GH_RAW+'?t='+Date.now());
     if(!res.ok) throw new Error('HTTP '+res.status);
     allData=await res.json();
-    // Get SHA for write operations
-    try{
-      const meta=await fetch(GH_API,{headers:GH_H});
-      if(meta.ok){ const m=await meta.json(); fileSha=m.sha; }
-    }catch(e2){}
     document.getElementById('fTime').textContent='Updated: '+new Date().toLocaleTimeString();
   }catch(e){
     document.getElementById('listEl').innerHTML=
