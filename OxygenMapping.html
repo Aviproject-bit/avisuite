@@ -1904,104 +1904,78 @@ function startScanLoop(){
   tick();
 }
 function parseScanData(raw){
+  const res = {pn:null, sn:null, mfg:null};
+  const str = raw.trim();
+
+  // ── Format A: MFR .../SNR .../PNR .../DMF ... (slash-separated label-value pairs)
+  // e.g. "MFR 16827/SNR 9130456/PNR 4441158-002/DMF 102024"
+  if(/\//.test(str) && /\b(PNR|SNR|DMF|MFR)\b/i.test(str)){
+    const parts = str.split('/');
+    for(const part of parts){
+      const tokens = part.trim().split(/\s+/);
+      if(tokens.length < 2) continue;
+      const lbl = tokens[0].toUpperCase();
+      const val = tokens.slice(1).join(' ').trim();
+      if(!val) continue;
+      if(lbl==='PNR'||lbl==='PN') res.pn=val;
+      else if(lbl==='SNR'||lbl==='SN'||lbl==='SER') res.sn=val;
+      else if(lbl==='DMF'||lbl==='MFD'||lbl==='MFG'){
+        const d=val.replace(/\D/g,'');
+        if(d.length===6){
+          const mm=d.slice(0,2),yyyy=d.slice(2);
+          if(+mm>=1&&+mm<=12) res.mfg=yyyy+'-'+mm;
+        }
+      }
+    }
+    if(res.pn||res.sn||res.mfg){
+      return {pn:res.pn, sn:res.sn, mfg:res.mfg};
+    }
+  }
+
+  // ── Format B: token/LABEL pairs — e.g. "VALUE/PNR VALUE/SNR VALUE/MFG"
   const PN_RE  = /^(PNR|PN|P\/N:?|PART[\s_]?N(?:UMBER|O)?)$/i;
   const SN_RE  = /^(SNR|SER|SN|S\/N:?|SERIAL)$/i;
   const MFG_RE = /^(DMF|MFD|MFG)$/i;
-  function classify(s){
-    const t=s.replace(/:$/,'');
-    if(PN_RE.test(t)) return 'pn';
-    if(SN_RE.test(t)) return 'sn';
-    if(MFG_RE.test(t)) return 'mfg';
-    return null;
-  }
+  function classify(s){ const t=s.replace(/:$/,''); if(PN_RE.test(t)) return 'pn'; if(SN_RE.test(t)) return 'sn'; if(MFG_RE.test(t)) return 'mfg'; return null; }
   function isLabel(s){ return !!classify(s.replace(/:$/,'')); }
-
-  const res={pn:null,sn:null,mfg:null};
-  const st = raw.trim().split(/\s+/);
-
-  // Detect format by first token:
-  // Format B: first token is a pure label (no slash, is a label word)
-  // Format A: first token contains a slash with value on left
-  const formatB = isLabel(st[0].replace(/:$/,''));
-
+  const st=str.split(/\s+/);
+  const formatB=isLabel(st[0].replace(/:$/,''));
   if(!formatB){
-    // FORMAT A: VALUE/LABEL — each slashed token maps left→right
     for(const t of st){
-      const si=t.lastIndexOf('/');
-      if(si<=0) continue;
-      const val=t.slice(0,si).replace(/^[A-Z]\/[A-Z]:?\s*/i,'').replace(/:$/,'').trim();
-      const lbl=t.slice(si+1).trim();
+      const si=t.lastIndexOf('/'); if(si<=0) continue;
+      const val=t.slice(0,si).trim(), lbl=t.slice(si+1).trim();
       if(!isLabel(lbl)||!val||isLabel(val)) continue;
-      const f=classify(lbl);
-      if(f&&!res[f]) res[f]=val;
+      const f=classify(lbl); if(f&&!res[f]) res[f]=val;
     }
-    // Also handle trailing standalone "LABEL: value" pairs (e.g. "MFG: 102024")
     for(let i=0;i<st.length-1;i++){
-      const lbl=st[i].replace(/:$/,'');
-      const f=classify(lbl);
+      const lbl=st[i].replace(/:$/,''), f=classify(lbl);
       if(!f||res[f]) continue;
-      const val=st[i+1].replace(/\/.*$/,'').replace(/:$/,'').trim();
+      const val=st[i+1].replace(/\/.*$/,'').trim();
       if(val&&!isLabel(val)) res[f]=val;
     }
   } else {
-    // FORMAT B: LABEL VALUE — label standalone, value is next token (bare, before any slash)
     for(let i=0;i<st.length-1;i++){
-      const lbl=st[i].replace(/:$/,'');
-      const f=classify(lbl);
-      if(!f) continue;
-      const nt=st[i+1];
-      const ns=nt.indexOf('/');
-      const val=(ns>0?nt.slice(0,ns):nt).replace(/:$/,'').trim();
-      if(val&&!isLabel(val)&&!res[f]) res[f]=val;
-    }
-    // Handle VALUE/LABEL as field separator → next token = value for that label
-    for(let i=0;i<st.length-1;i++){
-      const t=st[i], si=t.lastIndexOf('/');
-      if(si<=0) continue;
-      const lbl=t.slice(si+1).trim();
-      if(!isLabel(lbl)) continue;
-      const f=classify(lbl);
-      if(!f||res[f]) continue;
+      const lbl=st[i].replace(/:$/,''), f=classify(lbl); if(!f) continue;
       const nt=st[i+1], ns=nt.indexOf('/');
-      const val=(ns>0?nt.slice(0,ns):nt).replace(/:$/,'').trim();
-      if(val&&!isLabel(val)) res[f]=val;
+      const val=(ns>0?nt.slice(0,ns):nt).trim();
+      if(val&&!isLabel(val)&&!res[f]) res[f]=val;
     }
   }
 
-  // MFG → YYYY-MM (input[type=month] format)
-  // Supports: 102024, 012017, 082020, 08/2020, 01/17, 08/20
+  // ── Parse MFG date → YYYY-MM
   let mfg=null;
   if(res.mfg){
-    const raw_mfg = res.mfg.trim();
-    // Try MM/YYYY or MM/YY
-    const slashM = raw_mfg.match(/^(\d{1,2})\/(\d{2,4})$/);
-    if(slashM){
-      const mm=slashM[1].padStart(2,'0'), yr=slashM[2];
-      const yyyy=yr.length===4?yr:'20'+yr;
-      if(+mm>=1&&+mm<=12) mfg=yyyy+'-'+mm;
-    }
+    const rm=res.mfg.trim();
+    const slashM=rm.match(/^(\d{1,2})\/(\d{2,4})$/);
+    if(slashM){ const mm=slashM[1].padStart(2,'0'),yr=slashM[2],yyyy=yr.length===4?yr:'20'+yr; if(+mm>=1&&+mm<=12) mfg=yyyy+'-'+mm; }
     if(!mfg){
-      const d=raw_mfg.replace(/[^0-9]/g,'');
-      if(d.length===8){// MMDDYYYY or DDMMYYYY — try MMYYYY from first 2+4
-        const mm=d.slice(0,2),yyyy=d.slice(4);
-        if(+mm>=1&&+mm<=12) mfg=yyyy+'-'+mm;
-      } else if(d.length===6){
-        // Could be MMYYYY or YYYYMM
-        const mm1=d.slice(0,2),yr1=d.slice(2); // MMYYYY
-        const yr2=d.slice(0,4),mm2=d.slice(4); // YYYYMM
-        if(+mm1>=1&&+mm1<=12&&+yr1>=1900){
-          const yyyy=yr1.length===4?yr1:'20'+yr1;
-          mfg=yyyy+'-'+mm1;
-        } else if(+mm2>=1&&+mm2<=12){
-          mfg=yr2+'-'+mm2.padStart(2,'0');
-        }
-      } else if(d.length===4){
-        const mm=d.slice(0,2),yy=d.slice(2);
-        if(+mm>=1&&+mm<=12) mfg='20'+yy+'-'+mm;
-      }
+      const d=rm.replace(/[^0-9]/g,'');
+      if(d.length===6){ const mm=d.slice(0,2),yyyy=d.slice(2); if(+mm>=1&&+mm<=12) mfg=yyyy+'-'+mm; }
+      else if(d.length===8){ const mm=d.slice(0,2),yyyy=d.slice(4); if(+mm>=1&&+mm<=12) mfg=yyyy+'-'+mm; }
+      else if(d.length===4){ const mm=d.slice(0,2),yy=d.slice(2); if(+mm>=1&&+mm<=12) mfg='20'+yy+'-'+mm; }
     }
   }
-  return {pn:res.pn,sn:res.sn,mfg};
+  return {pn:res.pn, sn:res.sn, mfg};
 }
 
 const tests=[
