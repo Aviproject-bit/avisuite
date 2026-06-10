@@ -1368,6 +1368,7 @@ let allData=[], fileSha=null;
 // ── LOAD ──
 function fmtMfg(v){
   if(!v) return '';
+  // YYYY-MM → MM/YYYY
   const m = v.match(/^(\d{4})-(\d{2})$/);
   if(m) return m[2]+'/'+m[1];
   return v;
@@ -1394,10 +1395,10 @@ function exportRecordExcel(id){
         const meta=rec.meta||{};
         const cpn=d[pref+'cpn']||'';
         const csn=d[pref+'csn']||'';
-        const cmfg=fmtMfg(d[pref+'cmfg']||'');
+        const cmfg=fmtMfg(fmtMfg(d[pref+'cmfg']||''));
         const gpn=d[pref+'gpn']||'';
         const gsn=d[pref+'gsn']||'';
-        const gmfg=fmtMfg(d[pref+'gmfg']||'');
+        const gmfg=fmtMfg(fmtMfg(d[pref+'gmfg']||''));
         const editedBy=(meta[pref+'cpn']||meta[pref+'gpn']||{}).by||'';
         rows.push([
           loc.name+(loc.sub?' ['+loc.sub+']':''),
@@ -1517,10 +1518,10 @@ function buildCard(rec){
         const pref=u?loc.id+'_'+u+'_':loc.id+'_';
         const cpn=rec.data&&rec.data[pref+'cpn']||'';
         const csn=rec.data&&rec.data[pref+'csn']||'';
-        const cmfg=rec.data&&rec.data[pref+'cmfg']||'';
+        const cmfg=rec.data&&fmtMfg(rec.data&&rec.data[pref+'cmfg']||'');
         const gpn=rec.data&&rec.data[pref+'gpn']||'';
         const gsn=rec.data&&rec.data[pref+'gsn']||'';
-        const gmfg=rec.data&&rec.data[pref+'gmfg']||'';
+        const gmfg=rec.data&&fmtMfg(rec.data&&rec.data[pref+'gmfg']||'');
         const photoUrls=(rec.data&&rec.data[pref+'photoUrls']||'').split(' | ').filter(Boolean);
         const hasSomeData=cpn||csn||cmfg||gpn||gsn||gmfg;
         if(!hasSomeData&&!photoUrls.length) return; // skip empty rows
