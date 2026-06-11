@@ -365,5 +365,22 @@
         "photoUrl": "https://i.ibb.co/bjj98wjR/4f6287c9ed81.jpg | https://i.ibb.co/m58Yfstw/20e6cd6772cc.jpg"
       }
     ]
+  },
+  {
+    "id": "1781159343110vj4bl",
+    "timestamp": "2026-06-11T06:29:03.110Z",
+    "date": "11/06/2026",
+    "time": "09:29",
+    "aircraft": "HZ-AK35",
+    "reporter": "SHAREEF",
+    "findings": [
+      {
+        "category": "TEDLAR/SIDEWALL   ",
+        "subCategory": "N/A               ",
+        "description": "R/H SIDEWALL B/C 4LJ SPLINE CRACKED AT BOTTOM               ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/N25bxGVg/6fedffd831a8.jpg"
+      }
+    ]
   }
 ]
