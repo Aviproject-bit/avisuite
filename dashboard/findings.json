@@ -1239,5 +1239,22 @@
         "photoUrl": ""
       }
     ]
+  },
+  {
+    "id": "17811700699234v7ue",
+    "timestamp": "2026-06-11T09:27:49.923Z",
+    "date": "11/06/2026",
+    "time": "12:25",
+    "aircraft": "HZ-AK35",
+    "reporter": "FADUL",
+    "findings": [
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "C101              ",
+        "description": "COMPT. C101 TEDLAR CHIPPED OF AND DIRTY                     ",
+        "remarks": "                         ",
+        "photoUrl": ""
+      }
+    ]
   }
 ]
