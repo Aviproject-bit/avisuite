@@ -1099,5 +1099,22 @@
         "photoUrl": "https://i.ibb.co/j9Sx4rbp/8d68053ab10f.jpg"
       }
     ]
+  },
+  {
+    "id": "1781166831081p5jsh",
+    "timestamp": "2026-06-11T08:33:51.081Z",
+    "date": "11/06/2026",
+    "time": "11:33",
+    "aircraft": "HZ-AK35",
+    "reporter": "FADUL",
+    "findings": [
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "4AC               ",
+        "description": "MISSING DAMPER ON STOWAGE COMPT.                            ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/Vc23wV6s/d97b3d0f503d.jpg"
+      }
+    ]
   }
 ]
