@@ -658,5 +658,22 @@
         "photoUrl": "https://i.ibb.co/Cp9nLFGy/8533411807a8.jpg"
       }
     ]
+  },
+  {
+    "id": "1781160750352rydxz",
+    "timestamp": "2026-06-11T06:52:30.352Z",
+    "date": "11/06/2026",
+    "time": "09:52",
+    "aircraft": "HZ-AK35",
+    "reporter": "SHAREEF",
+    "findings": [
+      {
+        "category": "TEDLAR/SIDEWALL   ",
+        "subCategory": "N/A               ",
+        "description": "RUBBER SEAL CIELING PANEL ABOVE 3LJ                         ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/99zSdFRL/369e3462cd19.jpg | https://i.ibb.co/hJFwM5gR/40ec0aadabb4.jpg"
+      }
+    ]
   }
 ]
