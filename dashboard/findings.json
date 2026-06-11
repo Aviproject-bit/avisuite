@@ -1167,5 +1167,43 @@
         "photoUrl": "https://i.ibb.co/1J2sWRj4/fe904fa9e410.jpg | https://i.ibb.co/60HdM7sk/e732d4c17fad.jpg"
       }
     ]
+  },
+  {
+    "id": "1781167760738m9bou",
+    "timestamp": "2026-06-11T08:49:20.738Z",
+    "date": "11/06/2026",
+    "time": "11:49",
+    "aircraft": "HZ-AK35",
+    "reporter": "HOSSAM ALTHOBAITI 30001461",
+    "findings": [
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "THIRD OBSERVER    ",
+        "description": "THIRD OBSERVER LIFE VEST COVER MISSALIGNMENT                ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/d46MH5DN/a29b0249d1be.jpg | https://i.ibb.co/RGGnWLqK/67b761ee5f93.jpg"
+      },
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "CAPTAIN SEAT      ",
+        "description": "CAPTAIN SEAT OVERHEAD LIGHT SCREW MISSING                   ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/HTct01dB/c871b1f2c316.jpg"
+      },
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "FOURTH OBSERVER   ",
+        "description": "FOURTH OBSERVER SEAT BELT INOP                              ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/Z65R8btD/ba3eb900cb73.jpg"
+      },
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "F/O WASTE         ",
+        "description": "F/O WASTER DOOR MAKE NOISY SOUND                            ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/jvwwc8nF/9906f344dd92.jpg"
+      }
+    ]
   }
 ]
