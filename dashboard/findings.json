@@ -225,5 +225,29 @@
         "photoUrl": ""
       }
     ]
+  },
+  {
+    "id": "1781158354618q1we2",
+    "timestamp": "2026-06-11T06:12:34.618Z",
+    "date": "11/06/2026",
+    "time": "09:12",
+    "aircraft": "HZ-AK35",
+    "reporter": "SHAREEF",
+    "findings": [
+      {
+        "category": "TEDLAR/SIDEWALL   ",
+        "subCategory": "N/A               ",
+        "description": "THE STOWAGE BIN THAT IS INFRONT OF 30LKJ                    ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/mVQTQ8RX/3b60c49a30ae.jpg | https://i.ibb.co/jksNdvBr/203600e4f78b.jpg | https://i.ibb.co/Gf4qgSRV/d45f3263d861.jpg | https://i.ibb.co/tpgH00Zq/0a8b748a5872.jpg"
+      },
+      {
+        "category": "TEDLAR/SIDEWALL   ",
+        "subCategory": "N/A               ",
+        "description": "SUSPICION ONLY:                                             ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/ZRgD9Vt9/1bccac82848f.jpg"
+      }
+    ]
   }
 ]
