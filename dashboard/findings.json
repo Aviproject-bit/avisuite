@@ -1256,5 +1256,22 @@
         "photoUrl": ""
       }
     ]
+  },
+  {
+    "id": "17811705739103itni",
+    "timestamp": "2026-06-11T09:36:13.910Z",
+    "date": "11/06/2026",
+    "time": "12:35",
+    "aircraft": "HZ-AK35",
+    "reporter": "FADUL",
+    "findings": [
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "3AC               ",
+        "description": "SMALL CHIPP OF PAINT ON STOWAGE COMPT                       ",
+        "remarks": "                         ",
+        "photoUrl": ""
+      }
+    ]
   }
 ]
