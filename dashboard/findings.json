@@ -481,5 +481,22 @@
         "photoUrl": "https://i.ibb.co/QF0k1Z1r/0f159391b7f8.jpg"
       }
     ]
+  },
+  {
+    "id": "1781160076893aunj3",
+    "timestamp": "2026-06-11T06:41:16.893Z",
+    "date": "11/06/2026",
+    "time": "09:41",
+    "aircraft": "HZ-AK35",
+    "reporter": "SHAREEF",
+    "findings": [
+      {
+        "category": "TEDLAR/SIDEWALL   ",
+        "subCategory": "N/A               ",
+        "description": "SMALL STOWAGE BIN DIRECTLY INFRONT OF 1LJ                   ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/5xGghRLG/fa453adcd9f2.jpg"
+      }
+    ]
   }
 ]
