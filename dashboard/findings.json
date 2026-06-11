@@ -760,5 +760,106 @@
         "photoUrl": "https://i.ibb.co/TyF7Ybm/3b9bb8dcead2.jpg"
       }
     ]
+  },
+  {
+    "id": "1781161215730vx8k0",
+    "timestamp": "2026-06-11T07:00:15.732Z",
+    "date": "11/06/2026",
+    "time": "09:58",
+    "aircraft": "HZ-ASF",
+    "reporter": "30001451",
+    "findings": [
+      {
+        "category": "GALLEY            ",
+        "subCategory": "FWD GALLEY CART CATCHES",
+        "description": "3 LONG CART CATCH : 111,110,109\n1 SHORT CART CATCH : 111    ",
+        "remarks": "                         ",
+        "photoUrl": ""
+      },
+      {
+        "category": "GALLEY            ",
+        "subCategory": "FWD GALLEY        ",
+        "description": "FWD GALLEY BUN WARMER LATCH LOOSE                           ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/cSn68Zf6/69056fb21851.jpg"
+      },
+      {
+        "category": "GALLEY            ",
+        "subCategory": "FWD GALLEY        ",
+        "description": "FWD GALLEY FWD AND AFT MODULE WORKTOP SEALANT PARTIALLY MISSING",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/yBcZ7W7Z/9968f3fc5e32.jpg | https://i.ibb.co/3yRWvSb3/2ac6d645f036.jpg"
+      },
+      {
+        "category": "GALLEY            ",
+        "subCategory": "FWD GALLEY        ",
+        "description": "FWD GALLEY BOTH OVENS NEED PAINT                            ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/zWZ9jrft/0b6752a9105c.jpg | https://i.ibb.co/KcDr903X/18573f4ff7c0.jpg"
+      },
+      {
+        "category": "GALLEY            ",
+        "subCategory": "FWD GALLEY        ",
+        "description": "FWD GALLEY LIGHTS LENS SHROUD DISCOLORATION                 ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/QjbQbThx/ff93fdd4330b.jpg | https://i.ibb.co/GvXF4mMv/1a7f9414dfc8.jpg"
+      },
+      {
+        "category": "GALLEY            ",
+        "subCategory": "FWD GALLEY        ",
+        "description": "COMP.214 LONG AND SHORT CART CATCHES CHIPED PAINT           ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/XZ3tSKZs/ca53d9566c66.jpg | https://i.ibb.co/C3dZF01L/3d450b97a6ef.jpg"
+      },
+      {
+        "category": "GALLEY            ",
+        "subCategory": "FWD GALLEY        ",
+        "description": "COMP .101 DOOR LOOSE                                        ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/Z6kMgkgd/ad0cfff2568b.jpg"
+      },
+      {
+        "category": "GALLEY            ",
+        "subCategory": "FWD GALLEY        ",
+        "description": "COMP. 210 TEDLAR CHIPED OFF                                 ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/gb1JSvc1/9fef0d776685.jpg"
+      },
+      {
+        "category": "GALLEY            ",
+        "subCategory": "FWD GALLEY        ",
+        "description": "COMP. 209 DOOR LOOSE                                        ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/3yg3R11B/41e240e81c2d.jpg"
+      },
+      {
+        "category": "GALLEY            ",
+        "subCategory": "FWD GALLEY        ",
+        "description": "COMP. 209 SLAMLATCH LOOSE                                   ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/wh6B6TTw/19cf42c4cdbd.jpg"
+      },
+      {
+        "category": "GALLEY            ",
+        "subCategory": "FWD GALLEY        ",
+        "description": "COMP. 201 DOOR FRAME DETTACHED                              ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/tp5YzfQc/c17e312b3f39.jpg"
+      },
+      {
+        "category": "GALLEY            ",
+        "subCategory": "FWD GALLEY        ",
+        "description": "COMP. 208 ICEBOX SURFACE DIRTY AND MISSING SEALANT          ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/YFnXFqdt/99d9f5a0d515.jpg | https://i.ibb.co/zhPBsr8V/7dbd40be0697.jpg"
+      },
+      {
+        "category": "GALLEY            ",
+        "subCategory": "FWD GALLEY        ",
+        "description": "COMP.211 LOWER BUMPER MISSING                               ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/3yBSQLFR/ba2604ed74d5.jpg"
+      }
+    ]
   }
 ]
