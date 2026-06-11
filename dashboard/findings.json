@@ -583,5 +583,29 @@
         "photoUrl": "https://i.ibb.co/7Jffd0NP/011fe2f3747b.jpg"
       }
     ]
+  },
+  {
+    "id": "1781160548926jnt5u",
+    "timestamp": "2026-06-11T06:49:08.926Z",
+    "date": "11/06/2026",
+    "time": "09:48",
+    "aircraft": "HZ-AK35",
+    "reporter": "FADUL",
+    "findings": [
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "30 ABC            ",
+        "description": "BATCH ON STOWAGE COMPT.                                     ",
+        "remarks": "                         ",
+        "photoUrl": ""
+      },
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "30 ABC            ",
+        "description": "PAINT ON PSU                                                ",
+        "remarks": "                         ",
+        "photoUrl": ""
+      }
+    ]
   }
 ]
