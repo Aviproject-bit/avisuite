@@ -1426,5 +1426,22 @@
         "photoUrl": "https://i.ibb.co/Q3qcK5VM/9f8fcdd169e1.jpg"
       }
     ]
+  },
+  {
+    "id": "1781174931157f57sw",
+    "timestamp": "2026-06-11T10:48:51.157Z",
+    "date": "11/06/2026",
+    "time": "13:48",
+    "aircraft": "HZ-AK35",
+    "reporter": "FADUL",
+    "findings": [
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "1AC               ",
+        "description": "CHIPPED RUBBER SEAL                                         ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/9kG3gS87/885f1263c4b8.jpg"
+      }
+    ]
   }
 ]
