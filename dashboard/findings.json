@@ -929,5 +929,22 @@
         "photoUrl": "https://i.ibb.co/KQZC85f/f229511eccc0.jpg"
       }
     ]
+  },
+  {
+    "id": "1781166344783w6ldj",
+    "timestamp": "2026-06-11T08:25:44.783Z",
+    "date": "11/06/2026",
+    "time": "11:24",
+    "aircraft": "HZ-AK35",
+    "reporter": "FADUL",
+    "findings": [
+      {
+        "category": "TEDLAR/SIDEWALL   ",
+        "subCategory": "5AC               ",
+        "description": "DEEP SCRATCH ON THE SIDEWALL                                ",
+        "remarks": "                         ",
+        "photoUrl": ""
+      }
+    ]
   }
 ]
