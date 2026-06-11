@@ -980,5 +980,22 @@
         "photoUrl": "https://i.ibb.co/tMv1RN30/a8351414fa95.jpg"
       }
     ]
+  },
+  {
+    "id": "17811664644353zr4a",
+    "timestamp": "2026-06-11T08:27:44.436Z",
+    "date": "11/06/2026",
+    "time": "11:27",
+    "aircraft": "HZ-AK35",
+    "reporter": "HOSSAM ALTHOBAITI 30001461",
+    "findings": [
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "CAPTAIN SEAT      ",
+        "description": "CAPTAIN SEAT RH ARMREST LOOSE                               ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/RkQZ0nm8/e63f1c035f2f.jpg"
+      }
+    ]
   }
 ]
