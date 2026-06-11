@@ -1082,5 +1082,22 @@
         "photoUrl": "https://i.ibb.co/v4xWgNG2/ca55a6de0799.jpg"
       }
     ]
+  },
+  {
+    "id": "178116677401968kj8",
+    "timestamp": "2026-06-11T08:32:54.019Z",
+    "date": "11/06/2026",
+    "time": "11:32",
+    "aircraft": "HZ-AK35",
+    "reporter": "HOSSAM ALTHOBAITI 30001461",
+    "findings": [
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "SPEAKERS PANEL    ",
+        "description": "SPEAKERS PANEL FOR CAPTAIN , F/O MISSING SCREW              ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/j9Sx4rbp/8d68053ab10f.jpg"
+      }
+    ]
   }
 ]
