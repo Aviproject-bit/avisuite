@@ -1375,5 +1375,22 @@
         "photoUrl": "https://i.ibb.co/Z6wVYkxP/5c3d5c9daf60.jpg"
       }
     ]
+  },
+  {
+    "id": "1781173821700tmqlm",
+    "timestamp": "2026-06-11T10:30:21.701Z",
+    "date": "11/06/2026",
+    "time": "13:30",
+    "aircraft": "HZ-AK35",
+    "reporter": "FADUL",
+    "findings": [
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "1AC               ",
+        "description": "THE SMALL COMPT. STOWAGE STUCK IN THE CEILING AND NEED ADJUSTMENT",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/jvCZhrmg/7d9768c8e308.jpg"
+      }
+    ]
   }
 ]
