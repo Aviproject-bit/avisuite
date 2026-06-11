@@ -1031,5 +1031,22 @@
         "photoUrl": "https://i.ibb.co/j9Ph7zwF/cff2b7d75a45.jpg"
       }
     ]
+  },
+  {
+    "id": "1781166626818w3ufb",
+    "timestamp": "2026-06-11T08:30:26.818Z",
+    "date": "11/06/2026",
+    "time": "11:29",
+    "aircraft": "HZ-AK35",
+    "reporter": "FADUL",
+    "findings": [
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "5AC               ",
+        "description": "WHITE PAINT ON THE ROUBBER SEAL                             ",
+        "remarks": "                         ",
+        "photoUrl": ""
+      }
+    ]
   }
 ]
