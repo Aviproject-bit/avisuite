@@ -433,5 +433,22 @@
         "photoUrl": "https://i.ibb.co/hJrBrZ0Z/658903e811ab.jpg"
       }
     ]
+  },
+  {
+    "id": "1781159849358day5c",
+    "timestamp": "2026-06-11T06:37:29.358Z",
+    "date": "11/06/2026",
+    "time": "09:37",
+    "aircraft": "HZ-AK35",
+    "reporter": "SHAREEF",
+    "findings": [
+      {
+        "category": "TEDLAR/SIDEWALL   ",
+        "subCategory": "N/A               ",
+        "description": "STOWAGE BIN 4LJ                                             ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/2787tV8G/f3f0bf71606b.jpg | https://i.ibb.co/VYC19fFR/aabaa3b3bc06.jpg | https://i.ibb.co/1GRD8VcV/5892c7e47f10.jpg"
+      }
+    ]
   }
 ]
