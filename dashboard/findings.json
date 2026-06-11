@@ -641,5 +641,22 @@
         "photoUrl": "https://i.ibb.co/zTjMwz6W/b91e98834bf2.jpg"
       }
     ]
+  },
+  {
+    "id": "1781160742109ua5in",
+    "timestamp": "2026-06-11T06:52:22.109Z",
+    "date": "11/06/2026",
+    "time": "09:52",
+    "aircraft": "HZ-AK35",
+    "reporter": "30001461 HOSSAM ALTHOBAITI",
+    "findings": [
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "CAPTAIN SEAT      ",
+        "description": "CAPTAIN SEAT AFT SHROUD MISSING FASTENER                    ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/Cp9nLFGy/8533411807a8.jpg"
+      }
+    ]
   }
 ]
