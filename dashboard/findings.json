@@ -180,5 +180,50 @@
     "description": "ANC",
     "remarks": "",
     "photoUrl": "https://i.ibb.co/kVkKXZdh/ec0bcd77ebce.jpg"
+  },
+  {
+    "id": "1781157950831fwhi8",
+    "timestamp": "2026-06-11T06:05:50.831Z",
+    "date": "11/06/2026",
+    "time": "09:04",
+    "aircraft": "HZ-AK35",
+    "reporter": "30001452",
+    "findings": [
+      {
+        "category": "PAX DOORS         ",
+        "subCategory": "R1 DOOR           ",
+        "description": "SLIDE RAFT COVER MULTIPLE DMG\nHINGE COVER MULTIPLE DMG      ",
+        "remarks": "                         ",
+        "photoUrl": ""
+      },
+      {
+        "category": "PAX DOORS         ",
+        "subCategory": "R1 DOOR LINING    ",
+        "description": "FWD CUTOUT                                                  ",
+        "remarks": "                         ",
+        "photoUrl": ""
+      },
+      {
+        "category": "PAX DOORS         ",
+        "subCategory": "L1 DOOR           ",
+        "description": "HINGE COVER MULTIPLE DMG LOCATIONS                          ",
+        "remarks": "                         ",
+        "photoUrl": ""
+      },
+      {
+        "category": "PAX DOORS         ",
+        "subCategory": "L1 DOOR S/R COVER ",
+        "description": "SLIDE RAFT COVER NEED PAINT AND COMP SHOP                   ",
+        "remarks": "                         ",
+        "photoUrl": ""
+      },
+      {
+        "category": "PAX DOORS         ",
+        "subCategory": "L1 DOOR LINING    ",
+        "description": "DOOR LINING AFT LINING DMG NEAR SCREW                       ",
+        "remarks": "                         ",
+        "photoUrl": ""
+      }
+    ]
   }
 ]
