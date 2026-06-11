@@ -450,5 +450,36 @@
         "photoUrl": "https://i.ibb.co/2787tV8G/f3f0bf71606b.jpg | https://i.ibb.co/VYC19fFR/aabaa3b3bc06.jpg | https://i.ibb.co/1GRD8VcV/5892c7e47f10.jpg"
       }
     ]
+  },
+  {
+    "id": "1781159933330elx09",
+    "timestamp": "2026-06-11T06:38:53.330Z",
+    "date": "11/06/2026",
+    "time": "09:38",
+    "aircraft": "HZ-AK35",
+    "reporter": "FADUL",
+    "findings": [
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "30CBA             ",
+        "description": "MISSING DAMPER                                              ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/pjBnRKrb/383da810c34a.jpg"
+      },
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "30CBA             ",
+        "description": "OVRHD DIRTY                                                 ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/Ldw5YQGq/8d7dbcfa18b2.jpg"
+      },
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "30CBA             ",
+        "description": "DIRTY CEILING                                               ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/QF0k1Z1r/0f159391b7f8.jpg"
+      }
+    ]
   }
 ]
