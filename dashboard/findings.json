@@ -1409,5 +1409,22 @@
         "photoUrl": "https://i.ibb.co/C3x90KXc/6a668d46a2cf.jpg"
       }
     ]
+  },
+  {
+    "id": "1781174714026fvxjn",
+    "timestamp": "2026-06-11T10:45:14.026Z",
+    "date": "11/06/2026",
+    "time": "13:45",
+    "aircraft": "HZ-AK35",
+    "reporter": "FADUL",
+    "findings": [
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "1AC               ",
+        "description": "DIRTY INTERIOR ON THE OVRHD COPMT                           ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/Q3qcK5VM/9f8fcdd169e1.jpg"
+      }
+    ]
   }
 ]
