@@ -566,5 +566,22 @@
         "photoUrl": "https://i.ibb.co/q3FhB31S/295166227df7.jpg | https://i.ibb.co/TDfXZ1LQ/9162131ab1a5.jpg"
       }
     ]
+  },
+  {
+    "id": "1781160518355nozjs",
+    "timestamp": "2026-06-11T06:48:38.355Z",
+    "date": "11/06/2026",
+    "time": "09:48",
+    "aircraft": "HZ-AK35",
+    "reporter": "30001461 HOSSAM ALTHOBAITI",
+    "findings": [
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "F/O SEAT          ",
+        "description": "ASH TRAY NOT SECURED                                        ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/7Jffd0NP/011fe2f3747b.jpg"
+      }
+    ]
   }
 ]
