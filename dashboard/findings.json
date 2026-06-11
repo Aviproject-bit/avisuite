@@ -300,5 +300,36 @@
         "photoUrl": "https://i.ibb.co/wFFVY5F2/1dee7c2062c2.jpg | https://i.ibb.co/tpwN3D0q/1ff64b8c0f2d.jpg"
       }
     ]
+  },
+  {
+    "id": "1781158834067abfn3",
+    "timestamp": "2026-06-11T06:20:34.067Z",
+    "date": "11/06/2026",
+    "time": "09:19",
+    "aircraft": "HZ-AK35",
+    "reporter": "30001452",
+    "findings": [
+      {
+        "category": "PAX DOORS         ",
+        "subCategory": "L2 DOOR           ",
+        "description": "SCRATCHES ON HINGE COVER\nBUBBLING PAINT ON SLIDE RAFT COVER\nMULTIPLE MARKINGS ON SLIDE RAFT COVER\n",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/vvfg3DMN/53243bc7870c.jpg | https://i.ibb.co/ymXGHZRZ/776c1684c8a6.jpg | https://i.ibb.co/DgGWsc1B/d08953bb7656.jpg | https://i.ibb.co/RkVdPVF2/d858bde3ba35.jpg"
+      },
+      {
+        "category": "PAX DOORS         ",
+        "subCategory": "L2 DOOR LINING    ",
+        "description": "DOOR LINING L/H MARKING                                     ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/VYJ2hmp8/f4745d62c3ae.jpg"
+      },
+      {
+        "category": "PAX DOORS         ",
+        "subCategory": "R2 DOOR           ",
+        "description": "HINGE COVER ( HAS A WORKORDER ALREADY)\n\nDOOR LINING MULTIPLE MARKS\nDOOR LINING PAINT CHIPPING AND BUBBLING\nOXYGEN GENERATOR COVER DMG\nDOOR HANDLE \nAFT DOOR CUTOUT",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/ycK9dghH/e6c85d02efd4.jpg | https://i.ibb.co/gM8S79dM/1a55b9aa8d06.jpg | https://i.ibb.co/5h3Rjt6w/6baad3680f1e.jpg | https://i.ibb.co/S4bRmHvk/6513e7d3c61d.jpg | https://i.ibb.co/qMkwfVg2/17db69ab86d9.jpg"
+      }
+    ]
   }
 ]
