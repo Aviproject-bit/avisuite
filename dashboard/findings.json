@@ -382,5 +382,22 @@
         "photoUrl": "https://i.ibb.co/N25bxGVg/6fedffd831a8.jpg"
       }
     ]
+  },
+  {
+    "id": "178115947344817uof",
+    "timestamp": "2026-06-11T06:31:13.448Z",
+    "date": "11/06/2026",
+    "time": "09:31",
+    "aircraft": "HZ-AK35",
+    "reporter": "SHAREEF",
+    "findings": [
+      {
+        "category": "TEDLAR/SIDEWALL   ",
+        "subCategory": "N/A               ",
+        "description": "OXYGEN PANEL AT 4LJ IS SLAGGING/LOWERED                     ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/jkHgvHN2/e4a5d430bd6b.jpg"
+      }
+    ]
   }
 ]
