@@ -624,5 +624,22 @@
         "photoUrl": "https://i.ibb.co/ycwRPVns/dd45fd4fede7.jpg | https://i.ibb.co/tTwW7L6r/eff3971594a1.jpg"
       }
     ]
+  },
+  {
+    "id": "178116068457836elj",
+    "timestamp": "2026-06-11T06:51:24.578Z",
+    "date": "11/06/2026",
+    "time": "09:51",
+    "aircraft": "HZ-AK35",
+    "reporter": "30001461 HOSSAM ALTHOBAITI",
+    "findings": [
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "CAPTAIN SEAT      ",
+        "description": "CAPTAIN SEAT PLACARD FOR LIFE VEST CUTS                     ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/zTjMwz6W/b91e98834bf2.jpg"
+      }
+    ]
   }
 ]
