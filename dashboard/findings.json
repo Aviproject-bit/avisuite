@@ -399,5 +399,22 @@
         "photoUrl": "https://i.ibb.co/jkHgvHN2/e4a5d430bd6b.jpg"
       }
     ]
+  },
+  {
+    "id": "1781159557251zgy3d",
+    "timestamp": "2026-06-11T06:32:37.251Z",
+    "date": "11/06/2026",
+    "time": "09:32",
+    "aircraft": "HZ-AK35",
+    "reporter": "SHAREEF",
+    "findings": [
+      {
+        "category": "TEDLAR/SIDEWALL   ",
+        "subCategory": "N/A               ",
+        "description": "STOWAGE BIN AT 5LJ                                          ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/h1tTqR9r/ab7db8e1e1c6.jpg | https://i.ibb.co/Q3nsVB9g/a2109a796d79.jpg"
+      }
+    ]
   }
 ]
