@@ -1150,5 +1150,22 @@
         "photoUrl": "https://i.ibb.co/DHV4TfTZ/becdfce1cd48.jpg"
       }
     ]
+  },
+  {
+    "id": "1781167596294ua9am",
+    "timestamp": "2026-06-11T08:46:36.294Z",
+    "date": "11/06/2026",
+    "time": "11:46",
+    "aircraft": "HZ-AK35",
+    "reporter": "HOSSAM ALTHOBAITI 30001461",
+    "findings": [
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "SEATBELT          ",
+        "description": "BOTH SEATBELT FOR CAPTAIN, F/O ( DOWN) FRYED                ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/1J2sWRj4/fe904fa9e410.jpg | https://i.ibb.co/60HdM7sk/e732d4c17fad.jpg"
+      }
+    ]
   }
 ]
