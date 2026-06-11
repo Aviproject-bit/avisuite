@@ -283,5 +283,22 @@
         "photoUrl": "https://i.ibb.co/qYsQtymV/051170f66490.jpg"
       }
     ]
+  },
+  {
+    "id": "1781158728808hxf6v",
+    "timestamp": "2026-06-11T06:18:48.808Z",
+    "date": "11/06/2026",
+    "time": "09:18",
+    "aircraft": "HZ-AK35",
+    "reporter": "SHAREEF",
+    "findings": [
+      {
+        "category": "TEDLAR/SIDEWALL   ",
+        "subCategory": "N/A               ",
+        "description": "RUBBER SEAL AT R/H EMERGENCY HATCH HAS SMALL TEARINGS       ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/wFFVY5F2/1dee7c2062c2.jpg | https://i.ibb.co/tpwN3D0q/1ff64b8c0f2d.jpg"
+      }
+    ]
   }
 ]
