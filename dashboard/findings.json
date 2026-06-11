@@ -675,5 +675,22 @@
         "photoUrl": "https://i.ibb.co/99zSdFRL/369e3462cd19.jpg | https://i.ibb.co/hJFwM5gR/40ec0aadabb4.jpg"
       }
     ]
+  },
+  {
+    "id": "1781160850685wpolx",
+    "timestamp": "2026-06-11T06:54:10.685Z",
+    "date": "11/06/2026",
+    "time": "09:53",
+    "aircraft": "HZ-AK35",
+    "reporter": "FADUL",
+    "findings": [
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "LEFT MID CURTAIN  ",
+        "description": "DISCONNECTED                                                ",
+        "remarks": "                         ",
+        "photoUrl": ""
+      }
+    ]
   }
 ]
