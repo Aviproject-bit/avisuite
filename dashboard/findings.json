@@ -532,5 +532,22 @@
         "photoUrl": "https://i.ibb.co/S4JHx2gV/2d9ab6b8876e.jpg"
       }
     ]
+  },
+  {
+    "id": "1781160187909nj939",
+    "timestamp": "2026-06-11T06:43:07.909Z",
+    "date": "11/06/2026",
+    "time": "09:43",
+    "aircraft": "HZ-AK35",
+    "reporter": "FADUL",
+    "findings": [
+      {
+        "category": "TEDLAR/SIDEWALL   ",
+        "subCategory": "5 AC              ",
+        "description": "MISSING SPLINCE                                             ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/j9RY234h/b7d69dc95e94.jpg"
+      }
+    ]
   }
 ]
