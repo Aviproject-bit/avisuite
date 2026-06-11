@@ -1014,5 +1014,22 @@
         "photoUrl": "https://i.ibb.co/sJHHgLJ5/05dabf7f4f6d.jpg"
       }
     ]
+  },
+  {
+    "id": "17811666100735pgv6",
+    "timestamp": "2026-06-11T08:30:10.073Z",
+    "date": "11/06/2026",
+    "time": "11:30",
+    "aircraft": "HZ-AK35",
+    "reporter": "HOSSAM ALTHOBAITI 30001461",
+    "findings": [
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "CAPTAIN SEAT      ",
+        "description": "CAPTAIN SEAT ARM REST LH DISCOLORED                         ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/j9Ph7zwF/cff2b7d75a45.jpg"
+      }
+    ]
   }
 ]
