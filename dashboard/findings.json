@@ -878,5 +878,22 @@
         "photoUrl": "https://i.ibb.co/0p70syTY/a44d76f59e12.jpg"
       }
     ]
+  },
+  {
+    "id": "1781166186885ai5wq",
+    "timestamp": "2026-06-11T08:23:06.885Z",
+    "date": "11/06/2026",
+    "time": "11:22",
+    "aircraft": "HZ-AK35",
+    "reporter": "FADUL",
+    "findings": [
+      {
+        "category": "TEDLAR/SIDEWALL   ",
+        "subCategory": "5AC               ",
+        "description": "TWO BATCHES ON THE SIDEWALL                                 ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/ZRR3xZ6x/dbb1d6096baf.jpg"
+      }
+    ]
   }
 ]
