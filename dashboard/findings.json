@@ -515,5 +515,22 @@
         "photoUrl": "https://i.ibb.co/k2SZGzng/8371a4639a64.jpg"
       }
     ]
+  },
+  {
+    "id": "1781160164541mnfuh",
+    "timestamp": "2026-06-11T06:42:44.541Z",
+    "date": "11/06/2026",
+    "time": "09:42",
+    "aircraft": "HZ-AK35",
+    "reporter": "SHAREEF",
+    "findings": [
+      {
+        "category": "TEDLAR/SIDEWALL   ",
+        "subCategory": "N/A               ",
+        "description": "SIDEWALL SPLINE AT 1LJ                                      ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/S4JHx2gV/2d9ab6b8876e.jpg"
+      }
+    ]
   }
 ]
