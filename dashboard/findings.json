@@ -348,5 +348,22 @@
         "photoUrl": "https://i.ibb.co/Qq0CfWg/61f4131f873c.jpg"
       }
     ]
+  },
+  {
+    "id": "1781159207669e8pf3",
+    "timestamp": "2026-06-11T06:26:47.669Z",
+    "date": "11/06/2026",
+    "time": "09:26",
+    "aircraft": "HZ-AK35",
+    "reporter": "SHAREEF",
+    "findings": [
+      {
+        "category": "TEDLAR/SIDEWALL   ",
+        "subCategory": "N/A               ",
+        "description": "R/H B/C PAX WINDOW FRAME DISCOLORED.                        ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/bjj98wjR/4f6287c9ed81.jpg | https://i.ibb.co/m58Yfstw/20e6cd6772cc.jpg"
+      }
+    ]
   }
 ]
