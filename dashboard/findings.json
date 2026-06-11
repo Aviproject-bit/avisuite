@@ -331,5 +331,22 @@
         "photoUrl": "https://i.ibb.co/ycK9dghH/e6c85d02efd4.jpg | https://i.ibb.co/gM8S79dM/1a55b9aa8d06.jpg | https://i.ibb.co/5h3Rjt6w/6baad3680f1e.jpg | https://i.ibb.co/S4bRmHvk/6513e7d3c61d.jpg | https://i.ibb.co/qMkwfVg2/17db69ab86d9.jpg"
       }
     ]
+  },
+  {
+    "id": "1781159075276apmdi",
+    "timestamp": "2026-06-11T06:24:35.276Z",
+    "date": "11/06/2026",
+    "time": "09:24",
+    "aircraft": "HZ-AK35",
+    "reporter": "SHAREEF",
+    "findings": [
+      {
+        "category": "TEDLAR/SIDEWALL   ",
+        "subCategory": "N/A               ",
+        "description": "CIELING RUBBER SEAL AT R/H AND DIRECTLY AT THE BACK OF BUSINESS CLASS IS DISCOLORED. ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/Qq0CfWg/61f4131f873c.jpg"
+      }
+    ]
   }
 ]
