@@ -912,5 +912,22 @@
         "photoUrl": "https://i.ibb.co/bgykmt5v/3655217e4941.jpg"
       }
     ]
+  },
+  {
+    "id": "1781166251474ypdqq",
+    "timestamp": "2026-06-11T08:24:11.474Z",
+    "date": "11/06/2026",
+    "time": "11:24",
+    "aircraft": "HZ-AK35",
+    "reporter": "HOSSAM ALTHOBAITI 30001461",
+    "findings": [
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "DISC STOWAGE      ",
+        "description": "DISC STOWAGE FOR F/O LATCH INOP                             ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/KQZC85f/f229511eccc0.jpg"
+      }
+    ]
   }
 ]
