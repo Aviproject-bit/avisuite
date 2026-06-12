@@ -1698,8 +1698,8 @@ function exportPDF(id){
       <th ${thS}>${gL} P/N</th><th ${thS}>${gL} S/N</th><th ${thS}>${gL} MFG</th><th ${thS}>Photos</th>
     </tr></thead><tbody>${rows}</tbody></table>
 <!-- Admin Login Overlay -->
-<div id="admin-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:999999;align-items:center;justify-content:center;backdrop-filter:blur(4px)">
-  <div style="background:#0F2920;border-radius:16px;padding:32px 24px;display:flex;flex-direction:column;align-items:center;gap:16px;min-width:260px">
+<div id="admin-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:999999;align-items:center;justify-content:center;" onclick="event.target===this&&closeAdminLogin()">
+  <div style="background:#0F2920;border-radius:16px;padding:32px 24px;display:flex;flex-direction:column;align-items:center;gap:16px;min-width:260px;position:relative;z-index:1000000;">
     <div style="font-size:10px;letter-spacing:3px;color:rgba(255,255,255,.4);text-transform:uppercase">Admin Access</div>
     <div id="admin-dots" style="display:flex;gap:10px">
       <div class="pc-dot" id="ad0"></div><div class="pc-dot" id="ad1"></div>
@@ -1751,8 +1751,8 @@ function exportWord(id){
       <th ${thS}>${gL} P/N</th><th ${thS}>${gL} S/N</th><th ${thS}>${gL} MFG</th>
     </tr></thead><tbody>${rows}</tbody></table></div>
 <!-- Admin Login Overlay -->
-<div id="admin-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:999999;align-items:center;justify-content:center;backdrop-filter:blur(4px)">
-  <div style="background:#0F2920;border-radius:16px;padding:32px 24px;display:flex;flex-direction:column;align-items:center;gap:16px;min-width:260px">
+<div id="admin-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:999999;align-items:center;justify-content:center;" onclick="event.target===this&&closeAdminLogin()">
+  <div style="background:#0F2920;border-radius:16px;padding:32px 24px;display:flex;flex-direction:column;align-items:center;gap:16px;min-width:260px;position:relative;z-index:1000000;">
     <div style="font-size:10px;letter-spacing:3px;color:rgba(255,255,255,.4);text-transform:uppercase">Admin Access</div>
     <div id="admin-dots" style="display:flex;gap:10px">
       <div class="pc-dot" id="ad0"></div><div class="pc-dot" id="ad1"></div>
@@ -1949,7 +1949,7 @@ function openAdminLogin(){
   [1,2,3,4,5,6,7,8,9,'⌫',0,'✓'].forEach(k=>{
     const b=document.createElement('button');
     b.textContent=k;
-    b.style.cssText='height:58px;border-radius:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:#fff;font-size:18px;cursor:pointer;font-family:"BwGradual",sans-serif;-webkit-tap-highlight-color:transparent;';
+    b.style.cssText='height:58px;border-radius:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:#fff;font-size:18px;cursor:pointer;font-family:"BwGradual",sans-serif;-webkit-tap-highlight-color:transparent;touch-action:manipulation;user-select:none;-webkit-user-select:none;';
     b.onclick=()=>_adminKey(String(k));
     g.appendChild(b);
   });}
@@ -1997,8 +1997,8 @@ document.addEventListener('DOMContentLoaded', _checkPasscode);
 </script>
 
 <!-- Admin Login Overlay -->
-<div id="admin-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:999999;align-items:center;justify-content:center;backdrop-filter:blur(4px)">
-  <div style="background:#0F2920;border-radius:16px;padding:32px 24px;display:flex;flex-direction:column;align-items:center;gap:16px;min-width:260px">
+<div id="admin-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:999999;align-items:center;justify-content:center;" onclick="event.target===this&&closeAdminLogin()">
+  <div style="background:#0F2920;border-radius:16px;padding:32px 24px;display:flex;flex-direction:column;align-items:center;gap:16px;min-width:260px;position:relative;z-index:1000000;">
     <div style="font-size:10px;letter-spacing:3px;color:rgba(255,255,255,.4);text-transform:uppercase">Admin Access</div>
     <div id="admin-dots" style="display:flex;gap:10px">
       <div class="pc-dot" id="ad0"></div><div class="pc-dot" id="ad1"></div>
