@@ -205,9 +205,9 @@ body{font-family:'BwGradual',sans-serif;background:var(--bg);color:var(--txt);mi
 </head>
 <body>
 <!-- WIP NOTICE -->
-<div style="background:#FFF3CD;border-bottom:1px solid #FFE08A;padding:8px 16px;display:flex;align-items:center;gap:8px;font-family:'BwGradual',sans-serif;font-size:11px;font-weight:700;color:#856404;">
-  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-  This tool is under development — data and features may change. Do not use for official records.
+<div style="background:#FFF3CD;border-bottom:1px solid #FFE08A;padding:6px 12px;display:flex;align-items:flex-start;gap:6px;font-family:'BwGradual',sans-serif;font-size:10px;font-weight:700;color:#856404;line-height:1.4;word-wrap:break-word;">
+  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+  <span>Under development — data and features may change. Do not use for official records.</span>
 </div>
 
 
@@ -1701,7 +1701,7 @@ function exportPDF(id){
       <th ${thS}>${gL} P/N</th><th ${thS}>${gL} S/N</th><th ${thS}>${gL} MFG</th><th ${thS}>Photos</th>
     </tr></thead><tbody>${rows}</tbody></table>
 <!-- Admin Login Overlay -->
-<div id="admin-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9998;align-items:center;justify-content:center;backdrop-filter:blur(4px)">
+<div id="admin-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:999999;align-items:center;justify-content:center;backdrop-filter:blur(4px)">
   <div style="background:#0F2920;border-radius:16px;padding:32px 24px;display:flex;flex-direction:column;align-items:center;gap:16px;min-width:260px">
     <div style="font-size:10px;letter-spacing:3px;color:rgba(255,255,255,.4);text-transform:uppercase">Admin Access</div>
     <div id="admin-dots" style="display:flex;gap:10px">
@@ -1754,7 +1754,7 @@ function exportWord(id){
       <th ${thS}>${gL} P/N</th><th ${thS}>${gL} S/N</th><th ${thS}>${gL} MFG</th>
     </tr></thead><tbody>${rows}</tbody></table></div>
 <!-- Admin Login Overlay -->
-<div id="admin-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9998;align-items:center;justify-content:center;backdrop-filter:blur(4px)">
+<div id="admin-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:999999;align-items:center;justify-content:center;backdrop-filter:blur(4px)">
   <div style="background:#0F2920;border-radius:16px;padding:32px 24px;display:flex;flex-direction:column;align-items:center;gap:16px;min-width:260px">
     <div style="font-size:10px;letter-spacing:3px;color:rgba(255,255,255,.4);text-transform:uppercase">Admin Access</div>
     <div id="admin-dots" style="display:flex;gap:10px">
@@ -2000,7 +2000,7 @@ document.addEventListener('DOMContentLoaded', _checkPasscode);
 </script>
 
 <!-- Admin Login Overlay -->
-<div id="admin-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9998;align-items:center;justify-content:center;backdrop-filter:blur(4px)">
+<div id="admin-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:999999;align-items:center;justify-content:center;backdrop-filter:blur(4px)">
   <div style="background:#0F2920;border-radius:16px;padding:32px 24px;display:flex;flex-direction:column;align-items:center;gap:16px;min-width:260px">
     <div style="font-size:10px;letter-spacing:3px;color:rgba(255,255,255,.4);text-transform:uppercase">Admin Access</div>
     <div id="admin-dots" style="display:flex;gap:10px">
