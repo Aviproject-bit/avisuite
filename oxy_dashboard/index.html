@@ -201,6 +201,7 @@ body{font-family:'BwGradual',sans-serif;background:var(--bg);color:var(--txt);mi
 }
 
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
 <body>
 <!-- WIP NOTICE -->
@@ -220,6 +221,14 @@ body{font-family:'BwGradual',sans-serif;background:var(--bg);color:var(--txt);mi
   <div class="hdr-right">
     <button class="btn-h ref" onclick="loadData()">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23,4 23,10 17,10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>Refresh
+    </button>
+    <button class="btn-h" id="admin-btn" onclick="openAdminLogin()" style="background:rgba(23,184,200,.15);border-color:rgba(23,184,200,.3);color:#17B8C8;" title="Admin Login">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      <span id="admin-label">Admin</span>
+    </button>
+    <button class="btn-h" onclick="exportExcel()" title="Export to Excel">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      Excel
     </button>
     <a class="btn-h app" href="../OxygenMapping.html" target="_blank">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>Open App
@@ -1583,9 +1592,7 @@ function buildCard(rec){
         <button class="btn-act raw" onclick="exportRaw('${rec.id}')">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>Raw Barcodes
         </button>
-        <button class="btn-act" onclick="deleteRec('${rec.id}')" style="margin-left:auto;border-color:#fca5a5;color:var(--red);">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3,6 5,6 21,6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6M14 11v6"/></svg>Delete
-        </button>
+        ${_isAdmin() ? `<button class="btn-act" onclick="deleteRec('${rec.id}')" style="margin-left:auto;border-color:#fca5a5;color:var(--red);"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3,6 5,6 21,6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6M14 11v6"/></svg>Delete</button>` : ''}
       </div>
       ${tableHtml}
     </div>
@@ -1692,7 +1699,20 @@ function exportPDF(id){
     <table style="border:2px solid #006937"><thead><tr>
       <th ${thS}>Location</th><th ${thS}>${cL} P/N</th><th ${thS}>${cL} S/N</th><th ${thS}>${cL} MFG</th>
       <th ${thS}>${gL} P/N</th><th ${thS}>${gL} S/N</th><th ${thS}>${gL} MFG</th><th ${thS}>Photos</th>
-    </tr></thead><tbody>${rows}</tbody></table></body></html>`;
+    </tr></thead><tbody>${rows}</tbody></table>
+<!-- Admin Login Overlay -->
+<div id="admin-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9998;display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px)">
+  <div style="background:#0F2920;border-radius:16px;padding:32px 24px;display:flex;flex-direction:column;align-items:center;gap:16px;min-width:260px">
+    <div style="font-size:10px;letter-spacing:3px;color:rgba(255,255,255,.4);text-transform:uppercase">Admin Access</div>
+    <div id="admin-dots" style="display:flex;gap:10px">
+      <div class="pc-d" id="ad0"></div><div class="pc-d" id="ad1"></div>
+      <div class="pc-d" id="ad2"></div><div class="pc-d" id="ad3"></div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,60px);gap:8px" id="admin-grid"></div>
+    <button onclick="closeAdminLogin()" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.5);padding:6px 16px;border-radius:7px;cursor:pointer;font-size:12px;font-family:'BwGradual',sans-serif">Cancel</button>
+  </div>
+</div>
+</body></html>`;
   const w=window.open('','_blank'); w.document.write(html); w.document.close(); w.onload=()=>w.print();
 }
 
@@ -1732,7 +1752,20 @@ function exportWord(id){
     <table style="border:2px solid #006937"><thead><tr>
       <th ${thS}>Location</th><th ${thS}>${cL} P/N</th><th ${thS}>${cL} S/N</th><th ${thS}>${cL} MFG</th>
       <th ${thS}>${gL} P/N</th><th ${thS}>${gL} S/N</th><th ${thS}>${gL} MFG</th>
-    </tr></thead><tbody>${rows}</tbody></table></div></body></html>`;
+    </tr></thead><tbody>${rows}</tbody></table></div>
+<!-- Admin Login Overlay -->
+<div id="admin-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9998;display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px)">
+  <div style="background:#0F2920;border-radius:16px;padding:32px 24px;display:flex;flex-direction:column;align-items:center;gap:16px;min-width:260px">
+    <div style="font-size:10px;letter-spacing:3px;color:rgba(255,255,255,.4);text-transform:uppercase">Admin Access</div>
+    <div id="admin-dots" style="display:flex;gap:10px">
+      <div class="pc-d" id="ad0"></div><div class="pc-d" id="ad1"></div>
+      <div class="pc-d" id="ad2"></div><div class="pc-d" id="ad3"></div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,60px);gap:8px" id="admin-grid"></div>
+    <button onclick="closeAdminLogin()" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.5);padding:6px 16px;border-radius:7px;cursor:pointer;font-size:12px;font-family:'BwGradual',sans-serif">Cancel</button>
+  </div>
+</div>
+</body></html>`;
   const blob=new Blob(['\ufeff'+doc],{type:'application/msword;charset=utf-8'});
   const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
   a.download='OxyMapping_'+rec.acft+'.doc'; a.click();
@@ -1807,6 +1840,9 @@ function showToast(m){
 /* ══ PASSCODE ══════════════════════════════════════════════ */
 // Char codes: 51='3', 50='2', 49='1' → '321'
 const _PC_VALID=[51,50,49].map(c=>String.fromCharCode(c)).join('');
+const _ADMIN_CODE='9955';
+const _ADMIN_KEY='oxy_admin';
+function _isAdmin(){ return sessionStorage.getItem(_ADMIN_KEY)==='1'; }
 function _pcVerify(entry){ return String(entry)===_PC_VALID; }
 
 const _APP_LOCK_VER='v1'; // bump this to force re-auth on all devices
@@ -1908,5 +1944,18 @@ function _pcUpdateDots(){
 
 document.addEventListener('DOMContentLoaded', _checkPasscode);
 </script>
+
+<!-- Admin Login Overlay -->
+<div id="admin-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9998;display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px)">
+  <div style="background:#0F2920;border-radius:16px;padding:32px 24px;display:flex;flex-direction:column;align-items:center;gap:16px;min-width:260px">
+    <div style="font-size:10px;letter-spacing:3px;color:rgba(255,255,255,.4);text-transform:uppercase">Admin Access</div>
+    <div id="admin-dots" style="display:flex;gap:10px">
+      <div class="pc-d" id="ad0"></div><div class="pc-d" id="ad1"></div>
+      <div class="pc-d" id="ad2"></div><div class="pc-d" id="ad3"></div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,60px);gap:8px" id="admin-grid"></div>
+    <button onclick="closeAdminLogin()" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.5);padding:6px 16px;border-radius:7px;cursor:pointer;font-size:12px;font-family:'BwGradual',sans-serif">Cancel</button>
+  </div>
+</div>
 </body>
 </html>
