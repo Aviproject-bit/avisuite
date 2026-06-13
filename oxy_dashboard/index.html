@@ -1367,45 +1367,6 @@ const SECS_A320_21 = [{id:'lh',label:'LH'},{id:'rh',label:'RH'},{id:'doors',labe
 
 
 
-function buildStubLocs(prefix, locNames){
-  if(!locNames) return {lh:[],ctr:[],rh:[],prayer:[],doors:[],crew:[],ofcr:[],galleys:[],lavs:[]};
-  const all = Object.entries(locNames).map(([id,info])=>({
-    id, name:info.name, tag:'oth',
-    dual: false,
-    sub: info.sub||''
-  }));
-  // Group by section based on id prefix patterns
-  const sec = {lh:[],ctr:[],rh:[],prayer:[],doors:[],crew:[],ofcr:[],galleys:[],lavs:[]};
-  all.forEach(o=>{
-    const id = o.id;
-    if(o.name.toLowerCase().includes('prayer')) sec.prayer.push(o);
-    else if(/_LH/.test(id)) sec.lh.push(o);
-    else if(/_CTR/.test(id)||/_ctr/.test(id)) sec.ctr.push(o);
-    else if(/_RH/.test(id)) sec.rh.push(o);
-    else if(/DR|DOOR/.test(id.toUpperCase())) sec.doors.push(o);
-    else if(/CREW|G4|ATTN/.test(id.toUpperCase())) sec.crew.push(o);
-    else if(/OFCR|OFAR/.test(id.toUpperCase())) sec.ofcr.push(o);
-    else if(/LAV|_L\d/.test(id)) sec.lavs.push(o);
-    else sec.crew.push(o);
-  });
-  return sec;
-}
-
-const LOCS_MAP = {
-  'B777_AK23':   buildStubLocs('B777_AK23', B777_AK23_LOC_NAMES),
-  'B777_AK3135': LOCS_B777,
-  'B777_AK3643': LOCS_B777_AK36,
-  'B787_10':     LOCS_B787_10,
-  'B787_9':      LOCS_B787_9,
-  'A330_AQ11':   buildStubLocs('A330_AQ11', A330_AQ11_LOC_NAMES),
-  'A330_AQI':    buildStubLocs('A330_AQI',  A330_AQI_LOC_NAMES),
-  'A330_AQA':    LOCS_A330_AQA,
-  'A321':        LOCS_A321,
-  'A321_NEO':    LOCS_A321_NEO,
-  'A320_AS51':   LOCS_A320_AS51,
-  'A320_ASA':    LOCS_A320_ASA,
-};
-
 
 // ─────────────────────────────────
 
@@ -4535,6 +4496,48 @@ function updateAdminUI(){
   if(_isAdmin()){btn.style.background='rgba(23,184,200,.3)';if(lbl)lbl.textContent='● Admin';}
   else{btn.style.background='rgba(23,184,200,.15)';if(lbl)lbl.textContent='Admin';}
 }
+
+
+function buildStubLocs(prefix, locNames){
+  if(!locNames) return {lh:[],ctr:[],rh:[],prayer:[],doors:[],crew:[],ofcr:[],galleys:[],lavs:[]};
+  const all = Object.entries(locNames).map(([id,info])=>({
+    id, name:info.name, tag:'oth', dual:false, sub:info.sub||''
+  }));
+  const sec = {lh:[],ctr:[],rh:[],prayer:[],doors:[],crew:[],ofcr:[],galleys:[],lavs:[]};
+  all.forEach(o=>{
+    const id = o.id.toUpperCase();
+    if(o.name.toLowerCase().includes('prayer')) sec.prayer.push(o);
+    else if(/_LH/.test(id)) sec.lh.push(o);
+    else if(/_CTR/.test(id)) sec.ctr.push(o);
+    else if(/_RH/.test(id)) sec.rh.push(o);
+    else if(/DR|DOOR/.test(id)) sec.doors.push(o);
+    else if(/OFCR|OFAR/.test(id)) sec.ofcr.push(o);
+    else if(/LAV|_L[0-9]/.test(id)) sec.lavs.push(o);
+    else sec.crew.push(o);
+  });
+  return sec;
+}
+
+function getLOCS(type){
+  const map = {
+    'B777_AK23':   ()=>buildStubLocs('B777_AK23', typeof B777_AK23_LOC_NAMES!=='undefined'?B777_AK23_LOC_NAMES:null),
+    'B777_AK3135': ()=>LOCS_B777,
+    'B777_AK3643': ()=>LOCS_B777_AK36,
+    'B787_10':     ()=>LOCS_B787_10,
+    'B787_9':      ()=>LOCS_B787_9,
+    'A330_AQ11':   ()=>buildStubLocs('A330_AQ11', typeof A330_AQ11_LOC_NAMES!=='undefined'?A330_AQ11_LOC_NAMES:null),
+    'A330_AQI':    ()=>buildStubLocs('A330_AQI',  typeof A330_AQI_LOC_NAMES!=='undefined'?A330_AQI_LOC_NAMES:null),
+    'A330_AQA':    ()=>LOCS_A330_AQA,
+    'A321':        ()=>LOCS_A321,
+    'A321_NEO':    ()=>LOCS_A321_NEO,
+    'A320_AS51':   ()=>LOCS_A320_AS51,
+    'A320_ASA':    ()=>LOCS_A320_ASA,
+  };
+  return map[type] ? map[type]() : null;
+}
+
+const LOCS_MAP = new Proxy({}, { get: (_,type) => getLOCS(type) });
+
 
 document.addEventListener('DOMContentLoaded', _checkPasscode);
 </script>
