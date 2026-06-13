@@ -85,31 +85,6 @@
     "conflicts": []
   },
   {
-    "id": "AAAAAAAAAA_A330_AQA_1781112801092",
-    "acft": "AAAAAAAAAA",
-    "type": "A330_AQA",
-    "lastEditedBy": "aaaaaa",
-    "lastEditedAt": "2026-06-10T17:33:20.013Z",
-    "createdAt": "2026-06-10T17:33:20.013Z",
-    "data": {
-      "A330_103WR_cpn": "e3333",
-      "A330_103WR_gpn": "333ee"
-    },
-    "meta": {
-      "A330_103WR_cpn": {
-        "by": "aaaaaa",
-        "at": "2026-06-10T17:33:20.013Z",
-        "val": "e3333"
-      },
-      "A330_103WR_gpn": {
-        "by": "aaaaaa",
-        "at": "2026-06-10T17:33:20.013Z",
-        "val": "333ee"
-      }
-    },
-    "conflicts": []
-  },
-  {
     "id": "F_B787_10_1781119289554",
     "acft": "F",
     "type": "B787_10",
