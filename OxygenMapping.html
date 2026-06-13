@@ -2988,6 +2988,47 @@ function resetData(){
   renderContent();
   updateProg();
   showToast('\u2713 Data reset');
+  // Also clear S/N and MFG on server by submitting empty values
+  _submitResetToServer();
+}
+
+async function _submitResetToServer(){
+  const acft = document.getElementById('inpAcft').value.trim().toUpperCase();
+  const tech = (document.getElementById('inpTech')||{}).value||'Reset';
+  if(!acft || !curType) return;
+  try{
+    const PROXY_URL = 'https://acft-proxy.aviproject.workers.dev';
+    const GH_API    = PROXY_URL + '?path=oxy_data/data.json';
+    const GH_H      = {'Content-Type':'application/json'};
+    // Get existing record
+    const res = await fetch(GH_API, {headers:GH_H});
+    if(!res.ok) return;
+    const f = await res.json();
+    const records = JSON.parse(decodeURIComponent(escape(atob(f.content.replace(/\n/g,'')))));
+    const fileSha = f.sha;
+    const recIdx = records.findIndex(r=>(r.acft||'').toUpperCase()===acft && r.type===curType);
+    if(recIdx < 0) return;
+    // Clear all S/N and MFG fields from existing record
+    const existingData = records[recIdx].data || {};
+    const clearedData = {};
+    Object.keys(existingData).forEach(k=>{
+      if(k.includes('_csn')||k.includes('_gsn')||k.includes('_cmfg')||k.includes('_gmfg')||k.includes('_photos')){
+        clearedData[k] = '';
+      } else {
+        clearedData[k] = existingData[k];
+      }
+    });
+    records[recIdx].data = clearedData;
+    records[recIdx].lastEditedBy = tech;
+    records[recIdx].lastEditedAt = new Date().toISOString();
+    const body = {
+      message: 'Reset: '+acft+' '+curType,
+      content: btoa(unescape(encodeURIComponent(JSON.stringify(records,null,2)))),
+      branch: 'main', sha: fileSha
+    };
+    await fetch(GH_API, {method:'PUT', headers:GH_H, body:JSON.stringify(body)});
+    showToast('\u2713 Reset synced to server');
+  }catch(e){ console.warn('Reset server sync failed:',e); }
 }
 
 function fmtMfg(v){
