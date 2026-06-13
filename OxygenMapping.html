@@ -1874,12 +1874,14 @@ const LOCS_A330_AQI = {
     mka330('A330_AQI_617WR','DR 4 LH ATTN SEAT','oth','617WR'),
     mka330('A330_AQI_369WR','DR 4 CTR ATTN SEAT','oth','369WR'),
     mka330('A330_AQI_616WR','DR 4 RH ATTN SEAT','oth','616WR'),
-    mka330('A330_AQI_620WR','G4 ATTN SEAT','oth','620WR'),
   ],
   prayer:[
     mka330('A330_AQI_466WR','Prayer Room FWD','oth','466WR'),
     mka330('A330_AQI_366WR','Prayer Room CTR','oth','366WR'),
     mka330('A330_AQI_367WR','Prayer Room AFT','oth','367WR'),
+  ],
+  crew:[
+    mka330('A330_AQI_620WR','G4 ATTN SEAT','oth','620WR'),
   ],
 };
 
@@ -1983,6 +1985,10 @@ const LOCS_B777_AK23 = {
     {id:'AK23_R66_CTR',name:'ROW 66 CTR',tag:'ctr',dual:true},
     {id:'AK23_R67_CTR',name:'ROW 67 CTR',tag:'ctr',dual:true},
     {id:'AK23_R68_CTR',name:'ROW 68 CTR',tag:'ctr',dual:true},
+    // Prayer Area
+    {id:'AK23_PRAYER1',name:'Prayer Room #1',tag:'oth',dual:true},
+    {id:'AK23_PRAYER2',name:'Prayer Room #2',tag:'oth',dual:true},
+    {id:'AK23_PRAYER3',name:'Prayer Room #3',tag:'oth',dual:true},
   ],
   rh:[
     {id:'AK23_R1_RH_BAS',name:'ROW 1 RH',tag:'bas',sub:'BASSINET'},
@@ -2047,11 +2053,7 @@ const LOCS_B777_AK23 = {
     {id:'AK23_OFAR_BUNK7',name:'OFAR BUNK 7',tag:'oth'},
     {id:'AK23_OFAR_BUNK8',name:'OFAR BUNK 8',tag:'oth'},
   ],
-  prayer:[
-    {id:'AK23_PRAYER1',name:'Prayer Room #1',tag:'oth',dual:true},
-    {id:'AK23_PRAYER2',name:'Prayer Room #2',tag:'oth',dual:true},
-    {id:'AK23_PRAYER3',name:'Prayer Room #3',tag:'oth',dual:true},
-  ],
+
   doors:[
     {id:'AK23_D1L',name:'1L DOOR',tag:'oth'},
     {id:'AK23_D1R',name:'1R DOOR',tag:'oth'},
@@ -2121,8 +2123,8 @@ const SECS = {
   B787_9:      ['lh','ctr','rh','doors','ofcr','lavs'],
   A330_AQA:    ['lh','ctr','rh','doors','crew'],
   A330_AQ11:   ['lh','ctr','rh','doors','crew'],
-  A330_AQI:    ['lh','ctr','rh','doors','prayer'],
-  B777_AK23:   ['lh','ctr','rh','ofcr','prayer','doors','galleys'],
+  A330_AQI:    ['lh','ctr','rh','doors','prayer','crew'],
+  B777_AK23:   ['lh','ctr','rh','ofcr','doors','galleys'],
   A321:        ['lh','rh','doors'],
   A321_NEO:    ['lh','rh','doors'],
   A320_AS51:   ['lh','rh','doors'],
