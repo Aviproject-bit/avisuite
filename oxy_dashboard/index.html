@@ -3409,7 +3409,7 @@ async function exportOfficialForm(id){
     function normLoc(raw){
       let s = raw.trim().toUpperCase();
       // Remove coordinate parens like "(X-LOC:...)", "(X-345, L25)", "(X-779, L20)"
-      s = s.replace(/\s*\([XYZ][\s\-][^)]+\)/gi,'').trim();
+      s = s.replace(/\s*\([^)]*[XYZ][\s\-]LOC[^)]*\)/gi,'').trim();
       s = s.replace(/\s*\(X-[\d]+[^)]*\)/g,'').trim();
       // Remove trailing coordinate-style parens (letters, digits, commas, spaces, dots, dashes)
       s = s.replace(/\s*\([\s\d\w\.,\-]+\)\s*$/,'').trim();
