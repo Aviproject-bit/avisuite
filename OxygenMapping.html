@@ -2543,10 +2543,12 @@ function openScanner(id,comp,u){
         document.getElementById('scanFrame').classList.add('show');
         startScanLoop();
       }).catch(()=>startScanLoop());
-      // Show flash toggle only if the device/track supports torch
-      const track=stream.getVideoTracks()[0];
-      const caps=track.getCapabilities?track.getCapabilities():{};
-      if(caps.torch){ flashBtn.style.display='inline-flex'; }
+      // Show flash toggle only if the device/track supports torch (Safari lacks getCapabilities)
+      try{
+        const track=stream.getVideoTracks()[0];
+        const caps=(track && typeof track.getCapabilities==='function')?track.getCapabilities():{};
+        if(caps && caps.torch){ flashBtn.style.display='inline-flex'; }
+      }catch(e){ /* getCapabilities unsupported (Safari) - keep flash hidden */ }
     }).catch(err=>{ showToast('Camera: '+err.message); closeScanner(); });
 }
 
