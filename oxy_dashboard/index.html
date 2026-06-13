@@ -3408,20 +3408,20 @@ async function exportOfficialForm(id){
     // Normalize template location name for matching
     function normLoc(raw){
       let s = raw.trim().toUpperCase();
-      // Remove X-LOC/Y-LOC/Z-LOC coordinate notes in parens
-      s = s.replace(/\s*\([\s\w\-,\.]+\)\s*$/,'').trim(); // trailing coord parens
-      s = s.replace(/\s*\(X[-\s]LOC[^)]*\)/gi,'').trim();
-      // Remove trailing coordinate parens like "(X-779, L20)"
+      // Remove coordinate parens like "(X-LOC:...)", "(X-345, L25)", "(X-779, L20)"
+      s = s.replace(/\s*\([XYZ][\s\-][^)]+\)/gi,'').trim();
       s = s.replace(/\s*\(X-[\d]+[^)]*\)/g,'').trim();
-      // Normalize OFAR - BUNK → OFAR BUNK
+      // Remove trailing coordinate-style parens (letters, digits, commas, spaces, dots, dashes)
+      s = s.replace(/\s*\([\s\d\w\.,\-]+\)\s*$/,'').trim();
+      // Normalize OFAR/OFCR - LABEL → OFAR/OFCR LABEL
       s = s.replace(/\bOFAR\s+-\s+/,'OFAR ');
       s = s.replace(/\bOFCR\s+-\s+/,'OFCR ');
-      // Normalize CROSS AISLE missing space before M1/M2
-      s = s.replace(/CROSS AISLE([A-Z])/,'CROSS AISLE $1');
+      // Fix missing space: CROSS AISLE immediately followed by non-space
+      s = s.replace(/CROSS AISLE([^\s])/,'CROSS AISLE $1');
       s = s.replace(/\bOFCR([A-Z])/,'OFCR $1');
-      // Normalize spaces around /
+      // Remove trailing descriptor after galley parens: "FWD GALLEY (F-2)MID / LH" → "FWD GALLEY (F-2)"
+      s = s.replace(/(\([^)]+\))[^(]*$/,(m,p1)=>p1.endsWith(')')?p1:'');
       s = s.replace(/\s*\/\s*/g,'/');
-      // Collapse multiple spaces
       s = s.replace(/\s+/g,' ').trim();
       return s;
     }
@@ -3476,10 +3476,13 @@ async function exportOfficialForm(id){
       const key = locName.toUpperCase().trim();
       const keyNorm = normLoc(locName);
       const keyNoParens = locName.replace(/\s*\([^)]+\)/g,'').trim().toUpperCase().replace(/\s+/g,' ');
+      // Also try dropping trailing word (for "X GALLEY" → "X")
+      const keyDropLast = keyNorm.replace(/\s+\w+$/, '');
       const locId = (finVal && finToId[finVal]) 
                  || nameToId[key] 
                  || nameToId[keyNorm]
-                 || nameToId[keyNoParens];
+                 || nameToId[keyNoParens]
+                 || (keyDropLast !== keyNorm ? nameToId[keyDropLast] : undefined);
       if(!locId) return rowXml;
 
       const {csn,cmfg,gsn,gmfg} = getVals(locId);
