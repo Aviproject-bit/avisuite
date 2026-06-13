@@ -4500,9 +4500,16 @@ function updateAdminUI(){
 
 function buildStubLocs(prefix, locNames){
   if(!locNames) return {lh:[],ctr:[],rh:[],prayer:[],doors:[],crew:[],ofcr:[],galleys:[],lavs:[]};
-  const all = Object.entries(locNames).map(([id,info])=>({
-    id, name:info.name, tag:'oth', dual:false, sub:info.sub||''
-  }));
+  const all = Object.entries(locNames).map(([id,info])=>{
+    const idUp = id.toUpperCase();
+    const nameUp = (info.name||'').toUpperCase();
+    const sub = info.sub||'';
+    // B777-style dual: CTR rows and Prayer Rooms have Generator #1/#2 (unless BASSINET)
+    const isDual = !sub && (
+      idUp.includes('_CTR') || idUp.includes('_PR') || nameUp.includes('PRAYER')
+    );
+    return { id, name:info.name, tag:'oth', dual:isDual, sub };
+  });
   const sec = {lh:[],ctr:[],rh:[],prayer:[],doors:[],crew:[],ofcr:[],galleys:[],lavs:[]};
   all.forEach(o=>{
     const id = o.id.toUpperCase();
