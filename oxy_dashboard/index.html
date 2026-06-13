@@ -1431,9 +1431,24 @@ function exportRecordExcel(id){
 async function loadData(){
   document.getElementById('listEl').innerHTML='<div class="loading"><div class="sp"></div><p>Loading...</p></div>';
   try{
-    const res=await fetch(GH_RAW+'?t='+Date.now());
-    if(!res.ok) throw new Error('HTTP '+res.status);
-    allData=await res.json();
+    // Try GitHub API via proxy first (no CDN cache delay)
+    let loaded = false;
+    try{
+      const apiRes = await fetch(GH_API, {headers:GH_H});
+      if(apiRes.ok){
+        const f = await apiRes.json();
+        const content = f.content.split('\n').join('');
+        allData = JSON.parse(decodeURIComponent(escape(atob(content))));
+        loaded = true;
+      }
+    }catch(e2){ /* proxy unavailable, fall through to raw */ }
+
+    // Fallback: raw.githubusercontent.com (may lag 1-5 min due to CDN cache)
+    if(!loaded){
+      const res=await fetch(GH_RAW+'?t='+Date.now());
+      if(!res.ok) throw new Error('HTTP '+res.status);
+      allData=await res.json();
+    }
     document.getElementById('fTime').textContent='Updated: '+new Date().toLocaleTimeString();
   }catch(e){
     document.getElementById('listEl').innerHTML=
