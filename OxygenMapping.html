@@ -2193,7 +2193,7 @@ const TYPE_LABELS = {
 // ══════════════════════════════════════════════
 // STATE
 // ══════════════════════════════════════════════
-let S={}, curType='', curSec='', scanCtx=null, scanStream=null, scanTimer=null, lastRaw='', multiCtx=null;
+let S={}, curType='', curSec='', scanCtx=null, scanStream=null, scanTimer=null, lastRaw='', multiCtx=null, torchOn=false;
 
 function gv(id,f,u){ return S[(u?id+'_'+u+'_'+f:id+'_'+f)]||''; }
 function sv(id,f,u,v){ S[(u?id+'_'+u+'_'+f:id+'_'+f)]=v; save(); updateDot(id); updateProg(); }
@@ -2525,10 +2525,13 @@ function refreshPhotos(id,u,photos){ const g=document.getElementById('pg_'+id+'_
 
 // SCANNER
 function openScanner(id,comp,u){
-  scanCtx={id,comp,u}; lastRaw='';
+  scanCtx={id,comp,u}; lastRaw=''; torchOn=false;
   document.getElementById('scanTitle').textContent='Scan '+(comp==='container'?cLbl():gLbl())+' Label';
   document.getElementById('scanResult').className='scan-result';
   document.getElementById('btnUse').className='btn-use';
+  const flashBtn=document.getElementById('btnFlash');
+  flashBtn.style.display='none';
+  flashBtn.classList.remove('active');
   document.getElementById('scanOverlay').classList.add('open');
   navigator.mediaDevices.getUserMedia({video:{facingMode:{exact:'environment'}}})
     .catch(()=>navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'}}))
@@ -2540,7 +2543,26 @@ function openScanner(id,comp,u){
         document.getElementById('scanFrame').classList.add('show');
         startScanLoop();
       }).catch(()=>startScanLoop());
+      // Show flash toggle only if the device/track supports torch
+      const track=stream.getVideoTracks()[0];
+      const caps=track.getCapabilities?track.getCapabilities():{};
+      if(caps.torch){ flashBtn.style.display='inline-flex'; }
     }).catch(err=>{ showToast('Camera: '+err.message); closeScanner(); });
+}
+
+function toggleFlash(){
+  if(!scanStream) return;
+  const track=scanStream.getVideoTracks()[0];
+  if(!track) return;
+  torchOn=!torchOn;
+  track.applyConstraints({advanced:[{torch:torchOn}]})
+    .then(()=>{
+      document.getElementById('btnFlash').classList.toggle('active', torchOn);
+    })
+    .catch(()=>{
+      torchOn=!torchOn; // revert on failure
+      showToast('Flash not supported on this device');
+    });
 }
 function startScanLoop(){
   const v=document.getElementById('scanVideo');
@@ -2693,7 +2715,12 @@ function closeScanner(){
   document.getElementById('scanOverlay').classList.remove('open');
   document.getElementById('scanFrame').classList.remove('show');
   if(scanTimer){ clearTimeout(scanTimer); scanTimer=null; }
-  if(scanStream){ scanStream.getTracks().forEach(t=>t.stop()); scanStream=null; }
+  if(scanStream){
+    const track=scanStream.getVideoTracks()[0];
+    if(track && torchOn){ try{ track.applyConstraints({advanced:[{torch:false}]}); }catch(e){} }
+    scanStream.getTracks().forEach(t=>t.stop()); scanStream=null;
+  }
+  torchOn=false;
   scanCtx=null; lastRaw='';
 }
 
