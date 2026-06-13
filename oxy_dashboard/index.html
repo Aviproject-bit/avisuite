@@ -3086,8 +3086,23 @@ async function exportOfficialForm(id){
       // Fill columns dynamically based on type
       let newRow = rowXml;
       const fillMap = {};
-      fillMap[cSnCol]=csn; fillMap[cMfgCol]=cmfg;
-      fillMap[gSnCol]=gsn; fillMap[gMfgCol]=gmfg;
+      // For B777 dual: generator vals are objects {u1,u2}, container is scalar
+      const isB777Dual = rec.type.startsWith('B777') && (
+        typeof gsn==='object' || typeof gmfg==='object'
+      );
+      if(isB777Dual){
+        // Fill Container P/N, S/N, MFG from u1 (scalar)
+        fillMap[1] = d[locId+'_u1_cpn']||''; // Container P/N
+        fillMap[cSnCol]  = csn;   // Container S/N (scalar from getVals)
+        fillMap[cMfgCol] = cmfg;  // Container MFG
+        // Fill Generator P/N, S/N, MFG as dual
+        fillMap[4] = {u1: d[locId+'_u1_gpn']||'', u2: d[locId+'_u2_gpn']||''};
+        fillMap[gSnCol]  = gsn;   // {u1, u2}
+        fillMap[gMfgCol] = gmfg;  // {u1, u2}
+      } else {
+        fillMap[cSnCol]=csn; fillMap[cMfgCol]=cmfg;
+        fillMap[gSnCol]=gsn; fillMap[gMfgCol]=gmfg;
+      }
 
       Object.entries(fillMap).forEach(([colIdx,val])=>{
         if(!val || !cells[colIdx]) return;
@@ -3103,34 +3118,40 @@ async function exportOfficialForm(id){
         const isDual777 = cellTexts777.includes('#1') && cellTexts777.includes('#2');
 
         if(isDual777 && typeof val === 'object'){
-          // val = {u1: '...', u2: '...'} for dual cells
-          const paras = [...oldCell.matchAll(/(<w:p[ >].*?<\/w:p>)/gs)];
+          // Dual cell: replace #1→u1, #2→u2 in separate paragraphs
           let newCell = oldCell;
-          paras.forEach(pm=>{
-            const pText = [...pm[1].matchAll(/<w:t[^>]*>([^<]*)<\/w:t>/g)].map(m=>m[1]).join('');
-            if(pText.includes('#1') && val.u1){
-              const newP = pm[1].replace(/<w:t([^>]*)>#1<\/w:t>/,
-                `<w:t$1>${val.u1}</w:t>`);
-              newCell = newCell.replace(pm[1], newP);
-            } else if(pText.includes('#2') && val.u2){
-              const newP = pm[1].replace(/<w:t([^>]*)>#2<\/w:t>/,
-                `<w:t$1>${val.u2}</w:t>`);
-              newCell = newCell.replace(pm[1], newP);
-            }
-          });
+          const u1val = val.u1||'';
+          const u2val = val.u2||'';
+          // Replace #1 paragraph
+          newCell = newCell.replace(
+            /(<w:r[^>]*>(?:<w:rPr>.*?<\/w:rPr>)?<w:t[^>]*>)#1(<\/w:t><\/w:r>)/s,
+            u1val ? `$1${u1val}$2` : `$1#1$2`
+          );
+          // Replace #2 paragraph  
+          newCell = newCell.replace(
+            /(<w:r[^>]*>(?:<w:rPr>.*?<\/w:rPr>)?<w:t[^>]*>)#2(<\/w:t><\/w:r>)/s,
+            u2val ? `$1${u2val}$2` : `$1#2$2`
+          );
           newRow = newRow.replace(oldCell, newCell);
         } else {
           const fillVal = typeof val === 'object' ? (val.u1||'') : val;
-          const newCell = oldCell.replace(/<w:t([^>]*)>([^<]*)<\/w:t>/, (m,attr,txt)=>{
-            if(replaced) return m;
-            replaced = true;
-            return `<w:t${attr}>${fillVal}</w:t>`;
-          });
-          if(!replaced){
-            const newCell2 = oldCell.replace('</w:p>',
-              `<w:r>${rPrXml}<w:t xml:space="preserve">${fillVal}</w:t></w:r></w:p>`);
-            newRow = newRow.replace(oldCell, newCell2);
-          } else {
+          if(!fillVal){ /* skip empty */ } else {
+            // Check if cell has existing w:t to replace
+            const hasT = /<w:t[^>]*>[^<]*<\/w:t>/.test(oldCell);
+            let newCell;
+            if(hasT){
+              let done=false;
+              newCell = oldCell.replace(/<w:t([^>]*)>([^<]*)<\/w:t>/g, (m,attr,txt)=>{
+                if(done) return m;
+                done=true;
+                return `<w:t${attr}>${fillVal}</w:t>`;
+              });
+            } else {
+              // Empty cell — inject run before </w:p>
+              const rpr = rPrXml || '<w:rPr><w:sz w:val="15"/></w:rPr>';
+              newCell = oldCell.replace(/<\/w:p>/, 
+                `<w:r>${rpr}<w:t xml:space="preserve">${fillVal}</w:t></w:r></w:p>`);
+            }
             newRow = newRow.replace(oldCell, newCell);
           }
         }
