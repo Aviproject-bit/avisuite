@@ -3122,15 +3122,14 @@ async function exportOfficialForm(id){
           let newCell = oldCell;
           const u1val = val.u1||'';
           const u2val = val.u2||'';
-          // Replace #1 paragraph
+          // Keep #1/#2 and append value after with two spaces
           newCell = newCell.replace(
-            /(<w:r[^>]*>(?:<w:rPr>.*?<\/w:rPr>)?<w:t[^>]*>)#1(<\/w:t><\/w:r>)/s,
-            u1val ? `$1${u1val}$2` : `$1#1$2`
+            /(<w:r[^>]*>(?:<w:rPr>.*?<\/w:rPr>)?<w:t[^>]*>)(#1)(<\/w:t><\/w:r>)/s,
+            u1val ? `$1$2  ${u1val}$3` : `$1$2$3`
           );
-          // Replace #2 paragraph  
           newCell = newCell.replace(
-            /(<w:r[^>]*>(?:<w:rPr>.*?<\/w:rPr>)?<w:t[^>]*>)#2(<\/w:t><\/w:r>)/s,
-            u2val ? `$1${u2val}$2` : `$1#2$2`
+            /(<w:r[^>]*>(?:<w:rPr>.*?<\/w:rPr>)?<w:t[^>]*>)(#2)(<\/w:t><\/w:r>)/s,
+            u2val ? `$1$2  ${u2val}$3` : `$1$2$3`
           );
           newRow = newRow.replace(oldCell, newCell);
         } else {
