@@ -1771,15 +1771,85 @@ const INIT_ICON = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" s
 </svg>`;
 const SCAN_ICON= `<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7V5a2 2 0 012-2h2M17 3h2a2 2 0 012 2v2M21 17v2a2 2 0 01-2 2h-2M7 21H5a2 2 0 01-2-2v-2"/><line x1="7" y1="8" x2="7" y2="16"/><line x1="10" y1="8" x2="10" y2="16"/><line x1="13" y1="8" x2="13" y2="13"/><line x1="16" y1="8" x2="16" y2="16"/></svg>`;
 
+function renderFields777Dual(locId){
+  // B777: Container (single, from u1) + Generator #1 (u1) + Generator #2 (u2)
+  const photos1=JSON.parse(gv(locId,'photos','u1')||'[]');
+  const photos2=JSON.parse(gv(locId,'photos','u2')||'[]');
+  const photoHtml1=photos1.map((p,i)=>`<div class="photo-item"><img src="${p}"><button class="photo-del" onclick="delPhoto('${locId}','u1',${i})">✕</button></div>`).join('');
+  const photoHtml2=photos2.map((p,i)=>`<div class="photo-item"><img src="${p}"><button class="photo-del" onclick="delPhoto('${locId}','u2',${i})">✕</button></div>`).join('');
+  return `
+    <!-- Container (single) -->
+    <div class="ubox">
+      <div class="utitle">${PSU_ICON} Container</div>
+      <div class="field"><label>P/N</label>
+        <div class="fw"><input type="text" placeholder="Part Number" value="${gv(locId,'cpn','u1')}" oninput="sv('${locId}','cpn','u1',this.value);sv('${locId}','cpn','u2',this.value)">
+        <button class="btn-scan" onclick="openScanner('${locId}','container','u1')">${SCAN_ICON}</button></div>
+      </div>
+      <div class="field"><label>S/N</label>
+        <input type="text" placeholder="Serial Number" value="${gv(locId,'csn','u1')}" oninput="sv('${locId}','csn','u1',this.value)">
+      </div>
+      <div class="field"><label>MFG Date</label>
+        <input type="month" value="${gv(locId,'cmfg','u1')}" onchange="sv('${locId}','cmfg','u1',this.value)">
+      </div>
+    </div>
+    <!-- Generator #1 -->
+    <div class="ubox">
+      <div class="utitle">${CYL_ICON} Generator #1</div>
+      <div class="field"><label>P/N</label>
+        <div class="fw"><input type="text" placeholder="Part Number" value="${gv(locId,'gpn','u1')}" oninput="sv('${locId}','gpn','u1',this.value)">
+        <button class="btn-scan" onclick="openScanner('${locId}','generator','u1')">${SCAN_ICON}</button></div>
+      </div>
+      <div class="field"><label>S/N</label>
+        <input type="text" placeholder="Serial Number" value="${gv(locId,'gsn','u1')}" oninput="sv('${locId}','gsn','u1',this.value)">
+      </div>
+      <div class="field"><label>MFG Date</label>
+        <input type="month" value="${gv(locId,'gmfg','u1')}" onchange="sv('${locId}','gmfg','u1',this.value)">
+      </div>
+    </div>
+    <!-- Generator #2 -->
+    <div class="ubox">
+      <div class="utitle">${CYL_ICON} Generator #2</div>
+      <div class="field"><label>P/N</label>
+        <div class="fw"><input type="text" placeholder="Part Number" value="${gv(locId,'gpn','u2')}" oninput="sv('${locId}','gpn','u2',this.value)">
+        <button class="btn-scan" onclick="openScanner('${locId}','generator','u2')">${SCAN_ICON}</button></div>
+      </div>
+      <div class="field"><label>S/N</label>
+        <input type="text" placeholder="Serial Number" value="${gv(locId,'gsn','u2')}" oninput="sv('${locId}','gsn','u2',this.value)">
+      </div>
+      <div class="field"><label>MFG Date</label>
+        <input type="month" value="${gv(locId,'gmfg','u2')}" onchange="sv('${locId}','gmfg','u2',this.value)">
+      </div>
+    </div>
+    <!-- Photos -->
+    <div class="ubox">
+      <div class="utitle">Photos</div>
+      <div class="photos-grid" id="pg_${locId}_u1">${photoHtml1}</div>
+      <label class="btn-photo" style="margin-bottom:6px">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="3"/><path d="M20.4 14.5A8 8 0 119.5 3.6"/><polyline points="16,3 20,3 20,7"/></svg> Add Photos
+        <input type="file" accept="image/*" multiple capture="environment" class="photo-input" onchange="addPhotos(event,'${locId}','u1')">
+      </label>
+    </div>
+    <button class="btn-multi" onclick="openMulti('${locId}','u1')">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="6" y1="9" x2="6" y2="15"/><line x1="9" y1="6" x2="15" y2="6"/><line x1="9" y1="18" x2="15" y2="18"/></svg>
+      Apply P/N to Multiple Locations
+    </button>`;
+}
+
 function renderCard(loc){
   const tc = TAG_CSS[loc.tag]||'t-oth';
   const tl = tagLabel(loc);
   const isDual = !!loc.dual && !loc.sub;
   const note = loc.note?`<div class="card-note">${loc.note}</div>`:'';
-  const body = isDual
-    ? `<div class="ubox"><div class="utitle">Unit #1</div>${renderFields(loc.id,'u1')}</div>
-       <div class="ubox"><div class="utitle">Unit #2</div>${renderFields(loc.id,'u2')}</div>`
-    : renderFields(loc.id,'');
+  let body;
+  if(isDual && curType.startsWith('B777')){
+    // B777: one Container, two Generators
+    body = renderFields777Dual(loc.id);
+  } else if(isDual){
+    body = `<div class="ubox"><div class="utitle">Unit #1</div>${renderFields(loc.id,'u1')}</div>
+       <div class="ubox"><div class="utitle">Unit #2</div>${renderFields(loc.id,'u2')}</div>`;
+  } else {
+    body = renderFields(loc.id,'');
+  }
   return `<div class="card" id="card_${loc.id}">
     <div class="card-hdr" onclick="toggleCard('${loc.id}')">
       <div class="card-hdr-l">
