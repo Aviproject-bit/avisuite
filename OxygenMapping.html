@@ -285,10 +285,7 @@ body{font-family:'BwGradual',sans-serif;background:var(--bg);color:var(--txt);pa
 <body>
 
 <!-- WIP NOTICE -->
-<div style="background:#FFF3CD;border-bottom:1px solid #FFE08A;padding:8px 16px;display:flex;align-items:center;gap:8px;font-family:'BwGradual',sans-serif;font-size:11px;font-weight:700;color:#856404;">
-  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-  This tool is under development — data and features may change. Do not use for official records.
-</div>
+
 
 
 <!-- HEADER -->
@@ -2218,16 +2215,12 @@ function onTypeChange(){
   const prevType = curType;
   curType = document.getElementById('selType').value;
 
-  // Clear ACFT REG when type changes (prevents mismatched acft/type combos)
-  if(prevType !== curType){
-    const acftInput = document.getElementById('inpAcft');
-    if(acftInput) acftInput.value = '';
-  }
+  const acftInput = document.getElementById('inpAcft');
 
   // If switching to a DIFFERENT type:
-  // 1) Save the current type's in-progress data under a per-type key (so it's NOT lost)
+  // 1) Save the current type's in-progress data + ACFT REG under a per-type key
   // 2) Remove those keys from the live S (prevents bleed into the new type)
-  // 3) Restore any previously-saved data for the NEW type, if it exists
+  // 3) Restore any previously-saved data + ACFT REG for the NEW type, if it exists
   if(prevType && prevType !== curType){
     const prevLocs = LOCS_MAP[prevType];
     if(prevLocs){
@@ -2242,22 +2235,28 @@ function onTypeChange(){
           }
         }
       });
-      // Save this type's data separately so switching back restores it
-      if(Object.keys(prevTypeData).length){
-        try{ localStorage.setItem('oxy_s_'+prevType, JSON.stringify(prevTypeData)); }catch(e){}
+      const prevAcft = acftInput ? acftInput.value : '';
+      if(Object.keys(prevTypeData).length || prevAcft){
+        try{ localStorage.setItem('oxy_s_'+prevType, JSON.stringify({data:prevTypeData, acft:prevAcft})); }catch(e){}
       }
     }
-    // Restore data previously saved for the new type
+    // Restore data + ACFT REG previously saved for the new type
+    let restoredAcft = '';
     if(curType){
       try{
         const saved = localStorage.getItem('oxy_s_'+curType);
         if(saved){
-          const savedData = JSON.parse(saved);
-          Object.assign(S, savedData);
+          const savedObj = JSON.parse(saved);
+          Object.assign(S, savedObj.data||{});
+          restoredAcft = savedObj.acft||'';
         }
       }catch(e){}
     }
+    if(acftInput) acftInput.value = restoredAcft;
     save();
+  } else if(prevType !== curType){
+    // First selection (no previous type) — just clear ACFT REG
+    if(acftInput) acftInput.value = '';
   }
 
   // Update subtitle
