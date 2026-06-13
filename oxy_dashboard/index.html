@@ -3407,6 +3407,25 @@ async function exportOfficialForm(id){
     const gSnCol  = hasFin ? 6 : 5;  // Generator S/N
     const gMfgCol = hasFin ? 7 : 6;  // Generator MFG
 
+    // Normalize template location name for matching
+    function normLoc(raw){
+      let s = raw.trim().toUpperCase();
+      // Remove X-LOC/Y-LOC/Z-LOC coordinate notes in parens
+      s = s.replace(/\s*\([\s\w\-,\.]+\)\s*$/,'').trim(); // trailing coord parens
+      s = s.replace(/\s*\(X[-\s]LOC[^)]*\)/gi,'').trim();
+      // Remove trailing coordinate parens like "(X-779, L20)"
+      s = s.replace(/\s*\(X-[\d]+[^)]*\)/g,'').trim();
+      // Normalize OFAR - BUNK → OFAR BUNK
+      s = s.replace(/\bOFAR\s+-\s+/,'OFAR ');
+      // Normalize CROSS AISLE missing space before M1/M2
+      s = s.replace(/CROSS AISLE([A-Z])/,'CROSS AISLE $1');
+      // Normalize spaces around /
+      s = s.replace(/\s*\/\s*/g,'/');
+      // Collapse multiple spaces
+      s = s.replace(/\s+/g,' ').trim();
+      return s;
+    }
+
     // Build name→locId AND fin→locId maps
     const nameToId = {};
     const finToId = {};
@@ -3423,12 +3442,11 @@ async function exportOfficialForm(id){
       const name = typeof info==='string' ? info : info.name;
       const nameUp = name.toUpperCase().trim();
       nameToId[nameUp] = id;
-      // Without parenthetical notes
-      const clean = name.replace(/\s*\([^)]+\)/g,'').trim().toUpperCase();
-      if(clean !== nameUp) nameToId[clean] = id;
-      // Space-normalized (remove extra spaces around /)
-      const spaceNorm = clean.replace(/\s*\/\s*/g,'/').replace(/\s+/g,' ');
-      if(spaceNorm !== clean) nameToId[spaceNorm] = id;
+      const norm = normLoc(name);
+      if(norm !== nameUp) nameToId[norm] = id;
+      // Also without ALL parens
+      const noParens = name.replace(/\s*\([^)]+\)/g,'').trim().toUpperCase().replace(/\s+/g,' ');
+      if(noParens !== nameUp && noParens !== norm) nameToId[noParens] = id;
     });
 
     // 4. Process each table row
@@ -3451,8 +3469,12 @@ async function exportOfficialForm(id){
 
       // Try FIN match first (most accurate), then name match
       const key = locName.toUpperCase().trim();
-      const keyClean = key.replace(/\s*\([^)]+\)/g,'').trim();
-      const locId = (finVal && finToId[finVal]) || nameToId[key] || nameToId[keyClean];
+      const keyNorm = normLoc(locName);
+      const keyNoParens = locName.replace(/\s*\([^)]+\)/g,'').trim().toUpperCase().replace(/\s+/g,' ');
+      const locId = (finVal && finToId[finVal]) 
+                 || nameToId[key] 
+                 || nameToId[keyNorm]
+                 || nameToId[keyNoParens];
       if(!locId) return rowXml;
 
       const {csn,cmfg,gsn,gmfg} = getVals(locId);
