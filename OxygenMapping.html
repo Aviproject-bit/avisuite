@@ -2153,9 +2153,9 @@ const TEMPLATE_REVISIONS = {
 
 const ACFT_PH = {
   B777_AK3135:'HZ-AK31',B777_AK3643:'HZ-AK36',
-  B787_10:'HZ-AR32',B787_9:'HZ-AR32',
-  A330_AQA:'HZ-AQA',A330_AQ11:'HZ-AQ11',A330_AQI:'HZ-AQI',B777_AK23:'HZ-AK23',A321:'HZ-ASAA',A321_NEO:'HZ-ASAA',
-  A320_AS51:'HZ-AS67',A320_ASA:'HZ-AS67',
+  B787_10:'HZ-AR32',B787_9:'HZ-ARA',
+  A330_AQA:'HZ-AQA',A330_AQ11:'HZ-AQ11',A330_AQI:'HZ-AQI',B777_AK23:'HZ-AK23',A321:'HZ-ASH',A321_NEO:'HZ-ASAA',
+  A320_AS51:'HZ-AS67',A320_ASA:'HZ-ASA',
 };
 
 const TYPE_LABELS = {
@@ -2951,7 +2951,11 @@ function resetData(){
     }
   });
   S = newS;
+  // Clear aircraft registration field
+  const acftEl = document.getElementById('inpAcft');
+  if(acftEl) acftEl.value = '';
   try{ localStorage.setItem('oxy_s', JSON.stringify(S)); }catch(e){}
+  save();
   renderContent();
   updateProg();
   showToast('\u2713 Data reset');
