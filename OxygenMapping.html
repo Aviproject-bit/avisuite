@@ -1180,10 +1180,6 @@ const LOCS_B787_10 = {
     mk787('B10_R64_CTR','ROW 64 CTR','ctr',PN_787_CYL_STD),
     mk787('B10_R65_CTR','ROW 65 CTR','ctr',PN_787_CYL_STD),
     mk787('B10_R66_CTR','ROW 66 CTR','ctr',PN_787_CYL_STD),
-    // Prayer Area
-    mk787('B10_PR1','PR (X-1652, BL0)','oth',PN_787_CYL_STD),
-    mk787('B10_PR2','PR (X-1682, BL0)','oth',PN_787_CYL_STD),
-    mk787('B10_PR3','PR (X-1706, BL0)','oth',PN_787_CYL_STD),
   ],
   rh:[
     mk787('B10_STA395_RH_BAS','STA 395 RH BASSINET','bas',PN_787_CYL_BAS,'BASSINET'),
@@ -1272,7 +1268,11 @@ const LOCS_B787_10 = {
     mk787('B10_OFAR_BNK5','OFAR BUNK 5','oth',PN_787_CYL_CTR),
     mk787('B10_OFAR_BNK6','OFAR BUNK 6','oth',PN_787_CYL_CTR),
   ],
-  prayer:[],
+  prayer:[
+    mk787('B10_PR1','PR (X-1652, BL0)','oth',PN_787_CYL_STD),
+    mk787('B10_PR2','PR (X-1682, BL0)','oth',PN_787_CYL_STD),
+    mk787('B10_PR3','PR (X-1706, BL0)','oth',PN_787_CYL_STD),
+  ],
 };
 
 // ══════════════════════════════════════════════════════════
@@ -2145,7 +2145,7 @@ const SECS = {
   B777_AK23:   ['lh','ctr','rh','ofcr','prayer','doors','galleys','lavs'],
   B777_AK3135: ['lh','ctr','rh','ofcr','prayer','doors','galleys','lavs'],
   B777_AK3643: ['lh','ctr','rh','ofcr','prayer','doors','galleys','lavs'],
-  B787_10:     ['lh','ctr','rh','doors','ofcr','lavs'],
+  B787_10:     ['lh','ctr','rh','prayer','doors','ofcr','lavs'],
   B787_9:      ['lh','ctr','rh','prayer','doors','ofcr','lavs'],
   A330_AQ11:   ['lh','ctr','rh','doors','crew','lavs'],
   A330_AQI:    ['lh','ctr','rh','prayer','doors','crew'],
