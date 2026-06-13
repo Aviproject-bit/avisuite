@@ -208,7 +208,6 @@ body{font-family:'BwGradual',sans-serif;background:var(--bg);color:var(--txt);mi
 .pc-logo img{height:28px;opacity:.8;}
 .pc-title{font-size:10px;letter-spacing:3px;color:rgba(255,255,255,.35);text-transform:uppercase;margin-bottom:24px;font-family:'BwGradual',sans-serif;}
 .pc-dots{display:flex;gap:11px;margin-bottom:32px;}
-.pc-dot{width:11px;height:11px;border-radius:50%;border:2px solid rgba(255,255,255,.25);transition:.2s;}
 .pc-dot.on{background:#fff;border-color:#fff;}
 .pc-dot.err{background:#ef4444;border-color:#ef4444;}
 .pc-grid{display:grid;grid-template-columns:repeat(3,66px);gap:8px;margin-bottom:16px;}
@@ -1940,7 +1939,7 @@ function _showPasscodeScreen(){
   let keyHTML='';
   keys.forEach(k=>{
     if(k==='') keyHTML+=`<button class="pc-key pc-empty" disabled></button>`;
-    else if(k==='⌫') keyHTML+=`<button class="pc-key pc-del" onclick="_pcKey('del')">⌫</button>`;
+    else if(k==='⌫') keyHTML+=`<button class="pc-key pc-del" onclick="_pcKey('⌫')">⌫</button>`;
     else keyHTML+=`<button class="pc-key" onclick="_pcKey('${k}')">${k}</button>`;
   });
   screen.innerHTML=`
