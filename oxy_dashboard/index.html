@@ -207,7 +207,7 @@ body{font-family:'BwGradual',sans-serif;background:var(--bg);color:var(--txt);mi
 .pc-logo{margin-bottom:16px;}
 .pc-logo img{height:28px;opacity:.8;}
 .pc-title{font-size:10px;letter-spacing:3px;color:rgba(255,255,255,.35);text-transform:uppercase;margin-bottom:24px;font-family:'BwGradual',sans-serif;}
-.pc-dots{display:flex;gap:11px;margin-bottom:32px;}
+#admin-pc .pc-dots{display:flex;gap:11px;margin-bottom:24px;}
 .pc-dot.on{background:#fff;border-color:#fff;}
 .pc-dot.err{background:#ef4444;border-color:#ef4444;}
 .pc-grid{display:grid;grid-template-columns:repeat(3,66px);gap:8px;margin-bottom:16px;}
@@ -1457,9 +1457,15 @@ async function loadData(){
 
 // ── CALC PROGRESS ──
 function calcProg(rec){
-  if(!rec.data) return {filled:0,total:TOTAL_LOCS[rec.type]||100,pct:0};
+  if(!rec.data) return {filled:0,total:100,pct:0};
   const LOCS=LOCS_MAP[rec.type]||{};
   const allLocs=Object.values(LOCS).flat();
+  // Count total units (including dual locations)
+  let total=0;
+  allLocs.forEach(loc=>{
+    const units=(loc.dual&&!loc.sub)?['u1','u2']:[''];
+    total+=units.length;
+  });
   let filled=0;
   allLocs.forEach(loc=>{
     const units=(loc.dual&&!loc.sub)?['u1','u2']:[''];
@@ -1470,7 +1476,7 @@ function calcProg(rec){
       if(hasCpn||hasGpn) filled++;
     });
   });
-  const total=TOTAL_LOCS[rec.type]||allLocs.length||100;
+  if(!total) total=100;
   return {filled,total,pct:Math.min(100,Math.round(filled/total*100))};
 }
 
