@@ -3003,6 +3003,22 @@ async function exportOfficialForm(id){
     const d = rec.data || {};
     function fmt(v){ if(!v)return ''; const m=v.match(/^(\d{4})-(\d{2})$/); return m?m[2]+'/'+m[1]:v; }
     function getVals(locId){
+      // Check if dual (B777 pattern: u1 and u2 for generator)
+      const u1pref = locId+'_u1_';
+      const u2pref = locId+'_u2_';
+      const hasU2 = Object.keys(d).some(k=>k.startsWith(u2pref));
+
+      if(hasU2){
+        // B777 dual: Container from u1, Generator from u1+u2
+        const csn  = d[u1pref+'csn']||'';
+        const cmfg = fmt(d[u1pref+'cmfg']||'');
+        // Generator: dual values
+        const gsn  = {u1: d[u1pref+'gsn']||'', u2: d[u2pref+'gsn']||''};
+        const gmfg = {u1: fmt(d[u1pref+'gmfg']||''), u2: fmt(d[u2pref+'gmfg']||'')};
+        return {csn, cmfg, gsn, gmfg};
+      }
+
+      // Single unit
       const prefixes = [locId+'_', locId+'_u1_'];
       for(const pref of prefixes){
         const csn=d[pref+'csn']||'';
@@ -3078,25 +3094,45 @@ async function exportOfficialForm(id){
         const oldCell = cells[colIdx];
         // Replace first w:t content in this cell
         let replaced = false;
-        // Copy existing run properties (font, size, alignment) from cell
+        // Copy existing run properties
         const existRpr = oldCell.match(/<w:rPr>.*?<\/w:rPr>/s);
         const rPrXml = existRpr ? existRpr[0] : '';
-        // Copy paragraph properties (alignment) 
-        const existPpr = oldCell.match(/<w:pPr>.*?<\/w:pPr>/s);
-        const pPrXml = existPpr ? existPpr[0] : '<w:pPr><w:jc w:val="center"/></w:pPr>';
 
-        const newCell = oldCell.replace(/<w:t([^>]*)>([^<]*)<\/w:t>/, (m,attr,txt)=>{
-          if(replaced) return m;
-          replaced = true;
-          return `<w:t${attr}>${val}</w:t>`;
-        });
-        if(!replaced){
-          // Insert run with proper formatting before </w:p>
-          const newCell2 = oldCell.replace('</w:p>',
-            `<w:r>${rPrXml}<w:t xml:space="preserve">${val}</w:t></w:r></w:p>`);
-          newRow = newRow.replace(oldCell, newCell2);
-        } else {
+        // Check if cell has dual paragraphs (#1/#2) — B777 pattern
+        const cellTexts777 = [...oldCell.matchAll(/<w:t[^>]*>([^<]*)<\/w:t>/g)].map(m=>m[1]).join('');
+        const isDual777 = cellTexts777.includes('#1') && cellTexts777.includes('#2');
+
+        if(isDual777 && typeof val === 'object'){
+          // val = {u1: '...', u2: '...'} for dual cells
+          const paras = [...oldCell.matchAll(/(<w:p[ >].*?<\/w:p>)/gs)];
+          let newCell = oldCell;
+          paras.forEach(pm=>{
+            const pText = [...pm[1].matchAll(/<w:t[^>]*>([^<]*)<\/w:t>/g)].map(m=>m[1]).join('');
+            if(pText.includes('#1') && val.u1){
+              const newP = pm[1].replace(/<w:t([^>]*)>#1<\/w:t>/,
+                `<w:t$1>${val.u1}</w:t>`);
+              newCell = newCell.replace(pm[1], newP);
+            } else if(pText.includes('#2') && val.u2){
+              const newP = pm[1].replace(/<w:t([^>]*)>#2<\/w:t>/,
+                `<w:t$1>${val.u2}</w:t>`);
+              newCell = newCell.replace(pm[1], newP);
+            }
+          });
           newRow = newRow.replace(oldCell, newCell);
+        } else {
+          const fillVal = typeof val === 'object' ? (val.u1||'') : val;
+          const newCell = oldCell.replace(/<w:t([^>]*)>([^<]*)<\/w:t>/, (m,attr,txt)=>{
+            if(replaced) return m;
+            replaced = true;
+            return `<w:t${attr}>${fillVal}</w:t>`;
+          });
+          if(!replaced){
+            const newCell2 = oldCell.replace('</w:p>',
+              `<w:r>${rPrXml}<w:t xml:space="preserve">${fillVal}</w:t></w:r></w:p>`);
+            newRow = newRow.replace(oldCell, newCell2);
+          } else {
+            newRow = newRow.replace(oldCell, newCell);
+          }
         }
       });
 
