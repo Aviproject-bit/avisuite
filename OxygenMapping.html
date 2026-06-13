@@ -1440,7 +1440,11 @@ const LOCS_B787_9 = {
     mk787('B9_OFAR_BNK5','OFAR BUNK 5','oth',PN_787_CYL_CTR),
     mk787('B9_OFAR_BNK6','OFAR BUNK 6','oth',PN_787_CYL_CTR),
   ],
-  prayer:[],
+  prayer:[
+    mk787('B9_PR1_CTR','Prayer Room STA 1653 CTR','oth',PN_787_CYL_CTR),
+    mk787('B9_PR2_CTR','Prayer Room STA 1677 CTR','oth',PN_787_CYL_CTR),
+    mk787('B9_PR3_CTR','Prayer Room STA 1707 CTR','oth',PN_787_CYL_CTR),
+  ],
 };
 
 // ══════════════════════════════════════════════════════════
@@ -1589,11 +1593,7 @@ const LOCS_A330_AQ11 = {
     mka330('AQ11_222WR','ROW 66 RH','rh','222WR'),
     mka330('AQ11_224WR','ROW 67 RH','rh','224WR')
   ],
-  prayer:[
-    mka330('AQ11_465WR_PR','Prayer Room #1 FWD','oth','465WR'),
-    mka330('AQ11_467WR_PR','Prayer Room #2 CTR FWD','oth','467WR'),
-    mka330('AQ11_468WR_PR','Prayer Room #3 CTR AFT','oth','468WR')
-  ],
+  prayer:[],
   doors:[
     mka330('AQ11_603WR','DR 1 LH AFT ATTN SEAT','oth','603WR'),
     mka330('AQ11_601WR','DR 1 LH FWD ATTN SEAT','oth','601WR'),
@@ -1747,7 +1747,7 @@ const LOCS_A330_AQI = {
   prayer:[
     mka330('AQI_466WR','Prayer Room FWD','oth','466WR'),
     mka330('AQI_366WR','Prayer Room CTR','oth','366WR'),
-    mka330('AQI_367WR','Prayer Room AFT','oth','367WR')
+    mka330('AQI_367WR','Prayer Room AFT','oth','367WR'),
   ],
   doors:[
     mka330('AQI_603WR','DR 1 LH AFT ATTN SEAT','oth','603WR'),
@@ -2146,8 +2146,8 @@ const SECS = {
   B777_AK3135: ['lh','ctr','rh','ofcr','prayer','doors','galleys','lavs'],
   B777_AK3643: ['lh','ctr','rh','ofcr','prayer','doors','galleys','lavs'],
   B787_10:     ['lh','ctr','rh','doors','ofcr','lavs'],
-  B787_9:      ['lh','ctr','rh','doors','ofcr','lavs'],
-  A330_AQ11:   ['lh','ctr','rh','prayer','doors','crew','lavs'],
+  B787_9:      ['lh','ctr','rh','prayer','doors','ofcr','lavs'],
+  A330_AQ11:   ['lh','ctr','rh','doors','crew','lavs'],
   A330_AQI:    ['lh','ctr','rh','prayer','doors','crew'],
   A330_AQA:    ['lh','ctr','rh','prayer','doors','crew'],
   A321:        ['lh','rh','doors'],
