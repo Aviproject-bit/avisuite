@@ -1907,6 +1907,330 @@ function closeAdminPC(){
   window['_entry_ad']='';
 }
 
+
+// ── OFFICIAL FORM EXPORT (B787-10) ──
+const B10_LOC_NAMES = {
+  'B10_STA395_LH_BAS': 'STA 395 LH BASSINET',
+  'B10_R1_LH': 'ROW 1 LH',
+  'B10_R2_LH': 'ROW 2 LH',
+  'B10_R3_LH': 'ROW 3 LH',
+  'B10_R4_LH': 'ROW 4 LH',
+  'B10_R5_LH': 'ROW 5 LH',
+  'B10_R6_LH': 'ROW 6 LH',
+  'B10_R30_LH': 'ROW 30 LH',
+  'B10_R31_LH': 'ROW 31 LH',
+  'B10_R32_LH': 'ROW 32 LH',
+  'B10_R33_LH': 'ROW 33 LH',
+  'B10_R34_LH': 'ROW 34 LH',
+  'B10_R35_LH': 'ROW 35 LH',
+  'B10_R36_LH': 'ROW 36 LH',
+  'B10_R37_LH': 'ROW 37 LH',
+  'B10_R38_LH': 'ROW 38 LH',
+  'B10_R39_LH': 'ROW 39 LH',
+  'B10_R40_LH': 'ROW 40 LH',
+  'B10_R41_LH': 'ROW 41 LH',
+  'B10_R42_LH': 'ROW 42 LH',
+  'B10_R43_LH': 'ROW 43 LH',
+  'B10_R44_LH': 'ROW 44 LH',
+  'B10_R45_LH': 'ROW 45 LH',
+  'B10_R46_LH': 'ROW 46 LH',
+  'B10_R47_LH': 'ROW 47 LH',
+  'B10_R48_LH': 'ROW 48 LH',
+  'B10_R49_LH': 'ROW 49 LH',
+  'B10_R51_LH': 'ROW 51 LH',
+  'B10_R52_LH': 'ROW 52 LH',
+  'B10_R53_LH': 'ROW 53 LH',
+  'B10_R54_LH': 'ROW 54 LH',
+  'B10_R55_LH': 'ROW 55 LH',
+  'B10_R56_LH': 'ROW 56 LH',
+  'B10_R57_LH': 'ROW 57 LH',
+  'B10_R58_LH': 'ROW 58 LH',
+  'B10_R59_LH': 'ROW 59 LH',
+  'B10_R60_LH': 'ROW 60 LH',
+  'B10_R61_LH': 'ROW 61 LH',
+  'B10_R62_LH': 'ROW 62 LH',
+  'B10_R63_LH': 'ROW 63 LH',
+  'B10_R64_LH': 'ROW 64 LH',
+  'B10_R65_LH': 'ROW 65 LH',
+  'B10_R66_LH': 'ROW 66 LH',
+  'B10_R67_LH': 'ROW 67 LH',
+  'B10_R1_CTR': 'ROW 1 CTR',
+  'B10_R2_CTR': 'ROW 2 CTR',
+  'B10_R3_CTR': 'ROW 3 CTR',
+  'B10_R4_CTR': 'ROW 4 CTR',
+  'B10_R5_CTR': 'ROW 5 CTR',
+  'B10_R6_CTR': 'ROW 6 CTR',
+  'B10_R30_CTR': 'ROW 30 CTR',
+  'B10_R31_CTR': 'ROW 31 CTR',
+  'B10_R32_CTR': 'ROW 32 CTR',
+  'B10_R33_CTR': 'ROW 33 CTR',
+  'B10_R34_CTR': 'ROW 34 CTR',
+  'B10_R35_CTR': 'ROW 35 CTR',
+  'B10_R36_CTR': 'ROW 36 CTR',
+  'B10_R37_CTR': 'ROW 37 CTR',
+  'B10_R38_CTR': 'ROW 38 CTR',
+  'B10_R39_CTR': 'ROW 39 CTR',
+  'B10_R40_CTR': 'ROW 40 CTR',
+  'B10_R41_CTR': 'ROW 41 CTR',
+  'B10_R42_CTR': 'ROW 42 CTR',
+  'B10_R43_CTR': 'ROW 43 CTR',
+  'B10_R44_CTR': 'ROW 44 CTR',
+  'B10_R45_CTR': 'ROW 45 CTR',
+  'B10_R46_CTR': 'ROW 46 CTR',
+  'B10_R47_CTR': 'ROW 47 CTR',
+  'B10_R48_CTR': 'ROW 48 CTR',
+  'B10_R49_CTR': 'ROW 49 CTR',
+  'B10_R50_CTR': 'ROW 50 CTR',
+  'B10_R51_CTR': 'ROW 51 CTR',
+  'B10_R52_CTR': 'ROW 52 CTR',
+  'B10_R53_CTR': 'ROW 53 CTR',
+  'B10_R54_CTR': 'ROW 54 CTR',
+  'B10_R55_CTR': 'ROW 55 CTR',
+  'B10_R56_CTR': 'ROW 56 CTR',
+  'B10_R57_CTR': 'ROW 57 CTR',
+  'B10_R58_CTR': 'ROW 58 CTR',
+  'B10_R59_CTR': 'ROW 59 CTR',
+  'B10_R60_CTR': 'ROW 60 CTR',
+  'B10_R61_CTR': 'ROW 61 CTR',
+  'B10_R62_CTR': 'ROW 62 CTR',
+  'B10_R63_CTR': 'ROW 63 CTR',
+  'B10_R64_CTR': 'ROW 64 CTR',
+  'B10_R65_CTR': 'ROW 65 CTR',
+  'B10_R66_CTR': 'ROW 66 CTR',
+  'B10_PR1': 'PR (X-1652, BL0)',
+  'B10_PR2': 'PR (X-1682, BL0)',
+  'B10_PR3': 'PR (X-1706, BL0)',
+  'B10_STA395_RH_BAS': 'STA 395 RH BASSINET',
+  'B10_R1_RH': 'ROW 1 RH',
+  'B10_R2_RH': 'ROW 2 RH',
+  'B10_R3_RH': 'ROW 3 RH',
+  'B10_R4_RH': 'ROW 4 RH',
+  'B10_R5_RH': 'ROW 5 RH',
+  'B10_R6_RH': 'ROW 6 RH',
+  'B10_R30_RH': 'ROW 30 RH',
+  'B10_R31_RH': 'ROW 31 RH',
+  'B10_R32_RH': 'ROW 32 RH',
+  'B10_R33_RH': 'ROW 33 RH',
+  'B10_R34_RH': 'ROW 34 RH',
+  'B10_R35_RH': 'ROW 35 RH',
+  'B10_R36_RH': 'ROW 36 RH',
+  'B10_R37_RH': 'ROW 37 RH',
+  'B10_R38_RH': 'ROW 38 RH',
+  'B10_R39_RH': 'ROW 39 RH',
+  'B10_R40_RH': 'ROW 40 RH',
+  'B10_R41_RH': 'ROW 41 RH',
+  'B10_R42_RH': 'ROW 42 RH',
+  'B10_R43_RH': 'ROW 43 RH',
+  'B10_R44_RH': 'ROW 44 RH',
+  'B10_R45_RH': 'ROW 45 RH',
+  'B10_R46_RH': 'ROW 46 RH',
+  'B10_R47_RH': 'ROW 47 RH',
+  'B10_R48_RH': 'ROW 48 RH',
+  'B10_R49_RH': 'ROW 49 RH',
+  'B10_R51_RH': 'ROW 51 RH',
+  'B10_R52_RH': 'ROW 52 RH',
+  'B10_R53_RH': 'ROW 53 RH',
+  'B10_R54_RH': 'ROW 54 RH',
+  'B10_R55_RH': 'ROW 55 RH',
+  'B10_R56_RH': 'ROW 56 RH',
+  'B10_R57_RH': 'ROW 57 RH',
+  'B10_R58_RH': 'ROW 58 RH',
+  'B10_R59_RH': 'ROW 59 RH',
+  'B10_R60_RH': 'ROW 60 RH',
+  'B10_R61_RH': 'ROW 61 RH',
+  'B10_R62_RH': 'ROW 62 RH',
+  'B10_R63_RH': 'ROW 63 RH',
+  'B10_R64_RH': 'ROW 64 RH',
+  'B10_R65_RH': 'ROW 65 RH',
+  'B10_R66_RH': 'ROW 66 RH',
+  'B10_R67_RH': 'ROW 67 RH',
+  'B10_DR1LH_FWD': 'DR 1 LH FWD',
+  'B10_DR1LH_AFT': 'DR 1 LH AFT',
+  'B10_DR1RH_AFT': 'DR 1 RH AFT',
+  'B10_DR2LH_FWD': 'DR 2 LH FWD',
+  'B10_DR2LH_AFT': 'DR 2 LH AFT',
+  'B10_DR2RH_FWD': 'DR 2 RH FWD',
+  'B10_DR2RH_AFT': 'DR 2 RH AFT',
+  'B10_DR3LH_FWD': 'DR 3 LH FWD',
+  'B10_DR3RH_FWD': 'DR 3 RH FWD',
+  'B10_DR4LH_FWD': 'DR 4 LH FWD',
+  'B10_DR4LH_AFT': 'DR 4 LH AFT',
+  'B10_DR4RH_FWD': 'DR 4 RH FWD',
+  'B10_DR4RH_AFT': 'DR 4 RH AFT',
+  'B10_STA678': 'STA 678 CROSS AISLE',
+  'B10_STA1769': 'STA 1769 CTR ATTN SEAT',
+  'B10_G4A1C': 'G4A-1C',
+  'B10_L1F1L': 'L1F-1L',
+  'B10_L1A1R': 'L1A-1R',
+  'B10_L2A1L': 'L2A-1L',
+  'B10_L2A1R': 'L2A-1R',
+  'B10_L3F1L': 'L3F-1L',
+  'B10_L3F1LC': 'L3F-1LC',
+  'B10_L3F1RC': 'L3F-1RC',
+  'B10_L3F1R': 'L3F-1R',
+  'B10_L4F1L': 'L4F-1L',
+  'B10_L4F1R': 'L4F-1R',
+  'B10_OFCR_SEAT': 'OFCR CREW SEAT',
+  'B10_OFCR_BNK1': 'OFCR BUNK 1',
+  'B10_OFCR_BNK2': 'OFCR BUNK 2',
+  'B10_OFAR_BNK1': 'OFAR BUNK 1',
+  'B10_OFAR_BNK2': 'OFAR BUNK 2',
+  'B10_OFAR_BNK3': 'OFAR BUNK 3',
+  'B10_OFAR_BNK4': 'OFAR BUNK 4',
+  'B10_OFAR_BNK5': 'OFAR BUNK 5',
+  'B10_OFAR_BNK6': 'OFAR BUNK 6',
+};
+
+const TEMPLATE_URLS = {
+  'B787_10': 'https://raw.githubusercontent.com/aviproject-bit/ACFT-Project/main/oxy_templates/SVA_787-10_template.docx',
+};
+
+async function exportOfficialForm(id){
+  const rec = allData.find(r=>r.id===id);
+  if(!rec){ showToast('Record not found'); return; }
+
+  const tmplUrl = TEMPLATE_URLS[rec.type];
+  if(!tmplUrl){
+    showToast('No official template for '+rec.type+' yet');
+    return;
+  }
+
+  showToast('Loading template...');
+
+  try{
+    // 1. Fetch template as ArrayBuffer
+    const res = await fetch(tmplUrl);
+    if(!res.ok) throw new Error('Template fetch failed: '+res.status);
+    const buf = await res.arrayBuffer();
+
+    // 2. Load JSZip
+    if(!window.JSZip){
+      await new Promise((resolve,reject)=>{
+        const s=document.createElement('script');
+        s.src='https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js';
+        s.onload=resolve; s.onerror=reject;
+        document.head.appendChild(s);
+      });
+    }
+
+    const zip = await JSZip.loadAsync(buf);
+    let docXml = await zip.file('word/document.xml').async('string');
+
+    // 3. Build location name → data lookup
+    const d = rec.data || {};
+    function fmt(v){ if(!v)return ''; const m=v.match(/^(\d{4})-(\d{2})$/); return m?m[2]+'/'+m[1]:v; }
+    function getVals(locId){
+      const prefixes = [locId+'_', locId+'_u1_'];
+      for(const pref of prefixes){
+        const csn=d[pref+'csn']||'';
+        const cmfg=fmt(d[pref+'cmfg']||'');
+        const gsn=d[pref+'gsn']||'';
+        const gmfg=fmt(d[pref+'gmfg']||'');
+        if(csn||cmfg||gsn||gmfg) return {csn,cmfg,gsn,gmfg};
+      }
+      return {csn:'',cmfg:'',gsn:'',gmfg:''};
+    }
+
+    // Build name→locId map (normalize)
+    const nameToId = {};
+    Object.entries(B10_LOC_NAMES).forEach(([id,name])=>{
+      nameToId[name.toUpperCase().trim()] = id;
+      // Also without parenthetical notes
+      const clean = name.replace(/\s*\([^)]+\)/g,'').trim().toUpperCase();
+      if(clean !== name.toUpperCase()) nameToId[clean] = id;
+    });
+
+    // 4. Process each table row
+    const rowRegex = /(<w:tr[ >].*?<\/w:tr>)/gs;
+    const cellRegex = /(<w:tc[ >].*?<\/w:tc>)/gs;
+    const tRegex = /<w:t[^>]*>([^<]*)<\/w:t>/g;
+
+    docXml = docXml.replace(rowRegex, (rowXml)=>{
+      const cells = [...rowXml.matchAll(cellRegex)].map(m=>m[1]);
+      if(cells.length < 6) return rowXml;
+
+      // Get first cell text = location name
+      const cell0texts = [...cells[0].matchAll(tRegex)].map(m=>m[1]);
+      const locName = cell0texts.join('').trim().replace(/\s+/g,' ');
+      if(!locName || locName.startsWith('Assembly')) return rowXml;
+
+      // Find matching loc_id
+      const key = locName.toUpperCase().trim();
+      // Remove X-Loc notes for matching
+      const keyClean = key.replace(/\s*\([^)]+\)/g,'').trim();
+      const locId = nameToId[key] || nameToId[keyClean];
+      if(!locId) return rowXml;
+
+      const {csn,cmfg,gsn,gmfg} = getVals(locId);
+      if(!csn&&!cmfg&&!gsn&&!gmfg) return rowXml;
+
+      // Fill columns: 2=cyl S/N, 3=cyl MFG, 5=init S/N, 6=init MFG
+      let newRow = rowXml;
+      const fillMap = {2:csn, 3:cmfg, 5:gsn, 6:gmfg};
+
+      Object.entries(fillMap).forEach(([colIdx,val])=>{
+        if(!val || !cells[colIdx]) return;
+        const oldCell = cells[colIdx];
+        // Replace first w:t content in this cell
+        let replaced = false;
+        const newCell = oldCell.replace(/<w:t([^>]*)>([^<]*)<\/w:t>/, (m,attr,txt)=>{
+          if(replaced) return m;
+          replaced = true;
+          return `<w:t${attr}>${val}</w:t>`;
+        });
+        if(!replaced){
+          // Insert run before </w:p>
+          const newCell2 = oldCell.replace('</w:p>', `<w:r><w:t>${val}</w:t></w:r></w:p>`);
+          newRow = newRow.replace(oldCell, newCell2);
+        } else {
+          newRow = newRow.replace(oldCell, newCell);
+        }
+      });
+
+      return newRow;
+    });
+
+    // 5. Update ACFT REG in header
+    let hdrXml = await zip.file('word/header1.xml').async('string');
+    // Find empty cell after ACFT REG and fill it
+    // The second cell (index 1) in the header table row is empty
+    let hdrFilled = false;
+    hdrXml = hdrXml.replace(/(<w:tc[ >].*?<\/w:tc>)(<w:tc[ >].*?<\/w:tc>)/s, (m, c1, c2)=>{
+      const c1text = [...c1.matchAll(/<w:t[^>]*>([^<]*)<\/w:t>/g)].map(x=>x[1]).join('');
+      if(c1text.includes('ACFT') && !hdrFilled){
+        hdrFilled = true;
+        const newC2 = c2.replace('</w:p>', `<w:r><w:t>${rec.acft||''}</w:t></w:r></w:p>`);
+        return c1+newC2;
+      }
+      return m;
+    });
+
+    // 6. Update Date
+    import_datetime: {
+      const today = new Date().toLocaleDateString('en-GB');
+      hdrXml = hdrXml.replace(/(<w:tc[ >].*?Date.*?<\/w:tc>)(<w:tc[ >].*?<\/w:tc>)/s, (m,c1,c2)=>{
+        const newC2 = c2.replace('</w:p>', `<w:r><w:t>${today}</w:t></w:r></w:p>`);
+        return c1+newC2;
+      });
+    }
+
+    zip.file('word/document.xml', docXml);
+    zip.file('word/header1.xml', hdrXml);
+
+    // 7. Generate and download
+    const out = await zip.generateAsync({type:'blob', mimeType:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(out);
+    a.download = 'SVA_787-10_OxyMapping_'+(rec.acft||'ACFT')+'.docx';
+    a.click();
+    showToast('\u2713 Official form downloaded');
+
+  }catch(e){
+    console.error(e);
+    showToast('Error: '+e.message);
+  }
+}
+
 function showToast(m){
   const t=document.getElementById('toast'); t.textContent=m; t.classList.add('show');
   setTimeout(()=>t.classList.remove('show'),2400);
