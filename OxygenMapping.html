@@ -2428,8 +2428,12 @@ function resetData(){
   // Keep only default P/N keys (cpn/gpn that came from injectDefaults)
   const newS = {};
   Object.keys(S).forEach(k => {
-    // Keep default P/Ns — only cpn and gpn, not csn/cmfg/gsn/gmfg/photos/raw
-    if((k.endsWith('_cpn')||k.endsWith('_gpn')) && S[k]) {
+    // Keep P/N keys (cpn/gpn) in any position: _cpn, _u1_cpn, _u2_cpn etc
+    const isPN = k.includes('_cpn') || k.includes('_gpn');
+    const isNotOther = !k.includes('_csn') && !k.includes('_gsn') &&
+                       !k.includes('_cmfg') && !k.includes('_gmfg') &&
+                       !k.includes('_photos') && !k.includes('_raw');
+    if(isPN && isNotOther && S[k]) {
       newS[k] = S[k];
     }
   });
