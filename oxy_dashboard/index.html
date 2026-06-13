@@ -1835,16 +1835,18 @@ async function deleteRec(id){
   if(!confirm('Delete record for '+rec.acft+' ('+rec.type+')?\nThis cannot be undone.')) return;
   const newData=allData.filter(r=>r.id!==id);
   try{
-    if(!fileSha){
-      const res=await fetch(GH_API,{headers:GH_H});
-      if(res.ok){ const f=await res.json(); fileSha=f.sha; }
-    }
+    // Always get fresh SHA from GitHub API before writing
+    const metaRes = await fetch(GH_API, {headers:GH_H});
+    if(!metaRes.ok) throw new Error('Cannot read file: '+metaRes.status);
+    const meta = await metaRes.json();
+    fileSha = meta.sha;
+
     const body={message:'Delete: '+rec.acft+' '+rec.type,
       content:btoa(unescape(encodeURIComponent(JSON.stringify(newData,null,2)))),
-      branch:'main',sha:fileSha};
+      branch:'main', sha:fileSha};
     const r=await fetch(GH_API,{method:'PUT',headers:GH_H,body:JSON.stringify(body)});
-    if(r.ok){ const d=await r.json(); if(d.content) fileSha=d.content.sha; allData=newData; render(); showToast('✓ Deleted'); }
-    else showToast('Error deleting');
+    if(r.ok){ const d=await r.json(); if(d.content) fileSha=d.content.sha; allData=newData; render(); showToast('\u2713 Deleted'); }
+    else{ const err=await r.json(); showToast('Error: '+(err.message||r.status)); }
   }catch(e){ showToast('Error: '+e.message); }
 }
 
