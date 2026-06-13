@@ -2224,23 +2224,40 @@ function onTypeChange(){
     if(acftInput) acftInput.value = '';
   }
 
-  // If switching to a DIFFERENT type, clear S of keys belonging to the previous type
-  // (prevents stale localStorage data from one aircraft type bleeding into another)
-  if(prevType && prevType !== curType && curType){
+  // If switching to a DIFFERENT type:
+  // 1) Save the current type's in-progress data under a per-type key (so it's NOT lost)
+  // 2) Remove those keys from the live S (prevents bleed into the new type)
+  // 3) Restore any previously-saved data for the NEW type, if it exists
+  if(prevType && prevType !== curType){
     const prevLocs = LOCS_MAP[prevType];
     if(prevLocs){
       const prevIds = new Set(Object.values(prevLocs).flat().map(l=>l.id));
+      const prevTypeData = {};
       Object.keys(S).forEach(k=>{
-        // key format: <locId>_<field> or <locId>_<unit>_<field>
         for(const id of prevIds){
           if(k===id || k.startsWith(id+'_')){
+            prevTypeData[k] = S[k];
             delete S[k];
             break;
           }
         }
       });
-      save();
+      // Save this type's data separately so switching back restores it
+      if(Object.keys(prevTypeData).length){
+        try{ localStorage.setItem('oxy_s_'+prevType, JSON.stringify(prevTypeData)); }catch(e){}
+      }
     }
+    // Restore data previously saved for the new type
+    if(curType){
+      try{
+        const saved = localStorage.getItem('oxy_s_'+curType);
+        if(saved){
+          const savedData = JSON.parse(saved);
+          Object.assign(S, savedData);
+        }
+      }catch(e){}
+    }
+    save();
   }
 
   // Update subtitle
