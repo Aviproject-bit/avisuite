@@ -2176,12 +2176,7 @@ const TEMPLATE_REVISIONS = {
   'A320_ASA': 'R02',
 };
 
-const ACFT_PH = {
-  B777_AK3135:'HZ-AK31',B777_AK3643:'HZ-AK36',
-  B787_10:'HZ-AR32',B787_9:'HZ-AR32',
-  A330_AQA:'HZ-AQA',A321:'HZ-ASAA',A321_NEO:'HZ-ASAA',
-  A320_AS51:'HZ-AS67',A320_ASA:'HZ-AS67',
-};
+const ACFT_PH = {}; // unified placeholder below
 
 const TYPE_LABELS = {
   B777_AK23:   'SVA B777 (AK23-AK30)',
@@ -2223,6 +2218,12 @@ function onTypeChange(){
   const prevType = curType;
   curType = document.getElementById('selType').value;
 
+  // Clear ACFT REG when type changes (prevents mismatched acft/type combos)
+  if(prevType !== curType){
+    const acftInput = document.getElementById('inpAcft');
+    if(acftInput) acftInput.value = '';
+  }
+
   // If switching to a DIFFERENT type, clear S of keys belonging to the previous type
   // (prevents stale localStorage data from one aircraft type bleeding into another)
   if(prevType && prevType !== curType && curType){
@@ -2247,7 +2248,7 @@ function onTypeChange(){
   document.getElementById('hdr-sub').textContent = (TYPE_LABELS[curType]||'Passenger Oxygen Mapping') + (rev ? ' · '+rev : '');
 
   // Update ACFT placeholder
-  const ph = ACFT_PH[curType]||'HZ-XXXX';
+  const ph = 'HZ-AXXX';
   document.getElementById('inpAcft').placeholder = ph;
 
   if(!curType){ showEmpty(); return; }
