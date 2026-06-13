@@ -315,6 +315,7 @@ body{font-family:'BwGradual',sans-serif;background:var(--bg);color:var(--txt);pa
       <select id="selType" onchange="onTypeChange()">
         <option value="">— Select Type —</option>
         <optgroup label="B777">
+          <option value="B777_AK23">B777 — AK23–AK30</option>
           <option value="B777_AK3135">B777 — AK31–AK35</option>
           <option value="B777_AK3643">B777 — AK36–AK43</option>
         </optgroup>
@@ -323,6 +324,8 @@ body{font-family:'BwGradual',sans-serif;background:var(--bg);color:var(--txt);pa
           <option value="B787_9">B787-9</option>
         </optgroup>
         <optgroup label="A330">
+          <option value="A330_AQ11">A330 — AQ11–AQ29</option>
+          <option value="A330_AQI">A330 — AQI–AQL</option>
           <option value="A330_AQA">A330 — AQA–AQH</option>
         </optgroup>
         <optgroup label="A321">
@@ -2155,7 +2158,7 @@ const SECS = {
 const SEC_LABELS = {
   lh:'LH', ctr:'CTR', rh:'RH',
   ofcr:'OFCR/OFAR', doors:'Doors', galleys:'Galleys',
-  lavs:'LAVs', crew:'Crew', prayer:'Prayer Rooms',
+  lavs:'LAVs', crew:'Crew', prayer:'Prayer',
 };
 
 const TEMPLATE_REVISIONS = {
