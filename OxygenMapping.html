@@ -2220,7 +2220,27 @@ function save(){
 // TYPE CHANGE — core function
 // ══════════════════════════════════════════════
 function onTypeChange(){
+  const prevType = curType;
   curType = document.getElementById('selType').value;
+
+  // If switching to a DIFFERENT type, clear S of keys belonging to the previous type
+  // (prevents stale localStorage data from one aircraft type bleeding into another)
+  if(prevType && prevType !== curType && curType){
+    const prevLocs = LOCS_MAP[prevType];
+    if(prevLocs){
+      const prevIds = new Set(Object.values(prevLocs).flat().map(l=>l.id));
+      Object.keys(S).forEach(k=>{
+        // key format: <locId>_<field> or <locId>_<unit>_<field>
+        for(const id of prevIds){
+          if(k===id || k.startsWith(id+'_')){
+            delete S[k];
+            break;
+          }
+        }
+      });
+      save();
+    }
+  }
 
   // Update subtitle
   const rev = TEMPLATE_REVISIONS[curType];
