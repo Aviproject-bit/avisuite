@@ -320,7 +320,7 @@ const SECS={
   B777_AK3643: ['lh','ctr','rh','ofcr','prayer','doors','galleys','lavs'],
   B787_10:     ['lh','ctr','rh','prayer','doors','ofcr','lavs'],
   B787_9:      ['lh','ctr','rh','prayer','doors','ofcr','lavs'],
-  A330_AQ11:   ['lh','ctr','rh','doors','crew','lavs'],
+  A330_AQ11:   ['lh','ctr','rh','prayer','doors','crew','lavs'],
   A330_AQI:    ['lh','ctr','rh','prayer','doors','crew'],
   A330_AQA:    ['lh','ctr','rh','prayer','doors','crew'],
   A321:        ['lh','rh','doors'], A321_NEO:['lh','rh','doors'],
@@ -4522,23 +4522,22 @@ function buildStubLocs(prefix, locNames){
     const idUp = id.toUpperCase();
     const nameUp = (info.name||'').toUpperCase();
     const sub = info.sub||'';
-    // B777-style dual: CTR rows and Prayer Rooms have Generator #1/#2 (unless BASSINET)
     const isDual = !sub && (
       idUp.includes('_CTR') || idUp.includes('_PR') || nameUp.includes('PRAYER')
     );
-    return { id, name:info.name, tag:'oth', dual:isDual, sub };
+    return { id, name:info.name, tag:'oth', dual:isDual, sub, _nameUp:nameUp };
   });
   const sec = {lh:[],ctr:[],rh:[],prayer:[],doors:[],crew:[],ofcr:[],galleys:[],lavs:[]};
   all.forEach(o=>{
-    const id = o.id.toUpperCase();
-    if(o.name.toLowerCase().includes('prayer')) sec.prayer.push(o);
-    else if(/_LH/.test(id)) sec.lh.push(o);
-    else if(/_CTR/.test(id)) sec.ctr.push(o);
-    else if(/_RH/.test(id)) sec.rh.push(o);
-    else if(/_D[0-9][LR]$|DOOR/.test(id)) sec.doors.push(o);
-    else if(/OFCR|OFAR/.test(id)) sec.ofcr.push(o);
-    else if(/_FG[0-9]|_CA_|_AG_|GALLEY/.test(id)) sec.galleys.push(o);
-    else if(/_L[0-9]|LAV/.test(id)) sec.lavs.push(o);
+    const n = o._nameUp;
+    if(n.includes('PRAYER')) sec.prayer.push(o);
+    else if(/\bLH\b/.test(n) && !n.includes('DR')) sec.lh.push(o);
+    else if(/\bCTR\b/.test(n) && !n.includes('DR')) sec.ctr.push(o);
+    else if(/\bRH\b/.test(n) && !n.includes('DR')) sec.rh.push(o);
+    else if(/^DR |DOOR|ATTN SEAT/.test(n)) sec.doors.push(o);
+    else if(/OFCR|OFAR/.test(n)) sec.ofcr.push(o);
+    else if(/GALLEY|CROSS AISLE/.test(n)) sec.galleys.push(o);
+    else if(/^[0-9][A-Z]-/.test(n) || /^L[0-9]+$/.test(n)) sec.lavs.push(o);
     else sec.crew.push(o);
   });
   return sec;
