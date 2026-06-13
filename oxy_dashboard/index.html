@@ -315,13 +315,16 @@ const SEC_LABELS={lh:'LH',ctr:'CTR',rh:'RH',ofcr:'OFCR/OFAR',
   doors:'Doors',galleys:'Galleys',lavs:'LAVs',crew:'Crew'};
 
 const SECS={
-  B777_AK3135:['lh','ctr','rh','ofcr','doors','galleys','lavs'],
-  B777_AK3643:['lh','ctr','rh','ofcr','doors','galleys','lavs'],
-  B787_10:['lh','ctr','rh','doors','ofcr','lavs'],
-  B787_9:['lh','ctr','rh','doors','ofcr','lavs'],
-  A330_AQA:['lh','ctr','rh','doors','crew'],
-  A321:['lh','rh','doors'], A321_NEO:['lh','rh','doors'],
-  A320_AS51:['lh','rh','doors'], A320_ASA:['lh','rh','doors'],
+  B777_AK23:   ['lh','ctr','rh','ofcr','prayer','doors','galleys','lavs'],
+  B777_AK3135: ['lh','ctr','rh','ofcr','prayer','doors','galleys','lavs'],
+  B777_AK3643: ['lh','ctr','rh','ofcr','prayer','doors','galleys','lavs'],
+  B787_10:     ['lh','ctr','rh','prayer','doors','ofcr','lavs'],
+  B787_9:      ['lh','ctr','rh','prayer','doors','ofcr','lavs'],
+  A330_AQ11:   ['lh','ctr','rh','doors','crew','lavs'],
+  A330_AQI:    ['lh','ctr','rh','prayer','doors','crew'],
+  A330_AQA:    ['lh','ctr','rh','prayer','doors','crew'],
+  A321:        ['lh','rh','doors'], A321_NEO:['lh','rh','doors'],
+  A320_AS51:   ['lh','rh','doors'], A320_ASA:['lh','rh','doors'],
 };
 
 const LOCS_B777 = {
@@ -4532,9 +4535,10 @@ function buildStubLocs(prefix, locNames){
     else if(/_LH/.test(id)) sec.lh.push(o);
     else if(/_CTR/.test(id)) sec.ctr.push(o);
     else if(/_RH/.test(id)) sec.rh.push(o);
-    else if(/DR|DOOR/.test(id)) sec.doors.push(o);
+    else if(/_D[0-9][LR]$|DOOR/.test(id)) sec.doors.push(o);
     else if(/OFCR|OFAR/.test(id)) sec.ofcr.push(o);
-    else if(/LAV|_L[0-9]/.test(id)) sec.lavs.push(o);
+    else if(/_FG[0-9]|_CA_|_AG_|GALLEY/.test(id)) sec.galleys.push(o);
+    else if(/_L[0-9]|LAV/.test(id)) sec.lavs.push(o);
     else sec.crew.push(o);
   });
   return sec;
