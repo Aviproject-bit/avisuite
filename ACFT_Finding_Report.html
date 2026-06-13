@@ -1492,13 +1492,16 @@ function _pcUpdateDots(){
   }
 }
 
-// ── IMAGE ANNOTATION EDITOR ──────────────────────────────────
-let _ieState = { findingId:null, photoIdx:null, tool:'arrow', color:'#FFFFFF', img:null, actions:[], drawing:false, start:null, canvas:null, ctx:null, dpr:1, textInput:null };
+
+// ── IMAGE ANNOTATION EDITOR v2 ────────────────────────────────
+let _ieState = { findingId:null, photoIdx:null, tool:'arrow', color:'#FF3B30', lineW:'m', img:null, actions:[], drawing:false, start:null, canvas:null, ctx:null, textInput:null, redoStack:[] };
+
+const _IE_LINE_W = { s: 0.004, m: 0.008, l: 0.014 };
 
 function openImageEditor(findingId, photoIdx) {
   const f = findings.find(x => x.id === findingId);
   if (!f || !f.photos || !f.photos[photoIdx]) return;
-  _ieState = { findingId, photoIdx, tool:'arrow', color:'#FFFFFF', img:null, actions:[], drawing:false, start:null, canvas:null, ctx:null, dpr:1, textInput:null };
+  _ieState = { findingId, photoIdx, tool:'arrow', color:'#FF3B30', lineW:'m', img:null, actions:[], drawing:false, start:null, canvas:null, ctx:null, textInput:null, redoStack:[] };
 
   const modal = document.getElementById('img-editor');
   const canvas = document.getElementById('editor-canvas');
@@ -1508,8 +1511,9 @@ function openImageEditor(findingId, photoIdx) {
   const img = new Image();
   img.onload = () => {
     _ieState.img = img;
+    const toolbarH = 118;
     const maxW = window.innerWidth * 0.98;
-    const maxH = (window.innerHeight - 110) * 0.98;
+    const maxH = (window.innerHeight - toolbarH - 44) * 0.98;
     let w = img.width, h = img.height;
     const scale = Math.min(maxW/w, maxH/h, 1);
     w = Math.round(w*scale); h = Math.round(h*scale);
@@ -1517,12 +1521,13 @@ function openImageEditor(findingId, photoIdx) {
     canvas.style.width = w+'px'; canvas.style.height = h+'px';
     _ieRedraw();
     modal.style.display = 'flex';
+    _ieUpdateUndoRedo();
   };
   img.src = f.photos[photoIdx].data;
 
-  // Reset tool/color UI
   document.querySelectorAll('.ie-tool[data-tool]').forEach(b => b.classList.toggle('active', b.dataset.tool==='arrow'));
-  document.querySelectorAll('.ie-color').forEach(b => b.classList.toggle('active', b.dataset.color==='#FFFFFF'));
+  document.querySelectorAll('.ie-color').forEach(b => b.classList.toggle('active', b.dataset.color==='#FF3B30'));
+  document.querySelectorAll('.ie-w').forEach(b => b.classList.toggle('active', b.dataset.w==='m'));
 
   _ieAttachEvents();
 }
@@ -1535,11 +1540,17 @@ function closeImageEditor() {
 function setEditorTool(tool) {
   _ieState.tool = tool;
   document.querySelectorAll('.ie-tool[data-tool]').forEach(b => b.classList.toggle('active', b.dataset.tool===tool));
+  _ieState.canvas.style.cursor = tool==='text' ? 'text' : 'crosshair';
 }
 
 function setEditorColor(color) {
   _ieState.color = color;
   document.querySelectorAll('.ie-color').forEach(b => b.classList.toggle('active', b.dataset.color===color));
+}
+
+function setEditorWidth(w) {
+  _ieState.lineW = w;
+  document.querySelectorAll('.ie-w').forEach(b => b.classList.toggle('active', b.dataset.w===w));
 }
 
 function _ieRedraw() {
@@ -1550,10 +1561,14 @@ function _ieRedraw() {
   actions.forEach(a => _ieDrawAction(ctx, a));
 }
 
+function _ieLineWidth(ctx, a) {
+  return Math.max(2, ctx.canvas.width * (_IE_LINE_W[a.lineW || 'm']));
+}
+
 function _ieDrawAction(ctx, a) {
   ctx.strokeStyle = a.color;
   ctx.fillStyle = a.color;
-  ctx.lineWidth = Math.max(2, ctx.canvas.width * 0.006);
+  ctx.lineWidth = _ieLineWidth(ctx, a);
   ctx.lineCap = 'round';
   ctx.lineJoin = 'round';
 
@@ -1561,13 +1576,13 @@ function _ieDrawAction(ctx, a) {
     const { x1,y1,x2,y2 } = a;
     ctx.beginPath(); ctx.moveTo(x1,y1); ctx.lineTo(x2,y2); ctx.stroke();
     const angle = Math.atan2(y2-y1, x2-x1);
-    const head = Math.max(12, ctx.canvas.width*0.025);
+    const head = Math.max(14, ctx.lineWidth * 4.5);
     ctx.beginPath();
     ctx.moveTo(x2, y2);
     ctx.lineTo(x2 - head*Math.cos(angle-Math.PI/6), y2 - head*Math.sin(angle-Math.PI/6));
-    ctx.moveTo(x2, y2);
     ctx.lineTo(x2 - head*Math.cos(angle+Math.PI/6), y2 - head*Math.sin(angle+Math.PI/6));
-    ctx.stroke();
+    ctx.closePath();
+    ctx.fill();
   } else if (a.type === 'circle') {
     const { x1,y1,x2,y2 } = a;
     const rx = Math.abs(x2-x1)/2, ry = Math.abs(y2-y1)/2;
@@ -1575,20 +1590,35 @@ function _ieDrawAction(ctx, a) {
     ctx.beginPath(); ctx.ellipse(cx,cy,rx,ry,0,0,2*Math.PI); ctx.stroke();
   } else if (a.type === 'rect') {
     const { x1,y1,x2,y2 } = a;
-    ctx.strokeRect(Math.min(x1,x2), Math.min(y1,y2), Math.abs(x2-x1), Math.abs(y2-y1));
+    const rad = Math.min(10, Math.abs(x2-x1)/2, Math.abs(y2-y1)/2);
+    const x = Math.min(x1,x2), y = Math.min(y1,y2), w = Math.abs(x2-x1), h = Math.abs(y2-y1);
+    ctx.beginPath();
+    if (w > rad*2 && h > rad*2) {
+      ctx.roundRect ? ctx.roundRect(x,y,w,h,rad) : ctx.rect(x,y,w,h);
+    } else {
+      ctx.rect(x,y,w,h);
+    }
+    ctx.stroke();
   } else if (a.type === 'text') {
-    const fontSize = Math.max(16, ctx.canvas.width * 0.035);
-    ctx.font = `bold ${fontSize}px BwGradual, Arial, sans-serif`;
+    const fontSize = Math.max(16, ctx.canvas.width * 0.04);
+    ctx.font = `700 ${fontSize}px BwGradual, Arial, sans-serif`;
     ctx.textBaseline = 'top';
+    // Text shadow for readability
+    ctx.save();
+    ctx.shadowColor = 'rgba(0,0,0,.55)';
+    ctx.shadowBlur = 4;
+    ctx.shadowOffsetX = 1;
+    ctx.shadowOffsetY = 1;
     ctx.fillText(a.text, a.x, a.y);
+    ctx.restore();
   }
 }
 
 function _ieGetPos(e) {
   const canvas = _ieState.canvas;
   const rect = canvas.getBoundingClientRect();
-  const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-  const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+  const clientX = e.touches ? (e.touches[0]||e.changedTouches[0]).clientX : e.clientX;
+  const clientY = e.touches ? (e.touches[0]||e.changedTouches[0]).clientY : e.clientY;
   const scaleX = canvas.width / rect.width;
   const scaleY = canvas.height / rect.height;
   return { x: (clientX - rect.left) * scaleX, y: (clientY - rect.top) * scaleY };
@@ -1596,7 +1626,9 @@ function _ieGetPos(e) {
 
 function _ieAttachEvents() {
   const canvas = _ieState.canvas;
-  canvas.onmousedown = canvas.ontouchstart = (e) => {
+  canvas.style.cursor = 'crosshair';
+
+  const down = (e) => {
     e.preventDefault();
     const pos = _ieGetPos(e);
     if (_ieState.tool === 'text') {
@@ -1606,28 +1638,34 @@ function _ieAttachEvents() {
     _ieState.drawing = true;
     _ieState.start = pos;
   };
-  canvas.onmousemove = canvas.ontouchmove = (e) => {
+  const move = (e) => {
     if (!_ieState.drawing) return;
     e.preventDefault();
     const pos = _ieGetPos(e);
     _ieRedraw();
-    _ieDrawAction(_ieState.ctx, { type:_ieState.tool, x1:_ieState.start.x, y1:_ieState.start.y, x2:pos.x, y2:pos.y, color:_ieState.color });
+    _ieDrawAction(_ieState.ctx, { type:_ieState.tool, x1:_ieState.start.x, y1:_ieState.start.y, x2:pos.x, y2:pos.y, color:_ieState.color, lineW:_ieState.lineW });
   };
-  canvas.onmouseup = canvas.ontouchend = (e) => {
+  const up = (e) => {
     if (!_ieState.drawing) return;
     e.preventDefault();
     const pos = _ieGetPos(e);
     const dist = Math.hypot(pos.x-_ieState.start.x, pos.y-_ieState.start.y);
-    if (dist > 5) {
-      _ieState.actions.push({ type:_ieState.tool, x1:_ieState.start.x, y1:_ieState.start.y, x2:pos.x, y2:pos.y, color:_ieState.color });
+    if (dist > 4) {
+      _ieState.actions.push({ type:_ieState.tool, x1:_ieState.start.x, y1:_ieState.start.y, x2:pos.x, y2:pos.y, color:_ieState.color, lineW:_ieState.lineW });
+      _ieState.redoStack = [];
+      _ieUpdateUndoRedo();
     }
     _ieState.drawing = false;
     _ieRedraw();
   };
+
+  canvas.onmousedown = down; canvas.ontouchstart = down;
+  canvas.onmousemove = move; canvas.ontouchmove = move;
+  canvas.onmouseup = up; canvas.ontouchend = up; canvas.onmouseleave = up;
 }
 
 function _ieAddTextInput(pos) {
-  if (_ieState.textInput) { _ieState.textInput.remove(); _ieState.textInput = null; }
+  if (_ieState.textInput) { _ieState.textInput.blur(); }
   const canvas = _ieState.canvas;
   const rect = canvas.getBoundingClientRect();
   const scaleX = rect.width / canvas.width;
@@ -1635,34 +1673,58 @@ function _ieAddTextInput(pos) {
 
   const input = document.createElement('input');
   input.type = 'text';
-  input.placeholder = 'Type...';
-  const fontSize = Math.max(16, canvas.width * 0.035) * scaleY;
-  input.style.cssText = `position:fixed;left:${rect.left + pos.x*scaleX}px;top:${rect.top + pos.y*scaleY}px;font-size:${fontSize}px;font-weight:bold;font-family:'BwGradual',Arial,sans-serif;color:${_ieState.color};background:rgba(0,0,0,.3);border:1px dashed ${_ieState.color};outline:none;z-index:100000;padding:2px 4px;min-width:80px;border-radius:3px`;
+  input.placeholder = 'Type and press Enter';
+  const fontSize = Math.max(16, canvas.width * 0.04) * scaleY;
+  input.style.cssText = `position:fixed;left:${rect.left + pos.x*scaleX}px;top:${rect.top + pos.y*scaleY}px;font-size:${fontSize}px;font-weight:700;font-family:'BwGradual',Arial,sans-serif;color:${_ieState.color};background:rgba(0,0,0,.35);border:2px dashed ${_ieState.color};outline:none;z-index:100000;padding:2px 6px;min-width:120px;border-radius:4px`;
   document.body.appendChild(input);
   input.focus();
   _ieState.textInput = input;
 
+  let committed = false;
   const commit = () => {
+    if (committed) return;
+    committed = true;
     const val = input.value.trim();
     if (val) {
       _ieState.actions.push({ type:'text', x:pos.x, y:pos.y, text:val, color:_ieState.color });
+      _ieState.redoStack = [];
       _ieRedraw();
+      _ieUpdateUndoRedo();
     }
     input.remove();
     _ieState.textInput = null;
   };
   input.onblur = commit;
-  input.onkeydown = (e) => { if (e.key === 'Enter') commit(); };
+  input.onkeydown = (e) => { if (e.key === 'Enter') { e.preventDefault(); commit(); } if (e.key === 'Escape') { committed=true; input.remove(); _ieState.textInput=null; } };
 }
 
 function editorUndo() {
-  _ieState.actions.pop();
+  if (!_ieState.actions.length) return;
+  _ieState.redoStack.push(_ieState.actions.pop());
   _ieRedraw();
+  _ieUpdateUndoRedo();
+}
+
+function editorRedo() {
+  if (!_ieState.redoStack.length) return;
+  _ieState.actions.push(_ieState.redoStack.pop());
+  _ieRedraw();
+  _ieUpdateUndoRedo();
 }
 
 function editorClear() {
+  if (!_ieState.actions.length) return;
+  _ieState.redoStack = [..._ieState.redoStack, ..._ieState.actions.slice().reverse()];
   _ieState.actions = [];
   _ieRedraw();
+  _ieUpdateUndoRedo();
+}
+
+function _ieUpdateUndoRedo() {
+  const u = document.getElementById('ie-undo');
+  const r = document.getElementById('ie-redo');
+  if (u) u.disabled = _ieState.actions.length === 0;
+  if (r) r.disabled = _ieState.redoStack.length === 0;
 }
 
 function saveImageEditor() {
@@ -1683,50 +1745,71 @@ function saveImageEditor() {
 </script>
 
 <!-- Image Annotation Editor -->
-<div id="img-editor" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:99999;flex-direction:column">
+<div id="img-editor" style="display:none;position:fixed;inset:0;background:#1a1a1a;z-index:99999;flex-direction:column">
   <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:#0F2920;flex-shrink:0">
     <span style="color:#fff;font-family:'BwGradual',sans-serif;font-size:13px;font-weight:600">Annotate Photo</span>
-    <button onclick="closeImageEditor()" style="background:rgba(255,255,255,.1);border:none;color:#fff;width:28px;height:28px;border-radius:7px;font-size:16px;cursor:pointer">✕</button>
+    <button onclick="closeImageEditor()" style="background:rgba(255,255,255,.1);border:none;color:#fff;width:30px;height:30px;border-radius:8px;font-size:16px;cursor:pointer">✕</button>
   </div>
-  <div style="flex:1;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;touch-action:none">
-    <canvas id="editor-canvas" style="max-width:100%;max-height:100%;touch-action:none"></canvas>
+  <div style="flex:1;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;touch-action:none;background:#1a1a1a">
+    <canvas id="editor-canvas" style="touch-action:none;border-radius:4px"></canvas>
   </div>
-  <div style="display:flex;gap:6px;padding:10px;background:#0F2920;flex-wrap:wrap;justify-content:center;flex-shrink:0">
-    <button class="ie-tool active" data-tool="arrow" onclick="setEditorTool('arrow')" style="ie-btn">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="19" x2="19" y2="5"/><polyline points="9 5 19 5 19 15"/></svg>
-    </button>
-    <button class="ie-tool" data-tool="circle" onclick="setEditorTool('circle')">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/></svg>
-    </button>
-    <button class="ie-tool" data-tool="rect" onclick="setEditorTool('rect')">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
-    </button>
-    <button class="ie-tool" data-tool="text" onclick="setEditorTool('text')">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
-    </button>
-    <div style="width:1px;background:rgba(255,255,255,.15);margin:4px 2px"></div>
-    <button class="ie-color" data-color="#FF3B30" onclick="setEditorColor('#FF3B30')" style="background:#FF3B30"></button>
-    <button class="ie-color" data-color="#FFD60A" onclick="setEditorColor('#FFD60A')" style="background:#FFD60A"></button>
-    <button class="ie-color" data-color="#34C759" onclick="setEditorColor('#34C759')" style="background:#34C759"></button>
-    <button class="ie-color" data-color="#0A84FF" onclick="setEditorColor('#0A84FF')" style="background:#0A84FF"></button>
-    <button class="ie-color active" data-color="#FFFFFF" onclick="setEditorColor('#FFFFFF')" style="background:#FFFFFF"></button>
-    <div style="width:1px;background:rgba(255,255,255,.15);margin:4px 2px"></div>
-    <button class="ie-tool" onclick="editorUndo()" title="Undo">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 00-9-9 9 9 0 00-6 2.3L3 13"/></svg>
-    </button>
-    <button class="ie-tool" onclick="editorClear()" title="Clear all">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
-    </button>
-    <div style="flex:1"></div>
-    <button onclick="saveImageEditor()" style="background:#006937;color:#fff;border:none;border-radius:8px;padding:9px 18px;font-family:'BwGradual',sans-serif;font-size:12px;font-weight:700;cursor:pointer">Save</button>
+  <div style="background:#0F2920;flex-shrink:0;padding:8px 10px 10px">
+    <!-- Row 1: shapes + line width -->
+    <div style="display:flex;gap:6px;justify-content:center;align-items:center;margin-bottom:8px;flex-wrap:wrap">
+      <button class="ie-tool active" data-tool="arrow" onclick="setEditorTool('arrow')" title="Arrow">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="19" x2="19" y2="5"/><polyline points="9 5 19 5 19 15"/></svg>
+      </button>
+      <button class="ie-tool" data-tool="circle" onclick="setEditorTool('circle')" title="Circle">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9"/></svg>
+      </button>
+      <button class="ie-tool" data-tool="rect" onclick="setEditorTool('rect')" title="Rectangle">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+      </button>
+      <button class="ie-tool" data-tool="text" onclick="setEditorTool('text')" title="Text">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+      </button>
+      <div style="width:1px;height:28px;background:rgba(255,255,255,.15);margin:0 4px"></div>
+      <button class="ie-w" data-w="s" onclick="setEditorWidth('s')" title="Thin"><span class="ie-dot" style="width:6px;height:6px"></span></button>
+      <button class="ie-w active" data-w="m" onclick="setEditorWidth('m')" title="Medium"><span class="ie-dot" style="width:10px;height:10px"></span></button>
+      <button class="ie-w" data-w="l" onclick="setEditorWidth('l')" title="Thick"><span class="ie-dot" style="width:14px;height:14px"></span></button>
+      <div style="width:1px;height:28px;background:rgba(255,255,255,.15);margin:0 4px"></div>
+      <button class="ie-tool" id="ie-undo" onclick="editorUndo()" title="Undo">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 00-9-9 9 9 0 00-6 2.3L3 13"/></svg>
+      </button>
+      <button class="ie-tool" id="ie-redo" onclick="editorRedo()" title="Redo">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 7v6h-6"/><path d="M3 17a9 9 0 0 1 9-9 9 9 0 0 1 6 2.3L21 13"/></svg>
+      </button>
+      <button class="ie-tool" onclick="editorClear()" title="Clear all">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
+      </button>
+    </div>
+    <!-- Row 2: colors + save -->
+    <div style="display:flex;gap:8px;justify-content:center;align-items:center">
+      <button class="ie-color active" data-color="#FF3B30" onclick="setEditorColor('#FF3B30')" style="background:#FF3B30"></button>
+      <button class="ie-color" data-color="#FFD60A" onclick="setEditorColor('#FFD60A')" style="background:#FFD60A"></button>
+      <button class="ie-color" data-color="#34C759" onclick="setEditorColor('#34C759')" style="background:#34C759"></button>
+      <button class="ie-color" data-color="#0A84FF" onclick="setEditorColor('#0A84FF')" style="background:#0A84FF"></button>
+      <button class="ie-color" data-color="#FFFFFF" onclick="setEditorColor('#FFFFFF')" style="background:#FFFFFF"></button>
+      <button class="ie-color" data-color="#000000" onclick="setEditorColor('#000000')" style="background:#000000"></button>
+      <div style="flex:1;max-width:24px"></div>
+      <button onclick="saveImageEditor()" style="background:#006937;color:#fff;border:none;border-radius:9px;padding:11px 26px;font-family:'BwGradual',sans-serif;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+        Save
+      </button>
+    </div>
   </div>
 </div>
 <style>
-.ie-tool{width:38px;height:38px;border-radius:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.7);cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent}
+.ie-tool{width:42px;height:42px;border-radius:9px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.65);cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;transition:.12s}
 .ie-tool.active{background:#006937;border-color:#006937;color:#fff}
 .ie-tool:active{transform:scale(.92)}
-.ie-color{width:30px;height:30px;border-radius:50%;border:2px solid transparent;cursor:pointer;-webkit-tap-highlight-color:transparent}
-.ie-color.active{border-color:#fff}
+.ie-tool:disabled{opacity:.3;cursor:default}
+.ie-tool:disabled:active{transform:none}
+.ie-w{width:42px;height:42px;border-radius:9px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.7);cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent}
+.ie-w.active{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.3)}
+.ie-w .ie-dot{border-radius:50%;background:currentColor;display:block}
+.ie-color{width:34px;height:34px;border-radius:50%;border:2px solid transparent;cursor:pointer;-webkit-tap-highlight-color:transparent;box-shadow:0 0 0 1px rgba(255,255,255,.15) inset}
+.ie-color.active{border-color:#fff;box-shadow:0 0 0 1px rgba(255,255,255,.4) inset}
 </style>
 </body>
 </html>
