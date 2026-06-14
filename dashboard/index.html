@@ -228,6 +228,10 @@ th:nth-child(10),td:nth-child(10){width:75px}
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
       <span id="del-sel-count">Delete</span>
     </button>
+    <button class="tb del-sel-btn" id="ac-sel-btn" style="display:none" onclick="openAircraftEditModal()">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+      <span id="ac-sel-count">Aircraft</span>
+    </button>
     <button class="tb tp" onclick="loadData()">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>Refresh
     </button>
@@ -605,12 +609,16 @@ function toggleAll(cb){
 function updateDelBtn(){
   const btn=document.getElementById('del-sel-btn');
   const cnt=document.getElementById('del-sel-count');
+  const acBtn=document.getElementById('ac-sel-btn');
+  const acCnt=document.getElementById('ac-sel-count');
   if(!btn) return;
   if(selected.size>0){
     btn.style.display='flex';
     cnt.textContent='Delete ('+selected.size+')';
+    if(acBtn){ acBtn.style.display='flex'; acCnt.textContent='Aircraft ('+selected.size+')'; }
   } else {
     btn.style.display='none';
+    if(acBtn) acBtn.style.display='none';
   }
 }
 
@@ -662,6 +670,31 @@ function deleteSelected(){
   );
 }
 
+// ── BULK AIRCRAFT EDIT ───────────────────────────────────────
+function openAircraftEditModal(){
+  const n=selected.size;
+  if(!n) return;
+  document.getElementById('ac-edit-sub').textContent = 'Update aircraft for '+n+' selected finding'+(n>1?'s':'');
+  document.getElementById('ac-edit-input').value='';
+  document.getElementById('ac-edit-modal').style.display='flex';
+  setTimeout(()=>document.getElementById('ac-edit-input').focus(), 100);
+}
+function closeAircraftEditModal(){
+  document.getElementById('ac-edit-modal').style.display='none';
+}
+async function applyAircraftEdit(){
+  const val=document.getElementById('ac-edit-input').value.trim().toUpperCase();
+  if(!val){ toast('Enter aircraft registration'); return; }
+  const n=selected.size;
+  allData.forEach(f=>{
+    if(selected.has(f._id+'_'+f.timestamp)) f.aircraft=val;
+  });
+  closeAircraftEditModal();
+  selected.clear(); updateDelBtn();
+  try{ await saveRaw(allData); toast('Updated '+n+' finding'+(n>1?'s':'')+' → '+val+' ✓'); applyFilter(); }
+  catch(e){ toast('Update failed'); }
+}
+
 // ── COPY ────────────────────────────────────────────────────
 function cp(td){const txt=td.innerText.trim();if(!txt||txt==='—')return;navigator.clipboard.writeText(txt).catch(()=>{});td.classList.add('copied');toast('Copied ✓');setTimeout(()=>td.classList.remove('copied'),700);}
 
@@ -701,7 +734,20 @@ function doPDFExport(){
   });
 
   const w=window.open('','_blank');
-  w.document.write(`<!DOCTYPE html><html><head><title>ACFT Findings</title><style>body{font-family:Arial,sans-serif;font-size:10px;margin:14px}.h{background:#0F2920;color:#fff;padding:11px 15px;border-radius:6px;margin-bottom:13px;display:flex;justify-content:space-between}table{width:100%;border-collapse:collapse}th{background:#0F2920;color:#fff;padding:5px 8px;text-align:left;font-size:9px;text-transform:uppercase;letter-spacing:.7px}td{padding:5px 8px;border-bottom:1px solid #e2e5df;vertical-align:top;line-height:1.4}tr.ac-row td{background:#0F2920;color:#fff;font-weight:700;font-size:10px;letter-spacing:.5px;padding:4px 8px}.ft{margin-top:13px;font-size:9px;color:#9aa098;text-align:center}</style></head><body><div class="h"><b>ACFT FINDINGS REPORT</b><span>${ds} | ${filtered.length} findings</span></div><table><thead><tr><th>Date / Reporter</th><th>Category</th><th>Description</th><th>Photo</th></tr></thead><tbody>${bodyHtml}</tbody></table><div class="ft">SAUDIA TECHNIC — CA&QC DIVISION</div><script>window.onload=()=>window.print()<\/script></body></html>`);
+  w.document.write(`<!DOCTYPE html><html><head><title>ACFT Findings</title><style>body{font-family:Arial,sans-serif;font-size:10px;margin:14px}.h{background:#0F2920;color:#fff;padding:11px 15px;border-radius:6px;margin-bottom:13px;display:flex;justify-content:space-between}table{width:100%;border-collapse:collapse}th{background:#0F2920;color:#fff;padding:5px 8px;text-align:left;font-size:9px;text-transform:uppercase;letter-spacing:.7px}td{padding:5px 8px;border-bottom:1px solid #e2e5df;vertical-align:top;line-height:1.4}tr.ac-row td{background:#0F2920;color:#fff;font-weight:700;font-size:10px;letter-spacing:.5px;padding:4px 8px}.ft{margin-top:13px;font-size:9px;color:#9aa098;text-align:center}</style></head><body><div class="h"><b>ACFT FINDINGS REPORT</b><span>${ds} | ${filtered.length} findings</span></div><table><thead><tr><th>Date / Reporter</th><th>Category</th><th>Description</th><th>Photo</th></tr></thead><tbody>${bodyHtml}</tbody></table><div class="ft">SAUDIA TECHNIC — CA&QC DIVISION</div><script>window.onload=()=>window.print()<\/script>
+<!-- Aircraft Bulk Edit Modal -->
+<div id="ac-edit-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:99999;align-items:center;justify-content:center;backdrop-filter:blur(4px)">
+  <div style="background:#fff;border-radius:14px;padding:24px;max-width:340px;width:90%;font-family:Arial,sans-serif">
+    <div style="font-size:14px;font-weight:700;color:#0F2920;margin-bottom:4px">Edit Aircraft</div>
+    <div id="ac-edit-sub" style="font-size:11px;color:#8a9088;margin-bottom:14px">Update aircraft for selected findings</div>
+    <input id="ac-edit-input" type="text" placeholder="e.g. HZ-AK35" style="width:100%;padding:10px 12px;border:1.5px solid #E0E0D8;border-radius:8px;font-size:14px;font-family:Arial,sans-serif;text-transform:uppercase;box-sizing:border-box;margin-bottom:14px" autocapitalize="characters">
+    <div style="display:flex;gap:8px;justify-content:flex-end">
+      <button onclick="closeAircraftEditModal()" style="background:#F0F2EF;border:none;color:#5a6058;padding:9px 18px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer">Cancel</button>
+      <button onclick="applyAircraftEdit()" style="background:#006937;border:none;color:#fff;padding:9px 18px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer">Apply</button>
+    </div>
+  </div>
+</div>
+</body></html>`);
   w.document.close();
 }
 
@@ -717,5 +763,18 @@ document.addEventListener('DOMContentLoaded',()=>{
   }
 });
 </script>
+
+<!-- Aircraft Bulk Edit Modal -->
+<div id="ac-edit-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:99999;align-items:center;justify-content:center;backdrop-filter:blur(4px)">
+  <div style="background:#fff;border-radius:14px;padding:24px;max-width:340px;width:90%;font-family:Arial,sans-serif">
+    <div style="font-size:14px;font-weight:700;color:#0F2920;margin-bottom:4px">Edit Aircraft</div>
+    <div id="ac-edit-sub" style="font-size:11px;color:#8a9088;margin-bottom:14px">Update aircraft for selected findings</div>
+    <input id="ac-edit-input" type="text" placeholder="e.g. HZ-AK35" style="width:100%;padding:10px 12px;border:1.5px solid #E0E0D8;border-radius:8px;font-size:14px;font-family:Arial,sans-serif;text-transform:uppercase;box-sizing:border-box;margin-bottom:14px" autocapitalize="characters">
+    <div style="display:flex;gap:8px;justify-content:flex-end">
+      <button onclick="closeAircraftEditModal()" style="background:#F0F2EF;border:none;color:#5a6058;padding:9px 18px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer">Cancel</button>
+      <button onclick="applyAircraftEdit()" style="background:#006937;border:none;color:#fff;padding:9px 18px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer">Apply</button>
+    </div>
+  </div>
+</div>
 </body>
 </html>
