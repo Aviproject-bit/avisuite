@@ -1493,20 +1493,28 @@ function _pcUpdateDots(){
 }
 
 
-// ── IMAGE ANNOTATION EDITOR v2 ────────────────────────────────
-let _ieState = { findingId:null, photoIdx:null, tool:'arrow', color:'#FF3B30', lineW:'m', img:null, actions:[], drawing:false, start:null, canvas:null, ctx:null, textInput:null, redoStack:[] };
+
+// ── IMAGE ANNOTATION EDITOR v3 ────────────────────────────────
+let _ieState = { findingId:null, photoIdx:null, tool:'arrow', color:'#FF3B30', lineW:'m', img:null, actions:[], drawing:false, start:null, canvas:null, ctx:null, textInput:null, redoStack:[], draggingTextIdx:null, dragOffset:null, prevViewport:null };
 
 const _IE_LINE_W = { s: 0.004, m: 0.008, l: 0.014 };
 
 function openImageEditor(findingId, photoIdx) {
   const f = findings.find(x => x.id === findingId);
   if (!f || !f.photos || !f.photos[photoIdx]) return;
-  _ieState = { findingId, photoIdx, tool:'arrow', color:'#FF3B30', lineW:'m', img:null, actions:[], drawing:false, start:null, canvas:null, ctx:null, textInput:null, redoStack:[] };
+  _ieState = { findingId, photoIdx, tool:'arrow', color:'#FF3B30', lineW:'m', img:null, actions:[], drawing:false, start:null, canvas:null, ctx:null, textInput:null, redoStack:[], draggingTextIdx:null, dragOffset:null, prevViewport:null };
 
   const modal = document.getElementById('img-editor');
   const canvas = document.getElementById('editor-canvas');
   _ieState.canvas = canvas;
   _ieState.ctx = canvas.getContext('2d');
+
+  // Lock viewport zoom while editor is open (prevents auto-zoom on input focus)
+  const vp = document.querySelector('meta[name="viewport"]');
+  if (vp) {
+    _ieState.prevViewport = vp.getAttribute('content');
+    vp.setAttribute('content', 'width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no');
+  }
 
   const img = new Image();
   img.onload = () => {
@@ -1535,6 +1543,9 @@ function openImageEditor(findingId, photoIdx) {
 function closeImageEditor() {
   document.getElementById('img-editor').style.display = 'none';
   if (_ieState.textInput) { _ieState.textInput.remove(); _ieState.textInput = null; }
+  // Restore viewport
+  const vp = document.querySelector('meta[name="viewport"]');
+  if (vp && _ieState.prevViewport) vp.setAttribute('content', _ieState.prevViewport);
 }
 
 function setEditorTool(tool) {
@@ -1558,14 +1569,26 @@ function _ieRedraw() {
   if (!ctx || !img) return;
   ctx.clearRect(0,0,canvas.width,canvas.height);
   ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-  actions.forEach(a => _ieDrawAction(ctx, a));
+  actions.forEach((a, i) => _ieDrawAction(ctx, a, i === _ieState.draggingTextIdx));
 }
 
 function _ieLineWidth(ctx, a) {
   return Math.max(2, ctx.canvas.width * (_IE_LINE_W[a.lineW || 'm']));
 }
 
-function _ieDrawAction(ctx, a) {
+function _ieTextFont(ctx) {
+  const fontSize = Math.max(16, ctx.canvas.width * 0.04);
+  return { fontSize, font: `700 ${fontSize}px BwGradual, Arial, sans-serif` };
+}
+
+function _ieTextMetrics(ctx, a) {
+  const { fontSize, font } = _ieTextFont(ctx);
+  ctx.font = font;
+  const w = ctx.measureText(a.text).width;
+  return { w, h: fontSize * 1.2, fontSize };
+}
+
+function _ieDrawAction(ctx, a, highlight) {
   ctx.strokeStyle = a.color;
   ctx.fillStyle = a.color;
   ctx.lineWidth = _ieLineWidth(ctx, a);
@@ -1593,17 +1616,16 @@ function _ieDrawAction(ctx, a) {
     const rad = Math.min(10, Math.abs(x2-x1)/2, Math.abs(y2-y1)/2);
     const x = Math.min(x1,x2), y = Math.min(y1,y2), w = Math.abs(x2-x1), h = Math.abs(y2-y1);
     ctx.beginPath();
-    if (w > rad*2 && h > rad*2) {
-      ctx.roundRect ? ctx.roundRect(x,y,w,h,rad) : ctx.rect(x,y,w,h);
+    if (w > rad*2 && h > rad*2 && ctx.roundRect) {
+      ctx.roundRect(x,y,w,h,rad);
     } else {
       ctx.rect(x,y,w,h);
     }
     ctx.stroke();
   } else if (a.type === 'text') {
-    const fontSize = Math.max(16, ctx.canvas.width * 0.04);
-    ctx.font = `700 ${fontSize}px BwGradual, Arial, sans-serif`;
+    const { fontSize, font } = _ieTextFont(ctx);
+    ctx.font = font;
     ctx.textBaseline = 'top';
-    // Text shadow for readability
     ctx.save();
     ctx.shadowColor = 'rgba(0,0,0,.55)';
     ctx.shadowBlur = 4;
@@ -1611,17 +1633,39 @@ function _ieDrawAction(ctx, a) {
     ctx.shadowOffsetY = 1;
     ctx.fillText(a.text, a.x, a.y);
     ctx.restore();
+    if (highlight) {
+      const m = _ieTextMetrics(ctx, a);
+      ctx.save();
+      ctx.strokeStyle = 'rgba(255,255,255,.8)';
+      ctx.lineWidth = 1.5;
+      ctx.setLineDash([5,4]);
+      ctx.strokeRect(a.x-4, a.y-4, m.w+8, m.h+8);
+      ctx.restore();
+    }
   }
 }
 
 function _ieGetPos(e) {
   const canvas = _ieState.canvas;
   const rect = canvas.getBoundingClientRect();
-  const clientX = e.touches ? (e.touches[0]||e.changedTouches[0]).clientX : e.clientX;
-  const clientY = e.touches ? (e.touches[0]||e.changedTouches[0]).clientY : e.clientY;
+  const t = e.touches ? (e.touches[0]||e.changedTouches[0]) : e;
   const scaleX = canvas.width / rect.width;
   const scaleY = canvas.height / rect.height;
-  return { x: (clientX - rect.left) * scaleX, y: (clientY - rect.top) * scaleY };
+  return { x: (t.clientX - rect.left) * scaleX, y: (t.clientY - rect.top) * scaleY };
+}
+
+// Find a text action under the given point (for dragging)
+function _ieHitTestText(pos) {
+  const { ctx, actions } = _ieState;
+  for (let i = actions.length - 1; i >= 0; i--) {
+    const a = actions[i];
+    if (a.type !== 'text') continue;
+    const m = _ieTextMetrics(ctx, a);
+    if (pos.x >= a.x - 6 && pos.x <= a.x + m.w + 6 && pos.y >= a.y - 6 && pos.y <= a.y + m.h + 6) {
+      return i;
+    }
+  }
+  return -1;
 }
 
 function _ieAttachEvents() {
@@ -1631,7 +1675,17 @@ function _ieAttachEvents() {
   const down = (e) => {
     e.preventDefault();
     const pos = _ieGetPos(e);
+
+    // Text tool: check if clicking an existing text to drag it
     if (_ieState.tool === 'text') {
+      const hitIdx = _ieHitTestText(pos);
+      if (hitIdx !== -1) {
+        _ieState.draggingTextIdx = hitIdx;
+        const a = _ieState.actions[hitIdx];
+        _ieState.dragOffset = { dx: pos.x - a.x, dy: pos.y - a.y };
+        _ieRedraw();
+        return;
+      }
       _ieAddTextInput(pos);
       return;
     }
@@ -1639,13 +1693,31 @@ function _ieAttachEvents() {
     _ieState.start = pos;
   };
   const move = (e) => {
+    const pos = _ieGetPos(e);
+    // Dragging existing text
+    if (_ieState.draggingTextIdx !== null) {
+      e.preventDefault();
+      const a = _ieState.actions[_ieState.draggingTextIdx];
+      a.x = pos.x - _ieState.dragOffset.dx;
+      a.y = pos.y - _ieState.dragOffset.dy;
+      _ieRedraw();
+      return;
+    }
     if (!_ieState.drawing) return;
     e.preventDefault();
-    const pos = _ieGetPos(e);
     _ieRedraw();
     _ieDrawAction(_ieState.ctx, { type:_ieState.tool, x1:_ieState.start.x, y1:_ieState.start.y, x2:pos.x, y2:pos.y, color:_ieState.color, lineW:_ieState.lineW });
   };
   const up = (e) => {
+    if (_ieState.draggingTextIdx !== null) {
+      e.preventDefault();
+      _ieState.draggingTextIdx = null;
+      _ieState.dragOffset = null;
+      _ieState.redoStack = [];
+      _ieUpdateUndoRedo();
+      _ieRedraw();
+      return;
+    }
     if (!_ieState.drawing) return;
     e.preventDefault();
     const pos = _ieGetPos(e);
@@ -1674,8 +1746,11 @@ function _ieAddTextInput(pos) {
   const input = document.createElement('input');
   input.type = 'text';
   input.placeholder = 'Type and press Enter';
-  const fontSize = Math.max(16, canvas.width * 0.04) * scaleY;
-  input.style.cssText = `position:fixed;left:${rect.left + pos.x*scaleX}px;top:${rect.top + pos.y*scaleY}px;font-size:${fontSize}px;font-weight:700;font-family:'BwGradual',Arial,sans-serif;color:${_ieState.color};background:rgba(0,0,0,.35);border:2px dashed ${_ieState.color};outline:none;z-index:100000;padding:2px 6px;min-width:120px;border-radius:4px`;
+  input.autocomplete = 'off';
+  input.autocapitalize = 'off';
+  const { fontSize } = _ieTextFont(_ieState.ctx);
+  const dispFontSize = fontSize * scaleY;
+  input.style.cssText = `position:fixed;left:${rect.left + pos.x*scaleX}px;top:${rect.top + pos.y*scaleY}px;font-size:${dispFontSize}px;font-weight:700;font-family:'BwGradual',Arial,sans-serif;color:${_ieState.color};background:rgba(0,0,0,.35);border:2px dashed ${_ieState.color};outline:none;z-index:100000;padding:2px 6px;min-width:120px;border-radius:4px`;
   document.body.appendChild(input);
   input.focus();
   _ieState.textInput = input;
@@ -1695,7 +1770,10 @@ function _ieAddTextInput(pos) {
     _ieState.textInput = null;
   };
   input.onblur = commit;
-  input.onkeydown = (e) => { if (e.key === 'Enter') { e.preventDefault(); commit(); } if (e.key === 'Escape') { committed=true; input.remove(); _ieState.textInput=null; } };
+  input.onkeydown = (e) => {
+    if (e.key === 'Enter') { e.preventDefault(); commit(); }
+    if (e.key === 'Escape') { committed=true; input.remove(); _ieState.textInput=null; }
+  };
 }
 
 function editorUndo() {
