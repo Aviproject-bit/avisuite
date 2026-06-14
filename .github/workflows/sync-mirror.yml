@@ -3,6 +3,7 @@ name: Sync to Mirror Repo
 on:
   push:
     branches: [ main ]
+  workflow_dispatch: {}
 
 jobs:
   sync:
@@ -12,16 +13,19 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          persist-credentials: false
 
       - name: Push to mirror (avisuite)
+        env:
+          MIRROR_TOKEN: ${{ secrets.MIRROR_TOKEN }}
         run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "actions@github.com"
-          
-          # Remove CNAME so mirror doesn't try to use custom domain
+          set -e
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
           rm -f CNAME
-          
-          git remote add mirror https://x-access-token:${{ secrets.MIRROR_TOKEN }}@github.com/Aviproject-bit/avisuite.git
           git add -A
           git commit -m "Remove CNAME for mirror" --allow-empty
+
+          git remote add mirror "https://x-access-token:${MIRROR_TOKEN}@github.com/Aviproject-bit/avisuite.git"
           git push mirror HEAD:main --force
