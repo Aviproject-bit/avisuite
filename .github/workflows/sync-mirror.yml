@@ -24,8 +24,10 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
           rm -f CNAME
+          rm -rf .github
+
           git add -A
-          git commit -m "Remove CNAME for mirror" --allow-empty
+          git commit -m "Mirror sync (exclude CNAME + workflows)" --allow-empty
 
           git remote add mirror "https://x-access-token:${MIRROR_TOKEN}@github.com/Aviproject-bit/avisuite.git"
           git push mirror HEAD:main --force
