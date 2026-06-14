@@ -188,7 +188,7 @@ select{font-family:'BwGradual',sans-serif;text-transform:uppercase}
   <div class="tb-app-title">AIRCRAFT FINDINGS REPORT</div>
   <div style="flex:1"></div>
   <div class="tb-right">
-    <div class="tb-ac" id="hdr-aircraft" onclick="editAircraft()">HZ-AK35</div>
+    <div class="tb-ac" id="hdr-aircraft" onclick="editAircraft()">Tap to set</div>
     <div class="badge-count" id="count-badge">0</div>
   </div>
 </div>
@@ -767,8 +767,8 @@ const AC_KEY = 'ak35_aircraft_cfg';
 function currentAircraft() {
   try {
     const cfg = JSON.parse(localStorage.getItem(AC_KEY) || '{}');
-    return cfg.reg || 'HZ-AK35';
-  } catch(e) { return 'HZ-AK35'; }
+    return cfg.reg || '';
+  } catch(e) { return ''; }
 }
 
 function currentCheck() {
@@ -782,7 +782,7 @@ function updateAircraftDisplay() {
   const ac  = currentAircraft();
   const chk = currentCheck();
   const hdrAc = document.getElementById('hdr-aircraft');
-  if (hdrAc) hdrAc.textContent = ac ;
+  if (hdrAc) hdrAc.textContent = ac || 'Tap to set';
   const badge = document.getElementById('count-badge');
   // Update page title
   document.title = ac + ' · Cabin Finding Report';
@@ -801,7 +801,7 @@ function editAircraft() {
       <div style="display:flex;flex-direction:column;gap:12px">
         <div>
           <div style="font-size:11px;font-weight:800;color:#555;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;font-family:'BwGradualEB',sans-serif">Registration</div>
-          <input id="ac-reg" type="text" value="${ac}" placeholder="HZ-AK35" style="width:100%;padding:9px 10px;border:1px solid #D8D8D0;border-radius:8px;font-size:14px;font-family:'BwGradual',sans-serif;text-transform:uppercase">
+          <input id="ac-reg" type="text" value="${ac}" placeholder="e.g. HZ-ASF" style="width:100%;padding:9px 10px;border:1px solid #D8D8D0;border-radius:8px;font-size:14px;font-family:'BwGradual',sans-serif;text-transform:uppercase">
         </div>
         <div style="display:flex;gap:8px;margin-top:4px">
           <button onclick="saveAircraft()" style="flex:1;padding:11px;background:#0F2920;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:800;cursor:pointer;font-family:'BwGradualEB',sans-serif;letter-spacing:.5px">SAVE</button>
@@ -815,7 +815,7 @@ function editAircraft() {
 }
 
 function saveAircraft() {
-  const reg   = (document.getElementById('ac-reg').value || 'HZ-AK35').trim().toUpperCase();
+  const reg   = (document.getElementById('ac-reg').value || '').trim().toUpperCase();
   localStorage.setItem(AC_KEY, JSON.stringify({reg, check:''}));
   document.querySelector('[style*=fixed]')?.remove();
   updateAircraftDisplay();
@@ -1388,6 +1388,7 @@ function hideArea(id) {
 window.addEventListener('DOMContentLoaded', function() {
   renderFindings();
   updateUI();
+  updateAircraftDisplay();
   _checkPasscode();
 });
 
