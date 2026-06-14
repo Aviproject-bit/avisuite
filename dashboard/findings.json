@@ -1168,22 +1168,5 @@
     "description": "DOOR LINING AFT LINING DMG NEAR SCREW",
     "remarks": "",
     "photoUrl": ""
-  },
-  {
-    "id": "1781437046034sxoa2",
-    "timestamp": "2026-06-14T11:37:26.034Z",
-    "date": "14/06/2026",
-    "time": "14:37",
-    "aircraft": "HZ-AK35",
-    "reporter": "A",
-    "findings": [
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "R2 AFT            ",
-        "description": "DIRTY\nMISSALIGNED\nNOT GOOD                                  ",
-        "remarks": "N/A                      ",
-        "photoUrl": ""
-      }
-    ]
   }
 ]
