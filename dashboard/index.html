@@ -680,9 +680,16 @@ function doExcelExport(){
 
 function doPDFExport(){
   const ds=new Date().toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
-  const rows=filtered.map((f,i)=>`<tr style="background:${i%2===0?'#f8faf8':'#fff'}"><td>${fmt(f.timestamp)}</td><td>${f.aircraft||'—'}</td><td style="background:#d6ead8;color:#1a5c3a;padding:2px 5px;border-radius:3px;font-size:9px;white-space:nowrap">${f.category||'—'}</td><td>${(f.description||'').slice(0,120)}</td><td>${f.reporter||'—'}</td>${f.photoUrl?`<td><img src="${f.photoUrl.split(' | ')[0]}" style="width:52px;height:35px;object-fit:cover;border-radius:3px"></td>`:'<td>—</td>'}</tr>`).join('');
+  const esc=s=>String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const rows=filtered.map((f,i)=>{
+    const photos=(f.photoUrl||'').split(' | ').filter(Boolean);
+    const photoCell = photos.length
+      ? `<td><div style="display:flex;flex-wrap:wrap;gap:3px">${photos.map(p=>`<img src="${p}" style="width:48px;height:34px;object-fit:cover;border-radius:3px">`).join('')}</div></td>`
+      : '<td>—</td>';
+    return `<tr style="background:${i%2===0?'#f8faf8':'#fff'}"><td>${fmt(f.timestamp)}</td><td>${f.aircraft||'—'}</td><td style="background:#d6ead8;color:#1a5c3a;padding:2px 5px;border-radius:3px;font-size:9px;white-space:nowrap">${f.category||'—'}</td><td style="white-space:pre-line">${esc((f.description||'').slice(0,300))}</td><td>${f.reporter||'—'}</td>${photoCell}</tr>`;
+  }).join('');
   const w=window.open('','_blank');
-  w.document.write(`<!DOCTYPE html><html><head><title>ACFT Findings</title><style>body{font-family:Arial,sans-serif;font-size:10px;margin:14px}.h{background:#0F2920;color:#fff;padding:11px 15px;border-radius:6px;margin-bottom:13px;display:flex;justify-content:space-between}table{width:100%;border-collapse:collapse}th{background:#0F2920;color:#fff;padding:5px 8px;text-align:left;font-size:9px;text-transform:uppercase;letter-spacing:.7px}td{padding:5px 8px;border-bottom:1px solid #e2e5df;vertical-align:top}.ft{margin-top:13px;font-size:9px;color:#9aa098;text-align:center}</style></head><body><div class="h"><b>ACFT FINDINGS REPORT</b><span>${ds} | ${filtered.length} findings</span></div><table><thead><tr><th>Date</th><th>Aircraft</th><th>Category</th><th>Description</th><th>Reporter</th><th>Photo</th></tr></thead><tbody>${rows}</tbody></table><div class="ft">SAUDIA TECHNIC — CA&QC DIVISION</div><script>window.onload=()=>window.print()<\/script></body></html>`);
+  w.document.write(`<!DOCTYPE html><html><head><title>ACFT Findings</title><style>body{font-family:Arial,sans-serif;font-size:10px;margin:14px}.h{background:#0F2920;color:#fff;padding:11px 15px;border-radius:6px;margin-bottom:13px;display:flex;justify-content:space-between}table{width:100%;border-collapse:collapse}th{background:#0F2920;color:#fff;padding:5px 8px;text-align:left;font-size:9px;text-transform:uppercase;letter-spacing:.7px}td{padding:5px 8px;border-bottom:1px solid #e2e5df;vertical-align:top;line-height:1.4}.ft{margin-top:13px;font-size:9px;color:#9aa098;text-align:center}</style></head><body><div class="h"><b>ACFT FINDINGS REPORT</b><span>${ds} | ${filtered.length} findings</span></div><table><thead><tr><th>Date</th><th>Aircraft</th><th>Category</th><th>Description</th><th>Reporter</th><th>Photo</th></tr></thead><tbody>${rows}</tbody></table><div class="ft">SAUDIA TECHNIC — CA&QC DIVISION</div><script>window.onload=()=>window.print()<\/script></body></html>`);
   w.document.close();
 }
 
