@@ -1,1 +1,135 @@
-[]
+[
+  {
+    "id": "AK33_B777_AK3135_1781508858975",
+    "acft": "AK33",
+    "type": "B777_AK3135",
+    "lastEditedBy": "Ahmed Alghamdi",
+    "lastEditedAt": "2026-06-15T07:34:15.611Z",
+    "createdAt": "2026-06-15T07:34:15.611Z",
+    "data": {
+      "AK36_R30_CTR_u1_cpn": "5768677",
+      "AK36_R30_CTR_u1_gpn": "637488((8",
+      "AK36_R30_CTR_u2_cpn": "37;76;9338",
+      "AK36_R30_CTR_u2_gpn": "3774648;",
+      "AK36_R1_LH_D1_u1_cpn": "6575",
+      "AK36_R1_LH_D1_u1_gpn": "657565",
+      "AK36_R1_LH_D1_u2_cpn": "65756",
+      "AK36_R1_LH_D1_u2_gpn": "757566",
+      "AK23_LAV_1F2L_cpn": "3737377:",
+      "AK23_LAV_1F2L_gpn": "36737474",
+      "R60_CTR_u1_cpn": "575756",
+      "R60_CTR_u2_cpn": "575756",
+      "R60_CTR_u1_csn": "647566",
+      "R60_CTR_u1_cmfg": "2026-06",
+      "R60_CTR_u1_gpn": "575666",
+      "R60_CTR_u1_gsn": "64655",
+      "R60_CTR_u1_gmfg": "2026-06",
+      "R60_CTR_u2_gpn": "65756",
+      "R60_CTR_u2_gsn": "656576",
+      "R60_CTR_u2_gmfg": "2026-06"
+    },
+    "meta": {
+      "AK36_R30_CTR_u1_cpn": {
+        "by": "Ahmed Alghamdi",
+        "at": "2026-06-15T07:34:15.611Z",
+        "val": "5768677"
+      },
+      "AK36_R30_CTR_u1_gpn": {
+        "by": "Ahmed Alghamdi",
+        "at": "2026-06-15T07:34:15.611Z",
+        "val": "637488((8"
+      },
+      "AK36_R30_CTR_u2_cpn": {
+        "by": "Ahmed Alghamdi",
+        "at": "2026-06-15T07:34:15.611Z",
+        "val": "37;76;9338"
+      },
+      "AK36_R30_CTR_u2_gpn": {
+        "by": "Ahmed Alghamdi",
+        "at": "2026-06-15T07:34:15.611Z",
+        "val": "3774648;"
+      },
+      "AK36_R1_LH_D1_u1_cpn": {
+        "by": "Ahmed Alghamdi",
+        "at": "2026-06-15T07:34:15.611Z",
+        "val": "6575"
+      },
+      "AK36_R1_LH_D1_u1_gpn": {
+        "by": "Ahmed Alghamdi",
+        "at": "2026-06-15T07:34:15.611Z",
+        "val": "657565"
+      },
+      "AK36_R1_LH_D1_u2_cpn": {
+        "by": "Ahmed Alghamdi",
+        "at": "2026-06-15T07:34:15.611Z",
+        "val": "65756"
+      },
+      "AK36_R1_LH_D1_u2_gpn": {
+        "by": "Ahmed Alghamdi",
+        "at": "2026-06-15T07:34:15.611Z",
+        "val": "757566"
+      },
+      "AK23_LAV_1F2L_cpn": {
+        "by": "Ahmed Alghamdi",
+        "at": "2026-06-15T07:34:15.611Z",
+        "val": "3737377:"
+      },
+      "AK23_LAV_1F2L_gpn": {
+        "by": "Ahmed Alghamdi",
+        "at": "2026-06-15T07:34:15.611Z",
+        "val": "36737474"
+      },
+      "R60_CTR_u1_cpn": {
+        "by": "Ahmed Alghamdi",
+        "at": "2026-06-15T07:34:15.611Z",
+        "val": "575756"
+      },
+      "R60_CTR_u2_cpn": {
+        "by": "Ahmed Alghamdi",
+        "at": "2026-06-15T07:34:15.611Z",
+        "val": "575756"
+      },
+      "R60_CTR_u1_csn": {
+        "by": "Ahmed Alghamdi",
+        "at": "2026-06-15T07:34:15.611Z",
+        "val": "647566"
+      },
+      "R60_CTR_u1_cmfg": {
+        "by": "Ahmed Alghamdi",
+        "at": "2026-06-15T07:34:15.611Z",
+        "val": "2026-06"
+      },
+      "R60_CTR_u1_gpn": {
+        "by": "Ahmed Alghamdi",
+        "at": "2026-06-15T07:34:15.611Z",
+        "val": "575666"
+      },
+      "R60_CTR_u1_gsn": {
+        "by": "Ahmed Alghamdi",
+        "at": "2026-06-15T07:34:15.611Z",
+        "val": "64655"
+      },
+      "R60_CTR_u1_gmfg": {
+        "by": "Ahmed Alghamdi",
+        "at": "2026-06-15T07:34:15.611Z",
+        "val": "2026-06"
+      },
+      "R60_CTR_u2_gpn": {
+        "by": "Ahmed Alghamdi",
+        "at": "2026-06-15T07:34:15.611Z",
+        "val": "65756"
+      },
+      "R60_CTR_u2_gsn": {
+        "by": "Ahmed Alghamdi",
+        "at": "2026-06-15T07:34:15.611Z",
+        "val": "656576"
+      },
+      "R60_CTR_u2_gmfg": {
+        "by": "Ahmed Alghamdi",
+        "at": "2026-06-15T07:34:15.611Z",
+        "val": "2026-06"
+      }
+    },
+    "conflicts": []
+  }
+]
