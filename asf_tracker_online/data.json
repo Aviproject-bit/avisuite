@@ -1,0 +1,3143 @@
+{
+  "columns": [
+    {
+      "id": "seq",
+      "label": "Seq",
+      "type": "text",
+      "width": 60,
+      "editable": true
+    },
+    {
+      "id": "wo",
+      "label": "WO",
+      "type": "text",
+      "width": 160,
+      "editable": true
+    },
+    {
+      "id": "title",
+      "label": "Title",
+      "type": "text",
+      "width": 280,
+      "editable": true
+    },
+    {
+      "id": "category",
+      "label": "Category",
+      "type": "select",
+      "width": 140,
+      "editable": true,
+      "options": [
+        "GENERAL CABIN",
+        "GALLEY",
+        "LAVATORY",
+        "PAX DOORS",
+        "F/A SEAT",
+        "PAX SEAT",
+        "FLIGHT DECK",
+        "OFAR/OFCR",
+        "TEDLAR/SIDEWALL",
+        "TASK CARD"
+      ]
+    },
+    {
+      "id": "status",
+      "label": "Status",
+      "type": "select",
+      "width": 120,
+      "editable": true,
+      "options": [
+        "Open",
+        "In Progress",
+        "Closed",
+        "Deferred",
+        "N/A",
+        "On Hold"
+      ]
+    },
+    {
+      "id": "priority",
+      "label": "Priority",
+      "type": "select",
+      "width": 100,
+      "editable": true,
+      "options": [
+        "Normal",
+        "Critical",
+        "AOG"
+      ]
+    }
+  ],
+  "rows": [
+    {
+      "_id": "r_1781886617688_3",
+      "seq": "1",
+      "wo": "31956294",
+      "title": "C_N (C_N07)/C-CHECK",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_4",
+      "seq": "2",
+      "wo": "05-00-00-05-SVA",
+      "title": "05-00-00-05-SVA (03) / FINAL PRODUCT QUALITY INSPECTION",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_5",
+      "seq": "3",
+      "wo": "08-10-00-01-0-A",
+      "title": "08-10-00-01-0-A (01) / WIGHT & BALANCE",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_6",
+      "seq": "24",
+      "wo": "25-11-00-03-0-SVA-001",
+      "title": "25-11-00-03-0-SVA-001 (02) / THIRD OCCUPANT SEAT BOTTOM CUSHION REPLACMENT",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_7",
+      "seq": "25",
+      "wo": "25-11-00-08-0-SVA",
+      "title": "25-11-00-08-0-SVA (02) / CAPTAIN AND F/O SEATS BOTTOM REPLACMENT",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_8",
+      "seq": "26",
+      "wo": "25-11-00-09-0-SVA",
+      "title": "25-11-00-09-0-SVA (03) / CAPTAIN & F/O SEATS COVERS REPLACMENT",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_9",
+      "seq": "27",
+      "wo": "25-11-00-17-0-SVA-002",
+      "title": "25-11-00-17-0-SVA-002 (02) / FOURTH OCCUPANT SEAT BOTTOM CUSHION REPLACMENT",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_10",
+      "seq": "28",
+      "wo": "25-28-00-04-0-SVA-001",
+      "title": "25-28-00-04-0-SVA-001 (03) / A320(HZ-ASA TO ASG) CARPETS&MATS R/R",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_11",
+      "seq": "29",
+      "wo": "25-28-00-04-0-SVA-002",
+      "title": "25-28-00-04-0-SVA-002 (03) / COCKPIT COMPARTMENT CARPETS REPLCMNT",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_12",
+      "seq": "30",
+      "wo": "25-SVA-01",
+      "title": "25-SVA-01 (00) / COCKPIT CHECK",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_13",
+      "seq": "31",
+      "wo": "25-SVA-02",
+      "title": "25-SVA-02 (00) / GENERAL CABIN ITEMS C-CHK",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_14",
+      "seq": "32",
+      "wo": "25-SVA-05",
+      "title": "25-SVA-05 (00) / G/C SEAT REFRESH",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_15",
+      "seq": "33",
+      "wo": "25-SVA-06",
+      "title": "25-SVA-06 (00) / GALLEY REFRESH",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_16",
+      "seq": "34",
+      "wo": "25-SVA-07",
+      "title": "25-SVA-07 (00) / LAV REFRESH",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_17",
+      "seq": "39",
+      "wo": "254000-04-2",
+      "title": "254000-04-2 (03) / LAVATORIES FLOOR PANELS INSPECTION",
+      "category": "TASK CARD",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_18",
+      "seq": "42",
+      "wo": "256652-01-1-SVA",
+      "title": "256652-01-1-SVA (01) / LIFE VEST RESTORATION PERIODIC CHECK FOR EXPIRATION",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_19",
+      "seq": "47",
+      "wo": "262541-04-1",
+      "title": "262541-04-1 (02) / LAVATORY FIRE EXTG PRESS READING CHK",
+      "category": "TASK CARD",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_20",
+      "seq": "112",
+      "wo": "351000-01-1",
+      "title": "351000-01-1 (02) / FULL FACE/QUICK OXYGEN MASKS OPC",
+      "category": "TASK CARD",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_21",
+      "seq": "113",
+      "wo": "351241-01-1",
+      "title": "351241-01-1 (02) / CREW OXYGEN MASKS INSPECTION",
+      "category": "TASK CARD",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_22",
+      "seq": "114",
+      "wo": "352142-01-1-SVA",
+      "title": "352142-01-1-SVA (01) / VALIDITY CHECK OF CHEMICAL OXYGEN GENERATORS",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_23",
+      "seq": "115",
+      "wo": "353000-06-1-SVA",
+      "title": "353000-06-1-SVA (03) / COCKPIT (PBE) INSPECTION",
+      "category": "TASK CARD",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_24",
+      "seq": "116",
+      "wo": "353000-07-1",
+      "title": "353000-07-1 (03) / PORTABLE OXYGEN MASKS INSPECTION",
+      "category": "TASK CARD",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_25",
+      "seq": "123",
+      "wo": "383100-07-1",
+      "title": "383100-07-1 (06) / VACUUM TOILET SYSTEM CLEANING",
+      "category": "TASK CARD",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_26",
+      "seq": "127",
+      "wo": "521000-01-SVA",
+      "title": "521000-01-SVA (01) / FWD LH PASSENGER/CREW DOOR DAMPER AND EMERGENCY OPERATION CYLINDER DIAPHRAGM REPLACEMENT",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_27",
+      "seq": "128",
+      "wo": "521000-02-1",
+      "title": "521000-02-1 (02) / PASSENGER/CREW DOOR SUSPENSION CHK",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_28",
+      "seq": "129",
+      "wo": "521000-02-SVA",
+      "title": "521000-02-SVA (01) / FWD RH PASSENGER/CREW DOOR DAMPER AND EMERGENCY OPERATION CYLINDER DIAPHRAGM REPLACEMENT",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_29",
+      "seq": "130",
+      "wo": "521000-03-SVA",
+      "title": "521000-03-SVA (01) / AFT LH PASSENGER/CREW DOOR DAMPER AND EMERGENCY OPERATION CYLINDER DIAPHRAGM REPLACEMENT",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_30",
+      "seq": "131",
+      "wo": "521000-04-1-001",
+      "title": "521000-04-1-001 (02) / L/H FWD PAX/CREW DOOR INTEGRITY CHK",
+      "category": "TASK CARD",
+      "status": "In Progress",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_31",
+      "seq": "132",
+      "wo": "521000-04-1-002",
+      "title": "521000-04-1-002 (02) / R/H FWD PAX/CREW DOOR INTEGRITY CHK",
+      "category": "TASK CARD",
+      "status": "In Progress",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_32",
+      "seq": "133",
+      "wo": "521000-04-1-003",
+      "title": "521000-04-1-003 (02) / L/H AFT PAX/CREW DOOR INTEGRITY CHK",
+      "category": "TASK CARD",
+      "status": "In Progress",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_33",
+      "seq": "134",
+      "wo": "521000-04-1-004",
+      "title": "521000-04-1-004 (02) / R/H AFT PAX/CREW DOOR INTEGRITY CHK",
+      "category": "TASK CARD",
+      "status": "In Progress",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_34",
+      "seq": "135",
+      "wo": "521000-04-SVA",
+      "title": "521000-04-SVA (01) / AFT RH PASSENGER/CREW DOOR DAMPER AND EMERGENCY OPERATION CYLINDER DIAPHRAGM REPLACEMENT",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_35",
+      "seq": "136",
+      "wo": "521121-02-1",
+      "title": "521121-02-1 (03) / PASSENGER/CREW DOORS LUBRICATION",
+      "category": "TASK CARD",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_36",
+      "seq": "139",
+      "wo": "527100-01-1",
+      "title": "527100-01-1 (5) / DOOR WARNING SYSTEM OPERATIONAL TEST",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_37",
+      "seq": "140",
+      "wo": "527300-01-1",
+      "title": "527300-01-1 (03) / EMERGENCY ESCAPE SLIDE WARNING SYS",
+      "category": "TASK CARD",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_38",
+      "seq": "141",
+      "wo": "531151-02-1",
+      "title": "531151-02-1 (00) / DETAILED INSPECTION OF DOOR STOP FITTINGS PROTRUDING PART NOT COVERED BY THE LINING ON FRAME 16 AND FRAME 20, LH/RH.",
+      "category": "TASK CARD",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_39",
+      "seq": "162",
+      "wo": "561200-02-1",
+      "title": "561200-02-1 (01) / COCKPIT SLIDING WINDOW LUBRICATION",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_40",
+      "seq": "246",
+      "wo": "352142-01-1",
+      "title": "352142-01-1 (6) / DISCARD CHEMICAL OXYGEN GENERATORS",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_41",
+      "seq": "260",
+      "wo": "30970373",
+      "title": "EOD-320-25-00052-R00/PAD-THIRD OCCUPANT SEAT – 168 SERIES BOTTOM EQUIPPED SCREW REPLACEMENT",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_42",
+      "seq": "265",
+      "wo": "29500619",
+      "title": "EOD-320-31-00005-R00/A320 - INDICATING/RECORDING SYSTEMS - SDAC - ACQUISITION/INTERFACE- MO",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_43",
+      "seq": "266",
+      "wo": "30482093",
+      "title": "EOD-320-31-00006-R00/ACTIVATE HIGHSPEED UPLOADING (ARINC 615A) - EIS2",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_44",
+      "seq": "267",
+      "wo": "30481967",
+      "title": "EOD-320-31-00007-R00/A320 –ELECTRONIC INSTRUMENT SYSTEM (EIS) - INTRODUCE EIS2 STANDARD S16",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_45",
+      "seq": "268",
+      "wo": "29155528",
+      "title": "EOD-320-31-00009-R00/INTRODUCE FDIMU H/W 2234320-02-02 FROM VENDOR TELEDYNE",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_46",
+      "seq": "269",
+      "wo": "29155626",
+      "title": "EOD-320-31-00010-R00/FDIMU - TELEDYNE DMU SOFTWARE CAPABLE FOMAX",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_47",
+      "seq": "270",
+      "wo": "29155751",
+      "title": "EOD-320-31-00011-R00/FDIMU - TELEDYNE ETHERNET AND ADC ACTIVATION FOR FOMAX",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_48",
+      "seq": "271",
+      "wo": "29155866",
+      "title": "EOD-320-31-00012-R00/FDIMU - INSTALL NEW ADC DMU SW FOR FOMAX",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_49",
+      "seq": "274",
+      "wo": "30817928",
+      "title": "EOD-320-44-00014-R00/ECLIPSE CONNECTIVITY MODIFICATION",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_50",
+      "seq": "275",
+      "wo": "30695782",
+      "title": "EOD-320-44-00028-R00/DE-MOD TAQNIA SYSTEM REMOVAL",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_51",
+      "seq": "276",
+      "wo": "29155917",
+      "title": "EOD-320-46-00004-R00/INSTALL FOMAX SYSTEM PROVISIONS",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_52",
+      "seq": "277",
+      "wo": "29156041",
+      "title": "EOD-320-46-00005-R00/INSTALL INTERNAL GATELINK ANTENNA FOR FOMAX",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_53",
+      "seq": "278",
+      "wo": "29156135",
+      "title": "EOD-320-46-00006-R00/INSTALL COCKPIT WIFI ANTENNA FOR FOMAX",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_54",
+      "seq": "279",
+      "wo": "29156197",
+      "title": "EOD-320-46-00007-R00/CONNECT ETHERNET LINK BETWEEN FOMAX AND FDIMU",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_55",
+      "seq": "280",
+      "wo": "29157167",
+      "title": "EOD-320-46-00008-R00/FOMAX 4 ACTIVATION",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_56",
+      "seq": "281",
+      "wo": "29156251",
+      "title": "EOD-320-46-00009-R00/ACTIVATE FOMAX OPTION 1",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_57",
+      "seq": "287",
+      "wo": "15969129",
+      "title": "EOD-A32S-53-00003-R03/INSPECTION OF THE SIDE BOX BEAM FLANGE AT LHS/RHS IN FR43 AREA.",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_58",
+      "seq": "296",
+      "wo": "27731511",
+      "title": "S51-R10016/A320 // DENT AND BUCKLE CHART UPDATE",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_59",
+      "seq": "299",
+      "wo": "32023170",
+      "title": "REPLACE 3214-31/151721 (BATTERY, EMERGENCY)",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_60",
+      "seq": "300",
+      "wo": "32023140",
+      "title": "REPLACE 3214-31/151783 (BATTERY, EMERGENCY)",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_61",
+      "seq": "301",
+      "wo": "32023261",
+      "title": "REPLACE 3214-31/159075 (BATTERY, EMERGENCY)",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_62",
+      "seq": "302",
+      "wo": "32023581",
+      "title": "REPLACE 3214-31/961564 (BATTERY, EMERGENCY)",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_63",
+      "seq": "303",
+      "wo": "31449237",
+      "title": "REPLACE 60592-203/A25974 (RESERVOIR AND VALVE ASSEMBLY)",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_64",
+      "seq": "304",
+      "wo": "27027164",
+      "title": "REPLACE 60592-203/ALT749-11441 (RESERVOIR AND VALVE ASSEMBLY)",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_65",
+      "seq": "305",
+      "wo": "29160779",
+      "title": "REPLACE 755D0000-01/81210-68985 (REHEATER)",
+      "category": "TASK CARD",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_66",
+      "seq": "306",
+      "wo": "29540806",
+      "title": "REPLACE 9700-C1A-BF23A/P21110181 (BOTTEL PORTABLE OXY.)",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_67",
+      "seq": "308",
+      "wo": "21620684",
+      "title": "34100005-1/39235D1 WC(WEIGHT CHECK) / WEIGHT CHECK",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_68",
+      "seq": "309",
+      "wo": "21620578",
+      "title": "34100005-1/40474D1 WC(WEIGHT CHECK) / WEIGHT CHECK",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_69",
+      "seq": "310",
+      "wo": "21620847",
+      "title": "34100005-1/42779D1 WC(WEIGHT CHECK) / WEIGHT CHECK",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_70",
+      "seq": "311",
+      "wo": "21620638",
+      "title": "34100005-1/57001D1 WC(WEIGHT CHECK) / WEIGHT CHECK",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_71",
+      "seq": "316",
+      "wo": "23905848",
+      "title": "DENT AND BUCKLE CHART /1/ MAKE SURE THAT AIRCRAFT IS SAFE AND READY FOR MAINTENANCE BEFORE  YOU START THIS TASK TO AVOID PERSONNEL INJURY AND AIRCRAFT DAMAGE.      /2/ THIS ER DIRECTS THE  DETAIL VISUAL INSPECTION OF ALL AIRCRAFT  EXTERIOR SURFACE...",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_72",
+      "seq": "317",
+      "wo": "32022300",
+      "title": "DOCTR KIT EXPIRY [30JUN 2026]. DOCTOR KIT WILL EXP ON 30 JUNE 2026 DEK # 096 DEK SN  7160",
+      "category": "GENERAL CABIN",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_73",
+      "seq": "319",
+      "wo": "80794771",
+      "title": "METAL STRIP LAV D BESIDE COMPARTMENT S302 AFT LWR SIDE METAL STRIP FOUND BROKEN. PIC ATTACHED",
+      "category": "GENERAL CABIN",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_74",
+      "seq": "320",
+      "wo": "81012325",
+      "title": "COVER R2 DOOR MIS BUSTLE COVER HAS DAMAGE.",
+      "category": "PAX DOORS",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_75",
+      "seq": "322",
+      "wo": "STJC-20-00-00-01-GA-GO",
+      "title": "HEAVY CHK AIRCRAFT (PRE-INSP)",
+      "category": "TASK CARD",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_76",
+      "seq": "323",
+      "wo": "STJC-20-00-00-03-GA-GO",
+      "title": "TOOL ACCOUNTABILITY PRIOR TO ACFT RELEASE",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_77",
+      "seq": "324",
+      "wo": "STJC-20-00-00-04-GA-SV",
+      "title": "AIRCRAFT MAINTENANCE AND CABIN LOGBOOKS AUDIT",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_78",
+      "seq": "325",
+      "wo": "STJC-20-00-00-05-GA-SV",
+      "title": "AIRCRAFT MAINTENANCE PACKAGE ACCOUNTABILITY CHECK",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_79",
+      "seq": "326",
+      "wo": "STJC-20-00-00-06-A32S-SV",
+      "title": "HEAVEY CHECK PRE-HANGAR PREPARATION",
+      "category": "TASK CARD",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_80",
+      "seq": "327",
+      "wo": "STJC-20-00-00-07-A32S-SV",
+      "title": "HEAVEY CHECK DE-HANGARING PREPARATION",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_81",
+      "seq": "328",
+      "wo": "STJC-20-00-00-08-A32S-SV",
+      "title": "CABIN DOORS SAFETY PINS INSTALLATION/REMOVAL",
+      "category": "TASK CARD",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_82",
+      "seq": "329",
+      "wo": "STJC-AREAS-FINAL-INSPECTION-01-GA-GO",
+      "title": "AIRCRAFT FINAL INSPECTION",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_83",
+      "seq": "330",
+      "wo": "STJC-AREAS-FINAL-INSPECTION-02-GA-GO",
+      "title": "COCKPIT AND PAX CABIN FINAL INSPECTION",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_84",
+      "seq": "339",
+      "wo": "STJC-RTS-03-A32S-SV",
+      "title": "AIRCRAFT RETURN TO SERVICE FOR HEAVEY CHECK",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_85",
+      "seq": "341",
+      "wo": "32787419",
+      "title": "LAV FLOOR PAN---SM--RII LAV-D FLOOR PAN UNDER COMMODE VERTICAL PANEL SCREW HOLE CRACKED ALL THE WAY",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_86",
+      "seq": "342",
+      "wo": "32787446",
+      "title": "LAVE COMMODE SHROUDE---CAB---NO CALL BACK LAV-A FLOOR PAN COMMODE BOTTOM VERTICAL PANEL 01EA SCREW MISSING",
+      "category": "LAVATORY",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_87",
+      "seq": "343",
+      "wo": "32787479",
+      "title": "LAVE FLOOR PAN---SM---RII LAV-E FLOOR PAN COMMODE BOTTOM SIDE VERTICAL PANEL SCREW HOLE CRACKED ALL THE WAY",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_88",
+      "seq": "348",
+      "wo": "29534232",
+      "title": "252582/AD-A320/A321, INSPECTION OF ALL LAVATORY WASTE RECEPTACLE DOORS",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_89",
+      "seq": "354",
+      "wo": "381000-01-1",
+      "title": "381000-01-1 (02) / WATER TANK DISINFECTION",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_90",
+      "seq": "368",
+      "wo": "32070218",
+      "title": "S35-D10066/A320/21 - PBE SERIAL NUMBER VERIFICATION.",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_91",
+      "seq": "372",
+      "wo": "05-SVA-01",
+      "title": "05-SVA-01 (00) / EMERGENCY EQUIPMENTS EXPIRY CHECK",
+      "category": "TASK CARD",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_92",
+      "seq": "373",
+      "wo": "11-11-00-01-0-SVA",
+      "title": "11-11-00-01-0-SVA (02) / INTERIOR PLACARDS CHECK",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_93",
+      "seq": "374",
+      "wo": "212300-02-1",
+      "title": "212300-02-1 (03) / LAVATORY AIR EXTRACTION FLTR R/R",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_94",
+      "seq": "375",
+      "wo": "212600-11-1",
+      "title": "212600-11-1 (03) / DEMISTER FLTER&FILTER CARTRIDGE R&R",
+      "category": "TASK CARD",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_95",
+      "seq": "376",
+      "wo": "216000-01-1-001",
+      "title": "216000-01-1-001 (05) / CLEANING OF COCKPIT SENSOR DUCT AND TEMPERATURE SENSOR.",
+      "category": "TASK CARD",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_96",
+      "seq": "377",
+      "wo": "216000-01-1-002",
+      "title": "216000-01-1-002 (04) / CLEANING OF CABIN SENSOR DUCT AND TEMPERATURE SENSOR.",
+      "category": "TASK CARD",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_97",
+      "seq": "379",
+      "wo": "237100-01-1",
+      "title": "237100-01-1 (02) / COCKPIT VOICE RECORDER OPC",
+      "category": "TASK CARD",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_98",
+      "seq": "384",
+      "wo": "243800-01-1",
+      "title": "243800-01-1 (02) / BATT CHARGE LIMITER OPS CHECK",
+      "category": "TASK CARD",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_99",
+      "seq": "385",
+      "wo": "25-10-00-00-SVA",
+      "title": "25-10-00-00-SVA (00) / COCKPIT CHECK",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_100",
+      "seq": "386",
+      "wo": "25-11-00-07-0-SVA-001",
+      "title": "25-11-00-07-0-SVA-001 (03) / FOURTH OCCUPANT SEAT LUBRICATION",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_101",
+      "seq": "387",
+      "wo": "25-11-00-19-0-SVA",
+      "title": "25-11-00-19-0-SVA (01) / THIRD OCCUPANT SEAT LUBRICATION",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_102",
+      "seq": "388",
+      "wo": "25-20-00-00-SVA",
+      "title": "25-20-00-00-SVA (00) / GENERAL CABIN DEEP INSP",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_103",
+      "seq": "389",
+      "wo": "25-21-00-00-SVA",
+      "title": "25-21-00-00-SVA (00) / B/C SEAT DEEP INSP",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_104",
+      "seq": "390",
+      "wo": "25-21-01-00-SVA",
+      "title": "25-21-01-00-SVA (00) / G/C SEAT DEEP INSP",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_105",
+      "seq": "391",
+      "wo": "25-22-00-00-SVA",
+      "title": "25-22-00-00-SVA (00) / CABIN CREW SEAT DEEP INSP",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_106",
+      "seq": "392",
+      "wo": "25-26-00-03-0-SVA",
+      "title": "25-26-00-03-0-SVA (03) / PASS COMPT CURTAIN RAILS INSPECTION",
+      "category": "TASK CARD",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_107",
+      "seq": "393",
+      "wo": "25-26-00-08-0-SVA",
+      "title": "25-26-00-08-0-SVA (04) / PASSNGER COMPT CURTAINS REPLACEMENT",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_108",
+      "seq": "394",
+      "wo": "25-28-00-03-0-SVA-001",
+      "title": "25-28-00-03-0-SVA-001 (07) / HZ-ASA TO ASG AISLE CARPETS R/R",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_109",
+      "seq": "395",
+      "wo": "25-30-00-13-0-SVA",
+      "title": "25-30-00-13-0-SVA (02) / GALLY & WATER AUTO DRAIN VALVES OPC",
+      "category": "TASK CARD",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_110",
+      "seq": "396",
+      "wo": "25-32-00-00-SVA",
+      "title": "25-32-00-00-SVA (00) / GALLEY CHECK",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_111",
+      "seq": "397",
+      "wo": "25-40-00-00-SVA",
+      "title": "25-40-00-00-SVA (00) / LAV CHECK",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_112",
+      "seq": "398",
+      "wo": "25-60-00-03-0-SVA",
+      "title": "25-60-00-03-0-SVA (01) / EMERGENCY EQUIPMENT IN C/A SEAT STOWAGE INSPECTION",
+      "category": "TASK CARD",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_113",
+      "seq": "399",
+      "wo": "25-65-00-01-0-SVA",
+      "title": "25-65-00-01-0-SVA (02) / EMERGENCY EQUIP VALIDITY INSP",
+      "category": "TASK CARD",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_114",
+      "seq": "400",
+      "wo": "25-65-00-01-0-SVA-001",
+      "title": "25-65-00-01-0-SVA-001 (02) / FIRST AID MEDICAL SURVL KIT CHECK",
+      "category": "TASK CARD",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_115",
+      "seq": "401",
+      "wo": "253000-02-1",
+      "title": "253000-02-1 (03) / GALLY AIR EXTRACTION FLTR ELMNT R*R",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_116",
+      "seq": "402",
+      "wo": "253400-01-1.",
+      "title": "253400-01-1. (02) / GALLEY COOLING CLEANING",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_117",
+      "seq": "403",
+      "wo": "253400-02-1",
+      "title": "253400-02-1 (02) / AIRCHILLER CONDENSER AIR FLTR CLEANING",
+      "category": "TASK CARD",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_118",
+      "seq": "406",
+      "wo": "256241-05-1",
+      "title": "256241-05-1 (03) / CABN DOORS GIRT BAR FITT STOP CLEAN",
+      "category": "TASK CARD",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_119",
+      "seq": "411",
+      "wo": "262441-01-1",
+      "title": "262441-01-1 (02) / PORT FIRE EXT PRESS GAUGE CHK",
+      "category": "TASK CARD",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_120",
+      "seq": "434",
+      "wo": "31-63-00-01-SVA-001",
+      "title": "31-63-00-01-SVA-001 (04) / COCKPIT AND AVIONICS COMPARTMENT AREA AND EQUIPMENT`S CLEANING.",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_121",
+      "seq": "448",
+      "wo": "353000-01-1",
+      "title": "353000-01-1 (04) / PORTABLE OXYGEN CYLINDERS OPC",
+      "category": "TASK CARD",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_122",
+      "seq": "449",
+      "wo": "353000-05-1",
+      "title": "353000-05-1 (04) / CABIN PBE INSP",
+      "category": "TASK CARD",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_123",
+      "seq": "454",
+      "wo": "38-10-00-SVA",
+      "title": "38-10-00-SVA (00) / DECALCIFICATION OF THE POTABLE WATER TANK AND DISTRIBUTION SYSTEM",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_124",
+      "seq": "455",
+      "wo": "383200-01-1",
+      "title": "383200-01-1 (02) / WASHBASIN FILTER ELEMENT CLEANING",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_125",
+      "seq": "464",
+      "wo": "525111-06-2",
+      "title": "525111-06-2 (01) / FUNCTIONAL CHECK OF THE CORRECT ADJUSTMENT OF THE COCKPIT DOOR, ELECTRICAL RELEASE STRIKES AND LATCH MECHANISM",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_126",
+      "seq": "498",
+      "wo": "32788737",
+      "title": "CABIN IFE - SMOKE SIGN - NO CALL       /       25-SVA-02 SMOKE SIGN LIGHT INOP ABOVE SEAT 42JKL .",
+      "category": "GENERAL CABIN",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_127",
+      "seq": "499",
+      "wo": "32788738",
+      "title": "CABIN - FWD CABINET -  NO CALL     /      25-SVA-02 FWD CABINET  C101 OUTER  AFT TRIM WITH 2EA DENTS MID AREA .",
+      "category": "GENERAL CABIN",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_128",
+      "seq": "500",
+      "wo": "32788746",
+      "title": "CABIN - FWD CABINET -  NO CALL     /      25-SVA-02 FWD CABINET  C101 , DOOR OUTER  , LOWER TEDLER WOROUT .",
+      "category": "GENERAL CABIN",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_129",
+      "seq": "502",
+      "wo": "32788761",
+      "title": "CABIN - FWD CABINET -  NO CALL     /      25-SVA-02 FWD SIDE , GAP SEAL WITH UPPER STOWAGE TORN .",
+      "category": "GENERAL CABIN",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_130",
+      "seq": "503",
+      "wo": "32788793",
+      "title": "CABIN - MID CABIN CARPET -  NO CALL     /      25-SVA-02 FRAYED CARPET , JUST BELOW MID PATITIONS AFT SIDE .",
+      "category": "GENERAL CABIN",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_131",
+      "seq": "504",
+      "wo": "32788801",
+      "title": "CABIN - AFT LH CABINET -  NO CALL     /      25-SVA-02 COMPARTMENT  S302  , INNER BOTTOM RED LATCH LOOSE .",
+      "category": "GENERAL CABIN",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_132",
+      "seq": "505",
+      "wo": "32788806",
+      "title": "CABIN - AFT LH CABINET -  NO CALL     /      25-SVA-02 INSIDE COMPARTMENT  S303  , CART FOLDING RAMP HINGE PIN MIGRATED OUT ., + 1EA MISSING SCREW .",
+      "category": "GENERAL CABIN",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_133",
+      "seq": "508",
+      "wo": "32788811",
+      "title": "CABIN - AFT LH CABINET -  NO CALL     /      25-SVA-02 INSIDE OF  S303, AFT MID AREA RUB STRIP LOOSE .",
+      "category": "GENERAL CABIN",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_134",
+      "seq": "509",
+      "wo": "32788813",
+      "title": "CABIN - AFT LH CABINET -  NO CALL     /      25-SVA-02 COMPARTMENT  S304  ,  LATCH NOT LOCKING ON TABLE CART .",
+      "category": "GENERAL CABIN",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_135",
+      "seq": "510",
+      "wo": "32788815",
+      "title": "CABIN - AFT CABINETS LATCHES  -  NO CALL     /      25-SVA-02 COMPARTMENT DOORS  S303 & C202  BOTTOM LOCKS , INNER PLATE  EACH WITH MISSING SCREW  .",
+      "category": "GENERAL CABIN",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_136",
+      "seq": "511",
+      "wo": "32788817",
+      "title": "CABIN - AFT  RH CABINET -  NO CALL     /      25-SVA-02 INSIDE OF COMPARTMENT  C202  , BOTTOM AREA , 3EA MOUNT COVERS MISSING .",
+      "category": "GENERAL CABIN",
+      "status": "Open",
+      "priority": "AOG"
+    },
+    {
+      "_id": "r_1781886617688_137",
+      "seq": "512",
+      "wo": "32788819",
+      "title": "CABIN - AFT CURTAIN -  NO CALL     /      25-SVA-02 AFT CURTAIN RAIL LOOSE ON RH END .",
+      "category": "GENERAL CABIN",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_138",
+      "seq": "538",
+      "wo": "32791503",
+      "title": "FINDING (NRC) JOBCARD STJC-20-00-00-01-GA-GO L1 DOOR LWR SIDE PNT FOUND FADED & BLACK STAINS.",
+      "category": "GENERAL CABIN",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_139",
+      "seq": "564",
+      "wo": "32401880",
+      "title": "44-SVA-01 (00) / PANASONIC LEVEL 1 CHECK",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_140",
+      "seq": "565",
+      "wo": "32395971",
+      "title": "CCC-32S (03) / A32S CABIN CRITICAL CHECK",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_141",
+      "seq": "566",
+      "wo": "32349954",
+      "title": "DCC-32S (11) / DCC A32S DAILY CABIN CHECK",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_142",
+      "seq": "567",
+      "wo": "32384091",
+      "title": "ISC/IN SERVCE CHECK_N",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_143",
+      "seq": "570",
+      "wo": "32721788",
+      "title": "S44-R10249/PANASONIC JUNE 26 CYCLE",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_144",
+      "seq": "571",
+      "wo": "32258914",
+      "title": "W_N/WEEKLY CHECK",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_145",
+      "seq": "579",
+      "wo": "ISC-32S",
+      "title": "ISC-32S (13) / 32S IN-SERVEICE-CHECK (ISC)",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_146",
+      "seq": "580",
+      "wo": "32793815",
+      "title": "CAB-FWD RH FIRST AID KIT- RII FIRST AID KIT FWD RH, EXPIRT DATE IS WITHIN 6 MONTH",
+      "category": "GENERAL CABIN",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_147",
+      "seq": "581",
+      "wo": "32795576",
+      "title": "CAB--AFT RH FIRST AID KIT- RII FIRST AID KIT AFT RH, EXPIRT DATE IS WITHIN 6 MONTH ON DEC/2026",
+      "category": "GENERAL CABIN",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_148",
+      "seq": "583",
+      "wo": "32795656",
+      "title": "CAB- CUTAIN RAIL-CALL BACK FWD CURTAIN HOOKS BROKEN 2EA",
+      "category": "GENERAL CABIN",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_149",
+      "seq": "584",
+      "wo": "32796462",
+      "title": "CAB- CUTAIN RAIL MID-CALL BACK MID DIVIDER CURTAIN HOOKS BROKEN AND STOPER MISSING.",
+      "category": "GENERAL CABIN",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_150",
+      "seq": "585",
+      "wo": "32796473",
+      "title": "CAB- CUTAIN RAIL AFT-CALL BACK AFT GALLEY CURTAIN STOPER MISSING",
+      "category": "GENERAL CABIN",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_151",
+      "seq": "586",
+      "wo": "WEEKLY-32S",
+      "title": "WEEKLY-32S (04) / WEEKLY 32S CHECK",
+      "category": "TASK CARD",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_152",
+      "seq": "587",
+      "wo": "32796515",
+      "title": "CAB-OXYGEN CYLINDER-RII AFT L/H OXYGEN CYLINDER MOUNT BRACKET DETACHED FROM WALL .",
+      "category": "GENERAL CABIN",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_153",
+      "seq": "589",
+      "wo": "32796954",
+      "title": "CAB - NO CALLBACK - LAV A LAVATORY A NURSING TABLE WITH MISSING BUMPER.",
+      "category": "LAVATORY",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_154",
+      "seq": "591",
+      "wo": "32796966",
+      "title": "CAB - NO CALLBACK - LAV A LAVATORY A SERVICE CABINET STORAGE DRAWER RUBBER SEAL NOT SECURED.",
+      "category": "LAVATORY",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_155",
+      "seq": "593",
+      "wo": "32796982",
+      "title": "CAB - NO CALLBACK - LAV A \"LAVATORY A\" TOILET SHROUD WITH MISSING 2 EA SCREWS.",
+      "category": "LAVATORY",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_156",
+      "seq": "594",
+      "wo": "32796995",
+      "title": "CAB - NO CALLBACK - LAV A LAVATORY A TOILET PAPER DISPENSER COVER COLOR FADED.",
+      "category": "LAVATORY",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_157",
+      "seq": "596",
+      "wo": "32796996",
+      "title": "CAB - NO CALLBACK - LAV E \"LAVATORY E\" TOILET SHROUD NOT SECURED.",
+      "category": "LAVATORY",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_158",
+      "seq": "597",
+      "wo": "32797001",
+      "title": "PNT - NO CALLBACK - LAV E \"LAVATORY E\" TOILET SHROUD COVER DISCOLOURED.",
+      "category": "LAVATORY",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_159",
+      "seq": "598",
+      "wo": "32797014",
+      "title": "CAB - NO CALLBACK - LAV E \"LAVATORY E\" NURSING TABLE WITH MISSING BUMPER.",
+      "category": "LAVATORY",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_160",
+      "seq": "599",
+      "wo": "32797104",
+      "title": "CAB - NO CALLBACK - LAV E \"LAVATORY E\" AIR VENTILATION GRILLE BROKEN.",
+      "category": "LAVATORY",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_161",
+      "seq": "600",
+      "wo": "32797124",
+      "title": "CAB - NO CALLBACK - LAV D \"LAVATORY D\" TOILET SHROUD COVER NOT SECURED.",
+      "category": "LAVATORY",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_162",
+      "seq": "601",
+      "wo": "32797137",
+      "title": "CAB - NO CALLBACK - LAV D \"LAVATORY D\" TOILET PAPER ROLLER IS MISSING.",
+      "category": "LAVATORY",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_163",
+      "seq": "602",
+      "wo": "32797145",
+      "title": "CAB - NO CALLBACK - LAV D \"LAVATORY D\" SINK SIEVE NOT SECURED.",
+      "category": "LAVATORY",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_164",
+      "seq": "603",
+      "wo": "32797156",
+      "title": "CAB - NO CALLBACK - LAV D \"LAVATORY D\" WASHBASIN SINK DRAINAGE RESTRICTION.",
+      "category": "LAVATORY",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_165",
+      "seq": "604",
+      "wo": "32797165",
+      "title": "CAB - NO CALLBACK - LAV D \"LAVATORY D\" DOOR HANDLE IS LOOSE.",
+      "category": "LAVATORY",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_166",
+      "seq": "605",
+      "wo": "32797176",
+      "title": "CAB - NO CALLBACK - FWD GALLEY G1 GALLEY CART TURN CATCH AT 109 AND 111 FOUND LOOSE.",
+      "category": "GALLEY",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_167",
+      "seq": "606",
+      "wo": "32797185",
+      "title": "CAB - NO CALLBACK - FWD GALLEY FWD GALLEY CART COMPT. 109 MID LATCH LEVER IS MISSING.",
+      "category": "GALLEY",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_168",
+      "seq": "607",
+      "wo": "32797195",
+      "title": "CAB - NO CALLBACK - FWD GALLEY FWD GALLEY COUNTERTOP SEALANT DETERIORATED.",
+      "category": "GALLEY",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_169",
+      "seq": "608",
+      "wo": "32797223",
+      "title": "CAB - NO CALLBACK - FWD GALLEY G2 GALLEY COMPT. 211 LOWER BUMPER IS MISSING.",
+      "category": "GALLEY",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_170",
+      "seq": "609",
+      "wo": "32797267",
+      "title": "CAB - NO CALLBACK - FWD GALLEY G2 GALLEY FOOTSTEP FOUND INOP.",
+      "category": "GALLEY",
+      "status": "Open",
+      "priority": "AOG"
+    },
+    {
+      "_id": "r_1781886617688_171",
+      "seq": "610",
+      "wo": "32797278",
+      "title": "CAB - NO CALLBACK - FWD GALLEY G2 GALLEY COMPT. 210 DOOR LOCK LOOSE.",
+      "category": "GALLEY",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_172",
+      "seq": "611",
+      "wo": "32797284",
+      "title": "CAB - NO CALLBACK - AFT GALLEY AFT GALLEY COMPT. 501 DOOR HINGE BROKEN.",
+      "category": "GALLEY",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_173",
+      "seq": "612",
+      "wo": "32797296",
+      "title": "PNT - NO CALLBACK - AFT GALLEY AFT GALLEY ALL OVENS REQUIRE PAINT.",
+      "category": "GALLEY",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_174",
+      "seq": "613",
+      "wo": "32797302",
+      "title": "PNT - NO CALLBACK - FWD GALLEY FWD GALLEY OVENS REQUIRE PAINT.",
+      "category": "GALLEY",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_175",
+      "seq": "614",
+      "wo": "32797315",
+      "title": "CAB - NO CALLBACK - OSB MOST FWD VIDEO EQUIPMENT OVERHEAD STOWAGE DOOR OPENS FAST.",
+      "category": "GENERAL CABIN",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_176",
+      "seq": "615",
+      "wo": "32797329",
+      "title": "CAB - NO CALLBACK - OSB MOST FWD RH MEDICAL KIT OVERHEAD STOWAGE BIN WITH INSIDE DENT.",
+      "category": "GENERAL CABIN",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_177",
+      "seq": "616",
+      "wo": "32797333",
+      "title": "CAB - NO CALLBACK - OSB OSB DOOR WITH INSIDE DENT AT 1AC, 3AC, 4LJ, 5LJ, FWD OF 30JKL, 30 ABC AND 44 JKL.",
+      "category": "GENERAL CABIN",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_178",
+      "seq": "617",
+      "wo": "32797337",
+      "title": "CAB - NO CALLBACK - OSB OSB DOOR MISSING WITH RUBBER BUMPER AT 1AC, 4LJ, 4AC, 5LJ, FWD OF 30 JKL, 30ABC, 31ABC AND 33ABC.",
+      "category": "GENERAL CABIN",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_179",
+      "seq": "618",
+      "wo": "32797381",
+      "title": "CAB - NO CALLBACK - OSB DOOR WITH MISSING RUBBER BUMPER AT 34ABC, 37ABC, 38ABC, 40JKL, 41JKL, 42JKL, 44JKL AND 44ABC.",
+      "category": "GENERAL CABIN",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_180",
+      "seq": "619",
+      "wo": "32797382",
+      "title": "CAB - NO CALLBACK - OSB OSB WITH MISSING UPPER BUMPER AT 1AC, 5AC, 5LJ, 30JKL, 32JKL, 33JKL, 33JKL AND 34ABC.",
+      "category": "GENERAL CABIN",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_181",
+      "seq": "620",
+      "wo": "32797384",
+      "title": "CAB - NO CALLBACK - OSB OSB WITH MISSING UPPER BUMPER AT 36ABC, 38ABC, 38JKL, 40JKL, 40ABC, 41JKL AND 42JKL.",
+      "category": "GENERAL CABIN",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_182",
+      "seq": "621",
+      "wo": "32797396",
+      "title": "CAB - NO CALLBACK - OSB OSB SIDE TRIM BROKEN AT 4LJ AND 39 JKL.",
+      "category": "GENERAL CABIN",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_183",
+      "seq": "622",
+      "wo": "32797399",
+      "title": "CAB - NO CALLBACK - OSB OSB UPPER TRIM BROKEN AT 30ABC.",
+      "category": "GENERAL CABIN",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_184",
+      "seq": "623",
+      "wo": "32797402",
+      "title": "CAB - NO CALLBACK - OSB OSB HANDRAIL BROKEN AT 34ABC, 30JKL.",
+      "category": "GENERAL CABIN",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_185",
+      "seq": "624",
+      "wo": "32797436",
+      "title": "CAB - NO CALLBACK - OSB OSB HANDRAIL SEAT MARKING CLEAR PLASTIC PIECE BROKEN AT 3AC AND 31JKL.",
+      "category": "GENERAL CABIN",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_186",
+      "seq": "645",
+      "wo": "32798020",
+      "title": "FINDING (NRC) TASKCARD 25-SVA-08 (00) / ITEM ONE L1 F/A LEFT SIDE NEEDS PAINT",
+      "category": "F/A SEAT",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_187",
+      "seq": "646",
+      "wo": "32798034",
+      "title": "FINDING (NRC) TASKCARD 25-SVA-08 (00) / ITEM ONE L1 F/A RIGHT SIDE NEEDS PAINT",
+      "category": "F/A SEAT",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_188",
+      "seq": "648",
+      "wo": "32798035",
+      "title": "CAB NO CALL BACK F/A R2 R/H F/A SEAT COLOUR FADED",
+      "category": "F/A SEAT",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_189",
+      "seq": "649",
+      "wo": "32798041",
+      "title": "CAB NO CALL BACK PAINT L2 L/H F/A SEAT COLOUR FADED",
+      "category": "F/A SEAT",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_190",
+      "seq": "650",
+      "wo": "32798047",
+      "title": "CAB NO CALL BACK L1 L/H F/A SEAT CUSHION HEAD PEN MARK",
+      "category": "F/A SEAT",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_191",
+      "seq": "653",
+      "wo": "32798059",
+      "title": "CAB NO CALL BACK L1 L/H F/A SEAT  UPPER BACK CUSHION PEN MARK",
+      "category": "F/A SEAT",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_192",
+      "seq": "655",
+      "wo": "32798062",
+      "title": "CAB NO CALL BACK L1 L/H F/A SEAT BOTTOM CUSHION PEN MARK",
+      "category": "F/A SEAT",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_193",
+      "seq": "656",
+      "wo": "32798069",
+      "title": "CAB NO CALL BACK L1 L/H F/A SEAT BOTTOM CUSHION DEFLATED",
+      "category": "F/A SEAT",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_194",
+      "seq": "657",
+      "wo": "32798105",
+      "title": "CAB NO CALL BACK L1 L/H F/A SEAT LOWER BACK CUSHION DEFLATED",
+      "category": "F/A SEAT",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_195",
+      "seq": "658",
+      "wo": "32798107",
+      "title": "CAB NO CALL BACK L1 L/H F/A SEAT BOTTOM RUB STRIP DAMAGED",
+      "category": "F/A SEAT",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_196",
+      "seq": "659",
+      "wo": "32798117",
+      "title": "CAB NO CALL BACK L1 L/H F/A SEAT UPPER RUB STRIP DAMAGED",
+      "category": "F/A SEAT",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_197",
+      "seq": "660",
+      "wo": "32798118",
+      "title": "CAB NO CALL BACK L1 R/H F/A SEAT BOTTOM RUB STRIP DAMAGED",
+      "category": "F/A SEAT",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_198",
+      "seq": "661",
+      "wo": "32798119",
+      "title": "CAB NO CALL BACK L1 R/H F/A SEAT UPPER RUB STRIP DAMAGED",
+      "category": "F/A SEAT",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_199",
+      "seq": "662",
+      "wo": "32798140",
+      "title": "CAB NO CALL BACK L1 R/H F/A SEAT CUSHION DEFLATED",
+      "category": "F/A SEAT",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_200",
+      "seq": "663",
+      "wo": "32798159",
+      "title": "CAB NO CALL BACK L1 R/H F/A SEAT UPPER BACK PEN MARK",
+      "category": "F/A SEAT",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_201",
+      "seq": "664",
+      "wo": "32798183",
+      "title": "CAB NO CALL BACK R2 F/A SEAT CUSHION DEFLATED",
+      "category": "F/A SEAT",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_202",
+      "seq": "665",
+      "wo": "32798189",
+      "title": "CAB NO CALL BACK L2 F/A SEAT BOTTOM CUSHION DEFLATED",
+      "category": "F/A SEAT",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_203",
+      "seq": "666",
+      "wo": "32798191",
+      "title": "CAB NO CALL BACK L2 F/A SEAT LOWER BACK CUSHION DEFLATED",
+      "category": "F/A SEAT",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_204",
+      "seq": "667",
+      "wo": "32798204",
+      "title": "CAB NO CALL BACK L2 F/A SEAT LOWER RUB STRIP DAMGED",
+      "category": "F/A SEAT",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_205",
+      "seq": "668",
+      "wo": "32798205",
+      "title": "CAB NO CALL BACK L2 F/A SEAT UPPER RUB STRIP DAMGED",
+      "category": "F/A SEAT",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_206",
+      "seq": "669",
+      "wo": "32798221",
+      "title": "CAB NO CALL BACK R2 F/A SEAT LOWER RUB STRIP DAMGED",
+      "category": "F/A SEAT",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_207",
+      "seq": "680",
+      "wo": "32798602",
+      "title": "CAB - NO CALL BACK - ALL LAVS ALL LAVS SHROUD MISSING SCREWS",
+      "category": "LAVATORY",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_208",
+      "seq": "681",
+      "wo": "32798604",
+      "title": "CAB - NO CALL BACK - LAV A LAV A LOWER CABINET LATCH MISSING SCREW",
+      "category": "LAVATORY",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_209",
+      "seq": "682",
+      "wo": "32798606",
+      "title": "CAB - NO CALL BACK - LAV D LAV D TOILET LID BROKEN",
+      "category": "LAVATORY",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_210",
+      "seq": "683",
+      "wo": "32798626",
+      "title": "CAB - NO CALL BACK - LAV E LAV E INSIDE ASHTRAY CHIPPED",
+      "category": "LAVATORY",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_211",
+      "seq": "684",
+      "wo": "32798683",
+      "title": "CAB - NO CALL BACK - LAV A LAV A DIAPER BOARD LOWER SIDE CHIPPED",
+      "category": "LAVATORY",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_212",
+      "seq": "685",
+      "wo": "32798689",
+      "title": "CAB - NO CALL BACK - LAV E LAV E SIDE WALL PAINT PEELED OFF",
+      "category": "LAVATORY",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_213",
+      "seq": "686",
+      "wo": "32798787",
+      "title": "CAB - NO CALL BACK - LAV A LAV A FUACET LEAKING",
+      "category": "LAVATORY",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_214",
+      "seq": "687",
+      "wo": "32798821",
+      "title": "CABIN FLOOR PANEL--CAB--CALLBACK COCKPIT/CABIN FLOOR PANEL NO: 241EF, 241KF, 241LF, 241MF,  242FF, 242KF, 242LF, 242MF AND 211FF REQUIRES REMOVAL FOR ACCESS.",
+      "category": "GENERAL CABIN",
+      "status": "Open",
+      "priority": "Critical"
+    },
+    {
+      "_id": "r_1781886617688_215",
+      "seq": "688",
+      "wo": "32798972",
+      "title": "CAB - RII - OXYGEN GENERATOR OXYGEN GENERATOR AT 1AC AND 2AC WILL EXPIRE AT 10/2026",
+      "category": "GENERAL CABIN",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_216",
+      "seq": "689",
+      "wo": "32798977",
+      "title": "CAB - RII - OXYGEN GENERATOR OXYGEN GENERATOR AT 3AC AND 4AC WILL EXPIRE ON 9/2026",
+      "category": "GENERAL CABIN",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_217",
+      "seq": "690",
+      "wo": "32798980",
+      "title": "CAB - RII - OXYGEN GENERATOR OXYGEN GENERATOR AT 5AC AND WILL EXPIRE ON 10/2026",
+      "category": "GENERAL CABIN",
+      "status": "Open",
+      "priority": "AOG"
+    },
+    {
+      "_id": "r_1781886617688_218",
+      "seq": "691",
+      "wo": "32798982",
+      "title": "CAB - RII - OXYGEN GENERATOR OXYGEN GENERATOR AT 30ABC  WILL EXPIRE ON 10/2026",
+      "category": "GENERAL CABIN",
+      "status": "Open",
+      "priority": "AOG"
+    },
+    {
+      "_id": "r_1781886617688_219",
+      "seq": "692",
+      "wo": "32798987",
+      "title": "CAB - RII - OXYGEN GENERATOR OXYGEN GENERATOR AT 31ABC  WILL EXPIRE ON 10/2026 AND AT 32ABC EXPIRED ON 04/2010",
+      "category": "GENERAL CABIN",
+      "status": "Open",
+      "priority": "AOG"
+    },
+    {
+      "_id": "r_1781886617688_220",
+      "seq": "693",
+      "wo": "32799012",
+      "title": "CAB - RII - OXYGEN GENERATOR OXYGEN GENERATOR AT 33ABC AND 34ABC WILL EXPIRE ON 9/2026",
+      "category": "GENERAL CABIN",
+      "status": "Open",
+      "priority": "AOG"
+    },
+    {
+      "_id": "r_1781886617688_221",
+      "seq": "695",
+      "wo": "32799029",
+      "title": "CAB - RII - OXYGEN GENERATOR OXYGEN GENERATOR AT 36ABC AND 37ABC WILL EXPIRE ON 9/2026",
+      "category": "GENERAL CABIN",
+      "status": "Open",
+      "priority": "AOG"
+    },
+    {
+      "_id": "r_1781886617688_222",
+      "seq": "696",
+      "wo": "32799031",
+      "title": "CAB - RII - OXYGEN GENERATOR OXYGEN GENERATOR AT 38ABC EXPIRES ON 9/2026 AND 40ABC WILL EXPIRE ON 10/2026",
+      "category": "GENERAL CABIN",
+      "status": "Open",
+      "priority": "AOG"
+    },
+    {
+      "_id": "r_1781886617688_223",
+      "seq": "697",
+      "wo": "32799033",
+      "title": "CAB - RII - OXYGEN GENERATOR OXYGEN GENERATOR AT 42ABC AND 43ABC WILL EXPIRE ON 9/2026",
+      "category": "GENERAL CABIN",
+      "status": "Open",
+      "priority": "AOG"
+    },
+    {
+      "_id": "r_1781886617688_224",
+      "seq": "698",
+      "wo": "32799036",
+      "title": "CAB - RII - OXYGEN GENERATOR OXYGEN GENERATOR AT 44ABC WILL EXPIRE ON 9/2026",
+      "category": "GENERAL CABIN",
+      "status": "Open",
+      "priority": "AOG"
+    },
+    {
+      "_id": "r_1781886617688_225",
+      "seq": "699",
+      "wo": "32799038",
+      "title": "CAB - RII - OXYGEN GENERATOR OXYGEN GENERATOR AT 1JL AND 2JL WILL EXPIRE ON 10/2026",
+      "category": "GENERAL CABIN",
+      "status": "Open",
+      "priority": "AOG"
+    },
+    {
+      "_id": "r_1781886617688_226",
+      "seq": "700",
+      "wo": "32799049",
+      "title": "CAB - RII - OXYGEN GENERATOR OXYGEN GENERATOR AT 3JL AND 4JL WILL EXPIRE ON 10/2026",
+      "category": "GENERAL CABIN",
+      "status": "Open",
+      "priority": "AOG"
+    },
+    {
+      "_id": "r_1781886617688_227",
+      "seq": "701",
+      "wo": "32799051",
+      "title": "CAB - RII - OXYGEN GENERATOR OXYGEN GENERATOR AT 5JL WILL EXPIRE ON 09/2026",
+      "category": "GENERAL CABIN",
+      "status": "Open",
+      "priority": "AOG"
+    },
+    {
+      "_id": "r_1781886617688_228",
+      "seq": "702",
+      "wo": "32799053",
+      "title": "CAB - RII - OXYGEN GENERATOR OXYGEN GENERATOR AT 30JKL AND 31JKL WILL EXPIRE ON 10/2026",
+      "category": "GENERAL CABIN",
+      "status": "Open",
+      "priority": "AOG"
+    },
+    {
+      "_id": "r_1781886617688_229",
+      "seq": "703",
+      "wo": "32799054",
+      "title": "CAB - RII - OXYGEN GENERATOR OXYGEN GENERATOR AT 32JKL WILL EXPIRE ON 10/2026",
+      "category": "GENERAL CABIN",
+      "status": "Open",
+      "priority": "AOG"
+    },
+    {
+      "_id": "r_1781886617688_230",
+      "seq": "704",
+      "wo": "32799060",
+      "title": "CAB - RII - OXYGEN GENERATOR OXYGEN GENERATOR AT 33JKL AND 34JKL WILL EXPIRE ON 10/2026",
+      "category": "GENERAL CABIN",
+      "status": "Open",
+      "priority": "AOG"
+    },
+    {
+      "_id": "r_1781886617688_231",
+      "seq": "705",
+      "wo": "32799062",
+      "title": "CAB - RII - OXYGEN GENERATOR OXYGEN GENERATOR AT 35JKL AND 36JKL WILL EXPIRE ON 10/2026",
+      "category": "GENERAL CABIN",
+      "status": "Open",
+      "priority": "AOG"
+    },
+    {
+      "_id": "r_1781886617688_232",
+      "seq": "706",
+      "wo": "32799063",
+      "title": "CAB - RII - OXYGEN GENERATOR OXYGEN GENERATOR AT 37JKL WILL EXPIRE ON 10/2026",
+      "category": "GENERAL CABIN",
+      "status": "Open",
+      "priority": "AOG"
+    },
+    {
+      "_id": "r_1781886617688_233",
+      "seq": "707",
+      "wo": "32799064",
+      "title": "CAB - RII - OXYGEN GENERATOR OXYGEN GENERATOR AT 39JKL AND 40JKL WILL EXPIRE ON 10/2026",
+      "category": "GENERAL CABIN",
+      "status": "Open",
+      "priority": "AOG"
+    },
+    {
+      "_id": "r_1781886617688_234",
+      "seq": "708",
+      "wo": "32799065",
+      "title": "CAB - RII - OXYGEN GENERATOR OXYGEN GENERATOR AT 41JKL AND 42JKL WILL EXPIRE ON 10/2026",
+      "category": "GENERAL CABIN",
+      "status": "Open",
+      "priority": "AOG"
+    },
+    {
+      "_id": "r_1781886617688_235",
+      "seq": "709",
+      "wo": "32799066",
+      "title": "CAB - RII - OXYGEN GENERATOR OXYGEN GENERATOR AT 44JKL WILL EXPIRE ON 10/2026",
+      "category": "GENERAL CABIN",
+      "status": "Open",
+      "priority": "AOG"
+    },
+    {
+      "_id": "r_1781886617688_236",
+      "seq": "710",
+      "wo": "32799069",
+      "title": "CAB - RII - OXYGEN GENERATOR OXYGEN GENERATOR AT FWD DOOR LH AND FWD DOOR RH WILL EXPIRE ON 10/2026",
+      "category": "GENERAL CABIN",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_237",
+      "seq": "711",
+      "wo": "32799071",
+      "title": "CAB - RII - OXYGEN GENERATOR AFT DOOR CTR #1 AND AFT DOOR CTR #2  OXYGEN GENERATOR WILL EXPIRE ON 10/2026",
+      "category": "GENERAL CABIN",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_238",
+      "seq": "712",
+      "wo": "32799080",
+      "title": "CAB - RII - OXYGEN GENERATOR OXYGEN GENERATOR AT AFT DOOR RH WILL EXPIRE ON 10/2026",
+      "category": "GENERAL CABIN",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_239",
+      "seq": "713",
+      "wo": "32799332",
+      "title": "CAB-NO CALL BACK AFT GALLEY CART COMPARTMENT AT 519 T-DIVIDER WITH BROKEN BUMPER.",
+      "category": "GALLEY",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_240",
+      "seq": "714",
+      "wo": "32799335",
+      "title": "CAB-NO CALL BACK AFT GALLEY CART COMPARTMENT AT 519 T-DIVIDER WITH BROKEN BUMPER.",
+      "category": "GALLEY",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_241",
+      "seq": "715",
+      "wo": "32799336",
+      "title": "CAB - NO CALL BACK AFT GALLEY CART COMPARTMENT AT 518 T-DIVIDER WITH BROKEN BUMPER.",
+      "category": "GALLEY",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_242",
+      "seq": "716",
+      "wo": "32799338",
+      "title": "CAB - NO CALL BACK AFT GALLEY COMPARTMENT DOOR  NO.504 LOOSE",
+      "category": "GALLEY",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_243",
+      "seq": "717",
+      "wo": "32799344",
+      "title": "CAB - NO CALL BACK AFT GALLEY FOOT STEP INOP.",
+      "category": "GALLEY",
+      "status": "Open",
+      "priority": "AOG"
+    },
+    {
+      "_id": "r_1781886617688_244",
+      "seq": "718",
+      "wo": "32799347",
+      "title": "CAB - NO CALL BACK G1 GALLEY COMPARTMENT 101 DOOR HINGE LOOSE",
+      "category": "GALLEY",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_245",
+      "seq": "719",
+      "wo": "32799351",
+      "title": "CAB - NO CALL BACK AFT GALLEY DIVIDER RED LATCH (3 R/H SIDE) AND (1 L/H SIDE) REQ.REPLACEMENT",
+      "category": "GALLEY",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_246",
+      "seq": "720",
+      "wo": "32799639",
+      "title": "CAB - NO CALL BACK LAVATORY \"E\" WATER HEATER INOP.",
+      "category": "LAVATORY",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_247",
+      "seq": "721",
+      "wo": "32799641",
+      "title": "CAB - NO CALL BACK LAV \"E\" WATER FAUCET LEAKING",
+      "category": "LAVATORY",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_248",
+      "seq": "722",
+      "wo": "32799647",
+      "title": "PAINT - NO CALL BACK LAV \"A\" NURSING TABLE DISCOLORED",
+      "category": "LAVATORY",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617688_249",
+      "seq": "723",
+      "wo": "32800126",
+      "title": "AVIO---------RII--------FINDING (NRC) TASKCARD 25-65-00-01-0-SVA FWD MEGAPHONE WILL EXPIRE ON 23JUN2026 P/N  A12SA S/N  1143748",
+      "category": "GENERAL CABIN",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_250",
+      "seq": "724",
+      "wo": "32800141",
+      "title": "CABIN-----NO CALL BACK------FINDING (NRC) TASKCARD 25-65-00-01-0-SVA PORTABLE OXYGEN CYLINDER AFT OF SEAT 5JL WILL EXPIRE ON 14 AUG 2026  P/N  9700-C1A-BF23A S/N  P21110181",
+      "category": "GENERAL CABIN",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_251",
+      "seq": "725",
+      "wo": "32800163",
+      "title": "CABIN--------RII--------FINDING (NRC) TASKCARD 25-65-00-01-0-SVA LOWER PORTABLE OXYGEN CYLINDER MISSING OVERHAUL CERTIFICATE TAG  AT  AFT OF SEAT 5JL",
+      "category": "GENERAL CABIN",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_252",
+      "seq": "726",
+      "wo": "32800175",
+      "title": "S/M--------RII--------FINDING (NRC) TASKCARD 25-65-00-01-0-SVA PORTABLE OXYGEN CYLINDER HOLDER BROKEN AT AFT OF SEAT 44ABC",
+      "category": "GENERAL CABIN",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_253",
+      "seq": "728",
+      "wo": "32800196",
+      "title": "CABIN--------RII--------FINDING (NRC) TASKCARD 25-65-00-01-0-SVA R2 DOOR PORTABLE FIRE EXTINGUSHER OVERHAUL CERTIFICATE TAG INSPECTION STAMP FADED P/N  P3APP003010D S/N  103900 EXP  12MAR2037",
+      "category": "GENERAL CABIN",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_254",
+      "seq": "729",
+      "wo": "32800225",
+      "title": "CABIN--------RII--------FINDING (NRC) TASKCARD 25-65-00-01-0-SVA L2 DOOR PORTABLE FIRE EXTINGUSHER OVERHAUL CERTIFICATE TAG INSPECTION STAMP UNREADABLE P/N  P3APP003010D S/N  104285 EXP  12MAR2037",
+      "category": "GENERAL CABIN",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_255",
+      "seq": "742",
+      "wo": "32801170",
+      "title": "CAB - NO CALLBACK - FWD GALLEY G2 GALLEY COMP. 201 DOOR FRAME DETTACHED.",
+      "category": "GALLEY",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_256",
+      "seq": "743",
+      "wo": "32801193",
+      "title": "CAB - NO CALLBACK - FWD GALLEY G2 GALLEY COMP. 209 DOOR SLAMLATCH LOOSE.",
+      "category": "GALLEY",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_257",
+      "seq": "744",
+      "wo": "32801209",
+      "title": "CAB - NO CALLBACK - FWD GALLEY FWD GALLEY (G1-G2) GALLEY WORKTOP SEALANT PARTIALLY MISSING.",
+      "category": "GALLEY",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_258",
+      "seq": "748",
+      "wo": "32801440",
+      "title": "CAB - NO CALLBACK - SIDEWALL SIDEWALL SPLINE AT 1LJ B/C CHIPPED.",
+      "category": "TEDLAR/SIDEWALL",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_259",
+      "seq": "749",
+      "wo": "32801510",
+      "title": "CAB - NO CALLBACK - SIDEWALL SIDEWALL SPLINE AT 4LJ B/C CHIPPED.",
+      "category": "TEDLAR/SIDEWALL",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_260",
+      "seq": "751",
+      "wo": "32801511",
+      "title": "CAB - NO CALLBACK RUBBER SEAL IS CUT AT FWD GALLEY DIRECTLY ABOVE COMP. 101",
+      "category": "GALLEY",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_261",
+      "seq": "752",
+      "wo": "32801532",
+      "title": "CAB - NO CALLBACK RUBBER SEAL BETWEEN FWD GALLEY AND COCKPIT MISSING.",
+      "category": "GALLEY",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_262",
+      "seq": "753",
+      "wo": "32801634",
+      "title": "CAB - NO CALLBACK - STOWAGE BIN STOWAGE BIN DIRECTLY INFRONT OF SEAT 30LKJ MISSING DOOR DAMPENER.",
+      "category": "GENERAL CABIN",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_263",
+      "seq": "754",
+      "wo": "32801637",
+      "title": "CAB - NO CALLBACK - STOWAGE BIN STOWAGE BIN OF SEAT 4LJ MISSING 2EA DOOR DAMPENER.",
+      "category": "GENERAL CABIN",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_264",
+      "seq": "755",
+      "wo": "32801640",
+      "title": "CAB - NO CALLBACK - STOWAGE BIN STOWAGE BIN OF SEAT 5LJ MISSING DOOR DAMPENER.",
+      "category": "GENERAL CABIN",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_265",
+      "seq": "756",
+      "wo": "32801651",
+      "title": "CAB - NO CALL BACK - CAPTAIN ARMREST CAPTAIN ARMREST UPPER SHROUD LOOSE.",
+      "category": "FLIGHT DECK",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_266",
+      "seq": "757",
+      "wo": "32801649",
+      "title": "ESCAPE SLIDE---RII ESCAPE SLIDE L/H FWD REQ REMOVAL FOR ACCESS",
+      "category": "PAX DOORS",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_267",
+      "seq": "758",
+      "wo": "32801735",
+      "title": "ESCAPE SLIDE---RII ESCAPE SLIDE R/H FWD REQ REMOVAL FOR ACCESS",
+      "category": "PAX DOORS",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_268",
+      "seq": "759",
+      "wo": "32801738",
+      "title": "CAB - NO CALL BACK - CAPTAIN SEAT CAPTAIN SEAT AFT SHROUD CRACKED.",
+      "category": "FLIGHT DECK",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_269",
+      "seq": "779",
+      "wo": "32804054",
+      "title": "ESCAPE SLIDE---RII L2 DOOR ESCAPE SLIDE REQ REMOVAL FOR ACCESS",
+      "category": "PAX DOORS",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_270",
+      "seq": "780",
+      "wo": "32804056",
+      "title": "ESCAPE SLIDE---RII R2 DOOR  ESCAPE SLIDE REQ REMOVAL FOR ACCESS",
+      "category": "PAX DOORS",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_271",
+      "seq": "785",
+      "wo": "32804526",
+      "title": "CAB - NO CALL BACK LAV A BABY BASSINET TABLE LATCH DIRTY",
+      "category": "LAVATORY",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_272",
+      "seq": "786",
+      "wo": "32804529",
+      "title": "CAB - NO CALL BACK LAV E BABY BASSINET TABLE LATCH DIRTY",
+      "category": "LAVATORY",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_273",
+      "seq": "787",
+      "wo": "32804530",
+      "title": "CAB - NO CALL BACK LAV D BABY BASSINET TABLE LATCH DIRTY",
+      "category": "LAVATORY",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_274",
+      "seq": "788",
+      "wo": "32804532",
+      "title": "CAB - NO CALL BACK FWD GALLEY COMPT 208 ICE BOX SURFACE DIRTY AND MISSING SEALANT.",
+      "category": "GALLEY",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_275",
+      "seq": "789",
+      "wo": "32804533",
+      "title": "PAINT - NO CALL BACK FWD GALLEY COMPT 214 LONG AND SHORT CART CATCHES CHIPPED PAINT.",
+      "category": "GALLEY",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_276",
+      "seq": "790",
+      "wo": "32804535",
+      "title": "CAB - NO CALL BACK FWD GALLEY BUN WARMER LATCH LOOSE.",
+      "category": "GALLEY",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_277",
+      "seq": "791",
+      "wo": "32804540",
+      "title": "CAB - NO CALL BACK FWD GALLEY CART CATCHES 3EA LONG NO. 111 , 110 AND 109 1 SHORT CART CATCHES NO.111",
+      "category": "GALLEY",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_278",
+      "seq": "792",
+      "wo": "32804543",
+      "title": "AVIO - NO CALL BACK FWD GALLEY LIGHT LENS DISCOLORATION",
+      "category": "GALLEY",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_279",
+      "seq": "793",
+      "wo": "32804553",
+      "title": "CAB - NO CALL BACK - COCKPIT SEAT CAPTIN AND FIRST OFFICER SEAT AFT SHROUD CRACKED",
+      "category": "FLIGHT DECK",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_280",
+      "seq": "794",
+      "wo": "32804554",
+      "title": "CAB - NO CALL BACK - COCKPIT SEAT CAPTAIN SEAT PLACRAD DEATTACHED",
+      "category": "FLIGHT DECK",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_281",
+      "seq": "795",
+      "wo": "32804556",
+      "title": "CAB - NO CALL BACK - COCKPIT FROUTH OBSERVER FOURTH OBSERVER CUP HOLDER LOOSE",
+      "category": "FLIGHT DECK",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_282",
+      "seq": "796",
+      "wo": "32804558",
+      "title": "CAB - NO CALL BACK - COCKPIT ESCAPE ROPE COVER VELCRO DETACHED.",
+      "category": "FLIGHT DECK",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_283",
+      "seq": "797",
+      "wo": "32804560",
+      "title": "CAB - NO CALL BACK - COCKPIT DISC STOWAGE F/O DISC STOWAGE LATCH INOP",
+      "category": "FLIGHT DECK",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_284",
+      "seq": "798",
+      "wo": "32804565",
+      "title": "CAB - NO CALL BACK - COCKPT CAPTIN  WASTE AND OXY DOOR MAKE NOISY SOUND",
+      "category": "FLIGHT DECK",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_285",
+      "seq": "799",
+      "wo": "32804566",
+      "title": "CAB - NO CALL BACK - COCKPIT CAPTAIN ARMREST CAPTAIN ARMREST DISCOLORED",
+      "category": "FLIGHT DECK",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_286",
+      "seq": "800",
+      "wo": "32804567",
+      "title": "CAB - NO CALL BACK - COCKPIT CAPTAIN ARMREST COCKPIT CAPTAIN ARMREST LOOSE",
+      "category": "FLIGHT DECK",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_287",
+      "seq": "801",
+      "wo": "32804568",
+      "title": "CAB - NO CALL BACK - COCKPIT MEAL TABLE CAPTAIN AND F/O MEAL TABLE DISCOLORED",
+      "category": "FLIGHT DECK",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_288",
+      "seq": "802",
+      "wo": "32804570",
+      "title": "CAB - NO CALL BACK - COCKPIT SPEAKERS COCKPIT CAPTAIN AND F/O SPEAKERS PANEL SCREWS MISSING",
+      "category": "FLIGHT DECK",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_289",
+      "seq": "803",
+      "wo": "32804571",
+      "title": "CAB - NO CALL BACK - COCKPIT LIFE VEST COVER THIRD OBSERVER LIFE VEST COVER MISALIGNED",
+      "category": "FLIGHT DECK",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_290",
+      "seq": "804",
+      "wo": "32804573",
+      "title": "CAB - NO CALL BACK - COCKPIT LIGHT PNL COCKPIT OVER HEAD LIGHT PNL SCREW MISSING",
+      "category": "FLIGHT DECK",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_291",
+      "seq": "805",
+      "wo": "32804575",
+      "title": "CAB - RII - COCKPIT SEAT BELT COCKPIT FOURTH OBSERVER SEAT BELT INOP",
+      "category": "FLIGHT DECK",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_292",
+      "seq": "806",
+      "wo": "32804576",
+      "title": "CAB - NO CALL BACK - COCKPIT F/O WASTE DOOR COCKPIT F/O WASTE DOOR MAKE NOISY SOUND",
+      "category": "FLIGHT DECK",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_293",
+      "seq": "807",
+      "wo": "32804577",
+      "title": "CAB - NO CALL BACK - COCKPIT CAPTAIN SEAT COCKPIT CAPTAIN SEAT AFT SHROUD MISSING SCREW",
+      "category": "FLIGHT DECK",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_294",
+      "seq": "826",
+      "wo": "32817167",
+      "title": "PAX DOOR LINING FWD R/H PAX DOOR SUPPORT ARM LINING REQ PNT",
+      "category": "PAX DOORS",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_295",
+      "seq": "827",
+      "wo": "32817204",
+      "title": "PAX DOOR LINING FWD L/H PAX DOOR SUPPORT ARM LINING REQ PNT",
+      "category": "PAX DOORS",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_296",
+      "seq": "828",
+      "wo": "32817224",
+      "title": "PAX DOOR LINING AFT L/H PAX DOOR SUPPORT ARM LINING REQ PNT",
+      "category": "PAX DOORS",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_297",
+      "seq": "829",
+      "wo": "32817230",
+      "title": "PAX DOOR LINING ALL PAX DOOR SLIDE COVER REQ PNT",
+      "category": "PAX DOORS",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_298",
+      "seq": "839",
+      "wo": "32823153",
+      "title": "CAB - RII -L2 F/A L2 F/A REMOVED FOR ACCESS",
+      "category": "F/A SEAT",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_299",
+      "seq": "840",
+      "wo": "32823140",
+      "title": "AV - NO CALL BACK REMOVE ELECTRICAL WIRE  B/C SEAT  5A , 5L",
+      "category": "PAX SEAT",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_300",
+      "seq": "841",
+      "wo": "32823160",
+      "title": "AV - NO CALL BACK REMOVE ELECTRICAL WIRE  SEAT 30ABC  TO 34ABC .",
+      "category": "PAX SEAT",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_301",
+      "seq": "842",
+      "wo": "32823162",
+      "title": "AV - NO CALL BACK REMOVE ELECTRICAL WIRE  SEAT  30JKL TO 34JKL .",
+      "category": "PAX SEAT",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_302",
+      "seq": "843",
+      "wo": "32823272",
+      "title": "CAB-CALL BACK SEAT#5JL,5AC,30ABC,31ABC,32ABC,33ABC34ABC,30JKL,31JKL.32JKL,33JKL&34JKL REQ    REMOVAL  SEAT`S FOR ACCESS.",
+      "category": "PAX SEAT",
+      "status": "In Progress",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_303",
+      "seq": "852",
+      "wo": "32824863",
+      "title": "CAB - NO CALLBACK - SIDEWALL SIDEWALL SPLINE AT 1AC -  B/C SHIFTED DOWNWARD.",
+      "category": "TEDLAR/SIDEWALL",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_304",
+      "seq": "866",
+      "wo": "32825358",
+      "title": "PAX DOOR LINING FWD R/H AND L/H PAX DOOR ALL LINING REQ PNT",
+      "category": "PAX DOORS",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_305",
+      "seq": "867",
+      "wo": "32825368",
+      "title": "PAX DOOR LINING AFT R/H AND L/H PAX DOOR ALL LINING REQ PNT",
+      "category": "PAX DOORS",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_306",
+      "seq": "869",
+      "wo": "32825361",
+      "title": "FINDING (NRC) TASKCARD 25-SVA-03 (00) / ITEM ONE B/C SEAT# 1AC,2AC,3AC,4AC,5CJ FOOD TRAY DOOR - SHROUD ASSEMBLY BROKEN",
+      "category": "PAX SEAT",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_307",
+      "seq": "870",
+      "wo": "32825385",
+      "title": "FINDING (NRC) TASKCARD 25-SVA-03 (00) / ITEM ONE B/C SEAT# 1ACL,3C,4L OVERRIDE - MANUAL  BROKEN",
+      "category": "PAX SEAT",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_308",
+      "seq": "871",
+      "wo": "32825434",
+      "title": "FINDING (NRC) TASKCARD 25-SVA-03 (00) / ITEM ONE B/C SEAT# 1ACJL,2C,3ACJ,5CJL ARMREST LOOSE",
+      "category": "PAX SEAT",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_309",
+      "seq": "875",
+      "wo": "32825488",
+      "title": "CAB - NO CALLBACK - FWD GALLEY FWD GALLEY G2 MODULE COMPT. 209 DOOR HINGE LOOSE.",
+      "category": "GALLEY",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_310",
+      "seq": "876",
+      "wo": "32825451",
+      "title": "FINDING (NRC) TASKCARD 25-SVA-03 (00) / ITEM ONE B/C SEAT# 4J,5C RUBSTRIP - FRONT BROKEN",
+      "category": "PAX SEAT",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_311",
+      "seq": "877",
+      "wo": "32825594",
+      "title": "FINDING (NRC) TASKCARD 25-SVA-03 (00) / ITEM ONE B/C SEAT# 1J  RUBSTRIP - SHELL BROKEN",
+      "category": "PAX SEAT",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_312",
+      "seq": "878",
+      "wo": "32825599",
+      "title": "FINDING (NRC) TASKCARD 25-SVA-03 (00) / ITEM ONE B/C SEAT# 1C,5A PANEL ASSEMBLY - ACCESS CRACK",
+      "category": "PAX SEAT",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_313",
+      "seq": "879",
+      "wo": "32825631",
+      "title": "CAB - NO CALLBACK - LAV A \"LAVATORY A\" AIR VENTILATION HOOD FOUND BROKEN.",
+      "category": "LAVATORY",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_314",
+      "seq": "880",
+      "wo": "32825612",
+      "title": "FINDING (NRC) TASKCARD 25-SVA-03 (00) / ITEM ONE B/C SEAT# 1A SEAT CLOSEOUT ASSEMBLY MISSING",
+      "category": "PAX SEAT",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_315",
+      "seq": "881",
+      "wo": "32825658",
+      "title": "FINDING (NRC) TASKCARD 25-SVA-03 (00) / ITEM ONE ALL B/C SEAT LANYARD AND PIN - DETENT  MISSING",
+      "category": "PAX SEAT",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_316",
+      "seq": "882",
+      "wo": "32825968",
+      "title": "FINDING (NRC) TASKCARD 2521000103-001 (04) / ITEM-1 ALL B/C SEAT BELT DIRTY",
+      "category": "PAX SEAT",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_317",
+      "seq": "883",
+      "wo": "32825978",
+      "title": "FINDING (NRC) TASKCARD 25-SVA-03 (00) / ITEM ONE ALL B/C SEAT ARMCAP AISLE AND CTR DIRTY",
+      "category": "PAX SEAT",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_318",
+      "seq": "884",
+      "wo": "32825996",
+      "title": "FINDING (NRC) TASKCARD 25-SVA-03 (00) / ITEM ONE ALL B/C SEAT STRUCTURE  DIRTY",
+      "category": "PAX SEAT",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_319",
+      "seq": "885",
+      "wo": "32826054",
+      "title": "FINDING (NRC) TASKCARD 25-SVA-03 (00) / ITEM ONE ALL B/C SEAT HEADREST REQUIRED REMOVAL FOR ACCESS",
+      "category": "PAX SEAT",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_320",
+      "seq": "886",
+      "wo": "32826162",
+      "title": "FINDING (NRC) TASKCARD 25-SVA-05 (00) / ITEM ONE ALL G/C SEAT MAGAZINE SPRING LOOSE",
+      "category": "PAX SEAT",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_321",
+      "seq": "887",
+      "wo": "32826217",
+      "title": "FINDING (NRC) TASKCARD 25-SVA-05 (00) / ITEM ONE ALL G/C SEAT STRUCTURE DIRTY",
+      "category": "PAX SEAT",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_322",
+      "seq": "888",
+      "wo": "32826246",
+      "title": "FINDING (NRC) TASKCARD 25-SVA-05 (00) / ITEM ONE ALL G/C SEAT ARMREST LOOSE",
+      "category": "PAX SEAT",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_323",
+      "seq": "908",
+      "wo": "32827664",
+      "title": "FINDING (NRC) TASKCARD 25-SVA-05 (00) / ITEM ONE G/C SEAT# 30B SIDE PAD CRACK",
+      "category": "PAX SEAT",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_324",
+      "seq": "909",
+      "wo": "32827686",
+      "title": "FINDING (NRC) TASKCARD 25-SVA-05 (00) / ITEM ONE ALL G/C SEAT  FOODTRAY DIRTY",
+      "category": "PAX SEAT",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_325",
+      "seq": "913",
+      "wo": "32827700",
+      "title": "FINDING (NRC) TASKCARD 25-SVA-05 (00) / ITEM ONE G/C SEAT# 37J BUMPER – ENDBAY  DAMAGE",
+      "category": "PAX SEAT",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_326",
+      "seq": "914",
+      "wo": "32827716",
+      "title": "FINDING (NRC) TASKCARD 2521000103-002 (05) / ITEM-1 ALL G/C SEAT HEADREST REQUIRE REMOVE FOR ACCESS",
+      "category": "PAX SEAT",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_327",
+      "seq": "915",
+      "wo": "32827826",
+      "title": "FINDING (NRC) TASKCARD 25-SVA-03 (00) / ITEM ONE B/C SEAT#2JL,3L,5L  LATCH - BACK MISSING",
+      "category": "PAX SEAT",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_328",
+      "seq": "916",
+      "wo": "32828287",
+      "title": "FINDING (NRC) TASKCARD DCC-32S (11) / ITEM ONE DURING DCC FOUND LAV A INNER DOOR TEDLAR DAMAGED",
+      "category": "TEDLAR/SIDEWALL",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_329",
+      "seq": "917",
+      "wo": "32828299",
+      "title": "FINDING (NRC) TASKCARD DCC-32S (11) / ITEM ONE DURING DCC FOUND LAV A OUTER DOOR TEDLAR DAMAGED",
+      "category": "TEDLAR/SIDEWALL",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_330",
+      "seq": "918",
+      "wo": "32828375",
+      "title": "FINDING (NRC) TASKCARD DCC-32S (11) / ITEM ONE DURING DCC FOUND UPPER SIDE OF COCKPIT DOOR OUTER SIDE TEDLAR DAMAGED",
+      "category": "TEDLAR/SIDEWALL",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_331",
+      "seq": "919",
+      "wo": "32828382",
+      "title": "FINDING (NRC) TASKCARD DCC-32S (11) / ITEM ONE DURING DCC FOUND GALLEY DOOR 210 TEDLAR DAMAGED",
+      "category": "TEDLAR/SIDEWALL",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_332",
+      "seq": "920",
+      "wo": "32828383",
+      "title": "FINDING (NRC) TASKCARD DCC-32S (11) / ITEM ONE DURING DCC FOUND GALLEY DOOR 205 TEDLAR DAMAGED",
+      "category": "TEDLAR/SIDEWALL",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_333",
+      "seq": "921",
+      "wo": "32828385",
+      "title": "MACHINE SHOP FWD GALLEY AND AFT GALLEY ALL OVENS FOUND BOLTS FROZEN",
+      "category": "GALLEY",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_334",
+      "seq": "922",
+      "wo": "32828386",
+      "title": "FINDING (NRC) TASKCARD DCC-32S (11) / ITEM ONE DURING DCC FOUND SIDE WALL PANEL AT SEATS 4 AC ,5 AC ,39 ABC ,40 ABC ,33 JKL ,38 JKL ,39 JKL TEDLAR DAMAGED",
+      "category": "TEDLAR/SIDEWALL",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_335",
+      "seq": "923",
+      "wo": "32828395",
+      "title": "FINDING (NRC) TASKCARD DCC-32S (11) / ITEM ONE DURING DCC FOUND FWD OUTER WALL OF LAV D TEDLAR DAMAGED",
+      "category": "TEDLAR/SIDEWALL",
+      "status": "Closed",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_336",
+      "seq": "924",
+      "wo": "32828415",
+      "title": "FINDING (NRC) TASKCARD DCC-32S (11) / ITEM ONE DURING DCC FOUND AFT WALL OF LAV D BESIDE F/A SEAT TEDLAR DAMAGED",
+      "category": "TEDLAR/SIDEWALL",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_337",
+      "seq": "925",
+      "wo": "32829036",
+      "title": "CAB - NO CALL BACK - AFT GALLEY AIR CHILLET AFT GALLEY AIR CHILLER FILTER MISSING",
+      "category": "GALLEY",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_338",
+      "seq": "929",
+      "wo": "32830299",
+      "title": "L2 DOOR SILL PANEL REQ REMOVAL FOR ACCESS",
+      "category": "PAX DOORS",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_339",
+      "seq": "931",
+      "wo": "32830452",
+      "title": "CAB - NO CALL BACK - SIDEWALL MISSING SPLINE AT 5 AC",
+      "category": "TEDLAR/SIDEWALL",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_340",
+      "seq": "932",
+      "wo": "32830902",
+      "title": "FINDING (NRC) TASKCARD 25-SVA-05 (00) / ITEM ONE G/C SEAT#37B,C,K 38A VIDEO BEZEL ASSEMBLY CRACK",
+      "category": "PAX SEAT",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_341",
+      "seq": "933",
+      "wo": "32831610",
+      "title": "FINDING (NRC) TASKCARD 25-SVA-03 (00) / ITEM ONE B/C SEAT# 2AC, 3J AND 4L SHROUD - CONSOLE SIDE DAMAGED.",
+      "category": "PAX SEAT",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_342",
+      "seq": "938",
+      "wo": "32832622",
+      "title": "CKPT,,,,,PNT,,,,NO CALL BACK DURING INSP OF INTERNAL STRUCTURE OF THESE SLIDING WINDOW FOUND CAPTIN & F/O INNER FRAME PNT PEELED OFF",
+      "category": "FLIGHT DECK",
+      "status": "Open",
+      "priority": "Normal"
+    },
+    {
+      "_id": "r_1781886617689_343",
+      "seq": "941",
+      "wo": "32835180",
+      "title": "R1 DOOR DAMPER GUIDE WITH CRACK",
+      "category": "PAX DOORS",
+      "status": "Open",
+      "priority": "Normal"
+    }
+  ],
+  "updatedAt": "2026-06-19T16:30:22.060Z"
+}
