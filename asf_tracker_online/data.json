@@ -76,7 +76,7 @@
       "title": "C_N (C_N07)/C-CHECK",
       "category": "TASK CARD",
       "status": "Open",
-      "priority": "AOG"
+      "priority": "Normal"
     },
     {
       "_id": "r_1781886617688_4",
@@ -3139,5 +3139,5 @@
       "priority": "Normal"
     }
   ],
-  "updatedAt": "2026-06-19T16:30:40.788Z"
+  "updatedAt": "2026-06-19T16:30:46.072Z"
 }
