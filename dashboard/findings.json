@@ -1484,5 +1484,57 @@
         "photoUrl": "https://i.ibb.co/rRh5LQM0/291706db09bd.jpg"
       }
     ]
+  },
+  {
+    "id": "178196716761734le4",
+    "timestamp": "2026-06-20T14:52:47.617Z",
+    "date": "20/06/2026",
+    "time": "17:52",
+    "aircraft": "ASF",
+    "reporter": "13010253/",
+    "findings": [
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "N/A               ",
+        "description": "4LJ                                                         ",
+        "remarks": "                         ",
+        "photoUrl": ""
+      },
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "N/A               ",
+        "description": "1LJ                                                         ",
+        "remarks": "                         ",
+        "photoUrl": ""
+      },
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "N/A               ",
+        "description": "32JKL                                                       ",
+        "remarks": "                         ",
+        "photoUrl": ""
+      },
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "N/A               ",
+        "description": "2LJ                                                         ",
+        "remarks": "                         ",
+        "photoUrl": ""
+      },
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "N/A               ",
+        "description": "30ABC                                                       ",
+        "remarks": "                         ",
+        "photoUrl": ""
+      },
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "N/A               ",
+        "description": "3LK                                                         ",
+        "remarks": "                         ",
+        "photoUrl": ""
+      }
+    ]
   }
 ]
