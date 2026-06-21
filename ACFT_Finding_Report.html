@@ -1984,7 +1984,10 @@ async function syncPhraseBankFromGitHub() {
 async function learnPhrase(category, description) {
   if (!category || !description) return;
   const desc = description.trim().toUpperCase();
-  if (desc.length < 6 || desc.length > 80) return; // skip too-short/long text, keep suggestions clean
+  // Only learn descriptions that are structurally valid and domain-relevant —
+  // this NEVER blocks the technician's actual submission, it only decides
+  // whether the text becomes a future suggestion for others.
+  if (!isLearnableDescription(desc)) return;
 
   try {
     const local = JSON.parse(localStorage.getItem(SUGGEST_KEY) || '{}');
@@ -2025,6 +2028,8 @@ function renderSuggestions(findingId) {
   const descEl = document.getElementById('desc-' + findingId);
   if (!wrap || !catEl || !descEl) return;
 
+  attachAutoCorrect('desc-' + findingId);
+
   const category = catEl.value;
   const typed = descEl.value.trim().toUpperCase();
   const phrases = _phraseBank[category] || [];
@@ -2057,6 +2062,148 @@ function applySuggestion(findingId, phrase) {
 
 // Kick off background sync
 document.addEventListener('DOMContentLoaded', syncPhraseBankFromGitHub);
+
+
+// ── AVIATION MAINTENANCE VOCABULARY ───────────────────────────
+// Used for two purposes:
+// 1. Gatekeeping the learned-phrase bank (only structurally valid,
+//    domain-relevant descriptions get learned — never blocks submission,
+//    only filters what becomes a future suggestion).
+// 2. Live spell-correction in the description field (works fully offline).
+
+const VOCAB_DEFECTS = [
+  'DAMAGED','TORN','CRACKED','BROKEN','LOOSE','MISSING','STAINED','SCRATCHED',
+  'LEAKING','DEFLATED','DISCOLORED','PEELING','CORRODED','WORN','FRAYED',
+  'STUCK','JAMMED','BENT','DENTED','CHIPPED','FADED','SOILED','DIRTY',
+  'ILLEGIBLE','INOPERATIVE','MALFUNCTIONING','DETACHED','SEPARATED',
+  'NOT WORKING','NOT FUNCTIONING','NOT CLOSING','NOT LOCKING','NOT SECURING',
+  'NOT LATCHING','NOT OPERATING','NOT HEATING','NOT LIGHTING UP',
+  'FOUND OPEN','FOUND DAMAGED','REQUIRES REPLACEMENT','NEEDS REPLACEMENT',
+  'EMPTY','BLOCKED','OBSTRUCTED','HANGING','DISCONNECTED','EXPOSED',
+  'BURNT','BURNED','MELTED','RUSTED','OXIDIZED','SQUEAKING','RATTLING',
+  'VIBRATING','MISALIGNED','UNSERVICEABLE','U/S','DEFECTIVE','FAULTY'
+];
+
+const VOCAB_PARTS = [
+  'SEAT','SEAT BELT','SEAT CUSHION','SEAT COVER','SEAT BACK','ARMREST','TRAY TABLE',
+  'CARPET','CEILING','CEILING PANEL','SIDEWALL','SIDEWALL PANEL','OVERHEAD BIN',
+  'BIN LATCH','READING LIGHT','PSU','PSU PANEL','CURTAIN','CURTAIN TRACK',
+  'WINDOW','WINDOW SHADE','PLACARD','SIGN','GALLEY','GALLEY LATCH','GALLEY DRAWER',
+  'OVEN','COFFEE MAKER','WATER FAUCET','FAUCET','TRASH COMPACTOR','STOWAGE',
+  'TOILET','TOILET SEAT','FLUSH','SINK','MIRROR','LAV DOOR','WASTE BIN',
+  'SOAP DISPENSER','SMOKE DETECTOR','TISSUE HOLDER','TOILET PAPER HOLDER',
+  'DOOR','DOOR SEAL','DOOR HANDLE','DOOR WINDOW','DOOR TRIM','SLIDE',
+  'SLIDE ARMING HANDLE','EMERGENCY LIGHT','HARNESS','OXYGEN MASK','OXYGEN MASK STOWAGE',
+  'IFE','IFE SCREEN','SEAT POCKET','RECLINE','CALL BUTTON','CIRCUIT BREAKER',
+  'SUN VISOR','BUNK','BUNK CURTAIN','TEDLAR','TRIM PANEL','LATCH','HINGE',
+  'LOCK','HANDLE','PANEL','COVER','CUSHION','LIGHT','SWITCH','BUTTON',
+  'FAN','VENT','DUCT','FLOOR','WALL','CEILING LIGHT','MONUMENT','CLOSET'
+];
+
+const VOCAB_LOCATIONS = [
+  'CABIN','GALLEY','LAVATORY','LAV','COCKPIT','FLIGHT DECK','AFT','FORWARD',
+  'FWD','MID','UPPER','LOWER','LEFT','RIGHT','L1','L2','L3','L4','R1','R2','R3','R4'
+];
+
+const VOCAB_ALL_TERMS = [...VOCAB_DEFECTS, ...VOCAB_PARTS, ...VOCAB_LOCATIONS];
+
+// Build a flat word-level dictionary (for spell-correction) from all multi-word terms
+const VOCAB_WORDS = [...new Set(
+  VOCAB_ALL_TERMS.join(' ').split(/\s+/).filter(w => w.length > 2)
+)];
+
+// ── Validate a description before it's allowed into the learned phrase bank ──
+// This NEVER blocks submission — only decides if a description is "clean"
+// enough to become a future suggestion for other technicians.
+function isLearnableDescription(desc) {
+  if (!desc) return false;
+  const upper = desc.trim().toUpperCase();
+  if (upper.length < 6 || upper.length > 80) return false;
+
+  // Reject garbage: repeated characters, no vowels, mostly non-letters
+  if (/(.)\1{4,}/.test(upper)) return false; // e.g. "AAAAA"
+  const letters = upper.replace(/[^A-Z]/g, '');
+  if (letters.length < 5) return false;
+  const vowels = (letters.match(/[AEIOU]/g) || []).length;
+  if (vowels / letters.length < 0.15) return false; // unlikely real English
+
+  // Must contain at least one recognizable defect/condition term
+  const hasDefect = VOCAB_DEFECTS.some(term => upper.includes(term));
+  // Must contain at least one recognizable part/location term
+  const hasPart = VOCAB_PARTS.some(term => upper.includes(term)) ||
+                  VOCAB_LOCATIONS.some(term => upper.includes(term));
+
+  return hasDefect && hasPart;
+}
+
+// ── Live spell-correction (offline, Levenshtein-based) ────────────────────
+function _levenshtein(a, b) {
+  const m = a.length, n = b.length;
+  if (m === 0) return n;
+  if (n === 0) return m;
+  const dp = Array.from({length: m+1}, () => new Array(n+1).fill(0));
+  for (let i=0; i<=m; i++) dp[i][0] = i;
+  for (let j=0; j<=n; j++) dp[0][j] = j;
+  for (let i=1; i<=m; i++) {
+    for (let j=1; j<=n; j++) {
+      dp[i][j] = a[i-1] === b[j-1]
+        ? dp[i-1][j-1]
+        : 1 + Math.min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1]);
+    }
+  }
+  return dp[m][n];
+}
+
+// Find the closest vocabulary word to a typed word, if close enough to be a likely typo
+function _findCorrection(word) {
+  const upper = word.toUpperCase();
+  if (upper.length < 4) return null; // too short to safely auto-correct
+  if (VOCAB_WORDS.includes(upper)) return null; // already correct
+
+  let best = null, bestDist = Infinity;
+  for (const vocabWord of VOCAB_WORDS) {
+    if (Math.abs(vocabWord.length - upper.length) > 2) continue; // quick skip
+    const dist = _levenshtein(upper, vocabWord);
+    if (dist < bestDist) { bestDist = dist; best = vocabWord; }
+  }
+  // Only accept close matches (1-2 character difference, scaled by word length)
+  const threshold = upper.length <= 5 ? 1 : 2;
+  return (best && bestDist <= threshold) ? best : null;
+}
+
+// Attach live auto-correct to a textarea: corrects the last completed word
+// when the user types a space/punctuation after it (non-intrusive, like a
+// phone keyboard — never interrupts mid-word typing).
+function attachAutoCorrect(textareaId) {
+  const el = document.getElementById(textareaId);
+  if (!el || el._autoCorrectAttached) return;
+  el._autoCorrectAttached = true;
+
+  el.addEventListener('keyup', (e) => {
+    if (e.key !== ' ' && e.key !== 'Enter') return;
+    const val = el.value;
+    const upToCursor = val.slice(0, el.selectionStart);
+    const trimmed = upToCursor.replace(/\s+$/, '');
+    const words = trimmed.split(/\s+/);
+    const lastWord = words[words.length - 1];
+    if (!lastWord) return;
+
+    const correction = _findCorrection(lastWord.replace(/[^A-Za-z]/g, ''));
+    if (!correction) return;
+
+    // Replace just that last word, preserving trailing space/cursor position
+    const beforeLastWord = upToCursor.slice(0, upToCursor.length - lastWord.length - (upToCursor.endsWith(' ') ? 1 : 0));
+    const lastWordStart = trimmed.length - lastWord.length;
+    const newUpToCursor = trimmed.slice(0, lastWordStart) + correction + val.slice(trimmed.length, el.selectionStart);
+    const cursorPos = el.selectionStart;
+    const tail = val.slice(cursorPos);
+
+    el.value = trimmed.slice(0, lastWordStart) + correction + val.slice(trimmed.length);
+    // Restore cursor position (shifted by any length difference)
+    const lenDiff = correction.length - lastWord.length;
+    el.selectionStart = el.selectionEnd = cursorPos + lenDiff;
+  });
+}
 
 </script>
 
