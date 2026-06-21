@@ -459,6 +459,13 @@ async function syncToGitHub(finding) {
       sha = d.sha;
       findings = JSON.parse(atob(d.content.replace(/\n/g,'')));
     }
+    // Server-side dedup: if this exact batch was already synced (e.g. user
+    // tapped submit twice, or a retry after a "looked like it failed" timeout),
+    // skip appending a duplicate entry.
+    if (finding.batchId && findings.some(f => f.batchId === finding.batchId)) {
+      console.warn('Duplicate batch detected, skipping GitHub append:', finding.batchId);
+      return;
+    }
     // Append new finding
     findings.push(finding);
     const content = btoa(unescape(encodeURIComponent(JSON.stringify(findings, null, 2))));
@@ -473,6 +480,10 @@ async function syncToGitHub(finding) {
 async function submitAll() {
   const reporter = document.getElementById('reporter').value.trim();
   if (!reporter) { showToast('Please enter your name'); document.getElementById('reporter').focus(); return; }
+  const aircraftReg = currentAircraft();
+  if (!aircraftReg) { showToast('Please set the aircraft registration first'); editAircraft(); return; }
+  // Prevent double-submit while a send is already in progress
+  if (window._submitInFlight) { showToast('Already sending — please wait'); return; }
   // Collect latest values from DOM
   findings.forEach(f => {
     const catEl  = document.getElementById('cat-'  + f.id);
@@ -511,32 +522,69 @@ async function submitAll() {
   const valid = findings;
   if (!valid.length) { showToast('Add at least one finding'); return; }
 
+  window._submitInFlight = true;
   hideArea('main-area');
   showArea('sending-area');
+
+  // Idempotency: reuse the same batch ID across retries/resubmits of the same
+  // session so a duplicate tap (e.g. user worried it didn't send) doesn't create
+  // a second entry. New ID is only generated for a genuinely new batch of findings.
+  const findingsFingerprint = valid.map(f => f.id).sort().join(',');
+  if (window._lastBatchFingerprint !== findingsFingerprint) {
+    window._lastBatchFingerprint = findingsFingerprint;
+    window._currentBatchId = 'batch_' + Date.now() + '_' + Math.random().toString(36).slice(2,8);
+  }
+  const batchId = window._currentBatchId;
 
   const now  = new Date();
   const date = now.toLocaleDateString('en-GB');
   const time = now.toLocaleTimeString('en-GB', {hour:'2-digit',minute:'2-digit'});
 
-  // 1. Upload photos to ImgBB (parallel per finding)
+  // 1. Upload photos to ImgBB (parallel per finding, with retry)
   const photoUrls = {};
+  const photoUploadFailures = []; // [{findingIdx, total, succeeded}]
   await Promise.all(valid.map(async (f, i) => {
     const photos = f.photos && f.photos.length > 0 ? f.photos : (f.photoData ? [{data: f.photoData}] : []);
     if (!photos.length) return;
-    const uploadOne = async (photo) => {
-      try {
-        const base64 = photo.data.split(',')[1];
-        const fd = new FormData();
-        fd.append('key', 'a72386b4ada67f2fdefd06144f01adfd');
-        fd.append('image', base64);
-        const r = await fetch('https://api.imgbb.com/1/upload', {method:'POST', body:fd});
-        const d = await r.json();
-        return d.success ? d.data.url : null;
-      } catch(e) { return null; }
+    const uploadOne = async (photo, retries = 2) => {
+      for (let attempt = 0; attempt <= retries; attempt++) {
+        try {
+          const base64 = photo.data.split(',')[1];
+          const fd = new FormData();
+          fd.append('key', 'a72386b4ada67f2fdefd06144f01adfd');
+          fd.append('image', base64);
+          const r = await fetch('https://api.imgbb.com/1/upload', {method:'POST', body:fd});
+          const d = await r.json();
+          if (d.success) return d.data.url;
+        } catch(e) { /* retry */ }
+        if (attempt < retries) await new Promise(res => setTimeout(res, 1200));
+      }
+      return null;
     };
-    const urls = (await Promise.all(photos.map(uploadOne))).filter(Boolean);
+    const urls = (await Promise.all(photos.map(p => uploadOne(p)))).filter(Boolean);
     if (urls.length) photoUrls[i] = urls.join(' | ');
+    if (urls.length < photos.length) {
+      photoUploadFailures.push({ findingIdx: i, total: photos.length, succeeded: urls.length });
+    }
   }));
+
+  // Warn and let the user decide if any photo failed to upload after retries
+  if (photoUploadFailures.length) {
+    const summary = photoUploadFailures.map(pf =>
+      `Finding ${pf.findingIdx + 1}: ${pf.succeeded}/${pf.total} photo(s) uploaded`
+    ).join('\n');
+    const proceed = confirm(
+      'Some photos failed to upload after retrying (likely a weak connection):\n\n' + summary +
+      '\n\nSend the report anyway without the missing photo(s)? Tap Cancel to wait and try again.'
+    );
+    if (!proceed) {
+      hideArea('sending-area');
+      showArea('main-area');
+      window._submitInFlight = false;
+      showToast('Submission cancelled — check connection and retry');
+      return;
+    }
+  }
 
   // 2. Build payload — pad short values to prevent Google Sheets auto-resize
   const pad = (s, n) => { s = (s||'').toString(); return s.length >= n ? s : s + ' '.repeat(n - s.length); };
@@ -566,6 +614,7 @@ async function submitAll() {
     // Build GitHub finding object
     const ghFinding = {
       id: Date.now() + Math.random().toString(36).slice(2,7),
+      batchId: batchId,
       timestamp: new Date().toISOString(),
       date: payload.date,
       time: payload.time,
@@ -602,10 +651,16 @@ async function submitAll() {
       }
     }
     if (!success) throw lastErr;
+    // Genuinely sent — clear the batch fingerprint so the next set of
+    // findings (after Reset) gets a fresh batch ID rather than reusing this one.
+    window._lastBatchFingerprint = null;
+    window._currentBatchId = null;
   } catch(err) {
     hideArea('sending-area');
     showArea('main-area');
-    showToast('Error: ' + err.message);
+    showToast('Error: ' + err.message + ' — tap Submit to retry (it will not duplicate)');
+  } finally {
+    window._submitInFlight = false;
   }
 }
 
