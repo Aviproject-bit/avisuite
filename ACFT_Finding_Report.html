@@ -43,6 +43,14 @@ select{font-family:'BwGradual',sans-serif;text-transform:uppercase}
 .del-btn{background:none;border:none;color:rgba(255,255,255,.6);font-size:20px;cursor:pointer;padding:0 4px;line-height:1}
 .del-btn:hover{color:#fff}
 .field{display:flex;flex-direction:column;gap:4px}
+.sugg-wrap{display:none;flex-wrap:wrap;gap:6px;margin-top:6px}
+.sugg-chip{
+  background:#F0F5F2;border:1px solid #C8DCD0;color:#0F2920;
+  padding:6px 11px;border-radius:16px;font-size:11px;font-weight:600;
+  cursor:pointer;font-family:'BwGradual',sans-serif;line-height:1.3;
+  text-align:left;-webkit-tap-highlight-color:transparent;transition:.12s;
+}
+.sugg-chip:active{background:#006937;color:#fff;border-color:#006937;transform:scale(.97)}
 .field label{font-size:11px;font-weight:800;color:#555;text-transform:uppercase;letter-spacing:.08em;font-family:'BwGradualEB',sans-serif}
 .field label span.req{color:#C62828}
 .field label span.opt{color:#AAA;font-weight:400;text-transform:none;font-size:10px;font-family:'BwGradual',sans-serif}
@@ -285,7 +293,7 @@ function renderFindings() {
         <div class="field-row">
           <div class="field">
             <label>Category <span class="req">*</span></label>
-            <select id="cat-${f.id}" onchange="updatePreview(${f.id})">
+            <select id="cat-${f.id}" onchange="updatePreview(${f.id});renderSuggestions(${f.id})">
               <option value="">Select...</option>
               ${CATEGORIES.map(c => `<option value="${c}">${c}</option>`).join('')}
             </select>
@@ -298,7 +306,8 @@ function renderFindings() {
 
         <div class="field">
           <label>Finding Description <span class="req">*</span></label>
-          <textarea id="desc-${f.id}" placeholder="Describe the finding..." oninput="this.value=this.value.toUpperCase();updatePreview(${f.id})" autocomplete="on" autocorrect="off" autocapitalize="characters" spellcheck="false"></textarea>
+          <textarea id="desc-${f.id}" placeholder="Describe the finding..." oninput="this.value=this.value.toUpperCase();updatePreview(${f.id});renderSuggestions(${f.id})" onfocus="renderSuggestions(${f.id})" autocomplete="on" autocorrect="off" autocapitalize="characters" spellcheck="false"></textarea>
+          <div class="sugg-wrap" id="sugg-${f.id}"></div>
         </div>
 
         <div class="field">
@@ -643,6 +652,8 @@ async function submitAll() {
         success = true;
         showSuccess(reporter, valid.length, valid);
         success = true;
+        // Teach the suggestion engine from this batch's real descriptions
+        valid.forEach(f => { if (f.cat && f.desc) learnPhrase(f.cat, f.desc); });
         break;
       } catch(e) {
         lastErr = e;
@@ -1877,6 +1888,175 @@ function saveImageEditor() {
   closeImageEditor();
   showToast('Annotation saved ✓');
 }
+
+
+// ── DESCRIPTION SUGGESTIONS ───────────────────────────────────
+// Starter phrase library (common cabin-maintenance finding language),
+// organized by category. Grows automatically as the team submits real
+// findings — each successful submission adds its description (and the
+// category it was filed under) to a shared, GitHub-stored phrase bank.
+
+const SUGGEST_KEY = 'ak35_phrase_bank';
+const SUGGEST_GH_PATH = 'dashboard/phrase_bank.json';
+const SUGGEST_GH_API = GH_API_PROXY + '?path=' + SUGGEST_GH_PATH;
+
+const STARTER_PHRASES = {
+  'GENERAL CABIN': [
+    'CARPET TORN', 'CARPET STAINED', 'CEILING PANEL CRACKED', 'OVERHEAD BIN LATCH DAMAGED',
+    'OVERHEAD BIN NOT CLOSING PROPERLY', 'SIDEWALL PANEL SCRATCHED', 'SIDEWALL PANEL LOOSE',
+    'READING LIGHT NOT WORKING', 'PSU PANEL MISSING', 'CURTAIN TORN', 'CURTAIN TRACK DAMAGED',
+    'WINDOW SHADE NOT FUNCTIONING', 'CARPET LIFTING AT SEAM', 'PLACARD MISSING', 'PLACARD ILLEGIBLE'
+  ],
+  'GALLEY': [
+    'GALLEY LATCH BROKEN', 'GALLEY DRAWER STUCK', 'GALLEY LIGHT NOT WORKING', 'OVEN NOT HEATING',
+    'COFFEE MAKER NOT FUNCTIONING', 'WATER FAUCET LEAKING', 'GALLEY PANEL DAMAGED',
+    'STOWAGE COMPARTMENT LATCH MISSING', 'TRASH COMPACTOR NOT WORKING', 'GALLEY CURTAIN TORN'
+  ],
+  'LAVATORY': [
+    'TOILET FLUSH NOT WORKING', 'SINK FAUCET LEAKING', 'TOILET PAPER HOLDER MISSING',
+    'MIRROR CRACKED', 'LAV DOOR LOCK NOT FUNCTIONING', 'WASTE BIN FLAP DAMAGED',
+    'SOAP DISPENSER EMPTY/NOT WORKING', 'SMOKE DETECTOR COVER MISSING', 'SINK SIEVE NOT SECURED',
+    'TOILET SEAT LOOSE', 'LAVATORY FLOOR STAINED'
+  ],
+  'PAX DOORS': [
+    'DOOR SEAL DAMAGED', 'DOOR HANDLE LOOSE', 'SLIDE ARMING HANDLE DAMAGED',
+    'DOOR WINDOW SCRATCHED', 'DOOR TRIM PANEL LOOSE', 'EMERGENCY LIGHT NOT WORKING AT DOOR'
+  ],
+  'F/A SEAT': [
+    'F/A SEAT BELT DAMAGED', 'F/A SEAT CUSHION TORN', 'F/A SEAT NOT LOCKING IN STOWED POSITION',
+    'F/A SEAT ARMREST LOOSE', 'F/A SEAT BACK CUSHION DEFLATED', 'F/A SEAT HARNESS FRAYED'
+  ],
+  'PAX SEAT': [
+    'SEAT CUSHION TORN', 'SEAT BELT BUCKLE DAMAGED', 'TRAY TABLE LATCH BROKEN',
+    'SEAT RECLINE NOT WORKING', 'SEAT COVER STAINED', 'ARMREST LOOSE', 'IFE SCREEN NOT WORKING',
+    'SEAT POCKET TORN', 'LOWER BACK CUSHION DEFLATED', 'NO CALL BACK BUTTON STUCK'
+  ],
+  'FLIGHT DECK': [
+    'COCKPIT SEAT CUSHION WORN', 'CIRCUIT BREAKER PANEL PLACARD MISSING',
+    'COCKPIT CARPET STAINED', 'SUN VISOR DAMAGED', 'OXYGEN MASK STOWAGE DAMAGED'
+  ],
+  'OFAR/OFCR': [
+    'CREW REST SEAT CUSHION WORN', 'CREW REST READING LIGHT NOT WORKING', 'BUNK CURTAIN TORN'
+  ],
+  'TEDLAR/SIDEWALL': [
+    'TEDLAR PEELING', 'TEDLAR DISCOLORED', 'SIDEWALL TRIM LOOSE', 'SIDEWALL PANEL GAP VISIBLE'
+  ],
+  'PAINT': [
+    'PAINT CHIPPED', 'PAINT PEELING', 'SURFACE CORROSION VISIBLE', 'PAINT DISCOLORATION'
+  ]
+};
+
+function _loadPhraseBank() {
+  try {
+    const raw = localStorage.getItem(SUGGEST_KEY);
+    const local = raw ? JSON.parse(raw) : {};
+    // Merge starter phrases with any locally learned ones (local takes precedence for ordering)
+    const merged = {};
+    Object.keys(STARTER_PHRASES).forEach(cat => {
+      merged[cat] = [...(local[cat] || []), ...STARTER_PHRASES[cat]];
+      // de-dupe while preserving order
+      merged[cat] = [...new Set(merged[cat])];
+    });
+    return merged;
+  } catch(e) { return JSON.parse(JSON.stringify(STARTER_PHRASES)); }
+}
+
+let _phraseBank = _loadPhraseBank();
+
+// Pull team-wide learned phrases from GitHub on load (best-effort, non-blocking)
+async function syncPhraseBankFromGitHub() {
+  try {
+    const res = await fetch(SUGGEST_GH_API + '&t=' + Date.now());
+    if (!res.ok) return;
+    const json = await res.json();
+    const remote = JSON.parse(decodeURIComponent(escape(atob(json.content))));
+    const local = JSON.parse(localStorage.getItem(SUGGEST_KEY) || '{}');
+    const merged = {};
+    Object.keys(STARTER_PHRASES).forEach(cat => {
+      merged[cat] = [...new Set([...(remote[cat]||[]), ...(local[cat]||[])])];
+    });
+    localStorage.setItem(SUGGEST_KEY, JSON.stringify(merged));
+    _phraseBank = _loadPhraseBank();
+  } catch(e) { /* non-critical, ignore */ }
+}
+
+// Learn a new phrase: add it to the bank locally and push to the shared GitHub bank
+async function learnPhrase(category, description) {
+  if (!category || !description) return;
+  const desc = description.trim().toUpperCase();
+  if (desc.length < 6 || desc.length > 80) return; // skip too-short/long text, keep suggestions clean
+
+  try {
+    const local = JSON.parse(localStorage.getItem(SUGGEST_KEY) || '{}');
+    local[category] = local[category] || [];
+    if (!local[category].includes(desc)) {
+      local[category].unshift(desc); // newest first
+      local[category] = local[category].slice(0, 40); // cap per category
+      localStorage.setItem(SUGGEST_KEY, JSON.stringify(local));
+      _phraseBank = _loadPhraseBank();
+    }
+  } catch(e) {}
+
+  // Push to shared GitHub bank (best-effort, never blocks submission)
+  try {
+    const res = await fetch(SUGGEST_GH_API + '&t=' + Date.now());
+    let remote = {}, sha;
+    if (res.ok) {
+      const json = await res.json();
+      sha = json.sha;
+      remote = JSON.parse(decodeURIComponent(escape(atob(json.content))));
+    }
+    remote[category] = remote[category] || [];
+    if (!remote[category].includes(desc)) {
+      remote[category].unshift(desc);
+      remote[category] = remote[category].slice(0, 60);
+      const content = btoa(unescape(encodeURIComponent(JSON.stringify(remote, null, 2))));
+      const body = { message: 'Learn phrase', content, branch: GH_BRANCH };
+      if (sha) body.sha = sha;
+      fetch(SUGGEST_GH_API, { method:'PUT', headers: GH_HEADS, body: JSON.stringify(body) }).catch(()=>{});
+    }
+  } catch(e) { /* non-critical */ }
+}
+
+// Render suggestion chips under a description field, filtered by what's typed so far
+function renderSuggestions(findingId) {
+  const wrap = document.getElementById('sugg-' + findingId);
+  const catEl = document.getElementById('cat-' + findingId);
+  const descEl = document.getElementById('desc-' + findingId);
+  if (!wrap || !catEl || !descEl) return;
+
+  const category = catEl.value;
+  const typed = descEl.value.trim().toUpperCase();
+  const phrases = _phraseBank[category] || [];
+
+  let candidates;
+  if (!typed) {
+    candidates = phrases.slice(0, 6);
+  } else {
+    candidates = phrases.filter(p => p.includes(typed) || typed.includes(p.slice(0, 8))).slice(0, 6);
+  }
+
+  if (!category || !candidates.length) { wrap.innerHTML = ''; wrap.style.display = 'none'; return; }
+
+  wrap.style.display = 'flex';
+  wrap.innerHTML = candidates.map(p => {
+    const esc = p.replace(/'/g, "\\'");
+    return `<button type="button" class="sugg-chip" onclick="applySuggestion(${findingId}, '${esc}')">${p}</button>`;
+  }).join('');
+}
+
+function applySuggestion(findingId, phrase) {
+  const descEl = document.getElementById('desc-' + findingId);
+  if (!descEl) return;
+  descEl.value = phrase;
+  descEl.dispatchEvent(new Event('input'));
+  descEl.focus();
+  const wrap = document.getElementById('sugg-' + findingId);
+  if (wrap) { wrap.innerHTML = ''; wrap.style.display = 'none'; }
+}
+
+// Kick off background sync
+document.addEventListener('DOMContentLoaded', syncPhraseBankFromGitHub);
 
 </script>
 
