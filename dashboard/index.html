@@ -649,27 +649,83 @@ function delRow(idx){
   const desc=(f.description||'').slice(0,60);
   openDelModal(
     'Delete this finding?'+(desc?'\n"'+desc+'"':''),
-    async ()=>{
-      const gi=allData.findIndex(x=>x._id===f._id&&x.timestamp===f.timestamp&&x.description===f.description);
-      if(gi!==-1) allData.splice(gi,1);
-      try{ await saveRaw(allData); toast('Deleted ✓'); applyFilter(); selected.clear(); updateDelBtn(); }
-      catch(e){ toast('Delete failed'); }
+    ()=>{
+      const key=f._id+'_'+f.timestamp;
+      softDelete([key]);
     }
   );
 }
+
+// Soft-delete trash buffer — keeps deleted items for UNDO_TTL ms before final commit
+const UNDO_TTL = 7000;
+let _undoBuffer = null;  // { items, timer, n }
 
 function deleteSelected(){
   const n=selected.size;
   if(!n) return;
   openDelModal(
     'Delete '+n+' finding'+(n>1?'s':'')+' permanently?',
-    async ()=>{
-      allData=allData.filter(f=>!selected.has(f._id+'_'+f.timestamp));
-      selected.clear(); updateDelBtn();
-      try{ await saveRaw(allData); toast('Deleted '+n+' findings ✓'); applyFilter(); }
-      catch(e){ toast('Delete failed'); }
-    }
+    ()=>softDelete([...selected])
   );
+}
+
+function softDelete(keys){
+  const n=keys.length;
+  const keySet=new Set(keys);
+  const removed=allData.filter(f=>keySet.has(f._id+'_'+f.timestamp));
+  allData=allData.filter(f=>!keySet.has(f._id+'_'+f.timestamp));
+  selected.clear(); updateDelBtn();
+  applyFilter();
+
+  // Cancel any previous pending delete
+  if(_undoBuffer && _undoBuffer.timer) clearTimeout(_undoBuffer.timer);
+
+  // Show Undo toast
+  const timer=setTimeout(()=>{
+    _undoBuffer=null;
+    hideUndoToast();
+    saveRaw(allData).catch(()=>{});
+  }, UNDO_TTL);
+
+  _undoBuffer = { items: removed, timer, n };
+  showUndoToast(n);
+}
+
+function undoDelete(){
+  if(!_undoBuffer) return;
+  clearTimeout(_undoBuffer.timer);
+  allData=[..._undoBuffer.items, ...allData];
+  _undoBuffer=null;
+  hideUndoToast();
+  applyFilter();
+  toast('Restored ✓');
+}
+
+function showUndoToast(n){
+  let bar=document.getElementById('undo-bar');
+  if(!bar){
+    bar=document.createElement('div');
+    bar.id='undo-bar';
+    bar.style.cssText='position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#1A2E24;color:#fff;padding:13px 20px;border-radius:12px;display:flex;align-items:center;gap:14px;font-size:13px;font-weight:600;z-index:99999;box-shadow:0 8px 32px rgba(0,0,0,.3);font-family:Arial,sans-serif;white-space:nowrap;transition:.2s';
+    document.body.appendChild(bar);
+  }
+  bar.innerHTML=`<span>${n} finding${n>1?'s':''} deleted</span><button onclick="undoDelete()" style="background:#17B8C8;color:#fff;border:none;padding:7px 16px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:Arial,sans-serif">Undo</button><span id="undo-countdown" style="color:rgba(255,255,255,.5);font-size:11px;min-width:22px;text-align:right"></span>`;
+  bar.style.display='flex';
+
+  // Countdown
+  let remaining=Math.ceil(UNDO_TTL/1000);
+  document.getElementById('undo-countdown').textContent=remaining+'s';
+  const tick=setInterval(()=>{
+    remaining--;
+    const el=document.getElementById('undo-countdown');
+    if(el) el.textContent=remaining+'s';
+    if(remaining<=0) clearInterval(tick);
+  },1000);
+}
+
+function hideUndoToast(){
+  const bar=document.getElementById('undo-bar');
+  if(bar) bar.style.display='none';
 }
 
 // ── BULK AIRCRAFT EDIT ───────────────────────────────────────
