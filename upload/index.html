@@ -355,18 +355,28 @@ async function deleteFile(path, sha, name){
 async function clearOldFiles(){
   const r = await fetch(GH_BASE+'?t='+Date.now(), {headers:GH_H});
   if(!r.ok) return;
-  const files = (await r.json()).filter(f=>f.type==='file');
+  const files = (await r.json()).filter(f=>f.type==='file'&&f.name!=='.gitkeep');
+  if(!files.length){ toast('No files to clear'); return; }
   const cutoff = Date.now() - TTL_HOURS*3600*1000;
-  const old = files.filter(f=>{ const ts=parseInt(f.name.split('_')[0]); return !isNaN(ts)&&ts<cutoff; });
-  if(!old.length){ toast('No old files to clear'); return; }
-  if(!confirm('Delete '+old.length+' files older than '+TTL_HOURS+'h?')) return;
+  // Files with timestamp prefix — check by name
+  // Files without — use GitHub's last_modified (not available in list API, so use creation time from commit)
+  // Simple fallback: treat all files as old if they lack a recognizable recent timestamp
+  const old = files.filter(f=>{
+    const ts = parseInt(f.name.split('_')[0]);
+    if(!isNaN(ts) && ts > 1000000000000) return ts < cutoff; // valid ms timestamp
+    return true; // no timestamp in name → treat as old
+  });
+  if(!old.length){ toast('No old files to clear (all recent)'); return; }
+  if(!confirm('Delete '+old.length+' file'+(old.length>1?'s':'')+' older than '+TTL_HOURS+'h?')) return;
+  let deleted = 0;
   for(const f of old){
-    await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${encodeURIComponent(f.path)}`,{
+    const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${encodeURIComponent(f.path)}`,{
       method:'DELETE', headers:GH_H,
-      body: JSON.stringify({message:'Auto-clear old upload', sha:f.sha, branch:'main'})
+      body: JSON.stringify({message:'Clear old upload: '+f.name, sha:f.sha, branch:'main'})
     });
+    if(res.ok) deleted++;
   }
-  toast('Cleared '+old.length+' old files ✓');
+  toast('Cleared '+deleted+' file'+(deleted>1?'s':'')+' ✓');
   loadHistory();
 }
 
