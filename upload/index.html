@@ -130,7 +130,7 @@ html,body{margin:0;padding:0;background:#0F2920;min-height:100vh;font-family:'Bw
     <div class="drop-zone" id="drop-zone" onclick="document.getElementById('file-input').click()">
       <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#006937" stroke-width="1.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
       <h3>Tap to select files</h3>
-      <p>Excel, PDF, images — max 25MB per file</p>
+      <p>Excel, PDF, images — max 25MB · or paste (Ctrl+V)</p>
     </div>
     <input type="file" id="file-input" multiple accept="*/*">
 
@@ -213,6 +213,26 @@ function setupDrop(){
     addFiles([...e.dataTransfer.files]);
   });
   fi.addEventListener('change', ()=>{ addFiles([...fi.files]); fi.value=''; });
+
+  // Paste support — Ctrl+V / Cmd+V anywhere on the page
+  document.addEventListener('paste', e=>{
+    const items = [...(e.clipboardData || e.originalEvent.clipboardData).items];
+    const files = items
+      .filter(item => item.kind === 'file')
+      .map(item => {
+        const f = item.getAsFile();
+        // Give pasted images a meaningful filename with timestamp
+        if (f && f.name === 'image.png') {
+          return new File([f], 'paste_'+Date.now()+'.png', {type: f.type});
+        }
+        return f;
+      })
+      .filter(Boolean);
+    if (files.length) {
+      addFiles(files);
+      toast('📋 '+files.length+' item'+(files.length>1?'s':'')+' pasted');
+    }
+  });
 }
 
 function addFiles(files){
