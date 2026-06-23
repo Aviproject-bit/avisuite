@@ -145,13 +145,15 @@ html,body{margin:0;padding:0;background:#0F2920;min-height:100vh;font-family:'Bw
 <div class="toast" id="toast"></div>
 
 <script>
-const GH_TOKEN_PARTS = ['github_pat_11CE376DQ0QUhAeOpNVhEh','_28eOovkydSFybDKonwoXJMgokwd5i7H1qM6bKgOhiFZDKLFTUA6NFRTjcOR'];
-const GH_TOKEN = GH_TOKEN_PARTS.join('');
-const OWNER = 'Aviproject-bit';
-const REPO  = 'ACFT-Project';
+const PROXY = 'https://acft-proxy.aviproject.workers.dev';
 const UPLOAD_DIR = 'uploads';
-const GH_BASE = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${UPLOAD_DIR}`;
-const GH_H = {'Authorization':'token '+GH_TOKEN,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'};
+const GH_BASE = PROXY + '?path=' + UPLOAD_DIR;
+const GH_H = {'Content-Type':'application/json'};
+
+// All GitHub API calls go through Cloudflare Worker proxy — no token in browser
+async function ghGet(path){ return fetch(PROXY+'?path='+encodeURIComponent(path)+'&t='+Date.now()); }
+async function ghPut(path, body){ return fetch(PROXY+'?path='+encodeURIComponent(path),{method:'PUT',headers:GH_H,body:JSON.stringify(body)}); }
+async function ghDelete(path, sha, msg){ return fetch(PROXY+'?path='+encodeURIComponent(path),{method:'DELETE',headers:GH_H,body:JSON.stringify({message:msg,sha})}); }
 const TTL_HOURS = 48;
 const PC_KEY = 'avisuite_upload_auth';
 const _PC = [54,52,51].map(c=>String.fromCharCode(c)).join(''); // '643'
@@ -295,11 +297,7 @@ async function uploadOne(file){
   const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g,'_');
   const ghPath = `${UPLOAD_DIR}/${ts}_${safeName}`;
   const b64 = await toBase64(file);
-
-  const r = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${ghPath}`, {
-    method:'PUT', headers:GH_H,
-    body: JSON.stringify({ message:`Upload: ${file.name}`, content: b64, branch:'main' })
-  });
+  const r = await ghPut(ghPath, { message:`Upload: ${file.name}`, content: b64, branch:'main' });
   if(!r.ok) throw new Error('Upload failed');
 }
 
@@ -317,7 +315,7 @@ async function loadHistory(){
   const el = document.getElementById('history-list');
   el.innerHTML = '<div class="empty-history">Loading...</div>';
   try {
-    const r = await fetch(GH_BASE+'?t='+Date.now(), {headers:GH_H});
+    const r = await ghGet(UPLOAD_DIR);
     if(!r.ok){ el.innerHTML='<div class="empty-history">No files yet</div>'; return; }
     const files = (await r.json()).filter(f=>f.type==='file');
     if(!files.length){ el.innerHTML='<div class="empty-history">No files uploaded yet</div>'; return; }
@@ -344,16 +342,13 @@ async function loadHistory(){
 
 async function deleteFile(path, sha, name){
   if(!confirm('Delete '+name+'?')) return;
-  const r = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${encodeURIComponent(path)}`,{
-    method:'DELETE', headers:GH_H,
-    body: JSON.stringify({message:'Delete upload: '+name, sha, branch:'main'})
-  });
+  const r = await ghDelete(path, sha, 'Delete upload: '+name);
   if(r.ok){ toast('Deleted ✓'); loadHistory(); }
   else toast('Delete failed');
 }
 
 async function clearOldFiles(){
-  const r = await fetch(GH_BASE+'?t='+Date.now(), {headers:GH_H});
+  const r = await ghGet(UPLOAD_DIR);
   if(!r.ok) return;
   const files = (await r.json()).filter(f=>f.type==='file'&&f.name!=='.gitkeep');
   if(!files.length){ toast('No files to clear'); return; }
@@ -370,10 +365,7 @@ async function clearOldFiles(){
   if(!confirm('Delete '+old.length+' file'+(old.length>1?'s':'')+' older than '+TTL_HOURS+'h?')) return;
   let deleted = 0;
   for(const f of old){
-    const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${encodeURIComponent(f.path)}`,{
-      method:'DELETE', headers:GH_H,
-      body: JSON.stringify({message:'Clear old upload: '+f.name, sha:f.sha, branch:'main'})
-    });
+    const res = await ghDelete(f.path, f.sha, 'Clear old upload: '+f.name);
     if(res.ok) deleted++;
   }
   toast('Cleared '+deleted+' file'+(deleted>1?'s':'')+' ✓');
