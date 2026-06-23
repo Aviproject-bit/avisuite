@@ -1373,5 +1373,37 @@
         "photoUrl": "https://i.ibb.co/mF01fdrf/92ed4fbfc351.jpg | https://i.ibb.co/67FGL39t/0212dc58e8d4.jpg"
       }
     ]
+  },
+  {
+    "id": "1782204526624t6z3s",
+    "batchId": "batch_1782204496736_ptwngw",
+    "timestamp": "2026-06-23T08:48:46.624Z",
+    "date": "23/06/2026",
+    "time": "11:48",
+    "aircraft": "HZ-ASF",
+    "reporter": "13010253",
+    "findings": [
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "N/A               ",
+        "description": "44ABC                                                       ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/WNVd8bsr/a60666f7e801.jpg"
+      },
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "N/A               ",
+        "description": "38ABC\n                                                      ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/KjSVcV27/b67dd90b8b60.jpg"
+      },
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "N/A               ",
+        "description": "40ABC                                                       ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/VYwCzfZW/834439ee22f0.jpg"
+      }
+    ]
   }
 ]
