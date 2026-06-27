@@ -1120,8 +1120,7 @@ function saveQ(){
 }
 function saveNow(){clearTimeout(_saveTimer);try{localStorage.setItem('caqcv1',JSON.stringify(S));}catch(e){}}
 function load(){
-  try{var d=localStorage.getItem('caqcv1');if(d)S=JSON.parse(d);}catch(e){}
-  if(!S.rptRows)S.rptRows=[];
+  try{var d=localStorage.getItem('caqcv1');if(d){S=JSON.parse(d);syncRptFromFindings();}}catch(e){}
   if(!S.deptPrefix)S.deptPrefix='POOL';
   DEPT_PREFIX=S.deptPrefix;p=DEPT_PREFIX;
   document.getElementById('tbOrg').value=S.org||'SAUDIA TECHNIC';
@@ -2918,8 +2917,8 @@ function loadSessionFile(e) {
       if(!payload.data) { showToast('INVALID SESSION FILE'); return; }
       /* load confirmed */
       S = payload.data;
-      if(!S.rptRows) S.rptRows = [];
       if(!S.deptPrefix) S.deptPrefix = 'POOL';
+      syncRptFromFindings(); /* rebuild with smart grouping */
       document.getElementById('tbOrg').value = S.org||'SAUDIA TECHNIC';
       document.getElementById('tbDept').value = S.dept||'CA & QC';
       document.getElementById('tbAcft').textContent = S.aircraft||'Set Aircraft';
