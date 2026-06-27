@@ -1945,42 +1945,93 @@ function rmAfter(fid){
 
 /* ── REPORT ── */
 function syncRptFromFindings(){
-  S.rptRows=[];
+  /* Smart grouping:
+     - Finding with multiple WOs → one row, WOs comma-joined
+     - Same WO across multiple findings → one row, descs merged
+  */
+  var woMap={};    /* wo# → {wos:[],descs:[],fids:[],spec,status} */
+  var noWORows=[]; /* findings with no WO → one row each */
+
   S.findings.forEach(function(f){
-    if(!f.wos||!f.wos.length)S.rptRows.push({fid:f.id,wo:'',desc:f.desc,spec:'',status:'OPEN'});
-    else f.wos.forEach(function(w){S.rptRows.push({fid:f.id,wo:w.number||'',desc:f.desc,spec:w.specialty||'',status:w.status||'OPEN'});});
+    var wos=f.wos||[];
+    var hasWO=wos.some(function(w){return (w.number||'').trim();});
+    if(!hasWO){
+      noWORows.push({fid:f.id,wo:'',desc:f.desc,spec:(wos[0]&&wos[0].specialty)||'',status:(wos[0]&&wos[0].status)||'OPEN'});
+      return;
+    }
+    /* Collect all WO numbers for this finding */
+    wos.forEach(function(w){
+      var num=(w.number||'').trim();
+      if(!num) return;
+      if(!woMap[num]){
+        woMap[num]={woNums:[num],descs:[],fids:[],spec:w.specialty||'',status:w.status||'OPEN'};
+      }
+      /* merge desc if not already there */
+      if(woMap[num].descs.indexOf(f.desc)<0) woMap[num].descs.push(f.desc);
+      if(woMap[num].fids.indexOf(f.id)<0)    woMap[num].fids.push(f.id);
+      /* keep highest-priority status */
+      var pri=['OPEN','Deferred','PENDING','NEF','C/W'];
+      if(pri.indexOf(w.status||'OPEN')<pri.indexOf(woMap[num].status)) woMap[num].status=w.status||'OPEN';
+    });
   });
+
+  /* Now merge: findings that share ALL same WO numbers → single row */
+  /* Key by sorted WO list to detect finding-with-same-WOs pattern */
+  var fidGroupMap={}; /* sorted wos key → merged entry */
+  S.findings.forEach(function(f){
+    var wos=f.wos||[];
+    var nums=wos.map(function(w){return (w.number||'').trim();}).filter(Boolean).sort();
+    if(!nums.length) return;
+    var key=nums.join(',');
+    if(!fidGroupMap[key]){
+      fidGroupMap[key]={
+        wo:nums.join(', '),
+        descs:[f.desc],
+        fids:[f.id],
+        spec:wos[0].specialty||'',
+        status:wos[0].status||'OPEN'
+      };
+    } else {
+      if(fidGroupMap[key].descs.indexOf(f.desc)<0) fidGroupMap[key].descs.push(f.desc);
+      if(fidGroupMap[key].fids.indexOf(f.id)<0)    fidGroupMap[key].fids.push(f.id);
+    }
+  });
+
+  S.rptRows=[];
+  /* Add grouped WO rows */
+  Object.keys(fidGroupMap).forEach(function(key){
+    var g=fidGroupMap[key];
+    S.rptRows.push({
+      fid:g.fids[0],
+      fids:g.fids,
+      wo:g.wo,
+      desc:g.descs.join(' / '),
+      spec:g.spec,
+      status:g.status
+    });
+  });
+  /* Add no-WO rows */
+  noWORows.forEach(function(r){ S.rptRows.push(r); });
 }
 
 function renderReport(){
   document.getElementById('rreg').textContent=S.aircraft||'—';
   document.getElementById('rorg').textContent=(S.org||'')+(S.dept?' · '+S.dept:'');
   if(!S.rptRows||!S.rptRows.length)syncRptFromFindings();
-  /* Smart stats: unique WOs + unique Findings */
-  var seenWOs={}, seenFids={};
-  var cwWOs=0, opWOs=0;
+  /* Stats: count individual WO numbers across all rows */
+  var allWOs=[];
   S.rptRows.forEach(function(r){
-    var wo=(r.wo||'').trim();
-    var fid=r.fid||r.desc||'';
-    /* Count unique findings */
-    if(fid) seenFids[fid]=true;
-    /* Count unique WOs */
-    if(wo){
-      if(!seenWOs[wo]){
-        seenWOs[wo]=r.status||'OPEN';
-        if(r.status==='C/W') cwWOs++;
-        else if(r.status==='OPEN'||r.status==='Deferred') opWOs++;
-      }
-    }
+    (r.wo||'').split(',').forEach(function(w){
+      var t=w.trim();if(t) allWOs.push(t);
+    });
   });
-  var uniqueWOs  = Object.keys(seenWOs).length;
-  var uniqueFinds= Object.keys(seenFids).length || S.findings.length;
-  var totalRows  = S.rptRows.length;
+  var totalWOs   = allWOs.length;
+  var totalFinds = S.findings.length;
   var cw=S.rptRows.filter(function(r){return r.status==='C/W';}).length;
   var op=S.rptRows.filter(function(r){return r.status==='OPEN'||r.status==='Deferred';}).length;
   document.getElementById('rstats').innerHTML=
-    '<div class="stat"><div class="stat-v">'+uniqueFinds+'</div><div class="stat-l">Findings</div></div>'+
-    '<div class="stat"><div class="stat-v" style="font-size:18px">'+uniqueWOs+'</div><div class="stat-l">Unique W.O.</div></div>'+
+    '<div class="stat"><div class="stat-v">'+totalFinds+'</div><div class="stat-l">Findings</div></div>'+
+    '<div class="stat"><div class="stat-v">'+totalWOs+'</div><div class="stat-l">Total W.O.</div></div>'+
     '<div class="stat"><div class="stat-v gr">'+cw+'</div><div class="stat-l">C/W</div></div>'+
     '<div class="stat"><div class="stat-v or">'+op+'</div><div class="stat-l">Open / Deferred</div></div>';
   var tb=document.getElementById('rbody');
