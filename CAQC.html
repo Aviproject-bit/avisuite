@@ -2137,7 +2137,7 @@ function exportPDFReport(){
   'thead th{background:#0F2920;color:rgba(255,255,255,.7);font-weight:700;font-size:8px;letter-spacing:2px;text-transform:uppercase;padding:10px 12px;text-align:left}'+
   'tbody td{padding:9px 12px;border-bottom:1px solid #F0F2F5;vertical-align:top;background:#fff;word-wrap:break-word;word-break:break-word}'+
   'tbody tr:nth-child(even) td{background:#F8FAFC}tbody tr:last-child td{border-bottom:none}'+
-  '.n{color:#8898A8;font-size:10px;width:30px}.wo{font-weight:700;white-space:normal;word-break:break-word;min-width:120px;max-width:200px}.desc{font-weight:500;line-height:1.5}'+
+  '.n{color:#8898A8;font-size:10px;width:36px;min-width:36px;white-space:nowrap;text-align:center}.wo{font-weight:700;white-space:normal;word-break:break-word;min-width:120px;max-width:200px}.desc{font-weight:500;line-height:1.5}'+
   '.badge{display:inline-block;padding:3px 8px;border-radius:4px;font-size:9px;font-weight:700;letter-spacing:.5px;text-transform:uppercase}'+
   '.ft{margin-top:28px;padding-top:14px;border-top:1px solid #E5E9EF;display:flex;justify-content:space-between}'+
   '.ft div{font-size:10px;color:#8898A8}'+
@@ -2150,7 +2150,7 @@ function exportPDFReport(){
   '<div class="hdr">'+
     '<div class="hl"><div class="lbl">Cabin Appearance &amp; Quality Control</div><div class="reg">'+esc(S.aircraft||'—')+'</div></div>'+
     '<div class="hr">'+(logoSrc?'<div class="logo"><img src="'+logoSrc+'"></div>':'')+
-      (S.showPfxInReport!==false&&S.deptPrefix?'<div class="org">'+esc(S.deptPrefix)+' CABIN</div>':(S.showDeptInReport&&S.dept?'<div class="org">'+esc(S.dept)+'</div>':''))+
+      (S.showPfxInReport!==false&&S.deptPrefix?'<div class="org">'+esc(S.deptPrefix)+' CABIN</div>':'')+(S.showDeptInReport!==false&&S.dept?'<div class="dept">'+esc(S.dept)+'</div>':'')+
     '</div>'+
   '</div>'+
   '<div class="stats">'+
