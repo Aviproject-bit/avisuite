@@ -2037,20 +2037,27 @@ function renderReport(){
   if(!S.rptRows.length){tb.innerHTML='<tr><td colspan="6" style="text-align:center;padding:28px;color:var(--mut)">No data — import Excel or add findings</td></tr>';return;}
   tb.innerHTML=S.rptRows.map(function(r,i){
     var sc=(r.status||'OPEN').replace('/','').replace('-','');
-    return '<tr>'+
-      '<td style="color:var(--mut);font-size:11px;width:32px">'+(i+1)+'</td>'+
-      '<td class="editable-cell" style="max-width:110px;white-space:nowrap;overflow:hidden"><input class="wo-in" value="'+esc(r.wo||'')+'" placeholder="WO #" onchange="rptUpd('+i+',\'wo\',this.value)" style="max-width:110px"></td>'+
-      '<td class="editable-cell"><textarea style="width:100%;background:transparent;border:none;font-family:\'BwGradual\',sans-serif;font-size:12px;color:var(--txt);outline:none;resize:none;min-height:36px;padding:2px 0;line-height:1.5" onchange="rptUpd('+i+',\'desc\',this.value)" oninput="this.style.height=\'auto\';this.style.height=this.scrollHeight+\'px\'">'+esc(r.desc||'')+'</textarea></td>'+
-      '<td class="editable-cell"><input class="wo-in sm" value="'+esc(r.spec||'')+'" placeholder="Specialty" onchange="rptUpd('+i+',\'spec\',this.value)"></td>'+
-      '<td class="editable-cell"><select class="wo-st st'+sc+'" onchange="rptUpdSt('+i+',this)">'+
+    /* Split merged descs into sub-rows */
+    var descs=(r.desc||'').split(' / ');
+    var rowspan=descs.length;
+    var firstRow='<tr>'+
+      '<td style="color:var(--mut);font-size:11px;width:28px;vertical-align:top;padding-top:10px" rowspan="'+rowspan+'">'+( i+1)+'</td>'+
+      '<td class="editable-cell" style="width:160px;min-width:140px;vertical-align:top;white-space:normal;word-break:break-all" rowspan="'+rowspan+'"><input class="wo-in" value="'+esc(r.wo||'')+'" placeholder="WO #" onchange="rptUpd('+i+',\'wo\',this.value)" style="width:100%;word-break:break-all;white-space:normal"></td>'+
+      '<td class="editable-cell"><textarea style="width:100%;background:transparent;border:none;font-family:\'BwGradual\',sans-serif;font-size:12px;color:var(--txt);outline:none;resize:none;min-height:32px;padding:2px 0;line-height:1.5" onchange="rptUpd('+i+',\'desc\',this.value)" oninput="this.style.height=\'auto\';this.style.height=this.scrollHeight+\'px\'">'+esc(descs[0]||'')+'</textarea></td>'+
+      '<td class="editable-cell" style="width:100px;vertical-align:top" rowspan="'+rowspan+'"><input class="wo-in sm" value="'+esc(r.spec||'')+'" placeholder="Specialty" onchange="rptUpd('+i+',\'spec\',this.value)"></td>'+
+      '<td class="editable-cell" style="width:90px;vertical-align:top" rowspan="'+rowspan+'"><select class="wo-st st'+sc+'" onchange="rptUpdSt('+i+',this)">'+
         '<option value="OPEN"'+(r.status==='OPEN'?' selected':'')+'>OPEN</option>'+
         '<option value="Deferred"'+(r.status==='Deferred'?' selected':'')+'>Deferred</option>'+
         '<option value="C/W"'+(r.status==='C/W'?' selected':'')+'>C/W</option>'+
         '<option value="PENDING"'+(r.status==='PENDING'?' selected':'')+'>PENDING</option>'+
         '<option value="NEF"'+(r.status==='NEF'?' selected':'')+'>NEF</option>'+
       '</select></td>'+
-      '<td><button onclick="delRptRow('+i+')" class="wo-del">&#xD7;</button></td>'+
+      '<td style="vertical-align:top" rowspan="'+rowspan+'"><button onclick="delRptRow('+i+')" class="wo-del">&#xD7;</button></td>'+
     '</tr>';
+    var extraRows=descs.slice(1).map(function(d){
+      return '<tr><td class="editable-cell" style="border-top:1px dashed var(--bdr)"><textarea style="width:100%;background:transparent;border:none;font-family:\'BwGradual\',sans-serif;font-size:12px;color:var(--txt);outline:none;resize:none;min-height:32px;padding:2px 0;line-height:1.5" oninput="this.style.height=\'auto\';this.style.height=this.scrollHeight+\'px\'">'+esc(d)+'</textarea></td></tr>';
+    }).join('');
+    return firstRow+extraRows;
   }).join('');
   tb.querySelectorAll('textarea').forEach(function(ta){ta.style.height='auto';ta.style.height=ta.scrollHeight+'px';});
 }
