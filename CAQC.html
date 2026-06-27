@@ -1146,7 +1146,7 @@ function swTab(n,btn){
 function openM(id){
   document.getElementById(id).classList.remove('h');
   if(id==='mAcft'){document.getElementById('acftIn').value=S.aircraft;setTimeout(function(){document.getElementById('acftIn').focus();},80);}
-  if(id==='mSettings'){document.getElementById('setOrg').value=S.org||'SAUDIA TECHNIC';document.getElementById('setDept').value=S.dept||'CA & QC';document.getElementById('setPfx').value=S.deptPrefix||'POOL';}
+  if(id==='mSettings'){document.getElementById('setOrg').value=S.org||'SAUDIA TECHNIC';document.getElementById('setDept').value=S.dept||'CA & QC';document.getElementById('setPfx').value=S.deptPrefix||'POOL';document.getElementById('showPfxInReport').checked=S.showPfxInReport!==false;document.getElementById('showDeptInReport').checked=S.showDeptInReport===true;}
 }
 function closeM(id){document.getElementById(id).classList.add('h');}
 function saveAcft(){
@@ -1174,6 +1174,8 @@ function saveSettings(){
         r.spec = pfx+' '+r.spec.slice(oldPfx.length+1);
     });
   }
+  S.showPfxInReport  = document.getElementById('showPfxInReport').checked;
+  S.showDeptInReport = document.getElementById('showDeptInReport').checked;
   document.getElementById('tbOrg').value=S.org;
   document.getElementById('tbDept').value=S.dept;
   document.getElementById('rorg').textContent=S.org+' · '+S.dept;
@@ -1944,11 +1946,35 @@ function rmAfter(fid){
 
 /* ── REPORT ── */
 function syncRptFromFindings(){
-  S.rptRows=[];
+  /* Group by WO: same WO across findings → merged row
+     Multiple WOs per finding → one row, WOs comma-joined */
+  var fidGroupMap={};
+  var noWORows=[];
   S.findings.forEach(function(f){
-    if(!f.wos||!f.wos.length)S.rptRows.push({fid:f.id,wo:'',desc:f.desc,spec:'',status:'OPEN'});
-    else f.wos.forEach(function(w){S.rptRows.push({fid:f.id,wo:w.number||'',desc:f.desc,spec:w.specialty||'',status:w.status||'OPEN'});});
+    var wos=f.wos||[];
+    var nums=wos.map(function(w){return (w.number||'').trim();}).filter(Boolean);
+    if(!nums.length){
+      noWORows.push({fid:f.id,wo:'',desc:f.desc,
+        spec:(wos[0]&&wos[0].specialty)||'',
+        status:(wos[0]&&wos[0].status)||'OPEN'});
+      return;
+    }
+    var key=nums.slice().sort().join(',');
+    if(!fidGroupMap[key]){
+      fidGroupMap[key]={wo:nums.join(', '),descs:[f.desc],fids:[f.id],
+        spec:wos[0].specialty||'',status:wos[0].status||'OPEN'};
+    } else {
+      if(fidGroupMap[key].descs.indexOf(f.desc)<0) fidGroupMap[key].descs.push(f.desc);
+      fidGroupMap[key].fids.push(f.id);
+    }
   });
+  S.rptRows=[];
+  Object.keys(fidGroupMap).forEach(function(key){
+    var g=fidGroupMap[key];
+    S.rptRows.push({fid:g.fids[0],fids:g.fids,wo:g.wo,
+      desc:g.descs.join(' / '),spec:g.spec,status:g.status});
+  });
+  noWORows.forEach(function(r){S.rptRows.push(r);});
 }
 
 function renderReport(){
@@ -2124,7 +2150,7 @@ function exportPDFReport(){
   '<div class="hdr">'+
     '<div class="hl"><div class="lbl">Cabin Appearance &amp; Quality Control</div><div class="reg">'+esc(S.aircraft||'—')+'</div></div>'+
     '<div class="hr">'+(logoSrc?'<div class="logo"><img src="'+logoSrc+'"></div>':'')+
-      (S.deptPrefix?'<div class="org">'+esc(S.deptPrefix)+' CABIN</div>':(S.dept?'<div class="org">'+esc(S.dept)+'</div>':''))+
+      (S.showPfxInReport!==false&&S.deptPrefix?'<div class="org">'+esc(S.deptPrefix)+' CABIN</div>':(S.showDeptInReport&&S.dept?'<div class="org">'+esc(S.dept)+'</div>':''))+
     '</div>'+
   '</div>'+
   '<div class="stats">'+
@@ -3600,6 +3626,15 @@ function _renderCards(list, targetF) {
         <label>Project Prefix (for auto-specialty: PREFIX CAB etc.)</label>
         <input id="setPfx" placeholder="POOL" style="letter-spacing:2px">
         <div style="font-size:10px;color:var(--mut);margin-top:4px">Used in: POOL CAB, POOL PAINT etc. Change to your department prefix.</div>
+      </div>
+      <div class="fg" style="border-top:1px solid var(--bdr);padding-top:10px">
+        <label style="font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--mut);text-transform:uppercase;margin-bottom:8px;display:block">Show in Report &amp; PDF Header</label>
+        <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:12px;margin-bottom:6px">
+          <input type="checkbox" id="showPfxInReport" style="accent-color:var(--acc)"> Show Project Prefix (e.g. POOL CABIN)
+        </label>
+        <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:12px">
+          <input type="checkbox" id="showDeptInReport" style="accent-color:var(--acc)"> Show Department name (e.g. CA &amp; QC)
+        </label>
       </div>
     </div>
     <div class="mft"><button class="btns" onclick="closeM('mSettings')">Cancel</button><button class="btnp" onclick="saveSettings()">Save</button></div>
