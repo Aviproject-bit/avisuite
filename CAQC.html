@@ -1120,8 +1120,7 @@ function saveQ(){
 }
 function saveNow(){clearTimeout(_saveTimer);try{localStorage.setItem('caqcv1',JSON.stringify(S));}catch(e){}}
 function load(){
-  try{var d=localStorage.getItem('caqcv1');if(d)S=JSON.parse(d);}catch(e){}
-  if(!S.rptRows)S.rptRows=[];
+  try{var d=localStorage.getItem('caqcv1');if(d){S=JSON.parse(d);syncRptFromFindings();}}catch(e){}
   if(!S.deptPrefix)S.deptPrefix='POOL';
   DEPT_PREFIX=S.deptPrefix;p=DEPT_PREFIX;
   document.getElementById('tbOrg').value=S.org||'SAUDIA TECHNIC';
@@ -1987,20 +1986,26 @@ function renderReport(){
   if(!S.rptRows.length){tb.innerHTML='<tr><td colspan="6" style="text-align:center;padding:28px;color:var(--mut)">No data — import Excel or add findings</td></tr>';return;}
   tb.innerHTML=S.rptRows.map(function(r,i){
     var sc=(r.status||'OPEN').replace('/','').replace('-','');
-    return '<tr>'+
-      '<td style="color:var(--mut);font-size:11px;width:32px">'+(i+1)+'</td>'+
-      '<td class="editable-cell" style="max-width:110px;white-space:nowrap;overflow:hidden"><input class="wo-in" value="'+esc(r.wo||'')+'" placeholder="WO #" onchange="rptUpd('+i+',\'wo\',this.value)" style="max-width:110px"></td>'+
-      '<td class="editable-cell"><textarea style="width:100%;background:transparent;border:none;font-family:\'BwGradual\',sans-serif;font-size:12px;color:var(--txt);outline:none;resize:none;min-height:36px;padding:2px 0;line-height:1.5" onchange="rptUpd('+i+',\'desc\',this.value)" oninput="this.style.height=\'auto\';this.style.height=this.scrollHeight+\'px\'">'+esc(r.desc||'')+'</textarea></td>'+
-      '<td class="editable-cell"><input class="wo-in sm" value="'+esc(r.spec||'')+'" placeholder="Specialty" onchange="rptUpd('+i+',\'spec\',this.value)"></td>'+
-      '<td class="editable-cell"><select class="wo-st st'+sc+'" onchange="rptUpdSt('+i+',this)">'+
+    var descs=(r.desc||'').split(' / ');
+    var rs=descs.length;
+    var firstRow='<tr>'+
+      '<td style="color:var(--mut);font-size:11px;width:28px;vertical-align:top;padding-top:10px" rowspan="'+rs+'">'+(i+1)+'</td>'+
+      '<td class="editable-cell" style="width:160px;min-width:140px;vertical-align:top;word-break:break-all;white-space:normal" rowspan="'+rs+'"><input class="wo-in" value="'+esc(r.wo||'')+'" placeholder="WO #" onchange="rptUpd('+i+',\'wo\',this.value)" style="width:100%;white-space:normal;word-break:break-all"></td>'+
+      '<td class="editable-cell"><textarea style="width:100%;background:transparent;border:none;font-family:\'BwGradual\',sans-serif;font-size:12px;color:var(--txt);outline:none;resize:none;min-height:32px;padding:2px 0;line-height:1.5" onchange="rptUpd('+i+',\'desc\',this.value)" oninput="this.style.height=\'auto\';this.style.height=this.scrollHeight+\'px\'">'+esc(descs[0]||'')+'</textarea></td>'+
+      '<td class="editable-cell" style="width:100px;vertical-align:top" rowspan="'+rs+'"><input class="wo-in sm" value="'+esc(r.spec||'')+'" placeholder="Specialty" onchange="rptUpd('+i+',\'spec\',this.value)"></td>'+
+      '<td class="editable-cell" style="width:90px;vertical-align:top" rowspan="'+rs+'"><select class="wo-st st'+sc+'" onchange="rptUpdSt('+i+',this)">'+
         '<option value="OPEN"'+(r.status==='OPEN'?' selected':'')+'>OPEN</option>'+
         '<option value="Deferred"'+(r.status==='Deferred'?' selected':'')+'>Deferred</option>'+
         '<option value="C/W"'+(r.status==='C/W'?' selected':'')+'>C/W</option>'+
         '<option value="PENDING"'+(r.status==='PENDING'?' selected':'')+'>PENDING</option>'+
         '<option value="NEF"'+(r.status==='NEF'?' selected':'')+'>NEF</option>'+
       '</select></td>'+
-      '<td><button onclick="delRptRow('+i+')" class="wo-del">&#xD7;</button></td>'+
+      '<td style="vertical-align:top" rowspan="'+rs+'"><button onclick="delRptRow('+i+')" class="wo-del">&#xD7;</button></td>'+
     '</tr>';
+    var extra=descs.slice(1).map(function(d){
+      return '<tr><td class="editable-cell" style="border-top:1px dashed var(--bdr)"><textarea style="width:100%;background:transparent;border:none;font-family:\'BwGradual\',sans-serif;font-size:12px;color:var(--txt);outline:none;resize:none;min-height:32px;padding:2px 0;line-height:1.5" oninput="this.style.height=\'auto\';this.style.height=this.scrollHeight+\'px\'">'+esc(d)+'</textarea></td></tr>';
+    }).join('');
+    return firstRow+extra;
   }).join('');
   tb.querySelectorAll('textarea').forEach(function(ta){ta.style.height='auto';ta.style.height=ta.scrollHeight+'px';});
 }
@@ -2067,7 +2072,20 @@ function exportPDFReport(){
   var tableRows='';
   if(optInfo){
     tableRows=rows.map(function(r,i){
-      return '<tr><td class="n">'+(i+1)+'</td><td class="wo">'+esc(r.wo||'—')+'</td><td class="desc">'+esc(r.desc||'—')+'</td><td>'+esc(r.spec||'—')+'</td><td><span class="badge" style="background:'+(scb[r.status||'OPEN']||'#F3F4F6')+';color:'+(sc2[r.status||'OPEN']||'#8898A8')+'">'+esc(r.status||'OPEN')+'</span></td></tr>';
+      var descs=(r.desc||'—').split(' / ');
+      var rs=descs.length;
+      var badge='<span class="badge" style="background:'+(scb[r.status||'OPEN']||'#F3F4F6')+';color:'+(sc2[r.status||'OPEN']||'#8898A8')+';white-space:nowrap;display:inline-block">'+esc(r.status||'OPEN')+'</span>';
+      var firstRow='<tr>'+
+        '<td class="n" rowspan="'+rs+'">'+(i+1)+'</td>'+
+        '<td class="wo" rowspan="'+rs+'">'+esc(r.wo||'—')+'</td>'+
+        '<td class="desc">'+esc(descs[0])+'</td>'+
+        '<td rowspan="'+rs+'" style="white-space:nowrap">'+esc(r.spec||'—')+'</td>'+
+        '<td rowspan="'+rs+'" style="white-space:nowrap">'+badge+'</td>'+
+      '</tr>';
+      var extraRows=descs.slice(1).map(function(d){
+        return '<tr><td class="desc" style="border-top:1px dashed #E0E7EF">'+esc(d)+'</td></tr>';
+      }).join('');
+      return firstRow+extraRows;
     }).join('');
   }
   /* build the page HTML  */
@@ -2089,11 +2107,11 @@ function exportPDFReport(){
   '.stat.b .v{color:#1A56DB}.stat.g .v{color:#057A55}.stat.o .v{color:#C2410C}'+
   '.st{font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#8898A8;margin:20px 0 12px;display:flex;align-items:center;gap:8px}'+
   '.st:after{content:"";flex:1;height:1px;background:#E5E9EF}'+
-  'table{width:100%;border-collapse:collapse;border-radius:10px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.06)}'+
+  'table{width:100%;border-collapse:collapse;border-radius:10px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.06);table-layout:auto}'+
   'thead th{background:#0F2920;color:rgba(255,255,255,.7);font-weight:700;font-size:8px;letter-spacing:2px;text-transform:uppercase;padding:10px 12px;text-align:left}'+
   'tbody td{padding:9px 12px;border-bottom:1px solid #F0F2F5;vertical-align:top;background:#fff;word-wrap:break-word;word-break:break-word}'+
   'tbody tr:nth-child(even) td{background:#F8FAFC}tbody tr:last-child td{border-bottom:none}'+
-  '.n{color:#8898A8;font-size:10px;width:30px}.wo{font-weight:700;white-space:nowrap;width:110px}.desc{font-weight:500;line-height:1.5}'+
+  '.n{color:#8898A8;font-size:10px;width:30px}.wo{font-weight:700;white-space:normal;word-break:break-word;min-width:120px;max-width:200px}.desc{font-weight:500;line-height:1.5}'+
   '.badge{display:inline-block;padding:3px 8px;border-radius:4px;font-size:9px;font-weight:700;letter-spacing:.5px;text-transform:uppercase}'+
   '.ft{margin-top:28px;padding-top:14px;border-top:1px solid #E5E9EF;display:flex;justify-content:space-between}'+
   '.ft div{font-size:10px;color:#8898A8}'+
@@ -2106,7 +2124,7 @@ function exportPDFReport(){
   '<div class="hdr">'+
     '<div class="hl"><div class="lbl">Cabin Appearance &amp; Quality Control</div><div class="reg">'+esc(S.aircraft||'—')+'</div></div>'+
     '<div class="hr">'+(logoSrc?'<div class="logo"><img src="'+logoSrc+'"></div>':'')+
-      (S.deptPrefix&&S.deptPrefix!=='POOL'?'<div class="org">'+esc(S.deptPrefix)+' CABIN</div>':(S.dept?'<div class="org">'+esc(S.dept)+'</div>':''))+
+      (S.deptPrefix?'<div class="org">'+esc(S.deptPrefix)+' CABIN</div>':(S.dept?'<div class="org">'+esc(S.dept)+'</div>':''))+
     '</div>'+
   '</div>'+
   '<div class="stats">'+
@@ -2866,8 +2884,8 @@ function loadSessionFile(e) {
       if(!payload.data) { showToast('INVALID SESSION FILE'); return; }
       /* load confirmed */
       S = payload.data;
-      if(!S.rptRows) S.rptRows = [];
       if(!S.deptPrefix) S.deptPrefix = 'POOL';
+      syncRptFromFindings();
       document.getElementById('tbOrg').value = S.org||'SAUDIA TECHNIC';
       document.getElementById('tbDept').value = S.dept||'CA & QC';
       document.getElementById('tbAcft').textContent = S.aircraft||'Set Aircraft';
