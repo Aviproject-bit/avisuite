@@ -1337,23 +1337,5 @@
     "description": "DOOR LINING AFT LINING DMG NEAR SCREW",
     "remarks": "",
     "photoUrl": ""
-  },
-  {
-    "id": "17827288001941yzxk",
-    "batchId": "batch_1782728742640_kk5ukb",
-    "timestamp": "2026-06-29T10:26:40.194Z",
-    "date": "29/06/2026",
-    "time": "13:25",
-    "aircraft": "HZ-ASF",
-    "reporter": "13010253",
-    "findings": [
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "N/A               ",
-        "description": ".                                                           ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/1YD0kQQL/dde93795fdcc.jpg"
-      }
-    ]
   }
 ]
