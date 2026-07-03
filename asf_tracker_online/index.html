@@ -421,7 +421,8 @@ const DEFAULT_COLUMNS = [
   {id:'status',   label:'Status',   type:'select', width:120, editable:true,
     options:['Open','In Progress','Closed','Deferred','N/A','On Hold']},
   {id:'priority', label:'Priority', type:'select', width:100, editable:true,
-    options:['Normal','Critical','AOG']}
+    options:['Normal','Critical','AOG']},
+  {id:'updated',  label:'Updated',  type:'text',   width:130, editable:false}
 ];
 
 let columns = JSON.parse(JSON.stringify(DEFAULT_COLUMNS));
@@ -641,10 +642,13 @@ function renderTable(){
     else if (priority === 'critical') rowClass = 'row-crit';
 
     bodyHtml += `<tr class="${rowClass}" data-id="${row._id}">`;
+    const today = new Date().toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'2-digit'});
+    const isUpdatedToday = row.updated && row.updated.startsWith(today);
     columns.forEach(col => {
       const val = row[col.id] || '';
       const isStatusCol = col.id === 'status';
-      const cellClass = isStatusCol ? 'status-cell' : '';
+      const isUpdatedCol = col.id === 'updated';
+      const cellClass = isStatusCol ? 'status-cell' : isUpdatedCol && isUpdatedToday ? 'updated-today' : '';
 
       if (col.type === 'select' && isAdmin) {
         const opts = col.options.map(o => `<option value="${esc(o)}" ${o===val?'selected':''}>${esc(o)}</option>`).join('');
@@ -745,8 +749,14 @@ function updateCell(rowId, colId, value){
   const row = rows.find(r => r._id === rowId);
   if (!row) return;
   row[colId] = value.trim ? value.trim() : value;
+  // Auto-stamp Last Updated timestamp on every cell change
+  if (colId !== 'updated') {
+    const now = new Date();
+    row.updated = now.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'2-digit'})
+      + ' ' + now.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+  }
   renderStats();
-  if ((colId === 'priority')) renderTable();
+  if (colId === 'priority' || colId === 'updated') renderTable();
   _debouncedSave();
 }
 
