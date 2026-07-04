@@ -1187,6 +1187,38 @@ input[type=checkbox]:checked+.tog::after{left:21px;}
 }
 /* ── Keyword highlighting via CSS ── */
 .t-desc b, .t-desc strong { color:#1D4ED8; }
+
+/* Passcode — desktop keyboard, mobile numpad */
+@media(min-width:769px){
+  #passcode-screen .pc-grid{ display:none !important; }
+  #passcode-screen .pc-kb-hint{ display:flex !important; }
+}
+@media(max-width:768px){
+  #passcode-screen .pc-kb-hint{ display:none !important; }
+  #passcode-screen .pc-grid{ display:grid !important; }
+}
+#passcode-screen .pc-kb-hint{
+  display:none;
+  align-items:center;gap:8px;
+  color:rgba(255,255,255,.35);font-size:11px;letter-spacing:1px;
+  margin-top:8px;
+}
+#passcode-screen .pc-kb-hint kbd{
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);
+  border-radius:4px;padding:2px 8px;font-size:10px;color:rgba(255,255,255,.5);
+}
+
+/* Admin button */
+.tbtn.admin-btn{
+  background:rgba(245,158,11,.15);
+  border-color:rgba(245,158,11,.4);
+  color:#FCD34D;
+  font-size:9px;
+  letter-spacing:1.5px;
+}
+.tbtn.admin-btn:hover{
+  background:rgba(245,158,11,.25);
+}
 </style>
 </head>
 <body>
@@ -1203,6 +1235,10 @@ input[type=checkbox]:checked+.tog::after{left:21px;}
     
     
     
+    <button class="tbtn admin-btn tb-hide-mobile" onclick="window.open('roster_admin.html','_blank')" title="Roster Admin">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/><path d="M19 8h2M3 8h2M12 19v2"/></svg>
+      ADMIN
+    </button>
     <button class="tbtn save" onclick="saveEntry()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0;"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg> SAVE TO LOG</button>
     <button class="tbtn" onclick="confirmReset()" style="background:rgba(220,38,38,.15);border-color:rgba(220,38,38,.3);color:#FCA5A5;" title="RESET SHIFT ENTRY">↺ RESET</button>
   <div class="tb-hide-mobile" style="display:flex;align-items:center;gap:4px;border-left:1px solid var(--border);padding-left:10px;margin-left:4px;">
@@ -10752,22 +10788,6 @@ function _restoreDraft(){
 // Char codes: 51='3', 50='2', 49='1' → '321'
 const _PC_VALID=[51,50,49].map(c=>String.fromCharCode(c)).join('');
 function _pcVerify(entry){ return String(entry)===_PC_VALID; }
-
-const _APP_LOCK_VER='v3'; // bump this to force re-auth on all devices
-function _checkPasscode(){
-  const TRUST_HOURS = 36; // re-ask every 36 hours
-  const trusted   = localStorage.getItem('_app_trusted')==='1';
-  const verMatch  = localStorage.getItem('_app_lock_ver')===_APP_LOCK_VER;
-  const lastAuth  = parseInt(localStorage.getItem('_app_auth_ts')||'0');
-  const elapsed   = (Date.now()-lastAuth)/(1000*60*60); // hours
-  if(trusted && verMatch && elapsed < TRUST_HOURS) return;
-  localStorage.removeItem('_app_trusted');
-  localStorage.removeItem('_app_lock_ver');
-  localStorage.removeItem('_app_auth_ts');
-  setTimeout(_showPasscodeScreen, 80);
-}
-
-let _pcEntry='';
 function _showPasscodeScreen(){
   const screen=document.createElement('div');
   screen.id='passcode-screen';
@@ -10786,6 +10806,7 @@ function _showPasscodeScreen(){
     </div>
     <div class="pc-title">SECURE ACCESS</div>
     <div class="pc-sub">Enter your passcode to continue</div>
+
     <div class="pc-dots" id="pc-dots">
       <div class="pc-dot" id="pc-d0"></div>
       <div class="pc-dot" id="pc-d1"></div>
