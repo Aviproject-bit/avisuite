@@ -126,17 +126,9 @@ const FILE = 'Shift_Log.html';
 const SHC = {D:'FEF3C7',T:'DBEAFE',G:'D1FAE5',R:'CBD5E1',H:'DDD6FE',V:'E0F2FE',
   'S/L':'FFE4E6',A:'1F2937',OT:'FED7AA',TR:'C4B5FD',OS:'E0E7FF','C/T':'D9F99D'};
 
-let ROSTER={}, _pin='', _dirty=false, _sha='', _raw='', _token='';
+let ROSTER={}, _pin='', _dirty=false, _sha='', _raw='';
 
-// ── GET TOKEN FROM localStorage ──────────────────────
-function getToken(){
-  let t = localStorage.getItem('_radmin_token')||'';
-  if(!t){
-    t = prompt('Enter GitHub Token:','');
-    if(t) localStorage.setItem('_radmin_token', t);
-  }
-  return t;
-}
+// Token handled by Cloudflare Worker proxy
 
 // ── PASSCODE ──────────────────────────────────────────
 function lk(k){
@@ -148,7 +140,6 @@ function lk(k){
       const scr=document.getElementById('lock');
       scr.style.transition='opacity .3s';scr.style.opacity='0';
       setTimeout(()=>{scr.style.display='none';document.getElementById('app').style.display='';},300);
-      _token=getToken();
       init();
     } else {
       document.getElementById('lock-err').textContent='INCORRECT PASSCODE';
@@ -167,10 +158,9 @@ document.addEventListener('keydown',e=>{
 async function init(){
   status('Loading roster...');
   try{
-    const res=await fetch(`https://api.github.com/repos/${REPO}/contents/${FILE}`,{
-      headers:{'Authorization':`token ${_token}`,'User-Agent':'roster-admin'}
+    const res=await fetch(`https://acft-proxy.aviproject.workers.dev?path=/repos/${REPO}/contents/${FILE}`,{
+      headers:{'User-Agent':'roster-admin'}
     });
-    if(!res.ok) throw new Error('Auth failed — check token');
     const data=await res.json();
     _sha=data.sha;
     _raw=decodeURIComponent(escape(atob(data.content.replace(/\n/g,''))));
@@ -192,7 +182,6 @@ async function init(){
   }catch(e){
     status('Error: '+e.message);
     showToast('Error: '+e.message);
-    localStorage.removeItem('_radmin_token');
   }
 }
 
@@ -324,9 +313,9 @@ async function saveToGitHub(){
     }
     const encoded=btoa(b64);
 
-    const res=await fetch(`https://api.github.com/repos/${REPO}/contents/${FILE}`,{
+    const res=await fetch(`https://acft-proxy.aviproject.workers.dev?path=/repos/${REPO}/contents/${FILE}`,{
       method:'PUT',
-      headers:{'Authorization':`token ${_token}`,'Content-Type':'application/json','User-Agent':'roster-admin'},
+      headers:{'Content-Type':'application/json','User-Agent':'roster-admin'},
       body:JSON.stringify({message:'roster: admin update',content:encoded,sha:_sha})
     });
     const data=await res.json();
