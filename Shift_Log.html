@@ -11792,9 +11792,8 @@ document.addEventListener('DOMContentLoaded',()=>{
 async function _loadRosterOverride(){
   try{
     const PROXY='https://acft-proxy.aviproject.workers.dev?path=';
-    const REPO='Aviproject-bit/ACFT-Project';
     const FILE='uploads/roster.json';
-    const res=await fetch(PROXY+encodeURIComponent('/repos/'+REPO+'/contents/'+FILE)+'&t='+Date.now());
+    const res=await fetch(PROXY+encodeURIComponent(FILE)+'&t='+Date.now());
     if(!res.ok) return;
     const data=await res.json();
     if(!data.content) return;
@@ -11802,8 +11801,7 @@ async function _loadRosterOverride(){
     const override=JSON.parse(raw);
     Object.entries(override).forEach(([crew,members])=>{ ROSTER[crew]=members; });
     if(document.getElementById('rm-month-filter')?.value) renderRosterMgr();
-    console.log('✓ roster.json loaded');
-  }catch(e){ console.log('roster.json not available:', e.message); }
+  }catch(e){ console.log('roster.json:', e.message); }
 }
 
 // ── Roster Admin Mode ──────────────────────────────────
@@ -11875,55 +11873,34 @@ async function raSaveToGitHub(){
   if(!_raDirty){ showToast('لا توجد تغييرات'); return; }
   showToast('جاري الحفظ...');
   const PROXY='https://acft-proxy.aviproject.workers.dev?path=';
-  const REPO='Aviproject-bit/ACFT-Project';
   const FILE='uploads/roster.json';
   try{
-    console.log('[Admin] Starting save...');
-
-    // Step 1: Get SHA
-    const getUrl=PROXY+encodeURIComponent('/repos/'+REPO+'/contents/'+FILE);
-    console.log('[Admin] GET:', getUrl);
+    // الـ Worker يُضيف /repos/Aviproject-bit/ACFT-Project/contents/ تلقائياً
+    const getUrl=PROXY+encodeURIComponent(FILE);
     const res=await fetch(getUrl);
-    console.log('[Admin] GET status:', res.status);
     let sha='';
-    if(res.ok){
-      const d=await res.json();
-      sha=d.sha||'';
-      console.log('[Admin] SHA:', sha.slice(0,7));
-    } else {
-      console.log('[Admin] File not found — will create');
-    }
+    if(res.ok){ const d=await res.json(); sha=d.sha||''; }
 
-    // Step 2: Encode
     const jsonStr=JSON.stringify(ROSTER,null,2);
-    console.log('[Admin] JSON size:', jsonStr.length, 'chars');
     const encoded=btoa(unescape(encodeURIComponent(jsonStr)));
-    console.log('[Admin] Encoded size:', encoded.length);
 
-    // Step 3: PUT
-    const putUrl=PROXY+encodeURIComponent('/repos/'+REPO+'/contents/'+FILE);
-    console.log('[Admin] PUT:', putUrl);
     const body={message:'roster: admin update',content:encoded};
     if(sha) body.sha=sha;
-    const r2=await fetch(putUrl,{
+    const r2=await fetch(PROXY+encodeURIComponent(FILE),{
       method:'PUT',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify(body)
     });
-    console.log('[Admin] PUT status:', r2.status);
     const d2=await r2.json();
-    console.log('[Admin] PUT response:', JSON.stringify(d2).slice(0,200));
-
     if(d2.commit||d2.content){
       _raDirty=false;
       showToast('تم الحفظ ✓');
-      console.log('[Admin] Save successful!');
     } else {
-      throw new Error(d2.message||JSON.stringify(d2).slice(0,100));
+      throw new Error(d2.message||'فشل');
     }
   }catch(e){
     showToast('خطأ: '+e.message);
-    console.error('[Admin] Save error:', e);
+    console.error('[Admin] Save error:',e);
   }
 }
 
