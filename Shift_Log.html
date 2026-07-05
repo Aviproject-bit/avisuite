@@ -5958,7 +5958,7 @@ function renderRosterMgr(){
           <span class="rm-day-cell" tabindex="0"
             data-code="${code}" data-crew="${_opCrew}" data-idx="${_opIdx}" data-day="${d}" data-di="${di}"
             onclick="handleCellClick(event,this)"
-            ${window._raActive ? `ondblclick="raEditCell(this)"` : ''}
+            
             onkeydown="cellKeyDown(event,this)"
             title="${d}${m._notes?.[d]?' 📝 '+m._notes[d].substring(0,60):''}" >${code||''}${(code==='N'&&m._notes?.[d])?'<span style="font-size:5px;vertical-align:super;margin-left:1px;">●</span>':''}</span>
         </td>`;
@@ -6012,6 +6012,13 @@ let _savedPatterns = (()=>{ try{ return JSON.parse(localStorage.getItem('roster_
 let _pbActiveCrew = 'all';
 let _pbActivePattern = null; // toggle quals badge visibility
 function handleCellClick(e, el){
+  // Admin mode: click to edit
+  if(window._raActive){
+    e.stopPropagation();
+    e.preventDefault();
+    raEditCell(el);
+    return;
+  }
   if(e && (e.ctrlKey || e.metaKey || e.shiftKey)){
     // Multi-select mode
     e.preventDefault();
@@ -11870,6 +11877,7 @@ function raSetCell(crew, idx, date, code){
 }
 
 async function raSaveToGitHub(){
+  console.log('[Admin] _raDirty=', _raDirty);
   if(!_raDirty){ showToast('لا توجد تغييرات'); return; }
   showToast('جاري الحفظ...');
   const PROXY='https://acft-proxy.aviproject.workers.dev?path=';
