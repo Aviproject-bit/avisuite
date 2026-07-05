@@ -11914,51 +11914,51 @@ async function raSaveToGitHub(){
 
 function raEditCell(el){
   if(!_raActive) return;
-  const code=el.dataset.code||'';
-  const newCode=prompt('Code (D/T/G/R/V/H/TR/SL/OT):', code);
-  if(newCode===null) return;
-  const val=newCode.trim().toUpperCase();
-  // Update ROSTER
-  const crew=el.dataset.crew, idx=parseInt(el.dataset.idx), day=el.dataset.day;
-  // Find the primary crew member
-  let found=false;
-  for(const [pc, members] of Object.entries(ROSTER)){
-    for(const m of members){
-      const tc=(m.crewByMonth||{})[day.slice(0,7)]||pc;
-      if(tc===crew){
-        const memberIdx=[...document.getElementById('roster-mgr-wrap')
-          .querySelectorAll(`[data-crew="${crew}"][data-day="${day}"]`)]
-          .indexOf(el);
-        // simpler: match by index in displayed crew
-      }
-    }
-  }
-  // Use data-idx directly on ROSTER primary crew
-  // data-crew is the display crew, data-idx is index within that display crew
-  const dispCrewEls=[...document.querySelectorAll(`[data-crew="${crew}"][data-day="${day}"]`)];
-  const myIdx=dispCrewEls.indexOf(el);
-  // Walk ROSTER to find member at this display position
-  let count=0;
-  for(const [pc, members] of Object.entries(ROSTER)){
-    for(let i=0;i<members.length;i++){
-      const m=members[i];
-      const activeYM=document.getElementById('rm-month-filter')?.value||'';
-      const tc=(m.crewByMonth||{})[activeYM]||pc;
-      if(tc===crew){
-        if(count===myIdx){
-          if(val) m.schedule[day]=val; else delete m.schedule[day];
-          _raDirty=true;
-          // Update cell visually
-          el.dataset.code=val;
-          el.textContent=val;
-          el.className=el.className.replace(/\bcode-\S+/g,'');
-          if(val) el.classList.add('code-'+val.replace('/',''));
-          return;
+  const day = el.dataset.day;
+  if(!day){ console.warn('[Admin] No day on cell'); return; }
+
+  // Get PRN from parent TR
+  const tr = el.closest('tr');
+  const prn = tr ? tr.dataset.prn : '';
+  const oldCode = (el.dataset.code||'').trim();
+
+  console.log('[Admin] Edit cell — PRN:', prn, 'day:', day, 'current:', oldCode);
+
+  const newCode = prompt('Code (D/T/G/R/V/H/TR/S/OT):\nCurrent: ' + (oldCode||'empty'), oldCode);
+  if(newCode === null) return;
+  const val = newCode.trim().toUpperCase();
+
+  // Find in ROSTER by PRN
+  let updated = false;
+  if(prn){
+    for(const members of Object.values(ROSTER)){
+      for(const m of members){
+        if(m.prn === prn){
+          if(val) m.schedule[day] = val;
+          else delete m.schedule[day];
+          updated = true;
+          break;
         }
-        count++;
       }
+      if(updated) break;
     }
   }
+
+  if(!updated){
+    console.warn('[Admin] Member not found by PRN:', prn);
+    showToast('لم يتم العثور على العضو');
+    return;
+  }
+
+  _raDirty = true;
+  console.log('[Admin] Updated! _raDirty=true, val=', val);
+
+  // Update cell visually
+  el.dataset.code = val;
+  el.textContent = val;
+  el.className = 'rm-day-cell';
+  if(val) el.classList.add('code-' + val.replace('/',''));
+  showToast((val||'—') + ' ✓');
 }
 </script>
 
