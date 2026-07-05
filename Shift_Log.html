@@ -11746,6 +11746,8 @@ function _injectShcCss(){
   document.head.appendChild(el);
 }
 
+const _APP_LOCK_VER = 'v3';
+
 function _checkPasscode(){
   const TRUST_HOURS = 36;
   const trusted   = localStorage.getItem('_app_trusted')==='1';
