@@ -1648,7 +1648,7 @@ input[type=checkbox]:checked+.tog::after{left:21px;}
       </button>
       <div class="rm-admin-bar" id="rm-admin-bar">
         <span>ADMIN MODE</span>
-        <button class="rm-save-gh" onclick="raSaveToGitHub()">⬆ SAVE TO GITHUB</button>
+        <button class="rm-save-gh" onclick="raSaveToGitHub()" title="Save changes">💾 SAVE</button>
         <button class="rm-exit-admin" onclick="raExit()" title="Exit admin">✕</button>
       </div>
       <button id="rm-addmonth-btn" class="tbtn" onclick="openAddDateRange()"  style="font-size:10px;padding:4px 10px;" title="Add month">
@@ -11782,10 +11782,29 @@ function _initRosterScrollHint(){
   },{passive:true,once:true});
 }
 document.addEventListener('DOMContentLoaded',()=>{
-  // Force scroll to top after all restore/init animations settle
   setTimeout(()=>{ window.scrollTo(0,0); }, 50);
   setTimeout(_initRosterScrollHint, 800);
+  // Try loading roster overrides from uploads/roster.json
+  _loadRosterOverride();
 });
+
+async function _loadRosterOverride(){
+  try{
+    const PROXY='https://acft-proxy.aviproject.workers.dev?path=';
+    const REPO='Aviproject-bit/ACFT-Project';
+    const res=await fetch(PROXY+encodeURIComponent('/repos/'+REPO+'/contents/uploads/roster.json'),
+      {headers:{'Cache-Control':'no-cache'}});
+    if(!res.ok) return;
+    const data=await res.json();
+    const raw=new TextDecoder().decode(Uint8Array.from(atob(data.content.replace(/\n/g,'')),c=>c.charCodeAt(0)));
+    const override=JSON.parse(raw);
+    // Merge override into ROSTER
+    Object.entries(override).forEach(([crew,members])=>{
+      ROSTER[crew]=members;
+    });
+    if(document.getElementById('rm-month-filter')?.value) renderRosterMgr();
+  }catch(e){ /* roster.json not found or proxy issue — use default */ }
+}
 
 // ── Roster Admin Mode ──────────────────────────────────
 const _RA_PC = [54,53,49].map(n=>String.fromCharCode(n)).join(''); // '651'
@@ -11854,45 +11873,37 @@ function raSetCell(crew, idx, date, code){
 
 async function raSaveToGitHub(){
   if(!_raDirty){ showToast('NO CHANGES'); return; }
+  const btn=document.getElementById('rm-admin-bar');
   showToast('SAVING...');
   const PROXY='https://acft-proxy.aviproject.workers.dev?path=';
   const REPO='Aviproject-bit/ACFT-Project';
-  const FILE='Shift_Log.html';
+  const FILE='uploads/roster.json'; // small file — easy to update
   try{
-    // Get fresh SHA via proxy (token injected by Cloudflare Worker)
+    // Get current SHA
     const res=await fetch(PROXY+encodeURIComponent('/repos/'+REPO+'/contents/'+FILE));
-    if(!res.ok) throw new Error('Proxy error '+res.status);
-    const data=await res.json();
-    const sha=data.sha;
-
-    // Decode current file
-    let raw='';
-    const b64=data.content.replace(/\n/g,'');
-    const bytes=Uint8Array.from(atob(b64),c=>c.charCodeAt(0));
-    raw=new TextDecoder().decode(bytes);
-
-    // Replace ROSTER
-    const si=raw.indexOf('let ROSTER = {');
-    let i=si+13, depth=0, ei=-1;
-    while(i<raw.length){ if(raw[i]==='{') depth++; else if(raw[i]==='}'){ depth--; if(depth===0){ei=i+1;break;} } i++; }
-    const newRaw=raw.slice(0,si+13)+JSON.stringify(ROSTER,null,0)+raw.slice(ei);
-
-    // Encode back
-    const enc=new TextEncoder().encode(newRaw);
-    let b64out=''; const ch=8192;
-    for(let j=0;j<enc.length;j+=ch) b64out+=String.fromCharCode(...enc.slice(j,j+ch));
-    const encoded=btoa(b64out);
-
-    // PUT via proxy
+    let sha='';
+    if(res.ok){
+      const d=await res.json();
+      sha=d.sha||'';
+    }
+    // Encode roster JSON
+    const json=JSON.stringify(ROSTER,null,2);
+    const enc=new TextEncoder().encode(json);
+    let b64=''; const ch=8192;
+    for(let j=0;j<enc.length;j+=ch) b64+=String.fromCharCode(...enc.slice(j,j+ch));
+    const encoded=btoa(b64);
+    // PUT
+    const body={message:'roster: admin update',content:encoded};
+    if(sha) body.sha=sha;
     const r2=await fetch(PROXY+encodeURIComponent('/repos/'+REPO+'/contents/'+FILE),{
       method:'PUT',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({message:'roster: admin edit',content:encoded,sha})
+      body:JSON.stringify(body)
     });
     const d2=await r2.json();
-    if(d2.commit){ _raDirty=false; showToast('SAVED ✓'); }
-    else throw new Error(d2.message||'Failed');
-  }catch(e){ showToast('ERROR: '+e.message); console.error(e); }
+    if(d2.commit){ _raDirty=false; showToast('تم الحفظ ✓'); }
+    else throw new Error(d2.message||'فشل');
+  }catch(e){ showToast('خطأ: '+e.message); console.error(e); }
 }
 
 function raEditCell(el){
