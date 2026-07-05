@@ -3247,8 +3247,6 @@ function _injectShcCss(){
   }).join('');
   document.head.appendChild(el);
 }
-document.addEventListener('DOMContentLoaded', _injectShcCss);
-
   const container=document.createElement('div');
   container.style.cssText=`background:#fff;font-family:"BwGradual",Calibri,sans-serif;font-size:12px;display:inline-flex;flex-direction:column;`;
 
@@ -5895,7 +5893,7 @@ function renderRosterMgr(){
       const _opCrew = m._primaryCrew || crewName;
       const _opIdx  = (()=>{ const arr=ROSTER[_opCrew]; if(!arr)return mi; const fi=arr.findIndex(x=>x.name===m.name&&x.prn===m.prn); return fi>=0?fi:mi; })();
       const _isGuest = !!(m._primaryCrew && m._primaryCrew !== crewName);
-      html += `<tr data-prn="${m.prn||''}" style="background:${_rowBg};${_rowOpacity}" ondragover="rmDragOver(event)" ondrop="rmDrop(event,'${crewName}',${mi})" ondragleave="this.style.background='${_defBg}'" onclick="rmToggleRowHL(this)">`;
+      html += `<tr style="background:${_rowBg};${_rowOpacity}" ondragover="rmDragOver(event)" ondrop="rmDrop(event,'${crewName}',${mi})" ondragleave="this.style.background='${_defBg}'" onclick="rmToggleRowHL(this)">`;
 
       // # number
       html += `<td style="text-align:center;font-size:10px;color:var(--muted);font-family:BwGradual,sans-serif;padding:4px 2px;border-bottom:1px solid var(--border);">${rowNum}</td>`;
@@ -5960,7 +5958,7 @@ function renderRosterMgr(){
           <span class="rm-day-cell" tabindex="0"
             data-code="${code}" data-crew="${_opCrew}" data-idx="${_opIdx}" data-day="${d}" data-di="${di}"
             onclick="handleCellClick(event,this)"
-            
+            ${window._raActive ? `ondblclick="raEditCell(this)"` : ''}
             onkeydown="cellKeyDown(event,this)"
             title="${d}${m._notes?.[d]?' 📝 '+m._notes[d].substring(0,60):''}" >${code||''}${(code==='N'&&m._notes?.[d])?'<span style="font-size:5px;vertical-align:super;margin-left:1px;">●</span>':''}</span>
         </td>`;
@@ -6014,12 +6012,6 @@ let _savedPatterns = (()=>{ try{ return JSON.parse(localStorage.getItem('roster_
 let _pbActiveCrew = 'all';
 let _pbActivePattern = null; // toggle quals badge visibility
 function handleCellClick(e, el){
-  // Admin mode: single click to edit
-  if(window._raActive){
-    e.stopPropagation();
-    raEditCell(el);
-    return;
-  }
   if(e && (e.ctrlKey || e.metaKey || e.shiftKey)){
     // Multi-select mode
     e.preventDefault();
@@ -11798,18 +11790,17 @@ async function _loadRosterOverride(){
   try{
     const PROXY='https://acft-proxy.aviproject.workers.dev?path=';
     const REPO='Aviproject-bit/ACFT-Project';
-    const res=await fetch(PROXY+encodeURIComponent('/repos/'+REPO+'/contents/uploads/roster.json'),
-      {headers:{'Cache-Control':'no-cache'}});
+    const FILE='uploads/roster.json';
+    const res=await fetch(PROXY+encodeURIComponent('/repos/'+REPO+'/contents/'+FILE)+'&t='+Date.now());
     if(!res.ok) return;
     const data=await res.json();
-    const raw=new TextDecoder().decode(Uint8Array.from(atob(data.content.replace(/\n/g,'')),c=>c.charCodeAt(0)));
+    if(!data.content) return;
+    const raw=decodeURIComponent(escape(atob(data.content.replace(/\n/g,''))));
     const override=JSON.parse(raw);
-    // Merge override into ROSTER
-    Object.entries(override).forEach(([crew,members])=>{
-      ROSTER[crew]=members;
-    });
+    Object.entries(override).forEach(([crew,members])=>{ ROSTER[crew]=members; });
     if(document.getElementById('rm-month-filter')?.value) renderRosterMgr();
-  }catch(e){ /* roster.json not found or proxy issue — use default */ }
+    console.log('✓ roster.json loaded');
+  }catch(e){ console.log('roster.json not available:', e.message); }
 }
 
 // ── Roster Admin Mode ──────────────────────────────────
@@ -11878,26 +11869,23 @@ function raSetCell(crew, idx, date, code){
 }
 
 async function raSaveToGitHub(){
-  if(!_raDirty){ showToast('NO CHANGES'); return; }
-  const btn=document.getElementById('rm-admin-bar');
-  showToast('SAVING...');
+  if(!_raDirty){ showToast('لا توجد تغييرات'); return; }
+  showToast('جاري الحفظ...');
   const PROXY='https://acft-proxy.aviproject.workers.dev?path=';
   const REPO='Aviproject-bit/ACFT-Project';
-  const FILE='uploads/roster.json'; // small file — easy to update
+  const FILE='uploads/roster.json';
   try{
     // Get current SHA
-    const res=await fetch(PROXY+encodeURIComponent('/repos/'+REPO+'/contents/'+FILE));
     let sha='';
-    if(res.ok){
-      const d=await res.json();
-      sha=d.sha||'';
-    }
-    // Encode roster JSON
-    const json=JSON.stringify(ROSTER,null,2);
-    const enc=new TextEncoder().encode(json);
-    let b64=''; const ch=8192;
-    for(let j=0;j<enc.length;j+=ch) b64+=String.fromCharCode(...enc.slice(j,j+ch));
-    const encoded=btoa(b64);
+    const res=await fetch(PROXY+encodeURIComponent('/repos/'+REPO+'/contents/'+FILE));
+    if(res.ok){ const d=await res.json(); sha=d.sha||''; }
+
+    // Build JSON content
+    const jsonStr=JSON.stringify(ROSTER,null,2);
+
+    // Encode to base64 safely
+    const encoded=btoa(unescape(encodeURIComponent(jsonStr)));
+
     // PUT
     const body={message:'roster: admin update',content:encoded};
     if(sha) body.sha=sha;
@@ -11906,69 +11894,67 @@ async function raSaveToGitHub(){
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify(body)
     });
+    if(!r2.ok) throw new Error('HTTP '+r2.status);
     const d2=await r2.json();
-    if(d2.commit){ _raDirty=false; showToast('تم الحفظ ✓'); }
-    else throw new Error(d2.message||'فشل');
-  }catch(e){ showToast('خطأ: '+e.message); console.error(e); }
+    if(d2.commit||d2.content){
+      _raDirty=false;
+      showToast('تم الحفظ ✓');
+    } else {
+      console.error('Save response:', d2);
+      throw new Error(d2.message||'فشل الحفظ');
+    }
+  }catch(e){
+    showToast('خطأ: '+e.message);
+    console.error('raSaveToGitHub error:',e);
+  }
 }
 
 function raEditCell(el){
   if(!_raActive) return;
-  const oldCode = (el.dataset.code||'').trim();
-  const day = el.dataset.day;
-  if(!day) return;
-
-  const newCode = prompt('الكود الجديد (D/T/G/R/V/H/TR/S/OT/OS/C):\nحالياً: ' + (oldCode||'فارغ'), oldCode);
-  if(newCode === null) return; // cancelled
-  const val = newCode.trim().toUpperCase();
-
-  // Find member in ROSTER by PRN stored in row
-  const row = el.closest('tr');
-  const prn = row?.dataset?.prn || '';
-  const activeYM = document.getElementById('rm-month-filter')?.value||'';
-
-  let updated = false;
-  for(const members of Object.values(ROSTER)){
+  const code=el.dataset.code||'';
+  const newCode=prompt('Code (D/T/G/R/V/H/TR/SL/OT):', code);
+  if(newCode===null) return;
+  const val=newCode.trim().toUpperCase();
+  // Update ROSTER
+  const crew=el.dataset.crew, idx=parseInt(el.dataset.idx), day=el.dataset.day;
+  // Find the primary crew member
+  let found=false;
+  for(const [pc, members] of Object.entries(ROSTER)){
     for(const m of members){
-      if(m.prn === prn){
-        if(val) m.schedule[day] = val;
-        else delete m.schedule[day];
-        updated = true;
-        break;
+      const tc=(m.crewByMonth||{})[day.slice(0,7)]||pc;
+      if(tc===crew){
+        const memberIdx=[...document.getElementById('roster-mgr-wrap')
+          .querySelectorAll(`[data-crew="${crew}"][data-day="${day}"]`)]
+          .indexOf(el);
+        // simpler: match by index in displayed crew
       }
     }
-    if(updated) break;
   }
-
-  if(!updated){
-    // Fallback: find by display position
-    const crew = el.dataset.crew;
-    const allCells = [...document.querySelectorAll(`[data-crew="${crew}"][data-day="${day}"]`)];
-    const pos = allCells.indexOf(el);
-    let count=0;
-    for(const members of Object.values(ROSTER)){
-      for(const m of members){
-        const tc=(m.crewByMonth||{})[activeYM]||(Object.entries(ROSTER).find(([,ms])=>ms.includes(m))||[''])[0];
-        if(tc===crew){
-          if(count===pos){
-            if(val) m.schedule[day]=val; else delete m.schedule[day];
-            updated=true; break;
-          }
-          count++;
+  // Use data-idx directly on ROSTER primary crew
+  // data-crew is the display crew, data-idx is index within that display crew
+  const dispCrewEls=[...document.querySelectorAll(`[data-crew="${crew}"][data-day="${day}"]`)];
+  const myIdx=dispCrewEls.indexOf(el);
+  // Walk ROSTER to find member at this display position
+  let count=0;
+  for(const [pc, members] of Object.entries(ROSTER)){
+    for(let i=0;i<members.length;i++){
+      const m=members[i];
+      const activeYM=document.getElementById('rm-month-filter')?.value||'';
+      const tc=(m.crewByMonth||{})[activeYM]||pc;
+      if(tc===crew){
+        if(count===myIdx){
+          if(val) m.schedule[day]=val; else delete m.schedule[day];
+          _raDirty=true;
+          // Update cell visually
+          el.dataset.code=val;
+          el.textContent=val;
+          el.className=el.className.replace(/\bcode-\S+/g,'');
+          if(val) el.classList.add('code-'+val.replace('/',''));
+          return;
         }
+        count++;
       }
-      if(updated) break;
     }
-  }
-
-  if(updated){
-    _raDirty = true;
-    // Update cell visually
-    el.dataset.code = val;
-    el.textContent = val;
-    el.className = 'rm-day-cell';
-    if(val) el.classList.add('code-'+val.replace('/',''));
-    showToast(day.slice(8)+' → '+(val||'—'));
   }
 }
 </script>
