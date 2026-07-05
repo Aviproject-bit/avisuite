@@ -10873,6 +10873,7 @@ function _restoreDraft(){
 // Char codes: 51='3', 50='2', 49='1' → '321'
 const _PC_VALID=[51,50,49].map(c=>String.fromCharCode(c)).join('');
 function _pcVerify(entry){ return String(entry)===_PC_VALID; }
+let _pcEntry='';
 function _showPasscodeScreen(){
   const screen=document.createElement('div');
   screen.id='passcode-screen';
