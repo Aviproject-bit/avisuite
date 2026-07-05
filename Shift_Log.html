@@ -1219,6 +1219,81 @@ input[type=checkbox]:checked+.tog::after{left:21px;}
 .tbtn.admin-btn:hover{
   background:rgba(245,158,11,.25);
 }
+
+/* ── Roster Admin Mode ─────────────────────────────── */
+.rm-admin-bar{
+  display:none;
+  align-items:center;gap:8px;
+  background:rgba(245,158,11,.12);
+  border:1px solid rgba(245,158,11,.3);
+  border-radius:6px;
+  padding:4px 10px;
+  font-size:9px;font-weight:700;letter-spacing:1.5px;
+  color:#F59E0B;
+  margin-left:6px;
+}
+.rm-admin-bar.visible{ display:flex; }
+.rm-admin-bar .rm-save-gh{
+  background:#F59E0B;color:#000;border:none;
+  border-radius:4px;padding:3px 10px;
+  font-size:9px;font-weight:700;letter-spacing:1px;cursor:pointer;
+}
+.rm-admin-bar .rm-save-gh:hover{ background:#D97706; }
+.rm-admin-bar .rm-exit-admin{
+  background:transparent;border:none;color:rgba(245,158,11,.6);
+  font-size:9px;cursor:pointer;padding:0 4px;
+}
+
+/* Admin passcode overlay */
+#rm-admin-lock{
+  position:fixed;inset:0;background:rgba(0,0,0,.7);
+  z-index:9998;display:none;
+  align-items:center;justify-content:center;
+}
+#rm-admin-lock.show{ display:flex; }
+.rm-al-box{
+  background:#0F2920;border-radius:16px;
+  padding:32px 28px;
+  display:flex;flex-direction:column;align-items:center;gap:16px;
+  width:280px;
+}
+.rm-al-title{
+  color:rgba(255,255,255,.5);font-size:9px;
+  font-weight:700;letter-spacing:3px;text-transform:uppercase;
+}
+.rm-al-dots{ display:flex;gap:12px; }
+.rm-al-dot{
+  width:12px;height:12px;border-radius:50%;
+  border:2px solid rgba(255,255,255,.2);
+  background:transparent;transition:all .15s;
+}
+.rm-al-dot.filled{ background:#F59E0B;border-color:#F59E0B; }
+.rm-al-err{ color:#FCA5A5;font-size:10px;height:14px; }
+/* numpad — mobile only */
+.rm-al-pad{
+  display:grid;grid-template-columns:repeat(3,56px);gap:8px;
+}
+.rm-al-key{
+  width:56px;height:56px;border-radius:50%;border:none;
+  background:rgba(255,255,255,.1);color:#fff;
+  font-size:18px;font-weight:700;cursor:pointer;
+  transition:background .1s;-webkit-tap-highlight-color:transparent;
+}
+.rm-al-key:active{ background:rgba(255,255,255,.25); }
+/* on desktop: hide numpad, show keyboard hint */
+@media(min-width:769px){
+  .rm-al-pad{ display:none; }
+  .rm-al-kb{ display:flex !important; }
+}
+.rm-al-kb{
+  display:none;
+  color:rgba(255,255,255,.3);font-size:11px;
+  align-items:center;gap:6px;
+}
+.rm-al-kb kbd{
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);
+  border-radius:4px;padding:2px 8px;font-size:10px;color:rgba(255,255,255,.5);
+}
 </style>
 </head>
 <body>
@@ -1565,7 +1640,18 @@ input[type=checkbox]:checked+.tog::after{left:21px;}
         </svg> IMPORT
         <input type="file" accept=".xlsx,.xls,.csv" style="display:none" onchange="importExcel(this)">
       </label>
-      <button id="rm-addmonth-btn" class="tbtn" onclick="openAddDateRange()" style="font-size:10px;padding:4px 10px;" title="Add month">
+      <button class="tbtn" onclick="openRosterAdmin()"
+        style="font-size:10px;padding:4px 10px;background:rgba(245,158,11,.15);border-color:rgba(245,158,11,.4);color:#FCD34D;"
+        title="Admin Mode">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/></svg>
+        ADMIN
+      </button>
+      <div class="rm-admin-bar" id="rm-admin-bar">
+        <span>ADMIN MODE</span>
+        <button class="rm-save-gh" onclick="raSaveToGitHub()">⬆ SAVE TO GITHUB</button>
+        <button class="rm-exit-admin" onclick="raExit()" title="Exit admin">✕</button>
+      </div>
+      <button id="rm-addmonth-btn" class="tbtn" onclick="openAddDateRange()"  style="font-size:10px;padding:4px 10px;" title="Add month">
         <svg width="11" height="11" viewBox="0 0 20 20" fill="none">
           <rect x="2" y="4" width="16" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/>
           <path d="M6 2v4M14 2v4M2 9h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
@@ -5874,6 +5960,7 @@ function renderRosterMgr(){
           <span class="rm-day-cell" tabindex="0"
             data-code="${code}" data-crew="${_opCrew}" data-idx="${_opIdx}" data-day="${d}" data-di="${di}"
             onclick="handleCellClick(event,this)"
+            ${window._raActive ? `ondblclick="raEditCell(this)"` : ''}
             onkeydown="cellKeyDown(event,this)"
             title="${d}${m._notes?.[d]?' 📝 '+m._notes[d].substring(0,60):''}" >${code||''}${(code==='N'&&m._notes?.[d])?'<span style="font-size:5px;vertical-align:super;margin-left:1px;">●</span>':''}</span>
         </td>`;
@@ -11660,6 +11747,19 @@ function _injectShcCss(){
   }).join('');
   document.head.appendChild(el);
 }
+
+function _checkPasscode(){
+  const TRUST_HOURS = 36;
+  const trusted   = localStorage.getItem('_app_trusted')==='1';
+  const verMatch  = localStorage.getItem('_app_lock_ver')===_APP_LOCK_VER;
+  const lastAuth  = parseInt(localStorage.getItem('_app_auth_ts')||'0');
+  const elapsed   = (Date.now()-lastAuth)/(1000*60*60);
+  if(trusted && verMatch && elapsed < TRUST_HOURS) return;
+  localStorage.removeItem('_app_trusted');
+  localStorage.removeItem('_app_lock_ver');
+  localStorage.removeItem('_app_auth_ts');
+  setTimeout(_showPasscodeScreen, 80);
+}
 document.addEventListener('DOMContentLoaded', _injectShcCss);
 document.addEventListener('DOMContentLoaded', _checkPasscode);
 
@@ -11686,6 +11786,163 @@ document.addEventListener('DOMContentLoaded',()=>{
   setTimeout(()=>{ window.scrollTo(0,0); }, 50);
   setTimeout(_initRosterScrollHint, 800);
 });
+
+// ── Roster Admin Mode ──────────────────────────────────
+const _RA_PC = [54,53,49].map(n=>String.fromCharCode(n)).join(''); // '651'
+let _raPin='', _raActive=false, _raDirty=false;
+
+function openRosterAdmin(){
+  if(_raActive){ raExit(); return; }
+  document.getElementById('rm-admin-lock').classList.add('show');
+  _raPin='';
+  [0,1,2].forEach(i=>document.getElementById('ra-d'+i).className='rm-al-dot');
+  document.getElementById('ra-err').textContent='';
+  // keyboard listener
+  document.addEventListener('keydown', raKeyboard);
+}
+
+function raKeyboard(e){
+  const lock=document.getElementById('rm-admin-lock');
+  if(!lock.classList.contains('show')) return;
+  if(e.key>='0'&&e.key<='9') raKey(e.key);
+  else if(e.key==='Backspace') raKey('del');
+  else if(e.key==='Escape'){ lock.classList.remove('show'); document.removeEventListener('keydown',raKeyboard); }
+}
+
+function raKey(k){
+  if(k==='del'){ _raPin=_raPin.slice(0,-1); }
+  else if(_raPin.length<3){ _raPin+=k; }
+  [0,1,2].forEach(i=>{
+    const d=document.getElementById('ra-d'+i);
+    d.className='rm-al-dot'+(i<_raPin.length?' filled':'');
+  });
+  if(_raPin.length===3){
+    if(_raPin===_RA_PC){
+      // Correct
+      document.getElementById('rm-admin-lock').classList.remove('show');
+      document.removeEventListener('keydown', raKeyboard);
+      _raActive=true;
+      document.getElementById('rm-admin-bar').classList.add('visible');
+      showToast('ADMIN MODE ON');
+      renderRosterMgr(); // re-render with edit cells
+    } else {
+      document.getElementById('ra-err').textContent='INCORRECT';
+      [0,1,2].forEach(i=>{ const d=document.getElementById('ra-d'+i); d.style.background='#FCA5A5'; d.style.borderColor='#FCA5A5'; });
+      setTimeout(()=>{
+        _raPin='';
+        [0,1,2].forEach(i=>{ const d=document.getElementById('ra-d'+i); d.className='rm-al-dot'; d.style.background=''; d.style.borderColor=''; });
+        document.getElementById('ra-err').textContent='';
+      },700);
+    }
+  }
+}
+
+function raExit(){
+  _raActive=false; _raDirty=false;
+  document.getElementById('rm-admin-bar').classList.remove('visible');
+  showToast('ADMIN MODE OFF');
+  renderRosterMgr();
+}
+
+function raSetCell(crew, idx, date, code){
+  const m=ROSTER[crew]?.[idx];
+  if(!m) return;
+  if(code) m.schedule[date]=code;
+  else delete m.schedule[date];
+  _raDirty=true;
+}
+
+async function raSaveToGitHub(){
+  if(!_raDirty){ showToast('NO CHANGES'); return; }
+  showToast('SAVING...');
+  const PROXY='https://acft-proxy.aviproject.workers.dev?path=';
+  const REPO='Aviproject-bit/ACFT-Project';
+  const FILE='Shift_Log.html';
+  try{
+    // Get fresh SHA via proxy (token injected by Cloudflare Worker)
+    const res=await fetch(PROXY+encodeURIComponent('/repos/'+REPO+'/contents/'+FILE));
+    if(!res.ok) throw new Error('Proxy error '+res.status);
+    const data=await res.json();
+    const sha=data.sha;
+
+    // Decode current file
+    let raw='';
+    const b64=data.content.replace(/\n/g,'');
+    const bytes=Uint8Array.from(atob(b64),c=>c.charCodeAt(0));
+    raw=new TextDecoder().decode(bytes);
+
+    // Replace ROSTER
+    const si=raw.indexOf('let ROSTER = {');
+    let i=si+13, depth=0, ei=-1;
+    while(i<raw.length){ if(raw[i]==='{') depth++; else if(raw[i]==='}'){ depth--; if(depth===0){ei=i+1;break;} } i++; }
+    const newRaw=raw.slice(0,si+13)+JSON.stringify(ROSTER,null,0)+raw.slice(ei);
+
+    // Encode back
+    const enc=new TextEncoder().encode(newRaw);
+    let b64out=''; const ch=8192;
+    for(let j=0;j<enc.length;j+=ch) b64out+=String.fromCharCode(...enc.slice(j,j+ch));
+    const encoded=btoa(b64out);
+
+    // PUT via proxy
+    const r2=await fetch(PROXY+encodeURIComponent('/repos/'+REPO+'/contents/'+FILE),{
+      method:'PUT',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({message:'roster: admin edit',content:encoded,sha})
+    });
+    const d2=await r2.json();
+    if(d2.commit){ _raDirty=false; showToast('SAVED ✓'); }
+    else throw new Error(d2.message||'Failed');
+  }catch(e){ showToast('ERROR: '+e.message); console.error(e); }
+}
+
+function raEditCell(el){
+  if(!_raActive) return;
+  const code=el.dataset.code||'';
+  const newCode=prompt('Code (D/T/G/R/V/H/TR/SL/OT):', code);
+  if(newCode===null) return;
+  const val=newCode.trim().toUpperCase();
+  // Update ROSTER
+  const crew=el.dataset.crew, idx=parseInt(el.dataset.idx), day=el.dataset.day;
+  // Find the primary crew member
+  let found=false;
+  for(const [pc, members] of Object.entries(ROSTER)){
+    for(const m of members){
+      const tc=(m.crewByMonth||{})[day.slice(0,7)]||pc;
+      if(tc===crew){
+        const memberIdx=[...document.getElementById('roster-mgr-wrap')
+          .querySelectorAll(`[data-crew="${crew}"][data-day="${day}"]`)]
+          .indexOf(el);
+        // simpler: match by index in displayed crew
+      }
+    }
+  }
+  // Use data-idx directly on ROSTER primary crew
+  // data-crew is the display crew, data-idx is index within that display crew
+  const dispCrewEls=[...document.querySelectorAll(`[data-crew="${crew}"][data-day="${day}"]`)];
+  const myIdx=dispCrewEls.indexOf(el);
+  // Walk ROSTER to find member at this display position
+  let count=0;
+  for(const [pc, members] of Object.entries(ROSTER)){
+    for(let i=0;i<members.length;i++){
+      const m=members[i];
+      const activeYM=document.getElementById('rm-month-filter')?.value||'';
+      const tc=(m.crewByMonth||{})[activeYM]||pc;
+      if(tc===crew){
+        if(count===myIdx){
+          if(val) m.schedule[day]=val; else delete m.schedule[day];
+          _raDirty=true;
+          // Update cell visually
+          el.dataset.code=val;
+          el.textContent=val;
+          el.className=el.className.replace(/\bcode-\S+/g,'');
+          if(val) el.classList.add('code-'+val.replace('/',''));
+          return;
+        }
+        count++;
+      }
+    }
+  }
+}
 </script>
 
 <!-- ══ MOBILE BOTTOM ACTION BAR ══════════════════════════ -->
@@ -11704,5 +11961,35 @@ document.addEventListener('DOMContentLoaded',()=>{
   </button>
 </div>
 
+
+<!-- Roster Admin Lock -->
+<div id="rm-admin-lock">
+  <div class="rm-al-box">
+    <div class="rm-al-title">Roster Admin Access</div>
+    <div class="rm-al-dots">
+      <div class="rm-al-dot" id="ra-d0"></div>
+      <div class="rm-al-dot" id="ra-d1"></div>
+      <div class="rm-al-dot" id="ra-d2"></div>
+    </div>
+    <div class="rm-al-err" id="ra-err"></div>
+    <div class="rm-al-kb">
+      <kbd>0-9</kbd><span>type on keyboard</span><kbd>⌫</kbd>
+    </div>
+    <div class="rm-al-pad">
+      <button class="rm-al-key" onclick="raKey('1')">1</button>
+      <button class="rm-al-key" onclick="raKey('2')">2</button>
+      <button class="rm-al-key" onclick="raKey('3')">3</button>
+      <button class="rm-al-key" onclick="raKey('4')">4</button>
+      <button class="rm-al-key" onclick="raKey('5')">5</button>
+      <button class="rm-al-key" onclick="raKey('6')">6</button>
+      <button class="rm-al-key" onclick="raKey('7')">7</button>
+      <button class="rm-al-key" onclick="raKey('8')">8</button>
+      <button class="rm-al-key" onclick="raKey('9')">9</button>
+      <button class="rm-al-key" onclick="raKey('del')" style="font-size:13px;">⌫</button>
+      <button class="rm-al-key" onclick="raKey('0')">0</button>
+      <button class="rm-al-key" style="opacity:0;pointer-events:none;"></button>
+    </div>
+  </div>
+</div>
 </body>
 </html>
