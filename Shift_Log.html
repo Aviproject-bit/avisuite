@@ -1294,6 +1294,45 @@ input[type=checkbox]:checked+.tog::after{left:21px;}
   background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);
   border-radius:4px;padding:2px 8px;font-size:10px;color:rgba(255,255,255,.5);
 }
+
+/* ── Matrix export modal ── */
+#matrix-export-modal{
+  position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9990;
+  display:flex;align-items:center;justify-content:center;
+  animation:fadeIn .2s ease;
+}
+.mxm-box{
+  background:#fff;border-radius:14px;padding:28px 24px;
+  width:300px;box-shadow:0 20px 60px rgba(0,0,0,.3);
+  font-family:'BwGradual',sans-serif;
+}
+.mxm-title{
+  font-family:'BwGradualEB','BwGradual',sans-serif;
+  font-size:13px;font-weight:900;letter-spacing:.5px;
+  color:#0F2920;margin-bottom:6px;
+}
+.mxm-sub{
+  font-size:10px;color:#64748B;margin-bottom:20px;letter-spacing:.3px;
+}
+.mxm-opts{
+  display:flex;flex-direction:column;gap:8px;margin-bottom:20px;
+}
+.mxm-opt{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 12px;border-radius:8px;border:1.5px solid #E2E8E4;
+  cursor:pointer;transition:all .15s;
+}
+.mxm-opt:hover{border-color:#0F2920;background:#F8FAF9;}
+.mxm-opt.selected{border-color:#0F2920;background:#F0F4F1;}
+.mxm-opt input[type=radio]{accent-color:#0F2920;width:14px;height:14px;}
+.mxm-opt-label{font-size:11px;font-weight:700;color:#0F2920;}
+.mxm-opt-desc{font-size:9px;color:#64748B;margin-top:1px;}
+.mxm-btns{display:flex;gap:8px;}
+.mxm-cancel{flex:1;border:1px solid #E2E8E4;background:#fff;color:#64748B;
+  border-radius:6px;padding:8px;font-size:11px;font-weight:700;cursor:pointer;}
+.mxm-go{flex:2;background:#0F2920;color:#fff;border:none;
+  border-radius:6px;padding:8px;font-size:11px;font-weight:700;cursor:pointer;letter-spacing:.5px;}
+.mxm-go:hover{background:#196B24;}
 </style>
 </head>
 <body>
@@ -10350,150 +10389,16 @@ function _loadHtml2Canvas(){
 function exportMatrixImage(){
   const qt = loadQualTypes();
   if(!qt.length){ showToast('NO QUALIFICATIONS DEFINED'); return; }
-
-  // Filter option
-  const filterMode = confirm('Qualified members only?\n\nOK = Qualified Only\nCancel = All Members');
-
-  showToast('BUILDING MATRIX...');
-  _loadHtml2Canvas().then(()=>{
-    const orgName  = typeof ORG_NAME!=='undefined'  ? ORG_NAME  : (localStorage.getItem('org_name')||'');
-    const deptName = typeof DEPT_NAME!=='undefined' ? DEPT_NAME : (localStorage.getItem('dept_name')||'');
-    const types = qt.map(q=>q);
-    const exportYm = document.getElementById('rm-month-filter')?.value || new Date().toISOString().slice(0,7);
-
-    // Build member→quals map (keyed by PRN)
-    const memberQuals = {};
-    types.forEach(q=>{
-      (q.members||[]).forEach(prn=>{
-        if(!memberQuals[prn]) memberQuals[prn]=[];
-        memberQuals[prn].push(q.id);
-      });
-    });
-
-    // Build display roster in ROSTER order, respecting crewByMonth
-    const displayForExport = {};
-    Object.keys(ROSTER).forEach(cn=>{ displayForExport[cn]=[]; });
-    Object.entries(ROSTER).forEach(([primaryCrew,members])=>{
-      members.forEach((m,mi)=>{
-        if(m.joinDate  && exportYm < m.joinDate)  return;
-        if(m.leaveDate && exportYm > m.leaveDate) return;
-        const targetCrew = (m.crewByMonth||{})[exportYm] || primaryCrew;
-        if(!displayForExport[targetCrew]) displayForExport[targetCrew]=[];
-        const dispOrder = (m.crewByMonthOrder||{})[exportYm] ?? 9999;
-        const isGuest = targetCrew !== primaryCrew;
-        displayForExport[targetCrew].push({...m,
-          _primaryCrew: primaryCrew,
-          _sortKey: isGuest ? 10000 + dispOrder : mi
-        });
-      });
-    });
-    Object.keys(displayForExport).forEach(cn=>{
-      displayForExport[cn].sort((a,b)=>a._sortKey - b._sortKey);
-    });
-
-    // Filter if needed
-    if(filterMode){
-      Object.keys(displayForExport).forEach(cn=>{
-        displayForExport[cn] = displayForExport[cn].filter(m=>
-          types.some(q=>(q.members||[]).includes(m.prn||m.name))
-        );
-      });
-    }
-
-    // Count qualified staff for this month
-    const staffCount = Object.values(displayForExport).reduce((s,ms)=>s+ms.length,0);
-
-    // Build container
-    const container = document.createElement('div');
-    container.style.cssText = 'background:#fff;font-family:"BwGradual",Calibri,Arial,sans-serif;display:inline-block;padding:0;';
-
-    // Top bar
-    const tb = document.createElement('div');
-    tb.style.cssText = `background:#0F2920;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;min-width:600px;`;
-    const tbTitle = document.createElement('div');
-    tbTitle.innerHTML = `<div style="font-size:9px;font-weight:700;letter-spacing:3px;color:rgba(255,255,255,.45);text-transform:uppercase;">QUALIFICATIONS MATRIX</div><div style="font-size:20px;font-weight:900;color:#fff;letter-spacing:-.5px;margin-top:2px;">STAFF × TYPE RATINGS</div>`;
-    const tbMeta = document.createElement('div');
-    tbMeta.style.cssText = 'display:flex;gap:20px;';
-    tbMeta.innerHTML = `
-      <div style="text-align:center;"><div style="font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.45);">TYPES</div><div style="font-size:14px;font-weight:800;color:#fff;">${types.length}</div></div>
-      <div style="text-align:center;"><div style="font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.45);">STAFF</div><div style="font-size:14px;font-weight:800;color:#fff;">${staffCount}</div></div>`;
-    tb.appendChild(tbTitle); tb.appendChild(tbMeta);
-    container.appendChild(tb);
-
-    // Table
-    const tbl = document.createElement('table');
-    tbl.style.cssText = 'border-collapse:collapse;width:100%;';
-    let thead = '<thead><tr style="background:#0F2920;">';
-    thead += `<th style="text-align:left;padding:8px 14px;font-size:9px;font-weight:800;letter-spacing:1.5px;color:rgba(255,255,255,.7);white-space:nowrap;min-width:160px;">NAME</th>`;
-    thead += `<th style="padding:8px 10px;font-size:9px;font-weight:800;letter-spacing:1.5px;color:rgba(255,255,255,.7);min-width:80px;">PAYROLL</th>`;
-    thead += `<th style="padding:8px 10px;font-size:9px;font-weight:800;letter-spacing:1.5px;color:rgba(255,255,255,.7);">POS</th>`;
-    types.forEach(q=>{
-      thead += `<th style="padding:8px 10px;font-size:10px;font-weight:800;color:rgba(255,255,255,.9);min-width:52px;text-align:center;">${q.name}${q.category?`<br><span style="font-size:8px;opacity:.6;">${q.category}</span>`:''}</th>`;
-    });
-    thead += '</tr></thead>';
-    tbl.innerHTML = thead;
-
-    const tbody = document.createElement('tbody');
-    let rowCount = 0;
-
-    Object.entries(displayForExport).forEach(([crew, members])=>{
-      if(!members.length) return;
-      const cc = (typeof CREW_COLORS!=='undefined'?CREW_COLORS:{})[crew]||'#4B5E70';
-      // Crew header
-      const crewTr = document.createElement('tr');
-      crewTr.innerHTML = `<td colspan="${3+types.length}" style="background:${cc};color:#fff;font-weight:800;font-size:10px;letter-spacing:2px;padding:5px 14px;">${crew}</td>`;
-      tbody.appendChild(crewTr);
-
-      members.forEach(m=>{
-        const prn = m.prn||m.name;
-        const isSup = m.pos==='SUPV'||m.pos==='ACT/SUPV';
-        const isEven = rowCount%2===0;
-        const tr = document.createElement('tr');
-        tr.style.background = isEven?'#fff':'#F8FAFC';
-        let cells = `<td style="padding:6px 14px;font-weight:${isSup?800:600};font-size:11px;border-bottom:1px solid #F1F5F9;color:${isSup?'#0F2920':'#1F2937'};">${m.name||'—'}</td>`;
-        cells += `<td style="padding:6px 10px;text-align:center;font-size:10px;font-weight:600;color:#64748B;border-bottom:1px solid #F1F5F9;letter-spacing:.3px;">${m.prn||'—'}</td>`;
-        cells += `<td style="padding:6px 10px;text-align:center;font-size:9px;font-weight:700;color:#9CA3AF;border-bottom:1px solid #F1F5F9;">${m.pos||'—'}</td>`;
-        types.forEach(q=>{
-          const has = (q.members||[]).includes(prn);
-          cells += `<td style="text-align:center;border-bottom:1px solid #F1F5F9;background:${has?'rgba(59,130,246,.08)':'transparent'};">
-            ${has?'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>':''}
-          </td>`;
-        });
-        tr.innerHTML = cells;
-        tbody.appendChild(tr); rowCount++;
-      });
-    });
-    tbl.appendChild(tbody);
-
-    // Footer
-    const foot = document.createElement('div');
-    foot.style.cssText = 'padding:10px 14px;display:flex;gap:16px;flex-wrap:wrap;background:#F8FAFC;border-top:2px solid #E2E8E4;';
-    types.forEach(q=>{
-      const cnt = (q.members||[]).filter(prn=>
-        Object.values(ROSTER).flat().some(m=>m.prn===prn)
-      ).length;
-      foot.innerHTML += `<span style="font-size:9px;font-weight:700;color:#1D4ED8;">✈ ${q.name}: ${cnt}</span>`;
-    });
-    const genDiv = document.createElement('div');
-    genDiv.style.cssText = 'padding:6px 14px;display:flex;justify-content:space-between;align-items:center;';
-    genDiv.innerHTML = `<span style="font-size:8px;color:#9CA3AF;font-weight:600;letter-spacing:1px;text-transform:uppercase;">${deptName||orgName||'SAUDIA TECHNIC · SPV CABIN'}</span><span style="font-size:8px;color:#9CA3AF;">GENERATED ${new Date().toLocaleDateString('en-GB').toUpperCase()}</span>`;
-
-    container.appendChild(tbl);
-    container.appendChild(foot);
-    container.appendChild(genDiv);
-    document.body.appendChild(container);
-
-    html2canvas(container,{scale:2,backgroundColor:'#fff',useCORS:true,allowTaint:true}).then(canvas=>{
-      document.body.removeChild(container);
-      canvas.toBlob(blob=>{
-        const a=document.createElement('a');
-        a.href=URL.createObjectURL(blob);
-        a.download='QUALS_MATRIX_'+exportYm+'.png';
-        a.click();
-        showToast('MATRIX EXPORTED ✓');
-      },'image/png');
-    }).catch(err=>{ document.body.removeChild(container); showToast('ERROR: '+err.message); });
-  });
+  const modal = document.getElementById('matrix-export-modal');
+  if(modal){
+    // Reset selection
+    document.querySelector('input[name="mxm"][value="all"]').checked=true;
+    document.getElementById('mxm-opt-all').classList.add('selected');
+    document.getElementById('mxm-opt-qual').classList.remove('selected');
+    modal.style.display='flex';
+  } else {
+    _doExportMatrix();
+  }
 }
 
 function exportCoverageImage(){
@@ -11973,7 +11878,103 @@ function raEditCell(el){
   if(val) el.classList.add('code-' + val.replace('/',''));
   showToast((val||'—') + ' ✓');
 }
-</script>
+
+function _doExportMatrix(){
+  document.getElementById('matrix-export-modal').style.display='none';
+  const filterMode = document.querySelector('input[name="mxm"]:checked')?.value === 'qualified';
+
+  const qt = loadQualTypes();
+  showToast('BUILDING MATRIX...');
+  _loadHtml2Canvas().then(()=>{
+    const orgName  = typeof ORG_NAME!=='undefined'  ? ORG_NAME  : (localStorage.getItem('org_name')||'');
+    const deptName = typeof DEPT_NAME!=='undefined' ? DEPT_NAME : (localStorage.getItem('dept_name')||'');
+    const types = qt.map(q=>q);
+    const exportYm = document.getElementById('rm-month-filter')?.value || new Date().toISOString().slice(0,7);
+
+    // Build display roster
+    const displayForExport = {};
+    Object.keys(ROSTER).forEach(cn=>{ displayForExport[cn]=[]; });
+    Object.entries(ROSTER).forEach(([primaryCrew,members])=>{
+      members.forEach((m,mi)=>{
+        if(m.joinDate  && exportYm < m.joinDate)  return;
+        if(m.leaveDate && exportYm > m.leaveDate) return;
+        const targetCrew = (m.crewByMonth||{})[exportYm] || primaryCrew;
+        if(!displayForExport[targetCrew]) displayForExport[targetCrew]=[];
+        const isGuest = targetCrew !== primaryCrew;
+        const dispOrder = (m.crewByMonthOrder||{})[exportYm] ?? 9999;
+        displayForExport[targetCrew].push({...m,
+          _sortKey: isGuest ? 10000+dispOrder : mi
+        });
+      });
+    });
+    Object.keys(displayForExport).forEach(cn=>{
+      displayForExport[cn].sort((a,b)=>a._sortKey-b._sortKey);
+    });
+    if(filterMode){
+      Object.keys(displayForExport).forEach(cn=>{
+        displayForExport[cn]=displayForExport[cn].filter(m=>
+          types.some(q=>(q.members||[]).includes(m.prn||m.name))
+        );
+      });
+    }
+    const staffCount=Object.values(displayForExport).reduce((s,ms)=>s+ms.length,0);
+
+    // Container
+    const container=document.createElement('div');
+    container.style.cssText='background:#fff;font-family:"BwGradual",Calibri,Arial,sans-serif;display:inline-block;';
+
+    // Topbar
+    const tb=document.createElement('div');
+    tb.style.cssText=`background:#0F2920;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;min-width:600px;`;
+    tb.innerHTML=`<div><div style="font-size:9px;font-weight:700;letter-spacing:3px;color:rgba(255,255,255,.45);text-transform:uppercase;">QUALIFICATIONS MATRIX</div><div style="font-size:20px;font-weight:900;color:#fff;letter-spacing:-.5px;margin-top:2px;">STAFF \xd7 TYPE RATINGS</div></div><div style="display:flex;gap:20px;"><div style="text-align:center;"><div style="font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.45);">TYPES</div><div style="font-size:14px;font-weight:800;color:#fff;">${types.length}</div></div><div style="text-align:center;"><div style="font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.45);">STAFF</div><div style="font-size:14px;font-weight:800;color:#fff;">${staffCount}</div></div></div>`;
+    container.appendChild(tb);
+
+    // Table
+    const tbl=document.createElement('table');
+    tbl.style.cssText='border-collapse:collapse;width:100%;';
+    let thead='<thead><tr style="background:#0F2920;">';
+    thead+=`<th style="text-align:left;padding:8px 14px;font-size:9px;font-weight:800;letter-spacing:1.5px;color:rgba(255,255,255,.7);white-space:nowrap;min-width:160px;">NAME</th>`;
+    thead+=`<th style="padding:8px 10px;font-size:9px;font-weight:800;letter-spacing:1.5px;color:rgba(255,255,255,.7);min-width:80px;">PAYROLL</th>`;
+    thead+=`<th style="padding:8px 10px;font-size:9px;font-weight:800;letter-spacing:1.5px;color:rgba(255,255,255,.7);">POS</th>`;
+    types.forEach(q=>{ thead+=`<th style="padding:8px 10px;font-size:10px;font-weight:800;color:rgba(255,255,255,.9);min-width:52px;text-align:center;">${q.name}${q.category?'<br><span style="font-size:8px;opacity:.6;">'+q.category+'</span>':''}</th>`; });
+    thead+='</tr></thead>';
+    tbl.innerHTML=thead;
+    const tbody=document.createElement('tbody');
+    let rowCount=0;
+    const CREW_C=typeof CREW_COLORS!=='undefined'?CREW_COLORS:{};
+    Object.entries(displayForExport).forEach(([crew,members])=>{
+      if(!members.length) return;
+      const cc=CREW_C[crew]||'#4B5E70';
+      const htr=document.createElement('tr');
+      htr.innerHTML=`<td colspan="${3+types.length}" style="background:${cc};color:#fff;font-weight:800;font-size:10px;letter-spacing:2px;padding:5px 14px;">${crew}</td>`;
+      tbody.appendChild(htr);
+      members.forEach(m=>{
+        const prn=m.prn||m.name;
+        const isSup=m.pos==='SUPV'||m.pos==='ACT/SUPV';
+        const tr=document.createElement('tr');
+        tr.style.background=rowCount%2===0?'#fff':'#F8FAFC';
+        let cells=`<td style="padding:6px 14px;font-weight:${isSup?800:600};font-size:11px;border-bottom:1px solid #F1F5F9;color:${isSup?'#0F2920':'#1F2937'};">${m.name||'—'}</td>`;
+        cells+=`<td style="padding:6px 10px;text-align:center;font-size:10px;font-weight:600;color:#64748B;border-bottom:1px solid #F1F5F9;">${m.prn||'—'}</td>`;
+        cells+=`<td style="padding:6px 10px;text-align:center;font-size:9px;font-weight:700;color:#9CA3AF;border-bottom:1px solid #F1F5F9;">${m.pos||'—'}</td>`;
+        types.forEach(q=>{ const has=(q.members||[]).includes(prn); cells+=`<td style="text-align:center;border-bottom:1px solid #F1F5F9;background:${has?'rgba(59,130,246,.08)':'transparent'};">${has?'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>':''}</td>`; });
+        tr.innerHTML=cells; tbody.appendChild(tr); rowCount++;
+      });
+    });
+    tbl.appendChild(tbody);
+    const foot=document.createElement('div');
+    foot.style.cssText='padding:10px 14px;display:flex;gap:16px;flex-wrap:wrap;background:#F8FAFC;border-top:2px solid #E2E8E4;';
+    types.forEach(q=>{ const cnt=(q.members||[]).filter(p=>Object.values(ROSTER).flat().some(m=>m.prn===p)).length; foot.innerHTML+=`<span style="font-size:9px;font-weight:700;color:#1D4ED8;">\u2708 ${q.name}: ${cnt}</span>`; });
+    const gen=document.createElement('div');
+    gen.style.cssText='padding:6px 14px;display:flex;justify-content:space-between;';
+    gen.innerHTML=`<span style="font-size:8px;color:#9CA3AF;font-weight:600;letter-spacing:1px;text-transform:uppercase;">${deptName||orgName||'SAUDIA TECHNIC \xb7 SPV CABIN'}</span><span style="font-size:8px;color:#9CA3AF;">GENERATED ${new Date().toLocaleDateString('en-GB').toUpperCase()}</span>`;
+    container.appendChild(tbl); container.appendChild(foot); container.appendChild(gen);
+    document.body.appendChild(container);
+    html2canvas(container,{scale:2,backgroundColor:'#fff',useCORS:true,allowTaint:true}).then(canvas=>{
+      document.body.removeChild(container);
+      canvas.toBlob(blob=>{ const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='QUALS_MATRIX_'+exportYm+'.png'; a.click(); showToast('MATRIX EXPORTED \u2713'); },'image/png');
+    }).catch(err=>{ if(document.body.contains(container)) document.body.removeChild(container); showToast('ERROR: '+err.message); });
+  });
+}</script>
 
 <!-- ══ MOBILE BOTTOM ACTION BAR ══════════════════════════ -->
 <div id="mob-bar">
@@ -12018,6 +12019,27 @@ function raEditCell(el){
       <button class="rm-al-key" onclick="raKey('del')" style="font-size:13px;">⌫</button>
       <button class="rm-al-key" onclick="raKey('0')">0</button>
       <button class="rm-al-key" style="opacity:0;pointer-events:none;"></button>
+    </div>
+  </div>
+</div>
+
+<div id="matrix-export-modal" style="display:none;" onclick="if(event.target===this)this.style.display='none'">
+  <div class="mxm-box">
+    <div class="mxm-title">Export Qualifications Matrix</div>
+    <div class="mxm-sub">Choose who to include in the export</div>
+    <div class="mxm-opts">
+      <label class="mxm-opt selected" id="mxm-opt-all">
+        <input type="radio" name="mxm" value="all" checked onchange="document.getElementById('mxm-opt-all').classList.add('selected');document.getElementById('mxm-opt-qual').classList.remove('selected')">
+        <div><div class="mxm-opt-label">All Members</div><div class="mxm-opt-desc">Export all crew members</div></div>
+      </label>
+      <label class="mxm-opt" id="mxm-opt-qual">
+        <input type="radio" name="mxm" value="qualified" onchange="document.getElementById('mxm-opt-qual').classList.add('selected');document.getElementById('mxm-opt-all').classList.remove('selected')">
+        <div><div class="mxm-opt-label">Qualified Only</div><div class="mxm-opt-desc">Members with at least one type rating</div></div>
+      </label>
+    </div>
+    <div class="mxm-btns">
+      <button class="mxm-cancel" onclick="document.getElementById('matrix-export-modal').style.display='none'">CANCEL</button>
+      <button class="mxm-go" onclick="_doExportMatrix()">EXPORT →</button>
     </div>
   </div>
 </div>
