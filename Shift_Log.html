@@ -5895,7 +5895,7 @@ function renderRosterMgr(){
       const _opCrew = m._primaryCrew || crewName;
       const _opIdx  = (()=>{ const arr=ROSTER[_opCrew]; if(!arr)return mi; const fi=arr.findIndex(x=>x.name===m.name&&x.prn===m.prn); return fi>=0?fi:mi; })();
       const _isGuest = !!(m._primaryCrew && m._primaryCrew !== crewName);
-      html += `<tr style="background:${_rowBg};${_rowOpacity}" ondragover="rmDragOver(event)" ondrop="rmDrop(event,'${crewName}',${mi})" ondragleave="this.style.background='${_defBg}'" onclick="rmToggleRowHL(this)">`;
+      html += `<tr data-prn="${m.prn||''}" style="background:${_rowBg};${_rowOpacity}" ondragover="rmDragOver(event)" ondrop="rmDrop(event,'${crewName}',${mi})" ondragleave="this.style.background='${_defBg}'" onclick="rmToggleRowHL(this)">`;
 
       // # number
       html += `<td style="text-align:center;font-size:10px;color:var(--muted);font-family:BwGradual,sans-serif;padding:4px 2px;border-bottom:1px solid var(--border);">${rowNum}</td>`;
@@ -5960,7 +5960,7 @@ function renderRosterMgr(){
           <span class="rm-day-cell" tabindex="0"
             data-code="${code}" data-crew="${_opCrew}" data-idx="${_opIdx}" data-day="${d}" data-di="${di}"
             onclick="handleCellClick(event,this)"
-            ${window._raActive ? `ondblclick="raEditCell(this)"` : ''}
+            
             onkeydown="cellKeyDown(event,this)"
             title="${d}${m._notes?.[d]?' 📝 '+m._notes[d].substring(0,60):''}" >${code||''}${(code==='N'&&m._notes?.[d])?'<span style="font-size:5px;vertical-align:super;margin-left:1px;">●</span>':''}</span>
         </td>`;
@@ -6014,6 +6014,12 @@ let _savedPatterns = (()=>{ try{ return JSON.parse(localStorage.getItem('roster_
 let _pbActiveCrew = 'all';
 let _pbActivePattern = null; // toggle quals badge visibility
 function handleCellClick(e, el){
+  // Admin mode: single click to edit
+  if(window._raActive){
+    e.stopPropagation();
+    raEditCell(el);
+    return;
+  }
   if(e && (e.ctrlKey || e.metaKey || e.shiftKey)){
     // Multi-select mode
     e.preventDefault();
@@ -11908,50 +11914,61 @@ async function raSaveToGitHub(){
 
 function raEditCell(el){
   if(!_raActive) return;
-  const code=el.dataset.code||'';
-  const newCode=prompt('Code (D/T/G/R/V/H/TR/SL/OT):', code);
-  if(newCode===null) return;
-  const val=newCode.trim().toUpperCase();
-  // Update ROSTER
-  const crew=el.dataset.crew, idx=parseInt(el.dataset.idx), day=el.dataset.day;
-  // Find the primary crew member
-  let found=false;
-  for(const [pc, members] of Object.entries(ROSTER)){
+  const oldCode = (el.dataset.code||'').trim();
+  const day = el.dataset.day;
+  if(!day) return;
+
+  const newCode = prompt('الكود الجديد (D/T/G/R/V/H/TR/S/OT/OS/C):\nحالياً: ' + (oldCode||'فارغ'), oldCode);
+  if(newCode === null) return; // cancelled
+  const val = newCode.trim().toUpperCase();
+
+  // Find member in ROSTER by PRN stored in row
+  const row = el.closest('tr');
+  const prn = row?.dataset?.prn || '';
+  const activeYM = document.getElementById('rm-month-filter')?.value||'';
+
+  let updated = false;
+  for(const members of Object.values(ROSTER)){
     for(const m of members){
-      const tc=(m.crewByMonth||{})[day.slice(0,7)]||pc;
-      if(tc===crew){
-        const memberIdx=[...document.getElementById('roster-mgr-wrap')
-          .querySelectorAll(`[data-crew="${crew}"][data-day="${day}"]`)]
-          .indexOf(el);
-        // simpler: match by index in displayed crew
+      if(m.prn === prn){
+        if(val) m.schedule[day] = val;
+        else delete m.schedule[day];
+        updated = true;
+        break;
       }
+    }
+    if(updated) break;
+  }
+
+  if(!updated){
+    // Fallback: find by display position
+    const crew = el.dataset.crew;
+    const allCells = [...document.querySelectorAll(`[data-crew="${crew}"][data-day="${day}"]`)];
+    const pos = allCells.indexOf(el);
+    let count=0;
+    for(const members of Object.values(ROSTER)){
+      for(const m of members){
+        const tc=(m.crewByMonth||{})[activeYM]||(Object.entries(ROSTER).find(([,ms])=>ms.includes(m))||[''])[0];
+        if(tc===crew){
+          if(count===pos){
+            if(val) m.schedule[day]=val; else delete m.schedule[day];
+            updated=true; break;
+          }
+          count++;
+        }
+      }
+      if(updated) break;
     }
   }
-  // Use data-idx directly on ROSTER primary crew
-  // data-crew is the display crew, data-idx is index within that display crew
-  const dispCrewEls=[...document.querySelectorAll(`[data-crew="${crew}"][data-day="${day}"]`)];
-  const myIdx=dispCrewEls.indexOf(el);
-  // Walk ROSTER to find member at this display position
-  let count=0;
-  for(const [pc, members] of Object.entries(ROSTER)){
-    for(let i=0;i<members.length;i++){
-      const m=members[i];
-      const activeYM=document.getElementById('rm-month-filter')?.value||'';
-      const tc=(m.crewByMonth||{})[activeYM]||pc;
-      if(tc===crew){
-        if(count===myIdx){
-          if(val) m.schedule[day]=val; else delete m.schedule[day];
-          _raDirty=true;
-          // Update cell visually
-          el.dataset.code=val;
-          el.textContent=val;
-          el.className=el.className.replace(/\bcode-\S+/g,'');
-          if(val) el.classList.add('code-'+val.replace('/',''));
-          return;
-        }
-        count++;
-      }
-    }
+
+  if(updated){
+    _raDirty = true;
+    // Update cell visually
+    el.dataset.code = val;
+    el.textContent = val;
+    el.className = 'rm-day-cell';
+    if(val) el.classList.add('code-'+val.replace('/',''));
+    showToast(day.slice(8)+' → '+(val||'—'));
   }
 }
 </script>
