@@ -11875,37 +11875,52 @@ async function raSaveToGitHub(){
   const REPO='Aviproject-bit/ACFT-Project';
   const FILE='uploads/roster.json';
   try{
-    // Get current SHA
+    console.log('[Admin] Starting save...');
+
+    // Step 1: Get SHA
+    const getUrl=PROXY+encodeURIComponent('/repos/'+REPO+'/contents/'+FILE);
+    console.log('[Admin] GET:', getUrl);
+    const res=await fetch(getUrl);
+    console.log('[Admin] GET status:', res.status);
     let sha='';
-    const res=await fetch(PROXY+encodeURIComponent('/repos/'+REPO+'/contents/'+FILE));
-    if(res.ok){ const d=await res.json(); sha=d.sha||''; }
+    if(res.ok){
+      const d=await res.json();
+      sha=d.sha||'';
+      console.log('[Admin] SHA:', sha.slice(0,7));
+    } else {
+      console.log('[Admin] File not found — will create');
+    }
 
-    // Build JSON content
+    // Step 2: Encode
     const jsonStr=JSON.stringify(ROSTER,null,2);
-
-    // Encode to base64 safely
+    console.log('[Admin] JSON size:', jsonStr.length, 'chars');
     const encoded=btoa(unescape(encodeURIComponent(jsonStr)));
+    console.log('[Admin] Encoded size:', encoded.length);
 
-    // PUT
+    // Step 3: PUT
+    const putUrl=PROXY+encodeURIComponent('/repos/'+REPO+'/contents/'+FILE);
+    console.log('[Admin] PUT:', putUrl);
     const body={message:'roster: admin update',content:encoded};
     if(sha) body.sha=sha;
-    const r2=await fetch(PROXY+encodeURIComponent('/repos/'+REPO+'/contents/'+FILE),{
+    const r2=await fetch(putUrl,{
       method:'PUT',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify(body)
     });
-    if(!r2.ok) throw new Error('HTTP '+r2.status);
+    console.log('[Admin] PUT status:', r2.status);
     const d2=await r2.json();
+    console.log('[Admin] PUT response:', JSON.stringify(d2).slice(0,200));
+
     if(d2.commit||d2.content){
       _raDirty=false;
       showToast('تم الحفظ ✓');
+      console.log('[Admin] Save successful!');
     } else {
-      console.error('Save response:', d2);
-      throw new Error(d2.message||'فشل الحفظ');
+      throw new Error(d2.message||JSON.stringify(d2).slice(0,100));
     }
   }catch(e){
     showToast('خطأ: '+e.message);
-    console.error('raSaveToGitHub error:',e);
+    console.error('[Admin] Save error:', e);
   }
 }
 
