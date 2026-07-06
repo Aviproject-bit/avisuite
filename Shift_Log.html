@@ -11723,9 +11723,20 @@ async function _loadRosterOverride(){
     const data=await res.json();
     if(!data.content) return;
     const raw=decodeURIComponent(escape(atob(data.content.replace(/\n/g,''))));
-    const override=JSON.parse(raw);
-    Object.entries(override).forEach(([crew,members])=>{ ROSTER[crew]=members; });
+    const obj=JSON.parse(raw);
+
+    // دمج الروستر
+    const rosterData = obj.roster || obj;
+    Object.entries(rosterData).forEach(([crew,members])=>{ ROSTER[crew]=members; });
+
+    // دمج qual_types إذا موجودة
+    if(obj.qual_types && obj.qual_types.length){
+      saveQualTypes(obj.qual_types);
+      console.log('✓ qual_types loaded:', obj.qual_types.map(q=>q.name));
+    }
+
     if(document.getElementById('rm-month-filter')?.value) renderRosterMgr();
+    console.log('✓ roster.json loaded');
   }catch(e){ console.log('roster.json:', e.message); }
 }
 
