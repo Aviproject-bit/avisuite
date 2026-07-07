@@ -337,7 +337,10 @@ body{font-family:'BwGradual',sans-serif;background:var(--bg);color:var(--txt);pa
     </div>
     <div class="hf">
       <label>ACFT REG</label>
-      <input id="inpAcft" type="text" placeholder="HZ-AK31" maxlength="10"
+      <select id="selAcft" style="display:none;" onchange="onAcftSelect(this.value)">
+        <option value="">— Select —</option>
+      </select>
+      <input id="inpAcft" type="text" placeholder="HZ-AXXX" maxlength="10"
         oninput="this.value=this.value.toUpperCase();save()">
     </div>
   </div>
