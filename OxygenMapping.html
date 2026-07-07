@@ -524,7 +524,7 @@ function _pcKey(k){
         if(screen){
           if(screen._pcKeyHandler) document.removeEventListener('keydown',screen._pcKeyHandler);
           screen.classList.add('pc-exit');
-          screen.addEventListener('animationend',()=>screen.remove(),{once:true});
+          screen.addEventListener('animationend',()=>{screen.remove();appInit();},{once:true});
         }
       } else {
         // Wrong
