@@ -2856,6 +2856,22 @@ function exportRaw(){
   showToast('\u2713 Raw data exported');
 }
 
+function compressImage(dataUrl, maxWidth, quality){
+  return new Promise((resolve,reject)=>{
+    const img=new Image();
+    img.onload=()=>{
+      const canvas=document.createElement('canvas');
+      const ratio=Math.min(maxWidth/img.width, maxWidth/img.height, 1);
+      canvas.width=Math.round(img.width*ratio);
+      canvas.height=Math.round(img.height*ratio);
+      canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);
+      resolve(canvas.toDataURL('image/jpeg',quality));
+    };
+    img.onerror=reject;
+    img.src=dataUrl;
+  });
+}
+
 async function submitData(){
   const acft = document.getElementById('inpAcft').value.trim().toUpperCase();
   const tech = (document.getElementById('inpTech')||{}).value||'';
@@ -2874,27 +2890,44 @@ async function submitData(){
     // 1. Upload photos to ImgBB
     const photoMap = {};
     const allLocs = Object.values(LOCS_MAP[curType]||{}).flat();
+    // Collect all photo upload tasks
+    const uploadTasks = [];
     for(const loc of allLocs){
       const units=(loc.dual&&!loc.sub)?['u1','u2']:[''];
       for(const u of units){
         const photos=JSON.parse(gv(loc.id,'photos',u)||'[]');
         if(!photos.length) continue;
-        const urls=[];
-        for(const ph of photos){
+        uploadTasks.push({loc, u, photos});
+      }
+    }
+    if(uploadTasks.length){
+      showToast('Uploading '+uploadTasks.reduce((s,t)=>s+t.photos.length,0)+' photo(s)...');
+      const uploadOne = async (dataUrl, retries=2)=>{
+        const compressed = await compressImage(dataUrl, 1600, 0.82).catch(()=>dataUrl);
+        const base64 = compressed.split(',')[1];
+        for(let attempt=0; attempt<=retries; attempt++){
           try{
             const fd=new FormData();
             fd.append('key',IMGBB_KEY);
-            fd.append('image',ph.split(',')[1]);
+            fd.append('image',base64);
             const r=await fetch('https://api.imgbb.com/1/upload',{method:'POST',body:fd});
             const d=await r.json();
-            if(d.success) urls.push(d.data.url);
+            if(d.success) return d.data.url;
           }catch(e){}
+          if(attempt<retries) await new Promise(res=>setTimeout(res,1200));
         }
+        return null;
+      };
+      let failed=0;
+      await Promise.all(uploadTasks.map(async ({loc,u,photos})=>{
+        const urls=(await Promise.all(photos.map(ph=>uploadOne(ph)))).filter(Boolean);
+        if(urls.length < photos.length) failed += (photos.length - urls.length);
         if(urls.length){
           const k=u?loc.id+'_'+u+'_photoUrls':loc.id+'_photoUrls';
           photoMap[k]=urls.join(' | ');
         }
-      }
+      }));
+      if(failed) showToast('⚠️ '+failed+' photo(s) failed to upload');
     }
 
     showToast('Saving data...');
