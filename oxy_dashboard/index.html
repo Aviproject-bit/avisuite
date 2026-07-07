@@ -1458,6 +1458,7 @@ async function loadData(){
     return;
   }
   render();
+  startAutoRefresh();
 }
 
 // ── CALC PROGRESS ──
@@ -4558,6 +4559,22 @@ const LOCS_MAP = new Proxy({}, { get: (_,type) => getLOCS(type) });
 
 
 document.addEventListener('DOMContentLoaded', _checkPasscode);
+
+// Auto-refresh data every 60 seconds
+let _autoRefreshTimer = null;
+function startAutoRefresh(){
+  if(_autoRefreshTimer) clearInterval(_autoRefreshTimer);
+  _autoRefreshTimer = setInterval(async ()=>{
+    // Only refresh if page is visible and not loading
+    if(document.hidden) return;
+    const listEl = document.getElementById('listEl');
+    if(listEl && listEl.querySelector('.loading')) return;
+    await loadData();
+  }, 60000);
+}
+document.addEventListener('visibilitychange', ()=>{
+  if(!document.hidden && allData.length) loadData(); // refresh on tab focus
+});
 </script>
 
 <!-- Admin Login Overlay -->
