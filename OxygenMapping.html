@@ -337,7 +337,10 @@ body{font-family:'BwGradual',sans-serif;background:var(--bg);color:var(--txt);pa
     </div>
     <div class="hf">
       <label>ACFT REG</label>
-      <input id="inpAcft" type="text" placeholder="HZ-AK31" maxlength="10"
+      <select id="selAcft" style="display:none;" onchange="onAcftSelect(this.value)">
+        <option value="">— Select —</option>
+      </select>
+      <input id="inpAcft" type="text" placeholder="HZ-AXXX" maxlength="10"
         oninput="this.value=this.value.toUpperCase();save()">
     </div>
   </div>
@@ -741,6 +744,58 @@ async function exportOfficialForm(){
     console.error(e);
     showToast('Error: '+e.message);
   }
+}
+
+const ACFT_LISTS = {
+  'B777_AK23':   ['HZ-AK23','HZ-AK24','HZ-AK25','HZ-AK26','HZ-AK27','HZ-AK28','HZ-AK29','HZ-AK30'],
+  'B777_AK3135': ['HZ-AK31','HZ-AK32','HZ-AK33','HZ-AK34','HZ-AK35'],
+  'B777_AK3643': ['HZ-AK36','HZ-AK37','HZ-AK38','HZ-AK39','HZ-AK40','HZ-AK41','HZ-AK42','HZ-AK43'],
+  'B787_9':      ['HZ-ARA','HZ-ARB','HZ-ARC','HZ-ARD','HZ-ARE','HZ-ARF','HZ-ARG','HZ-ARH',
+                  'HZ-AR11','HZ-AR12','HZ-AR13','HZ-AR22','HZ-AR23'],
+  'B787_10':     ['HZ-AR24','HZ-AR25','HZ-AR26','HZ-AR27','HZ-AR28','HZ-AR29','HZ-AR32','HZ-AR33'],
+  'A330_AQ11':   ['HZ-AQ11','HZ-AQ12','HZ-AQ13','HZ-AQ14','HZ-AQ15','HZ-AQ16','HZ-AQ17',
+                  'HZ-AQ18','HZ-AQ19','HZ-AQ20','HZ-AQ21','HZ-AQ22','HZ-AQ23','HZ-AQ24',
+                  'HZ-AQ25','HZ-AQ26','HZ-AQ27','HZ-AQ28','HZ-AQ29'],
+  'A330_AQI':    ['HZ-AQI','HZ-AQJ','HZ-AQK','HZ-AQL'],
+  'A330_AQA':    ['HZ-AQA','HZ-AQB','HZ-AQC','HZ-AQD','HZ-AQE','HZ-AQF','HZ-AQG','HZ-AQH'],
+  'A320_AS51':   ['HZ-AS51','HZ-AS52','HZ-AS53','HZ-AS54','HZ-AS55','HZ-AS56','HZ-AS57',
+                  'HZ-AS58','HZ-AS59','HZ-AS60','HZ-AS61','HZ-AS62','HZ-AS63','HZ-AS64',
+                  'HZ-AS65','HZ-AS66','HZ-AS67','HZ-AS68','HZ-AS69','HZ-AS70','HZ-AS71',
+                  'HZ-AS72','HZ-AS73','HZ-AS74','HZ-AS75','HZ-AS76','HZ-AS77','HZ-AS78',
+                  'HZ-AS79','HZ-AS80','HZ-AS81','HZ-AS82','HZ-AS83','HZ-AS84'],
+  'A320_ASA':    ['HZ-ASA','HZ-ASB','HZ-ASC','HZ-ASD','HZ-ASE','HZ-ASF','HZ-ASG'],
+  'A321':        [],
+  'A321_NEO':    [],
+};
+
+function updateAcftField(type){
+  const sel  = document.getElementById('selAcft');
+  const inp  = document.getElementById('inpAcft');
+  const list = ACFT_LISTS[type] || [];
+
+  if(list.length){
+    // Show dropdown, hide free-text input
+    sel.innerHTML = '<option value="">— Select —</option>' +
+      list.map(r => `<option value="${r}">${r}</option>`).join('');
+    sel.style.display = '';
+    inp.style.display = 'none';
+    // Restore previously selected value if it's in the list
+    const prev = inp.value || localStorage.getItem('oxy_acft_'+type) || '';
+    if(prev && list.includes(prev)) sel.value = prev;
+    else sel.value = '';
+  } else {
+    // Free text for A321/A321_NEO (list TBD)
+    sel.style.display = 'none';
+    inp.style.display = '';
+    inp.placeholder = 'HZ-AXXX';
+  }
+}
+
+function onAcftSelect(val){
+  const inp = document.getElementById('inpAcft');
+  inp.value = val;
+  if(val && curType) localStorage.setItem('oxy_acft_'+curType, val);
+  save();
 }
 
 </script>
@@ -2464,6 +2519,21 @@ function onTypeChange(){
   } else if(prevType !== curType){
     // First selection (no previous type) — just clear ACFT REG
     if(acftInput) acftInput.value = '';
+  }
+
+  // Update ACFT field (dropdown or free text based on type)
+  updateAcftField(curType);
+
+  // Restore saved ACFT selection for this type
+  if(curType){
+    const sel = document.getElementById('selAcft');
+    const inp = document.getElementById('inpAcft');
+    const saved = localStorage.getItem('oxy_acft_'+curType)||'';
+    const list = ACFT_LISTS[curType]||[];
+    if(list.length && saved && list.includes(saved)){
+      sel.value = saved;
+      inp.value = saved;
+    }
   }
 
   // Update subtitle
