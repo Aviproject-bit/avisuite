@@ -396,6 +396,10 @@ body{font-family:'BwGradual',sans-serif;background:var(--bg);color:var(--txt);pa
     <div class="exp-ico" style="background:#fef9c3;color:#854d0e"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><path d="M10 13l2 2 4-4"/></svg></div>
     <div><div class="exp-name">Export JSON</div><div class="exp-sub">Full data backup</div></div>
   </button>
+  <button class="exp-item" onclick="exportOfficialForm();closeExpMenu()">
+    <div class="exp-ico" style="background:#e0f2f1;color:#006937"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><polyline points="8,13 12,17 16,13"/><line x1="12" y1="17" x2="12" y2="7"/></svg></div>
+    <div><div class="exp-name">Official Form (.docx)</div><div class="exp-sub">SVA official oxygen mapping form</div></div>
+  </button>
 </div>
 
 <!-- SCAN OVERLAY -->
@@ -536,6 +540,209 @@ function _pcUpdateDots(){
 
 
 document.addEventListener('DOMContentLoaded', _checkPasscode);
+const TEMPLATE_URLS = {
+  'B787_10':    {url:'https://raw.githubusercontent.com/aviproject-bit/ACFT-Project/main/oxy_templates/SVA_787-10_template.docx', rev:'R00'},
+  'B787_9':     {url:'https://raw.githubusercontent.com/aviproject-bit/ACFT-Project/main/oxy_templates/B787_9_template.docx',     rev:'R00'},
+  'B777_AK23':  {url:'https://raw.githubusercontent.com/aviproject-bit/ACFT-Project/main/oxy_templates/B777_AK23_template.docx',  rev:'R00'},
+  'B777_AK3135':{url:'https://raw.githubusercontent.com/aviproject-bit/ACFT-Project/main/oxy_templates/B777_AK3135_template.docx',rev:'R00'},
+  'B777_AK3643':{url:'https://raw.githubusercontent.com/aviproject-bit/ACFT-Project/main/oxy_templates/B777_AK3643_template.docx',rev:'R00'},
+  'A330_AQ11':  {url:'https://raw.githubusercontent.com/aviproject-bit/ACFT-Project/main/oxy_templates/A330_AQ11_template.docx', rev:'R01'},
+  'A330_AQI':   {url:'https://raw.githubusercontent.com/aviproject-bit/ACFT-Project/main/oxy_templates/A330_AQI_template.docx',  rev:'R02'},
+  'A330_AQA':   {url:'https://raw.githubusercontent.com/aviproject-bit/ACFT-Project/main/oxy_templates/A330_AQA_template.docx',  rev:'R03'},
+  'A321':       {url:'https://raw.githubusercontent.com/aviproject-bit/ACFT-Project/main/oxy_templates/A321_template.docx',      rev:'R02'},
+  'A321_NEO':   {url:'https://raw.githubusercontent.com/aviproject-bit/ACFT-Project/main/oxy_templates/A321_NEO_template.docx',  rev:'R02'},
+  'A320_AS51':  {url:'https://raw.githubusercontent.com/aviproject-bit/ACFT-Project/main/oxy_templates/A320_AS51_template.docx', rev:'R02'},
+  'A320_ASA':   {url:'https://raw.githubusercontent.com/aviproject-bit/ACFT-Project/main/oxy_templates/A320_ASA_template.docx',  rev:'R02'},
+};
+
+async function exportOfficialForm(){
+  if(!curType){ showToast('Select aircraft type first'); return; }
+  const acft = document.getElementById('inpAcft').value.trim().toUpperCase();
+  if(!acft){ showToast('Enter ACFT REG first'); return; }
+
+  const tmplEntry = TEMPLATE_URLS[curType];
+  if(!tmplEntry){ showToast('No official template for '+curType+' yet'); return; }
+  const {url:tmplUrl, rev:tmplRev} = tmplEntry;
+
+  showToast('Loading template...');
+  try{
+    // 1. Fetch template
+    const res = await fetch(tmplUrl);
+    if(!res.ok) throw new Error('Template fetch failed: '+res.status);
+    const buf = await res.arrayBuffer();
+
+    // 2. Load JSZip on demand
+    if(!window.JSZip){
+      await new Promise((resolve,reject)=>{
+        const s=document.createElement('script');
+        s.src='https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js';
+        s.onload=resolve; s.onerror=reject;
+        document.head.appendChild(s);
+      });
+    }
+
+    const zip = await JSZip.loadAsync(buf);
+    let docXml = await zip.file('word/document.xml').async('string');
+
+    // 3. Data source = live S object
+    const d = S;
+    function fmt(v){ if(!v)return ''; const m=v.match(/^(\d{4})-(\d{2})$/); return m?m[2]+'/'+m[1]:v; }
+    function getVals(locId){
+      const u1pref = locId+'_u1_';
+      const u2pref = locId+'_u2_';
+      const hasU2 = Object.keys(d).some(k=>k.startsWith(u2pref));
+      if(hasU2){
+        return {
+          csn:  d[u1pref+'csn']||'',
+          cmfg: fmt(d[u1pref+'cmfg']||''),
+          gsn:  {u1:d[u1pref+'gsn']||'', u2:d[u2pref+'gsn']||''},
+          gmfg: {u1:fmt(d[u1pref+'gmfg']||''), u2:fmt(d[u2pref+'gmfg']||'')}
+        };
+      }
+      for(const pref of [locId+'_', locId+'_u1_']){
+        const csn=d[pref+'csn']||'', cmfg=fmt(d[pref+'cmfg']||''),
+              gsn=d[pref+'gsn']||'', gmfg=fmt(d[pref+'gmfg']||'');
+        if(csn||cmfg||gsn||gmfg) return {csn,cmfg,gsn,gmfg};
+      }
+      return {csn:'',cmfg:'',gsn:'',gmfg:''};
+    }
+
+    // 4. Build name/FIN → locId maps
+    const hasFin = ['A330_AQ11','A330_AQI','A330_AQA','A321','A321_NEO','A320_AS51','A320_ASA'].includes(curType);
+    const locCol=hasFin?1:0, cSnCol=hasFin?3:2, cMfgCol=hasFin?4:3, gSnCol=hasFin?6:5, gMfgCol=hasFin?7:6;
+
+    function normLoc(raw){
+      let s=raw.trim().toUpperCase();
+      s=s.replace(/\s*\([^)]*[XYZ][\s\-]LOC[^)]*\)/gi,'').trim();
+      s=s.replace(/\s*\(X-[\d]+[^)]*\)/g,'').trim();
+      s=s.replace(/\s*\([\s\d\w\.,\-]+\)\s*$/,'').trim();
+      s=s.replace(/OFAR\s+-\s+/,'OFAR ');
+      s=s.replace(/OFCR\s+-\s+/,'OFCR ');
+      s=s.replace(/CROSS AISLE([^\s])/,'CROSS AISLE $1');
+      s=s.replace(/OFCR([A-Z])/,'OFCR $1');
+      s=s.replace(/(\([^)]+\))[^(]*$/,(m,p1)=>p1.endsWith(')')?p1:'');
+      s=s.replace(/\s*\/\s*/g,'/');
+      return s.replace(/\s+/g,' ').trim();
+    }
+
+    const locMap = Object.values(LOCS_MAP[curType]||{}).flat().reduce((m,loc)=>{
+      m[loc.id]={name:loc.name, fin:loc.fin||'', sub:loc.sub||''};
+      return m;
+    },{});
+
+    const nameToId={}, finToId={};
+    Object.entries(locMap).forEach(([id,info])=>{
+      const n=info.name.toUpperCase().trim();
+      nameToId[n]=id; nameToId[normLoc(info.name)]=id;
+      const np=info.name.replace(/\s*\([^)]+\)/g,'').trim().toUpperCase().replace(/\s+/g,' ');
+      nameToId[np]=id;
+      if(info.sub){ nameToId[(n+' '+info.sub.toUpperCase()).trim()]=id; }
+      if(info.fin){ finToId[info.fin.toUpperCase()]=id; }
+    });
+
+    // 5. Fill table rows
+    const rowRegex=/(<w:tr[ >].*?<\/w:tr>)/gs;
+    const cellRegex=/(<w:tc[ >].*?<\/w:tc>)/gs;
+    const tRegex=/<w:t[^>]*>([^<]*)<\/w:t>/g;
+
+    docXml=docXml.replace(rowRegex,(rowXml)=>{
+      const cells=[...rowXml.matchAll(cellRegex)].map(m=>m[1]);
+      if(cells.length<6) return rowXml;
+
+      const finVal=hasFin?[...cells[0].matchAll(tRegex)].map(m=>m[1]).join('').trim().toUpperCase():'';
+      const locName=[...cells[Math.min(locCol,cells.length-1)].matchAll(tRegex)].map(m=>m[1]).join('').trim().replace(/\s+/g,' ');
+      if(!locName||['Assembly','FIN','Location'].some(x=>locName.startsWith(x))) return rowXml;
+
+      const key=locName.toUpperCase().trim();
+      const keyNorm=normLoc(locName);
+      const keyNP=locName.replace(/\s*\([^)]+\)/g,'').trim().toUpperCase().replace(/\s+/g,' ');
+      const keyDL=keyNorm.replace(/\s+\w+$/,'');
+      const locId=(finVal&&finToId[finVal])||nameToId[key]||nameToId[keyNorm]||nameToId[keyNP]||(keyDL!==keyNorm?nameToId[keyDL]:undefined);
+      if(!locId) return rowXml;
+
+      const {csn,cmfg,gsn,gmfg}=getVals(locId);
+      if(!csn&&!cmfg&&!gsn&&!gmfg) return rowXml;
+
+      let newRow=rowXml;
+      const isB777Dual=curType.startsWith('B777')&&(typeof gsn==='object'||typeof gmfg==='object');
+      const fillMap={};
+      if(isB777Dual){
+        fillMap[1]=d[locId+'_u1_cpn']||'';
+        fillMap[cSnCol]=csn; fillMap[cMfgCol]=cmfg;
+        fillMap[4]={u1:d[locId+'_u1_gpn']||'',u2:d[locId+'_u2_gpn']||''};
+        fillMap[gSnCol]=gsn; fillMap[gMfgCol]=gmfg;
+      } else {
+        fillMap[cSnCol]=csn; fillMap[cMfgCol]=cmfg;
+        fillMap[gSnCol]=gsn; fillMap[gMfgCol]=gmfg;
+      }
+
+      Object.entries(fillMap).forEach(([ci,val])=>{
+        if(!val||!cells[ci]) return;
+        const oldCell=cells[ci];
+        const existRpr=oldCell.match(/<w:rPr>.*?<\/w:rPr>/s);
+        const rPrXml=existRpr?existRpr[0]:'';
+        const cellTxt=[...oldCell.matchAll(/<w:t[^>]*>([^<]*)<\/w:t>/g)].map(m=>m[1]).join('');
+        const isDual777=cellTxt.includes('#1')&&cellTxt.includes('#2');
+        if(isDual777&&typeof val==='object'){
+          let nc=oldCell;
+          nc=nc.replace(/(<w:r[^>]*>(?:<w:rPr>.*?<\/w:rPr>)?<w:t[^>]*>)(#1)(<\/w:t><\/w:r>)/s,
+            val.u1?`$1$2  ${val.u1}$3`:'$1$2$3');
+          nc=nc.replace(/(<w:r[^>]*>(?:<w:rPr>.*?<\/w:rPr>)?<w:t[^>]*>)(#2)(<\/w:t><\/w:r>)/s,
+            val.u2?`$1$2  ${val.u2}$3`:'$1$2$3');
+          newRow=newRow.replace(oldCell,nc);
+        } else {
+          const fillVal=typeof val==='object'?(val.u1||''):val;
+          if(!fillVal) return;
+          const hasT=/<w:t[^>]*>[^<]*<\/w:t>/.test(oldCell);
+          let nc;
+          if(hasT){
+            let done=false;
+            nc=oldCell.replace(/<w:t([^>]*)>([^<]*)<\/w:t>/g,(m,attr,txt)=>{
+              if(done) return m; done=true;
+              return `<w:t${attr}>${fillVal}</w:t>`;
+            });
+          } else {
+            const rpr=rPrXml||'<w:rPr><w:sz w:val="15"/></w:rPr>';
+            nc=oldCell.replace(/<\/w:p>/,`<w:r>${rpr}<w:t xml:space="preserve">${fillVal}</w:t></w:r></w:p>`);
+          }
+          newRow=newRow.replace(oldCell,nc);
+        }
+      });
+      return newRow;
+    });
+
+    // 6. Fill header (ACFT REG + Date)
+    let hdrXml = await zip.file('word/header1.xml').async('string');
+    let hdrFilled=false;
+    hdrXml=hdrXml.replace(/(<w:tc[ >].*?<\/w:tc>)(<w:tc[ >].*?<\/w:tc>)/s,(m,c1,c2)=>{
+      const t=[...c1.matchAll(/<w:t[^>]*>([^<]*)<\/w:t>/g)].map(x=>x[1]).join('');
+      if(t.includes('ACFT')&&!hdrFilled){
+        hdrFilled=true;
+        return c1+c2.replace('<\/w:p>',`<w:r><w:t>${acft}</w:t></w:r></w:p>`);
+      }
+      return m;
+    });
+    const today=new Date().toLocaleDateString('en-GB');
+    hdrXml=hdrXml.replace(/(<w:tc[ >].*?Date.*?<\/w:tc>)(<w:tc[ >].*?<\/w:tc>)/s,(m,c1,c2)=>
+      c1+c2.replace('<\/w:p>',`<w:r><w:t>${today}</w:t></w:r></w:p>`)
+    );
+
+    zip.file('word/document.xml',docXml);
+    zip.file('word/header1.xml',hdrXml);
+
+    const out=await zip.generateAsync({type:'blob',mimeType:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'});
+    const a=document.createElement('a');
+    a.href=URL.createObjectURL(out);
+    a.download='OxyMapping_'+acft+'_'+curType+(tmplRev?'_'+tmplRev:'')+'.docx';
+    a.click();
+    showToast('\u2713 Official form downloaded');
+
+  }catch(e){
+    console.error(e);
+    showToast('Error: '+e.message);
+  }
+}
+
 </script>
 <script>
 // ══════════════════════════════════════════════
