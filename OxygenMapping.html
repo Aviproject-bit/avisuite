@@ -3474,10 +3474,22 @@ document.addEventListener('DOMContentLoaded', function(){
       const d=JSON.parse(h);
       if(d.type){
         document.getElementById('selType').value=d.type||'';
-        document.getElementById('inpAcft').value=d.acft||'';
         const techEl=document.getElementById('inpTech');
         if(techEl) techEl.value=d.tech||'';
         onTypeChange();
+        // Restore ACFT after onTypeChange sets up the field type
+        const savedAcft=(d.acft||'').toUpperCase();
+        if(savedAcft){
+          const selA=document.getElementById('selAcft');
+          const inpA=document.getElementById('inpAcft');
+          const list=ACFT_LISTS[d.type]||[];
+          if(list.includes(savedAcft)){
+            selA.value=savedAcft;
+            inpA.value=savedAcft;
+          } else {
+            inpA.value=savedAcft;
+          }
+        }
         setTimeout(fixTabs, 150);
       }
     }
