@@ -6115,40 +6115,6 @@ function showToast(msg){
 // ══════════════════════════════════════════════
 // INIT
 // ══════════════════════════════════════════════
-document.addEventListener('DOMContentLoaded', function(){
-  // Check auth
-  
-  // Set tabs sticky position after header renders
-  function fixTabs(){
-    const hdr = document.querySelector('.hdr');
-    const tabs = document.querySelector('.tabs');
-    if(hdr && tabs){
-      tabs.style.top = hdr.getBoundingClientRect().height + 'px';
-    }
-  }
-  setTimeout(fixTabs, 100);
-  window.addEventListener('resize', fixTabs);
-
-  // Set status bar color
-  document.querySelector('meta[name="theme-color"]') && 
-    document.querySelector('meta[name="theme-color"]').setAttribute('content','#0F2920');
-
-  try{
-    const s=localStorage.getItem('oxy_s'); if(s) S=JSON.parse(s);
-    const h=localStorage.getItem('oxy_h');
-    if(h){
-      const d=JSON.parse(h);
-      if(d.type){
-        document.getElementById('selType').value=d.type||'';
-        document.getElementById('inpAcft').value=d.acft||'';
-        const techEl=document.getElementById('inpTech');
-        if(techEl) techEl.value=d.tech||'';
-        onTypeChange();
-        setTimeout(fixTabs, 150);
-      }
-    }
-  }catch(e){}
-});
 
 </script>
 </body>
