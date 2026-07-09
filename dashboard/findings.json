@@ -1337,5 +1337,23 @@
     "description": "DOOR LINING AFT LINING DMG NEAR SCREW",
     "remarks": "",
     "photoUrl": ""
+  },
+  {
+    "id": "1783601742595yzup3",
+    "batchId": "batch_1783601687743_55wdra",
+    "timestamp": "2026-07-09T12:55:42.595Z",
+    "date": "09/07/2026",
+    "time": "15:54",
+    "aircraft": "ASF",
+    "reporter": "13010279",
+    "findings": [
+      {
+        "category": "GALLEY            ",
+        "subCategory": "GAG               ",
+        "description": "SGDGS                                                       ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/Y7ZR6yXy/a99141a7ab88.jpg"
+      }
+    ]
   }
 ]
