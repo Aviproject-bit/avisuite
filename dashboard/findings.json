@@ -1452,5 +1452,23 @@
         "photoUrl": "https://i.ibb.co/cc8KHMhT/00666b6e5720.jpg | https://i.ibb.co/1YTbVGpn/445a80764671.jpg | https://i.ibb.co/cX32s1rc/e98d90f1bf5a.jpg"
       }
     ]
+  },
+  {
+    "id": "1783765493752f6df5",
+    "batchId": "batch_1783765490693_5ig2eo",
+    "timestamp": "2026-07-11T10:24:53.752Z",
+    "date": "11/07/2026",
+    "time": "13:24",
+    "aircraft": "HZ-ASF",
+    "reporter": "30001452",
+    "findings": [
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "OVERHEAD COMPARTMENT",
+        "description": "OVERHEAD COMPARTMENT SMALL RUBBER INSERTS MISSING AT ALL COMPARTMENTS",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/xSrKxpcw/3a1e81cb41ed.jpg | https://i.ibb.co/HDqYQmLv/2d4ad459b356.jpg"
+      }
+    ]
   }
 ]
