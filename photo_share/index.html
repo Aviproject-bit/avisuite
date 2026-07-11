@@ -384,7 +384,8 @@ async function loadFiles(){
   try{
     const res=await fetch(`${PROXY}?path=${GH_DIR}&t=`+Date.now());
     if(!res.ok){wrap.style.display='none';empty.style.display='block';return;}
-    const files=(await res.json()).filter(f=>f.type==='file'&&f.name!=='.gitkeep');
+    const SKIP=['gitkeep','html'];
+const files=(await res.json()).filter(f=>f.type==='file'&&!SKIP.includes(f.name.split('.').pop().toLowerCase())&&!f.name.startsWith('.'));
     if(!files.length){wrap.style.display='none';empty.style.display='block';gallery.innerHTML='';return;}
 
     files.sort((a,b)=>b.name.localeCompare(a.name));
@@ -440,7 +441,8 @@ async function delFile(path,sha,name){
 async function clearOld(){
   const res=await fetch(`${PROXY}?path=${GH_DIR}&t=`+Date.now());
   if(!res.ok)return;
-  const files=(await res.json()).filter(f=>f.type==='file'&&f.name!=='.gitkeep');
+  const SKIP=['gitkeep','html'];
+const files=(await res.json()).filter(f=>f.type==='file'&&!SKIP.includes(f.name.split('.').pop().toLowerCase())&&!f.name.startsWith('.'));
   const cutoff=Date.now()-TTL;
   const old=files.filter(f=>{const ts=parseInt(f.name.split('_')[0]);return !isNaN(ts)&&ts<cutoff;});
   if(!old.length){toast('No old files');return;}
