@@ -1604,5 +1604,51 @@
         "photoUrl": "https://i.ibb.co/ccv1M9w4/470f4ff6f4a9.jpg | https://i.ibb.co/4RqpmmDJ/05f446130607.jpg"
       }
     ]
+  },
+  {
+    "id": "1783767763534ebcv7",
+    "batchId": "batch_1783767289530_fvoew5",
+    "timestamp": "2026-07-11T11:02:43.534Z",
+    "date": "11/07/2026",
+    "time": "13:54",
+    "aircraft": "ASF",
+    "reporter": "ALBOUQ",
+    "findings": [
+      {
+        "category": "LAVATORY          ",
+        "subCategory": "N/A               ",
+        "description": "OUT SIDE DOOR UPPER RUBSTRIP DIRTY                          ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/xS83MJ1z/e11f1f7814e9.jpg"
+      },
+      {
+        "category": "F/A SEAT          ",
+        "subCategory": "N/A               ",
+        "description": "SWIVIL SEAT HEAD CUSHION OUT OF POSITION                    ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/PsbmmWbN/759af6ff3899.jpg"
+      },
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "N/A               ",
+        "description": "R2 AND L2 PBE OVHUL CERT OUT OFF POSITION                   ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/60JXDwYY/d19eaadcb214.jpg"
+      },
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "N/A               ",
+        "description": "S301 LATCH PLATE AND SCREWS MISSING                         ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/WjQxpP6/074ce4ec9475.jpg"
+      },
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "N/A               ",
+        "description": "S303 INSIDE DIRTY                                           ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/rK5r0SgR/172b7f1f6ae4.jpg"
+      }
+    ]
   }
 ]
