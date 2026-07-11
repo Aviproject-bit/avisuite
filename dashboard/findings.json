@@ -1350,5 +1350,107 @@
     "description": "DOOR LINING AFT LINING DMG NEAR SCREW",
     "remarks": "",
     "photoUrl": ""
+  },
+  {
+    "id": "1783764663309phbmv",
+    "batchId": "batch_1783764617651_vdqxtj",
+    "timestamp": "2026-07-11T10:11:03.309Z",
+    "date": "11/07/2026",
+    "time": "13:10",
+    "aircraft": "HZ-ASF",
+    "reporter": "30001452",
+    "findings": [
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "COCKPIT           ",
+        "description": "FIRST OBSERVER SEAT WRONG BACK CUSHION                      ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/YBmSckpp/17adab586768.jpg"
+      },
+      {
+        "category": "GALLEY            ",
+        "subCategory": "FWD GALLEY        ",
+        "description": "BROKEN TRIM NEAR SINK                                       ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/9kxt44Rf/859a72bed9d5.jpg"
+      },
+      {
+        "category": "GALLEY            ",
+        "subCategory": "FWD GALLEY        ",
+        "description": "COMPARTMENT #101 EXTRACTION DEVICE LOOSE                    ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/gbqF0K9T/7226da289b85.jpg"
+      },
+      {
+        "category": "GALLEY            ",
+        "subCategory": "FWD GALLEY        ",
+        "description": "OVEN #1 GRILL DEFORMED                                      ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/hRvwc7n1/e3e0c4d9cb0e.jpg"
+      },
+      {
+        "category": "GALLEY            ",
+        "subCategory": "FWD GALLEY        ",
+        "description": "COMPARTMENT 208 AND 203 RED LATCH FADED                     ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/bMqX5cqM/ee4143b51e23.jpg"
+      },
+      {
+        "category": "GALLEY            ",
+        "subCategory": "FWD GALLEY        ",
+        "description": "RED KNOB AT 109 INSTALLED UPSIDE DOWN + LOOSE               ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/F4DGsT8F/8c7bd52f87f1.jpg | https://i.ibb.co/qFMbJJLx/6d6a9d6c3518.jpg"
+      },
+      {
+        "category": "GALLEY            ",
+        "subCategory": "FWD GALLEY        ",
+        "description": "COMPARTMENT 209 LATCH DOESN'T OPEN PROPERLY NEEDS ADJUSTMENT",
+        "remarks": "LATCH R&R OR ADJUSTMENT  ",
+        "photoUrl": "https://i.ibb.co/rKVS9k66/1ae47a6052c1.jpg"
+      },
+      {
+        "category": "GALLEY            ",
+        "subCategory": "FWD GALLEY        ",
+        "description": "COMPARTMENT 202 LOOSE HINGE                                 ",
+        "remarks": "                         ",
+        "photoUrl": ""
+      },
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "FWD GALLEY        ",
+        "description": "FRONT CURTAIN RAIL DENTED                                   ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/Vcg0BnF2/04ca58a44bc8.jpg"
+      },
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "FWD GALLEY        ",
+        "description": "CURTAIN RAIL FRONT MOUNT LOOSE                              ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/7NnMHFZJ/f76ba391412a.jpg"
+      },
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "KICKSTRIP         ",
+        "description": "FWD OF SEAT 1LJ, KICKSTRIP LOOSE                            ",
+        "remarks": "CORNER KICK STRIP        ",
+        "photoUrl": "https://i.ibb.co/0RF2h58S/dc40a652ad5e.jpg"
+      },
+      {
+        "category": "PAX SEAT          ",
+        "subCategory": "SEAT 5LJ          ",
+        "description": "BACK OF SEAT 5LJ SHROUD LOOSE                               ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/TJCMBgp/dff61337e3b0.jpg"
+      },
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "CAPTAIN PADDLES   ",
+        "description": "CURTAIN RUDDER PADDLES STEP RUBBER NOT SECURED + GLUE RESIDUAL",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/cc8KHMhT/00666b6e5720.jpg | https://i.ibb.co/1YTbVGpn/445a80764671.jpg | https://i.ibb.co/cX32s1rc/e98d90f1bf5a.jpg"
+      }
+    ]
   }
 ]
