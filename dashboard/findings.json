@@ -1470,5 +1470,93 @@
         "photoUrl": "https://i.ibb.co/xSrKxpcw/3a1e81cb41ed.jpg | https://i.ibb.co/HDqYQmLv/2d4ad459b356.jpg"
       }
     ]
+  },
+  {
+    "id": "1783765701937n0ox0",
+    "batchId": "batch_1783765697430_66io97",
+    "timestamp": "2026-07-11T10:28:21.937Z",
+    "date": "11/07/2026",
+    "time": "13:28",
+    "aircraft": "ASF",
+    "reporter": "ALBOUQ",
+    "findings": [
+      {
+        "category": "PAX DOORS         ",
+        "subCategory": "N/A               ",
+        "description": "L/H DOOR HANDLE                                             ",
+        "remarks": "P/N : A252-75761-202     ",
+        "photoUrl": "https://i.ibb.co/LzF2H71N/adb085edd5b8.jpg"
+      },
+      {
+        "category": "GALLEY            ",
+        "subCategory": "N/A               ",
+        "description": "WASTE BIN HANDLE MISSING                                    ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/xq82tc0c/9e33aa0e3969.jpg"
+      },
+      {
+        "category": "GALLEY            ",
+        "subCategory": "N/A               ",
+        "description": "MID LATCH COMP. 504 INOP + DOOR SHAKING                     ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/hTygmn7/b67e631efce7.jpg"
+      },
+      {
+        "category": "GALLEY            ",
+        "subCategory": "N/A               ",
+        "description": "MID LATCH COMP. 504 INOP + DOOR SHAKING                     ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/67zrT4fs/79c9d18f8ae1.jpg"
+      },
+      {
+        "category": "GALLEY            ",
+        "subCategory": "N/A               ",
+        "description": "COMP.502 KNOB FADED                                         ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/k2RMnnBK/0f242fcc5a79.jpg"
+      },
+      {
+        "category": "GALLEY            ",
+        "subCategory": "N/A               ",
+        "description": "OVEN #3 L/H SLIDE GRIL OUT OF POSITION                      ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/Rkn1T673/a570149b74c5.jpg"
+      },
+      {
+        "category": "GALLEY            ",
+        "subCategory": "N/A               ",
+        "description": "AFT OF 518 DIVIDER COVER MISSING 2EA                        ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/xSPjXVLx/f2f680ecd6d0.jpg"
+      },
+      {
+        "category": "GALLEY            ",
+        "subCategory": "N/A               ",
+        "description": "521 KNOB INPROPER INSTALLATION                              ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/KzhHLx4c/28926f90889a.jpg"
+      },
+      {
+        "category": "F/A SEAT          ",
+        "subCategory": "N/A               ",
+        "description": "R2 F/A SEAT FAST TO CLOSE                                   ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/QGtLMcy/4f58f4290fca.jpg"
+      },
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "N/A               ",
+        "description": "AFT CURTAIN RAIL DIRTY                                      ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/KcByk55k/b1e2e0fc5388.jpg"
+      },
+      {
+        "category": "LAVATORY          ",
+        "subCategory": "N/A               ",
+        "description": "LAV D UPPER LATCH MISSING                                   ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/C5Mr30Vm/9fa024ee3d7f.jpg"
+      }
+    ]
   }
 ]
