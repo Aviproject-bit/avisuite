@@ -172,7 +172,17 @@ html,body{margin:0;padding:0;background:#0F2920;min-height:100vh;font-family:'Bw
     <div id="gallery-wrap">
       <div class="sec-hdr">
         <span id="gallery-hdr">Shared Files</span>
-        <button onclick="clearOld()">Clear 48h+</button>
+        <div style="display:flex;gap:6px">
+          <button id="select-btn" onclick="toggleSelectMode()" style="border-color:#17B8C8;color:#17B8C8">Select</button>
+          <button onclick="clearOld()">Clear 48h+</button>
+        </div>
+      </div>
+      <div class="dl-bar" id="dl-bar">
+        <span class="dl-bar-info" id="dl-bar-info">0 selected</span>
+        <div class="dl-bar-actions">
+          <button class="dl-bar-btn cancel" onclick="toggleSelectMode()">Cancel</button>
+          <button class="dl-bar-btn primary" id="dl-all-btn" onclick="downloadSelected()">⬇ Download All</button>
+        </div>
       </div>
       <div class="gallery admin-area" id="gallery"></div>
     </div>
