@@ -99,6 +99,25 @@ html,body{margin:0;padding:0;background:#0F2920;min-height:100vh;font-family:'Bw
 
 .toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(20px);background:#0F2920;color:#fff;padding:10px 18px;border-radius:9px;font-size:12px;font-weight:600;opacity:0;transition:.25s;z-index:99999;pointer-events:none;white-space:nowrap;font-family:'BwGradual',sans-serif}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+.g-select-ring{position:absolute;inset:0;border-radius:10px;border:3px solid #17B8C8;display:none;pointer-events:none}
+.g-item.selected .g-select-ring{display:block}
+.g-check{position:absolute;top:6px;left:6px;width:22px;height:22px;border-radius:50%;
+  background:rgba(0,0,0,.3);border:2px solid rgba(255,255,255,.7);
+  display:none;align-items:center;justify-content:center;
+  color:#fff;font-size:12px;font-weight:900;pointer-events:none}
+.select-active .g-check{display:flex}
+.g-item.selected .g-check{background:#17B8C8;border-color:#17B8C8}
+.dl-bar{position:fixed;bottom:0;left:0;right:0;background:#0F2920;padding:12px 16px;
+  display:none;align-items:center;justify-content:space-between;gap:12px;
+  z-index:9000;box-shadow:0 -4px 20px rgba(0,0,0,.3)}
+.dl-bar.show{display:flex}
+.dl-bar-info{color:#fff;font-size:13px;font-weight:700;font-family:'BwGradual',sans-serif}
+.dl-bar-actions{display:flex;gap:8px}
+.dl-bar-btn{padding:9px 16px;border-radius:9px;font-size:12px;font-weight:700;cursor:pointer;border:none;font-family:'BwGradual',sans-serif}
+.dl-bar-btn.primary{background:#17B8C8;color:#fff}
+.dl-bar-btn.cancel{background:rgba(255,255,255,.12);color:#fff}
+
 </style>
 </head>
 <body>
@@ -472,6 +491,71 @@ function openLB(url,name){
 }
 function closeLB(){document.getElementById('lb').style.display='none';}
 document.getElementById('lb').addEventListener('click',e=>{if(e.target===e.currentTarget)closeLB();});
+
+
+// ── SELECT MODE ────────────────────────────────────────────
+let selectMode = false;
+const selectedItems = new Map();
+
+function toggleSelectMode(){
+  selectMode = !selectMode;
+  const btn = document.getElementById('select-btn');
+  const bar = document.getElementById('dl-bar');
+  const gallery = document.getElementById('gallery');
+  if(selectMode){
+    btn.textContent = 'Cancel';
+    btn.style.cssText = 'border-color:#E65100;color:#E65100';
+    gallery.classList.add('select-active');
+  } else {
+    btn.textContent = 'Select';
+    btn.style.cssText = 'border-color:#17B8C8;color:#17B8C8';
+    gallery.classList.remove('select-active');
+    selectedItems.clear();
+    document.querySelectorAll('#gallery .g-item.selected').forEach(el=>el.classList.remove('selected'));
+    bar.classList.remove('show');
+  }
+}
+
+function handleItemClick(e, url, name){
+  if(!selectMode){
+    if(e.target.tagName==='IMG') openLB(url, name);
+    return;
+  }
+  e.preventDefault(); e.stopPropagation();
+  let item = e.currentTarget;
+  if(!item || !item.classList.contains('g-item')){
+    item = e.target;
+    while(item && !item.classList.contains('g-item')) item = item.parentElement;
+  }
+  if(!item) return;
+  if(selectedItems.has(url)){ selectedItems.delete(url); item.classList.remove('selected'); }
+  else { selectedItems.set(url, name); item.classList.add('selected'); }
+  const n = selectedItems.size;
+  const bar = document.getElementById('dl-bar');
+  document.getElementById('dl-bar-info').textContent = n + ' selected';
+  bar.classList.toggle('show', n > 0);
+}
+
+async function downloadSelected(){
+  if(!selectedItems.size) return;
+  const btn = document.getElementById('dl-all-btn');
+  btn.textContent = 'Downloading...'; btn.disabled = true;
+  for(const [url, name] of selectedItems){
+    try{
+      const blob = await fetch(url).then(r=>r.blob());
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = name||'file';
+      document.body.appendChild(a); a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(a.href);
+      await new Promise(r=>setTimeout(r,600));
+    }catch(e){ toast('Failed: '+name); }
+  }
+  btn.textContent = '⬇ Download All'; btn.disabled = false;
+  toast('Downloaded '+selectedItems.size+' files ✓');
+  toggleSelectMode();
+}
 
 // ── UTILS ─────────────────────────────────────────────────────
 function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/'/g,'&#39;');}
