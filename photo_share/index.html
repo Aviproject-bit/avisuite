@@ -97,10 +97,6 @@ html,body{margin:0;padding:0;background:#0F2920;min-height:100vh;font-family:'Bw
 .admin-key:active{background:rgba(255,255,255,.2)}
 .admin-cancel{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.5);padding:6px 16px;border-radius:7px;cursor:pointer;font-size:12px;font-family:'BwGradual',sans-serif}
 
-.g-select-ring{position:absolute;inset:0;border-radius:10px;border:3px solid #17B8C8;display:none;pointer-events:none}
-.g-item.selected .g-select-ring{display:block}
-.g-check{position:absolute;top:6px;left:6px;width:20px;height:20px;border-radius:50%;background:#17B8C8;border:none;display:none;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:900;pointer-events:none}
-.select-mode .g-check{display:flex}
 .toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(20px);background:#0F2920;color:#fff;padding:10px 18px;border-radius:9px;font-size:12px;font-weight:600;opacity:0;transition:.25s;z-index:99999;pointer-events:none;white-space:nowrap;font-family:'BwGradual',sans-serif}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 </style>
@@ -405,11 +401,13 @@ const files=(await res.json()).filter(f=>f.type==='file'&&!SKIP.includes(f.name.
         try{
           const rj=await fetch(f.download_url);
           const meta=await rj.json();
-          return `<div class="g-item">
-            <img class="g-img" src="${meta.thumb||meta.url}" loading="lazy" onclick="openLB('${meta.url}','${esc(meta.name)}')">
+          return `<div class="g-item" onclick="handleItemClick(event,'${meta.url}','${esc(meta.name)}')">
+            <img class="g-img" src="${meta.thumb||meta.url}" loading="lazy">
             <span class="g-age">${age}</span>
-            <button class="g-del" onclick="delFile('${f.path}','${f.sha}','${esc(meta.name)}')" title="Delete">✕</button>
-            <a class="g-dl" href="${meta.url}" download="${esc(meta.name)}" target="_blank">⬇ Download</a>
+            <div class="g-select-ring"></div>
+            <div class="g-check">✓</div>
+            <button class="g-del" onclick="event.stopPropagation();delFile('${f.path}','${f.sha}','${esc(meta.name)}')" title="Delete">✕</button>
+            <a class="g-dl" href="${meta.url}" download="${esc(meta.name)}" target="_blank" onclick="event.stopPropagation()">⬇ Download</a>
           </div>`;
         }catch{return '';}
       }else{
@@ -417,11 +415,13 @@ const files=(await res.json()).filter(f=>f.type==='file'&&!SKIP.includes(f.name.
         const orig=f.name.replace(/^\d+_/,'');
         const ext=orig.split('.').pop().toLowerCase();
         const isImg=IMG_EXTS.includes(ext);
-        return `<div class="g-item">
-          ${isImg?`<img class="g-img" src="${f.download_url}" loading="lazy" onclick="openLB('${f.download_url}','${esc(orig)}')">`
+        return `<div class="g-item" onclick="handleItemClick(event,'${f.download_url}','${esc(orig)}')">
+          ${isImg?`<img class="g-img" src="${f.download_url}" loading="lazy" >`
             :`<div class="g-file"><span class="g-ext">${ext}</span><span class="g-fname">${esc(orig)}</span></div>`}
           <span class="g-age">${age}</span>
-          <button class="g-del" onclick="delFile('${f.path}','${f.sha}','${esc(orig)}')" title="Delete">✕</button>
+          <div class="g-select-ring"></div>
+          <div class="g-check">✓</div>
+          <button class="g-del" onclick="event.stopPropagation();delFile('${f.path}','${f.sha}','${esc(orig)}')" title="Delete">✕</button>
           <a class="g-dl" href="${f.download_url}" download="${esc(orig)}" target="_blank">⬇ Download</a>
         </div>`;
       }
@@ -472,80 +472,6 @@ function openLB(url,name){
 }
 function closeLB(){document.getElementById('lb').style.display='none';}
 document.getElementById('lb').addEventListener('click',e=>{if(e.target===e.currentTarget)closeLB();});
-
-
-// ── SELECT MODE ─────────────────────────────────────────────
-let selectMode = false;
-let selectedItems = new Map();
-
-function toggleSelectMode(){
-  selectMode = !selectMode;
-  const btn = document.getElementById('select-btn');
-  const bar = document.getElementById('dl-bar');
-  const gallery = document.getElementById('gallery');
-  if(selectMode){
-    gallery.classList.add('select-mode');
-    btn.textContent = 'Cancel';
-    btn.style.color = '#E65100';
-    btn.style.borderColor = '#E65100';
-  } else {
-    gallery.classList.remove('select-mode');
-    btn.textContent = 'Select';
-    btn.style.color = '#17B8C8';
-    btn.style.borderColor = '#17B8C8';
-    selectedItems.clear();
-    document.querySelectorAll('.g-item.selected').forEach(el=>el.classList.remove('selected'));
-    bar.classList.remove('show');
-  }
-}
-
-function handleItemClick(e, url, name){
-  if(selectMode){
-    e.preventDefault();
-    e.stopPropagation();
-    let item = e.target;
-    while(item && !item.classList.contains('g-item')) item = item.parentElement;
-    if(!item) return;
-    if(selectedItems.has(url)){
-      selectedItems.delete(url);
-      item.classList.remove('selected');
-    } else {
-      selectedItems.set(url, name);
-      item.classList.add('selected');
-    }
-    const n = selectedItems.size;
-    const bar = document.getElementById('dl-bar');
-    const info = document.getElementById('dl-bar-info');
-    bar.classList.toggle('show', n > 0);
-    info.textContent = n + ' selected';
-  } else {
-    // Normal — lightbox for images
-    const t = e.target;
-    if(t.tagName === 'IMG') openLB(url, name);
-  }
-}
-
-async function downloadSelected(){
-  if(!selectedItems.size) return;
-  const btn = document.getElementById('dl-all-btn');
-  btn.textContent = 'Downloading...'; btn.disabled = true;
-  for(const [url, name] of selectedItems){
-    try{
-      const res = await fetch(url);
-      const blob = await res.blob();
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = name || 'file';
-      document.body.appendChild(a); a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(a.href);
-      await new Promise(r=>setTimeout(r,600));
-    }catch(e){ toast('Failed: '+name); }
-  }
-  btn.textContent = '⬇ Download All'; btn.disabled = false;
-  toast('Downloaded '+selectedItems.size+' files ✓');
-  toggleSelectMode();
-}
 
 // ── UTILS ─────────────────────────────────────────────────────
 function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/'/g,'&#39;');}
