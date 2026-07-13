@@ -99,6 +99,18 @@ html,body{margin:0;padding:0;background:#0F2920;min-height:100vh;font-family:'Bw
 
 .toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(20px);background:#0F2920;color:#fff;padding:10px 18px;border-radius:9px;font-size:12px;font-weight:600;opacity:0;transition:.25s;z-index:99999;pointer-events:none;white-space:nowrap;font-family:'BwGradual',sans-serif}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.g-select-ring{position:absolute;inset:0;border-radius:10px;border:3px solid #17B8C8;display:none;pointer-events:none}
+.g-item.selected .g-select-ring{display:block}
+.g-item.selected{opacity:.85}
+.g-check{position:absolute;top:6px;left:6px;width:20px;height:20px;border-radius:50%;background:#17B8C8;border:none;display:none;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:900;pointer-events:none}
+.select-mode .g-check{display:flex}
+.dl-bar{position:fixed;bottom:0;left:0;right:0;background:#0F2920;padding:12px 16px;display:none;align-items:center;justify-content:space-between;gap:12px;z-index:9000;box-shadow:0 -4px 20px rgba(0,0,0,.3)}
+.dl-bar.show{display:flex}
+.dl-bar-info{color:#fff;font-size:13px;font-weight:700;font-family:'BwGradual',sans-serif}
+.dl-bar-actions{display:flex;gap:8px}
+.dl-bar-btn{padding:9px 16px;border-radius:9px;font-size:12px;font-weight:700;cursor:pointer;border:none;font-family:'BwGradual',sans-serif}
+.dl-bar-btn.primary{background:#17B8C8;color:#fff}
+.dl-bar-btn.cancel{background:rgba(255,255,255,.12);color:#fff}
 </style>
 </head>
 <body>
@@ -153,7 +165,18 @@ html,body{margin:0;padding:0;background:#0F2920;min-height:100vh;font-family:'Bw
     <div id="gallery-wrap">
       <div class="sec-hdr">
         <span id="gallery-hdr">Shared Files</span>
-        <button onclick="clearOld()">Clear 48h+</button>
+        <div style="display:flex;gap:6px">
+          <button id="select-btn" onclick="toggleSelectMode()">Select</button>
+          <button onclick="clearOld()">Clear 48h+</button>
+        </div>
+      </div>
+      <!-- Download bar (appears when items selected) -->
+      <div class="dl-bar" id="dl-bar">
+        <span class="dl-bar-info" id="dl-bar-info">0 selected</span>
+        <div class="dl-bar-actions">
+          <button class="dl-bar-btn cancel" onclick="toggleSelectMode()">Cancel</button>
+          <button class="dl-bar-btn primary" id="dl-all-btn" onclick="downloadSelected()">⬇ Download All</button>
+        </div>
       </div>
       <div class="gallery admin-area" id="gallery"></div>
     </div>
@@ -468,6 +491,86 @@ function openLB(url,name){
 }
 function closeLB(){document.getElementById('lb').style.display='none';}
 document.getElementById('lb').addEventListener('click',e=>{if(e.target===e.currentTarget)closeLB();});
+
+// ── SELECT MODE + DOWNLOAD ALL ─────────────────────────────────
+let selectMode = false;
+let selectedItems = new Map(); // url → filename
+
+function toggleSelectMode(){
+  selectMode = !selectMode;
+  const gallery = document.getElementById('gallery');
+  const btn = document.getElementById('select-btn');
+  const bar = document.getElementById('dl-bar');
+  if(selectMode){
+    gallery.classList.add('select-mode');
+    btn.textContent = 'Cancel';
+    btn.style.color = '#E65100';
+  } else {
+    gallery.classList.remove('select-mode');
+    btn.textContent = 'Select';
+    btn.style.color = '';
+    selectedItems.clear();
+    document.querySelectorAll('.g-item.selected').forEach(el=>el.classList.remove('selected'));
+    bar.classList.remove('show');
+  }
+}
+
+function handleItemClick(e, url, name){
+  if(selectMode){
+    e.preventDefault();
+    e.stopPropagation();
+    const item = e.currentTarget.closest('.g-item');
+    if(!item) return;
+    if(selectedItems.has(url)){
+      selectedItems.delete(url);
+      item.classList.remove('selected');
+    } else {
+      selectedItems.set(url, name);
+      item.classList.add('selected');
+    }
+    const bar = document.getElementById('dl-bar');
+    const info = document.getElementById('dl-bar-info');
+    if(selectedItems.size > 0){
+      bar.classList.add('show');
+      info.textContent = selectedItems.size + ' selected';
+    } else {
+      bar.classList.remove('show');
+    }
+  } else {
+    // Normal mode → open lightbox if image, else do nothing
+    if(e.currentTarget.tagName === 'IMG') openLB(url, name);
+  }
+}
+
+async function downloadSelected(){
+  if(!selectedItems.size) return;
+  const btn = document.getElementById('dl-all-btn');
+  btn.textContent = 'Downloading...';
+  btn.disabled = true;
+  let i = 0;
+  for(const [url, name] of selectedItems){
+    // Fetch and trigger download for each file
+    try {
+      const res = await fetch(url);
+      const blob = await res.blob();
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = name || 'file_' + (++i);
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(a.href);
+      // Small delay between downloads so browser doesn't block
+      await new Promise(r => setTimeout(r, 600));
+    } catch(e) {
+      toast('Failed: ' + name);
+    }
+  }
+  btn.textContent = '⬇ Download All';
+  btn.disabled = false;
+  toast('Downloaded ' + selectedItems.size + ' files ✓');
+  toggleSelectMode();
+}
 
 // ── UTILS ─────────────────────────────────────────────────────
 function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/'/g,'&#39;');}
