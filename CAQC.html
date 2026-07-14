@@ -281,7 +281,7 @@ canvas.cvc{display:block;width:100%;height:auto;background:#111}
 .exp-opts{background:var(--sur);border:1px solid var(--bdr);border-radius:6px;padding:12px 14px;display:flex;flex-direction:column;gap:8px}
 .exp-chk{display:flex;align-items:center;gap:8px;cursor:pointer;font-size:12px;font-weight:600;color:var(--txt2);padding:3px 0}
 .exp-chk input[type=checkbox]{width:15px;height:15px;accent-color:var(--acc);cursor:pointer;flex-shrink:0}
-#imgLB{position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:800;display:flex;align-items:center;justify-content:center}
+#imgLB{position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:1100;display:flex;align-items:center;justify-content:center}
 #imgLB.h{display:none!important}
 #imgLB img{max-width:95vw;max-height:93vh;object-fit:contain;border-radius:4px}
 #imgLB .lbclose{position:absolute;top:14px;right:18px;background:rgba(255,255,255,.1);border:none;color:#fff;border-radius:4px;cursor:pointer;font-size:20px;padding:4px 10px;line-height:1}
@@ -1128,6 +1128,7 @@ function load(){
   document.getElementById('tbAcft').textContent=S.aircraft||'Set Aircraft';
   document.getElementById('rreg').textContent=S.aircraft||'—';
   document.getElementById('rorg').textContent=(S.org||'')+(S.dept?' · '+S.dept:'');
+  initCanvasObserver();
   renderF();renderC();
 }
 
@@ -1370,7 +1371,14 @@ function renderC(){
   document.getElementById('ccnt').textContent=cards.length+' Item'+(cards.length!==1?'s':'');
   if(!cards.length){g.innerHTML='<div class="empty" style="grid-column:1/-1"><div class="empty-i">&#x1F504;</div><div class="empty-t">No Comparisons Yet</div><div class="empty-s">Go to Findings and click "Before / After"</div></div>';return;}
   g.innerHTML=cards.join('');
-  S.findings.forEach(function(f){if(document.getElementById('cv_'+f.id))schedDraw(f.id);observeCanvas(f.id);});
+  /* Only draw visible canvases via IntersectionObserver — prevents loading all images at once */
+  S.findings.forEach(function(f){observeCanvas(f.id);});
+  /* Draw first 3 immediately for perceived performance */
+  var drawn=0;
+  S.findings.forEach(function(f){
+    if(drawn>=3) return;
+    if(document.getElementById('cv_'+f.id)){schedDraw(f.id);drawn++;}
+  });
 }
 
 function shpIcon(sh){var mxD=16,rw,rh;if(sh.w>=sh.h){rw=mxD;rh=Math.max(2,Math.round(mxD*sh.h/sh.w));}else{rh=mxD;rw=Math.max(2,Math.round(mxD*sh.w/sh.h));}var rx=Math.round((18-rw)/2),ry=Math.round((18-rh)/2);return '<svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="'+rx+'" y="'+ry+'" width="'+rw+'" height="'+rh+'" rx="1"/></svg>';}
@@ -2965,7 +2973,7 @@ function initCanvasObserver() {
         if(fid) schedDraw(fid);
       }
     });
-  }, {rootMargin:'100px'});
+  }, {rootMargin:'200px',threshold:0});
 }
 
 function observeCanvas(fid) {
@@ -3644,8 +3652,8 @@ function _renderCards(list, targetF) {
 
 
 <!-- App-themed confirm dialog -->
-<div id="mConfirm" class="modal h">
-  <div class="mbox" style="max-width:380px">
+<div id="mConfirm" class="mbg h" style="z-index:1200" onclick="if(event.target===this)closeM('mConfirm')">
+  <div class="modal" style="max-width:380px">
     <div class="mhd">
       <div>
         <div class="mhdt" id="confirmTitle">Confirm</div>
