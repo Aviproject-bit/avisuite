@@ -3452,11 +3452,13 @@ function _initLibImgObserver(){
       if(!entry.isIntersecting) return;
       var img=entry.target;
       var alId=img.getAttribute('data-src');
-      if(!alId||img.src) return;
+      if(!alId||img.dataset.loaded) return;
       var al=_afterLib.find(function(x){return x.id===alId;});
       if(al){
+        img.dataset.loaded='1';
         img.src=al.src;
         img.onload=function(){img.style.opacity='1';};
+        img.onerror=function(){img.style.opacity='0.3';};
         _libImgObserver.unobserve(img);
       }
     });
