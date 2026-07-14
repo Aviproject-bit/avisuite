@@ -2522,18 +2522,34 @@ function addToAfterLib(e) {
   e.target.value = '';
   var n = files.length, loaded = 0;
   showToast('LOADING '+n+' IMAGE'+(n>1?'S':'')+'...');
-  /* Process in small batches to avoid freezing UI */
+  function makeThumbnail(fullSrc, cb) {
+    var img = new Image();
+    img.onload = function() {
+      var THUMB = 320;
+      var scale = Math.min(1, THUMB / Math.max(img.width, img.height));
+      var w = Math.round(img.width * scale);
+      var h = Math.round(img.height * scale);
+      var cv = document.createElement('canvas');
+      cv.width = w; cv.height = h;
+      cv.getContext('2d').drawImage(img, 0, 0, w, h);
+      cb(cv.toDataURL('image/jpeg', 0.75));
+    };
+    img.onerror = function(){ cb(fullSrc); };
+    img.src = fullSrc;
+  }
   function processNext(i) {
     if(i>=files.length){renderLibGrid();updateLibCount();showToast(n+' ADDED TO LIBRARY');return;}
     var f=files[i];
     var r=new FileReader();
     r.onload=function(ev){
       var uid='al_'+Date.now()+'_'+Math.random().toString(36).slice(2,5);
-      _afterLib.push({id:uid,name:f.name,src:ev.target.result});
-      loaded++;
-      /* Update count every 5 files */
-      if(loaded%5===0)updateLibCount();
-      setTimeout(function(){processNext(i+1);},0);
+      var fullSrc = ev.target.result;
+      makeThumbnail(fullSrc, function(thumb){
+        _afterLib.push({id:uid, name:f.name, src:fullSrc, thumb:thumb});
+        loaded++;
+        if(loaded%5===0) updateLibCount();
+        setTimeout(function(){processNext(i+1);}, 0);
+      });
     };
     r.onerror=function(){setTimeout(function(){processNext(i+1);},0);};
     r.readAsDataURL(f);
@@ -3431,7 +3447,7 @@ function _renderCards(list, targetF) {
     return '<div class="lib-card'+(al._badge==='name'?' suggested':'')+
       '" id="lc_'+al.id+'" onclick="assignFromLib(\''+al.id+'\')">'+ 
       '<div style="position:relative;background:#111;min-height:80px">'+ 
-        '<img data-src="'+al.id+'" src="" loading="lazy" style="opacity:0;transition:opacity .2s">'+
+        '<img src="'+(al.thumb||al.src)+'" loading="lazy" style="width:100%;display:block">'+
         '<button class="lib-card-enlarge" onclick="event.stopPropagation();showLibLightbox(\''+al.id+'\')">&#x26F6;</button>'+
         '<span class="lib-card-num">'+(i+1)+'</span>'+
       '</div>'+
@@ -3441,8 +3457,6 @@ function _renderCards(list, targetF) {
       '</div>'+
     '</div>';
   }).join('');
-  /* IntersectionObserver to load images only when visible */
-  _initLibImgObserver();
 }
 var _libImgObserver=null;
 function _initLibImgObserver(){
