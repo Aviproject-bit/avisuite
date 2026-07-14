@@ -3423,14 +3423,15 @@ setTimeout(_guideAutoShow, 600);
 function _renderCards(list, targetF) {
   var grid=document.getElementById('libGrid');
   if(!grid) return;
+  /* Use data-src for lazy loading — avoids decoding all base64 at once */
   grid.innerHTML = list.map(function(al,i) {
     var nm2=al.name.replace(/\.[^.]+$/,'');
     var badgeHtml='';
     if(al._badge==='name') badgeHtml='<span class="lib-card-badge name">&#x1F4DD; Name hint</span>';
     return '<div class="lib-card'+(al._badge==='name'?' suggested':'')+
       '" id="lc_'+al.id+'" onclick="assignFromLib(\''+al.id+'\')">'+ 
-      '<div style="position:relative">'+ 
-        '<img src="'+al.src+'" loading="lazy">'+
+      '<div style="position:relative;background:#111;min-height:80px">'+ 
+        '<img data-src="'+al.id+'" src="" loading="lazy" style="opacity:0;transition:opacity .2s">'+
         '<button class="lib-card-enlarge" onclick="event.stopPropagation();showLibLightbox(\''+al.id+'\')">&#x26F6;</button>'+
         '<span class="lib-card-num">'+(i+1)+'</span>'+
       '</div>'+
@@ -3440,6 +3441,29 @@ function _renderCards(list, targetF) {
       '</div>'+
     '</div>';
   }).join('');
+  /* IntersectionObserver to load images only when visible */
+  _initLibImgObserver();
+}
+var _libImgObserver=null;
+function _initLibImgObserver(){
+  if(_libImgObserver) _libImgObserver.disconnect();
+  _libImgObserver=new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(!entry.isIntersecting) return;
+      var img=entry.target;
+      var alId=img.getAttribute('data-src');
+      if(!alId||img.src) return;
+      var al=_afterLib.find(function(x){return x.id===alId;});
+      if(al){
+        img.src=al.src;
+        img.onload=function(){img.style.opacity='1';};
+        _libImgObserver.unobserve(img);
+      }
+    });
+  },{rootMargin:'150px',threshold:0});
+  document.querySelectorAll('#libGrid img[data-src]').forEach(function(img){
+    _libImgObserver.observe(img);
+  });
 }
 
 
