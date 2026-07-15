@@ -1,5 +1,460 @@
 [
   {
+    "_id": "1783767763534ebcv7",
+    "timestamp": "2026-07-11T11:02:43.534Z",
+    "date": "11/07/2026",
+    "time": "13:54",
+    "aircraft": "ASF",
+    "reporter": "ALBOUQ",
+    "category": "LAVATORY",
+    "subCategory": "N/A",
+    "description": "OUT SIDE DOOR UPPER RUBSTRIP DIRTY",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/xS83MJ1z/e11f1f7814e9.jpg"
+  },
+  {
+    "_id": "1783767763534ebcv7",
+    "timestamp": "2026-07-11T11:02:43.534Z",
+    "date": "11/07/2026",
+    "time": "13:54",
+    "aircraft": "ASF",
+    "reporter": "ALBOUQ",
+    "category": "F/A SEAT",
+    "subCategory": "N/A",
+    "description": "SWIVIL SEAT HEAD CUSHION OUT OF POSITION",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/PsbmmWbN/759af6ff3899.jpg"
+  },
+  {
+    "_id": "1783767763534ebcv7",
+    "timestamp": "2026-07-11T11:02:43.534Z",
+    "date": "11/07/2026",
+    "time": "13:54",
+    "aircraft": "ASF",
+    "reporter": "ALBOUQ",
+    "category": "GENERAL CABIN",
+    "subCategory": "N/A",
+    "description": "R2 AND L2 PBE OVHUL CERT OUT OFF POSITION",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/60JXDwYY/d19eaadcb214.jpg"
+  },
+  {
+    "_id": "1783767763534ebcv7",
+    "timestamp": "2026-07-11T11:02:43.534Z",
+    "date": "11/07/2026",
+    "time": "13:54",
+    "aircraft": "ASF",
+    "reporter": "ALBOUQ",
+    "category": "GENERAL CABIN",
+    "subCategory": "N/A",
+    "description": "S301 LATCH PLATE AND SCREWS MISSING",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/WjQxpP6/074ce4ec9475.jpg"
+  },
+  {
+    "_id": "1783767763534ebcv7",
+    "timestamp": "2026-07-11T11:02:43.534Z",
+    "date": "11/07/2026",
+    "time": "13:54",
+    "aircraft": "ASF",
+    "reporter": "ALBOUQ",
+    "category": "GENERAL CABIN",
+    "subCategory": "N/A",
+    "description": "S303 INSIDE DIRTY",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/rK5r0SgR/172b7f1f6ae4.jpg"
+  },
+  {
+    "_id": "1783766210269xqy1m",
+    "timestamp": "2026-07-11T10:36:50.269Z",
+    "date": "11/07/2026",
+    "time": "13:36",
+    "aircraft": "HZ-ASF",
+    "reporter": "30001452",
+    "category": "GENERAL CABIN",
+    "subCategory": "OVERHEAD COMPARTMENT",
+    "description": "2CA OVERHEAD COMPARTMENT UPPER TRIM NOT SECURED",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/My87L0LJ/4938f1ae164c.jpg | https://i.ibb.co/spMKdkLK/47249d7355e6.jpg"
+  },
+  {
+    "_id": "1783766210269xqy1m",
+    "timestamp": "2026-07-11T10:36:50.269Z",
+    "date": "11/07/2026",
+    "time": "13:36",
+    "aircraft": "HZ-ASF",
+    "reporter": "30001452",
+    "category": "GENERAL CABIN",
+    "subCategory": "OVERHEAD COMPARTMENT",
+    "description": "32JKL + 32ABC OVERHEAD SCRATCHED DEVIDING TRIM",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/Q3syDBgG/fe5d0acff308.jpg"
+  },
+  {
+    "_id": "1783766210269xqy1m",
+    "timestamp": "2026-07-11T10:36:50.269Z",
+    "date": "11/07/2026",
+    "time": "13:36",
+    "aircraft": "HZ-ASF",
+    "reporter": "30001452",
+    "category": "GENERAL CABIN",
+    "subCategory": "OVERHEAD COMPT.",
+    "description": "33JKL OVERHEAD UPPER TRIM NOT SECURED",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/7JxNH4kZ/693652472d8b.jpg"
+  },
+  {
+    "_id": "1783766210269xqy1m",
+    "timestamp": "2026-07-11T10:36:50.269Z",
+    "date": "11/07/2026",
+    "time": "13:36",
+    "aircraft": "HZ-ASF",
+    "reporter": "30001452",
+    "category": "GENERAL CABIN",
+    "subCategory": "OVERHEAD COMPT.",
+    "description": "37JKL OVERHEAD COMPT. CRACKED UPPER TRIM",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/Q3PWbxJb/e3446ffe432a.jpg"
+  },
+  {
+    "_id": "1783766210269xqy1m",
+    "timestamp": "2026-07-11T10:36:50.269Z",
+    "date": "11/07/2026",
+    "time": "13:36",
+    "aircraft": "HZ-ASF",
+    "reporter": "30001452",
+    "category": "GENERAL CABIN",
+    "subCategory": "OVERHEAD COMPT.",
+    "description": "41ABC + 41JKL OVERHEAD COMPT. UPPER TRIM NOT SECURED",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/ccv1M9w4/470f4ff6f4a9.jpg | https://i.ibb.co/4RqpmmDJ/05f446130607.jpg"
+  },
+  {
+    "_id": "1783765701937n0ox0",
+    "timestamp": "2026-07-11T10:28:21.937Z",
+    "date": "11/07/2026",
+    "time": "13:28",
+    "aircraft": "ASF",
+    "reporter": "ALBOUQ",
+    "category": "PAX DOORS",
+    "subCategory": "N/A",
+    "description": "L/H DOOR HANDLE",
+    "remarks": "P/N : A252-75761-202",
+    "photoUrl": "https://i.ibb.co/LzF2H71N/adb085edd5b8.jpg"
+  },
+  {
+    "_id": "1783765701937n0ox0",
+    "timestamp": "2026-07-11T10:28:21.937Z",
+    "date": "11/07/2026",
+    "time": "13:28",
+    "aircraft": "ASF",
+    "reporter": "ALBOUQ",
+    "category": "GALLEY",
+    "subCategory": "N/A",
+    "description": "WASTE BIN HANDLE MISSING",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/xq82tc0c/9e33aa0e3969.jpg"
+  },
+  {
+    "_id": "1783765701937n0ox0",
+    "timestamp": "2026-07-11T10:28:21.937Z",
+    "date": "11/07/2026",
+    "time": "13:28",
+    "aircraft": "ASF",
+    "reporter": "ALBOUQ",
+    "category": "GALLEY",
+    "subCategory": "N/A",
+    "description": "MID LATCH COMP. 504 INOP + DOOR SHAKING",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/hTygmn7/b67e631efce7.jpg"
+  },
+  {
+    "_id": "1783765701937n0ox0",
+    "timestamp": "2026-07-11T10:28:21.937Z",
+    "date": "11/07/2026",
+    "time": "13:28",
+    "aircraft": "ASF",
+    "reporter": "ALBOUQ",
+    "category": "GALLEY",
+    "subCategory": "N/A",
+    "description": "MID LATCH COMP. 504 INOP + DOOR SHAKING",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/67zrT4fs/79c9d18f8ae1.jpg"
+  },
+  {
+    "_id": "1783765701937n0ox0",
+    "timestamp": "2026-07-11T10:28:21.937Z",
+    "date": "11/07/2026",
+    "time": "13:28",
+    "aircraft": "ASF",
+    "reporter": "ALBOUQ",
+    "category": "GALLEY",
+    "subCategory": "N/A",
+    "description": "COMP.502 KNOB FADED",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/k2RMnnBK/0f242fcc5a79.jpg"
+  },
+  {
+    "_id": "1783765701937n0ox0",
+    "timestamp": "2026-07-11T10:28:21.937Z",
+    "date": "11/07/2026",
+    "time": "13:28",
+    "aircraft": "ASF",
+    "reporter": "ALBOUQ",
+    "category": "GALLEY",
+    "subCategory": "N/A",
+    "description": "OVEN #3 L/H SLIDE GRIL OUT OF POSITION",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/Rkn1T673/a570149b74c5.jpg"
+  },
+  {
+    "_id": "1783765701937n0ox0",
+    "timestamp": "2026-07-11T10:28:21.937Z",
+    "date": "11/07/2026",
+    "time": "13:28",
+    "aircraft": "ASF",
+    "reporter": "ALBOUQ",
+    "category": "GALLEY",
+    "subCategory": "N/A",
+    "description": "AFT OF 518 DIVIDER COVER MISSING 2EA",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/xSPjXVLx/f2f680ecd6d0.jpg"
+  },
+  {
+    "_id": "1783765701937n0ox0",
+    "timestamp": "2026-07-11T10:28:21.937Z",
+    "date": "11/07/2026",
+    "time": "13:28",
+    "aircraft": "ASF",
+    "reporter": "ALBOUQ",
+    "category": "GALLEY",
+    "subCategory": "N/A",
+    "description": "521 KNOB INPROPER INSTALLATION",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/KzhHLx4c/28926f90889a.jpg"
+  },
+  {
+    "_id": "1783765701937n0ox0",
+    "timestamp": "2026-07-11T10:28:21.937Z",
+    "date": "11/07/2026",
+    "time": "13:28",
+    "aircraft": "ASF",
+    "reporter": "ALBOUQ",
+    "category": "F/A SEAT",
+    "subCategory": "N/A",
+    "description": "R2 F/A SEAT FAST TO CLOSE",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/QGtLMcy/4f58f4290fca.jpg"
+  },
+  {
+    "_id": "1783765701937n0ox0",
+    "timestamp": "2026-07-11T10:28:21.937Z",
+    "date": "11/07/2026",
+    "time": "13:28",
+    "aircraft": "ASF",
+    "reporter": "ALBOUQ",
+    "category": "GENERAL CABIN",
+    "subCategory": "N/A",
+    "description": "AFT CURTAIN RAIL DIRTY",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/KcByk55k/b1e2e0fc5388.jpg"
+  },
+  {
+    "_id": "1783765701937n0ox0",
+    "timestamp": "2026-07-11T10:28:21.937Z",
+    "date": "11/07/2026",
+    "time": "13:28",
+    "aircraft": "ASF",
+    "reporter": "ALBOUQ",
+    "category": "LAVATORY",
+    "subCategory": "N/A",
+    "description": "LAV D UPPER LATCH MISSING",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/C5Mr30Vm/9fa024ee3d7f.jpg"
+  },
+  {
+    "_id": "1783765493752f6df5",
+    "timestamp": "2026-07-11T10:24:53.752Z",
+    "date": "11/07/2026",
+    "time": "13:24",
+    "aircraft": "HZ-ASF",
+    "reporter": "30001452",
+    "category": "GENERAL CABIN",
+    "subCategory": "OVERHEAD COMPARTMENT",
+    "description": "OVERHEAD COMPARTMENT SMALL RUBBER INSERTS MISSING AT ALL COMPARTMENTS",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/xSrKxpcw/3a1e81cb41ed.jpg | https://i.ibb.co/HDqYQmLv/2d4ad459b356.jpg"
+  },
+  {
+    "_id": "1783764663309phbmv",
+    "timestamp": "2026-07-11T10:11:03.309Z",
+    "date": "11/07/2026",
+    "time": "13:10",
+    "aircraft": "HZ-ASF",
+    "reporter": "30001452",
+    "category": "FLIGHT DECK",
+    "subCategory": "COCKPIT",
+    "description": "FIRST OBSERVER SEAT WRONG BACK CUSHION",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/YBmSckpp/17adab586768.jpg"
+  },
+  {
+    "_id": "1783764663309phbmv",
+    "timestamp": "2026-07-11T10:11:03.309Z",
+    "date": "11/07/2026",
+    "time": "13:10",
+    "aircraft": "HZ-ASF",
+    "reporter": "30001452",
+    "category": "GALLEY",
+    "subCategory": "FWD GALLEY",
+    "description": "BROKEN TRIM NEAR SINK",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/9kxt44Rf/859a72bed9d5.jpg"
+  },
+  {
+    "_id": "1783764663309phbmv",
+    "timestamp": "2026-07-11T10:11:03.309Z",
+    "date": "11/07/2026",
+    "time": "13:10",
+    "aircraft": "HZ-ASF",
+    "reporter": "30001452",
+    "category": "GALLEY",
+    "subCategory": "FWD GALLEY",
+    "description": "COMPARTMENT #101 EXTRACTION DEVICE LOOSE",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/gbqF0K9T/7226da289b85.jpg"
+  },
+  {
+    "_id": "1783764663309phbmv",
+    "timestamp": "2026-07-11T10:11:03.309Z",
+    "date": "11/07/2026",
+    "time": "13:10",
+    "aircraft": "HZ-ASF",
+    "reporter": "30001452",
+    "category": "GALLEY",
+    "subCategory": "FWD GALLEY",
+    "description": "OVEN #1 GRILL DEFORMED",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/hRvwc7n1/e3e0c4d9cb0e.jpg"
+  },
+  {
+    "_id": "1783764663309phbmv",
+    "timestamp": "2026-07-11T10:11:03.309Z",
+    "date": "11/07/2026",
+    "time": "13:10",
+    "aircraft": "HZ-ASF",
+    "reporter": "30001452",
+    "category": "GALLEY",
+    "subCategory": "FWD GALLEY",
+    "description": "COMPARTMENT 208 AND 203 RED LATCH FADED",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/bMqX5cqM/ee4143b51e23.jpg"
+  },
+  {
+    "_id": "1783764663309phbmv",
+    "timestamp": "2026-07-11T10:11:03.309Z",
+    "date": "11/07/2026",
+    "time": "13:10",
+    "aircraft": "HZ-ASF",
+    "reporter": "30001452",
+    "category": "GALLEY",
+    "subCategory": "FWD GALLEY",
+    "description": "RED KNOB AT 109 INSTALLED UPSIDE DOWN + LOOSE",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/F4DGsT8F/8c7bd52f87f1.jpg | https://i.ibb.co/qFMbJJLx/6d6a9d6c3518.jpg"
+  },
+  {
+    "_id": "1783764663309phbmv",
+    "timestamp": "2026-07-11T10:11:03.309Z",
+    "date": "11/07/2026",
+    "time": "13:10",
+    "aircraft": "HZ-ASF",
+    "reporter": "30001452",
+    "category": "GALLEY",
+    "subCategory": "FWD GALLEY",
+    "description": "COMPARTMENT 209 LATCH DOESN'T OPEN PROPERLY NEEDS ADJUSTMENT",
+    "remarks": "LATCH R&R OR ADJUSTMENT",
+    "photoUrl": "https://i.ibb.co/rKVS9k66/1ae47a6052c1.jpg"
+  },
+  {
+    "_id": "1783764663309phbmv",
+    "timestamp": "2026-07-11T10:11:03.309Z",
+    "date": "11/07/2026",
+    "time": "13:10",
+    "aircraft": "HZ-ASF",
+    "reporter": "30001452",
+    "category": "GALLEY",
+    "subCategory": "FWD GALLEY",
+    "description": "COMPARTMENT 202 LOOSE HINGE",
+    "remarks": "",
+    "photoUrl": ""
+  },
+  {
+    "_id": "1783764663309phbmv",
+    "timestamp": "2026-07-11T10:11:03.309Z",
+    "date": "11/07/2026",
+    "time": "13:10",
+    "aircraft": "HZ-ASF",
+    "reporter": "30001452",
+    "category": "GENERAL CABIN",
+    "subCategory": "FWD GALLEY",
+    "description": "FRONT CURTAIN RAIL DENTED",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/Vcg0BnF2/04ca58a44bc8.jpg"
+  },
+  {
+    "_id": "1783764663309phbmv",
+    "timestamp": "2026-07-11T10:11:03.309Z",
+    "date": "11/07/2026",
+    "time": "13:10",
+    "aircraft": "HZ-ASF",
+    "reporter": "30001452",
+    "category": "GENERAL CABIN",
+    "subCategory": "FWD GALLEY",
+    "description": "CURTAIN RAIL FRONT MOUNT LOOSE",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/7NnMHFZJ/f76ba391412a.jpg"
+  },
+  {
+    "_id": "1783764663309phbmv",
+    "timestamp": "2026-07-11T10:11:03.309Z",
+    "date": "11/07/2026",
+    "time": "13:10",
+    "aircraft": "HZ-ASF",
+    "reporter": "30001452",
+    "category": "GENERAL CABIN",
+    "subCategory": "KICKSTRIP",
+    "description": "FWD OF SEAT 1LJ, KICKSTRIP LOOSE",
+    "remarks": "CORNER KICK STRIP",
+    "photoUrl": "https://i.ibb.co/0RF2h58S/dc40a652ad5e.jpg"
+  },
+  {
+    "_id": "1783764663309phbmv",
+    "timestamp": "2026-07-11T10:11:03.309Z",
+    "date": "11/07/2026",
+    "time": "13:10",
+    "aircraft": "HZ-ASF",
+    "reporter": "30001452",
+    "category": "PAX SEAT",
+    "subCategory": "SEAT 5LJ",
+    "description": "BACK OF SEAT 5LJ SHROUD LOOSE",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/TJCMBgp/dff61337e3b0.jpg"
+  },
+  {
+    "_id": "1783764663309phbmv",
+    "timestamp": "2026-07-11T10:11:03.309Z",
+    "date": "11/07/2026",
+    "time": "13:10",
+    "aircraft": "HZ-ASF",
+    "reporter": "30001452",
+    "category": "FLIGHT DECK",
+    "subCategory": "CAPTAIN PADDLES",
+    "description": "CURTAIN RUDDER PADDLES STEP RUBBER NOT SECURED + GLUE RESIDUAL",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/cc8KHMhT/00666b6e5720.jpg | https://i.ibb.co/1YTbVGpn/445a80764671.jpg | https://i.ibb.co/cX32s1rc/e98d90f1bf5a.jpg"
+  },
+  {
     "_id": "1783601742595yzup3",
     "timestamp": "2026-07-09T12:55:42.595Z",
     "date": "09/07/2026",
@@ -1350,323 +1805,5 @@
     "description": "DOOR LINING AFT LINING DMG NEAR SCREW",
     "remarks": "",
     "photoUrl": ""
-  },
-  {
-    "id": "1783764663309phbmv",
-    "batchId": "batch_1783764617651_vdqxtj",
-    "timestamp": "2026-07-11T10:11:03.309Z",
-    "date": "11/07/2026",
-    "time": "13:10",
-    "aircraft": "HZ-ASF",
-    "reporter": "30001452",
-    "findings": [
-      {
-        "category": "FLIGHT DECK       ",
-        "subCategory": "COCKPIT           ",
-        "description": "FIRST OBSERVER SEAT WRONG BACK CUSHION                      ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/YBmSckpp/17adab586768.jpg"
-      },
-      {
-        "category": "GALLEY            ",
-        "subCategory": "FWD GALLEY        ",
-        "description": "BROKEN TRIM NEAR SINK                                       ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/9kxt44Rf/859a72bed9d5.jpg"
-      },
-      {
-        "category": "GALLEY            ",
-        "subCategory": "FWD GALLEY        ",
-        "description": "COMPARTMENT #101 EXTRACTION DEVICE LOOSE                    ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/gbqF0K9T/7226da289b85.jpg"
-      },
-      {
-        "category": "GALLEY            ",
-        "subCategory": "FWD GALLEY        ",
-        "description": "OVEN #1 GRILL DEFORMED                                      ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/hRvwc7n1/e3e0c4d9cb0e.jpg"
-      },
-      {
-        "category": "GALLEY            ",
-        "subCategory": "FWD GALLEY        ",
-        "description": "COMPARTMENT 208 AND 203 RED LATCH FADED                     ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/bMqX5cqM/ee4143b51e23.jpg"
-      },
-      {
-        "category": "GALLEY            ",
-        "subCategory": "FWD GALLEY        ",
-        "description": "RED KNOB AT 109 INSTALLED UPSIDE DOWN + LOOSE               ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/F4DGsT8F/8c7bd52f87f1.jpg | https://i.ibb.co/qFMbJJLx/6d6a9d6c3518.jpg"
-      },
-      {
-        "category": "GALLEY            ",
-        "subCategory": "FWD GALLEY        ",
-        "description": "COMPARTMENT 209 LATCH DOESN'T OPEN PROPERLY NEEDS ADJUSTMENT",
-        "remarks": "LATCH R&R OR ADJUSTMENT  ",
-        "photoUrl": "https://i.ibb.co/rKVS9k66/1ae47a6052c1.jpg"
-      },
-      {
-        "category": "GALLEY            ",
-        "subCategory": "FWD GALLEY        ",
-        "description": "COMPARTMENT 202 LOOSE HINGE                                 ",
-        "remarks": "                         ",
-        "photoUrl": ""
-      },
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "FWD GALLEY        ",
-        "description": "FRONT CURTAIN RAIL DENTED                                   ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/Vcg0BnF2/04ca58a44bc8.jpg"
-      },
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "FWD GALLEY        ",
-        "description": "CURTAIN RAIL FRONT MOUNT LOOSE                              ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/7NnMHFZJ/f76ba391412a.jpg"
-      },
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "KICKSTRIP         ",
-        "description": "FWD OF SEAT 1LJ, KICKSTRIP LOOSE                            ",
-        "remarks": "CORNER KICK STRIP        ",
-        "photoUrl": "https://i.ibb.co/0RF2h58S/dc40a652ad5e.jpg"
-      },
-      {
-        "category": "PAX SEAT          ",
-        "subCategory": "SEAT 5LJ          ",
-        "description": "BACK OF SEAT 5LJ SHROUD LOOSE                               ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/TJCMBgp/dff61337e3b0.jpg"
-      },
-      {
-        "category": "FLIGHT DECK       ",
-        "subCategory": "CAPTAIN PADDLES   ",
-        "description": "CURTAIN RUDDER PADDLES STEP RUBBER NOT SECURED + GLUE RESIDUAL",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/cc8KHMhT/00666b6e5720.jpg | https://i.ibb.co/1YTbVGpn/445a80764671.jpg | https://i.ibb.co/cX32s1rc/e98d90f1bf5a.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1783765493752f6df5",
-    "batchId": "batch_1783765490693_5ig2eo",
-    "timestamp": "2026-07-11T10:24:53.752Z",
-    "date": "11/07/2026",
-    "time": "13:24",
-    "aircraft": "HZ-ASF",
-    "reporter": "30001452",
-    "findings": [
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "OVERHEAD COMPARTMENT",
-        "description": "OVERHEAD COMPARTMENT SMALL RUBBER INSERTS MISSING AT ALL COMPARTMENTS",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/xSrKxpcw/3a1e81cb41ed.jpg | https://i.ibb.co/HDqYQmLv/2d4ad459b356.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1783765701937n0ox0",
-    "batchId": "batch_1783765697430_66io97",
-    "timestamp": "2026-07-11T10:28:21.937Z",
-    "date": "11/07/2026",
-    "time": "13:28",
-    "aircraft": "ASF",
-    "reporter": "ALBOUQ",
-    "findings": [
-      {
-        "category": "PAX DOORS         ",
-        "subCategory": "N/A               ",
-        "description": "L/H DOOR HANDLE                                             ",
-        "remarks": "P/N : A252-75761-202     ",
-        "photoUrl": "https://i.ibb.co/LzF2H71N/adb085edd5b8.jpg"
-      },
-      {
-        "category": "GALLEY            ",
-        "subCategory": "N/A               ",
-        "description": "WASTE BIN HANDLE MISSING                                    ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/xq82tc0c/9e33aa0e3969.jpg"
-      },
-      {
-        "category": "GALLEY            ",
-        "subCategory": "N/A               ",
-        "description": "MID LATCH COMP. 504 INOP + DOOR SHAKING                     ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/hTygmn7/b67e631efce7.jpg"
-      },
-      {
-        "category": "GALLEY            ",
-        "subCategory": "N/A               ",
-        "description": "MID LATCH COMP. 504 INOP + DOOR SHAKING                     ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/67zrT4fs/79c9d18f8ae1.jpg"
-      },
-      {
-        "category": "GALLEY            ",
-        "subCategory": "N/A               ",
-        "description": "COMP.502 KNOB FADED                                         ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/k2RMnnBK/0f242fcc5a79.jpg"
-      },
-      {
-        "category": "GALLEY            ",
-        "subCategory": "N/A               ",
-        "description": "OVEN #3 L/H SLIDE GRIL OUT OF POSITION                      ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/Rkn1T673/a570149b74c5.jpg"
-      },
-      {
-        "category": "GALLEY            ",
-        "subCategory": "N/A               ",
-        "description": "AFT OF 518 DIVIDER COVER MISSING 2EA                        ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/xSPjXVLx/f2f680ecd6d0.jpg"
-      },
-      {
-        "category": "GALLEY            ",
-        "subCategory": "N/A               ",
-        "description": "521 KNOB INPROPER INSTALLATION                              ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/KzhHLx4c/28926f90889a.jpg"
-      },
-      {
-        "category": "F/A SEAT          ",
-        "subCategory": "N/A               ",
-        "description": "R2 F/A SEAT FAST TO CLOSE                                   ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/QGtLMcy/4f58f4290fca.jpg"
-      },
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "N/A               ",
-        "description": "AFT CURTAIN RAIL DIRTY                                      ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/KcByk55k/b1e2e0fc5388.jpg"
-      },
-      {
-        "category": "LAVATORY          ",
-        "subCategory": "N/A               ",
-        "description": "LAV D UPPER LATCH MISSING                                   ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/C5Mr30Vm/9fa024ee3d7f.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1783766210269xqy1m",
-    "batchId": "batch_1783766204966_v2ke8d",
-    "timestamp": "2026-07-11T10:36:50.269Z",
-    "date": "11/07/2026",
-    "time": "13:36",
-    "aircraft": "HZ-ASF",
-    "reporter": "30001452",
-    "findings": [
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "OVERHEAD COMPARTMENT",
-        "description": "2CA OVERHEAD COMPARTMENT UPPER TRIM NOT SECURED             ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/My87L0LJ/4938f1ae164c.jpg | https://i.ibb.co/spMKdkLK/47249d7355e6.jpg"
-      },
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "OVERHEAD COMPARTMENT",
-        "description": "32JKL + 32ABC OVERHEAD SCRATCHED DEVIDING TRIM              ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/Q3syDBgG/fe5d0acff308.jpg"
-      },
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "OVERHEAD COMPT.   ",
-        "description": "33JKL OVERHEAD UPPER TRIM NOT SECURED                       ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/7JxNH4kZ/693652472d8b.jpg"
-      },
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "OVERHEAD COMPT.   ",
-        "description": "37JKL OVERHEAD COMPT. CRACKED UPPER TRIM                    ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/Q3PWbxJb/e3446ffe432a.jpg"
-      },
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "OVERHEAD COMPT.   ",
-        "description": "41ABC + 41JKL OVERHEAD COMPT. UPPER TRIM NOT SECURED        ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/ccv1M9w4/470f4ff6f4a9.jpg | https://i.ibb.co/4RqpmmDJ/05f446130607.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1783767763534ebcv7",
-    "batchId": "batch_1783767289530_fvoew5",
-    "timestamp": "2026-07-11T11:02:43.534Z",
-    "date": "11/07/2026",
-    "time": "13:54",
-    "aircraft": "ASF",
-    "reporter": "ALBOUQ",
-    "findings": [
-      {
-        "category": "LAVATORY          ",
-        "subCategory": "N/A               ",
-        "description": "OUT SIDE DOOR UPPER RUBSTRIP DIRTY                          ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/xS83MJ1z/e11f1f7814e9.jpg"
-      },
-      {
-        "category": "F/A SEAT          ",
-        "subCategory": "N/A               ",
-        "description": "SWIVIL SEAT HEAD CUSHION OUT OF POSITION                    ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/PsbmmWbN/759af6ff3899.jpg"
-      },
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "N/A               ",
-        "description": "R2 AND L2 PBE OVHUL CERT OUT OFF POSITION                   ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/60JXDwYY/d19eaadcb214.jpg"
-      },
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "N/A               ",
-        "description": "S301 LATCH PLATE AND SCREWS MISSING                         ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/WjQxpP6/074ce4ec9475.jpg"
-      },
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "N/A               ",
-        "description": "S303 INSIDE DIRTY                                           ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/rK5r0SgR/172b7f1f6ae4.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784111539518yam9z",
-    "batchId": "batch_1784111534588_f6drnw",
-    "timestamp": "2026-07-15T10:32:19.518Z",
-    "date": "15/07/2026",
-    "time": "13:32",
-    "aircraft": "HZ-ASF",
-    "reporter": "13010253V",
-    "findings": [
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "N/A               ",
-        "description": "CARPET TORN                                                 ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/q3RVrzDx/5aeadad122b2.jpg"
-      }
-    ]
   }
 ]
