@@ -433,6 +433,15 @@ let _adminEntry = '';
 
 // ══ PASSCODE SCREEN ═══════════════════════════════════════
 function _buildKeypad(gridId, onKey){
+
+  // ── Keyboard support (desktop) ──────────────────────────
+  document.addEventListener('keydown', function _kbHandler(e){
+    const pc = document.getElementById('passcode-screen');
+    if(!pc || pc.style.display==='none') return;
+    if(e.key>='0'&&e.key<='9'){ _pk(e.key); }
+    else if(e.key==='Backspace'){ e.preventDefault(); _pk('⌫'); }
+    else if(e.key==='Enter'){ _pk('✓'); }
+  });
   const grid = document.getElementById(gridId);
   grid.innerHTML = '';
   [1,2,3,4,5,6,7,8,9,'⌫',0,'✓'].forEach(k=>{
