@@ -345,12 +345,20 @@ buildGrid('main-grid','md',3,(val)=>{
   document.addEventListener('keydown', function(e){
     if(e.target && e.target.tagName==='INPUT') return;
     const pc = document.getElementById('pc');
-    if(!pc) return;
-    const isVisible = getComputedStyle(pc).display !== 'none';
-    if(!isVisible) return;
-    if(e.key>='0'&&e.key<='9'){ e.preventDefault(); _pk(e.key); }
-    else if(e.key==='Backspace'){ e.preventDefault(); _pk('⌫'); }
-    else if(e.key==='Enter'){ e.preventDefault(); _pk('✓'); }
+    if(!pc || getComputedStyle(pc).display==='none') return;
+    // Simulate clicking the matching keypad button
+    let key = null;
+    if(e.key>='0'&&e.key<='9') key=e.key;
+    else if(e.key==='Backspace') key='⌫';
+    else if(e.key==='Enter') key='✓';
+    if(!key) return;
+    e.preventDefault();
+    const grid = document.getElementById('main-grid');
+    if(!grid) return;
+    const btns = grid.querySelectorAll('button');
+    for(const btn of btns){
+      if(btn.textContent.trim()===key){ btn.click(); break; }
+    }
   });
     return true;
   }
