@@ -215,6 +215,9 @@ body{font-family:'BwGradual',sans-serif;background:var(--bg);color:var(--txt);mi
 .pc-grid{display:grid;grid-template-columns:repeat(3,66px);gap:8px;margin-bottom:16px;}
 .pc-btn{height:66px;border-radius:11px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);color:#fff;font-size:20px;font-family:'BwGradual',sans-serif;cursor:pointer;transition:.1s;touch-action:manipulation;-webkit-tap-highlight-color:transparent;}
 .pc-btn:active{background:rgba(255,255,255,.18);}
+
+/* Hidden keyboard capture input */
+.kb-capture{position:fixed;opacity:0;pointer-events:none;width:1px;height:1px;top:-9999px;left:-9999px;}
 </style>
 
 </head>
@@ -4407,17 +4410,15 @@ function _checkPasscode(){
   if(trusted && verMatch && elapsed < TRUST_HOURS){ if(typeof loadData==='function') loadData(); return; }
 
   // ── Keyboard support (desktop) ──────────────────────────
-  document.addEventListener('keydown', function(e){
-    if(e.target && e.target.tagName==='INPUT') return;
+  document.addEventListener('keydown', function _kbHandler(e){
     const pc = document.getElementById('passcode-screen');
     const adm = document.getElementById('admin-overlay');
-    // pc is dynamically created/removed — check it exists in DOM and not animating out
-    const pcVisible = pc && document.body.contains(pc) && !pc.classList.contains('pc-exit');
+    const pcVisible = pc && pc.style.display !== 'none' && !pc.classList.contains('pc-exit');
     const admVisible = adm && adm.classList.contains('show');
     if(!pcVisible && !admVisible) return;
-    if(e.key>='0'&&e.key<='9'){ e.preventDefault(); admVisible ? _ak(e.key) : _pk(e.key); }
+    if(e.key>='0'&&e.key<='9'){ admVisible ? _ak(e.key) : _pk(e.key); }
     else if(e.key==='Backspace'){ e.preventDefault(); admVisible ? _ak('⌫') : _pk('⌫'); }
-    else if(e.key==='Enter'){ e.preventDefault(); admVisible ? _ak('✓') : _pk('✓'); }
+    else if(e.key==='Enter'){ admVisible ? _ak('✓') : _pk('✓'); }
   });
   localStorage.removeItem('_app_trusted');
   localStorage.removeItem('_app_lock_ver');
@@ -4453,6 +4454,25 @@ function _showPasscodeScreen(){
     <div class="pc-err" id="pc-err"></div>
   `;
   document.body.appendChild(screen);
+  // Hidden input for keyboard capture
+  const _kbIn = document.createElement('input');
+  _kbIn.className = 'kb-capture';
+  _kbIn.id = 'pc-kb';
+  _kbIn.type = 'text';
+  _kbIn.setAttribute('inputmode','none');
+  _kbIn.setAttribute('autocomplete','off');
+  _kbIn.addEventListener('keydown',function(e){
+    const pc=document.getElementById('passcode-screen');
+    const adm=document.getElementById('admin-overlay');
+    const pcOn=pc&&document.body.contains(pc)&&!pc.classList.contains('pc-exit');
+    const admOn=adm&&adm.classList.contains('show');
+    if(!pcOn&&!admOn) return;
+    if(e.key>='0'&&e.key<='9'){e.preventDefault();admOn?_ak(e.key):_pcKey(e.key);}
+    else if(e.key==='Backspace'){e.preventDefault();admOn?_ak('⌫'):_pcKey('⌫');}
+    else if(e.key==='Enter'){e.preventDefault();admOn?_ak('✓'):_pcKey('✓');}
+  });
+  document.body.appendChild(_kbIn);
+  setTimeout(()=>_kbIn.focus(),100);
   screen.addEventListener('touchmove',e=>e.preventDefault(),{passive:false});
   // Keyboard support
   const _pcKeyHandler = function(e){
