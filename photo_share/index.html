@@ -244,6 +244,18 @@ function _pv(){
     document.getElementById('app').style.display='block';
     loadFiles();
 
+  // ── Keyboard support (desktop) ──────────────────────────
+  document.addEventListener('keydown', function(e){
+    if(e.target && e.target.tagName==='INPUT') return;
+    const pc = document.getElementById('pc');
+    const adm = document.getElementById('admin-overlay');
+    const pcVisible = pc && getComputedStyle(pc).display !== 'none';
+    const admVisible = adm && adm.classList.contains('show');
+    if(!pcVisible && !admVisible) return;
+    if(e.key>='0'&&e.key<='9'){ e.preventDefault(); admVisible ? _ak(e.key) : _pk(e.key); }
+    else if(e.key==='Backspace'){ e.preventDefault(); admVisible ? _ak('⌫') : _pk('⌫'); }
+    else if(e.key==='Enter'){ e.preventDefault(); admVisible ? _ak('✓') : _pk('✓'); }
+  });
   }else{
     for(let i=0;i<4;i++)document.getElementById('d'+i).classList.add('err');
     setTimeout(()=>{_pe='';_udots('pc-dots','d',_pe);},600);
@@ -574,19 +586,6 @@ function fmtSz(b){return b>1048576?(b/1048576).toFixed(1)+'MB':(b/1024).toFixed(
 function fmtAge(ms){const h=Math.floor(ms/3600000),m=Math.floor((ms%3600000)/60000);return h>0?h+'h ago':m+'m ago';}
 let _tt;
 function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(_tt);_tt=setTimeout(()=>t.classList.remove('show'),2400);}
-
-  // Keyboard support (desktop) — clean, flag-based
-  document.addEventListener('keydown', function(e){
-    if(e.target && e.target.tagName==='INPUT') return; // don't intercept text inputs
-    const pc = document.getElementById('pc');
-    const adm = document.getElementById('admin-overlay');
-    const pcActive = pc && getComputedStyle(pc).display !== 'none' && getComputedStyle(pc).visibility !== 'hidden';
-    const admActive = adm && adm.classList.contains('show');
-    if(!pcActive && !admActive) return;
-    if(e.key>='0'&&e.key<='9'){ e.preventDefault(); admActive ? _ak(e.key) : _pk(e.key); }
-    else if(e.key==='Backspace'){ e.preventDefault(); admActive ? _ak('⌫') : _pk('⌫'); }
-    else if(e.key==='Enter'){ e.preventDefault(); admActive ? _ak('✓') : _pk('✓'); }
-  });
 </script>
 </body>
 </html>
