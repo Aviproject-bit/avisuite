@@ -4402,27 +4402,12 @@ function _pcVerify(entry){ return String(entry)===_PC_VALID; }
 
 const _APP_LOCK_VER='v1'; // bump this to force re-auth on all devices
 function _checkPasscode(){
-  const TRUST_HOURS = 36; // re-ask every 36 hours
-  const trusted   = localStorage.getItem('_app_trusted')==='1';
-  const verMatch  = localStorage.getItem('_app_lock_ver')===_APP_LOCK_VER;
-  const lastAuth  = parseInt(localStorage.getItem('_app_auth_ts')||'0');
-  const elapsed   = (Date.now()-lastAuth)/(1000*60*60); // hours
-  if(trusted && verMatch && elapsed < TRUST_HOURS){ if(typeof loadData==='function') loadData(); return; }
-
-  // ── Keyboard support (desktop) ──────────────────────────
-  document.addEventListener('keydown', function _kbHandler(e){
-    const pc = document.getElementById('passcode-screen');
-    const adm = document.getElementById('admin-overlay');
-    const pcVisible = pc && pc.style.display !== 'none' && !pc.classList.contains('pc-exit');
-    const admVisible = adm && adm.classList.contains('show');
-    if(!pcVisible && !admVisible) return;
-    if(e.key>='0'&&e.key<='9'){ admVisible ? _ak(e.key) : _pk(e.key); }
-    else if(e.key==='Backspace'){ e.preventDefault(); admVisible ? _ak('⌫') : _pk('⌫'); }
-    else if(e.key==='Enter'){ admVisible ? _ak('✓') : _pk('✓'); }
-  });
-  localStorage.removeItem('_app_trusted');
-  localStorage.removeItem('_app_lock_ver');
-  localStorage.removeItem('_app_auth_ts');
+  // Use sessionStorage — ask passcode every new session (tab/window)
+  if(sessionStorage.getItem('_oxy_dash_auth')==='1'){
+    if(typeof loadData==='function') loadData();
+    return;
+  }
+  // keyboard handled via hidden input in _showPasscodeScreen
   setTimeout(_showPasscodeScreen, 80);
 }
 
