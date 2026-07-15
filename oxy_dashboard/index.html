@@ -4406,17 +4406,6 @@ function _checkPasscode(){
   const elapsed   = (Date.now()-lastAuth)/(1000*60*60); // hours
   if(trusted && verMatch && elapsed < TRUST_HOURS){ if(typeof loadData==='function') loadData(); return; }
 
-  // ── Keyboard support (desktop) ──────────────────────────
-  document.addEventListener('keydown', function _kbHandler(e){
-    const pc = document.getElementById('passcode-screen');
-    const adm = document.getElementById('admin-overlay');
-    const pcVisible = pc && pc.style.display !== 'none' && !pc.classList.contains('pc-exit');
-    const admVisible = adm && adm.classList.contains('show');
-    if(!pcVisible && !admVisible) return;
-    if(e.key>='0'&&e.key<='9'){ admVisible ? _ak(e.key) : _pk(e.key); }
-    else if(e.key==='Backspace'){ e.preventDefault(); admVisible ? _ak('⌫') : _pk('⌫'); }
-    else if(e.key==='Enter'){ admVisible ? _ak('✓') : _pk('✓'); }
-  });
   localStorage.removeItem('_app_trusted');
   localStorage.removeItem('_app_lock_ver');
   localStorage.removeItem('_app_auth_ts');
@@ -4587,6 +4576,19 @@ function startAutoRefresh(){
 document.addEventListener('visibilitychange', ()=>{
   if(!document.hidden && allData.length) loadData(); // refresh on tab focus
 });
+
+  // Keyboard support (desktop) — clean, flag-based
+  document.addEventListener('keydown', function(e){
+    if(e.target && e.target.tagName==='INPUT') return; // don't intercept text inputs
+    const pc = document.getElementById('passcode-screen');
+    const adm = document.getElementById('admin-overlay');
+    const pcActive = pc && getComputedStyle(pc).display !== 'none' && getComputedStyle(pc).visibility !== 'hidden';
+    const admActive = adm && adm.classList.contains('show');
+    if(!pcActive && !admActive) return;
+    if(e.key>='0'&&e.key<='9'){ e.preventDefault(); admActive ? _ak(e.key) : _pk(e.key); }
+    else if(e.key==='Backspace'){ e.preventDefault(); admActive ? _ak('⌫') : _pk('⌫'); }
+    else if(e.key==='Enter'){ e.preventDefault(); admActive ? _ak('✓') : _pk('✓'); }
+  });
 </script>
 
 <!-- Admin Login Overlay -->
