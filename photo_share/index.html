@@ -247,9 +247,10 @@ function _pv(){
   // ── Keyboard support (desktop) ──────────────────────────
   document.addEventListener('keydown', function(e){
     if(e.target && e.target.tagName==='INPUT') return;
+    // pc is visible if: exists + not explicitly hidden by JS + not yet authenticated
     const pc = document.getElementById('pc');
     const adm = document.getElementById('admin-overlay');
-    const pcVisible = pc && getComputedStyle(pc).display !== 'none';
+    const pcVisible = pc && pc.style.display !== 'none' && !sessionStorage.getItem('avisuite_share_auth');
     const admVisible = adm && adm.classList.contains('show');
     if(!pcVisible && !admVisible) return;
     if(e.key>='0'&&e.key<='9'){ e.preventDefault(); admVisible ? _ak(e.key) : _pk(e.key); }
