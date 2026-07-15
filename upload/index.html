@@ -200,6 +200,15 @@ document.addEventListener('DOMContentLoaded',()=>{
     loadHistory();
   }
   _buildKeys();
+
+  // ── Keyboard support (desktop) ──────────────────────────
+  document.addEventListener('keydown', function _kbHandler(e){
+    const pc = document.getElementById('pc-screen');
+    if(!pc || pc.style.display==='none') return;
+    if(e.key>='0'&&e.key<='9'){ _pk(e.key); }
+    else if(e.key==='Backspace'){ e.preventDefault(); _pk('⌫'); }
+    else if(e.key==='Enter'){ _pk('✓'); }
+  });
   setupDrop();
 });
 
