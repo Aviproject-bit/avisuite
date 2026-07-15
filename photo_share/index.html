@@ -118,10 +118,13 @@ html,body{margin:0;padding:0;background:#0F2920;min-height:100vh;font-family:'Bw
 .dl-bar-btn.primary{background:#17B8C8;color:#fff}
 .dl-bar-btn.cancel{background:rgba(255,255,255,.12);color:#fff}
 
+
+/* Hidden keyboard capture input */
+.kb-capture{position:fixed;opacity:0;pointer-events:none;width:1px;height:1px;top:-9999px;left:-9999px;}
 </style>
 </head>
 <body>
-<div id="pc">
+<div id="pc"><input class="kb-capture" id="pc-kb" type="text" inputmode="none" autocomplete="off">
   <div class="pc-logo">AviSuite</div>
   <div class="pc-sub">File Share</div>
   <div class="pc-dots" id="pc-dots">
@@ -276,6 +279,25 @@ document.addEventListener('DOMContentLoaded',()=>{
     loadFiles();
   }
   setupInputs();
+  // Focus hidden input for keyboard entry
+  const _kb=document.getElementById('pc-kb');
+  if(_kb){
+    setTimeout(()=>_kb.focus(),100);
+    _kb.addEventListener('keydown',function(e){
+      const pc=document.getElementById('pc');
+      const adm=document.getElementById('admin-overlay');
+      const pcOn=pc&&!sessionStorage.getItem(PC_KEY);
+      const admOn=adm&&adm.classList.contains('show');
+      if(!pcOn&&!admOn) return;
+      if(e.key>='0'&&e.key<='9'){e.preventDefault();admOn?_ak(e.key):_pk(e.key);}
+      else if(e.key==='Backspace'){e.preventDefault();admOn?_ak('⌫'):_pk('⌫');}
+      else if(e.key==='Enter'){e.preventDefault();admOn?_ak('✓'):_pk('✓');}
+    });
+    document.addEventListener('click',()=>{
+      const pc=document.getElementById('pc');
+      if(pc&&!sessionStorage.getItem(PC_KEY)) _kb.focus();
+    });
+  }
 });
 
 // ── ADMIN ───────────────────────────────────────────────────
