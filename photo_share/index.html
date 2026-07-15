@@ -243,6 +243,18 @@ function _pv(){
     document.getElementById('pc').style.display='none';
     document.getElementById('app').style.display='block';
     loadFiles();
+
+  // ── Keyboard support (desktop) ──────────────────────────
+  document.addEventListener('keydown', function _kbHandler(e){
+    const pc = document.getElementById('pc');
+    const adm = document.getElementById('admin-overlay');
+    const pcVisible = pc && pc.style.display !== 'none' && !pc.classList.contains('pc-exit');
+    const admVisible = adm && adm.classList.contains('show');
+    if(!pcVisible && !admVisible) return;
+    if(e.key>='0'&&e.key<='9'){ admVisible ? _ak(e.key) : _pk(e.key); }
+    else if(e.key==='Backspace'){ e.preventDefault(); admVisible ? _ak('⌫') : _pk('⌫'); }
+    else if(e.key==='Enter'){ admVisible ? _ak('✓') : _pk('✓'); }
+  });
   }else{
     for(let i=0;i<4;i++)document.getElementById('d'+i).classList.add('err');
     setTimeout(()=>{_pe='';_udots('pc-dots','d',_pe);},600);
