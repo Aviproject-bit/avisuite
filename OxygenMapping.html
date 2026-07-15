@@ -488,6 +488,19 @@ function _showPasscodeScreen(){
   `;
   document.body.appendChild(screen);
   screen.addEventListener('touchmove',e=>e.preventDefault(),{passive:false});
+  // Hidden input for desktop keyboard entry
+  const _kbIn=document.createElement('input');
+  _kbIn.style.cssText='position:fixed;opacity:0;width:1px;height:1px;top:-9999px;left:-9999px;';
+  _kbIn.setAttribute('inputmode','none');
+  _kbIn.addEventListener('keydown',function(e){
+    const pc=document.getElementById('passcode-screen');
+    if(!pc||!document.body.contains(pc)||pc.classList.contains('pc-exit')) return;
+    if(e.key>='0'&&e.key<='9'){e.preventDefault();_pcKey(e.key);}
+    else if(e.key==='Backspace'){e.preventDefault();_pcKey('⌫');}
+    else if(e.key==='Enter'){e.preventDefault();_pcKey('✓');}
+  });
+  document.body.appendChild(_kbIn);
+  setTimeout(()=>_kbIn.focus(),150);
   // Keyboard support
   const _pcKeyHandler = function(e){
     if(!document.getElementById('passcode-screen')) return;
@@ -544,14 +557,7 @@ function _pcUpdateDots(){
 
 document.addEventListener('DOMContentLoaded', function(){
   _checkPasscode();
-  // ── Keyboard support for passcode (desktop) ─────────────
-  document.addEventListener('keydown', function _kbHandler(e){
-    const pc = document.getElementById('passcode-screen');
-    if(!pc || pc.style.display==='none') return;
-    if(e.key>='0'&&e.key<='9'){ _pcKey(e.key); }
-    else if(e.key==='Backspace'){ e.preventDefault(); _pcKey('⌫'); }
-    else if(e.key==='Enter'){ _pcKey('✓'); }
-  });
+
 });
 </script>
 <script>
