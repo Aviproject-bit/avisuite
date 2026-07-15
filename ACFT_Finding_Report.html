@@ -869,7 +869,7 @@ function editAircraft() {
       <div style="display:flex;flex-direction:column;gap:12px">
         <div>
           <div style="font-size:11px;font-weight:800;color:#555;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;font-family:'BwGradualEB',sans-serif">Registration</div>
-          <input id="ac-reg" type="text" value="${ac}" placeholder="e.g. HZ-ASF" style="width:100%;padding:9px 10px;border:1px solid #D8D8D0;border-radius:8px;font-size:14px;font-family:'BwGradual',sans-serif;text-transform:uppercase">
+          <input id="ac-reg" type="text" value="${ac || 'HZ-'}" placeholder="HZ-ASF" style="width:100%;padding:9px 10px;border:1px solid #D8D8D0;border-radius:8px;font-size:14px;font-family:'BwGradual',sans-serif;text-transform:uppercase" oninput="enforceHZPrefix(this)">
         </div>
         <div style="display:flex;gap:8px;margin-top:4px">
           <button onclick="saveAircraft()" style="flex:1;padding:11px;background:#0F2920;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:800;cursor:pointer;font-family:'BwGradualEB',sans-serif;letter-spacing:.5px">SAVE</button>
@@ -878,12 +878,37 @@ function editAircraft() {
       </div>
     </div>`;
   document.body.appendChild(overlay);
-  document.getElementById('ac-reg').focus();
-  document.getElementById('ac-reg').select();
+  const acInput = document.getElementById('ac-reg');
+  acInput.focus();
+  // Position cursor at end so user types after HZ-
+  const len = acInput.value.length;
+  acInput.setSelectionRange(len, len);
+}
+
+function enforceHZPrefix(input) {
+  let val = input.value.toUpperCase();
+  // If user clears everything, allow it (they can retype from scratch)
+  if (val === '' || val === 'H' || val === 'HZ') {
+    input.value = val;
+    return;
+  }
+  // If value doesn't start with HZ-, restore the prefix
+  if (!val.startsWith('HZ-')) {
+    // User may have deleted the prefix — restore it but keep what they typed after
+    const stripped = val.replace(/^H?Z?-?/, '');
+    input.value = 'HZ-' + stripped;
+    const pos = input.value.length;
+    input.setSelectionRange(pos, pos);
+  }
 }
 
 function saveAircraft() {
-  const reg   = (document.getElementById('ac-reg').value || '').trim().toUpperCase();
+  let reg = (document.getElementById('ac-reg').value || '').trim().toUpperCase();
+  // Don't save if only prefix with nothing after it
+  if (reg === 'HZ-' || reg === '') {
+    showToast('Please enter the full registration (e.g. HZ-ASF)');
+    return;
+  }
   localStorage.setItem(AC_KEY, JSON.stringify({reg, check:''}));
   document.querySelector('[style*=fixed]')?.remove();
   updateAircraftDisplay();
