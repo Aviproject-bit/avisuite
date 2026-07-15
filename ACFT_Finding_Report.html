@@ -1483,15 +1483,6 @@ window.addEventListener('DOMContentLoaded', function() {
   updateUI();
   updateAircraftDisplay();
   _checkPasscode();
-  // ── Keyboard support for passcode (desktop) ─────────────
-  document.addEventListener('keydown', function _kbHandler(e){
-    if(!document.getElementById('passcode-screen')) return;
-    const pc = document.getElementById('passcode-screen');
-    if(!pc || pc.style.display==='none') return;
-    if(e.key>='0'&&e.key<='9'){ _pcKey(e.key); }
-    else if(e.key==='Backspace'){ e.preventDefault(); _pcKey('⌫'); }
-    else if(e.key==='Enter'){ _pcKey('✓'); }
-  });
 });
 
 
@@ -2239,6 +2230,18 @@ function attachAutoCorrect(textareaId) {
   });
 }
 
+
+  // Keyboard support (desktop) — clean, flag-based
+  document.addEventListener('keydown', function(e){
+    if(e.target && e.target.tagName==='INPUT') return;
+    const pc = document.getElementById('passcode-screen');
+    if(!pc) return;
+    const pcActive = getComputedStyle(pc).display !== 'none' && getComputedStyle(pc).visibility !== 'hidden';
+    if(!pcActive) return;
+    if(e.key>='0'&&e.key<='9'){ e.preventDefault(); _pcKey(e.key); }
+    else if(e.key==='Backspace'){ e.preventDefault(); _pcKey('⌫'); }
+    else if(e.key==='Enter'){ e.preventDefault(); _pcKey('✓'); }
+  });
 </script>
 
 <!-- Image Annotation Editor -->
