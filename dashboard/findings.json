@@ -1650,5 +1650,23 @@
         "photoUrl": "https://i.ibb.co/rK5r0SgR/172b7f1f6ae4.jpg"
       }
     ]
+  },
+  {
+    "id": "1784111539518yam9z",
+    "batchId": "batch_1784111534588_f6drnw",
+    "timestamp": "2026-07-15T10:32:19.518Z",
+    "date": "15/07/2026",
+    "time": "13:32",
+    "aircraft": "HZ-ASF",
+    "reporter": "13010253V",
+    "findings": [
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "N/A               ",
+        "description": "CARPET TORN                                                 ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/q3RVrzDx/5aeadad122b2.jpg"
+      }
+    ]
   }
 ]
