@@ -2364,5 +2364,23 @@
         "photoUrl": "https://i.ibb.co/C3MLn3P8/cff405cd4423.jpg"
       }
     ]
+  },
+  {
+    "id": "17844430688806hcsb",
+    "batchId": "batch_1784443067316_a97oo8",
+    "timestamp": "2026-07-19T06:37:48.880Z",
+    "date": "19/07/2026",
+    "time": "09:37",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "findings": [
+      {
+        "category": "LAVATORY          ",
+        "subCategory": "LAV E             ",
+        "description": "DISCOLORED AND DIRTY MIRROR DOWNWARD                        ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/8LwVd5wz/f68bc27804d8.jpg"
+      }
+    ]
   }
 ]
