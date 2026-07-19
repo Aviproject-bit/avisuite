@@ -2292,5 +2292,23 @@
         "photoUrl": "https://i.ibb.co/dsws3TMg/38f1714bbc08.jpg"
       }
     ]
+  },
+  {
+    "id": "1784442816786uxm21",
+    "batchId": "batch_1784442815118_ws8sxb",
+    "timestamp": "2026-07-19T06:33:36.786Z",
+    "date": "19/07/2026",
+    "time": "09:33",
+    "aircraft": "HZ-ASD",
+    "reporter": "SHAREEF",
+    "findings": [
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "N/A               ",
+        "description": "THE TRIANGLE THING. IN B/C R/H MISSING                      ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/60Gz6k29/3328e69c9444.jpg | https://i.ibb.co/0RGT38Jd/8765e338d62f.jpg"
+      }
+    ]
   }
 ]
