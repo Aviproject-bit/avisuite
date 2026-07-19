@@ -2400,5 +2400,23 @@
         "photoUrl": "https://i.ibb.co/JW2R228C/eba7ce9f76a5.jpg"
       }
     ]
+  },
+  {
+    "id": "1784443159437iwvpi",
+    "batchId": "batch_1784443158102_m8o5rn",
+    "timestamp": "2026-07-19T06:39:19.437Z",
+    "date": "19/07/2026",
+    "time": "09:39",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "findings": [
+      {
+        "category": "LAVATORY          ",
+        "subCategory": "LAV E             ",
+        "description": "TOILET PAPER CASE CHIPPED PAINT                             ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/MyJ6LXjg/4dfe707300d1.jpg"
+      }
+    ]
   }
 ]
