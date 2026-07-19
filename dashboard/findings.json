@@ -937,5 +937,23 @@
         "photoUrl": ""
       }
     ]
+  },
+  {
+    "id": "1784458440801lys6x",
+    "batchId": "batch_1784458432311_o6pslt",
+    "timestamp": "2026-07-19T10:54:00.801Z",
+    "date": "19/07/2026",
+    "time": "13:53",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001351",
+    "findings": [
+      {
+        "category": "TEDLAR/SIDEWALL   ",
+        "subCategory": "G2                ",
+        "description": "209 TEDLAR                                                  ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/r2KgdVC9/a159e8a627e7.jpg"
+      }
+    ]
   }
 ]
