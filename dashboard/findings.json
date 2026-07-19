@@ -2346,5 +2346,23 @@
         "photoUrl": "https://i.ibb.co/tPD4wSSp/9f83d948f23d.jpg"
       }
     ]
+  },
+  {
+    "id": "1784442972831yaz1i",
+    "batchId": "batch_1784442970923_bh49oc",
+    "timestamp": "2026-07-19T06:36:12.831Z",
+    "date": "19/07/2026",
+    "time": "09:36",
+    "aircraft": "HZ-ASD",
+    "reporter": "FOUAD MOJALLY",
+    "findings": [
+      {
+        "category": "LAVATORY          ",
+        "subCategory": "D                 ",
+        "description": "LAVATORY THRESHOLD MISSING SCREW                            ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/C3MLn3P8/cff405cd4423.jpg"
+      }
+    ]
   }
 ]
