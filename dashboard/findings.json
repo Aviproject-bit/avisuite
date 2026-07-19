@@ -1810,5 +1810,37 @@
         "photoUrl": "https://i.ibb.co/0psLW56P/107710d6bcb3.jpg"
       }
     ]
+  },
+  {
+    "id": "1784441837139n9k5w",
+    "batchId": "batch_1784441835943_1lyxj3",
+    "timestamp": "2026-07-19T06:17:17.139Z",
+    "date": "19/07/2026",
+    "time": "09:17",
+    "aircraft": "HZ-ASD",
+    "reporter": "SHAREEF",
+    "findings": [
+      {
+        "category": "LAVATORY          ",
+        "subCategory": "LAV A             ",
+        "description": "PNT                                                         ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/PvKn3Ttp/de8fc32528dd.jpg"
+      },
+      {
+        "category": "LAVATORY          ",
+        "subCategory": "LAV A             ",
+        "description": "PNT                                                         ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/N6F8DCXC/d799e52cc3e6.jpg"
+      },
+      {
+        "category": "LAVATORY          ",
+        "subCategory": "LAV A             ",
+        "description": "PNT                                                         ",
+        "remarks": "HAVE TO PERSONALLY CHECK. LOOSE AT THE LOWER HINGE.",
+        "photoUrl": "https://i.ibb.co/Fk5cH7L1/4b758f3867dc.jpg"
+      }
+    ]
   }
 ]
