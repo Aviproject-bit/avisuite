@@ -991,5 +991,30 @@
         "photoUrl": "https://i.ibb.co/v4xSmXy3/6399dadb5905.jpg | https://i.ibb.co/rG61wPKd/653916e35dcf.jpg | https://i.ibb.co/WvPQMy07/759f953cc713.jpg | https://i.ibb.co/sJt0Phch/be223e78ac22.jpg"
       }
     ]
+  },
+  {
+    "id": "17844612738948zr6t",
+    "batchId": "batch_1784461202534_eup89a",
+    "timestamp": "2026-07-19T11:41:13.894Z",
+    "date": "19/07/2026",
+    "time": "14:40",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001351",
+    "findings": [
+      {
+        "category": "GALLEY            ",
+        "subCategory": "GALLY G2          ",
+        "description": "REQUIRES SHEET METAL 201  AND 202 AND 206 AND 205 MISSING RIVETS ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/tMx7gggm/abf525f29670.jpg | https://i.ibb.co/tfjqc3R/7e658c95da4e.jpg | https://i.ibb.co/3GLY3t0/2bd93c46a850.jpg | https://i.ibb.co/zVS1yp8j/b4402a249439.jpg | https://i.ibb.co/PZ7k18RS/dc899058dd70.jpg"
+      },
+      {
+        "category": "GALLEY            ",
+        "subCategory": "GALLY G2          ",
+        "description": "REQUIRES SHEET METAL 209 AND 210                            ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/fz71QBd6/ef70e2b30651.jpg | https://i.ibb.co/LXknV59C/6c1f8758b8e1.jpg"
+      }
+    ]
   }
 ]
