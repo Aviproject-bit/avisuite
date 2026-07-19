@@ -2238,5 +2238,23 @@
         "photoUrl": "https://i.ibb.co/kVWQcjfb/d5f59f11d7bc.jpg"
       }
     ]
+  },
+  {
+    "id": "1784442713964c55al",
+    "batchId": "batch_1784442711821_qh70mu",
+    "timestamp": "2026-07-19T06:31:53.964Z",
+    "date": "19/07/2026",
+    "time": "09:31",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "findings": [
+      {
+        "category": "LAVATORY          ",
+        "subCategory": "LAV E             ",
+        "description": "MISSING SCREW ON DOOR HINGE                                 ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/YHq4VzG/3293f90e6d4d.jpg"
+      }
+    ]
   }
 ]
