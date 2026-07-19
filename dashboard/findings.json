@@ -1950,5 +1950,23 @@
         "photoUrl": "https://i.ibb.co/mCTwHnj3/54624dc96a6d.jpg"
       }
     ]
+  },
+  {
+    "id": "1784442055105mwjc7",
+    "batchId": "batch_1784442053464_2y9htt",
+    "timestamp": "2026-07-19T06:20:55.105Z",
+    "date": "19/07/2026",
+    "time": "09:20",
+    "aircraft": "ASF",
+    "reporter": "FADULS",
+    "findings": [
+      {
+        "category": "LAVATORY          ",
+        "subCategory": "LAV E             ",
+        "description": "BABY BASSINET PROTECTIVE RUBBER MISSING \n                   ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/DDqBgTvg/7b6ecc2d3bbf.jpg"
+      }
+    ]
   }
 ]
