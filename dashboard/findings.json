@@ -2508,5 +2508,23 @@
         "photoUrl": "https://i.ibb.co/DPvbPskJ/a5eec72114b7.jpg"
       }
     ]
+  },
+  {
+    "id": "1784443710078x2ooe",
+    "batchId": "batch_1784443707928_vwh04j",
+    "timestamp": "2026-07-19T06:48:30.078Z",
+    "date": "19/07/2026",
+    "time": "09:48",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "findings": [
+      {
+        "category": "LAVATORY          ",
+        "subCategory": "LAV E             ",
+        "description": "DOWNWARD DIRT.LAV. DOOR                                     ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/MyW3tbfZ/39e6f301685c.jpg"
+      }
+    ]
   }
 ]
