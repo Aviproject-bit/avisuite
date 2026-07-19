@@ -973,5 +973,23 @@
         "photoUrl": "https://i.ibb.co/YF2bZzqj/4edade705ac0.jpg | https://i.ibb.co/HDGNGBBm/258684e06df6.jpg"
       }
     ]
+  },
+  {
+    "id": "1784460755547klo13",
+    "batchId": "batch_1784460742752_mdk1s7",
+    "timestamp": "2026-07-19T11:32:35.547Z",
+    "date": "19/07/2026",
+    "time": "14:32",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001351",
+    "findings": [
+      {
+        "category": "GALLEY            ",
+        "subCategory": "GALLY G1          ",
+        "description": "NEEDS SHEET METAL 101 AND 102                               ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/v4xSmXy3/6399dadb5905.jpg | https://i.ibb.co/rG61wPKd/653916e35dcf.jpg | https://i.ibb.co/WvPQMy07/759f953cc713.jpg | https://i.ibb.co/sJt0Phch/be223e78ac22.jpg"
+      }
+    ]
   }
 ]
