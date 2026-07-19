@@ -2058,5 +2058,23 @@
         "photoUrl": "https://i.ibb.co/fGqg14yW/067d1d7809c1.jpg"
       }
     ]
+  },
+  {
+    "id": "1784442207656yhdb5",
+    "batchId": "batch_1784442203999_vme0sb",
+    "timestamp": "2026-07-19T06:23:27.656Z",
+    "date": "19/07/2026",
+    "time": "09:23",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "findings": [
+      {
+        "category": "GALLEY            ",
+        "subCategory": "AFT GALLEY        ",
+        "description": "RED LATCH INOP                                              ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/d4L4K5zx/e8f6ff132221.jpg"
+      }
+    ]
   }
 ]
