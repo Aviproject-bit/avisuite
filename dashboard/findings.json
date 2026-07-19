@@ -1,1074 +1,808 @@
 [
   {
-    "id": "1784441739282l3uih",
-    "batchId": "batch_1784441732602_ce2kql",
-    "timestamp": "2026-07-19T06:15:39.282Z",
-    "date": "19/07/2026",
-    "time": "09:15",
-    "aircraft": "HZ-ASD",
-    "reporter": "30004221",
-    "findings": [
-      {
-        "category": "GALLEY            ",
-        "subCategory": "AFT GALLEY        ",
-        "description": "HINGE DAMAGE                                                ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/0psLW56P/107710d6bcb3.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784441837139n9k5w",
-    "batchId": "batch_1784441835943_1lyxj3",
-    "timestamp": "2026-07-19T06:17:17.139Z",
-    "date": "19/07/2026",
-    "time": "09:17",
-    "aircraft": "HZ-ASD",
-    "reporter": "SHAREEF",
-    "findings": [
-      {
-        "category": "LAVATORY          ",
-        "subCategory": "LAV A             ",
-        "description": "PNT                                                         ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/PvKn3Ttp/de8fc32528dd.jpg"
-      },
-      {
-        "category": "LAVATORY          ",
-        "subCategory": "LAV A             ",
-        "description": "PNT                                                         ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/N6F8DCXC/d799e52cc3e6.jpg"
-      },
-      {
-        "category": "LAVATORY          ",
-        "subCategory": "LAV A             ",
-        "description": "PNT                                                         ",
-        "remarks": "HAVE TO PERSONALLY CHECK. LOOSE AT THE LOWER HINGE.",
-        "photoUrl": "https://i.ibb.co/Fk5cH7L1/4b758f3867dc.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784441895552you0l",
-    "batchId": "batch_1784441893212_a8gecw",
-    "timestamp": "2026-07-19T06:18:15.552Z",
-    "date": "19/07/2026",
-    "time": "09:18",
-    "aircraft": "HZ-ASD",
-    "reporter": "FOUAD MOJALLY",
-    "findings": [
-      {
-        "category": "LAVATORY          ",
-        "subCategory": "D                 ",
-        "description": "BABY BASSINT DEEP SCRATCH                                   ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/XfWwM0Mv/e2ba680f0a0e.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784441884604qiyx1",
-    "batchId": "batch_1784441880825_ctc5h3",
-    "timestamp": "2026-07-19T06:18:04.604Z",
-    "date": "19/07/2026",
-    "time": "09:18",
-    "aircraft": "HZ-ASD",
-    "reporter": "30004221",
-    "findings": [
-      {
-        "category": "GALLEY            ",
-        "subCategory": "AFT GALLEY        ",
-        "description": "DOOR NOT SECURED                                            ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/SD7njffh/e529b0472fff.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784441930329pzho3",
-    "batchId": "batch_1784441926954_6e2j8h",
-    "timestamp": "2026-07-19T06:18:50.329Z",
-    "date": "19/07/2026",
-    "time": "09:18",
-    "aircraft": "HZ-ASD",
-    "reporter": "30004221",
-    "findings": [
-      {
-        "category": "GALLEY            ",
-        "subCategory": "AFT GALLEY        ",
-        "description": "DOOR NOT SECURED                                            ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/5xSg2Szm/6e6f30d0df12.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784441978586jbn3d",
-    "batchId": "batch_1784441977159_szibhz",
-    "timestamp": "2026-07-19T06:19:38.586Z",
-    "date": "19/07/2026",
-    "time": "09:19",
-    "aircraft": "HZ-ASD",
-    "reporter": "FOUAD MOJALLY",
-    "findings": [
-      {
-        "category": "LAVATORY          ",
-        "subCategory": "D                 ",
-        "description": "SHROUD ASSEMBLY NOT SECURE                                  ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/dsVD2ZZq/88efe0eccd42.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784441976000x634j",
-    "batchId": "batch_1784441973181_60uj5f",
-    "timestamp": "2026-07-19T06:19:36.000Z",
-    "date": "19/07/2026",
-    "time": "09:19",
-    "aircraft": "HZ-ASD",
-    "reporter": "30004221",
-    "findings": [
-      {
-        "category": "GALLEY            ",
-        "subCategory": "AFT GALLEY        ",
-        "description": "HINGE BROKEN                                                ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/k7G8DTb/c9d665999c4c.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784442033321rfi5q",
-    "batchId": "batch_1784442030599_v35no7",
-    "timestamp": "2026-07-19T06:20:33.321Z",
-    "date": "19/07/2026",
-    "time": "09:20",
-    "aircraft": "HZ-ASD",
-    "reporter": "30004221",
-    "findings": [
-      {
-        "category": "GALLEY            ",
-        "subCategory": "AFT GALLEY        ",
-        "description": "MISSING SEALANT                                             ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/mCTwHnj3/54624dc96a6d.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784442055105mwjc7",
-    "batchId": "batch_1784442053464_2y9htt",
-    "timestamp": "2026-07-19T06:20:55.105Z",
-    "date": "19/07/2026",
-    "time": "09:20",
-    "aircraft": "ASF",
-    "reporter": "FADULS",
-    "findings": [
-      {
-        "category": "LAVATORY          ",
-        "subCategory": "LAV E             ",
-        "description": "BABY BASSINET PROTECTIVE RUBBER MISSING \n                   ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/DDqBgTvg/7b6ecc2d3bbf.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784442070761n1txq",
-    "batchId": "batch_1784442068481_n9oj8l",
-    "timestamp": "2026-07-19T06:21:10.761Z",
-    "date": "19/07/2026",
-    "time": "09:21",
-    "aircraft": "HZ-ASD",
-    "reporter": "30004221",
-    "findings": [
-      {
-        "category": "GALLEY            ",
-        "subCategory": "AFT GALLEY        ",
-        "description": "MISSING SEALANT                                             ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/Kc9Fd35s/356548df3adc.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784442102247gx52p",
-    "batchId": "batch_1784442101073_czp9n4",
-    "timestamp": "2026-07-19T06:21:42.247Z",
-    "date": "19/07/2026",
-    "time": "09:21",
-    "aircraft": "HZ-ASD",
-    "reporter": "SHAREEF",
-    "findings": [
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "N/A               ",
-        "description": "B/C 4LJ                                                     ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/0V6GVQm8/066e0d014357.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784442136812y16uw",
-    "batchId": "batch_1784442134417_vhtgui",
-    "timestamp": "2026-07-19T06:22:16.812Z",
-    "date": "19/07/2026",
-    "time": "09:22",
-    "aircraft": "HZ-ASD",
-    "reporter": "FOUAD MOJALLY",
-    "findings": [
-      {
-        "category": "LAVATORY          ",
-        "subCategory": "D                 ",
-        "description": "LAVATORY DOOR HINGE MISSING SCREW + WASHER                  ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/HDDtdwV9/68a3f9245b5e.jpg"
-      }
-    ]
-  },
-  {
-    "id": "17844421242058n0xy",
-    "batchId": "batch_1784442121175_4ei9ep",
-    "timestamp": "2026-07-19T06:22:04.206Z",
-    "date": "19/07/2026",
-    "time": "09:22",
-    "aircraft": "HZ-ASD",
-    "reporter": "30004221",
-    "findings": [
-      {
-        "category": "GALLEY            ",
-        "subCategory": "AFT GALLEY        ",
-        "description": "COVER MISSING                                               ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/SLQWPjy/a14a98c66c53.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784442170187upahy",
-    "batchId": "batch_1784442168473_7tj761",
-    "timestamp": "2026-07-19T06:22:50.188Z",
-    "date": "19/07/2026",
-    "time": "09:22",
-    "aircraft": "HZ-ASD",
-    "reporter": "30001575",
-    "findings": [
-      {
-        "category": "LAVATORY          ",
-        "subCategory": "LAV E             ",
-        "description": "BABY BASSINET PROTECTIVE RUBBER MISSING                     ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/fGqg14yW/067d1d7809c1.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784442207656yhdb5",
-    "batchId": "batch_1784442203999_vme0sb",
-    "timestamp": "2026-07-19T06:23:27.656Z",
-    "date": "19/07/2026",
-    "time": "09:23",
-    "aircraft": "HZ-ASD",
-    "reporter": "30004221",
-    "findings": [
-      {
-        "category": "GALLEY            ",
-        "subCategory": "AFT GALLEY        ",
-        "description": "RED LATCH INOP                                              ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/d4L4K5zx/e8f6ff132221.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784442284252y8koe",
-    "batchId": "batch_1784442280804_zd211v",
-    "timestamp": "2026-07-19T06:24:44.252Z",
-    "date": "19/07/2026",
-    "time": "09:24",
-    "aircraft": "HZ-ASD",
-    "reporter": "30004221",
-    "findings": [
-      {
-        "category": "GALLEY            ",
-        "subCategory": "AFT GALLEY        ",
-        "description": "MISSING SCREW 3EA                                           ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/c7Nny7d/db493548a3d4.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784442318644rfeuy",
-    "batchId": "batch_1784442316554_sgq9y8",
-    "timestamp": "2026-07-19T06:25:18.644Z",
-    "date": "19/07/2026",
-    "time": "09:25",
-    "aircraft": "HZ-ASD",
-    "reporter": "30001575",
-    "findings": [
-      {
-        "category": "LAVATORY          ",
-        "subCategory": "LAV E             ",
-        "description": "BABY BASSINET DOWNWARD HOLE                                 ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/TDnbYnNX/55f63537cf11.jpg"
-      }
-    ]
-  },
-  {
-    "id": "17844423209121j3ls",
-    "batchId": "batch_1784442319039_9yc2gs",
-    "timestamp": "2026-07-19T06:25:20.912Z",
-    "date": "19/07/2026",
-    "time": "09:25",
-    "aircraft": "HZ-ASD",
-    "reporter": "SHAREEF",
-    "findings": [
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "N/A               ",
-        "description": "CLOSET S301                                                 ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/twP6KBCh/e364faa0a05f.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784442371451f2fz6",
-    "batchId": "batch_1784442365926_1z9kh8",
-    "timestamp": "2026-07-19T06:26:11.451Z",
-    "date": "19/07/2026",
-    "time": "09:26",
-    "aircraft": "HZ-ASD",
-    "reporter": "30004221",
-    "findings": [
-      {
-        "category": "GALLEY            ",
-        "subCategory": "AFT GALLEY        ",
-        "description": "A/C                                                         ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/tpN2pRKR/b3f0ac5ce5ce.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784442559813peal0",
-    "batchId": "batch_1784442552378_m2dyqf",
-    "timestamp": "2026-07-19T06:29:19.813Z",
-    "date": "19/07/2026",
-    "time": "09:29",
-    "aircraft": "HZ-ASD",
-    "reporter": "30004221",
-    "findings": [
-      {
-        "category": "GALLEY            ",
-        "subCategory": "AFT GALLEY        ",
-        "description": "A/C                                                         ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/wZmDGvfR/24aebb6aa2a1.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784442628843zyfp6",
-    "batchId": "batch_1784442626400_51j6dh",
-    "timestamp": "2026-07-19T06:30:28.843Z",
-    "date": "19/07/2026",
-    "time": "09:30",
-    "aircraft": "HZ-ASD",
-    "reporter": "30001575",
-    "findings": [
-      {
-        "category": "LAVATORY          ",
-        "subCategory": "LAV E             ",
-        "description": "DISCONNECTED AND DAMAGED CABINET.COMP NEXT TO THE MIRROR AND MISSING RUBBER SEAL",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/fVwK5hpV/e62262d1273d.jpg"
-      }
-    ]
-  },
-  {
-    "id": "17844426409148fi3s",
-    "batchId": "batch_1784442638985_2bp037",
-    "timestamp": "2026-07-19T06:30:40.914Z",
-    "date": "19/07/2026",
-    "time": "09:30",
-    "aircraft": "HZ-ASD",
-    "reporter": "30004221",
-    "findings": [
-      {
-        "category": "GALLEY            ",
-        "subCategory": "AFT GALLEY        ",
-        "description": "DOOR R2                                                     ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/m59zvPN7/5e2f6f0140ed.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784442672523ujbvq",
-    "batchId": "batch_1784442670624_ms06oc",
-    "timestamp": "2026-07-19T06:31:12.523Z",
-    "date": "19/07/2026",
-    "time": "09:31",
-    "aircraft": "HZ-ASD",
-    "reporter": "FOUAD MOJALLY",
-    "findings": [
-      {
-        "category": "LAVATORY          ",
-        "subCategory": "D                 ",
-        "description": "LAVATORY STOWAGE CABINET MISSING SCREW                      ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/QvDBjJcn/175cf909d418.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784442694650447o1",
-    "batchId": "batch_1784442692896_ghakfu",
-    "timestamp": "2026-07-19T06:31:34.650Z",
-    "date": "19/07/2026",
-    "time": "09:31",
-    "aircraft": "HZ-ASD",
-    "reporter": "30004221",
-    "findings": [
-      {
-        "category": "GALLEY            ",
-        "subCategory": "AFT GALLEY        ",
-        "description": "OVEN NEEDS PINT                                             ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/kVWQcjfb/d5f59f11d7bc.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784442713964c55al",
-    "batchId": "batch_1784442711821_qh70mu",
-    "timestamp": "2026-07-19T06:31:53.964Z",
-    "date": "19/07/2026",
-    "time": "09:31",
-    "aircraft": "HZ-ASD",
-    "reporter": "30001575",
-    "findings": [
-      {
-        "category": "LAVATORY          ",
-        "subCategory": "LAV E             ",
-        "description": "MISSING SCREW ON DOOR HINGE                                 ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/YHq4VzG/3293f90e6d4d.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784442772477mf5en",
-    "batchId": "batch_1784442771384_yt53zr",
-    "timestamp": "2026-07-19T06:32:52.477Z",
-    "date": "19/07/2026",
-    "time": "09:32",
-    "aircraft": "HZ-ASD",
-    "reporter": "30001575",
-    "findings": [
-      {
-        "category": "LAVATORY          ",
-        "subCategory": "LAV E             ",
-        "description": "DIRTY FILTER                                                ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/ksmJKrn8/20c46daad85f.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784442808655nwdhc",
-    "batchId": "batch_1784442807036_g7trnq",
-    "timestamp": "2026-07-19T06:33:28.655Z",
-    "date": "19/07/2026",
-    "time": "09:33",
-    "aircraft": "HZ-ASD",
-    "reporter": "FOUAD MOJALLY",
-    "findings": [
-      {
-        "category": "LAVATORY          ",
-        "subCategory": "D                 ",
-        "description": "LAVATORY STOWAGE CABINIT RUBBER SEAL DAMAGED                ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/dsws3TMg/38f1714bbc08.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784442816786uxm21",
-    "batchId": "batch_1784442815118_ws8sxb",
-    "timestamp": "2026-07-19T06:33:36.786Z",
-    "date": "19/07/2026",
-    "time": "09:33",
-    "aircraft": "HZ-ASD",
-    "reporter": "SHAREEF",
-    "findings": [
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "N/A               ",
-        "description": "THE TRIANGLE THING. IN B/C R/H MISSING                      ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/60Gz6k29/3328e69c9444.jpg | https://i.ibb.co/0RGT38Jd/8765e338d62f.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784442864536xvhgo",
-    "batchId": "batch_1784442863110_1bmass",
-    "timestamp": "2026-07-19T06:34:24.536Z",
-    "date": "19/07/2026",
-    "time": "09:34",
-    "aircraft": "HZ-ASD",
-    "reporter": "FOUAD MOJALLY",
-    "findings": [
-      {
-        "category": "LAVATORY          ",
-        "subCategory": "D                 ",
-        "description": "LAVATORY STOWAGE METAL PLATE DAMAGED                        ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/M5knjvNc/9510cb84f122.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784442870076kd6dq",
-    "batchId": "batch_1784442868786_lrj2o0",
-    "timestamp": "2026-07-19T06:34:30.076Z",
-    "date": "19/07/2026",
-    "time": "09:34",
-    "aircraft": "HZ-ASD",
-    "reporter": "30001575",
-    "findings": [
-      {
-        "category": "LAVATORY          ",
-        "subCategory": "LAV E             ",
-        "description": "MISSING SCREW ON THE TOILET SHROUD                          ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/tPD4wSSp/9f83d948f23d.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784442972831yaz1i",
-    "batchId": "batch_1784442970923_bh49oc",
-    "timestamp": "2026-07-19T06:36:12.831Z",
-    "date": "19/07/2026",
-    "time": "09:36",
-    "aircraft": "HZ-ASD",
-    "reporter": "FOUAD MOJALLY",
-    "findings": [
-      {
-        "category": "LAVATORY          ",
-        "subCategory": "D                 ",
-        "description": "LAVATORY THRESHOLD MISSING SCREW                            ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/C3MLn3P8/cff405cd4423.jpg"
-      }
-    ]
-  },
-  {
-    "id": "17844430688806hcsb",
-    "batchId": "batch_1784443067316_a97oo8",
-    "timestamp": "2026-07-19T06:37:48.880Z",
-    "date": "19/07/2026",
-    "time": "09:37",
-    "aircraft": "HZ-ASD",
-    "reporter": "30001575",
-    "findings": [
-      {
-        "category": "LAVATORY          ",
-        "subCategory": "LAV E             ",
-        "description": "DISCOLORED AND DIRTY MIRROR DOWNWARD                        ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/8LwVd5wz/f68bc27804d8.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784443150368db4r2",
-    "batchId": "batch_1784443146447_ol5icg",
-    "timestamp": "2026-07-19T06:39:10.368Z",
-    "date": "19/07/2026",
-    "time": "09:39",
-    "aircraft": "HZ-ASD",
-    "reporter": "FOUAD MOJALLY",
-    "findings": [
-      {
-        "category": "LAVATORY          ",
-        "subCategory": "D                 ",
-        "description": "LAVATORY DOOR HINGE MISSING SCREW                           ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/JW2R228C/eba7ce9f76a5.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784443159437iwvpi",
-    "batchId": "batch_1784443158102_m8o5rn",
-    "timestamp": "2026-07-19T06:39:19.437Z",
-    "date": "19/07/2026",
-    "time": "09:39",
-    "aircraft": "HZ-ASD",
-    "reporter": "30001575",
-    "findings": [
-      {
-        "category": "LAVATORY          ",
-        "subCategory": "LAV E             ",
-        "description": "TOILET PAPER CASE CHIPPED PAINT                             ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/MyJ6LXjg/4dfe707300d1.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784443285869dpgf7",
-    "batchId": "batch_1784443284016_8b329l",
-    "timestamp": "2026-07-19T06:41:25.869Z",
-    "date": "19/07/2026",
-    "time": "09:41",
-    "aircraft": "HZ-ASD",
-    "reporter": "FOUAD MOJALLY",
-    "findings": [
-      {
-        "category": "LAVATORY          ",
-        "subCategory": "D                 ",
-        "description": "LAVATORY MIRROR FADED                                       ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/7BNyFqw/36d1b037fee1.jpg"
-      }
-    ]
-  },
-  {
-    "id": "17844434398600c25p",
-    "batchId": "batch_1784443438440_y8xjce",
-    "timestamp": "2026-07-19T06:43:59.860Z",
-    "date": "19/07/2026",
-    "time": "09:43",
-    "aircraft": "HZ-ASD",
-    "reporter": "30001575",
-    "findings": [
-      {
-        "category": "LAVATORY          ",
-        "subCategory": "LAV E             ",
-        "description": "STUCK AND SCRATCHED ON THE PAD DRAWER                       ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/LDf8wRbn/a7f8059b557a.jpg"
-      }
-    ]
-  },
-  {
-    "id": "17844434806492dy5y",
-    "batchId": "batch_1784443477759_zfhpid",
-    "timestamp": "2026-07-19T06:44:40.649Z",
-    "date": "19/07/2026",
-    "time": "09:44",
-    "aircraft": "HZ-ASD",
-    "reporter": "FOUAD MOJALLY",
-    "findings": [
-      {
-        "category": "LAVATORY          ",
-        "subCategory": "D                 ",
-        "description": "WASHBASINE PAINT DAMAG                                      ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/LzbTn4hV/ed28575c2735.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784443539207ilk8z",
-    "batchId": "batch_1784443537936_ep0f6g",
-    "timestamp": "2026-07-19T06:45:39.207Z",
-    "date": "19/07/2026",
-    "time": "09:45",
-    "aircraft": "HZ-ASD",
-    "reporter": "30001575",
-    "findings": [
-      {
-        "category": "LAVATORY          ",
-        "subCategory": "LAV E             ",
-        "description": "STOWAGE DOOR DENT                                           ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/QsTz3dx/b985995513df.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784443631907vxeq6",
-    "batchId": "batch_1784443630619_iq69ty",
-    "timestamp": "2026-07-19T06:47:11.907Z",
-    "date": "19/07/2026",
-    "time": "09:47",
-    "aircraft": "HZ-ASD",
-    "reporter": "FOUAD MOJALLY",
-    "findings": [
-      {
-        "category": "LAVATORY          ",
-        "subCategory": "D                 ",
-        "description": "LAVATORY FILTER DIRTY                                       ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/DPvbPskJ/a5eec72114b7.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784443710078x2ooe",
-    "batchId": "batch_1784443707928_vwh04j",
-    "timestamp": "2026-07-19T06:48:30.078Z",
-    "date": "19/07/2026",
-    "time": "09:48",
-    "aircraft": "HZ-ASD",
-    "reporter": "30001575",
-    "findings": [
-      {
-        "category": "LAVATORY          ",
-        "subCategory": "LAV E             ",
-        "description": "DOWNWARD DIRT.LAV. DOOR                                     ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/MyW3tbfZ/39e6f301685c.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784443791635vj27s",
-    "batchId": "batch_1784443790147_qbyoih",
-    "timestamp": "2026-07-19T06:49:51.635Z",
-    "date": "19/07/2026",
-    "time": "09:49",
-    "aircraft": "HZ-ASD",
-    "reporter": "30001575",
-    "findings": [
-      {
-        "category": "LAVATORY          ",
-        "subCategory": "LAV E             ",
-        "description": "DAMAGED SMOKE OR ASHTRAY DECAL                              ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/QFtCs22P/85fa1d71ba6c.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784444058591jx5xs",
-    "batchId": "batch_1784444056382_t7fdbi",
-    "timestamp": "2026-07-19T06:54:18.591Z",
-    "date": "19/07/2026",
-    "time": "09:54",
-    "aircraft": "HZ-ASD",
-    "reporter": "30001575",
-    "findings": [
-      {
-        "category": "LAVATORY          ",
-        "subCategory": "LAV E             ",
-        "description": "CHIPPED WRITINGS (VACANT/ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/sdXx9HRK/d46f55f62cdf.jpg"
-      }
-    ]
-  },
-  {
-    "id": "178444415521305ji3",
-    "batchId": "batch_1784444153229_wulj0y",
-    "timestamp": "2026-07-19T06:55:55.213Z",
-    "date": "19/07/2026",
-    "time": "09:55",
-    "aircraft": "HZ-ASD",
-    "reporter": "30001575",
-    "findings": [
-      {
-        "category": "TEDLAR/SIDEWALL   ",
-        "subCategory": "LAV E             ",
-        "description": "DAMAGED TEDLAR                                              ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/cXtMZ3RX/bf13822f1c96.jpg"
-      }
-    ]
-  },
-  {
-    "id": "178444430386212o7z",
-    "batchId": "batch_1784444302113_1boua6",
-    "timestamp": "2026-07-19T06:58:23.862Z",
-    "date": "19/07/2026",
-    "time": "09:58",
-    "aircraft": "HZ-ASD",
-    "reporter": "30001575",
-    "findings": [
-      {
-        "category": "TEDLAR/SIDEWALL   ",
-        "subCategory": "LAV E             ",
-        "description": "DAMAGED TEDLAR                                              ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/VpQmpzcB/b17035e70c99.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784444382496olixm",
-    "batchId": "batch_1784444380223_5us8fq",
-    "timestamp": "2026-07-19T06:59:42.496Z",
-    "date": "19/07/2026",
-    "time": "09:59",
-    "aircraft": "HZ-ASD",
-    "reporter": "30001575",
-    "findings": [
-      {
-        "category": "LAVATORY          ",
-        "subCategory": "LAV E             ",
-        "description": "DAMAGED NO SMOKE DECAL                                      ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/Ngv0bRVP/7b3a9bfc0229.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784444442970nayuk",
-    "batchId": "batch_1784444441855_dung60",
-    "timestamp": "2026-07-19T07:00:42.970Z",
-    "date": "19/07/2026",
-    "time": "10:00",
-    "aircraft": "HZ-ASD",
-    "reporter": "30001575",
-    "findings": [
-      {
-        "category": "TEDLAR/SIDEWALL   ",
-        "subCategory": "LAV E             ",
-        "description": "DAMAGED TEDLAR                                              ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/679pj7JW/032df7288717.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784445365336fa0vj",
-    "batchId": "batch_1784445363848_hh2pzy",
-    "timestamp": "2026-07-19T07:16:05.336Z",
-    "date": "19/07/2026",
-    "time": "10:16",
-    "aircraft": "HZ-ASD",
-    "reporter": "SHAREEF",
-    "findings": [
-      {
-        "category": "LAVATORY          ",
-        "subCategory": "LAV A             ",
-        "description": "DECAL DISCOLORATION                                         ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/mrs7zTmp/c52f31d1f3b8.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784446577987fbpdp",
-    "batchId": "batch_1784446573076_fb04o4",
-    "timestamp": "2026-07-19T07:36:17.987Z",
-    "date": "19/07/2026",
-    "time": "10:36",
-    "aircraft": "HZ-ASD",
-    "reporter": "30001351",
-    "findings": [
-      {
-        "category": "GALLEY            ",
-        "subCategory": "GALLY G1          ",
-        "description": "CART CATCHER SCRATCHED AND DAMAGED\nKNOB FADED COLOUR AND DAMGED",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/JRtKQfZd/9f91d5bfd497.jpg | https://i.ibb.co/rqrBKg3/98ef4f1da09d.jpg | https://i.ibb.co/zhBy211v/b9d94ee34eae.jpg | https://i.ibb.co/4ZxTkFdC/31215b3b3112.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784447067097ifnou",
-    "batchId": "batch_1784447064986_lr5alr",
-    "timestamp": "2026-07-19T07:44:27.097Z",
-    "date": "19/07/2026",
-    "time": "10:44",
-    "aircraft": "HZ-ASD",
-    "reporter": "30001351",
-    "findings": [
-      {
-        "category": "GALLEY            ",
-        "subCategory": "GALLY G1          ",
-        "description": "TABLE SCREW STUCK \nTABLE HOLDER                             ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/nMfNwcdf/32b9036c5d18.jpg | https://i.ibb.co/4wbG41pz/21026aa555dd.jpg | https://i.ibb.co/tTGj99Bm/ba2454883359.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784447368407g2opa",
-    "batchId": "batch_1784447362901_xrc24l",
-    "timestamp": "2026-07-19T07:49:28.407Z",
-    "date": "19/07/2026",
-    "time": "10:49",
-    "aircraft": "HZ-ASD",
-    "reporter": "30001351",
-    "findings": [
-      {
-        "category": "GALLEY            ",
-        "subCategory": "GALLY G2          ",
-        "description": "CART CATCHER SCRATCHED AND DAMAGED                          ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/mVLQTZT0/92cb65565712.jpg | https://i.ibb.co/C3mjqcWV/d651d7657618.jpg | https://i.ibb.co/LXtfJdQf/0ed730f0596f.jpg | https://i.ibb.co/F4vkvcS4/b946e8aeca88.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784447645911j1mqi",
-    "batchId": "batch_1784447640641_3u807m",
-    "timestamp": "2026-07-19T07:54:05.911Z",
-    "date": "19/07/2026",
-    "time": "10:54",
-    "aircraft": "HZ-ASD",
-    "reporter": "30001351",
-    "findings": [
-      {
-        "category": "GALLEY            ",
-        "subCategory": "GALLY G1          ",
-        "description": "NOT WORKING OVEN 1 OVEN 2 COFFEE 1 COFFEE 2\nOVEN GRILL 1 LOOSE \nOVEN GRILL 2 SCRATCHED \n",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/4n4qYJGz/efd0e9731af2.jpg | https://i.ibb.co/Q7Qjv1j8/ba52c090056a.jpg | https://i.ibb.co/0RRgbJkW/212f35865743.jpg | https://i.ibb.co/Txm9wRRW/95294becc7ab.jpg"
-      }
-    ]
-  },
-  {
-    "id": "17844480228296bstc",
-    "batchId": "batch_1784448020269_9y27hi",
-    "timestamp": "2026-07-19T08:00:22.829Z",
-    "date": "19/07/2026",
-    "time": "11:00",
-    "aircraft": "HZ-ASD",
-    "reporter": "30001351",
-    "findings": [
-      {
-        "category": "GALLEY            ",
-        "subCategory": "GALLY G1          ",
-        "description": "AIR CHILLER GRILL BENT                                      ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/1tZJf3W4/53e5a708a2d4.jpg"
-      }
-    ]
-  },
-  {
-    "id": "17844483868751d1pm",
-    "batchId": "batch_1784448384176_euqlu5",
-    "timestamp": "2026-07-19T08:06:26.875Z",
-    "date": "19/07/2026",
-    "time": "11:06",
-    "aircraft": "HZ-ASD",
-    "reporter": "30001351",
-    "findings": [
-      {
-        "category": "GALLEY            ",
-        "subCategory": "GALLY G1          ",
-        "description": "MISSING SEALENT                                             ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/1f9hxr1D/6ca7a14531f6.jpg | https://i.ibb.co/zV6ZZw5x/13d9824beea4.jpg"
-      }
-    ]
-  },
-  {
-    "id": "17844487731339v57z",
-    "batchId": "batch_1784448771087_n7sg6e",
-    "timestamp": "2026-07-19T08:12:53.133Z",
-    "date": "19/07/2026",
-    "time": "11:12",
-    "aircraft": "HZ-ASD",
-    "reporter": "30001351",
-    "findings": [
-      {
-        "category": "GALLEY            ",
-        "subCategory": "GALLY G2          ",
-        "description": "SEALENT MISSING                                             ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/cXZtVCQp/2c0239d571ea.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784449065042po5rw",
-    "batchId": "batch_1784449058982_rv9unn",
-    "timestamp": "2026-07-19T08:17:45.042Z",
-    "date": "19/07/2026",
-    "time": "11:17",
-    "aircraft": "HZ-ASD",
-    "reporter": "30001351",
-    "findings": [
-      {
-        "category": "GALLEY            ",
-        "subCategory": "GALLY G1          ",
-        "description": "AIR CHILLER DAMAGED BETWEEN 109 AND 108\n                    ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/Lzm3TnJR/92658f6e75d4.jpg | https://i.ibb.co/mCNXf5rp/a52a43397956.jpg | https://i.ibb.co/gFB6M7h5/82a835276612.jpg | https://i.ibb.co/XxVBz9Ld/48e7b76e0ef3.jpg"
-      },
-      {
-        "category": "GALLEY            ",
-        "subCategory": "GALLY G1          ",
-        "description": "AIR CHILLER DAMAGED BETWEEN 110 AND 111                     ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/gLQ6nDSd/b769ff1bfd36.jpg | https://i.ibb.co/nNH1cJQ9/f7c769cbee80.jpg | https://i.ibb.co/s9KYb1dr/00868dadc0c2.jpg | https://i.ibb.co/ks0kZQLG/c57413dd5305.jpg"
-      }
-    ]
-  },
-  {
-    "id": "178444982577461ft8",
-    "batchId": "batch_1784449820861_f0dy6m",
-    "timestamp": "2026-07-19T08:30:25.774Z",
-    "date": "19/07/2026",
-    "time": "11:30",
-    "aircraft": "HZ-ASD",
-    "reporter": "30001351",
-    "findings": [
-      {
-        "category": "GALLEY            ",
-        "subCategory": "GALLY G1          ",
-        "description": "CURTAIN BENT SCRATCHED \nMISSING CURTAIN STOPPER\nDECALS FADED ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/gbxGx10j/436326e8ca26.jpg | https://i.ibb.co/Kcb49JWf/6224e9593a1f.jpg | https://i.ibb.co/VWQFDgTW/ca59ccfde78b.jpg"
-      }
-    ]
-  },
-  {
-    "id": "17844500681531jrjt",
-    "batchId": "batch_1784450062168_7vsl6k",
-    "timestamp": "2026-07-19T08:34:28.153Z",
-    "date": "19/07/2026",
-    "time": "11:34",
-    "aircraft": "HZ-ASD",
-    "reporter": "30001351",
-    "findings": [
-      {
-        "category": "GALLEY            ",
-        "subCategory": "N/A               ",
-        "description": "L1 CEILING PANEL DIRTY AND SCRATCHED\nMIDDLE CEILING PANEL DAMAGED \nR1 CEILING PANEL LIGHT DIRTY",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/dw8GwPc9/df5693e0c7c3.jpg | https://i.ibb.co/TB4X0Fx0/6d3a18877e78.jpg | https://i.ibb.co/HyQZZNj/bcea8bc38464.jpg | https://i.ibb.co/wZfWmNrz/1d5c4e475c3f.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784450483070coe7v",
-    "batchId": "batch_1784450471456_354qwx",
+    "_id": "1784450483070coe7v",
     "timestamp": "2026-07-19T08:41:23.071Z",
     "date": "19/07/2026",
     "time": "11:41",
     "aircraft": "HZ-ASD",
     "reporter": "3000135",
-    "findings": [
-      {
-        "category": "GALLEY            ",
-        "subCategory": "GALLY G1          ",
-        "description": "TURN CATCH DAMAGED AND SCRATCHED                            ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/KjzGJ0Xy/9b1b750da460.jpg | https://i.ibb.co/MyM5vVmB/a852470e8dbb.jpg | https://i.ibb.co/4ZgC3gmB/759abe156364.jpg"
-      },
-      {
-        "category": "GALLEY            ",
-        "subCategory": "GALLY G2          ",
-        "description": "TURN CATCH DAMAGED AND SCRATCHED                            ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/VYCmtf9Z/6abe906e4af3.jpg | https://i.ibb.co/2Y3KKpV1/59e5075d0501.jpg | https://i.ibb.co/1J6k3yPk/d5840ebc21c2.jpg | https://i.ibb.co/6Rw8RTfY/7762b24e04d3.jpg"
-      }
-    ]
+    "category": "GALLEY",
+    "subCategory": "GALLY G1",
+    "description": "TURN CATCH DAMAGED AND SCRATCHED",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/KjzGJ0Xy/9b1b750da460.jpg | https://i.ibb.co/MyM5vVmB/a852470e8dbb.jpg | https://i.ibb.co/4ZgC3gmB/759abe156364.jpg"
+  },
+  {
+    "_id": "1784450483070coe7v",
+    "timestamp": "2026-07-19T08:41:23.071Z",
+    "date": "19/07/2026",
+    "time": "11:41",
+    "aircraft": "HZ-ASD",
+    "reporter": "3000135",
+    "category": "GALLEY",
+    "subCategory": "GALLY G2",
+    "description": "TURN CATCH DAMAGED AND SCRATCHED",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/VYCmtf9Z/6abe906e4af3.jpg | https://i.ibb.co/2Y3KKpV1/59e5075d0501.jpg | https://i.ibb.co/1J6k3yPk/d5840ebc21c2.jpg | https://i.ibb.co/6Rw8RTfY/7762b24e04d3.jpg"
+  },
+  {
+    "_id": "17844500681531jrjt",
+    "timestamp": "2026-07-19T08:34:28.153Z",
+    "date": "19/07/2026",
+    "time": "11:34",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001351",
+    "category": "GALLEY",
+    "subCategory": "N/A",
+    "description": "L1 CEILING PANEL DIRTY AND SCRATCHED\nMIDDLE CEILING PANEL DAMAGED \nR1 CEILING PANEL LIGHT DIRTY",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/dw8GwPc9/df5693e0c7c3.jpg | https://i.ibb.co/TB4X0Fx0/6d3a18877e78.jpg | https://i.ibb.co/HyQZZNj/bcea8bc38464.jpg | https://i.ibb.co/wZfWmNrz/1d5c4e475c3f.jpg"
+  },
+  {
+    "_id": "178444982577461ft8",
+    "timestamp": "2026-07-19T08:30:25.774Z",
+    "date": "19/07/2026",
+    "time": "11:30",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001351",
+    "category": "GALLEY",
+    "subCategory": "GALLY G1",
+    "description": "CURTAIN BENT SCRATCHED \nMISSING CURTAIN STOPPER\nDECALS FADED",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/gbxGx10j/436326e8ca26.jpg | https://i.ibb.co/Kcb49JWf/6224e9593a1f.jpg | https://i.ibb.co/VWQFDgTW/ca59ccfde78b.jpg"
+  },
+  {
+    "_id": "1784449065042po5rw",
+    "timestamp": "2026-07-19T08:17:45.042Z",
+    "date": "19/07/2026",
+    "time": "11:17",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001351",
+    "category": "GALLEY",
+    "subCategory": "GALLY G1",
+    "description": "AIR CHILLER DAMAGED BETWEEN 109 AND 108",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/Lzm3TnJR/92658f6e75d4.jpg | https://i.ibb.co/mCNXf5rp/a52a43397956.jpg | https://i.ibb.co/gFB6M7h5/82a835276612.jpg | https://i.ibb.co/XxVBz9Ld/48e7b76e0ef3.jpg"
+  },
+  {
+    "_id": "1784449065042po5rw",
+    "timestamp": "2026-07-19T08:17:45.042Z",
+    "date": "19/07/2026",
+    "time": "11:17",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001351",
+    "category": "GALLEY",
+    "subCategory": "GALLY G1",
+    "description": "AIR CHILLER DAMAGED BETWEEN 110 AND 111",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/gLQ6nDSd/b769ff1bfd36.jpg | https://i.ibb.co/nNH1cJQ9/f7c769cbee80.jpg | https://i.ibb.co/s9KYb1dr/00868dadc0c2.jpg | https://i.ibb.co/ks0kZQLG/c57413dd5305.jpg"
+  },
+  {
+    "_id": "17844487731339v57z",
+    "timestamp": "2026-07-19T08:12:53.133Z",
+    "date": "19/07/2026",
+    "time": "11:12",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001351",
+    "category": "GALLEY",
+    "subCategory": "GALLY G2",
+    "description": "SEALENT MISSING",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/cXZtVCQp/2c0239d571ea.jpg"
+  },
+  {
+    "_id": "17844483868751d1pm",
+    "timestamp": "2026-07-19T08:06:26.875Z",
+    "date": "19/07/2026",
+    "time": "11:06",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001351",
+    "category": "GALLEY",
+    "subCategory": "GALLY G1",
+    "description": "MISSING SEALENT",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/1f9hxr1D/6ca7a14531f6.jpg | https://i.ibb.co/zV6ZZw5x/13d9824beea4.jpg"
+  },
+  {
+    "_id": "17844480228296bstc",
+    "timestamp": "2026-07-19T08:00:22.829Z",
+    "date": "19/07/2026",
+    "time": "11:00",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001351",
+    "category": "GALLEY",
+    "subCategory": "GALLY G1",
+    "description": "AIR CHILLER GRILL BENT",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/1tZJf3W4/53e5a708a2d4.jpg"
+  },
+  {
+    "_id": "1784447645911j1mqi",
+    "timestamp": "2026-07-19T07:54:05.911Z",
+    "date": "19/07/2026",
+    "time": "10:54",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001351",
+    "category": "GALLEY",
+    "subCategory": "GALLY G1",
+    "description": "NOT WORKING OVEN 1 OVEN 2 COFFEE 1 COFFEE 2\nOVEN GRILL 1 LOOSE \nOVEN GRILL 2 SCRATCHED",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/4n4qYJGz/efd0e9731af2.jpg | https://i.ibb.co/Q7Qjv1j8/ba52c090056a.jpg | https://i.ibb.co/0RRgbJkW/212f35865743.jpg | https://i.ibb.co/Txm9wRRW/95294becc7ab.jpg"
+  },
+  {
+    "_id": "1784447368407g2opa",
+    "timestamp": "2026-07-19T07:49:28.407Z",
+    "date": "19/07/2026",
+    "time": "10:49",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001351",
+    "category": "GALLEY",
+    "subCategory": "GALLY G2",
+    "description": "CART CATCHER SCRATCHED AND DAMAGED",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/mVLQTZT0/92cb65565712.jpg | https://i.ibb.co/C3mjqcWV/d651d7657618.jpg | https://i.ibb.co/LXtfJdQf/0ed730f0596f.jpg | https://i.ibb.co/F4vkvcS4/b946e8aeca88.jpg"
+  },
+  {
+    "_id": "1784447067097ifnou",
+    "timestamp": "2026-07-19T07:44:27.097Z",
+    "date": "19/07/2026",
+    "time": "10:44",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001351",
+    "category": "GALLEY",
+    "subCategory": "GALLY G1",
+    "description": "TABLE SCREW STUCK \nTABLE HOLDER",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/nMfNwcdf/32b9036c5d18.jpg | https://i.ibb.co/4wbG41pz/21026aa555dd.jpg | https://i.ibb.co/tTGj99Bm/ba2454883359.jpg"
+  },
+  {
+    "_id": "1784446577987fbpdp",
+    "timestamp": "2026-07-19T07:36:17.987Z",
+    "date": "19/07/2026",
+    "time": "10:36",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001351",
+    "category": "GALLEY",
+    "subCategory": "GALLY G1",
+    "description": "CART CATCHER SCRATCHED AND DAMAGED\nKNOB FADED COLOUR AND DAMGED",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/JRtKQfZd/9f91d5bfd497.jpg | https://i.ibb.co/rqrBKg3/98ef4f1da09d.jpg | https://i.ibb.co/zhBy211v/b9d94ee34eae.jpg | https://i.ibb.co/4ZxTkFdC/31215b3b3112.jpg"
+  },
+  {
+    "_id": "1784445365336fa0vj",
+    "timestamp": "2026-07-19T07:16:05.336Z",
+    "date": "19/07/2026",
+    "time": "10:16",
+    "aircraft": "HZ-ASD",
+    "reporter": "SHAREEF",
+    "category": "LAVATORY",
+    "subCategory": "LAV A",
+    "description": "DECAL DISCOLORATION",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/mrs7zTmp/c52f31d1f3b8.jpg"
+  },
+  {
+    "_id": "1784444442970nayuk",
+    "timestamp": "2026-07-19T07:00:42.970Z",
+    "date": "19/07/2026",
+    "time": "10:00",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "TEDLAR/SIDEWALL",
+    "subCategory": "LAV E",
+    "description": "DAMAGED TEDLAR",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/679pj7JW/032df7288717.jpg"
+  },
+  {
+    "_id": "1784444382496olixm",
+    "timestamp": "2026-07-19T06:59:42.496Z",
+    "date": "19/07/2026",
+    "time": "09:59",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "LAVATORY",
+    "subCategory": "LAV E",
+    "description": "DAMAGED NO SMOKE DECAL",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/Ngv0bRVP/7b3a9bfc0229.jpg"
+  },
+  {
+    "_id": "178444430386212o7z",
+    "timestamp": "2026-07-19T06:58:23.862Z",
+    "date": "19/07/2026",
+    "time": "09:58",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "TEDLAR/SIDEWALL",
+    "subCategory": "LAV E",
+    "description": "DAMAGED TEDLAR",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/VpQmpzcB/b17035e70c99.jpg"
+  },
+  {
+    "_id": "178444415521305ji3",
+    "timestamp": "2026-07-19T06:55:55.213Z",
+    "date": "19/07/2026",
+    "time": "09:55",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "TEDLAR/SIDEWALL",
+    "subCategory": "LAV E",
+    "description": "DAMAGED TEDLAR",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/cXtMZ3RX/bf13822f1c96.jpg"
+  },
+  {
+    "_id": "1784444058591jx5xs",
+    "timestamp": "2026-07-19T06:54:18.591Z",
+    "date": "19/07/2026",
+    "time": "09:54",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "LAVATORY",
+    "subCategory": "LAV E",
+    "description": "CHIPPED WRITINGS (VACANT/)",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/sdXx9HRK/d46f55f62cdf.jpg"
+  },
+  {
+    "_id": "1784443791635vj27s",
+    "timestamp": "2026-07-19T06:49:51.635Z",
+    "date": "19/07/2026",
+    "time": "09:49",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "LAVATORY",
+    "subCategory": "LAV E",
+    "description": "DAMAGED SMOKE OR ASHTRAY DECAL",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/QFtCs22P/85fa1d71ba6c.jpg"
+  },
+  {
+    "_id": "1784443710078x2ooe",
+    "timestamp": "2026-07-19T06:48:30.078Z",
+    "date": "19/07/2026",
+    "time": "09:48",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "LAVATORY",
+    "subCategory": "LAV E",
+    "description": "DOWNWARD DIRT.LAV. DOOR",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/MyW3tbfZ/39e6f301685c.jpg"
+  },
+  {
+    "_id": "1784443631907vxeq6",
+    "timestamp": "2026-07-19T06:47:11.907Z",
+    "date": "19/07/2026",
+    "time": "09:47",
+    "aircraft": "HZ-ASD",
+    "reporter": "FOUAD MOJALLY",
+    "category": "LAVATORY",
+    "subCategory": "D",
+    "description": "LAVATORY FILTER DIRTY",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/DPvbPskJ/a5eec72114b7.jpg"
+  },
+  {
+    "_id": "1784443539207ilk8z",
+    "timestamp": "2026-07-19T06:45:39.207Z",
+    "date": "19/07/2026",
+    "time": "09:45",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "LAVATORY",
+    "subCategory": "LAV E",
+    "description": "STOWAGE DOOR DENT",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/QsTz3dx/b985995513df.jpg"
+  },
+  {
+    "_id": "17844434806492dy5y",
+    "timestamp": "2026-07-19T06:44:40.649Z",
+    "date": "19/07/2026",
+    "time": "09:44",
+    "aircraft": "HZ-ASD",
+    "reporter": "FOUAD MOJALLY",
+    "category": "LAVATORY",
+    "subCategory": "D",
+    "description": "WASHBASINE PAINT DAMAG",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/LzbTn4hV/ed28575c2735.jpg"
+  },
+  {
+    "_id": "17844434398600c25p",
+    "timestamp": "2026-07-19T06:43:59.860Z",
+    "date": "19/07/2026",
+    "time": "09:43",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "LAVATORY",
+    "subCategory": "LAV E",
+    "description": "STUCK AND SCRATCHED ON THE PAD DRAWER",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/LDf8wRbn/a7f8059b557a.jpg"
+  },
+  {
+    "_id": "1784443285869dpgf7",
+    "timestamp": "2026-07-19T06:41:25.869Z",
+    "date": "19/07/2026",
+    "time": "09:41",
+    "aircraft": "HZ-ASD",
+    "reporter": "FOUAD MOJALLY",
+    "category": "LAVATORY",
+    "subCategory": "D",
+    "description": "LAVATORY MIRROR FADED",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/7BNyFqw/36d1b037fee1.jpg"
+  },
+  {
+    "_id": "1784443159437iwvpi",
+    "timestamp": "2026-07-19T06:39:19.437Z",
+    "date": "19/07/2026",
+    "time": "09:39",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "LAVATORY",
+    "subCategory": "LAV E",
+    "description": "TOILET PAPER CASE CHIPPED PAINT",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/MyJ6LXjg/4dfe707300d1.jpg"
+  },
+  {
+    "_id": "1784443150368db4r2",
+    "timestamp": "2026-07-19T06:39:10.368Z",
+    "date": "19/07/2026",
+    "time": "09:39",
+    "aircraft": "HZ-ASD",
+    "reporter": "FOUAD MOJALLY",
+    "category": "LAVATORY",
+    "subCategory": "D",
+    "description": "LAVATORY DOOR HINGE MISSING SCREW",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/JW2R228C/eba7ce9f76a5.jpg"
+  },
+  {
+    "_id": "17844430688806hcsb",
+    "timestamp": "2026-07-19T06:37:48.880Z",
+    "date": "19/07/2026",
+    "time": "09:37",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "LAVATORY",
+    "subCategory": "LAV E",
+    "description": "DISCOLORED AND DIRTY MIRROR DOWNWARD",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/8LwVd5wz/f68bc27804d8.jpg"
+  },
+  {
+    "_id": "1784442972831yaz1i",
+    "timestamp": "2026-07-19T06:36:12.831Z",
+    "date": "19/07/2026",
+    "time": "09:36",
+    "aircraft": "HZ-ASD",
+    "reporter": "FOUAD MOJALLY",
+    "category": "LAVATORY",
+    "subCategory": "D",
+    "description": "LAVATORY THRESHOLD MISSING SCREW",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/C3MLn3P8/cff405cd4423.jpg"
+  },
+  {
+    "_id": "1784442870076kd6dq",
+    "timestamp": "2026-07-19T06:34:30.076Z",
+    "date": "19/07/2026",
+    "time": "09:34",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "LAVATORY",
+    "subCategory": "LAV E",
+    "description": "MISSING SCREW ON THE TOILET SHROUD",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/tPD4wSSp/9f83d948f23d.jpg"
+  },
+  {
+    "_id": "1784442864536xvhgo",
+    "timestamp": "2026-07-19T06:34:24.536Z",
+    "date": "19/07/2026",
+    "time": "09:34",
+    "aircraft": "HZ-ASD",
+    "reporter": "FOUAD MOJALLY",
+    "category": "LAVATORY",
+    "subCategory": "D",
+    "description": "LAVATORY STOWAGE METAL PLATE DAMAGED",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/M5knjvNc/9510cb84f122.jpg"
+  },
+  {
+    "_id": "1784442816786uxm21",
+    "timestamp": "2026-07-19T06:33:36.786Z",
+    "date": "19/07/2026",
+    "time": "09:33",
+    "aircraft": "HZ-ASD",
+    "reporter": "SHAREEF",
+    "category": "GENERAL CABIN",
+    "subCategory": "N/A",
+    "description": "THE TRIANGLE THING. IN B/C R/H MISSING",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/60Gz6k29/3328e69c9444.jpg | https://i.ibb.co/0RGT38Jd/8765e338d62f.jpg"
+  },
+  {
+    "_id": "1784442808655nwdhc",
+    "timestamp": "2026-07-19T06:33:28.655Z",
+    "date": "19/07/2026",
+    "time": "09:33",
+    "aircraft": "HZ-ASD",
+    "reporter": "FOUAD MOJALLY",
+    "category": "LAVATORY",
+    "subCategory": "D",
+    "description": "LAVATORY STOWAGE CABINIT RUBBER SEAL DAMAGED",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/dsws3TMg/38f1714bbc08.jpg"
+  },
+  {
+    "_id": "1784442772477mf5en",
+    "timestamp": "2026-07-19T06:32:52.477Z",
+    "date": "19/07/2026",
+    "time": "09:32",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "LAVATORY",
+    "subCategory": "LAV E",
+    "description": "DIRTY FILTER",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/ksmJKrn8/20c46daad85f.jpg"
+  },
+  {
+    "_id": "1784442713964c55al",
+    "timestamp": "2026-07-19T06:31:53.964Z",
+    "date": "19/07/2026",
+    "time": "09:31",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "LAVATORY",
+    "subCategory": "LAV E",
+    "description": "MISSING SCREW ON DOOR HINGE",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/YHq4VzG/3293f90e6d4d.jpg"
+  },
+  {
+    "_id": "1784442694650447o1",
+    "timestamp": "2026-07-19T06:31:34.650Z",
+    "date": "19/07/2026",
+    "time": "09:31",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "category": "GALLEY",
+    "subCategory": "AFT GALLEY",
+    "description": "OVEN NEEDS PINT",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/kVWQcjfb/d5f59f11d7bc.jpg"
+  },
+  {
+    "_id": "1784442672523ujbvq",
+    "timestamp": "2026-07-19T06:31:12.523Z",
+    "date": "19/07/2026",
+    "time": "09:31",
+    "aircraft": "HZ-ASD",
+    "reporter": "FOUAD MOJALLY",
+    "category": "LAVATORY",
+    "subCategory": "D",
+    "description": "LAVATORY STOWAGE CABINET MISSING SCREW",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/QvDBjJcn/175cf909d418.jpg"
+  },
+  {
+    "_id": "17844426409148fi3s",
+    "timestamp": "2026-07-19T06:30:40.914Z",
+    "date": "19/07/2026",
+    "time": "09:30",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "category": "GALLEY",
+    "subCategory": "AFT GALLEY",
+    "description": "DOOR R2",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/m59zvPN7/5e2f6f0140ed.jpg"
+  },
+  {
+    "_id": "1784442628843zyfp6",
+    "timestamp": "2026-07-19T06:30:28.843Z",
+    "date": "19/07/2026",
+    "time": "09:30",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "LAVATORY",
+    "subCategory": "LAV E",
+    "description": "DISCONNECTED AND DAMAGED CABINET.COMP NEXT TO THE MIRROR AND MISSING RUBBER SEAL",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/fVwK5hpV/e62262d1273d.jpg"
+  },
+  {
+    "_id": "1784442559813peal0",
+    "timestamp": "2026-07-19T06:29:19.813Z",
+    "date": "19/07/2026",
+    "time": "09:29",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "category": "GALLEY",
+    "subCategory": "AFT GALLEY",
+    "description": "A/C",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/wZmDGvfR/24aebb6aa2a1.jpg"
+  },
+  {
+    "_id": "1784442371451f2fz6",
+    "timestamp": "2026-07-19T06:26:11.451Z",
+    "date": "19/07/2026",
+    "time": "09:26",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "category": "GALLEY",
+    "subCategory": "AFT GALLEY",
+    "description": "A/C",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/tpN2pRKR/b3f0ac5ce5ce.jpg"
+  },
+  {
+    "_id": "17844423209121j3ls",
+    "timestamp": "2026-07-19T06:25:20.912Z",
+    "date": "19/07/2026",
+    "time": "09:25",
+    "aircraft": "HZ-ASD",
+    "reporter": "SHAREEF",
+    "category": "GENERAL CABIN",
+    "subCategory": "N/A",
+    "description": "CLOSET S301",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/twP6KBCh/e364faa0a05f.jpg"
+  },
+  {
+    "_id": "1784442318644rfeuy",
+    "timestamp": "2026-07-19T06:25:18.644Z",
+    "date": "19/07/2026",
+    "time": "09:25",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "LAVATORY",
+    "subCategory": "LAV E",
+    "description": "BABY BASSINET DOWNWARD HOLE",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/TDnbYnNX/55f63537cf11.jpg"
+  },
+  {
+    "_id": "1784442284252y8koe",
+    "timestamp": "2026-07-19T06:24:44.252Z",
+    "date": "19/07/2026",
+    "time": "09:24",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "category": "GALLEY",
+    "subCategory": "AFT GALLEY",
+    "description": "MISSING SCREW 3EA",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/c7Nny7d/db493548a3d4.jpg"
+  },
+  {
+    "_id": "1784442207656yhdb5",
+    "timestamp": "2026-07-19T06:23:27.656Z",
+    "date": "19/07/2026",
+    "time": "09:23",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "category": "GALLEY",
+    "subCategory": "AFT GALLEY",
+    "description": "RED LATCH INOP",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/d4L4K5zx/e8f6ff132221.jpg"
+  },
+  {
+    "_id": "1784442170187upahy",
+    "timestamp": "2026-07-19T06:22:50.188Z",
+    "date": "19/07/2026",
+    "time": "09:22",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "LAVATORY",
+    "subCategory": "LAV E",
+    "description": "BABY BASSINET PROTECTIVE RUBBER MISSING",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/fGqg14yW/067d1d7809c1.jpg"
+  },
+  {
+    "_id": "1784442136812y16uw",
+    "timestamp": "2026-07-19T06:22:16.812Z",
+    "date": "19/07/2026",
+    "time": "09:22",
+    "aircraft": "HZ-ASD",
+    "reporter": "FOUAD MOJALLY",
+    "category": "LAVATORY",
+    "subCategory": "D",
+    "description": "LAVATORY DOOR HINGE MISSING SCREW + WASHER",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/HDDtdwV9/68a3f9245b5e.jpg"
+  },
+  {
+    "_id": "17844421242058n0xy",
+    "timestamp": "2026-07-19T06:22:04.206Z",
+    "date": "19/07/2026",
+    "time": "09:22",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "category": "GALLEY",
+    "subCategory": "AFT GALLEY",
+    "description": "COVER MISSING",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/SLQWPjy/a14a98c66c53.jpg"
+  },
+  {
+    "_id": "1784442102247gx52p",
+    "timestamp": "2026-07-19T06:21:42.247Z",
+    "date": "19/07/2026",
+    "time": "09:21",
+    "aircraft": "HZ-ASD",
+    "reporter": "SHAREEF",
+    "category": "GENERAL CABIN",
+    "subCategory": "N/A",
+    "description": "B/C 4LJ",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/0V6GVQm8/066e0d014357.jpg"
+  },
+  {
+    "_id": "1784442070761n1txq",
+    "timestamp": "2026-07-19T06:21:10.761Z",
+    "date": "19/07/2026",
+    "time": "09:21",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "category": "GALLEY",
+    "subCategory": "AFT GALLEY",
+    "description": "MISSING SEALANT",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/Kc9Fd35s/356548df3adc.jpg"
+  },
+  {
+    "_id": "1784442055105mwjc7",
+    "timestamp": "2026-07-19T06:20:55.105Z",
+    "date": "19/07/2026",
+    "time": "09:20",
+    "aircraft": "ASF",
+    "reporter": "FADULS",
+    "category": "LAVATORY",
+    "subCategory": "LAV E",
+    "description": "BABY BASSINET PROTECTIVE RUBBER MISSING",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/DDqBgTvg/7b6ecc2d3bbf.jpg"
+  },
+  {
+    "_id": "1784442033321rfi5q",
+    "timestamp": "2026-07-19T06:20:33.321Z",
+    "date": "19/07/2026",
+    "time": "09:20",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "category": "GALLEY",
+    "subCategory": "AFT GALLEY",
+    "description": "MISSING SEALANT",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/mCTwHnj3/54624dc96a6d.jpg"
+  },
+  {
+    "_id": "1784441978586jbn3d",
+    "timestamp": "2026-07-19T06:19:38.586Z",
+    "date": "19/07/2026",
+    "time": "09:19",
+    "aircraft": "HZ-ASD",
+    "reporter": "FOUAD MOJALLY",
+    "category": "LAVATORY",
+    "subCategory": "D",
+    "description": "SHROUD ASSEMBLY NOT SECURE",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/dsVD2ZZq/88efe0eccd42.jpg"
+  },
+  {
+    "_id": "1784441976000x634j",
+    "timestamp": "2026-07-19T06:19:36.000Z",
+    "date": "19/07/2026",
+    "time": "09:19",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "category": "GALLEY",
+    "subCategory": "AFT GALLEY",
+    "description": "HINGE BROKEN",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/k7G8DTb/c9d665999c4c.jpg"
+  },
+  {
+    "_id": "1784441930329pzho3",
+    "timestamp": "2026-07-19T06:18:50.329Z",
+    "date": "19/07/2026",
+    "time": "09:18",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "category": "GALLEY",
+    "subCategory": "AFT GALLEY",
+    "description": "DOOR NOT SECURED",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/5xSg2Szm/6e6f30d0df12.jpg"
+  },
+  {
+    "_id": "1784441895552you0l",
+    "timestamp": "2026-07-19T06:18:15.552Z",
+    "date": "19/07/2026",
+    "time": "09:18",
+    "aircraft": "HZ-ASD",
+    "reporter": "FOUAD MOJALLY",
+    "category": "LAVATORY",
+    "subCategory": "D",
+    "description": "BABY BASSINT DEEP SCRATCH",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/XfWwM0Mv/e2ba680f0a0e.jpg"
+  },
+  {
+    "_id": "1784441884604qiyx1",
+    "timestamp": "2026-07-19T06:18:04.604Z",
+    "date": "19/07/2026",
+    "time": "09:18",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "category": "GALLEY",
+    "subCategory": "AFT GALLEY",
+    "description": "DOOR NOT SECURED",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/SD7njffh/e529b0472fff.jpg"
+  },
+  {
+    "_id": "1784441837139n9k5w",
+    "timestamp": "2026-07-19T06:17:17.139Z",
+    "date": "19/07/2026",
+    "time": "09:17",
+    "aircraft": "HZ-ASD",
+    "reporter": "SHAREEF",
+    "category": "LAVATORY",
+    "subCategory": "LAV A",
+    "description": "PNT",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/PvKn3Ttp/de8fc32528dd.jpg"
+  },
+  {
+    "_id": "1784441837139n9k5w",
+    "timestamp": "2026-07-19T06:17:17.139Z",
+    "date": "19/07/2026",
+    "time": "09:17",
+    "aircraft": "HZ-ASD",
+    "reporter": "SHAREEF",
+    "category": "LAVATORY",
+    "subCategory": "LAV A",
+    "description": "PNT",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/N6F8DCXC/d799e52cc3e6.jpg"
+  },
+  {
+    "_id": "1784441837139n9k5w",
+    "timestamp": "2026-07-19T06:17:17.139Z",
+    "date": "19/07/2026",
+    "time": "09:17",
+    "aircraft": "HZ-ASD",
+    "reporter": "SHAREEF",
+    "category": "LAVATORY",
+    "subCategory": "LAV A",
+    "description": "PNT",
+    "remarks": "HAVE TO PERSONALLY CHECK. LOOSE AT THE LOWER HINGE.",
+    "photoUrl": "https://i.ibb.co/Fk5cH7L1/4b758f3867dc.jpg"
+  },
+  {
+    "_id": "1784441739282l3uih",
+    "timestamp": "2026-07-19T06:15:39.282Z",
+    "date": "19/07/2026",
+    "time": "09:15",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "category": "GALLEY",
+    "subCategory": "AFT GALLEY",
+    "description": "HINGE DAMAGE",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/0psLW56P/107710d6bcb3.jpg"
   }
 ]
