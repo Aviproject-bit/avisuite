@@ -2526,5 +2526,23 @@
         "photoUrl": "https://i.ibb.co/MyW3tbfZ/39e6f301685c.jpg"
       }
     ]
+  },
+  {
+    "id": "1784443791635vj27s",
+    "batchId": "batch_1784443790147_qbyoih",
+    "timestamp": "2026-07-19T06:49:51.635Z",
+    "date": "19/07/2026",
+    "time": "09:49",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "findings": [
+      {
+        "category": "LAVATORY          ",
+        "subCategory": "LAV E             ",
+        "description": "DAMAGED SMOKE OR ASHTRAY DECAL                              ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/QFtCs22P/85fa1d71ba6c.jpg"
+      }
+    ]
   }
 ]
