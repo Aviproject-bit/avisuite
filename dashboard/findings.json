@@ -2076,5 +2076,23 @@
         "photoUrl": "https://i.ibb.co/d4L4K5zx/e8f6ff132221.jpg"
       }
     ]
+  },
+  {
+    "id": "1784442284252y8koe",
+    "batchId": "batch_1784442280804_zd211v",
+    "timestamp": "2026-07-19T06:24:44.252Z",
+    "date": "19/07/2026",
+    "time": "09:24",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "findings": [
+      {
+        "category": "GALLEY            ",
+        "subCategory": "AFT GALLEY        ",
+        "description": "MISSING SCREW 3EA                                           ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/c7Nny7d/db493548a3d4.jpg"
+      }
+    ]
   }
 ]
