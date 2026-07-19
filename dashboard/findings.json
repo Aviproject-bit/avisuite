@@ -2557,7 +2557,7 @@
       {
         "category": "LAVATORY          ",
         "subCategory": "LAV E             ",
-        "description": "CHIPPED WRITINGS (VACANT/ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ®ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ§ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ)                              ",
+        "description": "CHIPPED WRITINGS (VACANT/ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ®ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ§ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ)                              ",
         "remarks": "                         ",
         "photoUrl": "https://i.ibb.co/sdXx9HRK/d46f55f62cdf.jpg"
       }
@@ -2650,6 +2650,24 @@
         "description": "DECAL DISCOLORATION                                         ",
         "remarks": "                         ",
         "photoUrl": "https://i.ibb.co/mrs7zTmp/c52f31d1f3b8.jpg"
+      }
+    ]
+  },
+  {
+    "id": "1784446577987fbpdp",
+    "batchId": "batch_1784446573076_fb04o4",
+    "timestamp": "2026-07-19T07:36:17.987Z",
+    "date": "19/07/2026",
+    "time": "10:36",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001351",
+    "findings": [
+      {
+        "category": "GALLEY            ",
+        "subCategory": "GALLY G1          ",
+        "description": "CART CATCHER SCRATCHED AND DAMAGED\nKNOB FADED COLOUR AND DAMGED",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/JRtKQfZd/9f91d5bfd497.jpg | https://i.ibb.co/rqrBKg3/98ef4f1da09d.jpg | https://i.ibb.co/zhBy211v/b9d94ee34eae.jpg | https://i.ibb.co/4ZxTkFdC/31215b3b3112.jpg"
       }
     ]
   }
