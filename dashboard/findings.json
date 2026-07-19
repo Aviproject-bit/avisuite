@@ -2184,5 +2184,23 @@
         "photoUrl": "https://i.ibb.co/fVwK5hpV/e62262d1273d.jpg"
       }
     ]
+  },
+  {
+    "id": "17844426409148fi3s",
+    "batchId": "batch_1784442638985_2bp037",
+    "timestamp": "2026-07-19T06:30:40.914Z",
+    "date": "19/07/2026",
+    "time": "09:30",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "findings": [
+      {
+        "category": "GALLEY            ",
+        "subCategory": "AFT GALLEY        ",
+        "description": "DOOR R2                                                     ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/m59zvPN7/5e2f6f0140ed.jpg"
+      }
+    ]
   }
 ]
