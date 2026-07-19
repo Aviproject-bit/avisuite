@@ -2166,5 +2166,23 @@
         "photoUrl": "https://i.ibb.co/wZmDGvfR/24aebb6aa2a1.jpg"
       }
     ]
+  },
+  {
+    "id": "1784442628843zyfp6",
+    "batchId": "batch_1784442626400_51j6dh",
+    "timestamp": "2026-07-19T06:30:28.843Z",
+    "date": "19/07/2026",
+    "time": "09:30",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "findings": [
+      {
+        "category": "LAVATORY          ",
+        "subCategory": "LAV E             ",
+        "description": "DISCONNECTED AND DAMAGED CABINET.COMP NEXT TO THE MIRROR AND MISSING RUBBER SEAL",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/fVwK5hpV/e62262d1273d.jpg"
+      }
+    ]
   }
 ]
