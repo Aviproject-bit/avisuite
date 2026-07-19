@@ -1842,5 +1842,23 @@
         "photoUrl": "https://i.ibb.co/Fk5cH7L1/4b758f3867dc.jpg"
       }
     ]
+  },
+  {
+    "id": "1784441895552you0l",
+    "batchId": "batch_1784441893212_a8gecw",
+    "timestamp": "2026-07-19T06:18:15.552Z",
+    "date": "19/07/2026",
+    "time": "09:18",
+    "aircraft": "HZ-ASD",
+    "reporter": "FOUAD MOJALLY",
+    "findings": [
+      {
+        "category": "LAVATORY          ",
+        "subCategory": "D                 ",
+        "description": "BABY BASSINT DEEP SCRATCH                                   ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/XfWwM0Mv/e2ba680f0a0e.jpg"
+      }
+    ]
   }
 ]
