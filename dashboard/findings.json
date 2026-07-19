@@ -894,5 +894,30 @@
         "photoUrl": "https://i.ibb.co/Ng1Cj1Ry/a8df7cd5de9f.jpg"
       }
     ]
+  },
+  {
+    "id": "1784457897952l4qu6",
+    "batchId": "batch_1784457886494_gokwet",
+    "timestamp": "2026-07-19T10:44:57.952Z",
+    "date": "19/07/2026",
+    "time": "13:44",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001351",
+    "findings": [
+      {
+        "category": "GALLEY            ",
+        "subCategory": "GALLY G1          ",
+        "description": "FOOT STEP SCRATCHED AND COLOUR FADED                        ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/hJH4xjGC/61795342a129.jpg"
+      },
+      {
+        "category": "GALLEY            ",
+        "subCategory": "GALLY G2          ",
+        "description": "FOOT STEP SCRATCHED AND COLOUR FADED MISSING KNOB           ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/sxBDvN6/f0394f506858.jpg"
+      }
+    ]
   }
 ]
