@@ -2490,5 +2490,23 @@
         "photoUrl": "https://i.ibb.co/QsTz3dx/b985995513df.jpg"
       }
     ]
+  },
+  {
+    "id": "1784443631907vxeq6",
+    "batchId": "batch_1784443630619_iq69ty",
+    "timestamp": "2026-07-19T06:47:11.907Z",
+    "date": "19/07/2026",
+    "time": "09:47",
+    "aircraft": "HZ-ASD",
+    "reporter": "FOUAD MOJALLY",
+    "findings": [
+      {
+        "category": "LAVATORY          ",
+        "subCategory": "D                 ",
+        "description": "LAVATORY FILTER DIRTY                                       ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/DPvbPskJ/a5eec72114b7.jpg"
+      }
+    ]
   }
 ]
