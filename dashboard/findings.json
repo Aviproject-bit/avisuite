@@ -876,5 +876,23 @@
         "photoUrl": "https://i.ibb.co/DDrzbrxn/e9383d640838.jpg | https://i.ibb.co/yF6wHgts/30dffb1e290b.jpg | https://i.ibb.co/xqMc0PLj/66f858a056c9.jpg"
       }
     ]
+  },
+  {
+    "id": "1784457770228n5eb9",
+    "batchId": "batch_1784457764552_x93fvy",
+    "timestamp": "2026-07-19T10:42:50.228Z",
+    "date": "19/07/2026",
+    "time": "13:42",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001351",
+    "findings": [
+      {
+        "category": "GALLEY            ",
+        "subCategory": "GALLY G2          ",
+        "description": "207 WASTE CONTAINER LATCH LOOSE                             ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/Ng1Cj1Ry/a8df7cd5de9f.jpg"
+      }
+    ]
   }
 ]
