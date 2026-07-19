@@ -2557,7 +2557,7 @@
       {
         "category": "LAVATORY          ",
         "subCategory": "LAV E             ",
-        "description": "CHIPPED WRITINGS (VACANT/ÃÂÃÂÃÂÃÂ®ÃÂÃÂÃÂÃÂ§ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ)                              ",
+        "description": "CHIPPED WRITINGS (VACANT/ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ®ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ§ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ)                              ",
         "remarks": "                         ",
         "photoUrl": "https://i.ibb.co/sdXx9HRK/d46f55f62cdf.jpg"
       }
@@ -2632,6 +2632,24 @@
         "description": "DAMAGED TEDLAR                                              ",
         "remarks": "                         ",
         "photoUrl": "https://i.ibb.co/679pj7JW/032df7288717.jpg"
+      }
+    ]
+  },
+  {
+    "id": "1784445365336fa0vj",
+    "batchId": "batch_1784445363848_hh2pzy",
+    "timestamp": "2026-07-19T07:16:05.336Z",
+    "date": "19/07/2026",
+    "time": "10:16",
+    "aircraft": "HZ-ASD",
+    "reporter": "SHAREEF",
+    "findings": [
+      {
+        "category": "LAVATORY          ",
+        "subCategory": "LAV A             ",
+        "description": "DECAL DISCOLORATION                                         ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/mrs7zTmp/c52f31d1f3b8.jpg"
       }
     ]
   }
