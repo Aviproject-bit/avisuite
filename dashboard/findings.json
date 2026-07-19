@@ -2557,7 +2557,7 @@
       {
         "category": "LAVATORY          ",
         "subCategory": "LAV E             ",
-        "description": "CHIPPED WRITINGS (VACANT/ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ®ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ§ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ)                              ",
+        "description": "CHIPPED WRITINGS (VACANT/ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ®ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ§ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ)                              ",
         "remarks": "                         ",
         "photoUrl": "https://i.ibb.co/sdXx9HRK/d46f55f62cdf.jpg"
       }
@@ -2668,6 +2668,24 @@
         "description": "CART CATCHER SCRATCHED AND DAMAGED\nKNOB FADED COLOUR AND DAMGED",
         "remarks": "                         ",
         "photoUrl": "https://i.ibb.co/JRtKQfZd/9f91d5bfd497.jpg | https://i.ibb.co/rqrBKg3/98ef4f1da09d.jpg | https://i.ibb.co/zhBy211v/b9d94ee34eae.jpg | https://i.ibb.co/4ZxTkFdC/31215b3b3112.jpg"
+      }
+    ]
+  },
+  {
+    "id": "1784447067097ifnou",
+    "batchId": "batch_1784447064986_lr5alr",
+    "timestamp": "2026-07-19T07:44:27.097Z",
+    "date": "19/07/2026",
+    "time": "10:44",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001351",
+    "findings": [
+      {
+        "category": "GALLEY            ",
+        "subCategory": "GALLY G1          ",
+        "description": "TABLE SCREW STUCK \nTABLE HOLDER                             ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/nMfNwcdf/32b9036c5d18.jpg | https://i.ibb.co/4wbG41pz/21026aa555dd.jpg | https://i.ibb.co/tTGj99Bm/ba2454883359.jpg"
       }
     ]
   }
