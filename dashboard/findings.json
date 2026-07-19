@@ -2557,7 +2557,7 @@
       {
         "category": "LAVATORY          ",
         "subCategory": "LAV E             ",
-        "description": "CHIPPED WRITINGS (VACANT/ÃÂÃÂ®ÃÂÃÂ§ÃÂÃÂÃÂÃÂ)                              ",
+        "description": "CHIPPED WRITINGS (VACANT/ÃÂÃÂÃÂÃÂ®ÃÂÃÂÃÂÃÂ§ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ)                              ",
         "remarks": "                         ",
         "photoUrl": "https://i.ibb.co/sdXx9HRK/d46f55f62cdf.jpg"
       }
@@ -2614,6 +2614,24 @@
         "description": "DAMAGED NO SMOKE DECAL                                      ",
         "remarks": "                         ",
         "photoUrl": "https://i.ibb.co/Ngv0bRVP/7b3a9bfc0229.jpg"
+      }
+    ]
+  },
+  {
+    "id": "1784444442970nayuk",
+    "batchId": "batch_1784444441855_dung60",
+    "timestamp": "2026-07-19T07:00:42.970Z",
+    "date": "19/07/2026",
+    "time": "10:00",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "findings": [
+      {
+        "category": "TEDLAR/SIDEWALL   ",
+        "subCategory": "LAV E             ",
+        "description": "DAMAGED TEDLAR                                              ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/679pj7JW/032df7288717.jpg"
       }
     ]
   }
