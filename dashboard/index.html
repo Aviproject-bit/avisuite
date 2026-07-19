@@ -497,7 +497,7 @@ function render(){
   const cbTh=isAdmin?`<th class="cb-cell"><input type="checkbox" class="row-cb" id="cb-all" onclick="toggleAll(this)"></th>`:'';
   const body=rows.map((f,i)=>{
     const idx=(pg-1)*perPg+i;
-    const ph=f.photoUrl?f.photoUrl.split(' | ').map(u=>`<img class="ph" src="${u}" onclick="showLB('${u}')" onerror="this.style.display='none'">`).join(''):'—';
+    const ph=f.photoUrl?f.photoUrl.split(' | ').map(u=>`<img class="ph" loading="lazy" decoding="async" src="${u}" onclick="showLB('${u}')" onerror="this.style.display='none'">`).join(''):'—';
     const admTd=isAdmin?`<td><button class="rb e" onclick="inlineEdit(${idx},this)">Edit</button><button class="rb d" onclick="delRow(${idx})">Del</button></td>`:'';
     const cbTd=isAdmin?`<td class="cb-cell"><input type="checkbox" class="row-cb" data-idx="${idx}" onchange="toggleSel(this)" ${selected.has(f._id+'_'+f.timestamp)?'checked':''}></td>`:'';
     return `<tr>
@@ -816,7 +816,7 @@ function doPDFExport(){
     groups[ac].forEach((f,i)=>{
       const photos=(f.photoUrl||'').split(' | ').filter(Boolean);
       const photoCell = photos.length
-        ? '<td><div style="display:flex;flex-wrap:wrap;gap:3px">'+photos.map(p=>'<img src="'+p+'" style="width:48px;height:34px;object-fit:cover;border-radius:3px">').join('')+'</div></td>'
+        ? '<td><div style="display:flex;flex-wrap:wrap;gap:3px">'+photos.map(p=>'<img loading="lazy" decoding="async" src="'+p+'" style="width:48px;height:34px;object-fit:cover;border-radius:3px">').join('')+'</div></td>'
         : '<td>—</td>';
       const timeStr = f.time ? ' '+f.time : '';
       const dateCell = '<div>'+fmt(f.timestamp)+timeStr+'</div><div style="font-size:8.5px;color:#6b7268;margin-top:2px">'+esc(f.reporter||'—')+'</div>';
