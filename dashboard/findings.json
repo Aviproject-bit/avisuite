@@ -2472,5 +2472,23 @@
         "photoUrl": "https://i.ibb.co/LzbTn4hV/ed28575c2735.jpg"
       }
     ]
+  },
+  {
+    "id": "1784443539207ilk8z",
+    "batchId": "batch_1784443537936_ep0f6g",
+    "timestamp": "2026-07-19T06:45:39.207Z",
+    "date": "19/07/2026",
+    "time": "09:45",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "findings": [
+      {
+        "category": "LAVATORY          ",
+        "subCategory": "LAV E             ",
+        "description": "STOWAGE DOOR DENT                                           ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/QsTz3dx/b985995513df.jpg"
+      }
+    ]
   }
 ]
