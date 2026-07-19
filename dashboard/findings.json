@@ -2274,5 +2274,23 @@
         "photoUrl": "https://i.ibb.co/ksmJKrn8/20c46daad85f.jpg"
       }
     ]
+  },
+  {
+    "id": "1784442808655nwdhc",
+    "batchId": "batch_1784442807036_g7trnq",
+    "timestamp": "2026-07-19T06:33:28.655Z",
+    "date": "19/07/2026",
+    "time": "09:33",
+    "aircraft": "HZ-ASD",
+    "reporter": "FOUAD MOJALLY",
+    "findings": [
+      {
+        "category": "LAVATORY          ",
+        "subCategory": "D                 ",
+        "description": "LAVATORY STOWAGE CABINIT RUBBER SEAL DAMAGED                ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/dsws3TMg/38f1714bbc08.jpg"
+      }
+    ]
   }
 ]
