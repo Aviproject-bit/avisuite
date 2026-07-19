@@ -2256,5 +2256,23 @@
         "photoUrl": "https://i.ibb.co/YHq4VzG/3293f90e6d4d.jpg"
       }
     ]
+  },
+  {
+    "id": "1784442772477mf5en",
+    "batchId": "batch_1784442771384_yt53zr",
+    "timestamp": "2026-07-19T06:32:52.477Z",
+    "date": "19/07/2026",
+    "time": "09:32",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "findings": [
+      {
+        "category": "LAVATORY          ",
+        "subCategory": "LAV E             ",
+        "description": "DIRTY FILTER                                                ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/ksmJKrn8/20c46daad85f.jpg"
+      }
+    ]
   }
 ]
