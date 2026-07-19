@@ -840,5 +840,23 @@
         "photoUrl": "https://i.ibb.co/0ptc6SZs/17f4fd4318c8.jpg"
       }
     ]
+  },
+  {
+    "id": "1784457426733dlgq5",
+    "batchId": "batch_1784457399665_i1tc2c",
+    "timestamp": "2026-07-19T10:37:06.733Z",
+    "date": "19/07/2026",
+    "time": "13:36",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001351",
+    "findings": [
+      {
+        "category": "GALLEY            ",
+        "subCategory": "GALLY G2          ",
+        "description": "208 DAMAGED AND DECALS FADED                                ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/9kWd0Ygd/414280c92f37.jpg"
+      }
+    ]
   }
 ]
