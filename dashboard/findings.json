@@ -1016,5 +1016,30 @@
         "photoUrl": "https://i.ibb.co/fz71QBd6/ef70e2b30651.jpg | https://i.ibb.co/LXknV59C/6c1f8758b8e1.jpg"
       }
     ]
+  },
+  {
+    "id": "17844615975810v78j",
+    "batchId": "batch_1784461588388_hcbkif",
+    "timestamp": "2026-07-19T11:46:37.581Z",
+    "date": "19/07/2026",
+    "time": "14:46",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001351",
+    "findings": [
+      {
+        "category": "GALLEY            ",
+        "subCategory": "GALLY G1 AND G2   ",
+        "description": "SEALENT DEFORMED AND DIRTY 108 AND 109 AND 110 AND 111 AND 212",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/nNJdmRCv/96dd1fa2af26.jpg | https://i.ibb.co/21ytbYXr/5d8a753ea700.jpg | https://i.ibb.co/rRKxF5JW/88e926d0f82d.jpg | https://i.ibb.co/GQgYY3g5/1e0993637a03.jpg | https://i.ibb.co/DDrsPRXQ/f31a7f3f7057.jpg"
+      },
+      {
+        "category": "GALLEY            ",
+        "subCategory": "GALLY G2          ",
+        "description": "SEALENT DEFORMED AND DIRTY                                  ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/zT3vH0p4/e6d9f4d4ac11.jpg"
+      }
+    ]
   }
 ]
