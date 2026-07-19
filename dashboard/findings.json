@@ -1932,5 +1932,23 @@
         "photoUrl": "https://i.ibb.co/k7G8DTb/c9d665999c4c.jpg"
       }
     ]
+  },
+  {
+    "id": "1784442033321rfi5q",
+    "batchId": "batch_1784442030599_v35no7",
+    "timestamp": "2026-07-19T06:20:33.321Z",
+    "date": "19/07/2026",
+    "time": "09:20",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "findings": [
+      {
+        "category": "GALLEY            ",
+        "subCategory": "AFT GALLEY        ",
+        "description": "MISSING SEALANT                                             ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/mCTwHnj3/54624dc96a6d.jpg"
+      }
+    ]
   }
 ]
