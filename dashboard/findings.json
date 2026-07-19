@@ -919,5 +919,23 @@
         "photoUrl": "https://i.ibb.co/sxBDvN6/f0394f506858.jpg"
       }
     ]
+  },
+  {
+    "id": "1784458212850rksmv",
+    "batchId": "batch_1784458161240_r3qi7t",
+    "timestamp": "2026-07-19T10:50:12.850Z",
+    "date": "19/07/2026",
+    "time": "13:49",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001351",
+    "findings": [
+      {
+        "category": "GALLEY            ",
+        "subCategory": "GALLY G1 AND G2   ",
+        "description": "WORN AND DAMAGED CART DIVIDER ON BOTH SIDES                 ",
+        "remarks": "                         ",
+        "photoUrl": ""
+      }
+    ]
   }
 ]
