@@ -553,6 +553,7 @@ async function submitAll() {
 
   // 1. Upload photos to ImgBB (parallel per finding, with retry)
   const photoUrls = {};
+  const photoThumbs = {};
   const photoUploadFailures = []; // [{findingIdx, total, succeeded}]
   await Promise.all(valid.map(async (f, i) => {
     const photos = f.photos && f.photos.length > 0 ? f.photos : (f.photoData ? [{data: f.photoData}] : []);
@@ -566,14 +567,15 @@ async function submitAll() {
           fd.append('image', base64);
           const r = await fetch('https://api.imgbb.com/1/upload', {method:'POST', body:fd});
           const d = await r.json();
-          if (d.success) return d.data.url;
+          if (d.success) return { u: d.data.url, t: (d.data.thumb && d.data.thumb.url) || (d.data.medium && d.data.medium.url) || d.data.url };
         } catch(e) { /* retry */ }
         if (attempt < retries) await new Promise(res => setTimeout(res, 1200));
       }
       return null;
     };
-    const urls = (await Promise.all(photos.map(p => uploadOne(p)))).filter(Boolean);
-    if (urls.length) photoUrls[i] = urls.join(' | ');
+    const ups = (await Promise.all(photos.map(p => uploadOne(p)))).filter(Boolean);
+      const urls = ups.map(x => x.u);
+    if (urls.length) { photoUrls[i] = urls.join(' | '); photoThumbs[i] = ups.map(x => x.t).join(' | '); }
     if (urls.length < photos.length) {
       photoUploadFailures.push({ findingIdx: i, total: photos.length, succeeded: urls.length });
     }
@@ -636,7 +638,8 @@ async function submitAll() {
         subCategory: f.subCategory,
         description: f.description,
         remarks:     f.remarks,
-        photoUrl:    photoUrls[i] || ''
+        photoUrl:    photoUrls[i] || '',
+        photoThumb:  photoThumbs[i] || ''
       }))
     };
 
