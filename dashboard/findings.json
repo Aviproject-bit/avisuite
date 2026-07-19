@@ -955,5 +955,23 @@
         "photoUrl": "https://i.ibb.co/r2KgdVC9/a159e8a627e7.jpg"
       }
     ]
+  },
+  {
+    "id": "1784460478657np4i6",
+    "batchId": "batch_1784460446206_50kt69",
+    "timestamp": "2026-07-19T11:27:58.657Z",
+    "date": "19/07/2026",
+    "time": "14:27",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001351",
+    "findings": [
+      {
+        "category": "GALLEY            ",
+        "subCategory": "GALLY G1          ",
+        "description": "PAINT NEXT TO OVEN 2 AND BETWEN OVEN 1                      ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/YF2bZzqj/4edade705ac0.jpg | https://i.ibb.co/HDGNGBBm/258684e06df6.jpg"
+      }
+    ]
   }
 ]
