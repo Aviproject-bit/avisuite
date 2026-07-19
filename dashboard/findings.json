@@ -2310,5 +2310,23 @@
         "photoUrl": "https://i.ibb.co/60Gz6k29/3328e69c9444.jpg | https://i.ibb.co/0RGT38Jd/8765e338d62f.jpg"
       }
     ]
+  },
+  {
+    "id": "1784442864536xvhgo",
+    "batchId": "batch_1784442863110_1bmass",
+    "timestamp": "2026-07-19T06:34:24.536Z",
+    "date": "19/07/2026",
+    "time": "09:34",
+    "aircraft": "HZ-ASD",
+    "reporter": "FOUAD MOJALLY",
+    "findings": [
+      {
+        "category": "LAVATORY          ",
+        "subCategory": "D                 ",
+        "description": "LAVATORY STOWAGE METAL PLATE DAMAGED                        ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/M5knjvNc/9510cb84f122.jpg"
+      }
+    ]
   }
 ]
