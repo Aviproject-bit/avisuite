@@ -1878,5 +1878,23 @@
         "photoUrl": "https://i.ibb.co/SD7njffh/e529b0472fff.jpg"
       }
     ]
+  },
+  {
+    "id": "1784441930329pzho3",
+    "batchId": "batch_1784441926954_6e2j8h",
+    "timestamp": "2026-07-19T06:18:50.329Z",
+    "date": "19/07/2026",
+    "time": "09:18",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "findings": [
+      {
+        "category": "GALLEY            ",
+        "subCategory": "AFT GALLEY        ",
+        "description": "DOOR NOT SECURED                                            ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/5xSg2Szm/6e6f30d0df12.jpg"
+      }
+    ]
   }
 ]
