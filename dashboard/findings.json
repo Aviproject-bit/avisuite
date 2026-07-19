@@ -2454,5 +2454,23 @@
         "photoUrl": "https://i.ibb.co/LDf8wRbn/a7f8059b557a.jpg"
       }
     ]
+  },
+  {
+    "id": "17844434806492dy5y",
+    "batchId": "batch_1784443477759_zfhpid",
+    "timestamp": "2026-07-19T06:44:40.649Z",
+    "date": "19/07/2026",
+    "time": "09:44",
+    "aircraft": "HZ-ASD",
+    "reporter": "FOUAD MOJALLY",
+    "findings": [
+      {
+        "category": "LAVATORY          ",
+        "subCategory": "D                 ",
+        "description": "WASHBASINE PAINT DAMAG                                      ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/LzbTn4hV/ed28575c2735.jpg"
+      }
+    ]
   }
 ]
