@@ -1792,5 +1792,23 @@
     "description": "DOOR LINING AFT LINING DMG NEAR SCREW",
     "remarks": "",
     "photoUrl": ""
+  },
+  {
+    "id": "1784441739282l3uih",
+    "batchId": "batch_1784441732602_ce2kql",
+    "timestamp": "2026-07-19T06:15:39.282Z",
+    "date": "19/07/2026",
+    "time": "09:15",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "findings": [
+      {
+        "category": "GALLEY            ",
+        "subCategory": "AFT GALLEY        ",
+        "description": "HINGE DAMAGE                                                ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/0psLW56P/107710d6bcb3.jpg"
+      }
+    ]
   }
 ]
