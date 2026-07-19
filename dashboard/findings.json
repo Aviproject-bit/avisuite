@@ -822,5 +822,23 @@
         "photoUrl": "https://i.ibb.co/0RbHPHY1/7582b3829c13.jpg | https://i.ibb.co/hJr7t9fs/ba3a38af79cf.jpg"
       }
     ]
+  },
+  {
+    "id": "1784457000213m9vbf",
+    "batchId": "batch_1784456997688_xcc2ed",
+    "timestamp": "2026-07-19T10:30:00.213Z",
+    "date": "19/07/2026",
+    "time": "13:29",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001351",
+    "findings": [
+      {
+        "category": "GALLEY            ",
+        "subCategory": "GALLY G2          ",
+        "description": "204 RED LATCH BOTH SCRATCHED                                ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/0ptc6SZs/17f4fd4318c8.jpg"
+      }
+    ]
   }
 ]
