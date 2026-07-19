@@ -2436,5 +2436,23 @@
         "photoUrl": "https://i.ibb.co/7BNyFqw/36d1b037fee1.jpg"
       }
     ]
+  },
+  {
+    "id": "17844434398600c25p",
+    "batchId": "batch_1784443438440_y8xjce",
+    "timestamp": "2026-07-19T06:43:59.860Z",
+    "date": "19/07/2026",
+    "time": "09:43",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "findings": [
+      {
+        "category": "LAVATORY          ",
+        "subCategory": "LAV E             ",
+        "description": "STUCK AND SCRATCHED ON THE PAD DRAWER                       ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/LDf8wRbn/a7f8059b557a.jpg"
+      }
+    ]
   }
 ]
