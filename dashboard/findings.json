@@ -1914,5 +1914,23 @@
         "photoUrl": "https://i.ibb.co/dsVD2ZZq/88efe0eccd42.jpg"
       }
     ]
+  },
+  {
+    "id": "1784441976000x634j",
+    "batchId": "batch_1784441973181_60uj5f",
+    "timestamp": "2026-07-19T06:19:36.000Z",
+    "date": "19/07/2026",
+    "time": "09:19",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "findings": [
+      {
+        "category": "GALLEY            ",
+        "subCategory": "AFT GALLEY        ",
+        "description": "HINGE BROKEN                                                ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/k7G8DTb/c9d665999c4c.jpg"
+      }
+    ]
   }
 ]
