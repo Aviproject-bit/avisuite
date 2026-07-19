@@ -2022,5 +2022,23 @@
         "photoUrl": "https://i.ibb.co/HDDtdwV9/68a3f9245b5e.jpg"
       }
     ]
+  },
+  {
+    "id": "17844421242058n0xy",
+    "batchId": "batch_1784442121175_4ei9ep",
+    "timestamp": "2026-07-19T06:22:04.206Z",
+    "date": "19/07/2026",
+    "time": "09:22",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "findings": [
+      {
+        "category": "GALLEY            ",
+        "subCategory": "AFT GALLEY        ",
+        "description": "COVER MISSING                                               ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/SLQWPjy/a14a98c66c53.jpg"
+      }
+    ]
   }
 ]
