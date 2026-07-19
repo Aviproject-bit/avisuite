@@ -1896,5 +1896,23 @@
         "photoUrl": "https://i.ibb.co/5xSg2Szm/6e6f30d0df12.jpg"
       }
     ]
+  },
+  {
+    "id": "1784441978586jbn3d",
+    "batchId": "batch_1784441977159_szibhz",
+    "timestamp": "2026-07-19T06:19:38.586Z",
+    "date": "19/07/2026",
+    "time": "09:19",
+    "aircraft": "HZ-ASD",
+    "reporter": "FOUAD MOJALLY",
+    "findings": [
+      {
+        "category": "LAVATORY          ",
+        "subCategory": "D                 ",
+        "description": "SHROUD ASSEMBLY NOT SECURE                                  ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/dsVD2ZZq/88efe0eccd42.jpg"
+      }
+    ]
   }
 ]
