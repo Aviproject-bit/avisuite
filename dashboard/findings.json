@@ -2328,5 +2328,23 @@
         "photoUrl": "https://i.ibb.co/M5knjvNc/9510cb84f122.jpg"
       }
     ]
+  },
+  {
+    "id": "1784442870076kd6dq",
+    "batchId": "batch_1784442868786_lrj2o0",
+    "timestamp": "2026-07-19T06:34:30.076Z",
+    "date": "19/07/2026",
+    "time": "09:34",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "findings": [
+      {
+        "category": "LAVATORY          ",
+        "subCategory": "LAV E             ",
+        "description": "MISSING SCREW ON THE TOILET SHROUD                          ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/tPD4wSSp/9f83d948f23d.jpg"
+      }
+    ]
   }
 ]
