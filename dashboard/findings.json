@@ -1041,5 +1041,23 @@
         "photoUrl": "https://i.ibb.co/zT3vH0p4/e6d9f4d4ac11.jpg"
       }
     ]
+  },
+  {
+    "id": "178446170739865qm8",
+    "batchId": "batch_1784461704864_x47j8r",
+    "timestamp": "2026-07-19T11:48:27.398Z",
+    "date": "19/07/2026",
+    "time": "14:48",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001351",
+    "findings": [
+      {
+        "category": "GALLEY            ",
+        "subCategory": "GALLY G1          ",
+        "description": "DISENGAGEMENT DEVICE 101 DEFORMED                           ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/4Lm1wtv/867c68c34f18.jpg"
+      }
+    ]
   }
 ]
