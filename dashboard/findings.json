@@ -2418,5 +2418,23 @@
         "photoUrl": "https://i.ibb.co/MyJ6LXjg/4dfe707300d1.jpg"
       }
     ]
+  },
+  {
+    "id": "1784443285869dpgf7",
+    "batchId": "batch_1784443284016_8b329l",
+    "timestamp": "2026-07-19T06:41:25.869Z",
+    "date": "19/07/2026",
+    "time": "09:41",
+    "aircraft": "HZ-ASD",
+    "reporter": "FOUAD MOJALLY",
+    "findings": [
+      {
+        "category": "LAVATORY          ",
+        "subCategory": "D                 ",
+        "description": "LAVATORY MIRROR FADED                                       ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/7BNyFqw/36d1b037fee1.jpg"
+      }
+    ]
   }
 ]
