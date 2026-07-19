@@ -2202,5 +2202,23 @@
         "photoUrl": "https://i.ibb.co/m59zvPN7/5e2f6f0140ed.jpg"
       }
     ]
+  },
+  {
+    "id": "1784442672523ujbvq",
+    "batchId": "batch_1784442670624_ms06oc",
+    "timestamp": "2026-07-19T06:31:12.523Z",
+    "date": "19/07/2026",
+    "time": "09:31",
+    "aircraft": "HZ-ASD",
+    "reporter": "FOUAD MOJALLY",
+    "findings": [
+      {
+        "category": "LAVATORY          ",
+        "subCategory": "D                 ",
+        "description": "LAVATORY STOWAGE CABINET MISSING SCREW                      ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/QvDBjJcn/175cf909d418.jpg"
+      }
+    ]
   }
 ]
