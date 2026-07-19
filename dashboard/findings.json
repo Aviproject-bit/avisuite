@@ -858,5 +858,23 @@
         "photoUrl": "https://i.ibb.co/9kWd0Ygd/414280c92f37.jpg"
       }
     ]
+  },
+  {
+    "id": "1784457693554zl9rf",
+    "batchId": "batch_1784457681884_tedk3x",
+    "timestamp": "2026-07-19T10:41:33.554Z",
+    "date": "19/07/2026",
+    "time": "13:41",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001351",
+    "findings": [
+      {
+        "category": "GALLEY            ",
+        "subCategory": "GALLY G1          ",
+        "description": "MID LATCH LEVER LOOSE ON 109 AND 110                        ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/DDrzbrxn/e9383d640838.jpg | https://i.ibb.co/yF6wHgts/30dffb1e290b.jpg | https://i.ibb.co/xqMc0PLj/66f858a056c9.jpg"
+      }
+    ]
   }
 ]
