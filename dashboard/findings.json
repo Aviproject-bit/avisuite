@@ -2094,5 +2094,23 @@
         "photoUrl": "https://i.ibb.co/c7Nny7d/db493548a3d4.jpg"
       }
     ]
+  },
+  {
+    "id": "1784442318644rfeuy",
+    "batchId": "batch_1784442316554_sgq9y8",
+    "timestamp": "2026-07-19T06:25:18.644Z",
+    "date": "19/07/2026",
+    "time": "09:25",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "findings": [
+      {
+        "category": "LAVATORY          ",
+        "subCategory": "LAV E             ",
+        "description": "BABY BASSINET DOWNWARD HOLE                                 ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/TDnbYnNX/55f63537cf11.jpg"
+      }
+    ]
   }
 ]
