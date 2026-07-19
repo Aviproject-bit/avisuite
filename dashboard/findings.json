@@ -2544,5 +2544,23 @@
         "photoUrl": "https://i.ibb.co/QFtCs22P/85fa1d71ba6c.jpg"
       }
     ]
+  },
+  {
+    "id": "1784444058591jx5xs",
+    "batchId": "batch_1784444056382_t7fdbi",
+    "timestamp": "2026-07-19T06:54:18.591Z",
+    "date": "19/07/2026",
+    "time": "09:54",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "findings": [
+      {
+        "category": "LAVATORY          ",
+        "subCategory": "LAV E             ",
+        "description": "CHIPPED WRITINGS (VACANT/خالي)                              ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/sdXx9HRK/d46f55f62cdf.jpg"
+      }
+    ]
   }
 ]
