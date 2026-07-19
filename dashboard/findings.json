@@ -2112,5 +2112,23 @@
         "photoUrl": "https://i.ibb.co/TDnbYnNX/55f63537cf11.jpg"
       }
     ]
+  },
+  {
+    "id": "17844423209121j3ls",
+    "batchId": "batch_1784442319039_9yc2gs",
+    "timestamp": "2026-07-19T06:25:20.912Z",
+    "date": "19/07/2026",
+    "time": "09:25",
+    "aircraft": "HZ-ASD",
+    "reporter": "SHAREEF",
+    "findings": [
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "N/A               ",
+        "description": "CLOSET S301                                                 ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/twP6KBCh/e364faa0a05f.jpg"
+      }
+    ]
   }
 ]
