@@ -1986,5 +1986,23 @@
         "photoUrl": "https://i.ibb.co/Kc9Fd35s/356548df3adc.jpg"
       }
     ]
+  },
+  {
+    "id": "1784442102247gx52p",
+    "batchId": "batch_1784442101073_czp9n4",
+    "timestamp": "2026-07-19T06:21:42.247Z",
+    "date": "19/07/2026",
+    "time": "09:21",
+    "aircraft": "HZ-ASD",
+    "reporter": "SHAREEF",
+    "findings": [
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "N/A               ",
+        "description": "B/C 4LJ                                                     ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/0V6GVQm8/066e0d014357.jpg"
+      }
+    ]
   }
 ]
