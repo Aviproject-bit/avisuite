@@ -2557,7 +2557,7 @@
       {
         "category": "LAVATORY          ",
         "subCategory": "LAV E             ",
-        "description": "CHIPPED WRITINGS (VACANT/Ø®Ø§ÙÙ)                              ",
+        "description": "CHIPPED WRITINGS (VACANT/ÃÂ®ÃÂ§ÃÂÃÂ)                              ",
         "remarks": "                         ",
         "photoUrl": "https://i.ibb.co/sdXx9HRK/d46f55f62cdf.jpg"
       }
@@ -2578,6 +2578,24 @@
         "description": "DAMAGED TEDLAR                                              ",
         "remarks": "                         ",
         "photoUrl": "https://i.ibb.co/cXtMZ3RX/bf13822f1c96.jpg"
+      }
+    ]
+  },
+  {
+    "id": "178444430386212o7z",
+    "batchId": "batch_1784444302113_1boua6",
+    "timestamp": "2026-07-19T06:58:23.862Z",
+    "date": "19/07/2026",
+    "time": "09:58",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "findings": [
+      {
+        "category": "TEDLAR/SIDEWALL   ",
+        "subCategory": "LAV E             ",
+        "description": "DAMAGED TEDLAR                                              ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/VpQmpzcB/b17035e70c99.jpg"
       }
     ]
   }
