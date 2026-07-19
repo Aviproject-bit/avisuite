@@ -2220,5 +2220,23 @@
         "photoUrl": "https://i.ibb.co/QvDBjJcn/175cf909d418.jpg"
       }
     ]
+  },
+  {
+    "id": "1784442694650447o1",
+    "batchId": "batch_1784442692896_ghakfu",
+    "timestamp": "2026-07-19T06:31:34.650Z",
+    "date": "19/07/2026",
+    "time": "09:31",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "findings": [
+      {
+        "category": "GALLEY            ",
+        "subCategory": "AFT GALLEY        ",
+        "description": "OVEN NEEDS PINT                                             ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/kVWQcjfb/d5f59f11d7bc.jpg"
+      }
+    ]
   }
 ]
