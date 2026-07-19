@@ -804,5 +804,23 @@
     "description": "HINGE DAMAGE",
     "remarks": "",
     "photoUrl": "https://i.ibb.co/0psLW56P/107710d6bcb3.jpg"
+  },
+  {
+    "id": "1784456924232fzbp7",
+    "batchId": "batch_1784456889416_1mym39",
+    "timestamp": "2026-07-19T10:28:44.232Z",
+    "date": "19/07/2026",
+    "time": "13:28",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001351",
+    "findings": [
+      {
+        "category": "GALLEY            ",
+        "subCategory": "GALLY G2          ",
+        "description": "NEXT TOO AND ABOVE 204 BENT AND DAMGED                      ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/0RbHPHY1/7582b3829c13.jpg | https://i.ibb.co/hJr7t9fs/ba3a38af79cf.jpg"
+      }
+    ]
   }
 ]
