@@ -1078,5 +1078,32 @@
         "photoThumb": ""
       }
     ]
+  },
+  {
+    "id": "1784523259464myqcu",
+    "batchId": "batch_1784523222989_b4q7yz",
+    "timestamp": "2026-07-20T04:54:19.464Z",
+    "date": "20/07/2026",
+    "time": "07:53",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001351",
+    "findings": [
+      {
+        "category": "GALLEY            ",
+        "subCategory": "GALLY G2          ",
+        "description": "REQUIRES SHEET METAL DOOR STRIKER 201 202 205 206 209 210   ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/wNcdVsC4/eaf4fc008274.jpg | https://i.ibb.co/jBHpz63/4f483308f085.jpg | https://i.ibb.co/bgTBjq7D/3f67223bdf6f.jpg | https://i.ibb.co/KxJmHJFk/2598c7d8cf17.jpg | https://i.ibb.co/9mVkHZnF/466e5f1dd050.jpg",
+        "photoThumb": "https://i.ibb.co/jvJ8mRGD/eaf4fc008274.jpg | https://i.ibb.co/hhCqc72/4f483308f085.jpg | https://i.ibb.co/yntymGV7/3f67223bdf6f.jpg | https://i.ibb.co/GQqFjqcL/2598c7d8cf17.jpg | https://i.ibb.co/Y4yFB02z/466e5f1dd050.jpg"
+      },
+      {
+        "category": "GALLEY            ",
+        "subCategory": "GALLY G2          ",
+        "description": "PAINT 201 202 205 206 209 210                               ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/B5wGqg8b/05c759851e6a.jpg | https://i.ibb.co/0SBcPxM/d0fe0c86cc73.jpg | https://i.ibb.co/Zzh6tNqg/c8003db95f6b.jpg | https://i.ibb.co/dJHTS5zW/02434c2a1a46.jpg | https://i.ibb.co/1Gc8Vn6w/8445e1786a22.jpg",
+        "photoThumb": "https://i.ibb.co/XrVDSzm1/05c759851e6a.jpg | https://i.ibb.co/ZPHVy08/d0fe0c86cc73.jpg | https://i.ibb.co/GQVvBFzM/c8003db95f6b.jpg | https://i.ibb.co/mFPjmcMD/02434c2a1a46.jpg | https://i.ibb.co/4RkPyfd5/8445e1786a22.jpg"
+      }
+    ]
   }
 ]
