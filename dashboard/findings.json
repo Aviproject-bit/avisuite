@@ -1260,5 +1260,80 @@
         "photoThumb": "https://i.ibb.co/JwR98H9T/39481d412fba.jpg"
       }
     ]
+  },
+  {
+    "id": "1784525079803e8ey3",
+    "batchId": "batch_1784525058068_xneorr",
+    "timestamp": "2026-07-20T05:24:39.803Z",
+    "date": "20/07/2026",
+    "time": "08:24",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001461",
+    "findings": [
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "N/A               ",
+        "description": "ALL OVERHEAD STOWAGE COMPARTMENTS DIRTY                     ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/fzxDQgq6/cebeb219bdfb.jpg",
+        "photoThumb": "https://i.ibb.co/B5CnwpcW/cebeb219bdfb.jpg"
+      },
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "N/A               ",
+        "description": "FWD STOWAGE SEALANT MISSINF                                 ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/4R3DG9V4/d02d02819b94.jpg",
+        "photoThumb": "https://i.ibb.co/jksx2Br3/d02d02819b94.jpg"
+      },
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "N/A               ",
+        "description": "OVH STOWAGE DOOR FOUND DIRTY FWD OF 1LJ                     ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/2YkBJbkk/d692b05da1ae.jpg",
+        "photoThumb": "https://i.ibb.co/Vpq86Kqq/d692b05da1ae.jpg"
+      },
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "N/A               ",
+        "description": "OVH STOWAGE BROKEN 1LJ                                      ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/8LR8MfdZ/eedf5881277d.jpg",
+        "photoThumb": "https://i.ibb.co/5gzcTSnH/eedf5881277d.jpg"
+      },
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "N/A               ",
+        "description": "OVH STOWAGE 4LJ BROKEN                                      ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/VWN1MJ2T/2c7c4aaa5233.jpg",
+        "photoThumb": "https://i.ibb.co/rGtj5F4H/2c7c4aaa5233.jpg"
+      },
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "N/A               ",
+        "description": "DOG HOUSE LH B/C REQ PAINT                                  ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/21WbMzdG/2467fd140f9c.jpg",
+        "photoThumb": "https://i.ibb.co/rRFWpBHD/2467fd140f9c.jpg"
+      },
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "N/A               ",
+        "description": "SPLINEFOR  1AC, 1LJ, 5LJ BROKEN                             ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/MyJ6PzQP/729b451d0af7.jpg | https://i.ibb.co/yDBLBFv/6201a108f7f4.jpg | https://i.ibb.co/yc95Kjfd/6e1bda0f3b78.jpg",
+        "photoThumb": "https://i.ibb.co/8nQcPytP/729b451d0af7.jpg | https://i.ibb.co/VdpXpYn/6201a108f7f4.jpg | https://i.ibb.co/tTGcnrmQ/6e1bda0f3b78.jpg"
+      },
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "N/A               ",
+        "description": "TEDLAR ABOVE WINDOW 3LJ, 5AC CHIPPED                        ",
+        "remarks": "                         ",
+        "photoUrl": "",
+        "photoThumb": ""
+      }
+    ]
   }
 ]
