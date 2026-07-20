@@ -2561,6 +2561,13 @@ function openScanner(id,comp,u){
     .catch(()=>navigator.mediaDevices.getUserMedia({video:{facingMode:'environment',width:{ideal:1920},height:{ideal:1080}}}))
     .then(stream=>{
       scanStream=stream;
+      try{ const _tr=stream.getVideoTracks()[0];
+        const _caps=_tr.getCapabilities?_tr.getCapabilities():{};
+        const _adv=[];
+        if(_caps.focusMode&&_caps.focusMode.includes('continuous'))_adv.push({focusMode:'continuous'});
+        if(_caps.zoom&&_caps.zoom.max>1)_adv.push({zoom:Math.min(2,_caps.zoom.max)});
+        if(_adv.length) _tr.applyConstraints({advanced:_adv}).catch(()=>{});
+      }catch(e){}
       const v=document.getElementById('scanVideo');
       v.srcObject=stream; v.muted=true;
       v.play().then(()=>{
