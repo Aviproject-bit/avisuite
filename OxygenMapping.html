@@ -2771,7 +2771,7 @@ function closeExpMenu(){ document.getElementById('expMenu').classList.remove('op
 
 function exportPDF(){
   const acft=document.getElementById('inpAcft').value||'—';
-  if(!curType){ showToast('Select aircraft type first'); return; }
+  if(!curType){ showToast('Select aircraft type first'); window.__omBusy=false; return; }
   const LOCS=LOCS_MAP[curType]||{};
   const secIds=SECS[curType]||[];
   const is7=is787();
@@ -2811,7 +2811,7 @@ function exportPDF(){
 
 function exportWord(){
   const acft=document.getElementById('inpAcft').value||'—';
-  if(!curType){ showToast('Select aircraft type first'); return; }
+  if(!curType){ showToast('Select aircraft type first'); window.__omBusy=false; return; }
   // Same as PDF but saves as .doc
   const LOCS=LOCS_MAP[curType]||{};
   const secIds=SECS[curType]||[];
@@ -2915,11 +2915,13 @@ function compressImage(dataUrl, maxWidth, quality){
 }
 
 async function submitData(){
+    if(window.__omBusy){ showToast('⏳ Already submitting…'); return; }
+    window.__omBusy=true;
   const acft = document.getElementById('inpAcft').value.trim().toUpperCase();
   const tech = (document.getElementById('inpTech')||{}).value||'';
-  if(!acft){ showToast('Enter ACFT REG first'); return; }
-  if(!tech){ showToast('Enter Technician Name first'); return; }
-  if(!curType){ showToast('Select aircraft type first'); return; }
+  if(!acft){ showToast('Enter ACFT REG first'); window.__omBusy=false; return; }
+  if(!tech){ showToast('Enter Technician Name first'); window.__omBusy=false; return; }
+  if(!curType){ showToast('Select aircraft type first'); window.__omBusy=false; return; }
 
   const IMGBB_KEY = 'a72386b4ada67f2fdefd06144f01adfd';
   const PROXY_URL = 'https://acft-proxy.aviproject.workers.dev';
@@ -2986,15 +2988,19 @@ async function submitData(){
     Object.assign(cleanData, photoMap);
 
     // 3. Load existing record
-    let records=[], fileSha=null;
+    let records=[], fileSha=null, loadOk=false;
     try{
       const res=await fetch(GH_API,{headers:GH_H});
-      if(res.ok){
+      if(res.status===404){ loadOk=true; }
+      else if(res.ok){
         const f=await res.json();
+        const parsed=JSON.parse(atob((f.content||'').split('\n').join('')));
         fileSha=f.sha;
-        records=JSON.parse(atob(f.content.split('\n').join('')));
+        records=Array.isArray(parsed)?parsed:[];
+        loadOk=true;
       }
     }catch(e){}
+    if(!loadOk){ showToast('⚠️ Could not load server data — nothing was saved. Your work is safe on this device, try again.'); window.__omBusy=false; return; }
 
     const recIdx=records.findIndex(r=>(r.acft||'').toUpperCase()===acft&&r.type===curType);
     let record;
@@ -3064,16 +3070,21 @@ async function submitData(){
     };
     if(fileSha) body.sha=fileSha;
 
-    const saveRes=await fetch(GH_API,{method:'PUT',headers:GH_H,body:JSON.stringify(body)});
+    let saveRes=await fetch(GH_API,{method:'PUT',headers:GH_H,body:JSON.stringify(body)});
+    if(!saveRes.ok && (saveRes.status===409||saveRes.status===422)){
+      try{ const r2=await fetch(GH_API,{headers:GH_H});
+        if(r2.ok){ const f2=await r2.json(); body.sha=f2.sha;
+          saveRes=await fetch(GH_API,{method:'PUT',headers:GH_H,body:JSON.stringify(body)}); } }catch(e){}
+    }
     if(saveRes.ok){
       if(record.conflicts&&record.conflicts.length){
-        showToast('✓ Submitted — '+record.conflicts.length+' conflict(s) logged');
+        showToast('✓ Submitted — '+record.conflicts.length+' conflict(s) logged'); window.__omBusy=false;
       } else {
-        showToast('\u2713 Submitted — '+acft);
+        showToast('\u2713 Submitted — '+acft+' ('+records.length+' record'+(records.length!==1?'s':'')+' on server)'); window.__omBusy=false;
       }
     } else {
       const err=await saveRes.json();
-      showToast('Error: '+(err.message||saveRes.status));
+      showToast('❌ Save failed ('+(err.message||saveRes.status)+') — your work is safe on this device.'); window.__omBusy=false;
     }
   }catch(e){
     showToast('Error: '+e.message);
@@ -3156,7 +3167,7 @@ function fmtMfg(v){
 
 function exportExcel(){
   const acft = document.getElementById('inpAcft').value||'ACFT';
-  if(!curType){ showToast('Select aircraft type first'); return; }
+  if(!curType){ showToast('Select aircraft type first'); window.__omBusy=false; return; }
 
   const LOCS   = LOCS_MAP[curType]||{};
   const secIds = SECS[curType]||[];
@@ -3308,9 +3319,9 @@ const TEMPLATE_URLS = {
 };
 
 async function exportOfficialForm(){
-  if(!curType){ showToast('Select aircraft type first'); return; }
+  if(!curType){ showToast('Select aircraft type first'); window.__omBusy=false; return; }
   const acft = document.getElementById('inpAcft').value.trim().toUpperCase();
-  if(!acft){ showToast('Enter ACFT REG first'); return; }
+  if(!acft){ showToast('Enter ACFT REG first'); window.__omBusy=false; return; }
 
   const tmplEntry = TEMPLATE_URLS[curType];
   if(!tmplEntry){ showToast('No official template for '+curType+' yet'); return; }
@@ -3497,5 +3508,7 @@ async function exportOfficialForm(){
 
 </script>
 
+<div style="position:fixed;bottom:4px;left:8px;font-size:9px;color:#9ca3af;z-index:5;pointer-events:none">OM v2.1</div>
+<script>console.log('Oxygen Mapping v2.1 — 19-Jul-2026 build');</script>
 </body>
 </html>
