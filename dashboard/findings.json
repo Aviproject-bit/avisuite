@@ -1059,5 +1059,24 @@
         "photoUrl": "https://i.ibb.co/4Lm1wtv/867c68c34f18.jpg"
       }
     ]
+  },
+  {
+    "id": "1784522442298rux5n",
+    "batchId": "batch_1784522340297_ibmim1",
+    "timestamp": "2026-07-20T04:40:42.298Z",
+    "date": "20/07/2026",
+    "time": "07:39",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001351",
+    "findings": [
+      {
+        "category": "GALLEY            ",
+        "subCategory": "GALLY G2          ",
+        "description": "SLAM LATCH LOOSE 201 203 205 209 210                        ",
+        "remarks": "                         ",
+        "photoUrl": "",
+        "photoThumb": ""
+      }
+    ]
   }
 ]
