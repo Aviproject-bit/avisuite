@@ -1354,5 +1354,112 @@
         "photoThumb": "https://i.ibb.co/hFdNHzQ1/b982e9d22a76.jpg | https://i.ibb.co/CK6sckNR/7a2685e0f0d4.jpg"
       }
     ]
+  },
+  {
+    "id": "1784540928011qh0oi",
+    "batchId": "batch_1784540922908_ri3i8n",
+    "timestamp": "2026-07-20T09:48:48.012Z",
+    "date": "20/07/2026",
+    "time": "12:48",
+    "aircraft": "HZ-ASD",
+    "reporter": "SHAREEF",
+    "findings": [
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "N/A               ",
+        "description": "AFT CLOSET L/H                                              ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/23QKr9Nb/a1508e34cfb2.jpg",
+        "photoThumb": "https://i.ibb.co/XxgJPQ8w/a1508e34cfb2.jpg"
+      },
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "N/A               ",
+        "description": "MOUNT COVER MISSING CLOSET L/H                              ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/h1h3HCjZ/36bcd77b32c6.jpg",
+        "photoThumb": "https://i.ibb.co/Hp15YXsx/36bcd77b32c6.jpg"
+      },
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "N/A               ",
+        "description": "STRIKER IS DAMAGED UPPER CLOSET L/H ( S301                  ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/HpVx8KTH/f4db823cd1b0.jpg",
+        "photoThumb": "https://i.ibb.co/dJrLYf45/f4db823cd1b0.jpg"
+      },
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "N/A               ",
+        "description": "2 SCREWS MISSING CLOSET R/H                                 ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/XfCX7R4G/6d09137f212b.jpg",
+        "photoThumb": "https://i.ibb.co/DPR492bj/6d09137f212b.jpg"
+      },
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "N/A               ",
+        "description": "REQ PNT. TEDLAR ALSO                                        ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/DH3JhYzK/8f57d09b687c.jpg",
+        "photoThumb": "https://i.ibb.co/rRnjY3Fy/8f57d09b687c.jpg"
+      },
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "N/A               ",
+        "description": "CLOSET R/H DIRTY                                            ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/N6shNgZC/1e25ef869dc1.jpg",
+        "photoThumb": "https://i.ibb.co/d0r9psGM/1e25ef869dc1.jpg"
+      },
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "N/A               ",
+        "description": "CLOSET L/H DIRTY                                            ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/whMYr764/9d52359ec6c4.jpg",
+        "photoThumb": "https://i.ibb.co/60gNJ8sF/9d52359ec6c4.jpg"
+      },
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "N/A               ",
+        "description": "CLOSET L/H MISSING SEALANT                                  ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/MyBC3Y11/aab966f5177d.jpg",
+        "photoThumb": "https://i.ibb.co/7xk16wpp/aab966f5177d.jpg"
+      },
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "N/A               ",
+        "description": " L/H TURN CATCHES PNT SCRATCHED                             ",
+        "remarks": "                         ",
+        "photoUrl": "",
+        "photoThumb": ""
+      },
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "N/A               ",
+        "description": "L/H CLOSET SMALL KNOB LOOSE                                 ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/7tGh4dNy/4929a6514712.jpg",
+        "photoThumb": "https://i.ibb.co/r2Z9sRfy/4929a6514712.jpg"
+      },
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "N/A               ",
+        "description": "L/H CLOSET SCREW MISSING WASHER                             ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/CsQ3bMwb/b65c494a5b4a.jpg",
+        "photoThumb": "https://i.ibb.co/Xktr73W7/b65c494a5b4a.jpg"
+      },
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "N/A               ",
+        "description": "R/H CLOSET TEDLAR DIRTY                                     ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/6cbTrRvm/54a21f4c79cc.jpg",
+        "photoThumb": "https://i.ibb.co/rKMzFGbm/54a21f4c79cc.jpg"
+      }
+    ]
   }
 ]
