@@ -1461,5 +1461,24 @@
         "photoThumb": "https://i.ibb.co/rKMzFGbm/54a21f4c79cc.jpg"
       }
     ]
+  },
+  {
+    "id": "17845426155331liph",
+    "batchId": "batch_1784542604979_rzit0c",
+    "timestamp": "2026-07-20T10:16:55.533Z",
+    "date": "20/07/2026",
+    "time": "13:16",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001351",
+    "findings": [
+      {
+        "category": "GALLEY            ",
+        "subCategory": "GALLY G1          ",
+        "description": "REQUIRES PAINT                                              ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/99rtDHqr/38ed67902991.jpg",
+        "photoThumb": "https://i.ibb.co/Z6MmjzhM/38ed67902991.jpg"
+      }
+    ]
   }
 ]
