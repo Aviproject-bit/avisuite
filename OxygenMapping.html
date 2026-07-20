@@ -412,6 +412,7 @@ body{font-family:'BwGradual',sans-serif;background:var(--bg);color:var(--txt);pa
     <div class="modal-sub" id="scanSub">Point camera at barcode or QR code</div>
     <div class="scan-wrap">
       <video id="scanVideo" autoplay playsinline muted webkit-playsinline></video>
+<div style="text-align:center;font-size:11px;color:#cbd5e1;margin-top:4px">📷 If blurry: move back 10–15 cm — don't get too close</div>
       <div class="scan-frame" id="scanFrame">
         <div class="scan-frame-inner"></div>
       </div>
@@ -2236,7 +2237,7 @@ function save(){
 // ══════════════════════════════════════════════
 function onTypeChange(){
   const prevType = curType;
-  curType = document.getElementById('selType').value;
+  curType = document.getElementById('selType').value; try{localStorage.setItem('oxy_type',curType);}catch(e){}
 
   const acftInput = document.getElementById('inpAcft');
 
@@ -2556,8 +2557,8 @@ function openScanner(id,comp,u){
   document.getElementById('scanResult').className='scan-result';
   document.getElementById('btnUse').className='btn-use';
   document.getElementById('scanOverlay').classList.add('open');
-  navigator.mediaDevices.getUserMedia({video:{facingMode:{exact:'environment'}}})
-    .catch(()=>navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'}}))
+  navigator.mediaDevices.getUserMedia({video:{facingMode:{exact:'environment'},width:{ideal:1920},height:{ideal:1080}}})
+    .catch(()=>navigator.mediaDevices.getUserMedia({video:{facingMode:'environment',width:{ideal:1920},height:{ideal:1080}}}))
     .then(stream=>{
       scanStream=stream;
       const v=document.getElementById('scanVideo');
@@ -2771,7 +2772,7 @@ function closeExpMenu(){ document.getElementById('expMenu').classList.remove('op
 
 function exportPDF(){
   const acft=document.getElementById('inpAcft').value||'—';
-  if(!curType){ showToast('Select aircraft type first'); window.__omBusy=false; return; }
+  if(!curType){ showToast('⬆️ Select AIRCRAFT TYPE first (top selector)'); window.__omBusy=false; return; }
   const LOCS=LOCS_MAP[curType]||{};
   const secIds=SECS[curType]||[];
   const is7=is787();
@@ -2811,7 +2812,7 @@ function exportPDF(){
 
 function exportWord(){
   const acft=document.getElementById('inpAcft').value||'—';
-  if(!curType){ showToast('Select aircraft type first'); window.__omBusy=false; return; }
+  if(!curType){ showToast('⬆️ Select AIRCRAFT TYPE first (top selector)'); window.__omBusy=false; return; }
   // Same as PDF but saves as .doc
   const LOCS=LOCS_MAP[curType]||{};
   const secIds=SECS[curType]||[];
@@ -2921,7 +2922,7 @@ async function submitData(){
   const tech = (document.getElementById('inpTech')||{}).value||'';
   if(!acft){ showToast('Enter ACFT REG first'); window.__omBusy=false; return; }
   if(!tech){ showToast('Enter Technician Name first'); window.__omBusy=false; return; }
-  if(!curType){ showToast('Select aircraft type first'); window.__omBusy=false; return; }
+  if(!curType){ showToast('⬆️ Select AIRCRAFT TYPE first (top selector)'); window.__omBusy=false; return; }
 
   const IMGBB_KEY = 'a72386b4ada67f2fdefd06144f01adfd';
   const PROXY_URL = 'https://acft-proxy.aviproject.workers.dev';
@@ -3167,7 +3168,7 @@ function fmtMfg(v){
 
 function exportExcel(){
   const acft = document.getElementById('inpAcft').value||'ACFT';
-  if(!curType){ showToast('Select aircraft type first'); window.__omBusy=false; return; }
+  if(!curType){ showToast('⬆️ Select AIRCRAFT TYPE first (top selector)'); window.__omBusy=false; return; }
 
   const LOCS   = LOCS_MAP[curType]||{};
   const secIds = SECS[curType]||[];
@@ -3254,7 +3255,11 @@ document.addEventListener('DOMContentLoaded', function(){
         if(techEl) techEl.value=d.tech||'';
         onTypeChange();
         // Restore ACFT after dropdown is built by onTypeChange
-        const _savedAcft=(d.acft||'').toUpperCase();
+        try{ const _svT=localStorage.getItem('oxy_type');
+  const _selT=document.getElementById('selType');
+  if(_svT && _selT && !_selT.value){ _selT.value=_svT; if(typeof onTypeChange==='function') onTypeChange(); }
+}catch(e){}
+const _savedAcft=(d.acft||'').toUpperCase();
         if(_savedAcft){
           const _list=ACFT_LISTS[d.type]||[];
           if(_list.includes(_savedAcft)){
@@ -3319,7 +3324,7 @@ const TEMPLATE_URLS = {
 };
 
 async function exportOfficialForm(){
-  if(!curType){ showToast('Select aircraft type first'); window.__omBusy=false; return; }
+  if(!curType){ showToast('⬆️ Select AIRCRAFT TYPE first (top selector)'); window.__omBusy=false; return; }
   const acft = document.getElementById('inpAcft').value.trim().toUpperCase();
   if(!acft){ showToast('Enter ACFT REG first'); window.__omBusy=false; return; }
 
@@ -3424,7 +3429,7 @@ async function exportOfficialForm(){
       if(!locId) return rowXml;
 
       const {csn,cmfg,gsn,gmfg}=getVals(locId);
-      if(!csn&&!cmfg&&!gsn&&!gmfg) return rowXml;
+      if(!csn&&!cmfg&&!gsn&&!gmfg&&!(d[locId+'_cpn']||d[locId+'_u1_cpn']||d[locId+'_gpn']||d[locId+'_u1_gpn'])) return rowXml;
 
       let newRow=rowXml;
       const isB777Dual=curType.startsWith('B777')&&(typeof gsn==='object'||typeof gmfg==='object');
@@ -3437,6 +3442,10 @@ async function exportOfficialForm(){
       } else {
         fillMap[cSnCol]=csn; fillMap[cMfgCol]=cmfg;
         fillMap[gSnCol]=gsn; fillMap[gMfgCol]=gmfg;
+        const _cpn=d[locId+'_cpn']||d[locId+'_u1_cpn']||'';
+        const _gpn=d[locId+'_gpn']||d[locId+'_u1_gpn']||'';
+        if(_cpn) fillMap[hasFin?2:1]=_cpn;
+        if(_gpn) fillMap[hasFin?5:4]=_gpn;
       }
 
       Object.entries(fillMap).forEach(([ci,val])=>{
