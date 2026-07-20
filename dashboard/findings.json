@@ -1335,5 +1335,24 @@
         "photoThumb": ""
       }
     ]
+  },
+  {
+    "id": "17845358811053hygo",
+    "batchId": "batch_1784535878935_lll30p",
+    "timestamp": "2026-07-20T08:24:41.105Z",
+    "date": "20/07/2026",
+    "time": "11:24",
+    "aircraft": "HZ-ASD",
+    "reporter": "SHAREEF",
+    "findings": [
+      {
+        "category": "GALLEY            ",
+        "subCategory": "FWD G2            ",
+        "description": "STRIKER MISSING FOR COMP.  205, AND 202                     ",
+        "remarks": "ALSO, COMP 209 STRIKE IS DAMAGED. ",
+        "photoUrl": "https://i.ibb.co/Mk1Hp0w5/b982e9d22a76.jpg | https://i.ibb.co/fd9GghBj/7a2685e0f0d4.jpg",
+        "photoThumb": "https://i.ibb.co/hFdNHzQ1/b982e9d22a76.jpg | https://i.ibb.co/CK6sckNR/7a2685e0f0d4.jpg"
+      }
+    ]
   }
 ]
