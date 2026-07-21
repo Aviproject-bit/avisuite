@@ -3020,41 +3020,33 @@ function exportFindings(fmt) {
   if(!list.length){showToast('NO FINDINGS TO EXPORT');return;}
   var lbl=(spec||'All')+'_'+(stat||'All');
   var fn2='Findings_'+lbl+'_'+(S.aircraft||'ACFT');
-  if(fmt==='imgs'){
-    /* Export Before images as ZIP-like: download each one */
-    var count=0;
+  if(fmt==='imgs'||fmt==='imgs_after'){
+    if(typeof JSZip==='undefined'){showToast('JSZIP NOT LOADED');return;}
+    var isAfter=(fmt==='imgs_after');
+    var zip=new JSZip(); var count=0; var used={};
     list.forEach(function(f){
-      if(!f.img) return;
-      var a=document.createElement('a');
-      a.href=f.img;
-      /* name: aircraft_desc_wonum.jpg */
+      var im = isAfter ? ((S.baData[f.id]||{}).after) : f.img;
+      if(!im || im.indexOf('data:image')!==0) return;
       var wo=f.wos&&f.wos.length&&f.wos[0].number?f.wos[0].number:'';
       var safeName=(S.aircraft||'ACFT')+' '+(wo||'').replace(/[^A-Z0-9]/gi,'')+' '+f.desc.slice(0,30).replace(/[^A-Z0-9 ]/gi,' ').replace(/\s+/g,' ').trim().toUpperCase();
-      a.download=safeName+'.jpg';
-      document.body.appendChild(a); a.click();
-      setTimeout(function(){document.body.removeChild(a);},500);
+      if(isAfter) safeName+=' AFTER';
+      var base=safeName, n=2;
+      while(used[safeName]){ safeName=base+' ('+(n++)+')'; }
+      used[safeName]=1;
+      zip.file(safeName+'.jpg', im.split(',')[1], {base64:true});
       count++;
     });
-    showToast('DOWNLOADING '+count+' BEFORE IMAGES');
-    addLog('Exported '+count+' before images');
-    return;
-  }
-  if(fmt==='imgs_after'){
-    var count2=0;
-    list.forEach(function(f){
-      var cd=S.baData[f.id]||{};
-      if(!cd.after) return;
+    if(!count){showToast('NO IMAGES TO EXPORT');return;}
+    showToast('BUILDING ZIP \u2014 '+count+' IMAGES\u2026');
+    zip.generateAsync({type:'blob'}).then(function(blob){
       var a=document.createElement('a');
-      a.href=cd.after;
-      var wo=f.wos&&f.wos.length&&f.wos[0].number?f.wos[0].number:'';
-      var safeName=(S.aircraft||'ACFT')+' AFTER '+(wo||'').replace(/[^A-Z0-9]/gi,'')+' '+f.desc.slice(0,30).replace(/[^A-Z0-9 ]/gi,' ').replace(/\s+/g,' ').trim().toUpperCase();
-      a.download=safeName+'.jpg';
+      a.href=URL.createObjectURL(blob);
+      a.download=(isAfter?'After':'Before')+'_Images_'+lbl+'_'+(S.aircraft||'ACFT')+'.zip';
       document.body.appendChild(a); a.click();
-      setTimeout(function(){document.body.removeChild(a);},500);
-      count2++;
+      setTimeout(function(){document.body.removeChild(a); URL.revokeObjectURL(a.href);},1500);
+      showToast('\u2713 ZIP READY \u2014 '+count+' IMAGES');
+      addLog('Exported '+count+' '+(isAfter?'after':'before')+' images (ZIP)');
     });
-    showToast('DOWNLOADING '+count2+' AFTER IMAGES');
-    addLog('Exported '+count2+' after images');
     return;
   }
   var rows=[];
