@@ -2150,5 +2150,88 @@
         "photoThumb": "https://i.ibb.co/Wp0WcLt6/d316030718c1.jpg"
       }
     ]
+  },
+  {
+    "id": "1784652848225i1ki2",
+    "batchId": "batch_1784652713279_c3hicp",
+    "timestamp": "2026-07-21T16:54:08.225Z",
+    "date": "21/07/2026",
+    "time": "19:51",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "findings": [
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "CAP SEAT          ",
+        "description": "PILOT HEAD REST COVER DIRTY                                 ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/0pv4pkLZ/76b22a74ae65.jpg | https://i.ibb.co/21CbSPSV/d84741ae1ef3.jpg",
+        "photoThumb": "https://i.ibb.co/SDGYD2g0/76b22a74ae65.jpg | https://i.ibb.co/zTBkFbF9/d84741ae1ef3.jpg"
+      },
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "CAP SEAT          ",
+        "description": "GREEN PAINT ON CAP BACK REST COVER                          ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/7HnFvQr/e70e3dd50d94.jpg",
+        "photoThumb": "https://i.ibb.co/2wvBqSc/e70e3dd50d94.jpg"
+      },
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "CAP SEAT          ",
+        "description": "CAP BACK REST CUSHION COVER STITCHES OUT                    ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/fGZNDCPk/92ca183952a3.jpg",
+        "photoThumb": "https://i.ibb.co/Z1vg2hkB/92ca183952a3.jpg"
+      },
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "CAP SEAT          ",
+        "description": "CAP SEAT COVER WRINKELD AND DIRTY                           ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/NgbxRL2N/27e5367d796d.jpg",
+        "photoThumb": "https://i.ibb.co/hxws0KFd/27e5367d796d.jpg"
+      },
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "CAP SEAT          ",
+        "description": "CAP SEAT METAL CHIPPED PAINT                                ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/j97YnJMw/b05e6fe61233.jpg",
+        "photoThumb": "https://i.ibb.co/p6CTYhzK/b05e6fe61233.jpg"
+      },
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "CAP SEAT          ",
+        "description": "CAP SEAT WOOL DAMAGED                                       ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/FL85fX9x/31b1b21ce9e1.jpg",
+        "photoThumb": "https://i.ibb.co/1tRrpM3v/31b1b21ce9e1.jpg"
+      },
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "FO                ",
+        "description": "CO-PILOT BACK REST COVER DIRTY                              ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/2727DJB1/3ae7e496ad10.jpg",
+        "photoThumb": "https://i.ibb.co/ns2sHpSN/3ae7e496ad10.jpg"
+      },
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "CO-PILOT          ",
+        "description": " FO SEAT CUSHION COVER WRINKLED AND DIRTY AND OUT OF POSITION",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/DHn8F1T6/b6651423efea.jpg | https://i.ibb.co/QFJfJ2KN/c02f7ffad194.jpg",
+        "photoThumb": "https://i.ibb.co/xtQfb2dc/b6651423efea.jpg | https://i.ibb.co/1f0L0Dmq/c02f7ffad194.jpg"
+      },
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "FO                ",
+        "description": "FO HEAD REST COVER DIRTY                                    ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/ynphm1Nj/2387e98568d7.jpg",
+        "photoThumb": "https://i.ibb.co/bgFHjZ69/2387e98568d7.jpg"
+      }
+    ]
   }
 ]
