@@ -2074,5 +2074,24 @@
         "photoThumb": "https://i.ibb.co/rTnXFwn/fd9581d7dfe7.jpg | https://i.ibb.co/hRCMyPjz/335b2133a087.jpg | https://i.ibb.co/tMw1RrnJ/01331eaab6af.jpg"
       }
     ]
+  },
+  {
+    "id": "1784620170499ikz4z",
+    "batchId": "batch_1784620165696_gs0f4j",
+    "timestamp": "2026-07-21T07:49:30.499Z",
+    "date": "21/07/2026",
+    "time": "10:49",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "findings": [
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "L2DOOR            ",
+        "description": "ASSIST HAND LOOSE                                           ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/5gk4tDhh/13efe7f780ea.jpg",
+        "photoThumb": "https://i.ibb.co/ksJBkn22/13efe7f780ea.jpg"
+      }
+    ]
   }
 ]
