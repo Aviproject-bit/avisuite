@@ -2509,5 +2509,24 @@
         "photoThumb": "https://i.ibb.co/fVhC2xKg/8cf77b6f5530.jpg | https://i.ibb.co/Kc0mhgxR/4800d4fd2aa6.jpg | https://i.ibb.co/v4yF30JB/262fcf47083b.jpg | https://i.ibb.co/XfcmRzfF/07cf1aaa8eb2.jpg | https://i.ibb.co/LDG5CpK1/9d1b84c61530.jpg"
       }
     ]
+  },
+  {
+    "id": "1784664227683aa8ib",
+    "batchId": "batch_1784664220984_3acqxx",
+    "timestamp": "2026-07-21T20:03:47.683Z",
+    "date": "21/07/2026",
+    "time": "23:03",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "findings": [
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "FO                ",
+        "description": "FO SLIDING TABLE PAINT CHIPPED                              ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/5WPqGk9Z/ff9771b3f85c.jpg | https://i.ibb.co/Xx9XSkkW/a843df085b90.jpg | https://i.ibb.co/gMsCZk8F/1fca9100cc60.jpg | https://i.ibb.co/gbwZJgF0/cf72cec589c0.jpg | https://i.ibb.co/b560yNCb/199686d84502.jpg",
+        "photoThumb": "https://i.ibb.co/wNfDB7Lt/ff9771b3f85c.jpg | https://i.ibb.co/qYzBkFFD/a843df085b90.jpg | https://i.ibb.co/wND1h5qr/1fca9100cc60.jpg | https://i.ibb.co/fVtdH0G3/cf72cec589c0.jpg | https://i.ibb.co/s9gfDsNW/199686d84502.jpg"
+      }
+    ]
   }
 ]
