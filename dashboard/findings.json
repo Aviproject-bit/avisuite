@@ -1773,5 +1773,32 @@
         "photoThumb": "https://i.ibb.co/d4QYCV42/d5324666531f.jpg"
       }
     ]
+  },
+  {
+    "id": "1784618985152ja9qx",
+    "batchId": "batch_1784618973410_a130i7",
+    "timestamp": "2026-07-21T07:29:45.152Z",
+    "date": "21/07/2026",
+    "time": "10:29",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "findings": [
+      {
+        "category": "PAINT             ",
+        "subCategory": "OSB 33LKJ         ",
+        "description": "PAINT                                                       ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/1YfKKW0z/f03ad0c350db.jpg",
+        "photoThumb": "https://i.ibb.co/ymn55jN4/f03ad0c350db.jpg"
+      },
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "OSB 33LKJ         ",
+        "description": "MISSING BUMBER                                              ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/XxrgzxPy/1a8cdc94caf7.jpg",
+        "photoThumb": "https://i.ibb.co/nMNvDMy3/1a8cdc94caf7.jpg"
+      }
+    ]
   }
 ]
