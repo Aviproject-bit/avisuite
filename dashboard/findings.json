@@ -2036,5 +2036,24 @@
         "photoThumb": "https://i.ibb.co/gMX71q6q/861ceceec6a6.jpg"
       }
     ]
+  },
+  {
+    "id": "1784620007271k8eki",
+    "batchId": "batch_1784619997002_er2nga",
+    "timestamp": "2026-07-21T07:46:47.271Z",
+    "date": "21/07/2026",
+    "time": "10:46",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "findings": [
+      {
+        "category": "PAINT             ",
+        "subCategory": "SLIDRAFT R2       ",
+        "description": "PAINT BUSTLE                                                ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/60GT35SB/a38a518fb250.jpg | https://i.ibb.co/ynxLnqK2/de727618bf77.jpg",
+        "photoThumb": "https://i.ibb.co/QvhT2GVd/a38a518fb250.jpg | https://i.ibb.co/pvkCvdNq/de727618bf77.jpg"
+      }
+    ]
   }
 ]
