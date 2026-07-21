@@ -1537,5 +1537,24 @@
         "photoThumb": "https://i.ibb.co/p6xY7qkN/7cc994a38d21.jpg"
       }
     ]
+  },
+  {
+    "id": "1784617902186guo9s",
+    "batchId": "batch_1784617888437_nssk3j",
+    "timestamp": "2026-07-21T07:11:42.186Z",
+    "date": "21/07/2026",
+    "time": "10:11",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "findings": [
+      {
+        "category": "PAINT             ",
+        "subCategory": "OVER HEAD 1LJ     ",
+        "description": "PINT, CRACKED\n\n                                             ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/s9kX5qNn/17ebc1d5f32c.jpg | https://i.ibb.co/ZRy3r3T4/b7413580da86.jpg | https://i.ibb.co/YFfCwF3B/2aa619eef3ec.jpg",
+        "photoThumb": "https://i.ibb.co/xqPrm6BW/17ebc1d5f32c.jpg | https://i.ibb.co/ymLDCDsv/b7413580da86.jpg | https://i.ibb.co/FL8rCLK4/2aa619eef3ec.jpg"
+      }
+    ]
   }
 ]
