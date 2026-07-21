@@ -1895,5 +1895,24 @@
         "photoThumb": "https://i.ibb.co/nM96V3z5/8e7891537bc9.jpg | https://i.ibb.co/j9MNshGt/970630c19e27.jpg | https://i.ibb.co/n8PWvqGK/ee733396a77e.jpg"
       }
     ]
+  },
+  {
+    "id": "1784619360586tpp3q",
+    "batchId": "batch_1784619349638_r2v0y9",
+    "timestamp": "2026-07-21T07:36:00.586Z",
+    "date": "21/07/2026",
+    "time": "10:35",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "findings": [
+      {
+        "category": "PAINT             ",
+        "subCategory": "OSB 40 LKJ        ",
+        "description": "PAINT , DENT                                                ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/DfPjwzRN/496dbf06e75b.jpg | https://i.ibb.co/0jB6qQzf/baab45f12c2c.jpg",
+        "photoThumb": "https://i.ibb.co/xqKrzX7y/496dbf06e75b.jpg | https://i.ibb.co/SXQMNJZK/baab45f12c2c.jpg"
+      }
+    ]
   }
 ]
