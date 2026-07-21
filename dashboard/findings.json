@@ -1613,5 +1613,24 @@
         "photoThumb": "https://i.ibb.co/rRHZTSvf/73bf486c6e76.jpg"
       }
     ]
+  },
+  {
+    "id": "17846183309405axhm",
+    "batchId": "batch_1784618279505_5ascax",
+    "timestamp": "2026-07-21T07:18:50.940Z",
+    "date": "21/07/2026",
+    "time": "10:17",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "findings": [
+      {
+        "category": "PAINT             ",
+        "subCategory": "OSB 4LJ           ",
+        "description": "CRACKED                                                     ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/6cpzYdWQ/f762fb52f07b.jpg | https://i.ibb.co/9m9CrCqY/f3a8d937fd34.jpg | https://i.ibb.co/qMP99g1S/80fb132c4eab.jpg",
+        "photoThumb": "https://i.ibb.co/DP6h4qRd/f762fb52f07b.jpg | https://i.ibb.co/Gfvb5bVP/f3a8d937fd34.jpg | https://i.ibb.co/kgW00Dc7/80fb132c4eab.jpg"
+      }
+    ]
   }
 ]
