@@ -1960,5 +1960,24 @@
         "photoThumb": "https://i.ibb.co/qFPKxvcy/52e81f995e35.jpg | https://i.ibb.co/KxQ3wHdq/58d9c1af3583.jpg | https://i.ibb.co/wNd2qxYk/3f7e99b85707.jpg | https://i.ibb.co/r2v6jkLQ/580608c09a1f.jpg"
       }
     ]
+  },
+  {
+    "id": "1784619604262fi1qw",
+    "batchId": "batch_1784619601031_2bah93",
+    "timestamp": "2026-07-21T07:40:04.262Z",
+    "date": "21/07/2026",
+    "time": "10:40",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "findings": [
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "OSB 42CBA         ",
+        "description": "MISSING BUMBER                                              ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/vxGt43t7/1459f5f65542.jpg",
+        "photoThumb": "https://i.ibb.co/DDyqf9qx/1459f5f65542.jpg"
+      }
+    ]
   }
 ]
