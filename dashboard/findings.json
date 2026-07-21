@@ -1727,5 +1727,24 @@
         "photoThumb": "https://i.ibb.co/5hS7dbVL/60c33b536f0c.jpg | https://i.ibb.co/R1Dbnqj/10eb29f0da42.jpg | https://i.ibb.co/zhryJtGH/47a022d4f459.jpg"
       }
     ]
+  },
+  {
+    "id": "1784618776489gpem4",
+    "batchId": "batch_1784618775286_mgwsw5",
+    "timestamp": "2026-07-21T07:26:16.489Z",
+    "date": "21/07/2026",
+    "time": "10:26",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "findings": [
+      {
+        "category": "PAINT             ",
+        "subCategory": "OSB 31LKJ         ",
+        "description": "PAINT                                                       ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/k2SrBPM5/11211fd0389f.jpg",
+        "photoThumb": "https://i.ibb.co/CKHX8SWm/11211fd0389f.jpg"
+      }
+    ]
   }
 ]
