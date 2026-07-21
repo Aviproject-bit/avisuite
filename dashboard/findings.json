@@ -2354,5 +2354,160 @@
         "photoThumb": "https://i.ibb.co/MkzkNPh5/6ba11748fd70.jpg | https://i.ibb.co/vC9hCjrd/45656291e067.jpg | https://i.ibb.co/TDRytYx8/ec34380d7077.jpg | https://i.ibb.co/N2pDQ35C/5cd310c90a79.jpg"
       }
     ]
+  },
+  {
+    "id": "1784663248173lulsb",
+    "batchId": "batch_1784662777487_6myq4u",
+    "timestamp": "2026-07-21T19:47:28.173Z",
+    "date": "21/07/2026",
+    "time": "22:46",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "findings": [
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "2ND OBSERVER      ",
+        "description": "SECOND OBSERVER SEAT COVER DIRTY AND HAS PAINT              ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/2zzR477/08f76236c977.jpg | https://i.ibb.co/7x7wYdSR/131c64682066.jpg | https://i.ibb.co/qMYS1513/84844b7670b5.jpg | https://i.ibb.co/qY3RKBtm/6270fc2e42b8.jpg",
+        "photoThumb": "https://i.ibb.co/t00nrMM/08f76236c977.jpg | https://i.ibb.co/qLbty3DW/131c64682066.jpg | https://i.ibb.co/PZGLCQCv/84844b7670b5.jpg | https://i.ibb.co/fdzCfMhr/6270fc2e42b8.jpg"
+      },
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "1ST OBSERVER      ",
+        "description": "FIRST OBSERVER SEAT METAL CHIPPED PAINT                     ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/bq5YNVk/85adca2d030c.jpg | https://i.ibb.co/YFfSdYCR/e6bcb06764ab.jpg",
+        "photoThumb": "https://i.ibb.co/RZTtQKq/85adca2d030c.jpg | https://i.ibb.co/v6LWdgFw/e6bcb06764ab.jpg"
+      },
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "2ND OBSERVER      ",
+        "description": "SECOND OBSERVER BACK REST DISCONNECTED                      ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/Vc777w3c/b0b48c74575e.jpg | https://i.ibb.co/N648M3vP/11c2306341dc.jpg",
+        "photoThumb": "https://i.ibb.co/ycwww4Vc/b0b48c74575e.jpg | https://i.ibb.co/BV1X9Ppx/11c2306341dc.jpg"
+      },
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "2ND OBSERVER      ",
+        "description": "SECOND OBSERVER CHEST BUILT WHITE PAINT STAIN               ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/CKNQ4z9d/e8e9d04a488b.jpg",
+        "photoThumb": "https://i.ibb.co/RTZct96n/e8e9d04a488b.jpg"
+      },
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "CAP SEAT          ",
+        "description": "CAP SEAT LIFE-VEST INTERIOR STOWAGE SCRATCHED AND DIRTY     ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/mVT1jb3q/cc4177051ecc.jpg",
+        "photoThumb": "https://i.ibb.co/39dG34nN/cc4177051ecc.jpg"
+      },
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "CAP SEAT          ",
+        "description": "CAP SEAT LIFE-VEST DECAL SMALL CHIPP                        ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/MxQpY4gN/12a5ddc7c3f2.jpg",
+        "photoThumb": "https://i.ibb.co/dwx6dqfK/12a5ddc7c3f2.jpg"
+      },
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "CAP SEAT          ",
+        "description": "CAP SEAT DOWNWARD BLACK-METAL CHIPPED PAINT                 ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/cS5D6Psm/243ecd294b1f.jpg",
+        "photoThumb": "https://i.ibb.co/Vcy2gdkK/243ecd294b1f.jpg"
+      },
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "FO                ",
+        "description": "FO SEAT LIFE-VEST DECAL BLACK- STAINS                       ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/2YCfrKVB/556a869cc13b.jpg",
+        "photoThumb": "https://i.ibb.co/jZQ1Y40F/556a869cc13b.jpg"
+      },
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "CAP SEAT          ",
+        "description": "CAP SEAT LIFE-VEST SHROUD CUT                               ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/yn0yQ4x1/279f1f147658.jpg",
+        "photoThumb": "https://i.ibb.co/jvhMrJj2/279f1f147658.jpg"
+      },
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "FO                ",
+        "description": "FO BACK-LIFE-VEST SHROUD CUT DOWNWARD                       ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/m19rqHf/b2e4ad62c53d.jpg",
+        "photoThumb": "https://i.ibb.co/d1Ps2Q8/b2e4ad62c53d.jpg"
+      },
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "FO                ",
+        "description": "FO SEAT BLACK-AFT METAL CHIPPED PAINT                       ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/QvjZWqKG/59d01c63a2f6.jpg",
+        "photoThumb": "https://i.ibb.co/qYFzH4rw/59d01c63a2f6.jpg"
+      },
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "ARM REST          ",
+        "description": "CAP L/ARM REST BLACK-STAIN, SMALL CHIPPED AND CUT           ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/Q7RmqyDf/fb4466e57942.jpg | https://i.ibb.co/tMSsM8mG/f53be1cf7c3a.jpg | https://i.ibb.co/ynK0c9RY/d0d17dcd9252.jpg | https://i.ibb.co/7JmgMSjk/82bf315c451b.jpg | https://i.ibb.co/qMP5DS22/2df5b79458e4.jpg",
+        "photoThumb": "https://i.ibb.co/NgPYkcTs/fb4466e57942.jpg | https://i.ibb.co/pvgzvJ07/f53be1cf7c3a.jpg | https://i.ibb.co/5WCTg09n/d0d17dcd9252.jpg | https://i.ibb.co/gMKvqrm4/82bf315c451b.jpg | https://i.ibb.co/QF1dJgxx/2df5b79458e4.jpg"
+      },
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "ARM REST          ",
+        "description": "CAP L/ARM REST ADJUSTMENT PLASITC COVER DIRTY               ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/fdQJtVPD/6c5898afedb4.jpg",
+        "photoThumb": "https://i.ibb.co/PGtk4sfD/6c5898afedb4.jpg"
+      },
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "CAP SEAT          ",
+        "description": "CAP SEAT R/ARM REST CRACKED AND COVER DISCOLORED AND DIRTY  ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/jptRYwZ/4b75071905d7.jpg",
+        "photoThumb": "https://i.ibb.co/CrL2y9s/4b75071905d7.jpg"
+      },
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "FO                ",
+        "description": "FO R/ARM REST DISCOLORED EDGES, DIRTY AND PLASTIC CRACKED   ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/WW3Ww89K/4b2a0d6496e6.jpg | https://i.ibb.co/mFXLhmw9/ae9d4313e427.jpg | https://i.ibb.co/ZPMHNRR/47d47cad66a4.jpg | https://i.ibb.co/Rt7R2Wp/40cda1aa9e80.jpg",
+        "photoThumb": "https://i.ibb.co/VWNWZnyB/4b2a0d6496e6.jpg | https://i.ibb.co/HpxWG0st/ae9d4313e427.jpg | https://i.ibb.co/GL5sFff/47d47cad66a4.jpg | https://i.ibb.co/fZQjM7Y/40cda1aa9e80.jpg"
+      },
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "CAP SEAT          ",
+        "description": "CAP SEATBUILT FAILUR QUICK RETURN MECHANISM                 ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/Psk4g0Px/1cb054ea4f6a.jpg",
+        "photoThumb": "https://i.ibb.co/CpLvQDYB/1cb054ea4f6a.jpg"
+      },
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "CAP TABLE         ",
+        "description": "CAP SLIDING TABLE END CAB CHIPPED PAINT, MIDDLE LATCH STIFF, MIDDLE TABLE SCRATCHED AND CHIPPED, PAPER CLIP CORRODED, BLACK-RUBBER MISSING, SLOW, STIFF AND NEEDS FORCE IN RETURNING MECHANISM",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/1J82sxYH/922b22e2b347.jpg | https://i.ibb.co/SDgWyTVT/871156f4c614.jpg | https://i.ibb.co/vxQ7GXv3/6ebd6ef51764.jpg | https://i.ibb.co/XrmVv1DK/2f46cc33c276.jpg | https://i.ibb.co/bjvdTxyL/3123161a3e72.jpg",
+        "photoThumb": "https://i.ibb.co/qFk10wLb/922b22e2b347.jpg | https://i.ibb.co/qL8XjGmG/871156f4c614.jpg | https://i.ibb.co/DD8xyrg9/6ebd6ef51764.jpg | https://i.ibb.co/W4SsYZ0M/2f46cc33c276.jpg | https://i.ibb.co/fVN0fbKt/3123161a3e72.jpg"
+      },
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "CAP TABLE         ",
+        "description": "CAP SLIDING TABLE END CAB CHIPPED PAINT, MIDDLE LATCH STIFF, MIDDLE TABLE SCRATCHED AND CHIPPED, PAPER CLIP CORRODED, BLACK-RUBBER MISSING, SLOW, STIFF AND NEEDS FORCE IN RETURNING MECHANISM",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/LDLC8ZqF/8cf77b6f5530.jpg | https://i.ibb.co/ZRLNXrzt/4800d4fd2aa6.jpg | https://i.ibb.co/xq9k1xMs/262fcf47083b.jpg | https://i.ibb.co/JWDXJzWr/07cf1aaa8eb2.jpg | https://i.ibb.co/Cpr2n0LQ/9d1b84c61530.jpg",
+        "photoThumb": "https://i.ibb.co/fVhC2xKg/8cf77b6f5530.jpg | https://i.ibb.co/Kc0mhgxR/4800d4fd2aa6.jpg | https://i.ibb.co/v4yF30JB/262fcf47083b.jpg | https://i.ibb.co/XfcmRzfF/07cf1aaa8eb2.jpg | https://i.ibb.co/LDG5CpK1/9d1b84c61530.jpg"
+      }
+    ]
   }
 ]
