@@ -1857,5 +1857,24 @@
         "photoThumb": "https://i.ibb.co/gLBm6QtT/5206906f3b42.jpg"
       }
     ]
+  },
+  {
+    "id": "17846192251987vb82",
+    "batchId": "batch_1784619216146_05mljd",
+    "timestamp": "2026-07-21T07:33:45.198Z",
+    "date": "21/07/2026",
+    "time": "10:33",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "findings": [
+      {
+        "category": "PAINT             ",
+        "subCategory": "ISB LKJ           ",
+        "description": "CRACKED                                                     ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/Z6vK4Dbz/66cda2b68d8b.jpg | https://i.ibb.co/dJVL0w4T/72a2bfda9aa7.jpg",
+        "photoThumb": "https://i.ibb.co/Y7J8nsVB/66cda2b68d8b.jpg | https://i.ibb.co/QjTCF3vg/72a2bfda9aa7.jpg"
+      }
+    ]
   }
 ]
