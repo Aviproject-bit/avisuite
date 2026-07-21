@@ -1575,5 +1575,24 @@
         "photoThumb": "https://i.ibb.co/27XqLsVG/34fb9778d954.jpg"
       }
     ]
+  },
+  {
+    "id": "1784618123535r3pp0",
+    "batchId": "batch_1784618105965_qvb3k1",
+    "timestamp": "2026-07-21T07:15:23.535Z",
+    "date": "21/07/2026",
+    "time": "10:15",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "findings": [
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "OSB 3CA           ",
+        "description": "OSB LINIER BROKEN                                           ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/zVHJnzrS/fad54d3429b0.jpg | https://i.ibb.co/bTwrPnN/3037c7e7281d.jpg",
+        "photoThumb": "https://i.ibb.co/3mYzrn70/fad54d3429b0.jpg | https://i.ibb.co/VRnvt8M/3037c7e7281d.jpg"
+      }
+    ]
   }
 ]
