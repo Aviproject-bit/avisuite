@@ -1670,5 +1670,24 @@
         "photoThumb": "https://i.ibb.co/4Z82mkf4/fb9fb5fa0ec6.jpg"
       }
     ]
+  },
+  {
+    "id": "1784618513309bhiqe",
+    "batchId": "batch_1784618505379_z13k7s",
+    "timestamp": "2026-07-21T07:21:53.309Z",
+    "date": "21/07/2026",
+    "time": "10:21",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "findings": [
+      {
+        "category": "PAINT             ",
+        "subCategory": "OVER HEAD 5LJ     ",
+        "description": "CRACKED                                                     ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/1f9BYpkC/2e6bef2110c3.jpg | https://i.ibb.co/s9z2nynG/9ec1af033762.jpg",
+        "photoThumb": "https://i.ibb.co/mCHdrY3n/2e6bef2110c3.jpg | https://i.ibb.co/r2NmY4YS/9ec1af033762.jpg"
+      }
+    ]
   }
 ]
