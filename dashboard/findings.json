@@ -2260,5 +2260,80 @@
         "photoThumb": "https://i.ibb.co/Rp5hwqpq/77a72493a2a9.jpg"
       }
     ]
+  },
+  {
+    "id": "17846572384685ids4",
+    "batchId": "batch_1784657208120_owtulq",
+    "timestamp": "2026-07-21T18:07:18.468Z",
+    "date": "21/07/2026",
+    "time": "21:06",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "findings": [
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "FO                ",
+        "description": "FO SEAT VELCRO DAMAGED                                      ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/99k4Dq5L/d46c0d84098c.jpg",
+        "photoThumb": "https://i.ibb.co/QF3Hg6wR/d46c0d84098c.jpg"
+      },
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "CAP               ",
+        "description": "CAP SEAT VELCRO DAMAGED                                     ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/ch6mpQxv/cfc4cb910db7.jpg",
+        "photoThumb": "https://i.ibb.co/B2y17BwP/cfc4cb910db7.jpg"
+      },
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "FO                ",
+        "description": "FO SEAT CHIPPED PAINT AND SCRATCHED                         ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/MkzHWMCN/b7b646fa0e2f.jpg",
+        "photoThumb": "https://i.ibb.co/7t3D821y/b7b646fa0e2f.jpg"
+      },
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "1ST OBSERVER      ",
+        "description": "FIRST OBSERVER HEAD REST BACK SHROUD PAINT FADED AND CHIPPED",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/QvBqsVrB/62c63eda3c80.jpg | https://i.ibb.co/JRYGm3CY/d71b42254f96.jpg",
+        "photoThumb": "https://i.ibb.co/YB9KvSp9/62c63eda3c80.jpg | https://i.ibb.co/ynzZd4Vz/d71b42254f96.jpg"
+      },
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "1ST OBSERVER      ",
+        "description": "FIRST OBSERVER BACK REST CUSHION COVER STAINS               ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/Lzt9XjGn/c5910b5f05df.jpg | https://i.ibb.co/7JtVCDb1/781b1f4bca16.jpg",
+        "photoThumb": "https://i.ibb.co/wNWpFGvM/c5910b5f05df.jpg | https://i.ibb.co/DDfkWFLR/781b1f4bca16.jpg"
+      },
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "1ST OBSERVER      ",
+        "description": "1ST OBSERVER FRAYED BOTH CHEST SEAT BUILTS                  ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/BVDVySKF/2531c0f00e11.jpg",
+        "photoThumb": "https://i.ibb.co/MDTDc35Q/2531c0f00e11.jpg"
+      },
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "1ST OBSERVER      ",
+        "description": "FIRST OBSERVER SEAT CUSHION ASSY OUT OF POSITION            ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/twwK46n6/a17d41102121.jpg",
+        "photoThumb": "https://i.ibb.co/XffLbP6P/a17d41102121.jpg"
+      },
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "1ST OBSERVER      ",
+        "description": "FIRST OBSERVER SEAT DOWNWARD LIFE-VEST VELCRO AND ITS SHROURD DAMAGED ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/0RrZqhPv/83cabfa26e93.jpg | https://i.ibb.co/WW9zMtSJ/2366efe464e8.jpg | https://i.ibb.co/MxcBVKt5/79dd79aa0263.jpg",
+        "photoThumb": "https://i.ibb.co/cSQtJDzV/83cabfa26e93.jpg | https://i.ibb.co/JRLpGQXJ/2366efe464e8.jpg | https://i.ibb.co/fzkDpZyG/79dd79aa0263.jpg"
+      }
+    ]
   }
 ]
