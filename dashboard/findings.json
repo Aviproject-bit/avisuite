@@ -1941,5 +1941,24 @@
         "photoThumb": "https://i.ibb.co/0L5zj6R/6cd9ef796bc1.jpg"
       }
     ]
+  },
+  {
+    "id": "1784619559428qpjds",
+    "batchId": "batch_1784619550907_bx3pv2",
+    "timestamp": "2026-07-21T07:39:19.428Z",
+    "date": "21/07/2026",
+    "time": "10:39",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "findings": [
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "OSB 41 LKJ        ",
+        "description": "CRACKED AND MISSING BUMBER                                  ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/pr9cnSM0/52e81f995e35.jpg | https://i.ibb.co/jkx1RFmM/58d9c1af3583.jpg | https://i.ibb.co/Z6fbrkNj/3f7e99b85707.jpg | https://i.ibb.co/N27jvxkF/580608c09a1f.jpg",
+        "photoThumb": "https://i.ibb.co/qFPKxvcy/52e81f995e35.jpg | https://i.ibb.co/KxQ3wHdq/58d9c1af3583.jpg | https://i.ibb.co/wNd2qxYk/3f7e99b85707.jpg | https://i.ibb.co/r2v6jkLQ/580608c09a1f.jpg"
+      }
+    ]
   }
 ]
