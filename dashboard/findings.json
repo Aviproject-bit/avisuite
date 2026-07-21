@@ -1746,5 +1746,32 @@
         "photoThumb": "https://i.ibb.co/CKHX8SWm/11211fd0389f.jpg"
       }
     ]
+  },
+  {
+    "id": "1784618899340vq56f",
+    "batchId": "batch_1784618889591_igau8u",
+    "timestamp": "2026-07-21T07:28:19.340Z",
+    "date": "21/07/2026",
+    "time": "10:28",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "findings": [
+      {
+        "category": "PAINT             ",
+        "subCategory": "OSB 32LKJ         ",
+        "description": "OSB DIVIDER PAINT AND DAMAGE                                ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/LXHbBNCX/ffb1ff765db9.jpg | https://i.ibb.co/tpsftxFz/1d02acd3f358.jpg",
+        "photoThumb": "https://i.ibb.co/8LtTGYjL/ffb1ff765db9.jpg | https://i.ibb.co/PGhpn90M/1d02acd3f358.jpg"
+      },
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "OSB 32LKJ         ",
+        "description": "MISSING BUMBER                                              ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/MkR0wtkV/d5324666531f.jpg",
+        "photoThumb": "https://i.ibb.co/d4QYCV42/d5324666531f.jpg"
+      }
+    ]
   }
 ]
