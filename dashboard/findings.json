@@ -1708,5 +1708,24 @@
         "photoThumb": "https://i.ibb.co/ycDsdWpb/7e1bf118ed62.jpg | https://i.ibb.co/Pzfr5Vz9/876650fc0f79.jpg"
       }
     ]
+  },
+  {
+    "id": "17846187229165zztm",
+    "batchId": "batch_1784618717449_7l4kby",
+    "timestamp": "2026-07-21T07:25:22.916Z",
+    "date": "21/07/2026",
+    "time": "10:25",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "findings": [
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "OSB 32CBA         ",
+        "description": "CRACKED AND MISSING BUMBER                                  ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/zVBk1qwZ/60c33b536f0c.jpg | https://i.ibb.co/mmcTs3N/10eb29f0da42.jpg | https://i.ibb.co/qMdt52kF/47a022d4f459.jpg",
+        "photoThumb": "https://i.ibb.co/5hS7dbVL/60c33b536f0c.jpg | https://i.ibb.co/R1Dbnqj/10eb29f0da42.jpg | https://i.ibb.co/zhryJtGH/47a022d4f459.jpg"
+      }
+    ]
   }
 ]
