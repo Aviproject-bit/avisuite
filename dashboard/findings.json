@@ -1876,5 +1876,24 @@
         "photoThumb": "https://i.ibb.co/Y7J8nsVB/66cda2b68d8b.jpg | https://i.ibb.co/QjTCF3vg/72a2bfda9aa7.jpg"
       }
     ]
+  },
+  {
+    "id": "1784619290488jj1t7",
+    "batchId": "batch_1784619281985_scnnx9",
+    "timestamp": "2026-07-21T07:34:50.489Z",
+    "date": "21/07/2026",
+    "time": "10:34",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "findings": [
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "OSB40CBA          ",
+        "description": "MISSING BUMBER AND SECRW                                    ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/d4Fj3bGz/8e7891537bc9.jpg | https://i.ibb.co/qLsSVB96/970630c19e27.jpg | https://i.ibb.co/R4j5mGFJ/ee733396a77e.jpg",
+        "photoThumb": "https://i.ibb.co/nM96V3z5/8e7891537bc9.jpg | https://i.ibb.co/j9MNshGt/970630c19e27.jpg | https://i.ibb.co/n8PWvqGK/ee733396a77e.jpg"
+      }
+    ]
   }
 ]
