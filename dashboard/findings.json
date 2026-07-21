@@ -1480,5 +1480,24 @@
         "photoThumb": "https://i.ibb.co/Z6MmjzhM/38ed67902991.jpg"
       }
     ]
+  },
+  {
+    "id": "1784617319162rjkjw",
+    "batchId": "batch_1784617306219_wjzuba",
+    "timestamp": "2026-07-21T07:01:59.162Z",
+    "date": "21/07/2026",
+    "time": "10:01",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "findings": [
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "FWD GALLEY        ",
+        "description": "EMERGENCY FRAME BROKEN                                      ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/Z6n5bDy4/4f4da9bc0de9.jpg",
+        "photoThumb": "https://i.ibb.co/KjMd8vC4/4f4da9bc0de9.jpg"
+      }
+    ]
   }
 ]
