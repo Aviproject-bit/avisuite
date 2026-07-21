@@ -1914,5 +1914,32 @@
         "photoThumb": "https://i.ibb.co/xqKrzX7y/496dbf06e75b.jpg | https://i.ibb.co/SXQMNJZK/baab45f12c2c.jpg"
       }
     ]
+  },
+  {
+    "id": "1784619474263njbzb",
+    "batchId": "batch_1784619461632_bwttls",
+    "timestamp": "2026-07-21T07:37:54.263Z",
+    "date": "21/07/2026",
+    "time": "10:37",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "findings": [
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "OVER HEAD 41 CBA  ",
+        "description": "CEILING PANEL CRACKED                                       ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/JFxHNzQs/89805b217683.jpg | https://i.ibb.co/4nhpCV18/8cdef659b359.jpg",
+        "photoThumb": "https://i.ibb.co/6JvF24BW/89805b217683.jpg | https://i.ibb.co/gLkJQR4S/8cdef659b359.jpg"
+      },
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "OSB 41 CBA        ",
+        "description": "MISSING BUMBER                                              ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/s47XvNd/6cd9ef796bc1.jpg",
+        "photoThumb": "https://i.ibb.co/0L5zj6R/6cd9ef796bc1.jpg"
+      }
+    ]
   }
 ]
