@@ -2582,5 +2582,32 @@
         "photoThumb": "https://i.ibb.co/wZtc2sfg/60a738aab7c7.jpg | https://i.ibb.co/GQTkz07Q/cb59ff7813b0.jpg"
       }
     ]
+  },
+  {
+    "id": "1784665669055em9xk",
+    "batchId": "batch_1784665662266_shf7uy",
+    "timestamp": "2026-07-21T20:27:49.055Z",
+    "date": "21/07/2026",
+    "time": "23:27",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "findings": [
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "WASTE GATE        ",
+        "description": "WASTE GATE SPRING STUCK AND EDGES CHIPPED                   ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/cKvnQbLQ/d8d90d2d32a4.jpg | https://i.ibb.co/1j6tQkM/d4739312fa3b.jpg",
+        "photoThumb": "https://i.ibb.co/Y4WshDZh/d8d90d2d32a4.jpg | https://i.ibb.co/MQ6xSmf/d4739312fa3b.jpg"
+      },
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "DECALS            ",
+        "description": "DECAL DAMAGES                                               ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/7JSQz40y/121e4cb35567.jpg | https://i.ibb.co/pStxDjx/5a7078625ab8.jpg | https://i.ibb.co/4ZNPYDdT/bc71fabd91d4.jpg | https://i.ibb.co/7N0t9b8b/c83b27d90ddf.jpg | https://i.ibb.co/FLWyVfps/b7ea655f3e1d.jpg",
+        "photoThumb": "https://i.ibb.co/nswB0CKk/121e4cb35567.jpg | https://i.ibb.co/wf9RHhR/5a7078625ab8.jpg | https://i.ibb.co/ccTDCpLF/bc71fabd91d4.jpg | https://i.ibb.co/sJX9Btkt/c83b27d90ddf.jpg | https://i.ibb.co/q3nc5460/b7ea655f3e1d.jpg"
+      }
+    ]
   }
 ]
