@@ -1632,5 +1632,24 @@
         "photoThumb": "https://i.ibb.co/DP6h4qRd/f762fb52f07b.jpg | https://i.ibb.co/Gfvb5bVP/f3a8d937fd34.jpg | https://i.ibb.co/kgW00Dc7/80fb132c4eab.jpg"
       }
     ]
+  },
+  {
+    "id": "1784618412948d61ui",
+    "batchId": "batch_1784618398822_5967ju",
+    "timestamp": "2026-07-21T07:20:12.948Z",
+    "date": "21/07/2026",
+    "time": "10:19",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "findings": [
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "OSB               ",
+        "description": "MISSING INNER BUMBER                                        ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/Mxd7vgYg/9d7c8aab30d2.jpg | https://i.ibb.co/YFKgFHYf/f6c70b3f6822.jpg | https://i.ibb.co/WNBbN3vS/7da76f22d2c1.jpg",
+        "photoThumb": "https://i.ibb.co/Vc6T1L7L/9d7c8aab30d2.jpg | https://i.ibb.co/MxjdxFWP/f6c70b3f6822.jpg | https://i.ibb.co/qLmtLnYb/7da76f22d2c1.jpg"
+      }
+    ]
   }
 ]
