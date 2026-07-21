@@ -2112,5 +2112,24 @@
         "photoThumb": "https://i.ibb.co/x8BV88Kf/2857df8c6fa3.jpg | https://i.ibb.co/rGgTC2FR/f95d061a7c01.jpg"
       }
     ]
+  },
+  {
+    "id": "1784621698837h93zv",
+    "batchId": "batch_1784621673048_ybviyk",
+    "timestamp": "2026-07-21T08:14:58.837Z",
+    "date": "21/07/2026",
+    "time": "11:14",
+    "aircraft": "HZ-ASD",
+    "reporter": "3004221",
+    "findings": [
+      {
+        "category": "PAINT             ",
+        "subCategory": "41 CBA            ",
+        "description": "WINDOW                                                      ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/Dgt4DpFw/4b7c6bdd70a4.jpg",
+        "photoThumb": "https://i.ibb.co/jZThvRY3/4b7c6bdd70a4.jpg"
+      }
+    ]
   }
 ]
