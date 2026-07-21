@@ -2017,5 +2017,24 @@
         "photoThumb": "https://i.ibb.co/XxywV1n0/75c05868109a.jpg | https://i.ibb.co/LDMsHh7H/447819849780.jpg | https://i.ibb.co/cSVPLqJf/f57ee83007c1.jpg | https://i.ibb.co/2YjgR5Dd/04d876ad9637.jpg"
       }
     ]
+  },
+  {
+    "id": "1784619773260ibbgd",
+    "batchId": "batch_1784619772216_muayzb",
+    "timestamp": "2026-07-21T07:42:53.260Z",
+    "date": "21/07/2026",
+    "time": "10:42",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "findings": [
+      {
+        "category": "GENERAL CABIN     ",
+        "subCategory": "OSB 44 LKJ        ",
+        "description": "COVER HEAD STOWG CRACKED                                    ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/WWd398s8/861ceceec6a6.jpg",
+        "photoThumb": "https://i.ibb.co/gMX71q6q/861ceceec6a6.jpg"
+      }
+    ]
   }
 ]
