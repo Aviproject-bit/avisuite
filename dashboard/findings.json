@@ -2555,5 +2555,32 @@
         "photoThumb": "https://i.ibb.co/WjDHcnC/1ffabf0fe14f.jpg | https://i.ibb.co/sp4N05yM/171a79eb51db.jpg | https://i.ibb.co/Y45SjGYz/0c91afae6c65.jpg"
       }
     ]
+  },
+  {
+    "id": "1784665191081d78uq",
+    "batchId": "batch_1784665183157_1fmyn7",
+    "timestamp": "2026-07-21T20:19:51.081Z",
+    "date": "21/07/2026",
+    "time": "23:19",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "findings": [
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "DISC STOWAGE      ",
+        "description": "DISC STOWAGE DIRTY, PAINT PEELED                            ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/sdM1bx04/333df573f526.jpg | https://i.ibb.co/PynFbg0/9f4695bb788c.jpg | https://i.ibb.co/BHcr8tYx/4133ee94ebe8.jpg",
+        "photoThumb": "https://i.ibb.co/YFqdPnzS/333df573f526.jpg | https://i.ibb.co/WXwGdfj/9f4695bb788c.jpg | https://i.ibb.co/LDYJ48sW/4133ee94ebe8.jpg"
+      },
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "FIRE EX           ",
+        "description": "PORT FIRE EX COMP EDGES CHIPPED AND DIRTY AND DECAL EDGES DAMAGE",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/LDKNs53R/60a738aab7c7.jpg | https://i.ibb.co/Kxw7TX6x/cb59ff7813b0.jpg",
+        "photoThumb": "https://i.ibb.co/wZtc2sfg/60a738aab7c7.jpg | https://i.ibb.co/GQTkz07Q/cb59ff7813b0.jpg"
+      }
+    ]
   }
 ]
