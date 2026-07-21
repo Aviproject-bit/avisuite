@@ -2335,5 +2335,24 @@
         "photoThumb": "https://i.ibb.co/cSQtJDzV/83cabfa26e93.jpg | https://i.ibb.co/JRLpGQXJ/2366efe464e8.jpg | https://i.ibb.co/fzkDpZyG/79dd79aa0263.jpg"
       }
     ]
+  },
+  {
+    "id": "1784658989527rv2c9",
+    "batchId": "batch_1784658983195_pwkde7",
+    "timestamp": "2026-07-21T18:36:29.527Z",
+    "date": "21/07/2026",
+    "time": "21:36",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "findings": [
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "2ND OBSERVER      ",
+        "description": "SECOND OBSERVER BACK REST VELCRO AND BACK SHROUD DAMAGED    ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/whnh6pLr/6ba11748fd70.jpg | https://i.ibb.co/twRzwJN2/45656291e067.jpg | https://i.ibb.co/SD0SB54n/ec34380d7077.jpg | https://i.ibb.co/ZzK4tJ5X/5cd310c90a79.jpg",
+        "photoThumb": "https://i.ibb.co/MkzkNPh5/6ba11748fd70.jpg | https://i.ibb.co/vC9hCjrd/45656291e067.jpg | https://i.ibb.co/TDRytYx8/ec34380d7077.jpg | https://i.ibb.co/N2pDQ35C/5cd310c90a79.jpg"
+      }
+    ]
   }
 ]
