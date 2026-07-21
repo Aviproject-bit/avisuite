@@ -2131,5 +2131,24 @@
         "photoThumb": "https://i.ibb.co/jZThvRY3/4b7c6bdd70a4.jpg"
       }
     ]
+  },
+  {
+    "id": "1784621954170ab91v",
+    "batchId": "batch_1784621947998_su2czd",
+    "timestamp": "2026-07-21T08:19:14.170Z",
+    "date": "21/07/2026",
+    "time": "11:19",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "findings": [
+      {
+        "category": "PAINT             ",
+        "subCategory": "5CA               ",
+        "description": "WINDOW                                                      ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/84bDjHc0/d316030718c1.jpg",
+        "photoThumb": "https://i.ibb.co/Wp0WcLt6/d316030718c1.jpg"
+      }
+    ]
   }
 ]
