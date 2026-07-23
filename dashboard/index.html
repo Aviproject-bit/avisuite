@@ -222,7 +222,7 @@ th:nth-child(10),td:nth-child(10){width:75px}
     <input type="date" class="fs" id="f-fr" onchange="applyFilter()" style="width:118px">
     <input type="date" class="fs" id="f-to" onchange="applyFilter()" style="width:118px">
     <span class="cnt" id="cnt">—</span>
-    <button class="tb tg" onclick="resetF()">Reset</button>
+    <button class="tb tg" onclick="resetF()">Reset</button><button class="tb" style="background:#0a5c36;color:#fff" onclick="exportTrackerRows()">📋 Tracker CSV</button>
     <button class="tb tg" onclick="doExcelExport()">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Excel
     </button>
@@ -886,6 +886,30 @@ document.addEventListener('DOMContentLoaded',()=>{
     if(pc&&pc.style.display!=='none') kb.focus();
   });
 });
+
+function exportTrackerRows(){
+  var list=(typeof fView!=='undefined'&&fView&&fView.length)?fView:((typeof allData!=='undefined'&&allData)?allData:[]);
+  if(!list.length){ alert('No findings loaded'); return; }
+  var CMAP={GALLEY:'GALLEY',LAV:'LAVATORY',LAVATORY:'LAVATORY',SEAT:'PAX SEAT',SEATS:'PAX SEAT',
+    COCKPIT:'FLIGHT DECK','FLIGHT DECK':'FLIGHT DECK',DOOR:'PAX DOORS',DOORS:'PAX DOORS',
+    CARPET:'CARPET',CEILING:'GENERAL CABIN',PANEL:'GENERAL CABIN',CARGO:'CARGO'};
+  function esc(v){ v=(v==null?'':String(v)).replace(/"/g,'""'); return '"'+v+'"'; }
+  var hdr=['WO','Description','Seq','Category','Status','Priority','Specialty','Parts','Remarks'];
+  var rows=[hdr.map(esc).join(',')];
+  list.forEach(function(f){
+    var sub=String(f.subCategory||f.category||'').toUpperCase();
+    var cat=CMAP[sub]||'GENERAL CABIN';
+    var desc=(f.description||'').trim();
+    var rem=[(f.remarks||''),(f.reporter?('rep: '+f.reporter):'')].filter(Boolean).join(' — ');
+    rows.push(['', desc, '', cat, 'Open', 'Normal', 'CAB', '', rem].map(esc).join(','));
+  });
+  var csv='\ufeff'+rows.join('\n');
+  var a=document.createElement('a');
+  a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
+  a.download='Tracker_Rows_'+new Date().toISOString().slice(0,10)+'.csv';
+  document.body.appendChild(a); a.click();
+  setTimeout(function(){document.body.removeChild(a);},600);
+}
 </script>
 
 <!-- Aircraft Bulk Edit Modal -->
