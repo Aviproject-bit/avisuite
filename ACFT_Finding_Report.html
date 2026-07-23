@@ -218,7 +218,7 @@ select{font-family:'BwGradual',sans-serif;text-transform:uppercase}
         <label>By <span class="req">*</span></label>
         <input type="text" id="reporter" placeholder="Enter your PRN / Name..." autocomplete="name" autocorrect="off" autocapitalize="characters" spellcheck="false" oninput="this.value=this.value.toUpperCase();localStorage.setItem('ak35_reporter_name',this.value)">
       </div>
-      <button class="submit-btn" id="submit-btn" onclick="submitAll()" disabled><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> SUBMIT ALL FINDINGS</button>
+      <button type="button" onclick="exportTrackerRowsDraft()" style="width:100%;margin:0 0 8px 0;padding:10px;border:1.5px dashed #0a5c36;background:#f2faf5;color:#0a5c36;border-radius:10px;font-weight:700;font-size:13px">📋 Export drafts as Tracker rows (CSV)</button><button class="submit-btn" id="submit-btn" onclick="submitAll()" disabled><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> SUBMIT ALL FINDINGS</button>
       <div class="submit-note" id="submit-note">Add at least one finding to submit</div>
     </div>
   </div>
@@ -2234,6 +2234,32 @@ function attachAutoCorrect(textareaId) {
   });
 }
 
+
+function exportTrackerRowsDraft(){
+  var list=(typeof findings!=='undefined'?findings:[]).filter(function(f){return (f.desc||'').trim();});
+  if(!list.length){ if(typeof showToast==='function')showToast('No draft findings yet'); return; }
+  var CMAP={GALLEY:'GALLEY',LAV:'LAVATORY',LAVATORY:'LAVATORY',SEAT:'PAX SEAT',SEATS:'PAX SEAT',
+    COCKPIT:'FLIGHT DECK','FLIGHT DECK':'FLIGHT DECK',DOOR:'PAX DOORS',DOORS:'PAX DOORS',
+    CARPET:'CARPET',CEILING:'GENERAL CABIN',PANEL:'GENERAL CABIN',CARGO:'CARGO'};
+  function esc(v){ v=(v==null?'':String(v)).replace(/"/g,'""'); return '"'+v+'"'; }
+  var rep=(localStorage.getItem('ak35_reporter_name')||'').trim();
+  var hdr=['WO','Description','Seq','Category','Status','Priority','Specialty','Parts','Remarks'];
+  var rows=[hdr.map(esc).join(',')];
+  list.forEach(function(f){
+    var sub=String(f.sub||f.cat||'').toUpperCase();
+    var cat=CMAP[sub]||'GENERAL CABIN';
+    var rmkEl=document.getElementById('rmk-'+f.id);
+    var rem=[((rmkEl&&rmkEl.value)||''),(rep?('rep: '+rep):'')].filter(Boolean).join(' — ');
+    rows.push(['', (f.desc||'').trim(), '', cat, 'Open', 'Normal', 'CAB', '', rem].map(esc).join(','));
+  });
+  var csv='\ufeff'+rows.join('\n');
+  var a=document.createElement('a');
+  a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
+  a.download='Tracker_Rows_Draft_'+new Date().toISOString().slice(0,10)+'.csv';
+  document.body.appendChild(a); a.click();
+  setTimeout(function(){document.body.removeChild(a);},600);
+  if(typeof showToast==='function')showToast('\u2713 '+list.length+' draft rows exported');
+}
 </script>
 
 <!-- Image Annotation Editor -->
