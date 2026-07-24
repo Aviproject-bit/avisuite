@@ -218,7 +218,7 @@ select{font-family:'BwGradual',sans-serif;text-transform:uppercase}
         <label>By <span class="req">*</span></label>
         <input type="text" id="reporter" placeholder="Enter your PRN / Name..." autocomplete="name" autocorrect="off" autocapitalize="characters" spellcheck="false" oninput="this.value=this.value.toUpperCase();localStorage.setItem('ak35_reporter_name',this.value)">
       </div>
-      <button type="button" onclick="exportTrackerRowsDraft()" style="width:100%;margin:0 0 8px 0;padding:10px;border:1.5px dashed #0a5c36;background:#f2faf5;color:#0a5c36;border-radius:10px;font-weight:700;font-size:13px">📋 Export drafts as Tracker rows (CSV)</button><button class="submit-btn" id="submit-btn" onclick="submitAll()" disabled><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> SUBMIT ALL FINDINGS</button>
+      <button class="submit-btn" id="submit-btn" onclick="submitAll()" disabled><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> SUBMIT ALL FINDINGS</button>
       <div class="submit-note" id="submit-note">Add at least one finding to submit</div>
     </div>
   </div>
@@ -530,9 +530,20 @@ async function submitAll() {
     if (card) card.style.border = '';
   });
 
-  const valid = findings;
-  if (!valid.length) { showToast('Add at least one finding'); return; }
-
+  const valid = findings; if (!valid.length) { showToast('Add at least one finding'); return; }
+  try {
+    const prev = JSON.parse(localStorage.getItem('ak35_last_batch')||'null');
+    if (prev && (Date.now()-prev.ts) < 45*60*1000) {
+      const cur = valid.map(f=>String(f.desc||'').trim().toUpperCase()).filter(Boolean);
+      const prevSet = new Set(prev.descs||[]);
+      const overlap = cur.filter(d=>prevSet.has(d)).length;
+      if (cur.length && overlap/cur.length >= 0.5) {
+        const mins = Math.round((Date.now()-prev.ts)/60000);
+        const okDup = confirm('\u26A0\uFE0F This batch looks very similar to one you submitted '+mins+' min ago ('+overlap+' matching findings).\n\nSubmit anyway?');
+        if (!okDup) { showToast('Submission cancelled'); return; }
+      }
+    }
+  } catch(e) {}
   window._submitInFlight = true;
   hideArea('main-area');
   showArea('sending-area');
@@ -543,6 +554,7 @@ async function submitAll() {
   const findingsFingerprint = valid.map(f => f.id).sort().join(',');
   if (window._lastBatchFingerprint !== findingsFingerprint) {
     window._lastBatchFingerprint = findingsFingerprint;
+  try{ localStorage.setItem('ak35_last_batch', JSON.stringify({ts:Date.now(), descs: valid.map(f=>String(f.desc||'').trim().toUpperCase())})); }catch(e){}
     window._currentBatchId = 'batch_' + Date.now() + '_' + Math.random().toString(36).slice(2,8);
   }
   const batchId = window._currentBatchId;
@@ -1925,6 +1937,19 @@ function saveImageEditor() {
 // findings — each successful submission adds its description (and the
 // category it was filed under) to a shared, GitHub-stored phrase bank.
 
+
+function generalizePhrase(d){
+  d=String(d||'').toUpperCase();
+  d=d.replace(/\b\d{1,2}[A-K]\b/g,' ');
+  d=d.replace(/\b[A-K]{1,2}\d{1,2}\b/g,' ');
+  d=d.replace(/\bLAV\s+[A-K]\b/g,'LAV');
+  d=d.replace(/\bGALLEY\s+G?\d[AB]?\b/g,'GALLEY');
+  d=d.replace(/\bROW\s*\d+\b/g,' ');
+  d=d.replace(/\bFR\s*\d+(\s*TO\s*FR\s*\d+)?\b/g,' ');
+  d=d.replace(/\b\d+\s*EA\b/g,' ');
+  d=d.replace(/[,;]+/g,' ').replace(/\s+/g,' ').trim();
+  return d;
+}
 const SUGGEST_KEY = 'ak35_phrase_bank';
 const SUGGEST_GH_PATH = 'dashboard/phrase_bank.json';
 const SUGGEST_GH_API = GH_API_PROXY + '?path=' + SUGGEST_GH_PATH;
@@ -2021,8 +2046,9 @@ async function learnPhrase(category, description) {
   try {
     const local = JSON.parse(localStorage.getItem(SUGGEST_KEY) || '{}');
     local[category] = local[category] || [];
-    if (!local[category].includes(desc)) {
-      local[category].unshift(desc); // newest first
+    const _g1=generalizePhrase(desc);
+    if (_g1.split(' ').length>=2 && !local[category].includes(_g1)) {
+      local[category].unshift(_g1); // newest first
       local[category] = local[category].slice(0, 40); // cap per category
       localStorage.setItem(SUGGEST_KEY, JSON.stringify(local));
       _phraseBank = _loadPhraseBank();
@@ -2039,8 +2065,7 @@ async function learnPhrase(category, description) {
       remote = JSON.parse(decodeURIComponent(escape(atob(json.content))));
     }
     remote[category] = remote[category] || [];
-    if (!remote[category].includes(desc)) {
-      remote[category].unshift(desc);
+    const _g2=generalizePhrase(desc); if (_g2.split(' ').length>=2 && !remote[category].includes(_g2)) { remote[category].unshift(_g2);
       remote[category] = remote[category].slice(0, 60);
       const content = btoa(unescape(encodeURIComponent(JSON.stringify(remote, null, 2))));
       const body = { message: 'Learn phrase', content, branch: GH_BRANCH };
@@ -2235,31 +2260,6 @@ function attachAutoCorrect(textareaId) {
 }
 
 
-function exportTrackerRowsDraft(){
-  var list=(typeof findings!=='undefined'?findings:[]).filter(function(f){return (f.desc||'').trim();});
-  if(!list.length){ if(typeof showToast==='function')showToast('No draft findings yet'); return; }
-  var CMAP={GALLEY:'GALLEY',LAV:'LAVATORY',LAVATORY:'LAVATORY',SEAT:'PAX SEAT',SEATS:'PAX SEAT',
-    COCKPIT:'FLIGHT DECK','FLIGHT DECK':'FLIGHT DECK',DOOR:'PAX DOORS',DOORS:'PAX DOORS',
-    CARPET:'CARPET',CEILING:'GENERAL CABIN',PANEL:'GENERAL CABIN',CARGO:'CARGO'};
-  function esc(v){ v=(v==null?'':String(v)).replace(/"/g,'""'); return '"'+v+'"'; }
-  var rep=(localStorage.getItem('ak35_reporter_name')||'').trim();
-  var hdr=['WO','Description','Seq','Category','Status','Priority','Specialty','Parts','Remarks'];
-  var rows=[hdr.map(esc).join(',')];
-  list.forEach(function(f){
-    var sub=String(f.sub||f.cat||'').toUpperCase();
-    var cat=CMAP[sub]||'GENERAL CABIN';
-    var rmkEl=document.getElementById('rmk-'+f.id);
-    var rem=[((rmkEl&&rmkEl.value)||''),(rep?('rep: '+rep):'')].filter(Boolean).join(' — ');
-    rows.push(['', (f.desc||'').trim(), '', cat, 'Open', 'Normal', 'CAB', '', rem].map(esc).join(','));
-  });
-  var csv='\ufeff'+rows.join('\n');
-  var a=document.createElement('a');
-  a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
-  a.download='Tracker_Rows_Draft_'+new Date().toISOString().slice(0,10)+'.csv';
-  document.body.appendChild(a); a.click();
-  setTimeout(function(){document.body.removeChild(a);},600);
-  if(typeof showToast==='function')showToast('\u2713 '+list.length+' draft rows exported');
-}
 </script>
 
 <!-- Image Annotation Editor -->
