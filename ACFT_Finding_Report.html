@@ -300,19 +300,19 @@ function renderFindings() {
           </div>
           <div class="field">
             <label>Sub-category <span class="opt">(optional)</span></label>
-            <input type="text" id="sub-${f.id}" placeholder="E.G. LAV 2A-1R" onchange="updatePreview(${f.id})" oninput="this.value=this.value.toUpperCase()" autocomplete="on" autocorrect="off" autocapitalize="characters" spellcheck="false">
+            <input type="text" id="sub-${f.id}" placeholder="E.G. LAV 2A-1R" onchange="updatePreview(${f.id})" oninput="this.value=this.value.toUpperCase()" autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false">
           </div>
         </div>
 
         <div class="field">
           <label>Finding Description <span class="req">*</span></label>
-          <textarea id="desc-${f.id}" placeholder="Describe the finding..." oninput="this.value=this.value.toUpperCase();updatePreview(${f.id});renderSuggestions(${f.id})" onfocus="renderSuggestions(${f.id})" autocomplete="on" autocorrect="off" autocapitalize="characters" spellcheck="false"></textarea>
-          <div class="loc-chips" id="loc-${f.id}"><button type="button" class="loc-chip" onclick="insLoc(${f.id},'LAV A')">LAV A</button><button type="button" class="loc-chip" onclick="insLoc(${f.id},'LAV B')">LAV B</button><button type="button" class="loc-chip" onclick="insLoc(${f.id},'LAV C')">LAV C</button><button type="button" class="loc-chip" onclick="insLoc(${f.id},'LAV D')">LAV D</button><button type="button" class="loc-chip" onclick="insLoc(${f.id},'LAV E')">LAV E</button><button type="button" class="loc-chip" onclick="insLoc(${f.id},'G1')">G1</button><button type="button" class="loc-chip" onclick="insLoc(${f.id},'G2')">G2</button><button type="button" class="loc-chip" onclick="insLoc(${f.id},'G3')">G3</button><button type="button" class="loc-chip" onclick="insLoc(${f.id},'G4')">G4</button><button type="button" class="loc-chip" onclick="insLoc(${f.id},'G5')">G5</button><button type="button" class="loc-chip" onclick="insLoc(${f.id},'FWD')">FWD</button><button type="button" class="loc-chip" onclick="insLoc(${f.id},'MID')">MID</button><button type="button" class="loc-chip" onclick="insLoc(${f.id},'AFT')">AFT</button><button type="button" class="loc-chip" onclick="insLoc(${f.id},'SEAT')">SEAT</button><button type="button" class="loc-chip" onclick="insLoc(${f.id},'ROW')">ROW</button><button type="button" class="loc-chip" onclick="insLoc(${f.id},'FR')">FR</button></div><div class="sugg-wrap" id="sugg-${f.id}"></div>
+          <textarea id="desc-${f.id}" placeholder="Describe the finding..." oninput="this.value=this.value.toUpperCase();updatePreview(${f.id});renderSuggestions(${f.id})" onfocus="renderSuggestions(${f.id})" autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false"></textarea>
+          <div class="loc-chips" id="loc-${f.id}"></div><div class="sugg-wrap" id="sugg-${f.id}"></div>
         </div>
 
         <div class="field">
           <label>Remarks <span class="opt">(optional)</span></label>
-          <input type="text" id="rmk-${f.id}" placeholder="Additional notes..." oninput="this.value=this.value.toUpperCase()" autocomplete="on" autocorrect="off" autocapitalize="characters" spellcheck="false">
+          <input type="text" id="rmk-${f.id}" placeholder="Additional notes..." oninput="this.value=this.value.toUpperCase()" autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false">
         </div>
 
         <div class="field">
@@ -2078,6 +2078,25 @@ async function learnPhrase(category, description) {
 
 // Render suggestion chips under a description field, filtered by what's typed so far
 
+
+const LOC_CHIPS = {
+  'LAVATORY':   ['LAV A','LAV D','LAV E'],
+  'GALLEY':     ['G1','G2'],
+  'SEATS':      ['SEAT','ROW','FWD','MID','AFT'],
+  'PAX SEAT':   ['SEAT','ROW','FWD','MID','AFT'],
+  'F/A SEAT':   ['FWD','AFT','JUMPSEAT'],
+  'FLIGHT DECK':['COCKPIT'],
+  '_default':   ['FWD','MID','AFT','LAV A','LAV D','LAV E','G1','G2','SEAT','ROW','FR']
+};
+function renderLocChips(id){
+  const wrap=document.getElementById('loc-'+id);
+  const catEl=document.getElementById('cat-'+id);
+  if(!wrap) return;
+  const cat=(catEl&&catEl.value||'').toUpperCase();
+  const key=Object.keys(LOC_CHIPS).find(k=>k!=='_default'&&cat.includes(k))||'_default';
+  const chips=LOC_CHIPS[key];
+  wrap.innerHTML=chips.map(t=>`<button type="button" class="loc-chip" onclick="insLoc(${id},'${t}')">${t}</button>`).join('');
+}
 function insLoc(id, txt){
   const el=document.getElementById('desc-'+id);
   if(!el) return;
@@ -2089,6 +2108,7 @@ function insLoc(id, txt){
   if(typeof renderSuggestions==='function') renderSuggestions(id);
 }
 function renderSuggestions(findingId) {
+  renderLocChips(findingId);
   const wrap = document.getElementById('sugg-' + findingId);
   const catEl = document.getElementById('cat-' + findingId);
   const descEl = document.getElementById('desc-' + findingId);
