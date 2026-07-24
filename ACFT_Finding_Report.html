@@ -307,7 +307,7 @@ function renderFindings() {
         <div class="field">
           <label>Finding Description <span class="req">*</span></label>
           <textarea id="desc-${f.id}" placeholder="Describe the finding..." oninput="this.value=this.value.toUpperCase();updatePreview(${f.id});renderSuggestions(${f.id})" onfocus="renderSuggestions(${f.id})" autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false"></textarea>
-          <div class="loc-chips" id="loc-${f.id}"></div><div class="sugg-wrap" id="sugg-${f.id}"></div>
+          <div class="sugg-wrap" id="sugg-${f.id}"></div>
         </div>
 
         <div class="field">
@@ -2108,7 +2108,6 @@ function insLoc(id, txt){
   if(typeof renderSuggestions==='function') renderSuggestions(id);
 }
 function renderSuggestions(findingId) {
-  renderLocChips(findingId);
   const wrap = document.getElementById('sugg-' + findingId);
   const catEl = document.getElementById('cat-' + findingId);
   const descEl = document.getElementById('desc-' + findingId);
