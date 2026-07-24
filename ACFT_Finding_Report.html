@@ -307,7 +307,7 @@ function renderFindings() {
         <div class="field">
           <label>Finding Description <span class="req">*</span></label>
           <textarea id="desc-${f.id}" placeholder="Describe the finding..." oninput="this.value=this.value.toUpperCase();updatePreview(${f.id});renderSuggestions(${f.id})" onfocus="renderSuggestions(${f.id})" autocomplete="on" autocorrect="off" autocapitalize="characters" spellcheck="false"></textarea>
-          <div class="sugg-wrap" id="sugg-${f.id}"></div>
+          <div class="loc-chips" id="loc-${f.id}"><button type="button" class="loc-chip" onclick="insLoc(${f.id},'LAV A')">LAV A</button><button type="button" class="loc-chip" onclick="insLoc(${f.id},'LAV B')">LAV B</button><button type="button" class="loc-chip" onclick="insLoc(${f.id},'LAV C')">LAV C</button><button type="button" class="loc-chip" onclick="insLoc(${f.id},'LAV D')">LAV D</button><button type="button" class="loc-chip" onclick="insLoc(${f.id},'LAV E')">LAV E</button><button type="button" class="loc-chip" onclick="insLoc(${f.id},'G1')">G1</button><button type="button" class="loc-chip" onclick="insLoc(${f.id},'G2')">G2</button><button type="button" class="loc-chip" onclick="insLoc(${f.id},'G3')">G3</button><button type="button" class="loc-chip" onclick="insLoc(${f.id},'G4')">G4</button><button type="button" class="loc-chip" onclick="insLoc(${f.id},'G5')">G5</button><button type="button" class="loc-chip" onclick="insLoc(${f.id},'FWD')">FWD</button><button type="button" class="loc-chip" onclick="insLoc(${f.id},'MID')">MID</button><button type="button" class="loc-chip" onclick="insLoc(${f.id},'AFT')">AFT</button><button type="button" class="loc-chip" onclick="insLoc(${f.id},'SEAT')">SEAT</button><button type="button" class="loc-chip" onclick="insLoc(${f.id},'ROW')">ROW</button><button type="button" class="loc-chip" onclick="insLoc(${f.id},'FR')">FR</button></div><div class="sugg-wrap" id="sugg-${f.id}"></div>
         </div>
 
         <div class="field">
@@ -1951,6 +1951,7 @@ function generalizePhrase(d){
   return d;
 }
 const SUGGEST_KEY = 'ak35_phrase_bank';
+try{ if(localStorage.getItem('ak35_phrase_bank_v')!=='2'){ localStorage.removeItem(SUGGEST_KEY); localStorage.setItem('ak35_phrase_bank_v','2'); } }catch(e){}
 const SUGGEST_GH_PATH = 'dashboard/phrase_bank.json';
 const SUGGEST_GH_API = GH_API_PROXY + '?path=' + SUGGEST_GH_PATH;
 
@@ -2076,6 +2077,17 @@ async function learnPhrase(category, description) {
 }
 
 // Render suggestion chips under a description field, filtered by what's typed so far
+
+function insLoc(id, txt){
+  const el=document.getElementById('desc-'+id);
+  if(!el) return;
+  const cur=el.value;
+  const sep=cur && !cur.endsWith(' ') ? ' ' : '';
+  el.value=(cur+sep+txt+' ').toUpperCase();
+  el.focus();
+  if(typeof updatePreview==='function') updatePreview(id);
+  if(typeof renderSuggestions==='function') renderSuggestions(id);
+}
 function renderSuggestions(findingId) {
   const wrap = document.getElementById('sugg-' + findingId);
   const catEl = document.getElementById('cat-' + findingId);
@@ -2086,7 +2098,8 @@ function renderSuggestions(findingId) {
 
   const category = catEl.value;
   const typed = descEl.value.trim().toUpperCase();
-  const phrases = _phraseBank[category] || [];
+  let phrases = (_phraseBank[category] || []).map(generalizePhrase);
+    phrases = [...new Set(phrases)].filter(p=>p.split(' ').length>=2);
 
   let candidates;
   if (!typed) {
@@ -2328,6 +2341,11 @@ function attachAutoCorrect(textareaId) {
 .ie-w .ie-dot{border-radius:50%;background:currentColor;display:block}
 .ie-color{width:34px;height:34px;border-radius:50%;border:2px solid transparent;cursor:pointer;-webkit-tap-highlight-color:transparent;box-shadow:0 0 0 1px rgba(255,255,255,.15) inset}
 .ie-color.active{border-color:#fff;box-shadow:0 0 0 1px rgba(255,255,255,.4) inset}
+
+.loc-chips{display:flex;flex-wrap:nowrap;gap:5px;overflow-x:auto;padding:5px 0 3px;-webkit-overflow-scrolling:touch}
+.loc-chips::-webkit-scrollbar{display:none}
+.loc-chip{flex:0 0 auto;border:1px solid #b7d5c4;background:#f2faf5;color:#0a5c36;border-radius:14px;padding:4px 11px;font-size:12px;font-weight:700;cursor:pointer}
+.loc-chip:active{background:#0a5c36;color:#fff}
 </style>
 </body>
 </html>
