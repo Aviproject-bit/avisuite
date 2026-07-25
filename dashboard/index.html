@@ -500,8 +500,7 @@ function render(){
     const ph=f.photoUrl?f.photoUrl.split(' | ').map(u=>`<img class="ph" loading="lazy" decoding="async" src="${u}" onclick="showLB('${u}')" onerror="this.style.display='none'">`).join(''):'—';
     const admTd=isAdmin?`<td><button class="rb e" onclick="inlineEdit(${idx},this)">Edit</button><button class="rb d" onclick="delRow(${idx})">Del</button></td>`:'';
     const cbTd=`<td class="cb-cell"><input type="checkbox" class="row-cb" data-idx="${idx}" onchange="toggleSel(this)" ${selected.has(f._id+'_'+f.timestamp)?'checked':''}></td>`;
-    return `<tr>
-      <td onclick="cp(this)">${fmt(f.timestamp)}</td>
+    return `<tr> ${cbTd}<td onclick="cp(this)">${fmt(f.timestamp)}</td>
       <td onclick="cp(this)">${f.time||'—'}</td>
       <td onclick="cp(this)">${f.aircraft||'—'}</td>
       <td onclick="cp(this)">${f.reporter||'—'}</td>
@@ -509,8 +508,7 @@ function render(){
       <td onclick="cp(this)">${f.subCategory||'—'}</td>
       <td onclick="cp(this)">${f.description||'—'}</td>
       <td onclick="cp(this)">${f.remarks||'—'}</td>
-      <td>${ph}</td>
-      ${cbTd||''}${admTd}</tr>`;
+      <td>${ph}</td> ${admTd}</tr>`;
   }).join('');
   document.getElementById('tcon').innerHTML=`<table>
     <thead><tr>
@@ -574,16 +572,15 @@ function inlineEdit(idx,btn){
   const row=btn.closest('tr');
   const cells=row.querySelectorAll('td');
   // Save original values
-  const originals=[];
-  [4,5,6,7].forEach(ci=>originals.push(cells[ci].innerText.trim()));
+  const EDIT_CI=[3,5,6,7,8]; const originals=[]; EDIT_CI.forEach(ci=>originals.push(cells[ci].innerText.trim()));
   // Make cells editable
-  [4,5,6,7].forEach((ci,j)=>{
+  EDIT_CI.forEach((ci,j)=>{
     const td=cells[ci];
     const orig=originals[j];
     td.classList.add('editing');
-    const inp=ci===6||ci===7?document.createElement('textarea'):document.createElement('input');
+    const inp=ci===7||ci===8?document.createElement('textarea'):document.createElement('input');
     inp.value=orig==='—'?'':orig;
-    if(ci===6||ci===7){inp.rows=2;inp.style.minHeight='52px';}
+    if(ci===7||ci===8){inp.rows=2;inp.style.minHeight='52px';}
     td.innerHTML='';td.appendChild(inp);
     if(j===0) inp.focus();
   });
@@ -597,14 +594,11 @@ function inlineEdit(idx,btn){
 
 async function saveInline(idx,row,f){
   const cells=row.querySelectorAll('td');
-  const newCat=cells[4].querySelector('input,textarea')?.value.trim()||f.category;
-  const newSub=cells[5].querySelector('input,textarea')?.value.trim()||f.subCategory;
-  const newDesc=cells[6].querySelector('input,textarea')?.value.trim()||f.description;
-  const newRem=cells[7].querySelector('input,textarea')?.value.trim()||f.remarks;
+  const newAc=cells[3].querySelector('input,textarea')?.value.trim().toUpperCase()||f.aircraft; const newCat=cells[5].querySelector('input,textarea')?.value.trim()||f.category; const newSub=cells[6].querySelector('input,textarea')?.value.trim()||f.subCategory; const newDesc=cells[7].querySelector('input,textarea')?.value.trim()||f.description; const newRem=cells[8].querySelector('input,textarea')?.value.trim()||f.remarks;
   // Update in allData
   const gi=allData.findIndex(x=>x._id===f._id&&x.timestamp===f.timestamp&&x.description===f.description);
   if(gi!==-1){
-    allData[gi].category=newCat; allData[gi].subCategory=newSub;
+    allData[gi].aircraft=newAc; allData[gi].category=newCat; allData[gi].subCategory=newSub;
     allData[gi].description=newDesc; allData[gi].remarks=newRem;
   }
   try{await saveRaw(allData);toast('Saved ✓');applyFilter();}
