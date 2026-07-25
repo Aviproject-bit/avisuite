@@ -98,16 +98,16 @@ td.editing{padding:0!important}
 td.editing input,td.editing textarea{width:100%;height:100%;padding:6px 9px;border:2px solid var(--teal);border-radius:0;font-size:12px;font-family:var(--tf);background:#fff;outline:none;resize:none}
 
 /* Col widths */
-th:nth-child(1),td:nth-child(1){width:82px}
-th:nth-child(2),td:nth-child(2){width:55px}
-th:nth-child(3),td:nth-child(3){width:82px}
-th:nth-child(4),td:nth-child(4){width:135px}
-th:nth-child(5),td:nth-child(5){width:125px}
-th:nth-child(6),td:nth-child(6){width:105px}
-th:nth-child(7),td:nth-child(7){width:auto;min-width:180px}
-th:nth-child(8),td:nth-child(8){width:140px}
-th:nth-child(9),td:nth-child(9){width:90px}
-th:nth-child(10),td:nth-child(10){width:75px}
+th:nth-child(1),td:nth-child(1){width:34px}th:nth-child(2),td:nth-child(2){width:82px}
+th:nth-child(3),td:nth-child(3){width:55px}
+th:nth-child(4),td:nth-child(4){width:82px}
+th:nth-child(5),td:nth-child(5){width:135px}
+th:nth-child(6),td:nth-child(6){width:125px}
+th:nth-child(7),td:nth-child(7){width:105px}
+th:nth-child(8),td:nth-child(8){width:auto;min-width:180px}
+th:nth-child(9),td:nth-child(9){width:140px}
+th:nth-child(10),td:nth-child(10){width:90px}
+th:nth-child(11),td:nth-child(11){width:75px}
 
 /* Col resizer */
 .cr{position:absolute;right:0;top:0;bottom:0;width:5px;cursor:col-resize}
@@ -222,7 +222,7 @@ th:nth-child(10),td:nth-child(10){width:75px}
     <input type="date" class="fs" id="f-fr" onchange="applyFilter()" style="width:118px">
     <input type="date" class="fs" id="f-to" onchange="applyFilter()" style="width:118px">
     <span class="cnt" id="cnt">—</span>
-    <button class="tb tg" onclick="resetF()">Reset</button><button class="tb" style="background:#0a5c36;color:#fff;display:inline-flex;align-items:center;gap:6px" onclick="exportHDReport()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>HD Export</button><span id="sel-chip" style="font-size:11px;color:#0a5c36;font-weight:700;margin:0 4px"></span>
+    <button class="tb tg" onclick="resetF()">Clear Filters</button><button class="tb" style="background:#0a5c36;color:#fff;display:inline-flex;align-items:center;gap:6px" onclick="exportHDReport()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>HD Export</button><span id="sel-chip" style="font-size:11px;color:#0a5c36;font-weight:700;margin:0 4px"></span>
     <button class="tb tg" onclick="doExcelExport()">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Excel
     </button>
@@ -628,6 +628,7 @@ function toggleAll(cb){
 function updateSelChip(){ const el=document.getElementById('sel-chip'); if(el){ el.textContent=selected.size? (selected.size+' selected') : ''; } }
 function updateDelBtn(){ updateSelChip();
   const btn=document.getElementById('del-sel-btn');
+  if(typeof isAdmin!=='undefined' && !isAdmin){ if(btn) btn.style.display='none'; const _ab=document.getElementById('ac-sel-btn'); if(_ab)_ab.style.display='none'; return; }
   const cnt=document.getElementById('del-sel-count');
   const acBtn=document.getElementById('ac-sel-btn');
   const acCnt=document.getElementById('ac-sel-count');
@@ -657,6 +658,7 @@ function closeDelModal(){
 }
 
 function confirmDelete(){
+  if(typeof isAdmin!=='undefined' && !isAdmin){ if(typeof toast==='function')toast('Admin only'); return; }
   const fn = _delFn;
   closeDelModal();
   if(fn) fn();
@@ -679,6 +681,7 @@ const UNDO_TTL = 7000;
 let _undoBuffer = null;  // { items, timer, n }
 
 function deleteSelected(){
+  if(typeof isAdmin!=='undefined' && !isAdmin){ if(typeof toast==='function')toast('Admin only'); return; }
   const n=selected.size;
   if(!n) return;
   openDelModal(
