@@ -222,7 +222,7 @@ th:nth-child(10),td:nth-child(10){width:75px}
     <input type="date" class="fs" id="f-fr" onchange="applyFilter()" style="width:118px">
     <input type="date" class="fs" id="f-to" onchange="applyFilter()" style="width:118px">
     <span class="cnt" id="cnt">—</span>
-    <button class="tb tg" onclick="resetF()">Reset</button><button class="tb" style="background:#0a5c36;color:#fff" onclick="exportTrackerRows()">📋 Tracker CSV</button>
+    <button class="tb tg" onclick="resetF()">Reset</button><button class="tb" style="background:#0a5c36;color:#fff" onclick="exportHDReport()">🖼️ HD Export</button>
     <button class="tb tg" onclick="doExcelExport()">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Excel
     </button>
@@ -887,26 +887,58 @@ document.addEventListener('DOMContentLoaded',()=>{
   });
 });
 
-function exportTrackerRows(){
-  var list=(typeof fView!=='undefined'&&fView&&fView.length)?fView:((typeof allData!=='undefined'&&allData)?allData:[]);
-  if(!list.length){ alert('No findings loaded'); return; }
-  var CMAP={GALLEY:'GALLEY',LAV:'LAVATORY',LAVATORY:'LAVATORY',SEAT:'PAX SEAT',SEATS:'PAX SEAT',
-    COCKPIT:'FLIGHT DECK','FLIGHT DECK':'FLIGHT DECK',DOOR:'PAX DOORS',DOORS:'PAX DOORS',
-    CARPET:'CARPET',CEILING:'GENERAL CABIN',PANEL:'GENERAL CABIN',CARGO:'CARGO'};
-  function esc(v){ v=(v==null?'':String(v)).replace(/"/g,'""'); return '"'+v+'"'; }
-  var hdr=['WO','Description','Seq','Category','Status','Priority','Specialty','Parts','Remarks'];
-  var rows=[hdr.map(esc).join(',')];
-  list.forEach(function(f){
-    var sub=String(f.subCategory||f.category||'').toUpperCase();
-    var cat=CMAP[sub]||'GENERAL CABIN';
-    var desc=(f.description||'').trim();
-    var rem=[(f.remarks||''),(f.reporter?('rep: '+f.reporter):'')].filter(Boolean).join(' — ');
-    rows.push(['', desc, '', cat, 'Open', 'Normal', 'CAB', '', rem].map(esc).join(','));
+
+function exportHDReport(){
+  var picked=[];
+  if(typeof selected!=='undefined' && selected.size){
+    (allData||[]).forEach(function(f){ if(selected.has(f._id+'_'+f.timestamp)) picked.push(f); });
+  }
+  if(!picked.length && typeof filtered!=='undefined') picked=filtered.slice();
+  if(!picked.length){ alert('Select findings (checkboxes) or apply a filter first'); return; }
+  var byCat={};
+  picked.forEach(function(f){ var c=(f.subCategory&&f.subCategory.trim()!=='N/A'?f.subCategory:f.category)||'GENERAL'; c=String(c).trim(); (byCat[c]=byCat[c]||[]).push(f); });
+  function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  var ac=(picked[0]&&picked[0].aircraft)||'HZ-ASD';
+  var today=new Date().toISOString().slice(0,10);
+  var secs='';
+  var n=0;
+  Object.keys(byCat).sort().forEach(function(cat){
+    secs+='<h2>'+esc(cat)+' <span class="cnt">('+byCat[cat].length+')</span></h2>';
+    byCat[cat].forEach(function(f){
+      n++;
+      var photos=(f.photoUrl||'').split(' | ').filter(function(u){return u&&u.indexOf('http')===0;});
+      var ph=photos.map(function(u){return '<a href="'+u+'" target="_blank"><img src="'+u+'" loading="lazy"></a>';}).join('');
+      secs+='<div class="f">'
+        +'<div class="fh"><span class="no">'+n+'</span><span class="d">'+esc(f.description)+'</span></div>'
+        +(f.remarks?'<div class="rm">Remarks: '+esc(f.remarks)+'</div>':'')
+        +'<div class="meta">'+esc(f.date||'')+' · '+esc(f.time||'')+' · Reporter: '+esc(f.reporter||'—')+'</div>'
+        +(ph?'<div class="ph">'+ph+'</div>':'')
+        +'</div>';
+    });
   });
-  var csv='\ufeff'+rows.join('\n');
+  var html='<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
+   +'<title>Findings Report — '+esc(ac)+'</title><style>'
+   +'body{font-family:Arial,Helvetica,sans-serif;margin:24px;color:#1a2b22;background:#fff}'
+   +'h1{color:#0a5c36;border-bottom:3px solid #0a5c36;padding-bottom:8px;font-size:22px}'
+   +'.sub{color:#666;font-size:13px;margin-bottom:18px}'
+   +'h2{color:#0a5c36;background:#f2faf5;padding:7px 12px;border-radius:8px;font-size:16px;margin:26px 0 10px}'
+   +'.cnt{color:#888;font-weight:normal;font-size:13px}'
+   +'.f{border:1px solid #dfe8e2;border-radius:10px;padding:12px 14px;margin:10px 0;page-break-inside:avoid}'
+   +'.fh{display:flex;gap:10px;align-items:baseline}'
+   +'.no{background:#0a5c36;color:#fff;border-radius:6px;padding:2px 9px;font-weight:bold;font-size:13px;flex:0 0 auto}'
+   +'.d{font-weight:bold;font-size:14.5px}'
+   +'.rm{color:#7a4b00;font-size:13px;margin:6px 0 0}'
+   +'.meta{color:#889;font-size:12px;margin:5px 0 8px}'
+   +'.ph{display:flex;flex-wrap:wrap;gap:8px}'
+   +'.ph img{width:340px;max-width:100%;border-radius:8px;border:1px solid #cfd8d2}'
+   +'@media print{.ph img{width:300px}}'
+   +'</style></head><body>'
+   +'<h1>✈️ '+esc(ac)+' — Cabin Findings Report</h1>'
+   +'<div class="sub">Generated '+today+' · '+picked.length+' findings · '+Object.keys(byCat).length+' categories · Photos load at full resolution (tap to open)</div>'
+   +secs+'</body></html>';
   var a=document.createElement('a');
-  a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
-  a.download='Tracker_Rows_'+new Date().toISOString().slice(0,10)+'.csv';
+  a.href='data:text/html;charset=utf-8,'+encodeURIComponent(html);
+  a.download='Findings_HD_'+esc(ac).replace(/[^A-Z0-9-]/gi,'')+'_'+today+'.html';
   document.body.appendChild(a); a.click();
   setTimeout(function(){document.body.removeChild(a);},600);
 }
