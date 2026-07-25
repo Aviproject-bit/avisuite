@@ -222,7 +222,7 @@ th:nth-child(10),td:nth-child(10){width:75px}
     <input type="date" class="fs" id="f-fr" onchange="applyFilter()" style="width:118px">
     <input type="date" class="fs" id="f-to" onchange="applyFilter()" style="width:118px">
     <span class="cnt" id="cnt">—</span>
-    <button class="tb tg" onclick="resetF()">Reset</button><button class="tb" style="background:#0a5c36;color:#fff" onclick="exportHDReport()">🖼️ HD Export</button>
+    <button class="tb tg" onclick="resetF()">Reset</button><button class="tb" style="background:#0a5c36;color:#fff;display:inline-flex;align-items:center;gap:6px" onclick="exportHDReport()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>HD Export</button><span id="sel-chip" style="font-size:11px;color:#0a5c36;font-weight:700;margin:0 4px"></span>
     <button class="tb tg" onclick="doExcelExport()">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Excel
     </button>
@@ -494,12 +494,12 @@ function render(){
   const rows=filtered.slice((pg-1)*perPg,pg*perPg);
   if(!rows.length){document.getElementById('tcon').innerHTML='<div class="empty">No findings match.</div>';return;}
   const admTh=isAdmin?'<th style="width:75px">Actions</th>':'';
-  const cbTh=isAdmin?`<th class="cb-cell"><input type="checkbox" class="row-cb" id="cb-all" onclick="toggleAll(this)"></th>`:'';
+  const cbTh=`<th class="cb-cell"><input type="checkbox" class="row-cb" id="cb-all" onclick="toggleAll(this)"></th>`;
   const body=rows.map((f,i)=>{
     const idx=(pg-1)*perPg+i;
     const ph=f.photoUrl?f.photoUrl.split(' | ').map(u=>`<img class="ph" loading="lazy" decoding="async" src="${u}" onclick="showLB('${u}')" onerror="this.style.display='none'">`).join(''):'—';
     const admTd=isAdmin?`<td><button class="rb e" onclick="inlineEdit(${idx},this)">Edit</button><button class="rb d" onclick="delRow(${idx})">Del</button></td>`:'';
-    const cbTd=isAdmin?`<td class="cb-cell"><input type="checkbox" class="row-cb" data-idx="${idx}" onchange="toggleSel(this)" ${selected.has(f._id+'_'+f.timestamp)?'checked':''}></td>`:'';
+    const cbTd=`<td class="cb-cell"><input type="checkbox" class="row-cb" data-idx="${idx}" onchange="toggleSel(this)" ${selected.has(f._id+'_'+f.timestamp)?'checked':''}></td>`;
     return `<tr>
       <td onclick="cp(this)">${fmt(f.timestamp)}</td>
       <td onclick="cp(this)">${f.time||'—'}</td>
@@ -631,7 +631,8 @@ function toggleAll(cb){
   updateDelBtn();
 }
 
-function updateDelBtn(){
+function updateSelChip(){ const el=document.getElementById('sel-chip'); if(el){ el.textContent=selected.size? (selected.size+' selected') : ''; } }
+function updateDelBtn(){ updateSelChip();
   const btn=document.getElementById('del-sel-btn');
   const cnt=document.getElementById('del-sel-count');
   const acBtn=document.getElementById('ac-sel-btn');
@@ -895,29 +896,32 @@ function exportHDReport(){
   }
   if(!picked.length && typeof filtered!=='undefined') picked=filtered.slice();
   if(!picked.length){ alert('Select findings (checkboxes) or apply a filter first'); return; }
+  function norm(s){ return String(s||'').replace(/\s+/g,' ').trim().toUpperCase(); }
   var byCat={};
-  picked.forEach(function(f){ var c=(f.subCategory&&f.subCategory.trim()!=='N/A'?f.subCategory:f.category)||'GENERAL'; c=String(c).trim(); (byCat[c]=byCat[c]||[]).push(f); });
+  picked.forEach(function(f){ var c=norm(f.category)||'GENERAL'; (byCat[c]=byCat[c]||[]).push(f); });
+  var cats=Object.keys(byCat).sort();
   function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-  var ac=(picked[0]&&picked[0].aircraft)||'HZ-ASD';
+  var ac=norm((picked[0]&&picked[0].aircraft)||'HZ-ASD');
   var today=new Date().toISOString().slice(0,10);
-  var secs='';
-  var n=0;
-  Object.keys(byCat).sort().forEach(function(cat){
-    secs+='<h2>'+esc(cat)+' <span class="cnt">('+byCat[cat].length+')</span></h2>';
+  var PLANE='<svg width="20" height="20" viewBox="0 0 24 24" fill="#0a5c36" style="vertical-align:-3px"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>';
+  var secs=''; var n=0;
+  cats.forEach(function(cat){
+    if(cats.length>1) secs+='<h2>'+esc(cat)+' <span class="cnt">('+byCat[cat].length+')</span></h2>';
     byCat[cat].forEach(function(f){
       n++;
       var photos=(f.photoUrl||'').split(' | ').filter(function(u){return u&&u.indexOf('http')===0;});
-      var ph=photos.map(function(u){return '<a href="'+u+'" target="_blank"><img src="'+u+'" loading="lazy"></a>';}).join('');
+      var ph=photos.map(function(u){return '<img src="'+u+'" loading="lazy">';}).join('');
+      var sub=norm(f.subCategory); if(sub==='N/A') sub='';
       secs+='<div class="f">'
         +'<div class="fh"><span class="no">'+n+'</span><span class="d">'+esc(f.description)+'</span></div>'
         +(f.remarks?'<div class="rm">Remarks: '+esc(f.remarks)+'</div>':'')
-        +'<div class="meta">'+esc(f.date||'')+' · '+esc(f.time||'')+' · Reporter: '+esc(f.reporter||'—')+'</div>'
+        +'<div class="meta">'+(sub?esc(sub)+' · ':'')+esc(f.date||'')+' · '+esc(f.time||'')+' · '+esc(f.reporter||'—')+'</div>'
         +(ph?'<div class="ph">'+ph+'</div>':'')
         +'</div>';
     });
   });
   var html='<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
-   +'<title>Findings Report — '+esc(ac)+'</title><style>'
+   +'<title>Findings — '+esc(ac)+'</title><style>'
    +'body{font-family:Arial,Helvetica,sans-serif;margin:24px;color:#1a2b22;background:#fff}'
    +'h1{color:#0a5c36;border-bottom:3px solid #0a5c36;padding-bottom:8px;font-size:22px}'
    +'.sub{color:#666;font-size:13px;margin-bottom:18px}'
@@ -933,14 +937,19 @@ function exportHDReport(){
    +'.ph img{width:340px;max-width:100%;border-radius:8px;border:1px solid #cfd8d2}'
    +'@media print{.ph img{width:300px}}'
    +'</style></head><body>'
-   +'<h1>✈️ '+esc(ac)+' — Cabin Findings Report</h1>'
-   +'<div class="sub">Generated '+today+' · '+picked.length+' findings · '+Object.keys(byCat).length+' categories · Photos load at full resolution (tap to open)</div>'
+   +'<h1>'+PLANE+' '+esc(ac)+' — Cabin Findings Report</h1>'
+   +'<div class="sub">Generated '+today+' · '+picked.length+' findings · '+cats.length+' categor'+(cats.length===1?'y':'ies')+'</div>'
    +secs+'</body></html>';
-  var a=document.createElement('a');
-  a.href='data:text/html;charset=utf-8,'+encodeURIComponent(html);
-  a.download='Findings_HD_'+esc(ac).replace(/[^A-Z0-9-]/gi,'')+'_'+today+'.html';
-  document.body.appendChild(a); a.click();
-  setTimeout(function(){document.body.removeChild(a);},600);
+  var blob=new Blob([html],{type:'text/html'});
+  var url=URL.createObjectURL(blob);
+  var w=window.open(url,'_blank');
+  if(!w){
+    var a=document.createElement('a');
+    a.href=url; a.download='Findings_HD_'+ac.replace(/[^A-Z0-9-]/g,'')+'_'+today+'.html';
+    document.body.appendChild(a); a.click();
+    setTimeout(function(){document.body.removeChild(a);},600);
+  }
+  setTimeout(function(){URL.revokeObjectURL(url);},60000);
 }
 </script>
 
