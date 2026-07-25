@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>AviSuite Agenda — Shift Plan</title>
+<style>
+:root{--g:#0a5c36;--gl:#e8f4ee;--bd:#d5e3da;--tx:#1a2b22;--mut:#7c8a82;--red:#b3261e;--amb:#8a6d00}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f4f7f5;color:var(--tx)}
+.top{background:var(--g);color:#fff;padding:12px 14px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:5}
+.top h1{font-size:16px;margin:0;flex:1;font-weight:800;letter-spacing:.3px}
+.top .ac{background:rgba(255,255,255,.15);border-radius:8px;padding:3px 10px;font-size:12px;font-weight:700}
+.datebar{display:flex;align-items:center;justify-content:center;gap:14px;padding:10px;background:#fff;border-bottom:1px solid var(--bd)}
+.datebar button{border:1px solid var(--bd);background:#fff;border-radius:10px;width:38px;height:34px;font-size:16px;color:var(--g);font-weight:800}
+#dlbl{font-weight:800;font-size:14.5px;min-width:170px;text-align:center}
+.shifts{display:flex;gap:6px;padding:10px 12px 0}
+.sh{flex:1;text-align:center;padding:9px 4px;border-radius:12px 12px 0 0;border:1px solid var(--bd);border-bottom:none;background:#eef2ef;font-weight:800;font-size:13px;color:var(--mut);cursor:pointer}
+.sh small{display:block;font-weight:600;font-size:10px;margin-top:1px}
+.sh.on{background:#fff;color:var(--g);border-color:var(--g)}
+.panel{background:#fff;margin:0 12px 14px;border:1px solid var(--g);border-radius:0 0 14px 14px;padding:12px}
+.hand{background:#fff8e1;border:1px dashed #d9b23c;border-radius:12px;padding:10px;margin-bottom:12px}
+.hand label{font-size:11.5px;font-weight:800;color:var(--amb);display:flex;align-items:center;gap:6px}
+.hand textarea{width:100%;border:none;background:transparent;resize:vertical;min-height:34px;font-family:inherit;font-size:13.5px;margin-top:4px;outline:none}
+.hand .hmeta{font-size:10.5px;color:var(--mut);text-align:left}
+.addbox{border:1.5px dashed var(--g);border-radius:12px;padding:10px;margin-bottom:12px;background:var(--gl)}
+.addbox input,.addbox select{border:1px solid var(--bd);border-radius:9px;padding:9px 10px;font-size:13.5px;width:100%;margin-bottom:7px;background:#fff}
+.row2{display:flex;gap:7px}
+.row2 select{flex:0 0 108px}
+.row2 label{flex:0 0 auto;display:flex;align-items:center;gap:5px;font-size:12px;font-weight:700;color:var(--red);background:#fff;border:1px solid var(--bd);border-radius:9px;padding:0 10px;margin-bottom:7px}
+.addbtn{width:100%;background:var(--g);color:#fff;border:none;border-radius:10px;padding:11px;font-size:14px;font-weight:800}
+.card{border:1px solid var(--bd);border-radius:12px;padding:10px 11px;margin-bottom:9px;background:#fff;position:relative}
+.card.done{background:#f2f6f3}
+.card.done .tx{text-decoration:line-through;color:var(--mut)}
+.card.prio{border-inline-start:4px solid var(--red)}
+.card.carry{border-inline-start:4px solid #d9b23c}
+.tx{font-size:14.5px;font-weight:700;line-height:1.45;padding-inline-end:26px}
+.who{margin-top:5px;font-size:12.5px;color:var(--g);font-weight:700}
+.who svg{vertical-align:-2px}
+.cmeta{margin-top:6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.chip{background:var(--gl);color:var(--g);border:1px solid #bcdcc9;border-radius:10px;padding:1px 9px;font-size:10.5px;font-weight:800}
+.by{font-size:10.5px;color:var(--mut);margin-inline-start:auto}
+.dn{position:absolute;top:9px;inset-inline-end:9px;width:24px;height:24px;border-radius:7px;border:1.6px solid var(--g);background:#fff;color:var(--g);font-weight:900;font-size:14px;line-height:20px;text-align:center;cursor:pointer;padding:0}
+.card.done .dn{background:var(--g);color:#fff}
+.del{border:none;background:none;color:#c33;font-size:11px;font-weight:700;padding:2px 4px;cursor:pointer}
+.empty{color:var(--mut);text-align:center;padding:22px 6px;font-size:13px}
+.foot{display:flex;gap:8px;margin:2px 12px 20px}
+.foot button{flex:1;border:1px solid var(--bd);background:#fff;border-radius:11px;padding:10px;font-size:12.5px;font-weight:700;color:var(--g)}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:#123c2a;color:#fff;padding:10px 18px;border-radius:12px;font-size:13px;opacity:0;transition:.25s;pointer-events:none;z-index:99;max-width:88vw;text-align:center}
+.toast.on{opacity:1}
+#lock{position:fixed;inset:0;background:var(--g);z-index:50;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;color:#fff}
+#lock input{font-size:26px;letter-spacing:12px;text-align:center;border:none;border-radius:12px;padding:10px;width:170px}
+#lock .t{font-weight:800;font-size:17px}
+.ver{position:fixed;bottom:4px;left:8px;font-size:9px;color:#9ca3af;z-index:4;pointer-events:none}
+@media print{.top,.datebar,.shifts,.addbox,.foot,.dn,.del,#lock,.ver{display:none!important}
+.panel{border:none;margin:0}
+body{background:#fff}
+.card{page-break-inside:avoid}}
+</style>
+</head>
+<body>
+<div id="lock"><div class="t">🔒 Shift Agenda — Supervisors</div><input id="pc" type="tel" maxlength="4" placeholder="• • •"><div style="font-size:11.5px;opacity:.75">Enter passcode</div></div>
+<div class="top">
+ <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M19 4h-1V2h-2v2H8V2H6v2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 16H5V10h14zM5 8V6h14v2z"/></svg>
+ <h1>Shift Agenda</h1><span class="ac">HZ-ASD</span>
+</div>
+<div class="datebar">
+ <button onclick="nav(-1)">‹</button><div id="dlbl"></div><button onclick="nav(1)">›</button>
+</div>
+<div class="shifts" id="tabs"></div>
+<div class="panel">
+ <div class="hand">
+  <label><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#8a6d00" stroke-width="2.4" stroke-linecap="round"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/></svg> HANDOVER — notes for next shift</label>
+  <textarea id="hnote" placeholder="Anything the next shift must know…" onchange="saveHandover()"></textarea>
+  <div class="hmeta" id="hmeta"></div>
+ </div>
+ <div class="addbox">
+  <input id="ntx" placeholder="Task / plan — e.g. SIDEWALL panels FR22–FR30">
+  <input id="nwho" placeholder="Assigned to — names (optional)">
+  <div class="row2">
+   <select id="narea"><option value="">Area…</option><option>FWD</option><option>MID</option><option>AFT</option><option>JOINT</option></select>
+   <label><input type="checkbox" id="nprio" style="width:auto;margin:0"> Priority</label>
+   <div style="flex:1"></div>
+  </div>
+  <button class="addbtn" onclick="addTask()">＋ Add to plan</button>
+ </div>
+ <div id="list"></div>
+</div>
+<div class="foot">
+ <button onclick="carryOver()">⤵ Bring unfinished from yesterday</button>
+ <button onclick="window.print()">⎙ Print plan</button>
+</div>
+<div class="toast" id="toast"></div>
+<div class="ver">AG v1.0</div>
+<script>
+const PROXY='https://acft-proxy.aviproject.workers.dev';
+const PASS='545', ADMIN='9955';
+const SHIFTS=[['D','06:00–14:00'],['T','14:00–22:00'],['G','22:00–06:00']];
+let day=new Date(), shift='D', data=null, busy=false, isAdmin=false;
+const devId=(()=>{let d=localStorage.getItem('ag_dev');if(!d){d='dv'+Math.random().toString(36).slice(2,9);localStorage.setItem('ag_dev',d);}return d;})();
+function myName(){let n=localStorage.getItem('ag_name');if(!n){n=(prompt('Your name / PRN:')||'').trim().toUpperCase();if(n)localStorage.setItem('ag_name',n);}return n||'—';}
+function dstr(d){return d.toISOString().slice(0,10);}
+function path(d){return 'agenda/'+dstr(d)+'.json';}
+function api(d){return PROXY+'?path='+encodeURIComponent(path(d));}
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('on');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('on'),2600);}
+// ── lock ──
+document.getElementById('pc').addEventListener('input',e=>{
+ const v=e.target.value;
+ if(v===PASS||v===ADMIN){isAdmin=(v===ADMIN);localStorage.setItem('ag_auth',Date.now());document.getElementById('lock').style.display='none';myName();load();}
+ else if(v.length>=4){e.target.value='';toast('Wrong code');}
+});
+if(Date.now()-(+localStorage.getItem('ag_auth')||0)<36*3600*1000){document.getElementById('lock').style.display='none';setTimeout(load,10);}
+// ── data ──
+async function ghGet(d){const r=await fetch(api(d)+'&t='+Date.now());if(r.status===404)return{sha:null,items:{}};if(!r.ok)throw new Error('load '+r.status);const j=await r.json();try{return{sha:j.sha,items:JSON.parse(decodeURIComponent(escape(atob(j.content.split('\n').join('')))))||{}};}catch(e){throw new Error('parse');}}
+async function ghPut(d,items,sha){const body={message:'Agenda '+dstr(d),content:btoa(unescape(encodeURIComponent(JSON.stringify(items,null,1))))};if(sha)body.sha=sha;const r=await fetch(api(d),{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});if(!r.ok)throw new Error('save '+r.status);return(await r.json()).content.sha;}
+async function mutate(fn){
+ if(busy){toast('⏳ Saving…');return;}
+ busy=true;
+ try{
+  for(let a=0;a<3;a++){
+   const cur=await ghGet(day);
+   fn(cur.items);
+   try{await ghPut(day,cur.items,cur.sha);data=cur.items;render();busy=false;return;}
+   catch(e){if(a===2)throw e;}
+  }
+ }catch(e){toast('❌ Save failed — retry. Your text is kept.');}
+ busy=false;
+}
+async function load(){
+ renderDate();renderTabs();
+ document.getElementById('list').innerHTML='<div class="empty">Loading…</div>';
+ try{const cur=await ghGet(day);data=cur.items;render();}
+ catch(e){document.getElementById('list').innerHTML='<div class="empty">⚠️ Could not load — check connection</div>';}
+}
+// ── render ──
+function renderDate(){document.getElementById('dlbl').textContent=day.toLocaleDateString('en-GB',{weekday:'short',day:'2-digit',month:'short',year:'numeric'});}
+function renderTabs(){document.getElementById('tabs').innerHTML=SHIFTS.map(([s,h])=>`<div class="sh${s===shift?' on':''}" onclick="shift='${s}';render();renderTabs()">${s}<small>${h}</small></div>`).join('');}
+function items(){return Object.values(data||{}).filter(x=>x&&x.type!=='hand'&&x.shift===shift).sort((a,b)=>(b.prio?1:0)-(a.prio?1:0)||(a.ts-b.ts));}
+function render(){
+ renderTabs();
+ const h=(data||{})['hand_'+shift]||null;
+ document.getElementById('hnote').value=h?h.text:'';
+ document.getElementById('hmeta').textContent=h&&h.text?('— '+h.by+' · '+new Date(h.ts).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})):'';
+ const L=items();
+ document.getElementById('list').innerHTML=L.length?L.map(card).join(''):'<div class="empty">No plan yet for this shift — add the first task ⬆</div>';
+}
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function card(x){
+ const mine=x.dev===devId;
+ return `<div class="card${x.done?' done':''}${x.prio?' prio':''}${x.carry?' carry':''}">
+  <button class="dn" onclick="toggleDone('${x.id}')">${x.done?'✓':''}</button>
+  <div class="tx">${x.carry?'⤵ ':''}${esc(x.text)}</div>
+  ${x.who?`<div class="who"><svg width="12" height="12" viewBox="0 0 24 24" fill="#0a5c36"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-4 0-8 2-8 5v3h16v-3c0-3-4-5-8-5z"/></svg> ${esc(x.who)}</div>`:''}
+  <div class="cmeta">
+   ${x.area?`<span class="chip">${esc(x.area)}</span>`:''}
+   ${x.prio?'<span class="chip" style="background:#fdecea;color:#b3261e;border-color:#f2b8b5">PRIORITY</span>':''}
+   <span class="by">${esc(x.by)} · ${new Date(x.ts).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})}</span>
+   ${(mine||isAdmin)?`<button class="del" onclick="delTask('${x.id}')">remove</button>`:''}
+  </div></div>`;
+}
+// ── actions ──
+function addTask(){
+ const tx=document.getElementById('ntx').value.trim();
+ if(!tx){toast('Write the task first');return;}
+ const t={id:'t'+Date.now()+Math.random().toString(36).slice(2,6),type:'task',shift,text:tx,
+  who:document.getElementById('nwho').value.trim().toUpperCase(),
+  area:document.getElementById('narea').value,prio:document.getElementById('nprio').checked,
+  done:false,by:myName(),dev:devId,ts:Date.now()};
+ mutate(it=>{it[t.id]=t;});
+ document.getElementById('ntx').value='';document.getElementById('nwho').value='';
+ document.getElementById('narea').value='';document.getElementById('nprio').checked=false;
+}
+function toggleDone(id){mutate(it=>{if(it[id])it[id].done=!it[id].done;});}
+function delTask(id){if(!confirm('Remove this task?'))return;mutate(it=>{delete it[id];});}
+function saveHandover(){
+ const v=document.getElementById('hnote').value.trim();
+ mutate(it=>{it['hand_'+shift]={id:'hand_'+shift,type:'hand',shift,text:v,by:myName(),dev:devId,ts:Date.now()};});
+}
+async function carryOver(){
+ const y=new Date(day);y.setDate(y.getDate()-1);
+ try{
+  const prev=await ghGet(y);
+  const open=Object.values(prev.items||{}).filter(x=>x&&x.type==='task'&&x.shift===shift&&!x.done);
+  if(!open.length){toast('Nothing unfinished yesterday ('+shift+')');return;}
+  mutate(it=>{open.forEach(o=>{const id='t'+Date.now()+Math.random().toString(36).slice(2,6);
+   it[id]={...o,id,carry:true,done:false,ts:Date.now(),by:myName(),dev:devId};});});
+  toast('⤵ '+open.length+' task(s) carried over');
+ }catch(e){toast('Could not read yesterday');}
+}
+function nav(k){day.setDate(day.getDate()+k);load();}
+setInterval(()=>{if(!busy&&document.getElementById('lock').style.display==='none')ghGet(day).then(c=>{data=c.items;render();}).catch(()=>{});},60000);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)load();});
+</script>
+</body>
+</html>
