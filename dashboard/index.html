@@ -907,7 +907,8 @@ function exportHDReport(){
     byCat[cat].forEach(function(f){
       n++;
       var photos=(f.photoUrl||'').split(' | ').filter(function(u){return u&&u.indexOf('http')===0;});
-      var ph=photos.map(function(u){return '<img src="'+u+'" loading="lazy">';}).join('');
+      var thumbs=(f.photoThumb||'').split(' | ');
+      var ph=photos.map(function(u,i){var t=(thumbs[i]&&thumbs[i].indexOf('http')===0)?thumbs[i]:u;return '<a href="'+u+'" target="_blank" rel="noopener"><img src="'+t+'" loading="lazy"></a>';}).join('');
       var sub=norm(f.subCategory); if(sub==='N/A') sub='';
       secs+='<div class="f">'
         +'<div class="fh"><span class="no">'+n+'</span><span class="d">'+esc(f.description)+'</span></div>'
@@ -932,7 +933,8 @@ function exportHDReport(){
    +'.meta{color:#889;font-size:12px;margin:5px 0 8px}'
    +'.ph{display:flex;flex-wrap:wrap;gap:8px}'
    +'.ph img{width:340px;max-width:100%;border-radius:8px;border:1px solid #cfd8d2}'
-   +'@media print{.ph img{width:300px}}'
+   +'@page{margin:12mm}'
+   +'@media print{body{margin:0}h1{page-break-after:avoid;margin-top:0}.sub{page-break-after:avoid}h2{page-break-after:avoid}.f{page-break-inside:avoid}.ph img{width:300px}html,body{height:auto}}'
    +'</style></head><body>'
    +'<h1>'+PLANE+' '+esc(ac)+' — Cabin Findings Report</h1>'
    +'<div class="sub">Generated '+today+' · '+picked.length+' findings · '+cats.length+' categor'+(cats.length===1?'y':'ies')+'</div>'
