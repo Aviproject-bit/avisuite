@@ -1,5 +1,1747 @@
 [
   {
+    "_id": "17846660530365ql37",
+    "timestamp": "2026-07-21T20:34:13.036Z",
+    "date": "21/07/2026",
+    "time": "23:34",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "FLIGHT DECK",
+    "subCategory": "STOWAGE",
+    "description": "STOWAGE COMP DIRTY",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/V0S6MWKf/2c0f499aba84.jpg | https://i.ibb.co/DHR2Xff9/e954f2fa6628.jpg | https://i.ibb.co/ymNVHCr5/82edb4a173a1.jpg | https://i.ibb.co/mC61CMhY/2c192cc49cbd.jpg"
+  },
+  {
+    "_id": "1784665669055em9xk",
+    "timestamp": "2026-07-21T20:27:49.055Z",
+    "date": "21/07/2026",
+    "time": "23:27",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "FLIGHT DECK",
+    "subCategory": "WASTE GATE",
+    "description": "WASTE GATE SPRING STUCK AND EDGES CHIPPED",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/cKvnQbLQ/d8d90d2d32a4.jpg | https://i.ibb.co/1j6tQkM/d4739312fa3b.jpg"
+  },
+  {
+    "_id": "1784665669055em9xk",
+    "timestamp": "2026-07-21T20:27:49.055Z",
+    "date": "21/07/2026",
+    "time": "23:27",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "FLIGHT DECK",
+    "subCategory": "DECALS",
+    "description": "DECAL DAMAGES",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/7JSQz40y/121e4cb35567.jpg | https://i.ibb.co/pStxDjx/5a7078625ab8.jpg | https://i.ibb.co/4ZNPYDdT/bc71fabd91d4.jpg | https://i.ibb.co/7N0t9b8b/c83b27d90ddf.jpg | https://i.ibb.co/FLWyVfps/b7ea655f3e1d.jpg"
+  },
+  {
+    "_id": "1784665191081d78uq",
+    "timestamp": "2026-07-21T20:19:51.081Z",
+    "date": "21/07/2026",
+    "time": "23:19",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "FLIGHT DECK",
+    "subCategory": "DISC STOWAGE",
+    "description": "DISC STOWAGE DIRTY, PAINT PEELED",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/sdM1bx04/333df573f526.jpg | https://i.ibb.co/PynFbg0/9f4695bb788c.jpg | https://i.ibb.co/BHcr8tYx/4133ee94ebe8.jpg"
+  },
+  {
+    "_id": "1784665191081d78uq",
+    "timestamp": "2026-07-21T20:19:51.081Z",
+    "date": "21/07/2026",
+    "time": "23:19",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "FLIGHT DECK",
+    "subCategory": "FIRE EX",
+    "description": "PORT FIRE EX COMP EDGES CHIPPED AND DIRTY AND DECAL EDGES DAMAGE",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/LDKNs53R/60a738aab7c7.jpg | https://i.ibb.co/Kxw7TX6x/cb59ff7813b0.jpg"
+  },
+  {
+    "_id": "17846649129314dgoo",
+    "timestamp": "2026-07-21T20:15:12.931Z",
+    "date": "21/07/2026",
+    "time": "23:14",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "FLIGHT DECK",
+    "subCategory": "COMP",
+    "description": "STOWAGE COMP EDGES DAMAGED AND PLASTIC PAINT PEELED",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/cc3kMLpK/53b04780be07.jpg | https://i.ibb.co/ZRSZV7zx/23f87b95eb76.jpg"
+  },
+  {
+    "_id": "17846649129314dgoo",
+    "timestamp": "2026-07-21T20:15:12.931Z",
+    "date": "21/07/2026",
+    "time": "23:14",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "FLIGHT DECK",
+    "subCategory": "STOWAGE COMP",
+    "description": "STOWAGE COMP DIRTY AND PAINT FADED",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/TdKwHcy/1ffabf0fe14f.jpg | https://i.ibb.co/TDG7VKmF/171a79eb51db.jpg | https://i.ibb.co/Q7WVmGz2/0c91afae6c65.jpg"
+  },
+  {
+    "_id": "1784664227683aa8ib",
+    "timestamp": "2026-07-21T20:03:47.683Z",
+    "date": "21/07/2026",
+    "time": "23:03",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "FLIGHT DECK",
+    "subCategory": "FO",
+    "description": "FO SLIDING TABLE PAINT CHIPPED",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/5WPqGk9Z/ff9771b3f85c.jpg | https://i.ibb.co/Xx9XSkkW/a843df085b90.jpg | https://i.ibb.co/gMsCZk8F/1fca9100cc60.jpg | https://i.ibb.co/gbwZJgF0/cf72cec589c0.jpg | https://i.ibb.co/b560yNCb/199686d84502.jpg"
+  },
+  {
+    "_id": "1784663248173lulsb",
+    "timestamp": "2026-07-21T19:47:28.173Z",
+    "date": "21/07/2026",
+    "time": "22:46",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "FLIGHT DECK",
+    "subCategory": "2ND OBSERVER",
+    "description": "SECOND OBSERVER SEAT COVER DIRTY AND HAS PAINT",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/2zzR477/08f76236c977.jpg | https://i.ibb.co/7x7wYdSR/131c64682066.jpg | https://i.ibb.co/qMYS1513/84844b7670b5.jpg | https://i.ibb.co/qY3RKBtm/6270fc2e42b8.jpg"
+  },
+  {
+    "_id": "1784663248173lulsb",
+    "timestamp": "2026-07-21T19:47:28.173Z",
+    "date": "21/07/2026",
+    "time": "22:46",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "FLIGHT DECK",
+    "subCategory": "1ST OBSERVER",
+    "description": "FIRST OBSERVER SEAT METAL CHIPPED PAINT",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/bq5YNVk/85adca2d030c.jpg | https://i.ibb.co/YFfSdYCR/e6bcb06764ab.jpg"
+  },
+  {
+    "_id": "1784663248173lulsb",
+    "timestamp": "2026-07-21T19:47:28.173Z",
+    "date": "21/07/2026",
+    "time": "22:46",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "FLIGHT DECK",
+    "subCategory": "2ND OBSERVER",
+    "description": "SECOND OBSERVER BACK REST DISCONNECTED",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/Vc777w3c/b0b48c74575e.jpg | https://i.ibb.co/N648M3vP/11c2306341dc.jpg"
+  },
+  {
+    "_id": "1784663248173lulsb",
+    "timestamp": "2026-07-21T19:47:28.173Z",
+    "date": "21/07/2026",
+    "time": "22:46",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "FLIGHT DECK",
+    "subCategory": "2ND OBSERVER",
+    "description": "SECOND OBSERVER CHEST BUILT WHITE PAINT STAIN",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/CKNQ4z9d/e8e9d04a488b.jpg"
+  },
+  {
+    "_id": "1784663248173lulsb",
+    "timestamp": "2026-07-21T19:47:28.173Z",
+    "date": "21/07/2026",
+    "time": "22:46",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "FLIGHT DECK",
+    "subCategory": "CAP SEAT",
+    "description": "CAP SEAT LIFE-VEST INTERIOR STOWAGE SCRATCHED AND DIRTY",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/mVT1jb3q/cc4177051ecc.jpg"
+  },
+  {
+    "_id": "1784663248173lulsb",
+    "timestamp": "2026-07-21T19:47:28.173Z",
+    "date": "21/07/2026",
+    "time": "22:46",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "FLIGHT DECK",
+    "subCategory": "CAP SEAT",
+    "description": "CAP SEAT LIFE-VEST DECAL SMALL CHIPP",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/MxQpY4gN/12a5ddc7c3f2.jpg"
+  },
+  {
+    "_id": "1784663248173lulsb",
+    "timestamp": "2026-07-21T19:47:28.173Z",
+    "date": "21/07/2026",
+    "time": "22:46",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "FLIGHT DECK",
+    "subCategory": "CAP SEAT",
+    "description": "CAP SEAT DOWNWARD BLACK-METAL CHIPPED PAINT",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/cS5D6Psm/243ecd294b1f.jpg"
+  },
+  {
+    "_id": "1784663248173lulsb",
+    "timestamp": "2026-07-21T19:47:28.173Z",
+    "date": "21/07/2026",
+    "time": "22:46",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "FLIGHT DECK",
+    "subCategory": "FO",
+    "description": "FO SEAT LIFE-VEST DECAL BLACK- STAINS",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/2YCfrKVB/556a869cc13b.jpg"
+  },
+  {
+    "_id": "1784663248173lulsb",
+    "timestamp": "2026-07-21T19:47:28.173Z",
+    "date": "21/07/2026",
+    "time": "22:46",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "FLIGHT DECK",
+    "subCategory": "CAP SEAT",
+    "description": "CAP SEAT LIFE-VEST SHROUD CUT",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/yn0yQ4x1/279f1f147658.jpg"
+  },
+  {
+    "_id": "1784663248173lulsb",
+    "timestamp": "2026-07-21T19:47:28.173Z",
+    "date": "21/07/2026",
+    "time": "22:46",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "FLIGHT DECK",
+    "subCategory": "FO",
+    "description": "FO BACK-LIFE-VEST SHROUD CUT DOWNWARD",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/m19rqHf/b2e4ad62c53d.jpg"
+  },
+  {
+    "_id": "1784663248173lulsb",
+    "timestamp": "2026-07-21T19:47:28.173Z",
+    "date": "21/07/2026",
+    "time": "22:46",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "FLIGHT DECK",
+    "subCategory": "FO",
+    "description": "FO SEAT BLACK-AFT METAL CHIPPED PAINT",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/QvjZWqKG/59d01c63a2f6.jpg"
+  },
+  {
+    "_id": "1784663248173lulsb",
+    "timestamp": "2026-07-21T19:47:28.173Z",
+    "date": "21/07/2026",
+    "time": "22:46",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "FLIGHT DECK",
+    "subCategory": "ARM REST",
+    "description": "CAP L/ARM REST BLACK-STAIN, SMALL CHIPPED AND CUT",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/Q7RmqyDf/fb4466e57942.jpg | https://i.ibb.co/tMSsM8mG/f53be1cf7c3a.jpg | https://i.ibb.co/ynK0c9RY/d0d17dcd9252.jpg | https://i.ibb.co/7JmgMSjk/82bf315c451b.jpg | https://i.ibb.co/qMP5DS22/2df5b79458e4.jpg"
+  },
+  {
+    "_id": "1784663248173lulsb",
+    "timestamp": "2026-07-21T19:47:28.173Z",
+    "date": "21/07/2026",
+    "time": "22:46",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "FLIGHT DECK",
+    "subCategory": "ARM REST",
+    "description": "CAP L/ARM REST ADJUSTMENT PLASITC COVER DIRTY",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/fdQJtVPD/6c5898afedb4.jpg"
+  },
+  {
+    "_id": "1784663248173lulsb",
+    "timestamp": "2026-07-21T19:47:28.173Z",
+    "date": "21/07/2026",
+    "time": "22:46",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "FLIGHT DECK",
+    "subCategory": "CAP SEAT",
+    "description": "CAP SEAT R/ARM REST CRACKED AND COVER DISCOLORED AND DIRTY",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/jptRYwZ/4b75071905d7.jpg"
+  },
+  {
+    "_id": "1784663248173lulsb",
+    "timestamp": "2026-07-21T19:47:28.173Z",
+    "date": "21/07/2026",
+    "time": "22:46",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "FLIGHT DECK",
+    "subCategory": "FO",
+    "description": "FO R/ARM REST DISCOLORED EDGES, DIRTY AND PLASTIC CRACKED",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/WW3Ww89K/4b2a0d6496e6.jpg | https://i.ibb.co/mFXLhmw9/ae9d4313e427.jpg | https://i.ibb.co/ZPMHNRR/47d47cad66a4.jpg | https://i.ibb.co/Rt7R2Wp/40cda1aa9e80.jpg"
+  },
+  {
+    "_id": "1784663248173lulsb",
+    "timestamp": "2026-07-21T19:47:28.173Z",
+    "date": "21/07/2026",
+    "time": "22:46",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "FLIGHT DECK",
+    "subCategory": "CAP SEAT",
+    "description": "CAP SEATBUILT FAILUR QUICK RETURN MECHANISM",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/Psk4g0Px/1cb054ea4f6a.jpg"
+  },
+  {
+    "_id": "1784663248173lulsb",
+    "timestamp": "2026-07-21T19:47:28.173Z",
+    "date": "21/07/2026",
+    "time": "22:46",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "FLIGHT DECK",
+    "subCategory": "CAP TABLE",
+    "description": "CAP SLIDING TABLE END CAB CHIPPED PAINT, MIDDLE LATCH STIFF, MIDDLE TABLE SCRATCHED AND CHIPPED, PAPER CLIP CORRODED, BLACK-RUBBER MISSING, SLOW, STIFF AND NEEDS FORCE IN RETURNING MECHANISM",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/1J82sxYH/922b22e2b347.jpg | https://i.ibb.co/SDgWyTVT/871156f4c614.jpg | https://i.ibb.co/vxQ7GXv3/6ebd6ef51764.jpg | https://i.ibb.co/XrmVv1DK/2f46cc33c276.jpg | https://i.ibb.co/bjvdTxyL/3123161a3e72.jpg"
+  },
+  {
+    "_id": "1784663248173lulsb",
+    "timestamp": "2026-07-21T19:47:28.173Z",
+    "date": "21/07/2026",
+    "time": "22:46",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "FLIGHT DECK",
+    "subCategory": "CAP TABLE",
+    "description": "CAP SLIDING TABLE END CAB CHIPPED PAINT, MIDDLE LATCH STIFF, MIDDLE TABLE SCRATCHED AND CHIPPED, PAPER CLIP CORRODED, BLACK-RUBBER MISSING, SLOW, STIFF AND NEEDS FORCE IN RETURNING MECHANISM",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/LDLC8ZqF/8cf77b6f5530.jpg | https://i.ibb.co/ZRLNXrzt/4800d4fd2aa6.jpg | https://i.ibb.co/xq9k1xMs/262fcf47083b.jpg | https://i.ibb.co/JWDXJzWr/07cf1aaa8eb2.jpg | https://i.ibb.co/Cpr2n0LQ/9d1b84c61530.jpg"
+  },
+  {
+    "_id": "1784658989527rv2c9",
+    "timestamp": "2026-07-21T18:36:29.527Z",
+    "date": "21/07/2026",
+    "time": "21:36",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "FLIGHT DECK",
+    "subCategory": "2ND OBSERVER",
+    "description": "SECOND OBSERVER BACK REST VELCRO AND BACK SHROUD DAMAGED",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/whnh6pLr/6ba11748fd70.jpg | https://i.ibb.co/twRzwJN2/45656291e067.jpg | https://i.ibb.co/SD0SB54n/ec34380d7077.jpg | https://i.ibb.co/ZzK4tJ5X/5cd310c90a79.jpg"
+  },
+  {
+    "_id": "17846572384685ids4",
+    "timestamp": "2026-07-21T18:07:18.468Z",
+    "date": "21/07/2026",
+    "time": "21:06",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "FLIGHT DECK",
+    "subCategory": "FO",
+    "description": "FO SEAT VELCRO DAMAGED",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/99k4Dq5L/d46c0d84098c.jpg"
+  },
+  {
+    "_id": "17846572384685ids4",
+    "timestamp": "2026-07-21T18:07:18.468Z",
+    "date": "21/07/2026",
+    "time": "21:06",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "FLIGHT DECK",
+    "subCategory": "CAP",
+    "description": "CAP SEAT VELCRO DAMAGED",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/ch6mpQxv/cfc4cb910db7.jpg"
+  },
+  {
+    "_id": "17846572384685ids4",
+    "timestamp": "2026-07-21T18:07:18.468Z",
+    "date": "21/07/2026",
+    "time": "21:06",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "FLIGHT DECK",
+    "subCategory": "FO",
+    "description": "FO SEAT CHIPPED PAINT AND SCRATCHED",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/MkzHWMCN/b7b646fa0e2f.jpg"
+  },
+  {
+    "_id": "17846572384685ids4",
+    "timestamp": "2026-07-21T18:07:18.468Z",
+    "date": "21/07/2026",
+    "time": "21:06",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "FLIGHT DECK",
+    "subCategory": "1ST OBSERVER",
+    "description": "FIRST OBSERVER HEAD REST BACK SHROUD PAINT FADED AND CHIPPED",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/QvBqsVrB/62c63eda3c80.jpg | https://i.ibb.co/JRYGm3CY/d71b42254f96.jpg"
+  },
+  {
+    "_id": "17846572384685ids4",
+    "timestamp": "2026-07-21T18:07:18.468Z",
+    "date": "21/07/2026",
+    "time": "21:06",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "FLIGHT DECK",
+    "subCategory": "1ST OBSERVER",
+    "description": "FIRST OBSERVER BACK REST CUSHION COVER STAINS",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/Lzt9XjGn/c5910b5f05df.jpg | https://i.ibb.co/7JtVCDb1/781b1f4bca16.jpg"
+  },
+  {
+    "_id": "17846572384685ids4",
+    "timestamp": "2026-07-21T18:07:18.468Z",
+    "date": "21/07/2026",
+    "time": "21:06",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "FLIGHT DECK",
+    "subCategory": "1ST OBSERVER",
+    "description": "1ST OBSERVER FRAYED BOTH CHEST SEAT BUILTS",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/BVDVySKF/2531c0f00e11.jpg"
+  },
+  {
+    "_id": "17846572384685ids4",
+    "timestamp": "2026-07-21T18:07:18.468Z",
+    "date": "21/07/2026",
+    "time": "21:06",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "FLIGHT DECK",
+    "subCategory": "1ST OBSERVER",
+    "description": "FIRST OBSERVER SEAT CUSHION ASSY OUT OF POSITION",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/twwK46n6/a17d41102121.jpg"
+  },
+  {
+    "_id": "17846572384685ids4",
+    "timestamp": "2026-07-21T18:07:18.468Z",
+    "date": "21/07/2026",
+    "time": "21:06",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "FLIGHT DECK",
+    "subCategory": "1ST OBSERVER",
+    "description": "FIRST OBSERVER SEAT DOWNWARD LIFE-VEST VELCRO AND ITS SHROURD DAMAGED",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/0RrZqhPv/83cabfa26e93.jpg | https://i.ibb.co/WW9zMtSJ/2366efe464e8.jpg | https://i.ibb.co/MxcBVKt5/79dd79aa0263.jpg"
+  },
+  {
+    "_id": "1784656145723f8hr0",
+    "timestamp": "2026-07-21T17:49:05.723Z",
+    "date": "21/07/2026",
+    "time": "20:48",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "FLIGHT DECK",
+    "subCategory": "FO",
+    "description": "FO HEAD REST WOOL DAMAGED",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/yBxP5Z23/e2a71d7eb3ba.jpg"
+  },
+  {
+    "_id": "1784656145723f8hr0",
+    "timestamp": "2026-07-21T17:49:05.723Z",
+    "date": "21/07/2026",
+    "time": "20:48",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "FLIGHT DECK",
+    "subCategory": "FO",
+    "description": "FO BACK REST WOOL DAMAGED",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/bgfH9kgk/77a72493a2a9.jpg"
+  },
+  {
+    "_id": "1784652848225i1ki2",
+    "timestamp": "2026-07-21T16:54:08.225Z",
+    "date": "21/07/2026",
+    "time": "19:51",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "FLIGHT DECK",
+    "subCategory": "CAP SEAT",
+    "description": "PILOT HEAD REST COVER DIRTY",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/0pv4pkLZ/76b22a74ae65.jpg | https://i.ibb.co/21CbSPSV/d84741ae1ef3.jpg"
+  },
+  {
+    "_id": "1784652848225i1ki2",
+    "timestamp": "2026-07-21T16:54:08.225Z",
+    "date": "21/07/2026",
+    "time": "19:51",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "FLIGHT DECK",
+    "subCategory": "CAP SEAT",
+    "description": "GREEN PAINT ON CAP BACK REST COVER",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/7HnFvQr/e70e3dd50d94.jpg"
+  },
+  {
+    "_id": "1784652848225i1ki2",
+    "timestamp": "2026-07-21T16:54:08.225Z",
+    "date": "21/07/2026",
+    "time": "19:51",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "FLIGHT DECK",
+    "subCategory": "CAP SEAT",
+    "description": "CAP BACK REST CUSHION COVER STITCHES OUT",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/fGZNDCPk/92ca183952a3.jpg"
+  },
+  {
+    "_id": "1784652848225i1ki2",
+    "timestamp": "2026-07-21T16:54:08.225Z",
+    "date": "21/07/2026",
+    "time": "19:51",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "FLIGHT DECK",
+    "subCategory": "CAP SEAT",
+    "description": "CAP SEAT COVER WRINKELD AND DIRTY",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/NgbxRL2N/27e5367d796d.jpg"
+  },
+  {
+    "_id": "1784652848225i1ki2",
+    "timestamp": "2026-07-21T16:54:08.225Z",
+    "date": "21/07/2026",
+    "time": "19:51",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "FLIGHT DECK",
+    "subCategory": "CAP SEAT",
+    "description": "CAP SEAT METAL CHIPPED PAINT",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/j97YnJMw/b05e6fe61233.jpg"
+  },
+  {
+    "_id": "1784652848225i1ki2",
+    "timestamp": "2026-07-21T16:54:08.225Z",
+    "date": "21/07/2026",
+    "time": "19:51",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "FLIGHT DECK",
+    "subCategory": "CAP SEAT",
+    "description": "CAP SEAT WOOL DAMAGED",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/FL85fX9x/31b1b21ce9e1.jpg"
+  },
+  {
+    "_id": "1784652848225i1ki2",
+    "timestamp": "2026-07-21T16:54:08.225Z",
+    "date": "21/07/2026",
+    "time": "19:51",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "FLIGHT DECK",
+    "subCategory": "FO",
+    "description": "CO-PILOT BACK REST COVER DIRTY",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/2727DJB1/3ae7e496ad10.jpg"
+  },
+  {
+    "_id": "1784652848225i1ki2",
+    "timestamp": "2026-07-21T16:54:08.225Z",
+    "date": "21/07/2026",
+    "time": "19:51",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "FLIGHT DECK",
+    "subCategory": "CO-PILOT",
+    "description": "FO SEAT CUSHION COVER WRINKLED AND DIRTY AND OUT OF POSITION",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/DHn8F1T6/b6651423efea.jpg | https://i.ibb.co/QFJfJ2KN/c02f7ffad194.jpg"
+  },
+  {
+    "_id": "1784652848225i1ki2",
+    "timestamp": "2026-07-21T16:54:08.225Z",
+    "date": "21/07/2026",
+    "time": "19:51",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "category": "FLIGHT DECK",
+    "subCategory": "FO",
+    "description": "FO HEAD REST COVER DIRTY",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/ynphm1Nj/2387e98568d7.jpg"
+  },
+  {
+    "_id": "1784621954170ab91v",
+    "timestamp": "2026-07-21T08:19:14.170Z",
+    "date": "21/07/2026",
+    "time": "11:19",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "category": "PAINT",
+    "subCategory": "5CA",
+    "description": "WINDOW",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/84bDjHc0/d316030718c1.jpg"
+  },
+  {
+    "_id": "1784621698837h93zv",
+    "timestamp": "2026-07-21T08:14:58.837Z",
+    "date": "21/07/2026",
+    "time": "11:14",
+    "aircraft": "HZ-ASD",
+    "reporter": "3004221",
+    "category": "PAINT",
+    "subCategory": "41 CBA",
+    "description": "WINDOW",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/Dgt4DpFw/4b7c6bdd70a4.jpg"
+  },
+  {
+    "_id": "1784620283998w6wq6",
+    "timestamp": "2026-07-21T07:51:23.998Z",
+    "date": "21/07/2026",
+    "time": "10:51",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "category": "PAINT",
+    "subCategory": "L1 DOOR",
+    "description": "PAINT",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/7NZ7NNxR/2857df8c6fa3.jpg | https://i.ibb.co/8DJTWgNL/f95d061a7c01.jpg"
+  },
+  {
+    "_id": "1784620170499ikz4z",
+    "timestamp": "2026-07-21T07:49:30.499Z",
+    "date": "21/07/2026",
+    "time": "10:49",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "category": "GENERAL CABIN",
+    "subCategory": "L2DOOR",
+    "description": "ASSIST HAND LOOSE",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/5gk4tDhh/13efe7f780ea.jpg"
+  },
+  {
+    "_id": "1784620112099syptl",
+    "timestamp": "2026-07-21T07:48:32.099Z",
+    "date": "21/07/2026",
+    "time": "10:48",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "category": "PAINT",
+    "subCategory": "SLIDRAFT L2",
+    "description": "PAINT",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/gHscmRs/fd9581d7dfe7.jpg | https://i.ibb.co/nsR0bHvJ/335b2133a087.jpg | https://i.ibb.co/JRWSZJ8s/01331eaab6af.jpg"
+  },
+  {
+    "_id": "1784620007271k8eki",
+    "timestamp": "2026-07-21T07:46:47.271Z",
+    "date": "21/07/2026",
+    "time": "10:46",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "category": "PAINT",
+    "subCategory": "SLIDRAFT R2",
+    "description": "PAINT BUSTLE",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/60GT35SB/a38a518fb250.jpg | https://i.ibb.co/ynxLnqK2/de727618bf77.jpg"
+  },
+  {
+    "_id": "1784619773260ibbgd",
+    "timestamp": "2026-07-21T07:42:53.260Z",
+    "date": "21/07/2026",
+    "time": "10:42",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "category": "GENERAL CABIN",
+    "subCategory": "OSB 44 LKJ",
+    "description": "COVER HEAD STOWG CRACKED",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/WWd398s8/861ceceec6a6.jpg"
+  },
+  {
+    "_id": "17846197189553xzhq",
+    "timestamp": "2026-07-21T07:41:58.955Z",
+    "date": "21/07/2026",
+    "time": "10:41",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "category": "GENERAL CABIN",
+    "subCategory": "OSB 44 CBA",
+    "description": "COVER HEAD STOWG CRACKED",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/TMKCr6Qj/75c05868109a.jpg | https://i.ibb.co/nqTKt8Jt/447819849780.jpg | https://i.ibb.co/jPsdRth0/f57ee83007c1.jpg | https://i.ibb.co/XkzS6Vht/04d876ad9637.jpg"
+  },
+  {
+    "_id": "1784619646227jv6i2",
+    "timestamp": "2026-07-21T07:40:46.227Z",
+    "date": "21/07/2026",
+    "time": "10:40",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "category": "GENERAL CABIN",
+    "subCategory": "OSB 42LKJ",
+    "description": "MISSING BUMBER",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/KxFSKVX8/9bd40414853c.jpg"
+  },
+  {
+    "_id": "1784619604262fi1qw",
+    "timestamp": "2026-07-21T07:40:04.262Z",
+    "date": "21/07/2026",
+    "time": "10:40",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "category": "GENERAL CABIN",
+    "subCategory": "OSB 42CBA",
+    "description": "MISSING BUMBER",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/vxGt43t7/1459f5f65542.jpg"
+  },
+  {
+    "_id": "1784619559428qpjds",
+    "timestamp": "2026-07-21T07:39:19.428Z",
+    "date": "21/07/2026",
+    "time": "10:39",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "category": "GENERAL CABIN",
+    "subCategory": "OSB 41 LKJ",
+    "description": "CRACKED AND MISSING BUMBER",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/pr9cnSM0/52e81f995e35.jpg | https://i.ibb.co/jkx1RFmM/58d9c1af3583.jpg | https://i.ibb.co/Z6fbrkNj/3f7e99b85707.jpg | https://i.ibb.co/N27jvxkF/580608c09a1f.jpg"
+  },
+  {
+    "_id": "1784619474263njbzb",
+    "timestamp": "2026-07-21T07:37:54.263Z",
+    "date": "21/07/2026",
+    "time": "10:37",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "category": "GENERAL CABIN",
+    "subCategory": "OVER HEAD 41 CBA",
+    "description": "CEILING PANEL CRACKED",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/JFxHNzQs/89805b217683.jpg | https://i.ibb.co/4nhpCV18/8cdef659b359.jpg"
+  },
+  {
+    "_id": "1784619474263njbzb",
+    "timestamp": "2026-07-21T07:37:54.263Z",
+    "date": "21/07/2026",
+    "time": "10:37",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "category": "GENERAL CABIN",
+    "subCategory": "OSB 41 CBA",
+    "description": "MISSING BUMBER",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/s47XvNd/6cd9ef796bc1.jpg"
+  },
+  {
+    "_id": "1784619360586tpp3q",
+    "timestamp": "2026-07-21T07:36:00.586Z",
+    "date": "21/07/2026",
+    "time": "10:35",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "category": "PAINT",
+    "subCategory": "OSB 40 LKJ",
+    "description": "PAINT , DENT",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/DfPjwzRN/496dbf06e75b.jpg | https://i.ibb.co/0jB6qQzf/baab45f12c2c.jpg"
+  },
+  {
+    "_id": "1784619290488jj1t7",
+    "timestamp": "2026-07-21T07:34:50.489Z",
+    "date": "21/07/2026",
+    "time": "10:34",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "category": "GENERAL CABIN",
+    "subCategory": "OSB40CBA",
+    "description": "MISSING BUMBER AND SECRW",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/d4Fj3bGz/8e7891537bc9.jpg | https://i.ibb.co/qLsSVB96/970630c19e27.jpg | https://i.ibb.co/R4j5mGFJ/ee733396a77e.jpg"
+  },
+  {
+    "_id": "17846192251987vb82",
+    "timestamp": "2026-07-21T07:33:45.198Z",
+    "date": "21/07/2026",
+    "time": "10:33",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "category": "PAINT",
+    "subCategory": "ISB LKJ",
+    "description": "CRACKED",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/Z6vK4Dbz/66cda2b68d8b.jpg | https://i.ibb.co/dJVL0w4T/72a2bfda9aa7.jpg"
+  },
+  {
+    "_id": "1784619159062hzepx",
+    "timestamp": "2026-07-21T07:32:39.062Z",
+    "date": "21/07/2026",
+    "time": "10:32",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "category": "GENERAL CABIN",
+    "subCategory": "OSB 39 CBA",
+    "description": "MISSING BUMBER",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/G4bnFGC2/5206906f3b42.jpg"
+  },
+  {
+    "_id": "17846191091799nrtu",
+    "timestamp": "2026-07-21T07:31:49.179Z",
+    "date": "21/07/2026",
+    "time": "10:31",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "category": "PAINT",
+    "subCategory": "OVER HEAD 37CBA",
+    "description": "PAINT",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/b5w020G9/b4f5572b1ed9.jpg"
+  },
+  {
+    "_id": "1784619061968mg4em",
+    "timestamp": "2026-07-21T07:31:01.968Z",
+    "date": "21/07/2026",
+    "time": "10:30",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "category": "GENERAL CABIN",
+    "subCategory": "OSB 36 LKJ",
+    "description": "MISSING BUMBER",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/JFx8N73m/87766c057487.jpg"
+  },
+  {
+    "_id": "1784618985152ja9qx",
+    "timestamp": "2026-07-21T07:29:45.152Z",
+    "date": "21/07/2026",
+    "time": "10:29",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "category": "PAINT",
+    "subCategory": "OSB 33LKJ",
+    "description": "PAINT",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/1YfKKW0z/f03ad0c350db.jpg"
+  },
+  {
+    "_id": "1784618985152ja9qx",
+    "timestamp": "2026-07-21T07:29:45.152Z",
+    "date": "21/07/2026",
+    "time": "10:29",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "category": "GENERAL CABIN",
+    "subCategory": "OSB 33LKJ",
+    "description": "MISSING BUMBER",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/XxrgzxPy/1a8cdc94caf7.jpg"
+  },
+  {
+    "_id": "1784618899340vq56f",
+    "timestamp": "2026-07-21T07:28:19.340Z",
+    "date": "21/07/2026",
+    "time": "10:28",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "category": "PAINT",
+    "subCategory": "OSB 32LKJ",
+    "description": "OSB DIVIDER PAINT AND DAMAGE",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/LXHbBNCX/ffb1ff765db9.jpg | https://i.ibb.co/tpsftxFz/1d02acd3f358.jpg"
+  },
+  {
+    "_id": "1784618899340vq56f",
+    "timestamp": "2026-07-21T07:28:19.340Z",
+    "date": "21/07/2026",
+    "time": "10:28",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "category": "GENERAL CABIN",
+    "subCategory": "OSB 32LKJ",
+    "description": "MISSING BUMBER",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/MkR0wtkV/d5324666531f.jpg"
+  },
+  {
+    "_id": "1784618776489gpem4",
+    "timestamp": "2026-07-21T07:26:16.489Z",
+    "date": "21/07/2026",
+    "time": "10:26",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "category": "PAINT",
+    "subCategory": "OSB 31LKJ",
+    "description": "PAINT",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/k2SrBPM5/11211fd0389f.jpg"
+  },
+  {
+    "_id": "17846187229165zztm",
+    "timestamp": "2026-07-21T07:25:22.916Z",
+    "date": "21/07/2026",
+    "time": "10:25",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "category": "GENERAL CABIN",
+    "subCategory": "OSB 32CBA",
+    "description": "CRACKED AND MISSING BUMBER",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/zVBk1qwZ/60c33b536f0c.jpg | https://i.ibb.co/mmcTs3N/10eb29f0da42.jpg | https://i.ibb.co/qMdt52kF/47a022d4f459.jpg"
+  },
+  {
+    "_id": "1784618623210bygb5",
+    "timestamp": "2026-07-21T07:23:43.210Z",
+    "date": "21/07/2026",
+    "time": "10:23",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "category": "GENERAL CABIN",
+    "subCategory": "OSB 30LKJ",
+    "description": "MISSING BUMBER",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/B5mscqGS/7e1bf118ed62.jpg | https://i.ibb.co/jZ18LjZW/876650fc0f79.jpg"
+  },
+  {
+    "_id": "1784618513309bhiqe",
+    "timestamp": "2026-07-21T07:21:53.309Z",
+    "date": "21/07/2026",
+    "time": "10:21",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "category": "PAINT",
+    "subCategory": "OVER HEAD 5LJ",
+    "description": "CRACKED",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/1f9BYpkC/2e6bef2110c3.jpg | https://i.ibb.co/s9z2nynG/9ec1af033762.jpg"
+  },
+  {
+    "_id": "1784618456029ykk1g",
+    "timestamp": "2026-07-21T07:20:56.030Z",
+    "date": "21/07/2026",
+    "time": "10:20",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "category": "GENERAL CABIN",
+    "subCategory": "OSB 5LJ",
+    "description": "MISSING BUMBER",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/jvyz6t53/fb9fb5fa0ec6.jpg"
+  },
+  {
+    "_id": "1784618412948d61ui",
+    "timestamp": "2026-07-21T07:20:12.948Z",
+    "date": "21/07/2026",
+    "time": "10:19",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "category": "GENERAL CABIN",
+    "subCategory": "OSB",
+    "description": "MISSING INNER BUMBER",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/Mxd7vgYg/9d7c8aab30d2.jpg | https://i.ibb.co/YFKgFHYf/f6c70b3f6822.jpg | https://i.ibb.co/WNBbN3vS/7da76f22d2c1.jpg"
+  },
+  {
+    "_id": "17846183309405axhm",
+    "timestamp": "2026-07-21T07:18:50.940Z",
+    "date": "21/07/2026",
+    "time": "10:17",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "category": "PAINT",
+    "subCategory": "OSB 4LJ",
+    "description": "CRACKED",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/6cpzYdWQ/f762fb52f07b.jpg | https://i.ibb.co/9m9CrCqY/f3a8d937fd34.jpg | https://i.ibb.co/qMP99g1S/80fb132c4eab.jpg"
+  },
+  {
+    "_id": "1784618191189n2l5f",
+    "timestamp": "2026-07-21T07:16:31.189Z",
+    "date": "21/07/2026",
+    "time": "10:16",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "category": "GENERAL CABIN",
+    "subCategory": "4LJ",
+    "description": "OSB MISSING BUMBER",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/DHQ7syLg/73bf486c6e76.jpg"
+  },
+  {
+    "_id": "1784618123535r3pp0",
+    "timestamp": "2026-07-21T07:15:23.535Z",
+    "date": "21/07/2026",
+    "time": "10:15",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "category": "GENERAL CABIN",
+    "subCategory": "OSB 3CA",
+    "description": "OSB LINIER BROKEN",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/zVHJnzrS/fad54d3429b0.jpg | https://i.ibb.co/bTwrPnN/3037c7e7281d.jpg"
+  },
+  {
+    "_id": "1784618003960xdyoy",
+    "timestamp": "2026-07-21T07:13:23.961Z",
+    "date": "21/07/2026",
+    "time": "10:13",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "category": "PAINT",
+    "subCategory": "OVER HEAD 2CA",
+    "description": "PAINT",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/gMsyXPqk/34fb9778d954.jpg"
+  },
+  {
+    "_id": "1784617902186guo9s",
+    "timestamp": "2026-07-21T07:11:42.186Z",
+    "date": "21/07/2026",
+    "time": "10:11",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "category": "PAINT",
+    "subCategory": "OVER HEAD 1LJ",
+    "description": "PINT, CRACKED",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/s9kX5qNn/17ebc1d5f32c.jpg | https://i.ibb.co/ZRy3r3T4/b7413580da86.jpg | https://i.ibb.co/YFfCwF3B/2aa619eef3ec.jpg"
+  },
+  {
+    "_id": "1784617800216vrl0v",
+    "timestamp": "2026-07-21T07:10:00.216Z",
+    "date": "21/07/2026",
+    "time": "10:09",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "category": "GENERAL CABIN",
+    "subCategory": "OVER HEAD 1CA",
+    "description": "COVER HEAD STOWG CRACKED",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/MysFvdJK/7cc994a38d21.jpg"
+  },
+  {
+    "_id": "1784617728925zq7vn",
+    "timestamp": "2026-07-21T07:08:48.925Z",
+    "date": "21/07/2026",
+    "time": "10:08",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "category": "GENERAL CABIN",
+    "subCategory": "OVER HEAD 1CA",
+    "description": "MISSING RUBBER BUMBER",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/Tx6nqyqM/d58074246362.jpg"
+  },
+  {
+    "_id": "1784617319162rjkjw",
+    "timestamp": "2026-07-21T07:01:59.162Z",
+    "date": "21/07/2026",
+    "time": "10:01",
+    "aircraft": "HZ-ASD",
+    "reporter": "30004221",
+    "category": "GENERAL CABIN",
+    "subCategory": "FWD GALLEY",
+    "description": "EMERGENCY FRAME BROKEN",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/Z6n5bDy4/4f4da9bc0de9.jpg"
+  },
+  {
+    "_id": "17845426155331liph",
+    "timestamp": "2026-07-20T10:16:55.533Z",
+    "date": "20/07/2026",
+    "time": "13:16",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001351",
+    "category": "GALLEY",
+    "subCategory": "GALLY G1",
+    "description": "REQUIRES PAINT",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/99rtDHqr/38ed67902991.jpg"
+  },
+  {
+    "_id": "1784540928011qh0oi",
+    "timestamp": "2026-07-20T09:48:48.012Z",
+    "date": "20/07/2026",
+    "time": "12:48",
+    "aircraft": "HZ-ASD",
+    "reporter": "SHAREEF",
+    "category": "GENERAL CABIN",
+    "subCategory": "N/A",
+    "description": "AFT CLOSET L/H",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/23QKr9Nb/a1508e34cfb2.jpg"
+  },
+  {
+    "_id": "1784540928011qh0oi",
+    "timestamp": "2026-07-20T09:48:48.012Z",
+    "date": "20/07/2026",
+    "time": "12:48",
+    "aircraft": "HZ-ASD",
+    "reporter": "SHAREEF",
+    "category": "GENERAL CABIN",
+    "subCategory": "N/A",
+    "description": "MOUNT COVER MISSING CLOSET L/H",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/h1h3HCjZ/36bcd77b32c6.jpg"
+  },
+  {
+    "_id": "1784540928011qh0oi",
+    "timestamp": "2026-07-20T09:48:48.012Z",
+    "date": "20/07/2026",
+    "time": "12:48",
+    "aircraft": "HZ-ASD",
+    "reporter": "SHAREEF",
+    "category": "GENERAL CABIN",
+    "subCategory": "N/A",
+    "description": "STRIKER IS DAMAGED UPPER CLOSET L/H ( S301",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/HpVx8KTH/f4db823cd1b0.jpg"
+  },
+  {
+    "_id": "1784540928011qh0oi",
+    "timestamp": "2026-07-20T09:48:48.012Z",
+    "date": "20/07/2026",
+    "time": "12:48",
+    "aircraft": "HZ-ASD",
+    "reporter": "SHAREEF",
+    "category": "GENERAL CABIN",
+    "subCategory": "N/A",
+    "description": "2 SCREWS MISSING CLOSET R/H",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/XfCX7R4G/6d09137f212b.jpg"
+  },
+  {
+    "_id": "1784540928011qh0oi",
+    "timestamp": "2026-07-20T09:48:48.012Z",
+    "date": "20/07/2026",
+    "time": "12:48",
+    "aircraft": "HZ-ASD",
+    "reporter": "SHAREEF",
+    "category": "GENERAL CABIN",
+    "subCategory": "N/A",
+    "description": "REQ PNT. TEDLAR ALSO",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/DH3JhYzK/8f57d09b687c.jpg"
+  },
+  {
+    "_id": "1784540928011qh0oi",
+    "timestamp": "2026-07-20T09:48:48.012Z",
+    "date": "20/07/2026",
+    "time": "12:48",
+    "aircraft": "HZ-ASD",
+    "reporter": "SHAREEF",
+    "category": "GENERAL CABIN",
+    "subCategory": "N/A",
+    "description": "CLOSET R/H DIRTY",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/N6shNgZC/1e25ef869dc1.jpg"
+  },
+  {
+    "_id": "1784540928011qh0oi",
+    "timestamp": "2026-07-20T09:48:48.012Z",
+    "date": "20/07/2026",
+    "time": "12:48",
+    "aircraft": "HZ-ASD",
+    "reporter": "SHAREEF",
+    "category": "GENERAL CABIN",
+    "subCategory": "N/A",
+    "description": "CLOSET L/H DIRTY",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/whMYr764/9d52359ec6c4.jpg"
+  },
+  {
+    "_id": "1784540928011qh0oi",
+    "timestamp": "2026-07-20T09:48:48.012Z",
+    "date": "20/07/2026",
+    "time": "12:48",
+    "aircraft": "HZ-ASD",
+    "reporter": "SHAREEF",
+    "category": "GENERAL CABIN",
+    "subCategory": "N/A",
+    "description": "CLOSET L/H MISSING SEALANT",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/MyBC3Y11/aab966f5177d.jpg"
+  },
+  {
+    "_id": "1784540928011qh0oi",
+    "timestamp": "2026-07-20T09:48:48.012Z",
+    "date": "20/07/2026",
+    "time": "12:48",
+    "aircraft": "HZ-ASD",
+    "reporter": "SHAREEF",
+    "category": "GENERAL CABIN",
+    "subCategory": "N/A",
+    "description": "L/H TURN CATCHES PNT SCRATCHED",
+    "remarks": "",
+    "photoUrl": ""
+  },
+  {
+    "_id": "1784540928011qh0oi",
+    "timestamp": "2026-07-20T09:48:48.012Z",
+    "date": "20/07/2026",
+    "time": "12:48",
+    "aircraft": "HZ-ASD",
+    "reporter": "SHAREEF",
+    "category": "GENERAL CABIN",
+    "subCategory": "N/A",
+    "description": "L/H CLOSET SMALL KNOB LOOSE",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/7tGh4dNy/4929a6514712.jpg"
+  },
+  {
+    "_id": "1784540928011qh0oi",
+    "timestamp": "2026-07-20T09:48:48.012Z",
+    "date": "20/07/2026",
+    "time": "12:48",
+    "aircraft": "HZ-ASD",
+    "reporter": "SHAREEF",
+    "category": "GENERAL CABIN",
+    "subCategory": "N/A",
+    "description": "L/H CLOSET SCREW MISSING WASHER",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/CsQ3bMwb/b65c494a5b4a.jpg"
+  },
+  {
+    "_id": "1784540928011qh0oi",
+    "timestamp": "2026-07-20T09:48:48.012Z",
+    "date": "20/07/2026",
+    "time": "12:48",
+    "aircraft": "HZ-ASD",
+    "reporter": "SHAREEF",
+    "category": "GENERAL CABIN",
+    "subCategory": "N/A",
+    "description": "R/H CLOSET TEDLAR DIRTY",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/6cbTrRvm/54a21f4c79cc.jpg"
+  },
+  {
+    "_id": "17845358811053hygo",
+    "timestamp": "2026-07-20T08:24:41.105Z",
+    "date": "20/07/2026",
+    "time": "11:24",
+    "aircraft": "HZ-ASD",
+    "reporter": "SHAREEF",
+    "category": "GALLEY",
+    "subCategory": "FWD G2",
+    "description": "STRIKER MISSING FOR COMP.  205, AND 202",
+    "remarks": "ALSO, COMP 209 STRIKE IS DAMAGED.",
+    "photoUrl": "https://i.ibb.co/Mk1Hp0w5/b982e9d22a76.jpg | https://i.ibb.co/fd9GghBj/7a2685e0f0d4.jpg"
+  },
+  {
+    "_id": "1784525000523fd3g3",
+    "timestamp": "2026-07-20T05:23:20.523Z",
+    "date": "20/07/2026",
+    "time": "08:20",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001461",
+    "category": "GENERAL CABIN",
+    "subCategory": "N/A",
+    "description": "ALL OVERHEAD STOWAGE COMPARTMENTS DIRTY",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/fzxDQgq6/cebeb219bdfb.jpg"
+  },
+  {
+    "_id": "1784525000523fd3g3",
+    "timestamp": "2026-07-20T05:23:20.523Z",
+    "date": "20/07/2026",
+    "time": "08:20",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001461",
+    "category": "GENERAL CABIN",
+    "subCategory": "N/A",
+    "description": "FWD STOWAGE SEALANT MISSINF",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/4R3DG9V4/d02d02819b94.jpg"
+  },
+  {
+    "_id": "1784525000523fd3g3",
+    "timestamp": "2026-07-20T05:23:20.523Z",
+    "date": "20/07/2026",
+    "time": "08:20",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001461",
+    "category": "GENERAL CABIN",
+    "subCategory": "N/A",
+    "description": "OVH STOWAGE DOOR FOUND DIRTY FWD OF 1LJ",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/2YkBJbkk/d692b05da1ae.jpg"
+  },
+  {
+    "_id": "1784525000523fd3g3",
+    "timestamp": "2026-07-20T05:23:20.523Z",
+    "date": "20/07/2026",
+    "time": "08:20",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001461",
+    "category": "GENERAL CABIN",
+    "subCategory": "N/A",
+    "description": "OVH STOWAGE BROKEN 1LJ",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/8LR8MfdZ/eedf5881277d.jpg"
+  },
+  {
+    "_id": "1784525000523fd3g3",
+    "timestamp": "2026-07-20T05:23:20.523Z",
+    "date": "20/07/2026",
+    "time": "08:20",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001461",
+    "category": "GENERAL CABIN",
+    "subCategory": "N/A",
+    "description": "OVH STOWAGE 4LJ BROKEN",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/VWN1MJ2T/2c7c4aaa5233.jpg"
+  },
+  {
+    "_id": "1784525000523fd3g3",
+    "timestamp": "2026-07-20T05:23:20.523Z",
+    "date": "20/07/2026",
+    "time": "08:20",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001461",
+    "category": "GENERAL CABIN",
+    "subCategory": "N/A",
+    "description": "DOG HOUSE LH B/C REQ PAINT",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/21WbMzdG/2467fd140f9c.jpg"
+  },
+  {
+    "_id": "1784525000523fd3g3",
+    "timestamp": "2026-07-20T05:23:20.523Z",
+    "date": "20/07/2026",
+    "time": "08:20",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001461",
+    "category": "GENERAL CABIN",
+    "subCategory": "N/A",
+    "description": "SPLINEFOR  1AC, 1LJ, 5LJ BROKEN",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/MyJ6PzQP/729b451d0af7.jpg | https://i.ibb.co/yDBLBFv/6201a108f7f4.jpg | https://i.ibb.co/yc95Kjfd/6e1bda0f3b78.jpg"
+  },
+  {
+    "_id": "1784525000523fd3g3",
+    "timestamp": "2026-07-20T05:23:20.523Z",
+    "date": "20/07/2026",
+    "time": "08:20",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001461",
+    "category": "GENERAL CABIN",
+    "subCategory": "N/A",
+    "description": "TEDLAR ABOVE WINDOW 3LJ, 5AC CHIPPED",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/60sfPVRr/60186075a704.jpg | https://i.ibb.co/93cc1GF9/4dcdf9d5b99b.jpg"
+  },
+  {
+    "_id": "1784525000523fd3g3",
+    "timestamp": "2026-07-20T05:23:20.523Z",
+    "date": "20/07/2026",
+    "time": "08:20",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001461",
+    "category": "GENERAL CABIN",
+    "subCategory": "N/A",
+    "description": "PARTITION TEDLAR FOLDED",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/wFVKWxcS/cbf00f8f6445.jpg"
+  },
+  {
+    "_id": "1784525000523fd3g3",
+    "timestamp": "2026-07-20T05:23:20.523Z",
+    "date": "20/07/2026",
+    "time": "08:20",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001461",
+    "category": "GENERAL CABIN",
+    "subCategory": "N/A",
+    "description": "DIVIDER CURTAIN MISSING SLIDESAND HOOKS",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/CpqWvd47/af4e7cff70f5.jpg | https://i.ibb.co/M5pPgBN6/28d7df91ad00.jpg"
+  },
+  {
+    "_id": "1784525000523fd3g3",
+    "timestamp": "2026-07-20T05:23:20.523Z",
+    "date": "20/07/2026",
+    "time": "08:20",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001461",
+    "category": "GENERAL CABIN",
+    "subCategory": "N/A",
+    "description": "CEILING PANEL FOUND BROKEN ABOVE 4LJ",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/8nNvFF5P/639a7fff4c28.jpg"
+  },
+  {
+    "_id": "1784525000523fd3g3",
+    "timestamp": "2026-07-20T05:23:20.523Z",
+    "date": "20/07/2026",
+    "time": "08:20",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001461",
+    "category": "GENERAL CABIN",
+    "subCategory": "N/A",
+    "description": "2CA, 6CA OVH STOWAGE BUMBER MISSING",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/n8D75xvm/095e05b24d33.jpg | https://i.ibb.co/fYdpHzhJ/bb386e02592f.jpg"
+  },
+  {
+    "_id": "1784525000523fd3g3",
+    "timestamp": "2026-07-20T05:23:20.523Z",
+    "date": "20/07/2026",
+    "time": "08:20",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001461",
+    "category": "GENERAL CABIN",
+    "subCategory": "N/A",
+    "description": "OVH STOWAGE FRONT OF 1LJ REQ PAINT",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/jkG28k8W/21d6184cf99f.jpg"
+  },
+  {
+    "_id": "1784525000523fd3g3",
+    "timestamp": "2026-07-20T05:23:20.523Z",
+    "date": "20/07/2026",
+    "time": "08:20",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001461",
+    "category": "GENERAL CABIN",
+    "subCategory": "N/A",
+    "description": "SEVERAL OVH STOWAGE NEED ADJUSTMENT",
+    "remarks": "",
+    "photoUrl": ""
+  },
+  {
+    "_id": "1784525000523fd3g3",
+    "timestamp": "2026-07-20T05:23:20.523Z",
+    "date": "20/07/2026",
+    "time": "08:20",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001461",
+    "category": "GENERAL CABIN",
+    "subCategory": "N/A",
+    "description": "3CA OVH STOWAGE TRIM BROKEN",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/xS0SyrLw/ae70d27393fb.jpg"
+  },
+  {
+    "_id": "1784525000523fd3g3",
+    "timestamp": "2026-07-20T05:23:20.523Z",
+    "date": "20/07/2026",
+    "time": "08:20",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001461",
+    "category": "GENERAL CABIN",
+    "subCategory": "N/A",
+    "description": "FWD TRIM REQ S/M",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/zVVsHN6Y/57687a50cb99.jpg | https://i.ibb.co/0y76kqMn/fadc4c2fd699.jpg"
+  },
+  {
+    "_id": "1784525000523fd3g3",
+    "timestamp": "2026-07-20T05:23:20.523Z",
+    "date": "20/07/2026",
+    "time": "08:20",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001461",
+    "category": "GENERAL CABIN",
+    "subCategory": "N/A",
+    "description": "FWD STOWAGE TEDLAR CHIPPED",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/sJ5k78Ps/e4e20e5ece6a.jpg | https://i.ibb.co/PsvR868L/4834a4a1a72f.jpg"
+  },
+  {
+    "_id": "1784525000523fd3g3",
+    "timestamp": "2026-07-20T05:23:20.523Z",
+    "date": "20/07/2026",
+    "time": "08:20",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001461",
+    "category": "GENERAL CABIN",
+    "subCategory": "N/A",
+    "description": "SEVERAL WINDOWS MISSMATCH COLORS",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/YF7xJhxS/39481d412fba.jpg"
+  },
+  {
+    "_id": "1784523259464myqcu",
+    "timestamp": "2026-07-20T04:54:19.464Z",
+    "date": "20/07/2026",
+    "time": "07:53",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001351",
+    "category": "GALLEY",
+    "subCategory": "GALLY G2",
+    "description": "REQUIRES SHEET METAL DOOR STRIKER 201 202 205 206 209 210",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/wNcdVsC4/eaf4fc008274.jpg | https://i.ibb.co/jBHpz63/4f483308f085.jpg | https://i.ibb.co/bgTBjq7D/3f67223bdf6f.jpg | https://i.ibb.co/KxJmHJFk/2598c7d8cf17.jpg | https://i.ibb.co/9mVkHZnF/466e5f1dd050.jpg"
+  },
+  {
+    "_id": "1784523259464myqcu",
+    "timestamp": "2026-07-20T04:54:19.464Z",
+    "date": "20/07/2026",
+    "time": "07:53",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001351",
+    "category": "GALLEY",
+    "subCategory": "GALLY G2",
+    "description": "PAINT 201 202 205 206 209 210",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/B5wGqg8b/05c759851e6a.jpg | https://i.ibb.co/0SBcPxM/d0fe0c86cc73.jpg | https://i.ibb.co/Zzh6tNqg/c8003db95f6b.jpg | https://i.ibb.co/dJHTS5zW/02434c2a1a46.jpg | https://i.ibb.co/1Gc8Vn6w/8445e1786a22.jpg"
+  },
+  {
+    "_id": "1784522442298rux5n",
+    "timestamp": "2026-07-20T04:40:42.298Z",
+    "date": "20/07/2026",
+    "time": "07:39",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001351",
+    "category": "GALLEY",
+    "subCategory": "GALLY G2",
+    "description": "SLAM LATCH LOOSE 201 203 205 209 210",
+    "remarks": "",
+    "photoUrl": ""
+  },
+  {
+    "_id": "178446170739865qm8",
+    "timestamp": "2026-07-19T11:48:27.398Z",
+    "date": "19/07/2026",
+    "time": "14:48",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001351",
+    "category": "GALLEY",
+    "subCategory": "GALLY G1",
+    "description": "DISENGAGEMENT DEVICE 101 DEFORMED",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/4Lm1wtv/867c68c34f18.jpg"
+  },
+  {
+    "_id": "17844615975810v78j",
+    "timestamp": "2026-07-19T11:46:37.581Z",
+    "date": "19/07/2026",
+    "time": "14:46",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001351",
+    "category": "GALLEY",
+    "subCategory": "GALLY G1 AND G2",
+    "description": "SEALENT DEFORMED AND DIRTY 108 AND 109 AND 110 AND 111 AND 212",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/nNJdmRCv/96dd1fa2af26.jpg | https://i.ibb.co/21ytbYXr/5d8a753ea700.jpg | https://i.ibb.co/rRKxF5JW/88e926d0f82d.jpg | https://i.ibb.co/GQgYY3g5/1e0993637a03.jpg | https://i.ibb.co/DDrsPRXQ/f31a7f3f7057.jpg"
+  },
+  {
+    "_id": "17844615975810v78j",
+    "timestamp": "2026-07-19T11:46:37.581Z",
+    "date": "19/07/2026",
+    "time": "14:46",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001351",
+    "category": "GALLEY",
+    "subCategory": "GALLY G2",
+    "description": "SEALENT DEFORMED AND DIRTY",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/zT3vH0p4/e6d9f4d4ac11.jpg"
+  },
+  {
+    "_id": "17844612738948zr6t",
+    "timestamp": "2026-07-19T11:41:13.894Z",
+    "date": "19/07/2026",
+    "time": "14:40",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001351",
+    "category": "GALLEY",
+    "subCategory": "GALLY G2",
+    "description": "REQUIRES SHEET METAL 201  AND 202 AND 206 AND 205 MISSING RIVETS",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/tMx7gggm/abf525f29670.jpg | https://i.ibb.co/tfjqc3R/7e658c95da4e.jpg | https://i.ibb.co/3GLY3t0/2bd93c46a850.jpg | https://i.ibb.co/zVS1yp8j/b4402a249439.jpg | https://i.ibb.co/PZ7k18RS/dc899058dd70.jpg"
+  },
+  {
+    "_id": "17844612738948zr6t",
+    "timestamp": "2026-07-19T11:41:13.894Z",
+    "date": "19/07/2026",
+    "time": "14:40",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001351",
+    "category": "GALLEY",
+    "subCategory": "GALLY G2",
+    "description": "REQUIRES SHEET METAL 209 AND 210",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/fz71QBd6/ef70e2b30651.jpg | https://i.ibb.co/LXknV59C/6c1f8758b8e1.jpg"
+  },
+  {
+    "_id": "1784460755547klo13",
+    "timestamp": "2026-07-19T11:32:35.547Z",
+    "date": "19/07/2026",
+    "time": "14:32",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001351",
+    "category": "GALLEY",
+    "subCategory": "GALLY G1",
+    "description": "NEEDS SHEET METAL 101 AND 102",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/v4xSmXy3/6399dadb5905.jpg | https://i.ibb.co/rG61wPKd/653916e35dcf.jpg | https://i.ibb.co/WvPQMy07/759f953cc713.jpg | https://i.ibb.co/sJt0Phch/be223e78ac22.jpg"
+  },
+  {
+    "_id": "1784460478657np4i6",
+    "timestamp": "2026-07-19T11:27:58.657Z",
+    "date": "19/07/2026",
+    "time": "14:27",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001351",
+    "category": "GALLEY",
+    "subCategory": "GALLY G1",
+    "description": "PAINT NEXT TO OVEN 2 AND BETWEN OVEN 1",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/YF2bZzqj/4edade705ac0.jpg | https://i.ibb.co/HDGNGBBm/258684e06df6.jpg"
+  },
+  {
+    "_id": "1784458440801lys6x",
+    "timestamp": "2026-07-19T10:54:00.801Z",
+    "date": "19/07/2026",
+    "time": "13:53",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001351",
+    "category": "TEDLAR/SIDEWALL",
+    "subCategory": "G2",
+    "description": "209 TEDLAR",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/r2KgdVC9/a159e8a627e7.jpg"
+  },
+  {
+    "_id": "1784458212850rksmv",
+    "timestamp": "2026-07-19T10:50:12.850Z",
+    "date": "19/07/2026",
+    "time": "13:49",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001351",
+    "category": "GALLEY",
+    "subCategory": "GALLY G1 AND G2",
+    "description": "WORN AND DAMAGED CART DIVIDER ON BOTH SIDES",
+    "remarks": "",
+    "photoUrl": ""
+  },
+  {
+    "_id": "1784457897952l4qu6",
+    "timestamp": "2026-07-19T10:44:57.952Z",
+    "date": "19/07/2026",
+    "time": "13:44",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001351",
+    "category": "GALLEY",
+    "subCategory": "GALLY G1",
+    "description": "FOOT STEP SCRATCHED AND COLOUR FADED",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/hJH4xjGC/61795342a129.jpg"
+  },
+  {
+    "_id": "1784457897952l4qu6",
+    "timestamp": "2026-07-19T10:44:57.952Z",
+    "date": "19/07/2026",
+    "time": "13:44",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001351",
+    "category": "GALLEY",
+    "subCategory": "GALLY G2",
+    "description": "FOOT STEP SCRATCHED AND COLOUR FADED MISSING KNOB",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/sxBDvN6/f0394f506858.jpg"
+  },
+  {
+    "_id": "1784457770228n5eb9",
+    "timestamp": "2026-07-19T10:42:50.228Z",
+    "date": "19/07/2026",
+    "time": "13:42",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001351",
+    "category": "GALLEY",
+    "subCategory": "GALLY G2",
+    "description": "207 WASTE CONTAINER LATCH LOOSE",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/Ng1Cj1Ry/a8df7cd5de9f.jpg"
+  },
+  {
+    "_id": "1784457693554zl9rf",
+    "timestamp": "2026-07-19T10:41:33.554Z",
+    "date": "19/07/2026",
+    "time": "13:41",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001351",
+    "category": "GALLEY",
+    "subCategory": "GALLY G1",
+    "description": "MID LATCH LEVER LOOSE ON 109 AND 110",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/DDrzbrxn/e9383d640838.jpg | https://i.ibb.co/yF6wHgts/30dffb1e290b.jpg | https://i.ibb.co/xqMc0PLj/66f858a056c9.jpg"
+  },
+  {
+    "_id": "1784457426733dlgq5",
+    "timestamp": "2026-07-19T10:37:06.733Z",
+    "date": "19/07/2026",
+    "time": "13:36",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001351",
+    "category": "GALLEY",
+    "subCategory": "GALLY G2",
+    "description": "208 DAMAGED AND DECALS FADED",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/9kWd0Ygd/414280c92f37.jpg"
+  },
+  {
+    "_id": "1784457000213m9vbf",
+    "timestamp": "2026-07-19T10:30:00.213Z",
+    "date": "19/07/2026",
+    "time": "13:29",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001351",
+    "category": "GALLEY",
+    "subCategory": "GALLY G2",
+    "description": "204 RED LATCH BOTH SCRATCHED",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/0ptc6SZs/17f4fd4318c8.jpg"
+  },
+  {
+    "_id": "1784456924232fzbp7",
+    "timestamp": "2026-07-19T10:28:44.232Z",
+    "date": "19/07/2026",
+    "time": "13:28",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001351",
+    "category": "GALLEY",
+    "subCategory": "GALLY G2",
+    "description": "NEXT TOO AND ABOVE 204 BENT AND DAMGED",
+    "remarks": "",
+    "photoUrl": "https://i.ibb.co/0RbHPHY1/7582b3829c13.jpg | https://i.ibb.co/hJr7t9fs/ba3a38af79cf.jpg"
+  },
+  {
     "_id": "1784450483070coe7v",
     "timestamp": "2026-07-19T08:41:23.071Z",
     "date": "19/07/2026",
@@ -667,7 +2409,7 @@
     "timestamp": "2026-07-19T06:20:55.105Z",
     "date": "19/07/2026",
     "time": "09:20",
-    "aircraft": "ASF",
+    "aircraft": "HZ-ASD",
     "reporter": "FADULS",
     "category": "LAVATORY",
     "subCategory": "LAV E",
@@ -804,1754 +2546,5 @@
     "description": "HINGE DAMAGE",
     "remarks": "",
     "photoUrl": "https://i.ibb.co/0psLW56P/107710d6bcb3.jpg"
-  },
-  {
-    "id": "1784456924232fzbp7",
-    "batchId": "batch_1784456889416_1mym39",
-    "timestamp": "2026-07-19T10:28:44.232Z",
-    "date": "19/07/2026",
-    "time": "13:28",
-    "aircraft": "HZ-ASD",
-    "reporter": "30001351",
-    "findings": [
-      {
-        "category": "GALLEY            ",
-        "subCategory": "GALLY G2          ",
-        "description": "NEXT TOO AND ABOVE 204 BENT AND DAMGED                      ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/0RbHPHY1/7582b3829c13.jpg | https://i.ibb.co/hJr7t9fs/ba3a38af79cf.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784457000213m9vbf",
-    "batchId": "batch_1784456997688_xcc2ed",
-    "timestamp": "2026-07-19T10:30:00.213Z",
-    "date": "19/07/2026",
-    "time": "13:29",
-    "aircraft": "HZ-ASD",
-    "reporter": "30001351",
-    "findings": [
-      {
-        "category": "GALLEY            ",
-        "subCategory": "GALLY G2          ",
-        "description": "204 RED LATCH BOTH SCRATCHED                                ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/0ptc6SZs/17f4fd4318c8.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784457426733dlgq5",
-    "batchId": "batch_1784457399665_i1tc2c",
-    "timestamp": "2026-07-19T10:37:06.733Z",
-    "date": "19/07/2026",
-    "time": "13:36",
-    "aircraft": "HZ-ASD",
-    "reporter": "30001351",
-    "findings": [
-      {
-        "category": "GALLEY            ",
-        "subCategory": "GALLY G2          ",
-        "description": "208 DAMAGED AND DECALS FADED                                ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/9kWd0Ygd/414280c92f37.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784457693554zl9rf",
-    "batchId": "batch_1784457681884_tedk3x",
-    "timestamp": "2026-07-19T10:41:33.554Z",
-    "date": "19/07/2026",
-    "time": "13:41",
-    "aircraft": "HZ-ASD",
-    "reporter": "30001351",
-    "findings": [
-      {
-        "category": "GALLEY            ",
-        "subCategory": "GALLY G1          ",
-        "description": "MID LATCH LEVER LOOSE ON 109 AND 110                        ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/DDrzbrxn/e9383d640838.jpg | https://i.ibb.co/yF6wHgts/30dffb1e290b.jpg | https://i.ibb.co/xqMc0PLj/66f858a056c9.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784457770228n5eb9",
-    "batchId": "batch_1784457764552_x93fvy",
-    "timestamp": "2026-07-19T10:42:50.228Z",
-    "date": "19/07/2026",
-    "time": "13:42",
-    "aircraft": "HZ-ASD",
-    "reporter": "30001351",
-    "findings": [
-      {
-        "category": "GALLEY            ",
-        "subCategory": "GALLY G2          ",
-        "description": "207 WASTE CONTAINER LATCH LOOSE                             ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/Ng1Cj1Ry/a8df7cd5de9f.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784457897952l4qu6",
-    "batchId": "batch_1784457886494_gokwet",
-    "timestamp": "2026-07-19T10:44:57.952Z",
-    "date": "19/07/2026",
-    "time": "13:44",
-    "aircraft": "HZ-ASD",
-    "reporter": "30001351",
-    "findings": [
-      {
-        "category": "GALLEY            ",
-        "subCategory": "GALLY G1          ",
-        "description": "FOOT STEP SCRATCHED AND COLOUR FADED                        ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/hJH4xjGC/61795342a129.jpg"
-      },
-      {
-        "category": "GALLEY            ",
-        "subCategory": "GALLY G2          ",
-        "description": "FOOT STEP SCRATCHED AND COLOUR FADED MISSING KNOB           ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/sxBDvN6/f0394f506858.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784458212850rksmv",
-    "batchId": "batch_1784458161240_r3qi7t",
-    "timestamp": "2026-07-19T10:50:12.850Z",
-    "date": "19/07/2026",
-    "time": "13:49",
-    "aircraft": "HZ-ASD",
-    "reporter": "30001351",
-    "findings": [
-      {
-        "category": "GALLEY            ",
-        "subCategory": "GALLY G1 AND G2   ",
-        "description": "WORN AND DAMAGED CART DIVIDER ON BOTH SIDES                 ",
-        "remarks": "                         ",
-        "photoUrl": ""
-      }
-    ]
-  },
-  {
-    "id": "1784458440801lys6x",
-    "batchId": "batch_1784458432311_o6pslt",
-    "timestamp": "2026-07-19T10:54:00.801Z",
-    "date": "19/07/2026",
-    "time": "13:53",
-    "aircraft": "HZ-ASD",
-    "reporter": "30001351",
-    "findings": [
-      {
-        "category": "TEDLAR/SIDEWALL   ",
-        "subCategory": "G2                ",
-        "description": "209 TEDLAR                                                  ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/r2KgdVC9/a159e8a627e7.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784460478657np4i6",
-    "batchId": "batch_1784460446206_50kt69",
-    "timestamp": "2026-07-19T11:27:58.657Z",
-    "date": "19/07/2026",
-    "time": "14:27",
-    "aircraft": "HZ-ASD",
-    "reporter": "30001351",
-    "findings": [
-      {
-        "category": "GALLEY            ",
-        "subCategory": "GALLY G1          ",
-        "description": "PAINT NEXT TO OVEN 2 AND BETWEN OVEN 1                      ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/YF2bZzqj/4edade705ac0.jpg | https://i.ibb.co/HDGNGBBm/258684e06df6.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784460755547klo13",
-    "batchId": "batch_1784460742752_mdk1s7",
-    "timestamp": "2026-07-19T11:32:35.547Z",
-    "date": "19/07/2026",
-    "time": "14:32",
-    "aircraft": "HZ-ASD",
-    "reporter": "30001351",
-    "findings": [
-      {
-        "category": "GALLEY            ",
-        "subCategory": "GALLY G1          ",
-        "description": "NEEDS SHEET METAL 101 AND 102                               ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/v4xSmXy3/6399dadb5905.jpg | https://i.ibb.co/rG61wPKd/653916e35dcf.jpg | https://i.ibb.co/WvPQMy07/759f953cc713.jpg | https://i.ibb.co/sJt0Phch/be223e78ac22.jpg"
-      }
-    ]
-  },
-  {
-    "id": "17844612738948zr6t",
-    "batchId": "batch_1784461202534_eup89a",
-    "timestamp": "2026-07-19T11:41:13.894Z",
-    "date": "19/07/2026",
-    "time": "14:40",
-    "aircraft": "HZ-ASD",
-    "reporter": "30001351",
-    "findings": [
-      {
-        "category": "GALLEY            ",
-        "subCategory": "GALLY G2          ",
-        "description": "REQUIRES SHEET METAL 201  AND 202 AND 206 AND 205 MISSING RIVETS ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/tMx7gggm/abf525f29670.jpg | https://i.ibb.co/tfjqc3R/7e658c95da4e.jpg | https://i.ibb.co/3GLY3t0/2bd93c46a850.jpg | https://i.ibb.co/zVS1yp8j/b4402a249439.jpg | https://i.ibb.co/PZ7k18RS/dc899058dd70.jpg"
-      },
-      {
-        "category": "GALLEY            ",
-        "subCategory": "GALLY G2          ",
-        "description": "REQUIRES SHEET METAL 209 AND 210                            ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/fz71QBd6/ef70e2b30651.jpg | https://i.ibb.co/LXknV59C/6c1f8758b8e1.jpg"
-      }
-    ]
-  },
-  {
-    "id": "17844615975810v78j",
-    "batchId": "batch_1784461588388_hcbkif",
-    "timestamp": "2026-07-19T11:46:37.581Z",
-    "date": "19/07/2026",
-    "time": "14:46",
-    "aircraft": "HZ-ASD",
-    "reporter": "30001351",
-    "findings": [
-      {
-        "category": "GALLEY            ",
-        "subCategory": "GALLY G1 AND G2   ",
-        "description": "SEALENT DEFORMED AND DIRTY 108 AND 109 AND 110 AND 111 AND 212",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/nNJdmRCv/96dd1fa2af26.jpg | https://i.ibb.co/21ytbYXr/5d8a753ea700.jpg | https://i.ibb.co/rRKxF5JW/88e926d0f82d.jpg | https://i.ibb.co/GQgYY3g5/1e0993637a03.jpg | https://i.ibb.co/DDrsPRXQ/f31a7f3f7057.jpg"
-      },
-      {
-        "category": "GALLEY            ",
-        "subCategory": "GALLY G2          ",
-        "description": "SEALENT DEFORMED AND DIRTY                                  ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/zT3vH0p4/e6d9f4d4ac11.jpg"
-      }
-    ]
-  },
-  {
-    "id": "178446170739865qm8",
-    "batchId": "batch_1784461704864_x47j8r",
-    "timestamp": "2026-07-19T11:48:27.398Z",
-    "date": "19/07/2026",
-    "time": "14:48",
-    "aircraft": "HZ-ASD",
-    "reporter": "30001351",
-    "findings": [
-      {
-        "category": "GALLEY            ",
-        "subCategory": "GALLY G1          ",
-        "description": "DISENGAGEMENT DEVICE 101 DEFORMED                           ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/4Lm1wtv/867c68c34f18.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784522442298rux5n",
-    "batchId": "batch_1784522340297_ibmim1",
-    "timestamp": "2026-07-20T04:40:42.298Z",
-    "date": "20/07/2026",
-    "time": "07:39",
-    "aircraft": "HZ-ASD",
-    "reporter": "30001351",
-    "findings": [
-      {
-        "category": "GALLEY            ",
-        "subCategory": "GALLY G2          ",
-        "description": "SLAM LATCH LOOSE 201 203 205 209 210                        ",
-        "remarks": "                         ",
-        "photoUrl": "",
-        "photoThumb": ""
-      }
-    ]
-  },
-  {
-    "id": "1784523259464myqcu",
-    "batchId": "batch_1784523222989_b4q7yz",
-    "timestamp": "2026-07-20T04:54:19.464Z",
-    "date": "20/07/2026",
-    "time": "07:53",
-    "aircraft": "HZ-ASD",
-    "reporter": "30001351",
-    "findings": [
-      {
-        "category": "GALLEY            ",
-        "subCategory": "GALLY G2          ",
-        "description": "REQUIRES SHEET METAL DOOR STRIKER 201 202 205 206 209 210   ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/wNcdVsC4/eaf4fc008274.jpg | https://i.ibb.co/jBHpz63/4f483308f085.jpg | https://i.ibb.co/bgTBjq7D/3f67223bdf6f.jpg | https://i.ibb.co/KxJmHJFk/2598c7d8cf17.jpg | https://i.ibb.co/9mVkHZnF/466e5f1dd050.jpg",
-        "photoThumb": "https://i.ibb.co/jvJ8mRGD/eaf4fc008274.jpg | https://i.ibb.co/hhCqc72/4f483308f085.jpg | https://i.ibb.co/yntymGV7/3f67223bdf6f.jpg | https://i.ibb.co/GQqFjqcL/2598c7d8cf17.jpg | https://i.ibb.co/Y4yFB02z/466e5f1dd050.jpg"
-      },
-      {
-        "category": "GALLEY            ",
-        "subCategory": "GALLY G2          ",
-        "description": "PAINT 201 202 205 206 209 210                               ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/B5wGqg8b/05c759851e6a.jpg | https://i.ibb.co/0SBcPxM/d0fe0c86cc73.jpg | https://i.ibb.co/Zzh6tNqg/c8003db95f6b.jpg | https://i.ibb.co/dJHTS5zW/02434c2a1a46.jpg | https://i.ibb.co/1Gc8Vn6w/8445e1786a22.jpg",
-        "photoThumb": "https://i.ibb.co/XrVDSzm1/05c759851e6a.jpg | https://i.ibb.co/ZPHVy08/d0fe0c86cc73.jpg | https://i.ibb.co/GQVvBFzM/c8003db95f6b.jpg | https://i.ibb.co/mFPjmcMD/02434c2a1a46.jpg | https://i.ibb.co/4RkPyfd5/8445e1786a22.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784525000523fd3g3",
-    "batchId": "batch_1784524845307_dokx47",
-    "timestamp": "2026-07-20T05:23:20.523Z",
-    "date": "20/07/2026",
-    "time": "08:20",
-    "aircraft": "HZ-ASD",
-    "reporter": "30001461",
-    "findings": [
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "N/A               ",
-        "description": "ALL OVERHEAD STOWAGE COMPARTMENTS DIRTY                     ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/fzxDQgq6/cebeb219bdfb.jpg",
-        "photoThumb": "https://i.ibb.co/B5CnwpcW/cebeb219bdfb.jpg"
-      },
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "N/A               ",
-        "description": "FWD STOWAGE SEALANT MISSINF                                 ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/4R3DG9V4/d02d02819b94.jpg",
-        "photoThumb": "https://i.ibb.co/jksx2Br3/d02d02819b94.jpg"
-      },
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "N/A               ",
-        "description": "OVH STOWAGE DOOR FOUND DIRTY FWD OF 1LJ                     ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/2YkBJbkk/d692b05da1ae.jpg",
-        "photoThumb": "https://i.ibb.co/Vpq86Kqq/d692b05da1ae.jpg"
-      },
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "N/A               ",
-        "description": "OVH STOWAGE BROKEN 1LJ                                      ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/8LR8MfdZ/eedf5881277d.jpg",
-        "photoThumb": "https://i.ibb.co/5gzcTSnH/eedf5881277d.jpg"
-      },
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "N/A               ",
-        "description": "OVH STOWAGE 4LJ BROKEN                                      ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/VWN1MJ2T/2c7c4aaa5233.jpg",
-        "photoThumb": "https://i.ibb.co/rGtj5F4H/2c7c4aaa5233.jpg"
-      },
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "N/A               ",
-        "description": "DOG HOUSE LH B/C REQ PAINT                                  ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/21WbMzdG/2467fd140f9c.jpg",
-        "photoThumb": "https://i.ibb.co/rRFWpBHD/2467fd140f9c.jpg"
-      },
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "N/A               ",
-        "description": "SPLINEFOR  1AC, 1LJ, 5LJ BROKEN                             ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/MyJ6PzQP/729b451d0af7.jpg | https://i.ibb.co/yDBLBFv/6201a108f7f4.jpg | https://i.ibb.co/yc95Kjfd/6e1bda0f3b78.jpg",
-        "photoThumb": "https://i.ibb.co/8nQcPytP/729b451d0af7.jpg | https://i.ibb.co/VdpXpYn/6201a108f7f4.jpg | https://i.ibb.co/tTGcnrmQ/6e1bda0f3b78.jpg"
-      },
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "N/A               ",
-        "description": "TEDLAR ABOVE WINDOW 3LJ, 5AC CHIPPED                        ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/60sfPVRr/60186075a704.jpg | https://i.ibb.co/93cc1GF9/4dcdf9d5b99b.jpg",
-        "photoThumb": "https://i.ibb.co/GQPb2Bvn/60186075a704.jpg | https://i.ibb.co/tPQQv37M/4dcdf9d5b99b.jpg"
-      },
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "N/A               ",
-        "description": "PARTITION TEDLAR FOLDED                                     ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/wFVKWxcS/cbf00f8f6445.jpg",
-        "photoThumb": "https://i.ibb.co/4nzjT518/cbf00f8f6445.jpg"
-      },
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "N/A               ",
-        "description": "DIVIDER CURTAIN MISSING SLIDESAND HOOKS                     ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/CpqWvd47/af4e7cff70f5.jpg | https://i.ibb.co/M5pPgBN6/28d7df91ad00.jpg",
-        "photoThumb": "https://i.ibb.co/bjx7LhYB/af4e7cff70f5.jpg | https://i.ibb.co/BKjTfnsN/28d7df91ad00.jpg"
-      },
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "N/A               ",
-        "description": "CEILING PANEL FOUND BROKEN ABOVE 4LJ                        ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/8nNvFF5P/639a7fff4c28.jpg",
-        "photoThumb": "https://i.ibb.co/V0JnXXSM/639a7fff4c28.jpg"
-      },
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "N/A               ",
-        "description": "2CA, 6CA OVH STOWAGE BUMBER MISSING                         ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/n8D75xvm/095e05b24d33.jpg | https://i.ibb.co/fYdpHzhJ/bb386e02592f.jpg",
-        "photoThumb": "https://i.ibb.co/sJFKM8GR/095e05b24d33.jpg | https://i.ibb.co/5Wh8LgNZ/bb386e02592f.jpg"
-      },
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "N/A               ",
-        "description": "OVH STOWAGE FRONT OF 1LJ REQ PAINT                          ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/jkG28k8W/21d6184cf99f.jpg",
-        "photoThumb": "https://i.ibb.co/Ld6W0d0J/21d6184cf99f.jpg"
-      },
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "N/A               ",
-        "description": "SEVERAL OVH STOWAGE NEED ADJUSTMENT                         ",
-        "remarks": "                         ",
-        "photoUrl": "",
-        "photoThumb": ""
-      },
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "N/A               ",
-        "description": "3CA OVH STOWAGE TRIM BROKEN                                 ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/xS0SyrLw/ae70d27393fb.jpg",
-        "photoThumb": "https://i.ibb.co/fY5YbTFZ/ae70d27393fb.jpg"
-      },
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "N/A               ",
-        "description": "FWD TRIM REQ S/M                                            ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/zVVsHN6Y/57687a50cb99.jpg | https://i.ibb.co/0y76kqMn/fadc4c2fd699.jpg",
-        "photoThumb": "https://i.ibb.co/WvvnpsVw/57687a50cb99.jpg | https://i.ibb.co/b50Cx1B6/fadc4c2fd699.jpg"
-      },
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "N/A               ",
-        "description": "FWD STOWAGE TEDLAR CHIPPED                                  ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/sJ5k78Ps/e4e20e5ece6a.jpg | https://i.ibb.co/PsvR868L/4834a4a1a72f.jpg",
-        "photoThumb": "https://i.ibb.co/Z1Ht9qJc/e4e20e5ece6a.jpg | https://i.ibb.co/cKSPdrdB/4834a4a1a72f.jpg"
-      },
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "N/A               ",
-        "description": "SEVERAL WINDOWS MISSMATCH COLORS                            ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/YF7xJhxS/39481d412fba.jpg",
-        "photoThumb": "https://i.ibb.co/JwR98H9T/39481d412fba.jpg"
-      }
-    ]
-  },
-  {
-    "id": "17845358811053hygo",
-    "batchId": "batch_1784535878935_lll30p",
-    "timestamp": "2026-07-20T08:24:41.105Z",
-    "date": "20/07/2026",
-    "time": "11:24",
-    "aircraft": "HZ-ASD",
-    "reporter": "SHAREEF",
-    "findings": [
-      {
-        "category": "GALLEY            ",
-        "subCategory": "FWD G2            ",
-        "description": "STRIKER MISSING FOR COMP.  205, AND 202                     ",
-        "remarks": "ALSO, COMP 209 STRIKE IS DAMAGED. ",
-        "photoUrl": "https://i.ibb.co/Mk1Hp0w5/b982e9d22a76.jpg | https://i.ibb.co/fd9GghBj/7a2685e0f0d4.jpg",
-        "photoThumb": "https://i.ibb.co/hFdNHzQ1/b982e9d22a76.jpg | https://i.ibb.co/CK6sckNR/7a2685e0f0d4.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784540928011qh0oi",
-    "batchId": "batch_1784540922908_ri3i8n",
-    "timestamp": "2026-07-20T09:48:48.012Z",
-    "date": "20/07/2026",
-    "time": "12:48",
-    "aircraft": "HZ-ASD",
-    "reporter": "SHAREEF",
-    "findings": [
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "N/A               ",
-        "description": "AFT CLOSET L/H                                              ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/23QKr9Nb/a1508e34cfb2.jpg",
-        "photoThumb": "https://i.ibb.co/XxgJPQ8w/a1508e34cfb2.jpg"
-      },
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "N/A               ",
-        "description": "MOUNT COVER MISSING CLOSET L/H                              ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/h1h3HCjZ/36bcd77b32c6.jpg",
-        "photoThumb": "https://i.ibb.co/Hp15YXsx/36bcd77b32c6.jpg"
-      },
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "N/A               ",
-        "description": "STRIKER IS DAMAGED UPPER CLOSET L/H ( S301                  ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/HpVx8KTH/f4db823cd1b0.jpg",
-        "photoThumb": "https://i.ibb.co/dJrLYf45/f4db823cd1b0.jpg"
-      },
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "N/A               ",
-        "description": "2 SCREWS MISSING CLOSET R/H                                 ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/XfCX7R4G/6d09137f212b.jpg",
-        "photoThumb": "https://i.ibb.co/DPR492bj/6d09137f212b.jpg"
-      },
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "N/A               ",
-        "description": "REQ PNT. TEDLAR ALSO                                        ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/DH3JhYzK/8f57d09b687c.jpg",
-        "photoThumb": "https://i.ibb.co/rRnjY3Fy/8f57d09b687c.jpg"
-      },
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "N/A               ",
-        "description": "CLOSET R/H DIRTY                                            ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/N6shNgZC/1e25ef869dc1.jpg",
-        "photoThumb": "https://i.ibb.co/d0r9psGM/1e25ef869dc1.jpg"
-      },
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "N/A               ",
-        "description": "CLOSET L/H DIRTY                                            ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/whMYr764/9d52359ec6c4.jpg",
-        "photoThumb": "https://i.ibb.co/60gNJ8sF/9d52359ec6c4.jpg"
-      },
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "N/A               ",
-        "description": "CLOSET L/H MISSING SEALANT                                  ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/MyBC3Y11/aab966f5177d.jpg",
-        "photoThumb": "https://i.ibb.co/7xk16wpp/aab966f5177d.jpg"
-      },
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "N/A               ",
-        "description": " L/H TURN CATCHES PNT SCRATCHED                             ",
-        "remarks": "                         ",
-        "photoUrl": "",
-        "photoThumb": ""
-      },
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "N/A               ",
-        "description": "L/H CLOSET SMALL KNOB LOOSE                                 ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/7tGh4dNy/4929a6514712.jpg",
-        "photoThumb": "https://i.ibb.co/r2Z9sRfy/4929a6514712.jpg"
-      },
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "N/A               ",
-        "description": "L/H CLOSET SCREW MISSING WASHER                             ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/CsQ3bMwb/b65c494a5b4a.jpg",
-        "photoThumb": "https://i.ibb.co/Xktr73W7/b65c494a5b4a.jpg"
-      },
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "N/A               ",
-        "description": "R/H CLOSET TEDLAR DIRTY                                     ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/6cbTrRvm/54a21f4c79cc.jpg",
-        "photoThumb": "https://i.ibb.co/rKMzFGbm/54a21f4c79cc.jpg"
-      }
-    ]
-  },
-  {
-    "id": "17845426155331liph",
-    "batchId": "batch_1784542604979_rzit0c",
-    "timestamp": "2026-07-20T10:16:55.533Z",
-    "date": "20/07/2026",
-    "time": "13:16",
-    "aircraft": "HZ-ASD",
-    "reporter": "30001351",
-    "findings": [
-      {
-        "category": "GALLEY            ",
-        "subCategory": "GALLY G1          ",
-        "description": "REQUIRES PAINT                                              ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/99rtDHqr/38ed67902991.jpg",
-        "photoThumb": "https://i.ibb.co/Z6MmjzhM/38ed67902991.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784617319162rjkjw",
-    "batchId": "batch_1784617306219_wjzuba",
-    "timestamp": "2026-07-21T07:01:59.162Z",
-    "date": "21/07/2026",
-    "time": "10:01",
-    "aircraft": "HZ-ASD",
-    "reporter": "30004221",
-    "findings": [
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "FWD GALLEY        ",
-        "description": "EMERGENCY FRAME BROKEN                                      ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/Z6n5bDy4/4f4da9bc0de9.jpg",
-        "photoThumb": "https://i.ibb.co/KjMd8vC4/4f4da9bc0de9.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784617728925zq7vn",
-    "batchId": "batch_1784617724872_8ihltx",
-    "timestamp": "2026-07-21T07:08:48.925Z",
-    "date": "21/07/2026",
-    "time": "10:08",
-    "aircraft": "HZ-ASD",
-    "reporter": "30004221",
-    "findings": [
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "OVER HEAD 1CA     ",
-        "description": "MISSING RUBBER BUMBER                                       ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/Tx6nqyqM/d58074246362.jpg",
-        "photoThumb": "https://i.ibb.co/Q3Lqj0jv/d58074246362.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784617800216vrl0v",
-    "batchId": "batch_1784617793391_wc1nfw",
-    "timestamp": "2026-07-21T07:10:00.216Z",
-    "date": "21/07/2026",
-    "time": "10:09",
-    "aircraft": "HZ-ASD",
-    "reporter": "30004221",
-    "findings": [
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "OVER HEAD 1CA     ",
-        "description": "COVER HEAD STOWG CRACKED                                    ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/MysFvdJK/7cc994a38d21.jpg",
-        "photoThumb": "https://i.ibb.co/p6xY7qkN/7cc994a38d21.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784617902186guo9s",
-    "batchId": "batch_1784617888437_nssk3j",
-    "timestamp": "2026-07-21T07:11:42.186Z",
-    "date": "21/07/2026",
-    "time": "10:11",
-    "aircraft": "HZ-ASD",
-    "reporter": "30004221",
-    "findings": [
-      {
-        "category": "PAINT             ",
-        "subCategory": "OVER HEAD 1LJ     ",
-        "description": "PINT, CRACKED\n\n                                             ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/s9kX5qNn/17ebc1d5f32c.jpg | https://i.ibb.co/ZRy3r3T4/b7413580da86.jpg | https://i.ibb.co/YFfCwF3B/2aa619eef3ec.jpg",
-        "photoThumb": "https://i.ibb.co/xqPrm6BW/17ebc1d5f32c.jpg | https://i.ibb.co/ymLDCDsv/b7413580da86.jpg | https://i.ibb.co/FL8rCLK4/2aa619eef3ec.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784618003960xdyoy",
-    "batchId": "batch_1784617994466_bdwicc",
-    "timestamp": "2026-07-21T07:13:23.961Z",
-    "date": "21/07/2026",
-    "time": "10:13",
-    "aircraft": "HZ-ASD",
-    "reporter": "30004221",
-    "findings": [
-      {
-        "category": "PAINT             ",
-        "subCategory": "OVER HEAD 2CA     ",
-        "description": "PAINT                                                       ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/gMsyXPqk/34fb9778d954.jpg",
-        "photoThumb": "https://i.ibb.co/27XqLsVG/34fb9778d954.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784618123535r3pp0",
-    "batchId": "batch_1784618105965_qvb3k1",
-    "timestamp": "2026-07-21T07:15:23.535Z",
-    "date": "21/07/2026",
-    "time": "10:15",
-    "aircraft": "HZ-ASD",
-    "reporter": "30004221",
-    "findings": [
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "OSB 3CA           ",
-        "description": "OSB LINIER BROKEN                                           ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/zVHJnzrS/fad54d3429b0.jpg | https://i.ibb.co/bTwrPnN/3037c7e7281d.jpg",
-        "photoThumb": "https://i.ibb.co/3mYzrn70/fad54d3429b0.jpg | https://i.ibb.co/VRnvt8M/3037c7e7281d.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784618191189n2l5f",
-    "batchId": "batch_1784618187524_fld589",
-    "timestamp": "2026-07-21T07:16:31.189Z",
-    "date": "21/07/2026",
-    "time": "10:16",
-    "aircraft": "HZ-ASD",
-    "reporter": "30004221",
-    "findings": [
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "4LJ               ",
-        "description": "OSB MISSING BUMBER                                          ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/DHQ7syLg/73bf486c6e76.jpg",
-        "photoThumb": "https://i.ibb.co/rRHZTSvf/73bf486c6e76.jpg"
-      }
-    ]
-  },
-  {
-    "id": "17846183309405axhm",
-    "batchId": "batch_1784618279505_5ascax",
-    "timestamp": "2026-07-21T07:18:50.940Z",
-    "date": "21/07/2026",
-    "time": "10:17",
-    "aircraft": "HZ-ASD",
-    "reporter": "30004221",
-    "findings": [
-      {
-        "category": "PAINT             ",
-        "subCategory": "OSB 4LJ           ",
-        "description": "CRACKED                                                     ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/6cpzYdWQ/f762fb52f07b.jpg | https://i.ibb.co/9m9CrCqY/f3a8d937fd34.jpg | https://i.ibb.co/qMP99g1S/80fb132c4eab.jpg",
-        "photoThumb": "https://i.ibb.co/DP6h4qRd/f762fb52f07b.jpg | https://i.ibb.co/Gfvb5bVP/f3a8d937fd34.jpg | https://i.ibb.co/kgW00Dc7/80fb132c4eab.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784618412948d61ui",
-    "batchId": "batch_1784618398822_5967ju",
-    "timestamp": "2026-07-21T07:20:12.948Z",
-    "date": "21/07/2026",
-    "time": "10:19",
-    "aircraft": "HZ-ASD",
-    "reporter": "30004221",
-    "findings": [
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "OSB               ",
-        "description": "MISSING INNER BUMBER                                        ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/Mxd7vgYg/9d7c8aab30d2.jpg | https://i.ibb.co/YFKgFHYf/f6c70b3f6822.jpg | https://i.ibb.co/WNBbN3vS/7da76f22d2c1.jpg",
-        "photoThumb": "https://i.ibb.co/Vc6T1L7L/9d7c8aab30d2.jpg | https://i.ibb.co/MxjdxFWP/f6c70b3f6822.jpg | https://i.ibb.co/qLmtLnYb/7da76f22d2c1.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784618456029ykk1g",
-    "batchId": "batch_1784618453174_ejdg9r",
-    "timestamp": "2026-07-21T07:20:56.030Z",
-    "date": "21/07/2026",
-    "time": "10:20",
-    "aircraft": "HZ-ASD",
-    "reporter": "30004221",
-    "findings": [
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "OSB 5LJ           ",
-        "description": "MISSING BUMBER                                              ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/jvyz6t53/fb9fb5fa0ec6.jpg",
-        "photoThumb": "https://i.ibb.co/4Z82mkf4/fb9fb5fa0ec6.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784618513309bhiqe",
-    "batchId": "batch_1784618505379_z13k7s",
-    "timestamp": "2026-07-21T07:21:53.309Z",
-    "date": "21/07/2026",
-    "time": "10:21",
-    "aircraft": "HZ-ASD",
-    "reporter": "30004221",
-    "findings": [
-      {
-        "category": "PAINT             ",
-        "subCategory": "OVER HEAD 5LJ     ",
-        "description": "CRACKED                                                     ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/1f9BYpkC/2e6bef2110c3.jpg | https://i.ibb.co/s9z2nynG/9ec1af033762.jpg",
-        "photoThumb": "https://i.ibb.co/mCHdrY3n/2e6bef2110c3.jpg | https://i.ibb.co/r2NmY4YS/9ec1af033762.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784618623210bygb5",
-    "batchId": "batch_1784618613397_qzzak7",
-    "timestamp": "2026-07-21T07:23:43.210Z",
-    "date": "21/07/2026",
-    "time": "10:23",
-    "aircraft": "HZ-ASD",
-    "reporter": "30004221",
-    "findings": [
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "OSB 30LKJ         ",
-        "description": "MISSING BUMBER                                              ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/B5mscqGS/7e1bf118ed62.jpg | https://i.ibb.co/jZ18LjZW/876650fc0f79.jpg",
-        "photoThumb": "https://i.ibb.co/ycDsdWpb/7e1bf118ed62.jpg | https://i.ibb.co/Pzfr5Vz9/876650fc0f79.jpg"
-      }
-    ]
-  },
-  {
-    "id": "17846187229165zztm",
-    "batchId": "batch_1784618717449_7l4kby",
-    "timestamp": "2026-07-21T07:25:22.916Z",
-    "date": "21/07/2026",
-    "time": "10:25",
-    "aircraft": "HZ-ASD",
-    "reporter": "30004221",
-    "findings": [
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "OSB 32CBA         ",
-        "description": "CRACKED AND MISSING BUMBER                                  ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/zVBk1qwZ/60c33b536f0c.jpg | https://i.ibb.co/mmcTs3N/10eb29f0da42.jpg | https://i.ibb.co/qMdt52kF/47a022d4f459.jpg",
-        "photoThumb": "https://i.ibb.co/5hS7dbVL/60c33b536f0c.jpg | https://i.ibb.co/R1Dbnqj/10eb29f0da42.jpg | https://i.ibb.co/zhryJtGH/47a022d4f459.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784618776489gpem4",
-    "batchId": "batch_1784618775286_mgwsw5",
-    "timestamp": "2026-07-21T07:26:16.489Z",
-    "date": "21/07/2026",
-    "time": "10:26",
-    "aircraft": "HZ-ASD",
-    "reporter": "30004221",
-    "findings": [
-      {
-        "category": "PAINT             ",
-        "subCategory": "OSB 31LKJ         ",
-        "description": "PAINT                                                       ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/k2SrBPM5/11211fd0389f.jpg",
-        "photoThumb": "https://i.ibb.co/CKHX8SWm/11211fd0389f.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784618899340vq56f",
-    "batchId": "batch_1784618889591_igau8u",
-    "timestamp": "2026-07-21T07:28:19.340Z",
-    "date": "21/07/2026",
-    "time": "10:28",
-    "aircraft": "HZ-ASD",
-    "reporter": "30004221",
-    "findings": [
-      {
-        "category": "PAINT             ",
-        "subCategory": "OSB 32LKJ         ",
-        "description": "OSB DIVIDER PAINT AND DAMAGE                                ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/LXHbBNCX/ffb1ff765db9.jpg | https://i.ibb.co/tpsftxFz/1d02acd3f358.jpg",
-        "photoThumb": "https://i.ibb.co/8LtTGYjL/ffb1ff765db9.jpg | https://i.ibb.co/PGhpn90M/1d02acd3f358.jpg"
-      },
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "OSB 32LKJ         ",
-        "description": "MISSING BUMBER                                              ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/MkR0wtkV/d5324666531f.jpg",
-        "photoThumb": "https://i.ibb.co/d4QYCV42/d5324666531f.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784618985152ja9qx",
-    "batchId": "batch_1784618973410_a130i7",
-    "timestamp": "2026-07-21T07:29:45.152Z",
-    "date": "21/07/2026",
-    "time": "10:29",
-    "aircraft": "HZ-ASD",
-    "reporter": "30004221",
-    "findings": [
-      {
-        "category": "PAINT             ",
-        "subCategory": "OSB 33LKJ         ",
-        "description": "PAINT                                                       ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/1YfKKW0z/f03ad0c350db.jpg",
-        "photoThumb": "https://i.ibb.co/ymn55jN4/f03ad0c350db.jpg"
-      },
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "OSB 33LKJ         ",
-        "description": "MISSING BUMBER                                              ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/XxrgzxPy/1a8cdc94caf7.jpg",
-        "photoThumb": "https://i.ibb.co/nMNvDMy3/1a8cdc94caf7.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784619061968mg4em",
-    "batchId": "batch_1784619055668_rew3xo",
-    "timestamp": "2026-07-21T07:31:01.968Z",
-    "date": "21/07/2026",
-    "time": "10:30",
-    "aircraft": "HZ-ASD",
-    "reporter": "30004221",
-    "findings": [
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "OSB 36 LKJ        ",
-        "description": "MISSING BUMBER                                              ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/JFx8N73m/87766c057487.jpg",
-        "photoThumb": "https://i.ibb.co/DgGmNCrz/87766c057487.jpg"
-      }
-    ]
-  },
-  {
-    "id": "17846191091799nrtu",
-    "batchId": "batch_1784619106685_st9eou",
-    "timestamp": "2026-07-21T07:31:49.179Z",
-    "date": "21/07/2026",
-    "time": "10:31",
-    "aircraft": "HZ-ASD",
-    "reporter": "30004221",
-    "findings": [
-      {
-        "category": "PAINT             ",
-        "subCategory": "OVER HEAD 37CBA   ",
-        "description": "PAINT                                                       ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/b5w020G9/b4f5572b1ed9.jpg",
-        "photoThumb": "https://i.ibb.co/609M1MqC/b4f5572b1ed9.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784619159062hzepx",
-    "batchId": "batch_1784619155897_y33mjg",
-    "timestamp": "2026-07-21T07:32:39.062Z",
-    "date": "21/07/2026",
-    "time": "10:32",
-    "aircraft": "HZ-ASD",
-    "reporter": "30004221",
-    "findings": [
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "OSB 39 CBA        ",
-        "description": "MISSING BUMBER                                              ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/G4bnFGC2/5206906f3b42.jpg",
-        "photoThumb": "https://i.ibb.co/gLBm6QtT/5206906f3b42.jpg"
-      }
-    ]
-  },
-  {
-    "id": "17846192251987vb82",
-    "batchId": "batch_1784619216146_05mljd",
-    "timestamp": "2026-07-21T07:33:45.198Z",
-    "date": "21/07/2026",
-    "time": "10:33",
-    "aircraft": "HZ-ASD",
-    "reporter": "30004221",
-    "findings": [
-      {
-        "category": "PAINT             ",
-        "subCategory": "ISB LKJ           ",
-        "description": "CRACKED                                                     ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/Z6vK4Dbz/66cda2b68d8b.jpg | https://i.ibb.co/dJVL0w4T/72a2bfda9aa7.jpg",
-        "photoThumb": "https://i.ibb.co/Y7J8nsVB/66cda2b68d8b.jpg | https://i.ibb.co/QjTCF3vg/72a2bfda9aa7.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784619290488jj1t7",
-    "batchId": "batch_1784619281985_scnnx9",
-    "timestamp": "2026-07-21T07:34:50.489Z",
-    "date": "21/07/2026",
-    "time": "10:34",
-    "aircraft": "HZ-ASD",
-    "reporter": "30004221",
-    "findings": [
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "OSB40CBA          ",
-        "description": "MISSING BUMBER AND SECRW                                    ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/d4Fj3bGz/8e7891537bc9.jpg | https://i.ibb.co/qLsSVB96/970630c19e27.jpg | https://i.ibb.co/R4j5mGFJ/ee733396a77e.jpg",
-        "photoThumb": "https://i.ibb.co/nM96V3z5/8e7891537bc9.jpg | https://i.ibb.co/j9MNshGt/970630c19e27.jpg | https://i.ibb.co/n8PWvqGK/ee733396a77e.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784619360586tpp3q",
-    "batchId": "batch_1784619349638_r2v0y9",
-    "timestamp": "2026-07-21T07:36:00.586Z",
-    "date": "21/07/2026",
-    "time": "10:35",
-    "aircraft": "HZ-ASD",
-    "reporter": "30004221",
-    "findings": [
-      {
-        "category": "PAINT             ",
-        "subCategory": "OSB 40 LKJ        ",
-        "description": "PAINT , DENT                                                ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/DfPjwzRN/496dbf06e75b.jpg | https://i.ibb.co/0jB6qQzf/baab45f12c2c.jpg",
-        "photoThumb": "https://i.ibb.co/xqKrzX7y/496dbf06e75b.jpg | https://i.ibb.co/SXQMNJZK/baab45f12c2c.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784619474263njbzb",
-    "batchId": "batch_1784619461632_bwttls",
-    "timestamp": "2026-07-21T07:37:54.263Z",
-    "date": "21/07/2026",
-    "time": "10:37",
-    "aircraft": "HZ-ASD",
-    "reporter": "30004221",
-    "findings": [
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "OVER HEAD 41 CBA  ",
-        "description": "CEILING PANEL CRACKED                                       ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/JFxHNzQs/89805b217683.jpg | https://i.ibb.co/4nhpCV18/8cdef659b359.jpg",
-        "photoThumb": "https://i.ibb.co/6JvF24BW/89805b217683.jpg | https://i.ibb.co/gLkJQR4S/8cdef659b359.jpg"
-      },
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "OSB 41 CBA        ",
-        "description": "MISSING BUMBER                                              ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/s47XvNd/6cd9ef796bc1.jpg",
-        "photoThumb": "https://i.ibb.co/0L5zj6R/6cd9ef796bc1.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784619559428qpjds",
-    "batchId": "batch_1784619550907_bx3pv2",
-    "timestamp": "2026-07-21T07:39:19.428Z",
-    "date": "21/07/2026",
-    "time": "10:39",
-    "aircraft": "HZ-ASD",
-    "reporter": "30004221",
-    "findings": [
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "OSB 41 LKJ        ",
-        "description": "CRACKED AND MISSING BUMBER                                  ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/pr9cnSM0/52e81f995e35.jpg | https://i.ibb.co/jkx1RFmM/58d9c1af3583.jpg | https://i.ibb.co/Z6fbrkNj/3f7e99b85707.jpg | https://i.ibb.co/N27jvxkF/580608c09a1f.jpg",
-        "photoThumb": "https://i.ibb.co/qFPKxvcy/52e81f995e35.jpg | https://i.ibb.co/KxQ3wHdq/58d9c1af3583.jpg | https://i.ibb.co/wNd2qxYk/3f7e99b85707.jpg | https://i.ibb.co/r2v6jkLQ/580608c09a1f.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784619604262fi1qw",
-    "batchId": "batch_1784619601031_2bah93",
-    "timestamp": "2026-07-21T07:40:04.262Z",
-    "date": "21/07/2026",
-    "time": "10:40",
-    "aircraft": "HZ-ASD",
-    "reporter": "30004221",
-    "findings": [
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "OSB 42CBA         ",
-        "description": "MISSING BUMBER                                              ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/vxGt43t7/1459f5f65542.jpg",
-        "photoThumb": "https://i.ibb.co/DDyqf9qx/1459f5f65542.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784619646227jv6i2",
-    "batchId": "batch_1784619636063_uob0pj",
-    "timestamp": "2026-07-21T07:40:46.227Z",
-    "date": "21/07/2026",
-    "time": "10:40",
-    "aircraft": "HZ-ASD",
-    "reporter": "30004221",
-    "findings": [
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "OSB 42LKJ         ",
-        "description": "MISSING BUMBER                                              ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/KxFSKVX8/9bd40414853c.jpg",
-        "photoThumb": "https://i.ibb.co/VY25wMtk/9bd40414853c.jpg"
-      }
-    ]
-  },
-  {
-    "id": "17846197189553xzhq",
-    "batchId": "batch_1784619707683_uf7km5",
-    "timestamp": "2026-07-21T07:41:58.955Z",
-    "date": "21/07/2026",
-    "time": "10:41",
-    "aircraft": "HZ-ASD",
-    "reporter": "30004221",
-    "findings": [
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "OSB 44 CBA        ",
-        "description": "COVER HEAD STOWG CRACKED                                    ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/TMKCr6Qj/75c05868109a.jpg | https://i.ibb.co/nqTKt8Jt/447819849780.jpg | https://i.ibb.co/jPsdRth0/f57ee83007c1.jpg | https://i.ibb.co/XkzS6Vht/04d876ad9637.jpg",
-        "photoThumb": "https://i.ibb.co/XxywV1n0/75c05868109a.jpg | https://i.ibb.co/LDMsHh7H/447819849780.jpg | https://i.ibb.co/cSVPLqJf/f57ee83007c1.jpg | https://i.ibb.co/2YjgR5Dd/04d876ad9637.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784619773260ibbgd",
-    "batchId": "batch_1784619772216_muayzb",
-    "timestamp": "2026-07-21T07:42:53.260Z",
-    "date": "21/07/2026",
-    "time": "10:42",
-    "aircraft": "HZ-ASD",
-    "reporter": "30004221",
-    "findings": [
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "OSB 44 LKJ        ",
-        "description": "COVER HEAD STOWG CRACKED                                    ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/WWd398s8/861ceceec6a6.jpg",
-        "photoThumb": "https://i.ibb.co/gMX71q6q/861ceceec6a6.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784620007271k8eki",
-    "batchId": "batch_1784619997002_er2nga",
-    "timestamp": "2026-07-21T07:46:47.271Z",
-    "date": "21/07/2026",
-    "time": "10:46",
-    "aircraft": "HZ-ASD",
-    "reporter": "30004221",
-    "findings": [
-      {
-        "category": "PAINT             ",
-        "subCategory": "SLIDRAFT R2       ",
-        "description": "PAINT BUSTLE                                                ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/60GT35SB/a38a518fb250.jpg | https://i.ibb.co/ynxLnqK2/de727618bf77.jpg",
-        "photoThumb": "https://i.ibb.co/QvhT2GVd/a38a518fb250.jpg | https://i.ibb.co/pvkCvdNq/de727618bf77.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784620112099syptl",
-    "batchId": "batch_1784620088983_xw5c52",
-    "timestamp": "2026-07-21T07:48:32.099Z",
-    "date": "21/07/2026",
-    "time": "10:48",
-    "aircraft": "HZ-ASD",
-    "reporter": "30004221",
-    "findings": [
-      {
-        "category": "PAINT             ",
-        "subCategory": "SLIDRAFT L2       ",
-        "description": "PAINT                                                       ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/gHscmRs/fd9581d7dfe7.jpg | https://i.ibb.co/nsR0bHvJ/335b2133a087.jpg | https://i.ibb.co/JRWSZJ8s/01331eaab6af.jpg",
-        "photoThumb": "https://i.ibb.co/rTnXFwn/fd9581d7dfe7.jpg | https://i.ibb.co/hRCMyPjz/335b2133a087.jpg | https://i.ibb.co/tMw1RrnJ/01331eaab6af.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784620170499ikz4z",
-    "batchId": "batch_1784620165696_gs0f4j",
-    "timestamp": "2026-07-21T07:49:30.499Z",
-    "date": "21/07/2026",
-    "time": "10:49",
-    "aircraft": "HZ-ASD",
-    "reporter": "30004221",
-    "findings": [
-      {
-        "category": "GENERAL CABIN     ",
-        "subCategory": "L2DOOR            ",
-        "description": "ASSIST HAND LOOSE                                           ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/5gk4tDhh/13efe7f780ea.jpg",
-        "photoThumb": "https://i.ibb.co/ksJBkn22/13efe7f780ea.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784620283998w6wq6",
-    "batchId": "batch_1784620276553_gmi5ye",
-    "timestamp": "2026-07-21T07:51:23.998Z",
-    "date": "21/07/2026",
-    "time": "10:51",
-    "aircraft": "HZ-ASD",
-    "reporter": "30004221",
-    "findings": [
-      {
-        "category": "PAINT             ",
-        "subCategory": "L1 DOOR           ",
-        "description": "PAINT                                                       ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/7NZ7NNxR/2857df8c6fa3.jpg | https://i.ibb.co/8DJTWgNL/f95d061a7c01.jpg",
-        "photoThumb": "https://i.ibb.co/x8BV88Kf/2857df8c6fa3.jpg | https://i.ibb.co/rGgTC2FR/f95d061a7c01.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784621698837h93zv",
-    "batchId": "batch_1784621673048_ybviyk",
-    "timestamp": "2026-07-21T08:14:58.837Z",
-    "date": "21/07/2026",
-    "time": "11:14",
-    "aircraft": "HZ-ASD",
-    "reporter": "3004221",
-    "findings": [
-      {
-        "category": "PAINT             ",
-        "subCategory": "41 CBA            ",
-        "description": "WINDOW                                                      ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/Dgt4DpFw/4b7c6bdd70a4.jpg",
-        "photoThumb": "https://i.ibb.co/jZThvRY3/4b7c6bdd70a4.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784621954170ab91v",
-    "batchId": "batch_1784621947998_su2czd",
-    "timestamp": "2026-07-21T08:19:14.170Z",
-    "date": "21/07/2026",
-    "time": "11:19",
-    "aircraft": "HZ-ASD",
-    "reporter": "30004221",
-    "findings": [
-      {
-        "category": "PAINT             ",
-        "subCategory": "5CA               ",
-        "description": "WINDOW                                                      ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/84bDjHc0/d316030718c1.jpg",
-        "photoThumb": "https://i.ibb.co/Wp0WcLt6/d316030718c1.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784652848225i1ki2",
-    "batchId": "batch_1784652713279_c3hicp",
-    "timestamp": "2026-07-21T16:54:08.225Z",
-    "date": "21/07/2026",
-    "time": "19:51",
-    "aircraft": "HZ-ASD",
-    "reporter": "30001575",
-    "findings": [
-      {
-        "category": "FLIGHT DECK       ",
-        "subCategory": "CAP SEAT          ",
-        "description": "PILOT HEAD REST COVER DIRTY                                 ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/0pv4pkLZ/76b22a74ae65.jpg | https://i.ibb.co/21CbSPSV/d84741ae1ef3.jpg",
-        "photoThumb": "https://i.ibb.co/SDGYD2g0/76b22a74ae65.jpg | https://i.ibb.co/zTBkFbF9/d84741ae1ef3.jpg"
-      },
-      {
-        "category": "FLIGHT DECK       ",
-        "subCategory": "CAP SEAT          ",
-        "description": "GREEN PAINT ON CAP BACK REST COVER                          ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/7HnFvQr/e70e3dd50d94.jpg",
-        "photoThumb": "https://i.ibb.co/2wvBqSc/e70e3dd50d94.jpg"
-      },
-      {
-        "category": "FLIGHT DECK       ",
-        "subCategory": "CAP SEAT          ",
-        "description": "CAP BACK REST CUSHION COVER STITCHES OUT                    ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/fGZNDCPk/92ca183952a3.jpg",
-        "photoThumb": "https://i.ibb.co/Z1vg2hkB/92ca183952a3.jpg"
-      },
-      {
-        "category": "FLIGHT DECK       ",
-        "subCategory": "CAP SEAT          ",
-        "description": "CAP SEAT COVER WRINKELD AND DIRTY                           ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/NgbxRL2N/27e5367d796d.jpg",
-        "photoThumb": "https://i.ibb.co/hxws0KFd/27e5367d796d.jpg"
-      },
-      {
-        "category": "FLIGHT DECK       ",
-        "subCategory": "CAP SEAT          ",
-        "description": "CAP SEAT METAL CHIPPED PAINT                                ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/j97YnJMw/b05e6fe61233.jpg",
-        "photoThumb": "https://i.ibb.co/p6CTYhzK/b05e6fe61233.jpg"
-      },
-      {
-        "category": "FLIGHT DECK       ",
-        "subCategory": "CAP SEAT          ",
-        "description": "CAP SEAT WOOL DAMAGED                                       ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/FL85fX9x/31b1b21ce9e1.jpg",
-        "photoThumb": "https://i.ibb.co/1tRrpM3v/31b1b21ce9e1.jpg"
-      },
-      {
-        "category": "FLIGHT DECK       ",
-        "subCategory": "FO                ",
-        "description": "CO-PILOT BACK REST COVER DIRTY                              ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/2727DJB1/3ae7e496ad10.jpg",
-        "photoThumb": "https://i.ibb.co/ns2sHpSN/3ae7e496ad10.jpg"
-      },
-      {
-        "category": "FLIGHT DECK       ",
-        "subCategory": "CO-PILOT          ",
-        "description": " FO SEAT CUSHION COVER WRINKLED AND DIRTY AND OUT OF POSITION",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/DHn8F1T6/b6651423efea.jpg | https://i.ibb.co/QFJfJ2KN/c02f7ffad194.jpg",
-        "photoThumb": "https://i.ibb.co/xtQfb2dc/b6651423efea.jpg | https://i.ibb.co/1f0L0Dmq/c02f7ffad194.jpg"
-      },
-      {
-        "category": "FLIGHT DECK       ",
-        "subCategory": "FO                ",
-        "description": "FO HEAD REST COVER DIRTY                                    ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/ynphm1Nj/2387e98568d7.jpg",
-        "photoThumb": "https://i.ibb.co/bgFHjZ69/2387e98568d7.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784656145723f8hr0",
-    "batchId": "batch_1784656136715_e2npmw",
-    "timestamp": "2026-07-21T17:49:05.723Z",
-    "date": "21/07/2026",
-    "time": "20:48",
-    "aircraft": "HZ-ASD",
-    "reporter": "30001575",
-    "findings": [
-      {
-        "category": "FLIGHT DECK       ",
-        "subCategory": "FO                ",
-        "description": "FO HEAD REST WOOL DAMAGED                                   ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/yBxP5Z23/e2a71d7eb3ba.jpg",
-        "photoThumb": "https://i.ibb.co/rfX0Mz9W/e2a71d7eb3ba.jpg"
-      },
-      {
-        "category": "FLIGHT DECK       ",
-        "subCategory": "FO                ",
-        "description": "FO BACK REST WOOL DAMAGED                                   ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/bgfH9kgk/77a72493a2a9.jpg",
-        "photoThumb": "https://i.ibb.co/Rp5hwqpq/77a72493a2a9.jpg"
-      }
-    ]
-  },
-  {
-    "id": "17846572384685ids4",
-    "batchId": "batch_1784657208120_owtulq",
-    "timestamp": "2026-07-21T18:07:18.468Z",
-    "date": "21/07/2026",
-    "time": "21:06",
-    "aircraft": "HZ-ASD",
-    "reporter": "30001575",
-    "findings": [
-      {
-        "category": "FLIGHT DECK       ",
-        "subCategory": "FO                ",
-        "description": "FO SEAT VELCRO DAMAGED                                      ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/99k4Dq5L/d46c0d84098c.jpg",
-        "photoThumb": "https://i.ibb.co/QF3Hg6wR/d46c0d84098c.jpg"
-      },
-      {
-        "category": "FLIGHT DECK       ",
-        "subCategory": "CAP               ",
-        "description": "CAP SEAT VELCRO DAMAGED                                     ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/ch6mpQxv/cfc4cb910db7.jpg",
-        "photoThumb": "https://i.ibb.co/B2y17BwP/cfc4cb910db7.jpg"
-      },
-      {
-        "category": "FLIGHT DECK       ",
-        "subCategory": "FO                ",
-        "description": "FO SEAT CHIPPED PAINT AND SCRATCHED                         ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/MkzHWMCN/b7b646fa0e2f.jpg",
-        "photoThumb": "https://i.ibb.co/7t3D821y/b7b646fa0e2f.jpg"
-      },
-      {
-        "category": "FLIGHT DECK       ",
-        "subCategory": "1ST OBSERVER      ",
-        "description": "FIRST OBSERVER HEAD REST BACK SHROUD PAINT FADED AND CHIPPED",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/QvBqsVrB/62c63eda3c80.jpg | https://i.ibb.co/JRYGm3CY/d71b42254f96.jpg",
-        "photoThumb": "https://i.ibb.co/YB9KvSp9/62c63eda3c80.jpg | https://i.ibb.co/ynzZd4Vz/d71b42254f96.jpg"
-      },
-      {
-        "category": "FLIGHT DECK       ",
-        "subCategory": "1ST OBSERVER      ",
-        "description": "FIRST OBSERVER BACK REST CUSHION COVER STAINS               ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/Lzt9XjGn/c5910b5f05df.jpg | https://i.ibb.co/7JtVCDb1/781b1f4bca16.jpg",
-        "photoThumb": "https://i.ibb.co/wNWpFGvM/c5910b5f05df.jpg | https://i.ibb.co/DDfkWFLR/781b1f4bca16.jpg"
-      },
-      {
-        "category": "FLIGHT DECK       ",
-        "subCategory": "1ST OBSERVER      ",
-        "description": "1ST OBSERVER FRAYED BOTH CHEST SEAT BUILTS                  ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/BVDVySKF/2531c0f00e11.jpg",
-        "photoThumb": "https://i.ibb.co/MDTDc35Q/2531c0f00e11.jpg"
-      },
-      {
-        "category": "FLIGHT DECK       ",
-        "subCategory": "1ST OBSERVER      ",
-        "description": "FIRST OBSERVER SEAT CUSHION ASSY OUT OF POSITION            ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/twwK46n6/a17d41102121.jpg",
-        "photoThumb": "https://i.ibb.co/XffLbP6P/a17d41102121.jpg"
-      },
-      {
-        "category": "FLIGHT DECK       ",
-        "subCategory": "1ST OBSERVER      ",
-        "description": "FIRST OBSERVER SEAT DOWNWARD LIFE-VEST VELCRO AND ITS SHROURD DAMAGED ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/0RrZqhPv/83cabfa26e93.jpg | https://i.ibb.co/WW9zMtSJ/2366efe464e8.jpg | https://i.ibb.co/MxcBVKt5/79dd79aa0263.jpg",
-        "photoThumb": "https://i.ibb.co/cSQtJDzV/83cabfa26e93.jpg | https://i.ibb.co/JRLpGQXJ/2366efe464e8.jpg | https://i.ibb.co/fzkDpZyG/79dd79aa0263.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784658989527rv2c9",
-    "batchId": "batch_1784658983195_pwkde7",
-    "timestamp": "2026-07-21T18:36:29.527Z",
-    "date": "21/07/2026",
-    "time": "21:36",
-    "aircraft": "HZ-ASD",
-    "reporter": "30001575",
-    "findings": [
-      {
-        "category": "FLIGHT DECK       ",
-        "subCategory": "2ND OBSERVER      ",
-        "description": "SECOND OBSERVER BACK REST VELCRO AND BACK SHROUD DAMAGED    ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/whnh6pLr/6ba11748fd70.jpg | https://i.ibb.co/twRzwJN2/45656291e067.jpg | https://i.ibb.co/SD0SB54n/ec34380d7077.jpg | https://i.ibb.co/ZzK4tJ5X/5cd310c90a79.jpg",
-        "photoThumb": "https://i.ibb.co/MkzkNPh5/6ba11748fd70.jpg | https://i.ibb.co/vC9hCjrd/45656291e067.jpg | https://i.ibb.co/TDRytYx8/ec34380d7077.jpg | https://i.ibb.co/N2pDQ35C/5cd310c90a79.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784663248173lulsb",
-    "batchId": "batch_1784662777487_6myq4u",
-    "timestamp": "2026-07-21T19:47:28.173Z",
-    "date": "21/07/2026",
-    "time": "22:46",
-    "aircraft": "HZ-ASD",
-    "reporter": "30001575",
-    "findings": [
-      {
-        "category": "FLIGHT DECK       ",
-        "subCategory": "2ND OBSERVER      ",
-        "description": "SECOND OBSERVER SEAT COVER DIRTY AND HAS PAINT              ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/2zzR477/08f76236c977.jpg | https://i.ibb.co/7x7wYdSR/131c64682066.jpg | https://i.ibb.co/qMYS1513/84844b7670b5.jpg | https://i.ibb.co/qY3RKBtm/6270fc2e42b8.jpg",
-        "photoThumb": "https://i.ibb.co/t00nrMM/08f76236c977.jpg | https://i.ibb.co/qLbty3DW/131c64682066.jpg | https://i.ibb.co/PZGLCQCv/84844b7670b5.jpg | https://i.ibb.co/fdzCfMhr/6270fc2e42b8.jpg"
-      },
-      {
-        "category": "FLIGHT DECK       ",
-        "subCategory": "1ST OBSERVER      ",
-        "description": "FIRST OBSERVER SEAT METAL CHIPPED PAINT                     ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/bq5YNVk/85adca2d030c.jpg | https://i.ibb.co/YFfSdYCR/e6bcb06764ab.jpg",
-        "photoThumb": "https://i.ibb.co/RZTtQKq/85adca2d030c.jpg | https://i.ibb.co/v6LWdgFw/e6bcb06764ab.jpg"
-      },
-      {
-        "category": "FLIGHT DECK       ",
-        "subCategory": "2ND OBSERVER      ",
-        "description": "SECOND OBSERVER BACK REST DISCONNECTED                      ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/Vc777w3c/b0b48c74575e.jpg | https://i.ibb.co/N648M3vP/11c2306341dc.jpg",
-        "photoThumb": "https://i.ibb.co/ycwww4Vc/b0b48c74575e.jpg | https://i.ibb.co/BV1X9Ppx/11c2306341dc.jpg"
-      },
-      {
-        "category": "FLIGHT DECK       ",
-        "subCategory": "2ND OBSERVER      ",
-        "description": "SECOND OBSERVER CHEST BUILT WHITE PAINT STAIN               ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/CKNQ4z9d/e8e9d04a488b.jpg",
-        "photoThumb": "https://i.ibb.co/RTZct96n/e8e9d04a488b.jpg"
-      },
-      {
-        "category": "FLIGHT DECK       ",
-        "subCategory": "CAP SEAT          ",
-        "description": "CAP SEAT LIFE-VEST INTERIOR STOWAGE SCRATCHED AND DIRTY     ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/mVT1jb3q/cc4177051ecc.jpg",
-        "photoThumb": "https://i.ibb.co/39dG34nN/cc4177051ecc.jpg"
-      },
-      {
-        "category": "FLIGHT DECK       ",
-        "subCategory": "CAP SEAT          ",
-        "description": "CAP SEAT LIFE-VEST DECAL SMALL CHIPP                        ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/MxQpY4gN/12a5ddc7c3f2.jpg",
-        "photoThumb": "https://i.ibb.co/dwx6dqfK/12a5ddc7c3f2.jpg"
-      },
-      {
-        "category": "FLIGHT DECK       ",
-        "subCategory": "CAP SEAT          ",
-        "description": "CAP SEAT DOWNWARD BLACK-METAL CHIPPED PAINT                 ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/cS5D6Psm/243ecd294b1f.jpg",
-        "photoThumb": "https://i.ibb.co/Vcy2gdkK/243ecd294b1f.jpg"
-      },
-      {
-        "category": "FLIGHT DECK       ",
-        "subCategory": "FO                ",
-        "description": "FO SEAT LIFE-VEST DECAL BLACK- STAINS                       ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/2YCfrKVB/556a869cc13b.jpg",
-        "photoThumb": "https://i.ibb.co/jZQ1Y40F/556a869cc13b.jpg"
-      },
-      {
-        "category": "FLIGHT DECK       ",
-        "subCategory": "CAP SEAT          ",
-        "description": "CAP SEAT LIFE-VEST SHROUD CUT                               ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/yn0yQ4x1/279f1f147658.jpg",
-        "photoThumb": "https://i.ibb.co/jvhMrJj2/279f1f147658.jpg"
-      },
-      {
-        "category": "FLIGHT DECK       ",
-        "subCategory": "FO                ",
-        "description": "FO BACK-LIFE-VEST SHROUD CUT DOWNWARD                       ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/m19rqHf/b2e4ad62c53d.jpg",
-        "photoThumb": "https://i.ibb.co/d1Ps2Q8/b2e4ad62c53d.jpg"
-      },
-      {
-        "category": "FLIGHT DECK       ",
-        "subCategory": "FO                ",
-        "description": "FO SEAT BLACK-AFT METAL CHIPPED PAINT                       ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/QvjZWqKG/59d01c63a2f6.jpg",
-        "photoThumb": "https://i.ibb.co/qYFzH4rw/59d01c63a2f6.jpg"
-      },
-      {
-        "category": "FLIGHT DECK       ",
-        "subCategory": "ARM REST          ",
-        "description": "CAP L/ARM REST BLACK-STAIN, SMALL CHIPPED AND CUT           ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/Q7RmqyDf/fb4466e57942.jpg | https://i.ibb.co/tMSsM8mG/f53be1cf7c3a.jpg | https://i.ibb.co/ynK0c9RY/d0d17dcd9252.jpg | https://i.ibb.co/7JmgMSjk/82bf315c451b.jpg | https://i.ibb.co/qMP5DS22/2df5b79458e4.jpg",
-        "photoThumb": "https://i.ibb.co/NgPYkcTs/fb4466e57942.jpg | https://i.ibb.co/pvgzvJ07/f53be1cf7c3a.jpg | https://i.ibb.co/5WCTg09n/d0d17dcd9252.jpg | https://i.ibb.co/gMKvqrm4/82bf315c451b.jpg | https://i.ibb.co/QF1dJgxx/2df5b79458e4.jpg"
-      },
-      {
-        "category": "FLIGHT DECK       ",
-        "subCategory": "ARM REST          ",
-        "description": "CAP L/ARM REST ADJUSTMENT PLASITC COVER DIRTY               ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/fdQJtVPD/6c5898afedb4.jpg",
-        "photoThumb": "https://i.ibb.co/PGtk4sfD/6c5898afedb4.jpg"
-      },
-      {
-        "category": "FLIGHT DECK       ",
-        "subCategory": "CAP SEAT          ",
-        "description": "CAP SEAT R/ARM REST CRACKED AND COVER DISCOLORED AND DIRTY  ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/jptRYwZ/4b75071905d7.jpg",
-        "photoThumb": "https://i.ibb.co/CrL2y9s/4b75071905d7.jpg"
-      },
-      {
-        "category": "FLIGHT DECK       ",
-        "subCategory": "FO                ",
-        "description": "FO R/ARM REST DISCOLORED EDGES, DIRTY AND PLASTIC CRACKED   ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/WW3Ww89K/4b2a0d6496e6.jpg | https://i.ibb.co/mFXLhmw9/ae9d4313e427.jpg | https://i.ibb.co/ZPMHNRR/47d47cad66a4.jpg | https://i.ibb.co/Rt7R2Wp/40cda1aa9e80.jpg",
-        "photoThumb": "https://i.ibb.co/VWNWZnyB/4b2a0d6496e6.jpg | https://i.ibb.co/HpxWG0st/ae9d4313e427.jpg | https://i.ibb.co/GL5sFff/47d47cad66a4.jpg | https://i.ibb.co/fZQjM7Y/40cda1aa9e80.jpg"
-      },
-      {
-        "category": "FLIGHT DECK       ",
-        "subCategory": "CAP SEAT          ",
-        "description": "CAP SEATBUILT FAILUR QUICK RETURN MECHANISM                 ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/Psk4g0Px/1cb054ea4f6a.jpg",
-        "photoThumb": "https://i.ibb.co/CpLvQDYB/1cb054ea4f6a.jpg"
-      },
-      {
-        "category": "FLIGHT DECK       ",
-        "subCategory": "CAP TABLE         ",
-        "description": "CAP SLIDING TABLE END CAB CHIPPED PAINT, MIDDLE LATCH STIFF, MIDDLE TABLE SCRATCHED AND CHIPPED, PAPER CLIP CORRODED, BLACK-RUBBER MISSING, SLOW, STIFF AND NEEDS FORCE IN RETURNING MECHANISM",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/1J82sxYH/922b22e2b347.jpg | https://i.ibb.co/SDgWyTVT/871156f4c614.jpg | https://i.ibb.co/vxQ7GXv3/6ebd6ef51764.jpg | https://i.ibb.co/XrmVv1DK/2f46cc33c276.jpg | https://i.ibb.co/bjvdTxyL/3123161a3e72.jpg",
-        "photoThumb": "https://i.ibb.co/qFk10wLb/922b22e2b347.jpg | https://i.ibb.co/qL8XjGmG/871156f4c614.jpg | https://i.ibb.co/DD8xyrg9/6ebd6ef51764.jpg | https://i.ibb.co/W4SsYZ0M/2f46cc33c276.jpg | https://i.ibb.co/fVN0fbKt/3123161a3e72.jpg"
-      },
-      {
-        "category": "FLIGHT DECK       ",
-        "subCategory": "CAP TABLE         ",
-        "description": "CAP SLIDING TABLE END CAB CHIPPED PAINT, MIDDLE LATCH STIFF, MIDDLE TABLE SCRATCHED AND CHIPPED, PAPER CLIP CORRODED, BLACK-RUBBER MISSING, SLOW, STIFF AND NEEDS FORCE IN RETURNING MECHANISM",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/LDLC8ZqF/8cf77b6f5530.jpg | https://i.ibb.co/ZRLNXrzt/4800d4fd2aa6.jpg | https://i.ibb.co/xq9k1xMs/262fcf47083b.jpg | https://i.ibb.co/JWDXJzWr/07cf1aaa8eb2.jpg | https://i.ibb.co/Cpr2n0LQ/9d1b84c61530.jpg",
-        "photoThumb": "https://i.ibb.co/fVhC2xKg/8cf77b6f5530.jpg | https://i.ibb.co/Kc0mhgxR/4800d4fd2aa6.jpg | https://i.ibb.co/v4yF30JB/262fcf47083b.jpg | https://i.ibb.co/XfcmRzfF/07cf1aaa8eb2.jpg | https://i.ibb.co/LDG5CpK1/9d1b84c61530.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784664227683aa8ib",
-    "batchId": "batch_1784664220984_3acqxx",
-    "timestamp": "2026-07-21T20:03:47.683Z",
-    "date": "21/07/2026",
-    "time": "23:03",
-    "aircraft": "HZ-ASD",
-    "reporter": "30001575",
-    "findings": [
-      {
-        "category": "FLIGHT DECK       ",
-        "subCategory": "FO                ",
-        "description": "FO SLIDING TABLE PAINT CHIPPED                              ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/5WPqGk9Z/ff9771b3f85c.jpg | https://i.ibb.co/Xx9XSkkW/a843df085b90.jpg | https://i.ibb.co/gMsCZk8F/1fca9100cc60.jpg | https://i.ibb.co/gbwZJgF0/cf72cec589c0.jpg | https://i.ibb.co/b560yNCb/199686d84502.jpg",
-        "photoThumb": "https://i.ibb.co/wNfDB7Lt/ff9771b3f85c.jpg | https://i.ibb.co/qYzBkFFD/a843df085b90.jpg | https://i.ibb.co/wND1h5qr/1fca9100cc60.jpg | https://i.ibb.co/fVtdH0G3/cf72cec589c0.jpg | https://i.ibb.co/s9gfDsNW/199686d84502.jpg"
-      }
-    ]
-  },
-  {
-    "id": "17846649129314dgoo",
-    "batchId": "batch_1784664896871_ebfxvv",
-    "timestamp": "2026-07-21T20:15:12.931Z",
-    "date": "21/07/2026",
-    "time": "23:14",
-    "aircraft": "HZ-ASD",
-    "reporter": "30001575",
-    "findings": [
-      {
-        "category": "FLIGHT DECK       ",
-        "subCategory": "COMP              ",
-        "description": "STOWAGE COMP EDGES DAMAGED AND PLASTIC PAINT PEELED         ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/cc3kMLpK/53b04780be07.jpg | https://i.ibb.co/ZRSZV7zx/23f87b95eb76.jpg",
-        "photoThumb": "https://i.ibb.co/vxqVgYrC/53b04780be07.jpg | https://i.ibb.co/8nbh0tg9/23f87b95eb76.jpg"
-      },
-      {
-        "category": "FLIGHT DECK       ",
-        "subCategory": "STOWAGE COMP      ",
-        "description": "STOWAGE COMP DIRTY AND PAINT FADED                          ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/TdKwHcy/1ffabf0fe14f.jpg | https://i.ibb.co/TDG7VKmF/171a79eb51db.jpg | https://i.ibb.co/Q7WVmGz2/0c91afae6c65.jpg",
-        "photoThumb": "https://i.ibb.co/WjDHcnC/1ffabf0fe14f.jpg | https://i.ibb.co/sp4N05yM/171a79eb51db.jpg | https://i.ibb.co/Y45SjGYz/0c91afae6c65.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784665191081d78uq",
-    "batchId": "batch_1784665183157_1fmyn7",
-    "timestamp": "2026-07-21T20:19:51.081Z",
-    "date": "21/07/2026",
-    "time": "23:19",
-    "aircraft": "HZ-ASD",
-    "reporter": "30001575",
-    "findings": [
-      {
-        "category": "FLIGHT DECK       ",
-        "subCategory": "DISC STOWAGE      ",
-        "description": "DISC STOWAGE DIRTY, PAINT PEELED                            ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/sdM1bx04/333df573f526.jpg | https://i.ibb.co/PynFbg0/9f4695bb788c.jpg | https://i.ibb.co/BHcr8tYx/4133ee94ebe8.jpg",
-        "photoThumb": "https://i.ibb.co/YFqdPnzS/333df573f526.jpg | https://i.ibb.co/WXwGdfj/9f4695bb788c.jpg | https://i.ibb.co/LDYJ48sW/4133ee94ebe8.jpg"
-      },
-      {
-        "category": "FLIGHT DECK       ",
-        "subCategory": "FIRE EX           ",
-        "description": "PORT FIRE EX COMP EDGES CHIPPED AND DIRTY AND DECAL EDGES DAMAGE",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/LDKNs53R/60a738aab7c7.jpg | https://i.ibb.co/Kxw7TX6x/cb59ff7813b0.jpg",
-        "photoThumb": "https://i.ibb.co/wZtc2sfg/60a738aab7c7.jpg | https://i.ibb.co/GQTkz07Q/cb59ff7813b0.jpg"
-      }
-    ]
-  },
-  {
-    "id": "1784665669055em9xk",
-    "batchId": "batch_1784665662266_shf7uy",
-    "timestamp": "2026-07-21T20:27:49.055Z",
-    "date": "21/07/2026",
-    "time": "23:27",
-    "aircraft": "HZ-ASD",
-    "reporter": "30001575",
-    "findings": [
-      {
-        "category": "FLIGHT DECK       ",
-        "subCategory": "WASTE GATE        ",
-        "description": "WASTE GATE SPRING STUCK AND EDGES CHIPPED                   ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/cKvnQbLQ/d8d90d2d32a4.jpg | https://i.ibb.co/1j6tQkM/d4739312fa3b.jpg",
-        "photoThumb": "https://i.ibb.co/Y4WshDZh/d8d90d2d32a4.jpg | https://i.ibb.co/MQ6xSmf/d4739312fa3b.jpg"
-      },
-      {
-        "category": "FLIGHT DECK       ",
-        "subCategory": "DECALS            ",
-        "description": "DECAL DAMAGES                                               ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/7JSQz40y/121e4cb35567.jpg | https://i.ibb.co/pStxDjx/5a7078625ab8.jpg | https://i.ibb.co/4ZNPYDdT/bc71fabd91d4.jpg | https://i.ibb.co/7N0t9b8b/c83b27d90ddf.jpg | https://i.ibb.co/FLWyVfps/b7ea655f3e1d.jpg",
-        "photoThumb": "https://i.ibb.co/nswB0CKk/121e4cb35567.jpg | https://i.ibb.co/wf9RHhR/5a7078625ab8.jpg | https://i.ibb.co/ccTDCpLF/bc71fabd91d4.jpg | https://i.ibb.co/sJX9Btkt/c83b27d90ddf.jpg | https://i.ibb.co/q3nc5460/b7ea655f3e1d.jpg"
-      }
-    ]
-  },
-  {
-    "id": "17846660530365ql37",
-    "batchId": "batch_1784666043121_47s4c7",
-    "timestamp": "2026-07-21T20:34:13.036Z",
-    "date": "21/07/2026",
-    "time": "23:34",
-    "aircraft": "HZ-ASD",
-    "reporter": "30001575",
-    "findings": [
-      {
-        "category": "FLIGHT DECK       ",
-        "subCategory": "STOWAGE           ",
-        "description": "STOWAGE COMP DIRTY                                          ",
-        "remarks": "                         ",
-        "photoUrl": "https://i.ibb.co/V0S6MWKf/2c0f499aba84.jpg | https://i.ibb.co/DHR2Xff9/e954f2fa6628.jpg | https://i.ibb.co/ymNVHCr5/82edb4a173a1.jpg | https://i.ibb.co/mC61CMhY/2c192cc49cbd.jpg",
-        "photoThumb": "https://i.ibb.co/Pshk1ZSq/2c0f499aba84.jpg | https://i.ibb.co/7d1mcttn/e954f2fa6628.jpg | https://i.ibb.co/SD6JFgz0/82edb4a173a1.jpg | https://i.ibb.co/Y7pY7qfK/2c192cc49cbd.jpg"
-      }
-    ]
   }
 ]
