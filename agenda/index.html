@@ -189,45 +189,56 @@ html,body{margin:0;background:var(--bg);color:var(--ink);font-family:'BwGradual'
 .foot button{flex:1;border:1px solid var(--line);background:#fff;border-radius:12px;padding:12px 6px;font-size:12px;font-weight:700;color:var(--g);font-family:'BwGradual'}
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--deep);color:#fff;padding:12px 20px;border-radius:13px;font-size:13px;transition:.28s;z-index:999;max-width:88vw;text-align:center;font-family:'BwGradual'}
 .toast.show{transform:translateX(-50%) translateY(0)}
+
+.mod-ov{position:fixed;inset:0;background:rgba(15,41,32,.6);backdrop-filter:blur(3px);z-index:9999;display:flex;align-items:center;justify-content:center;animation:pcin .2s ease}
+.mod{background:#fff;border-radius:18px;padding:20px 18px;width:min(88vw,340px);box-shadow:0 20px 60px rgba(0,0,0,.35)}
+.mod h3{font-family:'BwGradualEB';margin:0 0 4px;font-size:15px;color:var(--ink);letter-spacing:.4px}
+.mod p{margin:0 0 14px;font-size:12px;color:var(--mut)}
+.mod input{width:100%;border:1.5px solid var(--line);border-radius:11px;padding:12px;font-size:15px;font-family:'BwGradual';margin-bottom:13px;color:var(--ink)}
+.mod .mrow{display:flex;gap:9px}
+.mod button{flex:1;border-radius:11px;padding:12px;font-size:13.5px;font-family:'BwGradualEB';border:1px solid var(--line);background:#fff;color:var(--mut)}
+.mod button.pri{background:var(--g);border-color:var(--g);color:#fff}
+.mod button.dng{background:var(--red);border-color:var(--red);color:#fff}
 .ver{position:fixed;bottom:4px;left:8px;font-size:9px;color:#A9B8B0;z-index:4;pointer-events:none;font-family:'BwGradual'}
 @media print{.tb,.dbar,.tabs,.add,.foot,.dn,.del,#passcode-screen,.ver{display:none!important}.panel{border:none;margin:0}body{background:#fff}.card{page-break-inside:avoid}}
 </style>
 </head>
 <body>
 <div id="passcode-screen"></div>
-<div class="header"><div class="tb-brand"><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQ4IiBoZWlnaHQ9IjU0IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik03My4wNTkgMTUuNzloOS42OTR2My4yMzdoLTkuNjk0djMuMjM2aDkuNjk0djYuNDY2bC0zLjIzNCAzLjIzNmgtOS42OTR2LTMuMjM2aDkuNjk0di0zLjIzNmgtOS42OTR2LTYuNDY2bDMuMjM0LTMuMjM2Wm0xMS43MTUgNi40Njd2OS43MDFoNi40NmwzLjIzNC0zLjIzNWgtNi40NnYtNi40NjZoNi40NnY5LjcwMUg5Ny43di0xMi45M2gtOS42OTRsLTMuMjMzIDMuMjM2di0uMDA2Wm01My4zMS0zLjIzLTMuMjMzIDMuMjN2OS43MDFoNi40NjFsMy4yMzMtMy4yMzVoLTYuNDYxdi02LjQ2Nmg2LjQ2MXY5LjcwMWgzLjIzM3YtMTIuOTNoLTkuNjk0Wm0tMTMuNzMxIDBoLTYuNDZsLTMuMjM0IDMuMjM2djkuNzAxaDYuNDYxbDMuMjMzLTMuMjM1aC02LjQ2di02LjQ2Nmg2LjQ2djkuNzAxaDMuMjM0VjEyLjU2MmgtMy4yMzR2Ni40NjZabS0xNC45NDIgOS43MDJoLTYuNDYxdi05LjcwMmgtMy4yMzN2MTIuOTMxaDkuNjk0bDMuMjMzLTMuMjM1VjE5LjAyaC0zLjIzM3Y5LjcwOFptMjAuMTkxLTEyLjkzMmgzLjIzM1YxMi41NmgtMy4yMzN2My4yMzZabTAgMTYuMTY4aDMuMjMzVjE5LjAzMmgtMy4yMzN2MTIuOTMxWm0tMTA2LjAyIDYuOTgyLTEuODcyIDEuMTg4LTEuNjgtMS44NmMxLjEzNC0uNjMxIDIuMjY4LTEuMjYxIDMuMzktMS45MSAxLjg3Ny0xLjA4NyAzLjcyNS0yLjI0IDUuNjA4LTMuMzI2LS4wNTQtLjAzLS4xMDgtLjA2Ni0uMTYyLS4wOTYtMy4zNDctMS44ODUtNi43NjYtMy43MjgtMTAuNDMxLTQuOTgzLTIuODY4LTEuMTI5LTYuMDExLTEuMzU3LTkuMDY0LTEuNDY1bDEwLjY0MSAxMS43NjdjLS4wNDguMDM2LS40MDIuMy0uOTkuNjQ5LTMuNTIgMi4wODktNS42NjIgMi4zNzctOC41MjQgMi41ODcgMi42MzQuNTUzIDMuNzUgMS4yNzMgNy42MDcuNDAzIDEuMzU1LS4zMDcgMy41MzMtMS43MTIgMy42MDUtMS43Nmw4Ljk2MiA5LjkxMi0uNTY0LTE1LjE2NWEzMDMuMjk2IDMwMy4yOTYgMCAwIDAtNi41MjcgNC4wNTNNMTcuOTIgMjYuNTc5YzQuMjI5LjkyNSA4LjE3NiAyLjc5OCAxMi4wNTcgNC42ODNsLS4zNi05LjU4OEwuMjk1IDE1Ljc5MWMtLjIzNC0uMDQ4LS4zOS4yMzQtLjIyOC40MDhsOS4zMSAxMC4yOTZjMi44NDktLjUwNCA1LjcyMi0uNTI4IDguNTQ4LjA5bTQ0LjkzLTEwLjc4OEwzMy41MzMgMjEuNjhsLS4zNiA5LjU4OGMzLjg3NS0xLjg4NSA3LjgyMy0zLjc1MiAxMi4wNTgtNC42ODMgMi44MjUtLjYxOCA1LjY5OC0uNTk0IDguNTQ4LS4wOWw5LjMxLTEwLjI5NmMuMTYyLS4xNzQgMC0uNDU2LS4yMjgtLjQwOG0tMjguMzI2IDQuMDIyczEuMDYyLTMuNzUyLjAzNi03LjU3Yy44NTguNzAyIDEuODg0IDEuNzI5IDIuNjgxIDMuMDggMS4xMTYgMS44OTcgMS40MjIgMy4zNTUgMS40MjIgMy4zNTVzLjQ2OC0yLjIzMy0uMjY0LTQuMjM4Yy0uMjQtLjY2LS44MjgtMi40MDEtMi4wMjEtMy41My45MzUuNDM4IDIuMDUxIDEuMDggMy4xNzkgMi4wMzUgMS45MTMgMS42MjcgMy4wNTMgMy4wODYgMy4wNTMgMy4wODZzLS4zNi0yLjQ5OC0xLjc1Ny00LjI4N2MtMS42MDgtMi4wNTMtMy43OTEtMi44NjMtNS4zNTEtMy4yMDZhOS4zMSA5LjMxIDAgMCAxIDMuMzQxLjE1YzIuNDkuNTgzIDQuMTUxIDEuODY4IDQuMTUxIDEuODY4cy0xLjQ4OC0yLjM0Mi0zLjkyOS0zLjQyMmMtMS44MTgtLjgwNS0zLjU5My0uODEtNC45OS0uNmEyLjE1IDIuMTUgMCAwIDEgLjQzNy0uNTk1Yy40MjYtLjM5Ni45MTItLjYyNS45MTItLjYyNXMtMS4wMzItLjI1OC0xLjkzMi4wNzlhMy42NDUgMy42NDUgMCAwIDAtMS4xMDMuNjcyIDcuMTgzIDcuMTgzIDAgMCAwLS4xNS0uNzg3Yy0uMTA4LS40MzItLjYxMi0xLjM1LS42NTQtMS40MjgtLjA0Mi4wNzgtLjU1MiAxLjAwMi0uNjU0IDEuNDI4LS4wNjYuMjc3LS4xMTQuNTQtLjE1Ljc4N2EzLjY0NSAzLjY0NSAwIDAgMC0xLjEwNC0uNjcyYy0uODk0LS4zMzctMS45MzEtLjA3OS0xLjkzMS0uMDc5cy40OC4yMjkuOTExLjYyNWMuMTguMTY4LjMyNC4zNzIuNDM4LjU5NC0xLjM5Mi0uMjEtMy4xNzMtLjE5OC00Ljk5LjYtMi40NDggMS4wODEtMy45MyAzLjQyMy0zLjkzIDMuNDIzczEuNjYyLTEuMjg1IDQuMTUxLTEuODY3YTkuMzA2IDkuMzA2IDAgMCAxIDMuMzQxLS4xNWMtMS41Ni4zNDItMy43NDMgMS4xNTItNS4zNSAzLjIwNS0xLjQwNCAxLjc5LTEuNzU4IDQuMjg3LTEuNzU4IDQuMjg3czEuMTQtMS40NTkgMy4wNTMtMy4wODZhMTQuMDcyIDE0LjA3MiAwIDAgMSAzLjE4LTIuMDM1Yy0xLjE5NCAxLjEzNC0xLjc4MiAyLjg3Ni0yLjAyMiAzLjUzLS43MjYgMi4wMTEtLjI2NCA0LjIzOS0uMjY0IDQuMjM5cy4zMDYtMS40NiAxLjQyMi0zLjM1NmMuNzk4LTEuMzUxIDEuODE3LTIuMzc4IDIuNjgxLTMuMDgtMS4wMjYgMy44MTIuMDMgNy41Ny4wMyA3LjU3cy42NDItMi44ODcgMS42MTQtNS4zNDNjLjQxNC0xLjA0NS44ODItMS44MzEgMS4zMzgtMi40Mi40NS41ODkuOTI0IDEuMzc1IDEuMzM3IDIuNDIuOTY2IDIuNDUgMS42MTQgNS4zNDMgMS42MTQgNS4zNDNtLS4yNCAxMy4xMjRjLS4wNTQuMDMtLjEwOC4wNjYtLjE2OC4wOTYgMS44ODQgMS4wOCAzLjczMSAyLjI0IDUuNjA5IDMuMzI2IDEuMTIyLjY0OSAyLjI1NSAxLjI4NSAzLjM5IDEuOTFsLTEuNjggMS44Ni0xLjg3Mi0xLjE4OGEzMTguOTk3IDMxOC45OTcgMCAwIDAtNi41MzMtNC4wNTNsLS41NjMgMTUuMTY1IDguOTYyLTkuOTEyYy4wNzIuMDQ5IDIuMjQ5IDEuNDUzIDMuNjA1IDEuNzYgMy44NTcuODcgNC45NzMuMTUgNy42MDYtLjQwMy0yLjg2MS0uMjEtNS4wMDMtLjUwNC04LjUyNC0yLjU4N2ExMS4zNjUgMTEuMzY1IDAgMCAxLS45OS0uNjQ5bDEwLjY0Mi0xMS43NjdjLTMuMDUzLjEwOC02LjE5Ny4zMy05LjA2NCAxLjQ2NS0zLjY2IDEuMjU1LTcuMDc5IDMuMDkyLTEwLjQzMiA0Ljk4M200NS41NjYgNS4xOTNINzUuOHYxMS45NDFoLTEuOTA4di0xMS45NGgtNC4wNjd2LTEuNTA4aDEwLjA0MnYxLjUwN1ptNy44MSA3LjY3M2gtNi43OWMuMDcyIDEuOTA5IDEuMDIgMy4wMzIgMi41MjUgMy4wMzIgMS4zMjYgMCAyLjI1LS43MjcgMi40OS0xLjk2NGgxLjc4MWMtLjMxMiAyLjEyNi0xLjg5IDMuMzgtNC4yNjUgMy4zOC0yLjcwNSAwLTQuMjgzLTEuNzQ2LTQuMjgzLTQuNzA2IDAtMi45NiAxLjU3OC00LjcwNyA0LjI4My00LjcwNyAyLjcwNiAwIDQuMjY1IDEuNzQ3IDQuMjY1IDQuNzA3di4yNTJsLS4wMDYuMDA2Wm0tNi43NzItLjc2M2g0Ljk3M2MtLjE0NC0xLjc2NS0xLjAzMi0yLjc4LTIuNDcyLTIuNzhzLTIuMzYzIDEuMDE1LTIuNTA3IDIuNzhtOC4zOTIuNTA0YzAtMi45NiAxLjY3NC00LjcwNiA0LjQ4Ny00LjcwNiAyLjI5MSAwIDMuODE1IDEuMjE5IDQuMjMgMy4zMDhoLTEuOGMtLjM2Ni0xLjE2NS0xLjItMS44MzctMi40MzYtMS44MzctMS42NjggMC0yLjYzMyAxLjItMi42MzMgMy4yMzYgMCAyLjAzNS45NiAzLjIzNiAyLjYzMyAzLjIzNiAxLjI5IDAgMi4xNi0uNzI3IDIuNDcxLTIuMDE4aDEuODE4Yy0uMzg0IDIuMjE2LTEuOTI2IDMuNDg5LTQuMjgzIDMuNDg5LTIuODEzIDAtNC40ODctMS43NDgtNC40ODctNC43MDdabTE4Ljg1NC0xLjA1djUuNTc3aC0xLjgxOHYtNS41MjNjMC0xLjQxNy0uNzgtMi4yMzMtMi4xMDUtMi4yMzMtMS40ODggMC0yLjM4MiAxLjA1Ni0yLjM4MiAyLjgzNHY0LjkyMmgtMS44MTdWMzYuMDgzaDEuODE3djguMDg3aC4wMzZjMC0yLjA5IDEuMTI4LTMuMzI2IDMuMDM2LTMuMzI2IDIuMDMzIDAgMy4yMzMgMS4zNjMgMy4yMzMgMy42NW0xMC42NzguMDA2djUuNTc3aC0xLjgxOHYtNS41MjNjMC0xLjQxNy0uNzgtMi4yMzMtMi4xMDYtMi4yMzMtMS40ODcgMC0yLjM4MSAxLjA1Ni0yLjM4MSAyLjgzNHY0LjkyMkgxMTAuN1Y0MS4wM2gxLjgxOHYzLjE0NmguMDM2YzAtMi4wOSAxLjEyOC0zLjMyNiAzLjAyOS0zLjMyNiAyLjAzNCAwIDMuMjM0IDEuMzYzIDMuMjM0IDMuNjVtMi41NjctNy40MTRoMS44MTh2Mi4wNTNoLTEuODE4di0yLjA1M1ptMCAzLjk0NGgxLjgxOHY5LjA1M2gtMS44MThWNDEuMDNabTMuOTU5IDQuNTJjMC0yLjk2IDEuNjc0LTQuNzA2IDQuNDg3LTQuNzA2IDIuMjg2IDAgMy44MTUgMS4yMTkgNC4yMjkgMy4zMDhoLTEuNzk5Yy0uMzY2LTEuMTY1LTEuMi0xLjgzNy0yLjQzNi0xLjgzNy0xLjY3MyAwLTIuNjMzIDEuMi0yLjYzMyAzLjIzNiAwIDIuMDM1Ljk2IDMuMjM2IDIuNjMzIDMuMjM2IDEuMjkgMCAyLjE2LS43MjcgMi40NzItMi4wMThoMS44MTdjLS4zODQgMi4yMTYtMS45MjUgMy40ODktNC4yODMgMy40ODktMi44MTMgMC00LjQ4Ny0xLjc0OC00LjQ4Ny00LjcwN1oiIGZpbGw9IiNmZmYiLz48L3N2Zz4=" alt="Saudia Technic"></div><div class="tb-div"></div><div class="tb-app-title">SHIFT AGENDA</div><div style="flex:1"></div><div class="tb-right"><div class="tb-ac">HZ-ASD</div><div class="badge-count" id="vbadge" onclick="adminUnlock()">AG v2.1</div></div></div>
+<div class="header"><div class="tb-brand"><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQ4IiBoZWlnaHQ9IjU0IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik03My4wNTkgMTUuNzloOS42OTR2My4yMzdoLTkuNjk0djMuMjM2aDkuNjk0djYuNDY2bC0zLjIzNCAzLjIzNmgtOS42OTR2LTMuMjM2aDkuNjk0di0zLjIzNmgtOS42OTR2LTYuNDY2bDMuMjM0LTMuMjM2Wm0xMS43MTUgNi40Njd2OS43MDFoNi40NmwzLjIzNC0zLjIzNWgtNi40NnYtNi40NjZoNi40NnY5LjcwMUg5Ny43di0xMi45M2gtOS42OTRsLTMuMjMzIDMuMjM2di0uMDA2Wm01My4zMS0zLjIzLTMuMjMzIDMuMjN2OS43MDFoNi40NjFsMy4yMzMtMy4yMzVoLTYuNDYxdi02LjQ2Nmg2LjQ2MXY5LjcwMWgzLjIzM3YtMTIuOTNoLTkuNjk0Wm0tMTMuNzMxIDBoLTYuNDZsLTMuMjM0IDMuMjM2djkuNzAxaDYuNDYxbDMuMjMzLTMuMjM1aC02LjQ2di02LjQ2Nmg2LjQ2djkuNzAxaDMuMjM0VjEyLjU2MmgtMy4yMzR2Ni40NjZabS0xNC45NDIgOS43MDJoLTYuNDYxdi05LjcwMmgtMy4yMzN2MTIuOTMxaDkuNjk0bDMuMjMzLTMuMjM1VjE5LjAyaC0zLjIzM3Y5LjcwOFptMjAuMTkxLTEyLjkzMmgzLjIzM1YxMi41NmgtMy4yMzN2My4yMzZabTAgMTYuMTY4aDMuMjMzVjE5LjAzMmgtMy4yMzN2MTIuOTMxWm0tMTA2LjAyIDYuOTgyLTEuODcyIDEuMTg4LTEuNjgtMS44NmMxLjEzNC0uNjMxIDIuMjY4LTEuMjYxIDMuMzktMS45MSAxLjg3Ny0xLjA4NyAzLjcyNS0yLjI0IDUuNjA4LTMuMzI2LS4wNTQtLjAzLS4xMDgtLjA2Ni0uMTYyLS4wOTYtMy4zNDctMS44ODUtNi43NjYtMy43MjgtMTAuNDMxLTQuOTgzLTIuODY4LTEuMTI5LTYuMDExLTEuMzU3LTkuMDY0LTEuNDY1bDEwLjY0MSAxMS43NjdjLS4wNDguMDM2LS40MDIuMy0uOTkuNjQ5LTMuNTIgMi4wODktNS42NjIgMi4zNzctOC41MjQgMi41ODcgMi42MzQuNTUzIDMuNzUgMS4yNzMgNy42MDcuNDAzIDEuMzU1LS4zMDcgMy41MzMtMS43MTIgMy42MDUtMS43Nmw4Ljk2MiA5LjkxMi0uNTY0LTE1LjE2NWEzMDMuMjk2IDMwMy4yOTYgMCAwIDAtNi41MjcgNC4wNTNNMTcuOTIgMjYuNTc5YzQuMjI5LjkyNSA4LjE3NiAyLjc5OCAxMi4wNTcgNC42ODNsLS4zNi05LjU4OEwuMjk1IDE1Ljc5MWMtLjIzNC0uMDQ4LS4zOS4yMzQtLjIyOC40MDhsOS4zMSAxMC4yOTZjMi44NDktLjUwNCA1LjcyMi0uNTI4IDguNTQ4LjA5bTQ0LjkzLTEwLjc4OEwzMy41MzMgMjEuNjhsLS4zNiA5LjU4OGMzLjg3NS0xLjg4NSA3LjgyMy0zLjc1MiAxMi4wNTgtNC42ODMgMi44MjUtLjYxOCA1LjY5OC0uNTk0IDguNTQ4LS4wOWw5LjMxLTEwLjI5NmMuMTYyLS4xNzQgMC0uNDU2LS4yMjgtLjQwOG0tMjguMzI2IDQuMDIyczEuMDYyLTMuNzUyLjAzNi03LjU3Yy44NTguNzAyIDEuODg0IDEuNzI5IDIuNjgxIDMuMDggMS4xMTYgMS44OTcgMS40MjIgMy4zNTUgMS40MjIgMy4zNTVzLjQ2OC0yLjIzMy0uMjY0LTQuMjM4Yy0uMjQtLjY2LS44MjgtMi40MDEtMi4wMjEtMy41My45MzUuNDM4IDIuMDUxIDEuMDggMy4xNzkgMi4wMzUgMS45MTMgMS42MjcgMy4wNTMgMy4wODYgMy4wNTMgMy4wODZzLS4zNi0yLjQ5OC0xLjc1Ny00LjI4N2MtMS42MDgtMi4wNTMtMy43OTEtMi44NjMtNS4zNTEtMy4yMDZhOS4zMSA5LjMxIDAgMCAxIDMuMzQxLjE1YzIuNDkuNTgzIDQuMTUxIDEuODY4IDQuMTUxIDEuODY4cy0xLjQ4OC0yLjM0Mi0zLjkyOS0zLjQyMmMtMS44MTgtLjgwNS0zLjU5My0uODEtNC45OS0uNmEyLjE1IDIuMTUgMCAwIDEgLjQzNy0uNTk1Yy40MjYtLjM5Ni45MTItLjYyNS45MTItLjYyNXMtMS4wMzItLjI1OC0xLjkzMi4wNzlhMy42NDUgMy42NDUgMCAwIDAtMS4xMDMuNjcyIDcuMTgzIDcuMTgzIDAgMCAwLS4xNS0uNzg3Yy0uMTA4LS40MzItLjYxMi0xLjM1LS42NTQtMS40MjgtLjA0Mi4wNzgtLjU1MiAxLjAwMi0uNjU0IDEuNDI4LS4wNjYuMjc3LS4xMTQuNTQtLjE1Ljc4N2EzLjY0NSAzLjY0NSAwIDAgMC0xLjEwNC0uNjcyYy0uODk0LS4zMzctMS45MzEtLjA3OS0xLjkzMS0uMDc5cy40OC4yMjkuOTExLjYyNWMuMTguMTY4LjMyNC4zNzIuNDM4LjU5NC0xLjM5Mi0uMjEtMy4xNzMtLjE5OC00Ljk5LjYtMi40NDggMS4wODEtMy45MyAzLjQyMy0zLjkzIDMuNDIzczEuNjYyLTEuMjg1IDQuMTUxLTEuODY3YTkuMzA2IDkuMzA2IDAgMCAxIDMuMzQxLS4xNWMtMS41Ni4zNDItMy43NDMgMS4xNTItNS4zNSAzLjIwNS0xLjQwNCAxLjc5LTEuNzU4IDQuMjg3LTEuNzU4IDQuMjg3czEuMTQtMS40NTkgMy4wNTMtMy4wODZhMTQuMDcyIDE0LjA3MiAwIDAgMSAzLjE4LTIuMDM1Yy0xLjE5NCAxLjEzNC0xLjc4MiAyLjg3Ni0yLjAyMiAzLjUzLS43MjYgMi4wMTEtLjI2NCA0LjIzOS0uMjY0IDQuMjM5cy4zMDYtMS40NiAxLjQyMi0zLjM1NmMuNzk4LTEuMzUxIDEuODE3LTIuMzc4IDIuNjgxLTMuMDgtMS4wMjYgMy44MTIuMDMgNy41Ny4wMyA3LjU3cy42NDItMi44ODcgMS42MTQtNS4zNDNjLjQxNC0xLjA0NS44ODItMS44MzEgMS4zMzgtMi40Mi40NS41ODkuOTI0IDEuMzc1IDEuMzM3IDIuNDIuOTY2IDIuNDUgMS42MTQgNS4zNDMgMS42MTQgNS4zNDNtLS4yNCAxMy4xMjRjLS4wNTQuMDMtLjEwOC4wNjYtLjE2OC4wOTYgMS44ODQgMS4wOCAzLjczMSAyLjI0IDUuNjA5IDMuMzI2IDEuMTIyLjY0OSAyLjI1NSAxLjI4NSAzLjM5IDEuOTFsLTEuNjggMS44Ni0xLjg3Mi0xLjE4OGEzMTguOTk3IDMxOC45OTcgMCAwIDAtNi41MzMtNC4wNTNsLS41NjMgMTUuMTY1IDguOTYyLTkuOTEyYy4wNzIuMDQ5IDIuMjQ5IDEuNDUzIDMuNjA1IDEuNzYgMy44NTcuODcgNC45NzMuMTUgNy42MDYtLjQwMy0yLjg2MS0uMjEtNS4wMDMtLjUwNC04LjUyNC0yLjU4N2ExMS4zNjUgMTEuMzY1IDAgMCAxLS45OS0uNjQ5bDEwLjY0Mi0xMS43NjdjLTMuMDUzLjEwOC02LjE5Ny4zMy05LjA2NCAxLjQ2NS0zLjY2IDEuMjU1LTcuMDc5IDMuMDkyLTEwLjQzMiA0Ljk4M200NS41NjYgNS4xOTNINzUuOHYxMS45NDFoLTEuOTA4di0xMS45NGgtNC4wNjd2LTEuNTA4aDEwLjA0MnYxLjUwN1ptNy44MSA3LjY3M2gtNi43OWMuMDcyIDEuOTA5IDEuMDIgMy4wMzIgMi41MjUgMy4wMzIgMS4zMjYgMCAyLjI1LS43MjcgMi40OS0xLjk2NGgxLjc4MWMtLjMxMiAyLjEyNi0xLjg5IDMuMzgtNC4yNjUgMy4zOC0yLjcwNSAwLTQuMjgzLTEuNzQ2LTQuMjgzLTQuNzA2IDAtMi45NiAxLjU3OC00LjcwNyA0LjI4My00LjcwNyAyLjcwNiAwIDQuMjY1IDEuNzQ3IDQuMjY1IDQuNzA3di4yNTJsLS4wMDYuMDA2Wm0tNi43NzItLjc2M2g0Ljk3M2MtLjE0NC0xLjc2NS0xLjAzMi0yLjc4LTIuNDcyLTIuNzhzLTIuMzYzIDEuMDE1LTIuNTA3IDIuNzhtOC4zOTIuNTA0YzAtMi45NiAxLjY3NC00LjcwNiA0LjQ4Ny00LjcwNiAyLjI5MSAwIDMuODE1IDEuMjE5IDQuMjMgMy4zMDhoLTEuOGMtLjM2Ni0xLjE2NS0xLjItMS44MzctMi40MzYtMS44MzctMS42NjggMC0yLjYzMyAxLjItMi42MzMgMy4yMzYgMCAyLjAzNS45NiAzLjIzNiAyLjYzMyAzLjIzNiAxLjI5IDAgMi4xNi0uNzI3IDIuNDcxLTIuMDE4aDEuODE4Yy0uMzg0IDIuMjE2LTEuOTI2IDMuNDg5LTQuMjgzIDMuNDg5LTIuODEzIDAtNC40ODctMS43NDgtNC40ODctNC43MDdabTE4Ljg1NC0xLjA1djUuNTc3aC0xLjgxOHYtNS41MjNjMC0xLjQxNy0uNzgtMi4yMzMtMi4xMDUtMi4yMzMtMS40ODggMC0yLjM4MiAxLjA1Ni0yLjM4MiAyLjgzNHY0LjkyMmgtMS44MTdWMzYuMDgzaDEuODE3djguMDg3aC4wMzZjMC0yLjA5IDEuMTI4LTMuMzI2IDMuMDM2LTMuMzI2IDIuMDMzIDAgMy4yMzMgMS4zNjMgMy4yMzMgMy42NW0xMC42NzguMDA2djUuNTc3aC0xLjgxOHYtNS41MjNjMC0xLjQxNy0uNzgtMi4yMzMtMi4xMDYtMi4yMzMtMS40ODcgMC0yLjM4MSAxLjA1Ni0yLjM4MSAyLjgzNHY0LjkyMkgxMTAuN1Y0MS4wM2gxLjgxOHYzLjE0NmguMDM2YzAtMi4wOSAxLjEyOC0zLjMyNiAzLjAyOS0zLjMyNiAyLjAzNCAwIDMuMjM0IDEuMzYzIDMuMjM0IDMuNjVtMi41NjctNy40MTRoMS44MTh2Mi4wNTNoLTEuODE4di0yLjA1M1ptMCAzLjk0NGgxLjgxOHY5LjA1M2gtMS44MThWNDEuMDNabTMuOTU5IDQuNTJjMC0yLjk2IDEuNjc0LTQuNzA2IDQuNDg3LTQuNzA2IDIuMjg2IDAgMy44MTUgMS4yMTkgNC4yMjkgMy4zMDhoLTEuNzk5Yy0uMzY2LTEuMTY1LTEuMi0xLjgzNy0yLjQzNi0xLjgzNy0xLjY3MyAwLTIuNjMzIDEuMi0yLjYzMyAzLjIzNiAwIDIuMDM1Ljk2IDMuMjM2IDIuNjMzIDMuMjM2IDEuMjkgMCAyLjE2LS43MjcgMi40NzItMi4wMThoMS44MTdjLS4zODQgMi4yMTYtMS45MjUgMy40ODktNC4yODMgMy40ODktMi44MTMgMC00LjQ4Ny0xLjc0OC00LjQ4Ny00LjcwN1oiIGZpbGw9IiNmZmYiLz48L3N2Zz4=" alt="Saudia Technic"></div><div class="tb-div"></div><div class="tb-app-title">SHIFT AGENDA</div><div style="flex:1"></div><div class="tb-right"><div class="tb-ac">HZ-ASD</div><div class="tb-ac" id="adm-btn" onclick="adminUnlock()">Admin</div><div class="badge-count" id="vbadge">AG v2.2</div></div></div>
 <div class="dbar"><button onclick="nav(-1)">‹</button><div id="dlbl"></div><button onclick="nav(1)">›</button></div>
 <div class="wrap">
 <div class="tabs" id="tabs"></div>
 <div class="panel">
- <div class="hand">
-  <label>⚠ Handover — for next shift</label>
-  <textarea id="hnote" placeholder="Anything the next shift must know…" onchange="saveHandover()"></textarea>
-  <div class="hm" id="hmeta"></div>
- </div>
  <div class="add">
   <input id="ntx" placeholder="Task — e.g. SIDEWALL panels FR22–FR30" autocomplete="off">
   <div class="crewbox" id="crewbox" style="display:none">
    <div class="cl" id="crewlbl">On shift today — tap to assign</div>
    <div class="chips" id="crewchips"></div>
   </div>
-  <input id="nwho" placeholder="Assigned to (or tap names above)" autocomplete="off">
+  <div class="wobox"><input id="nwho" placeholder="Assigned to (or tap names above)" autocomplete="off" oninput="whoSearch(this.value)"><div class="wolist" id="wholist" style="display:none"></div></div>
   <div class="wobox">
-   <input id="nwo" placeholder="🔗 Link a WP card — type WO or keywords (optional)" autocomplete="off" oninput="woSearch(this.value)">
+   <input id="nwo" placeholder="Link WP card — WO / Seq / keywords (optional)" autocomplete="off" oninput="woSearch(this.value)">
    <div class="wolist" id="wolist" style="display:none"></div>
   </div>
   <div id="wosel"></div>
   <div class="seg" id="areaseg">
    <button onclick="pickArea(this,'')" class="on">Any</button><button onclick="pickArea(this,'FWD')">FWD</button><button onclick="pickArea(this,'MID')">MID</button><button onclick="pickArea(this,'AFT')">AFT</button><button onclick="pickArea(this,'JOINT')">JOINT</button>
-   <button class="pr" id="prbtn" onclick="this.classList.toggle('on')">⚑ PRIO</button>
+   <button class="pr" id="prbtn" onclick="this.classList.toggle('on')"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:-1px"><path d="M4 22V3.5C4 3 4.5 2 6 2c3 0 4.5 2 7.5 2 2 0 3.5-.7 4.5-1.2V13c-1 .5-2.5 1.2-4.5 1.2-3 0-4.5-2-7.5-2-.8 0-1.4.2-2 .5V22H4z"/></svg> PRIO</button>
   </div>
   <button class="addbtn" onclick="addTask()">＋ ADD TO PLAN</button>
  </div>
  <div id="list"></div>
+ <div class="hand">
+  <label><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#B7791F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><path d="M10.3 3.9L1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg> Handover — for next shift</label>
+  <textarea id="hnote" placeholder="Anything the next shift must know…" onchange="saveHandover()"></textarea>
+  <div class="hm" id="hmeta"></div>
+ </div>
+ 
 </div>
 <div class="foot">
- <button onclick="carryOver()">⤵ Unfinished from yesterday</button>
- <button onclick="window.print()">⎙ Print</button>
+ <button onclick="carryOver()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><path d="M9 14l-4 4 4 4M5 18h11a4 4 0 0 0 4-4V4"/></svg> Unfinished from yesterday</button>
+ <button onclick="window.print()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-2px"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg> Print</button>
 </div>
 </div>
 <div class="toast" id="toast"></div>
@@ -238,11 +249,35 @@ const PASS='545', ADMIN='9955';
 const SHIFTS=[['D','06:00–14:00'],['T','14:00–22:00'],['G','22:00–06:00']];
 let day=new Date(), shift='D', data=null, busy=false, isAdmin=false, roster=null, wp=null, selWO=null, area='';
 const devId=(()=>{let d=localStorage.getItem('ag_dev');if(!d){d='dv'+Math.random().toString(36).slice(2,9);localStorage.setItem('ag_dev',d);}return d;})();
-function myName(){let n=localStorage.getItem('ag_name');if(!n){n=(prompt('Your name / PRN:')||'').trim().toUpperCase();if(n)localStorage.setItem('ag_name',n);}return n||'—';}
+function myName(cb){
+ var n=localStorage.getItem('ag_name');
+ if(n){if(cb)cb(n);return n;}
+ modal({title:'Your Name / PRN',sub:'Shown next to what you add on the board',input:true,ph:'e.g. AHMED / 30001575',ok:'Save',cb:function(v){
+  if(v){localStorage.setItem('ag_name',v.toUpperCase());toast('Welcome, '+v.toUpperCase());}
+  if(cb)cb(v?v.toUpperCase():'—');
+ }});
+ return '—';
+}
 function dstr(d){return d.toISOString().slice(0,10);}
 function api(d){return PROXY+'?path='+encodeURIComponent('agenda/'+dstr(d)+'.json');}
 function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('show'),2600);}
 function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+function modal(o){
+ var ov=document.createElement('div');ov.className='mod-ov';
+ ov.innerHTML='<div class="mod"><h3>'+o.title+'</h3>'+(o.sub?'<p>'+o.sub+'</p>':'')
+  +(o.input?'<input id="mod-in" type="'+(o.type||'text')+'" placeholder="'+(o.ph||'')+'" autocomplete="off">':'')
+  +'<div class="mrow"><button id="mod-no">'+(o.no||'Cancel')+'</button>'
+  +'<button class="'+(o.danger?'dng':'pri')+'" id="mod-ok">'+(o.ok||'OK')+'</button></div></div>';
+ document.body.appendChild(ov);
+ var inp=ov.querySelector('#mod-in');
+ if(inp)setTimeout(function(){inp.focus();},60);
+ function close(){ov.remove();}
+ ov.querySelector('#mod-no').onclick=close;
+ ov.querySelector('#mod-ok').onclick=function(){var v=inp?inp.value.trim():true;close();if(o.cb)o.cb(v);};
+ if(inp)inp.addEventListener('keydown',function(e){if(e.key==='Enter')ov.querySelector('#mod-ok').click();});
+ ov.addEventListener('click',function(e){if(e.target===ov)close();});
+}
 /* family lock */
 const LOCK_TPL="\n    <div class=\"pc-brand\">\n      <img src=\"data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQ4IiBoZWlnaHQ9IjU0IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik03My4wNTkgMTUuNzloOS42OTR2My4yMzdoLTkuNjk0djMuMjM2aDkuNjk0djYuNDY2bC0zLjIzNCAzLjIzNmgtOS42OTR2LTMuMjM2aDkuNjk0di0zLjIzNmgtOS42OTR2LTYuNDY2bDMuMjM0LTMuMjM2Wm0xMS43MTUgNi40Njd2OS43MDFoNi40NmwzLjIzNC0zLjIzNWgtNi40NnYtNi40NjZoNi40NnY5LjcwMUg5Ny43di0xMi45M2gtOS42OTRsLTMuMjMzIDMuMjM2di0uMDA2Wm01My4zMS0zLjIzLTMuMjMzIDMuMjN2OS43MDFoNi40NjFsMy4yMzMtMy4yMzVoLTYuNDYxdi02LjQ2Nmg2LjQ2MXY5LjcwMWgzLjIzM3YtMTIuOTNoLTkuNjk0Wm0tMTMuNzMxIDBoLTYuNDZsLTMuMjM0IDMuMjM2djkuNzAxaDYuNDYxbDMuMjMzLTMuMjM1aC02LjQ2di02LjQ2Nmg2LjQ2djkuNzAxaDMuMjM0VjEyLjU2MmgtMy4yMzR2Ni40NjZabS0xNC45NDIgOS43MDJoLTYuNDYxdi05LjcwMmgtMy4yMzN2MTIuOTMxaDkuNjk0bDMuMjMzLTMuMjM1VjE5LjAyaC0zLjIzM3Y5LjcwOFptMjAuMTkxLTEyLjkzMmgzLjIzM1YxMi41NmgtMy4yMzN2My4yMzZabTAgMTYuMTY4aDMuMjMzVjE5LjAzMmgtMy4yMzN2MTIuOTMxWm0tMTA2LjAyIDYuOTgyLTEuODcyIDEuMTg4LTEuNjgtMS44NmMxLjEzNC0uNjMxIDIuMjY4LTEuMjYxIDMuMzktMS45MSAxLjg3Ny0xLjA4NyAzLjcyNS0yLjI0IDUuNjA4LTMuMzI2LS4wNTQtLjAzLS4xMDgtLjA2Ni0uMTYyLS4wOTYtMy4zNDctMS44ODUtNi43NjYtMy43MjgtMTAuNDMxLTQuOTgzLTIuODY4LTEuMTI5LTYuMDExLTEuMzU3LTkuMDY0LTEuNDY1bDEwLjY0MSAxMS43NjdjLS4wNDguMDM2LS40MDIuMy0uOTkuNjQ5LTMuNTIgMi4wODktNS42NjIgMi4zNzctOC41MjQgMi41ODcgMi42MzQuNTUzIDMuNzUgMS4yNzMgNy42MDcuNDAzIDEuMzU1LS4zMDcgMy41MzMtMS43MTIgMy42MDUtMS43Nmw4Ljk2MiA5LjkxMi0uNTY0LTE1LjE2NWEzMDMuMjk2IDMwMy4yOTYgMCAwIDAtNi41MjcgNC4wNTNNMTcuOTIgMjYuNTc5YzQuMjI5LjkyNSA4LjE3NiAyLjc5OCAxMi4wNTcgNC42ODNsLS4zNi05LjU4OEwuMjk1IDE1Ljc5MWMtLjIzNC0uMDQ4LS4zOS4yMzQtLjIyOC40MDhsOS4zMSAxMC4yOTZjMi44NDktLjUwNCA1LjcyMi0uNTI4IDguNTQ4LjA5bTQ0LjkzLTEwLjc4OEwzMy41MzMgMjEuNjhsLS4zNiA5LjU4OGMzLjg3NS0xLjg4NSA3LjgyMy0zLjc1MiAxMi4wNTgtNC42ODMgMi44MjUtLjYxOCA1LjY5OC0uNTk0IDguNTQ4LS4wOWw5LjMxLTEwLjI5NmMuMTYyLS4xNzQgMC0uNDU2LS4yMjgtLjQwOG0tMjguMzI2IDQuMDIyczEuMDYyLTMuNzUyLjAzNi03LjU3Yy44NTguNzAyIDEuODg0IDEuNzI5IDIuNjgxIDMuMDggMS4xMTYgMS44OTcgMS40MjIgMy4zNTUgMS40MjIgMy4zNTVzLjQ2OC0yLjIzMy0uMjY0LTQuMjM4Yy0uMjQtLjY2LS44MjgtMi40MDEtMi4wMjEtMy41My45MzUuNDM4IDIuMDUxIDEuMDggMy4xNzkgMi4wMzUgMS45MTMgMS42MjcgMy4wNTMgMy4wODYgMy4wNTMgMy4wODZzLS4zNi0yLjQ5OC0xLjc1Ny00LjI4N2MtMS42MDgtMi4wNTMtMy43OTEtMi44NjMtNS4zNTEtMy4yMDZhOS4zMSA5LjMxIDAgMCAxIDMuMzQxLjE1YzIuNDkuNTgzIDQuMTUxIDEuODY4IDQuMTUxIDEuODY4cy0xLjQ4OC0yLjM0Mi0zLjkyOS0zLjQyMmMtMS44MTgtLjgwNS0zLjU5My0uODEtNC45OS0uNmEyLjE1IDIuMTUgMCAwIDEgLjQzNy0uNTk1Yy40MjYtLjM5Ni45MTItLjYyNS45MTItLjYyNXMtMS4wMzItLjI1OC0xLjkzMi4wNzlhMy42NDUgMy42NDUgMCAwIDAtMS4xMDMuNjcyIDcuMTgzIDcuMTgzIDAgMCAwLS4xNS0uNzg3Yy0uMTA4LS40MzItLjYxMi0xLjM1LS42NTQtMS40MjgtLjA0Mi4wNzgtLjU1MiAxLjAwMi0uNjU0IDEuNDI4LS4wNjYuMjc3LS4xMTQuNTQtLjE1Ljc4N2EzLjY0NSAzLjY0NSAwIDAgMC0xLjEwNC0uNjcyYy0uODk0LS4zMzctMS45MzEtLjA3OS0xLjkzMS0uMDc5cy40OC4yMjkuOTExLjYyNWMuMTguMTY4LjMyNC4zNzIuNDM4LjU5NC0xLjM5Mi0uMjEtMy4xNzMtLjE5OC00Ljk5LjYtMi40NDggMS4wODEtMy45MyAzLjQyMy0zLjkzIDMuNDIzczEuNjYyLTEuMjg1IDQuMTUxLTEuODY3YTkuMzA2IDkuMzA2IDAgMCAxIDMuMzQxLS4xNWMtMS41Ni4zNDItMy43NDMgMS4xNTItNS4zNSAzLjIwNS0xLjQwNCAxLjc5LTEuNzU4IDQuMjg3LTEuNzU4IDQuMjg3czEuMTQtMS40NTkgMy4wNTMtMy4wODZhMTQuMDcyIDE0LjA3MiAwIDAgMSAzLjE4LTIuMDM1Yy0xLjE5NCAxLjEzNC0xLjc4MiAyLjg3Ni0yLjAyMiAzLjUzLS43MjYgMi4wMTEtLjI2NCA0LjIzOS0uMjY0IDQuMjM5cy4zMDYtMS40NiAxLjQyMi0zLjM1NmMuNzk4LTEuMzUxIDEuODE3LTIuMzc4IDIuNjgxLTMuMDgtMS4wMjYgMy44MTIuMDMgNy41Ny4wMyA3LjU3cy42NDItMi44ODcgMS42MTQtNS4zNDNjLjQxNC0xLjA0NS44ODItMS44MzEgMS4zMzgtMi40Mi40NS41ODkuOTI0IDEuMzc1IDEuMzM3IDIuNDIuOTY2IDIuNDUgMS42MTQgNS4zNDMgMS42MTQgNS4zNDNtLS4yNCAxMy4xMjRjLS4wNTQuMDMtLjEwOC4wNjYtLjE2OC4wOTYgMS44ODQgMS4wOCAzLjczMSAyLjI0IDUuNjA5IDMuMzI2IDEuMTIyLjY0OSAyLjI1NSAxLjI4NSAzLjM5IDEuOTFsLTEuNjggMS44Ni0xLjg3Mi0xLjE4OGEzMTguOTk3IDMxOC45OTcgMCAwIDAtNi41MzMtNC4wNTNsLS41NjMgMTUuMTY1IDguOTYyLTkuOTEyYy4wNzIuMDQ5IDIuMjQ5IDEuNDUzIDMuNjA1IDEuNzYgMy44NTcuODcgNC45NzMuMTUgNy42MDYtLjQwMy0yLjg2MS0uMjEtNS4wMDMtLjUwNC04LjUyNC0yLjU4N2ExMS4zNjUgMTEuMzY1IDAgMCAxLS45OS0uNjQ5bDEwLjY0Mi0xMS43NjdjLTMuMDUzLjEwOC02LjE5Ny4zMy05LjA2NCAxLjQ2NS0zLjY2IDEuMjU1LTcuMDc5IDMuMDkyLTEwLjQzMiA0Ljk4M200NS41NjYgNS4xOTNINzUuOHYxMS45NDFoLTEuOTA4di0xMS45NGgtNC4wNjd2LTEuNTA4aDEwLjA0MnYxLjUwN1ptNy44MSA3LjY3M2gtNi43OWMuMDcyIDEuOTA5IDEuMDIgMy4wMzIgMi41MjUgMy4wMzIgMS4zMjYgMCAyLjI1LS43MjcgMi40OS0xLjk2NGgxLjc4MWMtLjMxMiAyLjEyNi0xLjg5IDMuMzgtNC4yNjUgMy4zOC0yLjcwNSAwLTQuMjgzLTEuNzQ2LTQuMjgzLTQuNzA2IDAtMi45NiAxLjU3OC00LjcwNyA0LjI4My00LjcwNyAyLjcwNiAwIDQuMjY1IDEuNzQ3IDQuMjY1IDQuNzA3di4yNTJsLS4wMDYuMDA2Wm0tNi43NzItLjc2M2g0Ljk3M2MtLjE0NC0xLjc2NS0xLjAzMi0yLjc4LTIuNDcyLTIuNzhzLTIuMzYzIDEuMDE1LTIuNTA3IDIuNzhtOC4zOTIuNTA0YzAtMi45NiAxLjY3NC00LjcwNiA0LjQ4Ny00LjcwNiAyLjI5MSAwIDMuODE1IDEuMjE5IDQuMjMgMy4zMDhoLTEuOGMtLjM2Ni0xLjE2NS0xLjItMS44MzctMi40MzYtMS44MzctMS42NjggMC0yLjYzMyAxLjItMi42MzMgMy4yMzYgMCAyLjAzNS45NiAzLjIzNiAyLjYzMyAzLjIzNiAxLjI5IDAgMi4xNi0uNzI3IDIuNDcxLTIuMDE4aDEuODE4Yy0uMzg0IDIuMjE2LTEuOTI2IDMuNDg5LTQuMjgzIDMuNDg5LTIuODEzIDAtNC40ODctMS43NDgtNC40ODctNC43MDdabTE4Ljg1NC0xLjA1djUuNTc3aC0xLjgxOHYtNS41MjNjMC0xLjQxNy0uNzgtMi4yMzMtMi4xMDUtMi4yMzMtMS40ODggMC0yLjM4MiAxLjA1Ni0yLjM4MiAyLjgzNHY0LjkyMmgtMS44MTdWMzYuMDgzaDEuODE3djguMDg3aC4wMzZjMC0yLjA5IDEuMTI4LTMuMzI2IDMuMDM2LTMuMzI2IDIuMDMzIDAgMy4yMzMgMS4zNjMgMy4yMzMgMy42NW0xMC42NzguMDA2djUuNTc3aC0xLjgxOHYtNS41MjNjMC0xLjQxNy0uNzgtMi4yMzMtMi4xMDYtMi4yMzMtMS40ODcgMC0yLjM4MSAxLjA1Ni0yLjM4MSAyLjgzNHY0LjkyMkgxMTAuN1Y0MS4wM2gxLjgxOHYzLjE0NmguMDM2YzAtMi4wOSAxLjEyOC0zLjMyNiAzLjAyOS0zLjMyNiAyLjAzNCAwIDMuMjM0IDEuMzYzIDMuMjM0IDMuNjVtMi41NjctNy40MTRoMS44MTh2Mi4wNTNoLTEuODE4di0yLjA1M1ptMCAzLjk0NGgxLjgxOHY5LjA1M2gtMS44MThWNDEuMDNabTMuOTU5IDQuNTJjMC0yLjk2IDEuNjc0LTQuNzA2IDQuNDg3LTQuNzA2IDIuMjg2IDAgMy44MTUgMS4yMTkgNC4yMjkgMy4zMDhoLTEuNzk5Yy0uMzY2LTEuMTY1LTEuMi0xLjgzNy0yLjQzNi0xLjgzNy0xLjY3MyAwLTIuNjMzIDEuMi0yLjYzMyAzLjIzNiAwIDIuMDM1Ljk2IDMuMjM2IDIuNjMzIDMuMjM2IDEuMjkgMCAyLjE2LS43MjcgMi40NzItMi4wMThoMS44MTdjLS4zODQgMi4yMTYtMS45MjUgMy40ODktNC4yODMgMy40ODktMi44MTMgMC00LjQ4Ny0xLjc0OC00LjQ4Ny00LjcwN1oiIGZpbGw9IiNmZmYiLz48L3N2Zz4=\" alt=\"Saudia Technic\">\n      <span class=\"pc-app-name\">SHIFT AGENDA</span>\n    </div>\n    <div class=\"pc-title\">SUPERVISORS \u00b7 SECURE ACCESS</div>\n    <div class=\"pc-sub\">Enter your passcode to continue</div>\n    <div class=\"pc-dots\" id=\"pc-dots\">\n      <div class=\"pc-dot\" id=\"pc-d0\"></div>\n      <div class=\"pc-dot\" id=\"pc-d1\"></div>\n      <div class=\"pc-dot\" id=\"pc-d2\"></div>\n    </div>\n    <div class=\"pc-grid\">%%KEYS%%</div>\n    <div class=\"pc-err\" id=\"pc-err\"></div>\n  ";
 let _pcEntry='';
@@ -256,7 +291,7 @@ function _pcBuild(){
  });
  s.innerHTML=LOCK_TPL.replace('%%KEYS%%',kh);
 }
-function _pcUpdateDots(){document.querySelectorAll('#passcode-screen .pc-dot').forEach(function(d,i){d.classList.toggle('pc-filled',i<_pcEntry.length);});}
+function _pcUpdateDots(){document.querySelectorAll('#passcode-screen .pc-dot').forEach(function(d,i){d.classList.toggle('filled',i<_pcEntry.length);});}
 function _pcKey(k){
  var e=document.getElementById('pc-err');
  if(k==='del'){_pcEntry=_pcEntry.slice(0,-1);_pcUpdateDots();if(e)e.textContent='';return;}
@@ -270,17 +305,18 @@ function _pcKey(k){
     s.classList.add('pc-exit');s.addEventListener('animationend',function(){s.remove();},{once:true});
     myName();boot();
    }else{
-    if(e)e.textContent='WRONG CODE';
-    _pcEntry='';setTimeout(function(){_pcUpdateDots();if(e)e.textContent='';},650);
+    if(e)e.textContent='WRONG CODE';document.querySelectorAll('#passcode-screen .pc-dot').forEach(function(d){d.classList.add('error');});
+    _pcEntry='';setTimeout(function(){_pcUpdateDots();document.querySelectorAll('#passcode-screen .pc-dot').forEach(function(d){d.classList.remove('error');});if(e)e.textContent='';},650);
    }
   },120);
  }
 }
 function adminUnlock(){
  if(isAdmin){toast('Admin already ON');return;}
- var c=prompt('Admin code:');
- if(c===ADMIN){isAdmin=true;localStorage.setItem('ag_auth',JSON.stringify({t:Date.now(),a:true}));toast('\uD83D\uDD13 Admin ON');render();}
- else if(c)toast('Wrong code');
+ modal({title:'Admin Access',sub:'Enter the admin code',input:true,type:'tel',ph:'\u2022 \u2022 \u2022 \u2022',ok:'Unlock',cb:function(c){
+  if(c===ADMIN){isAdmin=true;localStorage.setItem('ag_auth',JSON.stringify({t:Date.now(),a:true}));toast('Admin ON');var b=document.getElementById('adm-btn');if(b)b.style.background='rgba(255,255,255,.25)';render();}
+  else if(c)toast('Wrong code');
+ }});
 }
 (function(){
  try{var a=JSON.parse(localStorage.getItem('ag_auth')||'null');
@@ -291,11 +327,11 @@ function adminUnlock(){
 async function ghGet(d){const r=await fetch(api(d)+'&t='+Date.now());if(r.status===404)return{sha:null,items:{}};if(!r.ok)throw 0;const j=await r.json();return{sha:j.sha,items:JSON.parse(decodeURIComponent(escape(atob(j.content.split('\n').join('')))))||{}};}
 async function ghPut(d,items,sha){const body={message:'Agenda '+dstr(d),content:btoa(unescape(encodeURIComponent(JSON.stringify(items))))};if(sha)body.sha=sha;const r=await fetch(api(d),{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});if(!r.ok)throw 0;}
 async function mutate(fn){
- if(busy){toast('⏳ Saving…');return;}
+ if(busy){toast('Saving…');return;}
  busy=true;
  try{for(let a=0;a<3;a++){const cur=await ghGet(day);fn(cur.items);
   try{await ghPut(day,cur.items,cur.sha);data=cur.items;render();busy=false;return;}catch(e){if(a===2)throw e;}}}
- catch(e){toast('❌ Save failed — your text is kept, retry');}
+ catch(e){toast('Save failed — your text is kept, retry');}
  busy=false;
 }
 /* ── ROSTER (from Shift_Log) ── */
@@ -333,19 +369,51 @@ function tapCrew(b){
  const names=[...document.querySelectorAll('#crewchips .chip.on')].map(x=>{const p=x.dataset.n.split(/\s+/);return p[0]+(p[1]?' '+p[1][0]:'');});
  document.getElementById('nwho').value=names.join(' + ');
 }
-/* ── WP CARDS ── */
+
+function rosterIndex(){
+ if(!roster)return[];
+ var ds=dstr(day),out=[];
+ Object.keys(roster).forEach(function(cr){(roster[cr]||[]).forEach(function(m){
+  if(!m||!m.name)return;
+  var sh=(m.schedule&&m.schedule[ds])||'';
+  var w = sh===shift?0 : (sh==='D'||sh==='T'||sh==='G')?1 : 2;
+  out.push({n:m.name,prn:m.prn||'',sh:sh,w:w});
+ });});
+ return out;
+}
+function shortName(full){var p=String(full).trim().split(/\s+/);return p[0]+(p[1]?' '+p[1][0]+'.':'');}
+function whoSearch(v){
+ var L=document.getElementById('wholist');
+ var seg=v.split('+').pop().trim().toUpperCase();
+ if(!roster||seg.length<2){L.style.display='none';return;}
+ var hits=rosterIndex().filter(function(m){return m.n.toUpperCase().indexOf(seg)>=0||String(m.prn).indexOf(seg)>=0;})
+  .sort(function(a,b){return a.w-b.w;}).slice(0,8);
+ if(!hits.length){L.style.display='none';return;}
+ L.innerHTML=hits.map(function(m){
+  return '<div class="woi" onclick="pickWho(\''+shortName(m.n).replace(/'/g,'')+'\')"><b>'+esc(shortName(m.n))+'</b> <span style="color:#8A9E96;font-size:10.5px">'+esc(m.n)+' \u00b7 '+(m.sh||'OFF')+(m.w===0?' \u00b7 ON THIS SHIFT':'')+'</span></div>';}).join('');
+ L.style.display='';
+}
+function pickWho(short){
+ var el=document.getElementById('nwho');
+ var parts=el.value.split('+').map(function(s){return s.trim();}).filter(Boolean);
+ parts.pop();parts.push(short);
+ el.value=parts.join(' + ')+' ';
+ document.getElementById('wholist').style.display='none';
+ el.focus();
+}
+
 async function loadWP(){try{const r=await fetch('wp_cards.json?t='+Date.now());wp=await r.json();}catch(e){wp=null;}}
 function woSearch(q){
  const L=document.getElementById('wolist');
  q=q.trim().toUpperCase();
  if(!wp||q.length<2){L.style.display='none';return;}
- const hits=wp.filter(c=>c.wo.includes(q)||c.d.toUpperCase().includes(q)).slice(0,8);
+ const hits=wp.filter(function(c){return c.wo.indexOf(q)>=0||String(c.s||'').indexOf(q)>=0||c.d.toUpperCase().indexOf(q)>=0||String(c.c||'').toUpperCase().indexOf(q)>=0;}).slice(0,12);
  if(!hits.length){L.style.display='none';return;}
- L.innerHTML=hits.map(c=>`<div class="woi" onclick='pickWO(${JSON.stringify(c).replace(/'/g,"&#39;")})'><b>${esc(c.wo)}</b> — ${esc(c.d)}</div>`).join('');
+ L.innerHTML=hits.map(c=>`<div class="woi" onclick='pickWO(${JSON.stringify(c).replace(/'/g,"&#39;")})'><b>${esc(c.wo)}</b> <span style="color:#8A9E96">#${esc(c.s||'')}</span> — ${esc(c.d)}</div>`).join('');
  L.style.display='';
 }
 function pickWO(c){selWO=c;document.getElementById('wolist').style.display='none';document.getElementById('nwo').value='';renderWOsel();}
-function renderWOsel(){document.getElementById('wosel').innerHTML=selWO?`<span class="wosel">🔗 ${esc(selWO.wo)} — ${esc(selWO.d.slice(0,34))}… <button onclick="selWO=null;renderWOsel()">✕</button></span>`:'';}
+function renderWOsel(){document.getElementById('wosel').innerHTML=selWO?`<span class="wosel"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" style="vertical-align:-1px"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg> ${esc(selWO.wo)} — ${esc(selWO.d.slice(0,34))}… <button onclick="selWO=null;renderWOsel()">✕</button></span>`:'';}
 function pickArea(b,a){area=a;[...document.getElementById('areaseg').children].forEach(x=>{if(!x.classList.contains('pr'))x.classList.remove('on');});b.classList.add('on');}
 /* ── RENDER ── */
 function renderDate(){const el=document.getElementById('dlbl');el.innerHTML=`${day.toLocaleDateString('en-GB',{weekday:'long'})}<small>${day.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'})}</small>`;}
@@ -364,10 +432,10 @@ function card(x){
  const mine=x.dev===devId;
  return `<div class="card${x.done?' done':''}${x.prio?' prio':''}${x.carry?' carry':''}">
   <button class="dn" onclick="toggleDone('${x.id}')">${x.done?'✓':''}</button>
-  <div class="tx">${x.carry?'⤵ ':''}${esc(x.text)}</div>
-  ${x.who?`<div class="who">👤 ${esc(x.who)}</div>`:''}
+  <div class="tx">${x.carry?'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><path d="M9 14l-4 4 4 4M5 18h11a4 4 0 0 0 4-4V4"/></svg> ':''}${esc(x.text)}</div>
+  ${x.who?`<div class="who"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:-2px"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-4.4 0-8 2.2-8 5v3h16v-3c0-2.8-3.6-5-8-5z"/></svg> ${esc(x.who)}</div>`:''}
   <div class="cm">
-   ${x.wo?`<span class="tag w">🔗 ${esc(x.wo)}</span>`:''}
+   ${x.wo?`<span class="tag w"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" style="vertical-align:-1px"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg> ${esc(x.wo)}</span>`:''}
    ${x.area?`<span class="tag">${esc(x.area)}</span>`:''}
    ${x.prio?'<span class="tag r">PRIORITY</span>':''}
    <span class="by">${esc(x.by)} · ${new Date(x.ts).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})}</span>
@@ -388,7 +456,9 @@ function addTask(){
  document.querySelectorAll('#crewchips .chip.on').forEach(c=>c.classList.remove('on'));
 }
 function toggleDone(id){mutate(it=>{if(it[id])it[id].done=!it[id].done;});}
-function delTask(id){if(!confirm('Remove this task?'))return;mutate(it=>{delete it[id];});}
+function delTask(id){
+ modal({title:'Remove task?',sub:'This removes it from the shared board for everyone.',ok:'Remove',danger:true,cb:function(y){if(y)mutate(function(it){delete it[id];});}});
+}
 function saveHandover(){const v=document.getElementById('hnote').value.trim();
  mutate(it=>{it['hand_'+shift]={id:'hand_'+shift,type:'hand',shift,text:v,by:myName(),dev:devId,ts:Date.now()};});}
 async function carryOver(){
@@ -398,7 +468,7 @@ async function carryOver(){
   if(!open.length){toast('Nothing unfinished yesterday ('+shift+')');return;}
   mutate(it=>{open.forEach(o=>{const id='t'+Date.now()+Math.random().toString(36).slice(2,6);
    it[id]={...o,id,carry:true,done:false,ts:Date.now(),by:myName(),dev:devId};});});
-  toast('⤵ '+open.length+' task(s) carried over');
+  toast(open.length+' task(s) carried over');
  }catch(e){toast('Could not read yesterday');}
 }
 function nav(k){day.setDate(day.getDate()+k);boot(false);}
@@ -411,7 +481,7 @@ async function boot(full=true){
 }
 setInterval(()=>{if(!busy&&!document.getElementById('passcode-screen'))ghGet(day).then(c=>{data=c.items;render();}).catch(()=>{});},60000);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden&&!document.getElementById('passcode-screen'))boot(false);});
-document.addEventListener('click',e=>{if(!e.target.closest('.wobox'))document.getElementById('wolist').style.display='none';});
+document.addEventListener('click',e=>{if(!e.target.closest('.wobox')){document.getElementById('wolist').style.display='none';var w2=document.getElementById('wholist');if(w2)w2.style.display='none';}});
 </script>
 </body>
 </html>
