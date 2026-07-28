@@ -2740,5 +2740,56 @@
         "photoThumb": "https://i.ibb.co/Fkq7W8wc/a5d635d10782.jpg | https://i.ibb.co/KHCmmsr/bff4d395a179.jpg | https://i.ibb.co/GvPnPqmt/0b6bd52fe2a0.jpg | https://i.ibb.co/cqzzd9g/84b7abedc8b6.jpg"
       }
     ]
+  },
+  {
+    "id": "178521953310959yis",
+    "batchId": "batch_1785219307013_vwk3ei",
+    "timestamp": "2026-07-28T06:18:53.109Z",
+    "date": "28/07/2026",
+    "time": "09:15",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "findings": [
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "CAP & FO          ",
+        "description": "CAP AND FO AROUND-CUP HOLDER NEEDS PAINT                    ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/Q7GmtsL9/249480f908f3.jpg | https://i.ibb.co/CKy4vxJQ/75c84db17756.jpg",
+        "photoThumb": "https://i.ibb.co/HLQg3m67/249480f908f3.jpg | https://i.ibb.co/k2Tz0Y3X/75c84db17756.jpg"
+      },
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "SUNSHADE          ",
+        "description": "AFT CAP SUNSHADE TILTED                                     ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/n8wsCGxG/623a12abe14e.jpg",
+        "photoThumb": "https://i.ibb.co/wrdNsk5k/623a12abe14e.jpg"
+      },
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "FO                ",
+        "description": "FO FWD SUNSHADE CUT                                         ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/LXNmcRg3/b1d118530503.jpg",
+        "photoThumb": "https://i.ibb.co/Q3DLTQH4/b1d118530503.jpg"
+      },
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "FO                ",
+        "description": "FO AFT JOY STICK-PAINT NEEDS                                ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/kp6VWpS/ee831d673703.jpg",
+        "photoThumb": "https://i.ibb.co/z1HW014/ee831d673703.jpg"
+      },
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "FO                ",
+        "description": "FO AUTO PILOT PANEL PAINT NEED                              ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/BHVT5H1w/bbff8c00e23e.jpg",
+        "photoThumb": "https://i.ibb.co/MyDPxyX9/bbff8c00e23e.jpg"
+      }
+    ]
   }
 ]
