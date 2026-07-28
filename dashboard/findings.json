@@ -2826,5 +2826,40 @@
         "photoThumb": "https://i.ibb.co/NgcMbsJw/6b3aae2f5d12.jpg | https://i.ibb.co/d4pWmfNk/8c90c9882ed8.jpg | https://i.ibb.co/Ps7HRFy2/8ca679d99fb5.jpg | https://i.ibb.co/Cp6DTXz3/f0839ad81fbf.jpg"
       }
     ]
+  },
+  {
+    "id": "17852206357996ljew",
+    "batchId": "batch_1785220584718_1x392f",
+    "timestamp": "2026-07-28T06:37:15.799Z",
+    "date": "28/07/2026",
+    "time": "09:36",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "findings": [
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "PLASTIC COVER     ",
+        "description": "FUEL CREDIT CARDS PLASTIC COVER BROKEN AND PLASTIC COVER ABOVE IT DIRTY",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/yF2yFfvW/a30fa1dd50f2.jpg | https://i.ibb.co/gZBd3cFV/dc53e28d5248.jpg",
+        "photoThumb": "https://i.ibb.co/PGkhGmXw/a30fa1dd50f2.jpg | https://i.ibb.co/YBqX3VTZ/dc53e28d5248.jpg"
+      },
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "PAINT             ",
+        "description": "DOOR FRAME PAINT NEEDED                                     ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/JRqjJq3X/c44d38784762.jpg | https://i.ibb.co/65LTkVd/03fcaf1cf3f8.jpg | https://i.ibb.co/rRf78k5B/a2631ae22c19.jpg | https://i.ibb.co/0j1bf9LD/12c683a74bc4.jpg",
+        "photoThumb": "https://i.ibb.co/ynpFjp4L/c44d38784762.jpg | https://i.ibb.co/9jS17zM/03fcaf1cf3f8.jpg | https://i.ibb.co/B5KzWLTh/a2631ae22c19.jpg | https://i.ibb.co/8DGZjxwK/12c683a74bc4.jpg"
+      },
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "TEDLAR            ",
+        "description": "TEDLAR NEEDS FROM OUTSIDE THE COCKPIT DOOR AND FRAME ABOVE  ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/3yQs8yP4/32a01678f9c1.jpg | https://i.ibb.co/wjLsR3N/89f395800bef.jpg | https://i.ibb.co/YFBb9v39/edbf1b7389b2.jpg | https://i.ibb.co/ccgnTt24/1940fb878f8a.jpg",
+        "photoThumb": "https://i.ibb.co/RpdSMpJY/32a01678f9c1.jpg | https://i.ibb.co/zD5Jrjh/89f395800bef.jpg | https://i.ibb.co/LXdvw48w/edbf1b7389b2.jpg | https://i.ibb.co/MD20NpPF/1940fb878f8a.jpg"
+      }
+    ]
   }
 ]
