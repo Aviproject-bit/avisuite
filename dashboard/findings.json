@@ -2616,5 +2616,32 @@
         "photoThumb": "https://i.ibb.co/yv3mhWw/70d73f550697.jpg | https://i.ibb.co/F4YHknMT/9d6b2edb5aa4.jpg"
       }
     ]
+  },
+  {
+    "id": "1785216736952a2h2b",
+    "batchId": "batch_1785216689441_cor4gf",
+    "timestamp": "2026-07-28T05:32:16.952Z",
+    "date": "28/07/2026",
+    "time": "08:31",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "findings": [
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "PAINT             ",
+        "description": "PAINT NEEDED-ABOVE CAPTAIN-SUNSHADE                         ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/PGW6BXq5/954205365694.jpg",
+        "photoThumb": "https://i.ibb.co/N2NywDcL/954205365694.jpg"
+      },
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "FO                ",
+        "description": "FO SEAT BUILT FRAYED, METAL PAINT CHIPPED                   ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/VWS0yZVV/592bbdef5eac.jpg | https://i.ibb.co/kFs5qjD/94af6e581765.jpg | https://i.ibb.co/6JgqQWMm/ff5617e542b9.jpg | https://i.ibb.co/jZ3FvCzQ/1166cd4ec0c6.jpg | https://i.ibb.co/B2kdXXYm/2922794af250.jpg",
+        "photoThumb": "https://i.ibb.co/QFN7BR99/592bbdef5eac.jpg | https://i.ibb.co/nSN6Q91/94af6e581765.jpg | https://i.ibb.co/846Qk7C0/ff5617e542b9.jpg | https://i.ibb.co/Z1cC6QSF/1166cd4ec0c6.jpg | https://i.ibb.co/Qv0z22xZ/2922794af250.jpg"
+      }
+    ]
   }
 ]
