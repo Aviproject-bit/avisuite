@@ -2662,5 +2662,48 @@
         "photoThumb": "https://i.ibb.co/4nm3P2QM/1a6fd0e72db4.jpg | https://i.ibb.co/DHGmRc18/9e53aa38d70a.jpg | https://i.ibb.co/6Jp4YQwd/f3197250b356.jpg | https://i.ibb.co/FbpwKsNR/6027ccfa94eb.jpg | https://i.ibb.co/zTs1xHzQ/e78273644403.jpg"
       }
     ]
+  },
+  {
+    "id": "1785217571491w1ofh",
+    "batchId": "batch_1785217564665_7ap8k5",
+    "timestamp": "2026-07-28T05:46:11.491Z",
+    "date": "28/07/2026",
+    "time": "08:46",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "findings": [
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "SECOND OBSERVER   ",
+        "description": "SECOND OBSERVER SEAT SEAT BUILT A LITTLE BIT FRAYED AND JOINT METAL NEEDS PAINT",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/Xf1J08s9/c2a6651f5248.jpg | https://i.ibb.co/TxBkDphs/615978ca93c7.jpg | https://i.ibb.co/x8wYq5Kb/531115328bae.jpg",
+        "photoThumb": "https://i.ibb.co/wZV6GsWT/c2a6651f5248.jpg | https://i.ibb.co/7dJXx8yq/615978ca93c7.jpg | https://i.ibb.co/S7HcwvDg/531115328bae.jpg"
+      },
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "BIN               ",
+        "description": "STOWAGE BIN COVER PAINT NEEDED.                             ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/k2bn4bXv/60fe28a8ea60.jpg",
+        "photoThumb": "https://i.ibb.co/tpjfqjDF/60fe28a8ea60.jpg"
+      },
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "OXY MASK          ",
+        "description": "OXYGEN MASK STOWAGE LEATHER COLOR FADED AND CHIPPED         ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/VY840xXR/1816c15b7736.jpg",
+        "photoThumb": "https://i.ibb.co/3mHZ5vt2/1816c15b7736.jpg"
+      },
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "SHIELD            ",
+        "description": "PLASTIC SHEILD BROKEN AROUND-THE SCREWS                     ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/twTYB14d/43519771f5bf.jpg",
+        "photoThumb": "https://i.ibb.co/spdsjX2B/43519771f5bf.jpg"
+      }
+    ]
   }
 ]
