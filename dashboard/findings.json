@@ -2861,5 +2861,32 @@
         "photoThumb": "https://i.ibb.co/RpdSMpJY/32a01678f9c1.jpg | https://i.ibb.co/zD5Jrjh/89f395800bef.jpg | https://i.ibb.co/LXdvw48w/edbf1b7389b2.jpg | https://i.ibb.co/MD20NpPF/1940fb878f8a.jpg"
       }
     ]
+  },
+  {
+    "id": "1785221211059p19lv",
+    "batchId": "batch_1785221205647_0dwg9b",
+    "timestamp": "2026-07-28T06:46:51.059Z",
+    "date": "28/07/2026",
+    "time": "09:46",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "findings": [
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "PAINT             ",
+        "description": "BOTH SMOKE HOODS PANELS-PAINT-NEEDED                        ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/YFmMd63d/0ee0989629af.jpg",
+        "photoThumb": "https://i.ibb.co/67zxt2mt/0ee0989629af.jpg"
+      },
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "PAINT             ",
+        "description": "THE WHOLE CAP AND FO WINDOW FRAME PAINT NEED                ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/8DShnWXY/889fb579e956.jpg | https://i.ibb.co/ccv1Vwzq/c80e148bc04f.jpg",
+        "photoThumb": "https://i.ibb.co/5Wf7XN2K/889fb579e956.jpg | https://i.ibb.co/TBTkd1zy/c80e148bc04f.jpg"
+      }
+    ]
   }
 ]
