@@ -2643,5 +2643,24 @@
         "photoThumb": "https://i.ibb.co/QFN7BR99/592bbdef5eac.jpg | https://i.ibb.co/nSN6Q91/94af6e581765.jpg | https://i.ibb.co/846Qk7C0/ff5617e542b9.jpg | https://i.ibb.co/Z1cC6QSF/1166cd4ec0c6.jpg | https://i.ibb.co/Qv0z22xZ/2922794af250.jpg"
       }
     ]
+  },
+  {
+    "id": "1785217068340lwvlu",
+    "batchId": "batch_1785216995598_iy3ppv",
+    "timestamp": "2026-07-28T05:37:48.340Z",
+    "date": "28/07/2026",
+    "time": "08:36",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "findings": [
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "FIRST OBSERVER    ",
+        "description": "FIRST OBSERVER SEAT BUILT FRAYED, STITCHES COMES OUT        ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/wF0jM7vC/1a6fd0e72db4.jpg | https://i.ibb.co/zT8C49m7/9e53aa38d70a.jpg | https://i.ibb.co/BK7gLk31/f3197250b356.jpg | https://i.ibb.co/jvtMTVBn/6027ccfa94eb.jpg | https://i.ibb.co/MxnbS5mZ/e78273644403.jpg",
+        "photoThumb": "https://i.ibb.co/4nm3P2QM/1a6fd0e72db4.jpg | https://i.ibb.co/DHGmRc18/9e53aa38d70a.jpg | https://i.ibb.co/6Jp4YQwd/f3197250b356.jpg | https://i.ibb.co/FbpwKsNR/6027ccfa94eb.jpg | https://i.ibb.co/zTs1xHzQ/e78273644403.jpg"
+      }
+    ]
   }
 ]
