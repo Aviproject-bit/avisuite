@@ -2705,5 +2705,40 @@
         "photoThumb": "https://i.ibb.co/spdsjX2B/43519771f5bf.jpg"
       }
     ]
+  },
+  {
+    "id": "1785218410016i5oo7",
+    "batchId": "batch_1785218314059_ztn1og",
+    "timestamp": "2026-07-28T06:00:10.016Z",
+    "date": "28/07/2026",
+    "time": "08:58",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "findings": [
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "SEATS             ",
+        "description": "CAP AND FO SEAT UNDER SEAT CUSHION ARE DIRTY AND VELCRO DETACHED ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/67NQLxcK/a1de2894fe76.jpg | https://i.ibb.co/sJNX0LbS/2ad8a2ca9667.jpg | https://i.ibb.co/SDt1zPQc/aa53552a2417.jpg",
+        "photoThumb": "https://i.ibb.co/B5wkFxHh/a1de2894fe76.jpg | https://i.ibb.co/cXZsGzk5/2ad8a2ca9667.jpg | https://i.ibb.co/xK1cNDmY/aa53552a2417.jpg"
+      },
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "FOOT REST         ",
+        "description": "CAP AND FO FOOT RESTS ARE DIRTY AND CAP FOOT REST CUT       ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/3mg8ZCtX/147a0566683c.jpg | https://i.ibb.co/2YpZFN1r/e041421ccb6d.jpg | https://i.ibb.co/Kxz0jRth/b87212b4a1ca.jpg | https://i.ibb.co/CsDy4zW4/f4ee09a9168f.jpg | https://i.ibb.co/67cFncMT/e18ac43835d5.jpg",
+        "photoThumb": "https://i.ibb.co/23GL4kX2/147a0566683c.jpg | https://i.ibb.co/x8rF2Htb/e041421ccb6d.jpg | https://i.ibb.co/JjFBR0Yt/b87212b4a1ca.jpg | https://i.ibb.co/TqdGJkrJ/f4ee09a9168f.jpg | https://i.ibb.co/RkGcvGFs/e18ac43835d5.jpg"
+      },
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "PEDALS            ",
+        "description": "CAP AND FO PEDALS ARE DIRTY                                 ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/hx18M2Wr/a5d635d10782.jpg | https://i.ibb.co/JPXCCps/bff4d395a179.jpg | https://i.ibb.co/0jJmJx5F/0b6bd52fe2a0.jpg | https://i.ibb.co/V6XX8Gj/84b7abedc8b6.jpg",
+        "photoThumb": "https://i.ibb.co/Fkq7W8wc/a5d635d10782.jpg | https://i.ibb.co/KHCmmsr/bff4d395a179.jpg | https://i.ibb.co/GvPnPqmt/0b6bd52fe2a0.jpg | https://i.ibb.co/cqzzd9g/84b7abedc8b6.jpg"
+      }
+    ]
   }
 ]
