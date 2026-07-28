@@ -2791,5 +2791,40 @@
         "photoThumb": "https://i.ibb.co/MyDPxyX9/bbff8c00e23e.jpg"
       }
     ]
+  },
+  {
+    "id": "1785220052443twi0f",
+    "batchId": "batch_1785220032664_g4whg0",
+    "timestamp": "2026-07-28T06:27:32.443Z",
+    "date": "28/07/2026",
+    "time": "09:27",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "findings": [
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "PAINT             ",
+        "description": "THE GAP OVER-CAP AND FO SEAT NEEDS PAINT                    ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/ks0rmYkb/2dda2d586d11.jpg | https://i.ibb.co/fYL1Hgq8/94a06017cbae.jpg",
+        "photoThumb": "https://i.ibb.co/Pv4bDB3X/2dda2d586d11.jpg | https://i.ibb.co/rGN7HjFb/94a06017cbae.jpg"
+      },
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "PAINT             ",
+        "description": "SIDE-AND CEILING PANELS-PAINT NEEDS                         ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/W4TWTbCD/d8332ed4b809.jpg | https://i.ibb.co/67J4Npn7/30bf9b435235.jpg | https://i.ibb.co/F4Zd4FLh/726256cd3584.jpg | https://i.ibb.co/Fkr9PGgk/03a4ac8fa442.jpg | https://i.ibb.co/gB0TyyP/1bbce512512f.jpg",
+        "photoThumb": "https://i.ibb.co/q3ZMZt60/d8332ed4b809.jpg | https://i.ibb.co/21Yj5Ln1/30bf9b435235.jpg | https://i.ibb.co/nMdKMFNw/726256cd3584.jpg | https://i.ibb.co/Gf6Xhgcf/03a4ac8fa442.jpg | https://i.ibb.co/1wCqZZd/1bbce512512f.jpg"
+      },
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "PAINT             ",
+        "description": "SIDE-AND CEILING PANELS-PAINT NEEDS                         ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/7xsqLXZ7/6b3aae2f5d12.jpg | https://i.ibb.co/r2p7dQB5/8c90c9882ed8.jpg | https://i.ibb.co/GfKSXnDZ/8ca679d99fb5.jpg | https://i.ibb.co/RGNdVM9k/f0839ad81fbf.jpg",
+        "photoThumb": "https://i.ibb.co/NgcMbsJw/6b3aae2f5d12.jpg | https://i.ibb.co/d4pWmfNk/8c90c9882ed8.jpg | https://i.ibb.co/Ps7HRFy2/8ca679d99fb5.jpg | https://i.ibb.co/Cp6DTXz3/f0839ad81fbf.jpg"
+      }
+    ]
   }
 ]
