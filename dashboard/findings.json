@@ -2581,5 +2581,40 @@
         "photoThumb": "https://i.ibb.co/8nZg3mqt/bc9c2615cea4.jpg"
       }
     ]
+  },
+  {
+    "id": "1785215616668db9tu",
+    "batchId": "batch_1785215359284_t06ky8",
+    "timestamp": "2026-07-28T05:13:36.669Z",
+    "date": "28/07/2026",
+    "time": "08:11",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "findings": [
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "GLOVES            ",
+        "description": "GLOVES COMPT. PAINT NEEDED                                  ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/XHVCFPT/2735b214ba15.jpg",
+        "photoThumb": "https://i.ibb.co/CLWHVyF/2735b214ba15.jpg"
+      },
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "BLACK FILE        ",
+        "description": "BLACK-FILE NEXT TO AXE DAMAGED                              ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/MkTktNSV/96ca2c44d0ef.jpg",
+        "photoThumb": "https://i.ibb.co/KxZxfyhq/96ca2c44d0ef.jpg"
+      },
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "FIRST OBSERVER    ",
+        "description": "FIRST OBSERVER BOTH ARM RESTS BROKEN DOWNWARD               ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/04wpBhg/70d73f550697.jpg | https://i.ibb.co/0y9spQSb/9d6b2edb5aa4.jpg",
+        "photoThumb": "https://i.ibb.co/yv3mhWw/70d73f550697.jpg | https://i.ibb.co/F4YHknMT/9d6b2edb5aa4.jpg"
+      }
+    ]
   }
 ]
