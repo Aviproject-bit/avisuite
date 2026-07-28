@@ -2888,5 +2888,24 @@
         "photoThumb": "https://i.ibb.co/5Wf7XN2K/889fb579e956.jpg | https://i.ibb.co/TBTkd1zy/c80e148bc04f.jpg"
       }
     ]
+  },
+  {
+    "id": "1785224313092052fn",
+    "batchId": "batch_1785223919345_rmhmnw",
+    "timestamp": "2026-07-28T07:38:33.092Z",
+    "date": "28/07/2026",
+    "time": "10:37",
+    "aircraft": "HZ-ASD",
+    "reporter": "30001575",
+    "findings": [
+      {
+        "category": "FLIGHT DECK       ",
+        "subCategory": "PAINT             ",
+        "description": "SECOND OBSERVER R/H SIDE-FRAME PAINT NEEDED.                ",
+        "remarks": "                         ",
+        "photoUrl": "https://i.ibb.co/9H17Gh6C/057b5683d710.jpg",
+        "photoThumb": "https://i.ibb.co/v4TSDhpK/057b5683d710.jpg"
+      }
+    ]
   }
 ]
