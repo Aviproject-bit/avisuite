@@ -45,7 +45,7 @@ header .day{font-weight:800;font-size:14px}
 .ring svg{transform:rotate(-90deg)}
 .ring .v{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:800;color:var(--grn)}
 .tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;flex:1}
-.tile{background:var(--tile);border-radius:13px;padding:8px 6px;text-align:center;border:1px solid var(--edge)}
+.tile{background:var(--tile);border-radius:13px;padding:8px 5px;text-align:center;border:1px solid var(--edge);min-width:0}
 .tile .l{font-size:9px;color:var(--mut);font-weight:800;letter-spacing:.4px}
 .tile .v{font-size:20px;font-weight:800;margin-top:2px;white-space:nowrap}
 .v.red{color:var(--red)}.v.amb{color:var(--amb)}.v.grn{color:var(--grn)}
@@ -194,6 +194,11 @@ function render(s){
         <div class="tile"><div class="l">NEED / DAY</div><div class="v amb">${need}</div></div>
         <div class="tile"><div class="l">7-DAY AVG</div><div class="v ${+avg7>=need?'grn':'red'}">${avg7}</div></div>
       </div></div></div>`;
+  h+=`<div class="card"><h3>${ic('lock')}ACCESS CARDS</h3><div class="pad">
+      ${duo('Still Open', s.kpi.accO+' / '+s.kpi.accT+'  ·  '+P(s.kpi.accO,s.kpi.accT)+'%', P(s.kpi.accO,s.kpi.accT), 'red')}
+      ${duo('Closed', (s.kpi.accT-s.kpi.accO)+' / '+s.kpi.accT+'  ·  '+P(s.kpi.accT-s.kpi.accO,s.kpi.accT)+'%', P(s.kpi.accT-s.kpi.accO,s.kpi.accT))}
+      <div style="font-size:11px;color:var(--mut);font-weight:700;margin-top:4px">Close-up ${D1(s.closeup)} — access cards gate reinstallation</div>
+      </div></div>`;
   h+=`<div class="card"><h3>${ic('chart')}DAILY CLOSURES — LAST 10 DAYS</h3><div class="pad">
       <div class="chart">${s.daily.map(x=>{const mx=Math.max(...s.daily.map(y=>y.s),1);
         return `<div class="col"><div class="dv">${x.s||''}</div><div class="stick" style="height:${Math.max(4,x.s/mx*84)}px"></div><div class="dl">${D1(x.d).split(' ')[0]}</div></div>`;}).join('')}</div>
@@ -241,7 +246,7 @@ function render(s){
       </table></div></div>`;
   const imax=Math.max(...s.stalled.map(x=>x.idle),1);
   h+=`<div class="card"><h3>${ic('hour')}STALLED — TOP 8</h3><div class="pad"><table>
-      <tr><th style="width:19%">WO</th><th style="width:45%">DESCRIPTION</th><th style="width:13%;text-align:center">IDLE</th><th style="width:23%"></th></tr>
+      <tr><th style="width:22%">WO</th><th style="width:42%">DESCRIPTION</th><th style="width:13%;text-align:center">IDLE</th><th style="width:23%"></th></tr>
       ${s.stalled.map(x=>`<tr><td class="n">${x.wo}</td><td class="desc">${x.d.length>48?x.d.slice(0,48)+'…':x.d}</td>
         <td class="c" style="color:var(--red);font-weight:800">${F(x.idle)}</td>
         <td>${bar(x.idle/imax*100,'red')}</td></tr>`).join('')}</table></div></div>`;
