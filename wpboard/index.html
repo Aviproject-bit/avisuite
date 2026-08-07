@@ -40,14 +40,14 @@ header .day{font-weight:800;font-size:14px}
 .card{background:var(--card);border:1px solid var(--edge);border-radius:18px;overflow:hidden;box-shadow:0 2px 10px rgba(10,40,25,.06)}
 .card h3{background:linear-gradient(120deg,var(--band1),var(--band2));color:var(--bandTx);font-size:12.5px;letter-spacing:.7px;padding:10px 14px;font-weight:800;display:flex;align-items:center}
 .pad{padding:13px 15px;overflow:hidden}
-.ovw{display:flex;align-items:center;gap:16px}
-.ring{position:relative;width:128px;height:128px;flex:none}
+.ovw{display:flex;align-items:center;gap:18px}
+.ring{position:relative;width:112px;height:112px;flex:none}
 .ring svg{transform:rotate(-90deg)}
 .ring .v{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:800;color:var(--grn)}
 .tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;flex:1}
 .tile{background:var(--tile);border-radius:13px;padding:8px 6px;text-align:center;border:1px solid var(--edge)}
 .tile .l{font-size:9px;color:var(--mut);font-weight:800;letter-spacing:.4px}
-.tile .v{font-size:21px;font-weight:800;margin-top:2px;white-space:nowrap}
+.tile .v{font-size:20px;font-weight:800;margin-top:2px;white-space:nowrap}
 .v.red{color:var(--red)}.v.amb{color:var(--amb)}.v.grn{color:var(--grn)}
 table{width:100%;border-collapse:collapse;font-size:12.5px;table-layout:fixed}
 th{color:var(--mut);font-size:9.5px;letter-spacing:.5px;text-align:left;padding:5px 7px;border-bottom:1.5px solid var(--edge)}
@@ -163,13 +163,13 @@ function render(s){
   document.getElementById('pace').textContent=`Completed ${done}% vs Time ${tp}% · Days left ${left} · Need ${need}/day vs avg ${avg7}/day`;
   document.getElementById('ftr').textContent=`Updated ${s.updated} · auto-refresh · Saudia Technic CA&QC`;
   const matL=Math.max(0,Math.ceil((new Date(s.material)-today)/864e5));
-  const R=52, CIR=2*Math.PI*R;
+  const R=46, CIR=2*Math.PI*R;
   let h='';
   h+=`<div class="card"><h3>${ic('gauge')}OVERVIEW</h3><div class="pad">
       <div class="ovw">
-        <div class="ring"><svg width="128" height="128">
-          <circle cx="64" cy="64" r="${R}" stroke="var(--trk)" stroke-width="12" fill="none"/>
-          <circle cx="64" cy="64" r="${R}" stroke="var(--grn)" stroke-width="12" fill="none" stroke-linecap="round"
+        <div class="ring"><svg width="112" height="112">
+          <circle cx="56" cy="56" r="${R}" stroke="var(--trk)" stroke-width="12" fill="none"/>
+          <circle cx="56" cy="56" r="${R}" stroke="var(--grn)" stroke-width="12" fill="none" stroke-linecap="round"
             stroke-dasharray="${CIR}" stroke-dashoffset="${CIR*(1-done/100)}"/>
         </svg><div class="v">${done}%</div></div>
         <div class="tiles">
@@ -178,7 +178,7 @@ function render(s){
           <div class="tile"><div class="l">OPEN</div><div class="v amb">${s.kpi.o}</div></div>
           <div class="tile"><div class="l">AOG WO</div><div class="v red">${s.kpi.aog}</div></div>
           <div class="tile"><div class="l">CRITICAL</div><div class="v amb">${s.kpi.crit}</div></div>
-          <div class="tile"><div class="l">ACCESS</div><div class="v amb">${s.kpi.accO}/${s.kpi.accT}</div></div>
+          <div class="tile"><div class="l">ACCESS WO</div><div class="v amb">${s.kpi.accO}</div></div>
         </div>
       </div>
       ${duo('Cabin closure', s.kpi.c+' / '+s.kpi.t+'  ·  '+done+'%', done)}
