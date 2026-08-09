@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="UTF-8"><meta http-equiv="Cache-Control" content="no-store"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>WP Cycle Console</title>
 <script>
 /*!
@@ -101,7 +101,7 @@ button.cta:disabled{opacity:.4;box-shadow:none}
 <div id="lock"><svg width="54" height="54" viewBox="0 0 24 24" fill="none"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z" stroke="#5FCF95" stroke-width="1.6"/></svg>
 <h2>WP CYCLE CONSOLE</h2><div class="dots" id="dots"></div><div id="pad"></div></div>
 <div id="app" style="display:none">
-<header><b id="hb">WP Cycle Console</b><span>HZ-ASD C2+6Y · self-service compare & close · Saudia Technic CA&QC</span></header>
+<header><b id="hb">WP Cycle Console</b><span>HZ-ASD C2+6Y · self-service compare & close · Saudia Technic CA&QC · <b style="opacity:.9">v2.6</b></span></header>
 <div style="height:14px"></div>
 <div class="up">
   <label class="big" for="files" id="upLbl">Upload the 3 files</label>
@@ -508,6 +508,16 @@ return {readWB, parseSheet, amosMap, trackerModel, keysOf, diff, applyAndSeriali
 </script>
 <script>
 
+
+window.addEventListener('error',e=>{showErr(e.message+' @'+(e.lineno||''));});
+window.addEventListener('unhandledrejection',e=>{showErr(String(e.reason&&e.reason.message||e.reason));});
+function showErr(m){
+  let d=document.getElementById('errbar');
+  if(!d){ d=document.createElement('div'); d.id='errbar';
+    d.style.cssText='position:fixed;bottom:0;left:0;right:0;background:#C62828;color:#fff;font-size:12px;padding:9px 14px;z-index:999;font-weight:700';
+    document.body.appendChild(d); }
+  d.textContent='⚠ '+m;
+}
 const AS='AS7-fea386f81e24fb2353a3432b', WK='https://acft-proxy.aviproject.workers.dev/';
 const CODE='321', KEY='cyc_t', TTL=12*36e5;
 const $=id=>document.getElementById(id);
