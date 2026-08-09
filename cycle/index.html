@@ -90,6 +90,12 @@ button.cta:disabled{opacity:.4;box-shadow:none}
 .nsel select{font-size:10.5px;padding:5px 4px;border-radius:8px;border:1px solid var(--edge);background:#fff}
 .none{color:var(--mut);font-size:12px;padding:6px 0}
 .note{font-size:12px;color:var(--mut);line-height:1.8;margin-top:6px}
+.guide{background:var(--card);border:1px solid var(--edge);border-radius:16px;margin-top:12px;overflow:hidden}
+.guide summary{padding:13px 15px;font-weight:800;font-size:13.5px;cursor:pointer;color:var(--band1)}
+.gstep{padding:4px 16px 14px;border-top:1px dashed var(--edge)}
+.gstep b{font-size:13px}
+.gstep p{font-size:12px;color:var(--mut);line-height:1.8;margin:5px 0 9px}
+.gstep img{width:100%;border-radius:11px;border:1px solid var(--edge);margin-top:6px}
 @media(max-width:520px){.nsel{grid-template-columns:repeat(2,1fr)}}
 </style></head><body>
 <div id="lock"><svg width="54" height="54" viewBox="0 0 24 24" fill="none"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z" stroke="#5FCF95" stroke-width="1.6"/></svg>
@@ -104,6 +110,11 @@ button.cta:disabled{opacity:.4;box-shadow:none}
   <div id="slots"></div>
 </div>
 <button class="cta" id="analyzeBtn" disabled></button>
+<details class="guide"><summary>&#9432; How-to guide (for the team)</summary>
+<div class="gstep"><b>1 — Export from AMOS</b><p>Standard TreeTable Report &middot; Data type <b>Excel 2007</b> &middot; Destination <b>Save to disk</b> &middot; press the select-all button so <b>ALL columns</b> are ticked. Export twice: once filtered <b>Open</b>, once <b>Closed</b>.</p><img src="guide/amos.png" alt=""></div>
+<div class="gstep"><b>2 — Run the cycle here</b><p>Upload the 3 files &rarr; Analyze &rarr; review decisions &rarr; Run update &rarr; <b>Download tracker</b> (keeps the exact official filename).</p></div>
+<div class="gstep"><b>3 — Replace on OneDrive</b><p>Open the team folder &rarr; <b>Add new &rarr; Files upload</b> &rarr; pick the downloaded file &rarr; choose <b>Replace</b> when asked. Same name = same link for everyone, with version history kept.</p><img src="guide/onedrive.png" alt=""><img src="guide/excel.png" alt=""></div>
+</details>
 <div id="panel"></div>
 </div>
 <script>
@@ -498,7 +509,7 @@ return {readWB, parseSheet, amosMap, trackerModel, keysOf, diff, applyAndSeriali
 <script>
 
 const AS='AS7-fea386f81e24fb2353a3432b', WK='https://acft-proxy.aviproject.workers.dev/';
-const CODE='741', KEY='cyc_t', TTL=12*36e5;
+const CODE='321', KEY='cyc_t', TTL=12*36e5;
 const $=id=>document.getElementById(id);
 let buf='';
 const dots=$('dots'), pad=$('pad');
