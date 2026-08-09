@@ -526,7 +526,9 @@ $('files').addEventListener('change', async ev=>{
 function drawSlots(){
   const meta={t:['📘','التراكر'], o:['📗','الأوبن'], c:['📕','الكلوز']};
   $('slots').innerHTML=['t','o','c'].map(k=>{
-    const miss=F[k]&&F[k].am&&F[k].am.missing.length?`<i>ناقص: ${F[k].am.missing.slice(0,3).join('، ')}${F[k].am.missing.length>3?'…':''}</i>`:'';
+    const skipBy={o:['Closed Date','Progress'], c:['Part Requests'], t:[]};
+    const ml=F[k]&&F[k].am?F[k].am.missing.filter(x=>!(skipBy[k]||[]).includes(x)):[];
+    const miss=ml.length?`<i>ناقص: ${ml.slice(0,3).join('، ')}${ml.length>3?'…':''}</i>`:'';
     return `<div class="slot ${F[k]?'ok':''}"><b>${meta[k][0]} ${meta[k][1]}</b><span>${F[k]?F[k].name:'بانتظار الملف'}</span>${miss}</div>`;
   }).join('');
   $('analyzeBtn').disabled=!(F.t&&F.o&&F.c);
@@ -561,8 +563,10 @@ function renderDecisions(){
   const D1=dt=>dt?dt.toLocaleDateString('en-GB',{day:'numeric',month:'short'}):'—';
   let h=`<div class="chips">${chip('إقفالات',d.closes.length,'g')}${chip('جديدة',d.newCards.length,d.newCards.length?'a':'')}${chip('أوصاف',d.descs.length)}${chip('قطع',d.partsProps.length)}${chip('مان أور',d.mh.length)}</div>`;
   const warns=[];
-  if(F.o.am.missing.length) warns.push('ملف الأوبن ناقص أعمدة: '+F.o.am.missing.join('، ')+' — الحقول الناقصة لن تُحدَّث وتبقى على آخر قيمها');
-  if(F.c.am.missing.filter(x=>x!=='Part Requests').length) warns.push('ملف الكلوز ناقص: '+F.c.am.missing.join('، ')+(F.c.am.missing.includes('Closed Date')?' — سيُستخدم تاريخ اليوم كتاريخ إقفال':''));
+  const oMiss=F.o.am.missing.filter(x=>x!=='Closed Date'&&x!=='Progress');
+  if(oMiss.length) warns.push('ملف الأوبن ناقص أعمدة: '+oMiss.join('، ')+' — الحقول الناقصة لن تُحدَّث وتبقى على آخر قيمها');
+  const cMiss=F.c.am.missing.filter(x=>x!=='Part Requests');
+  if(cMiss.length) warns.push('ملف الكلوز ناقص أعمدة: '+cMiss.join('، ')+(cMiss.includes('Closed Date')?' — سيُستخدم تاريخ اليوم كتاريخ إقفال':''));
   if(d.reopened.length) warns.push('أعيد فتحها في AMOS: '+d.reopened.map(x=>x.row.wo).join(' · '));
   if(d.vanished.length) warns.push('مفتوحة عندك ولا تظهر في AMOS ('+d.vanished.length+'): '+d.vanished.slice(0,5).map(x=>x.row.wo||x.row.seq).join(' · ')+(d.vanished.length>5?' …':''));
   if(warns.length) h+=`<div class="sec warn"><h3>⚠️ تنبيهات</h3>${warns.map(w=>'<div class="note">'+w+'</div>').join('')}</div>`;
