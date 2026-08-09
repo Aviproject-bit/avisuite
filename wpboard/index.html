@@ -98,7 +98,7 @@ footer{color:var(--mut);text-align:center;font-size:11px;padding:14px}
 <div id="board" style="display:none"></div></div>
 <footer id="ftr" style="display:none"></footer>
 <script>
-const CODE='741', KEY='wpb_t', TTL=12*36e5;
+const CODE='321', KEY='wpb_t', TTL=12*36e5;
 const dots=document.getElementById('dots'), pad=document.getElementById('pad');
 let buf='';
 for(let i=0;i<3;i++){const d=document.createElement('div');d.className='dot';dots.appendChild(d);}
@@ -162,7 +162,7 @@ function render(s){
   const done=P(s.kpi.c,s.kpi.t), tp=Math.min(100,Math.round(day/tot*100));
   document.getElementById('day').textContent=`DAY ${day}/${tot} · B.I.S ${D1(s.bis)}`;
   document.getElementById('pace').textContent=`Completed ${done}% vs Time ${tp}% · Days left ${left} · Need ${need}/day vs avg ${avg7}/day`;
-  document.getElementById('ftr').textContent=`Updated ${s.updated} · auto-refresh · Saudia Technic CA&QC`;
+  document.getElementById('ftr').innerHTML=`Updated ${s.updated} · auto-refresh · Saudia Technic CA&QC &nbsp;·&nbsp; <a href='../cycle/' style='color:var(--grn);font-weight:800;text-decoration:none'>To update data → Cycle Console</a>`;
   const matL=Math.max(0,Math.ceil((new Date(s.material)-today)/864e5));
   const R=46, CIR=2*Math.PI*R;
   let h='';
