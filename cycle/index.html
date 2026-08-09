@@ -106,7 +106,7 @@ button.cta:disabled{opacity:.4;box-shadow:none}
 <div class="up">
   <label class="big" for="files" id="upLbl">Upload the 3 files</label>
   <input type="file" id="files" multiple accept=".xlsx">
-  <div class="hint">Tracker + AMOS Open + AMOS Closed — any order, auto-detected</div>
+  <div class="hint">AMOS Open + AMOS Closed — the latest official tracker loads automatically (upload one to override)</div>
   <div id="slots"></div>
 </div>
 <button class="cta" id="analyzeBtn" disabled></button>
@@ -524,8 +524,18 @@ for(let i=0;i<3;i++){const d=document.createElement('div');d.className='dot';dot
   pad.appendChild(b); });
 function unlock(){$('lock').style.display='none';$('app').style.display='';
   $('hb').innerHTML=ic('cycle','b')+'WP Cycle Console';
-  $('upLbl').innerHTML=ic('folder')+'Upload the 3 files';
-  $('analyzeBtn').innerHTML=ic('search')+'Analyze';}
+  $('upLbl').innerHTML=ic('folder')+'Upload AMOS files';
+  $('analyzeBtn').innerHTML=ic('search')+'Analyze';
+  autoLoadTracker();}
+async function autoLoadTracker(){
+  if(F.t) return;
+  try{
+    const r=await fetch('../uploads/outbox/HZ-ASD_C2_6Y_CABIN_WP_TRACKER.xlsx?ts='+Date.now());
+    if(!r.ok) throw new Error(r.status);
+    const wb=await E.readWB(await r.arrayBuffer());
+    if(wb.sheets.some(s=>s.name==='HZ-ASD Tracker')){ F.t={name:'Official latest (auto)', wb, auto:true}; drawSlots(); }
+  }catch(e){ console.warn('auto tracker load failed', e); }
+}
 if(Date.now()-(+localStorage.getItem(KEY)||0)<TTL) unlock();
 
 const E=CycleEngine;
@@ -578,7 +588,8 @@ function drawSlots(){
     const skipBy={o:['Closed Date','Progress'], c:['Part Requests'], t:[]};
     const ml=F[k]&&F[k].am?F[k].am.missing.filter(x=>!(skipBy[k]||[]).includes(x)):[];
     const miss=ml.length?`<i>missing: ${ml.slice(0,3).join(', ')}${ml.length>3?'…':''}</i>`:'';
-    return `<div class="slot ${F[k]?'ok':''}"><b>${ic(meta[k][0],'s')}${meta[k][1]}</b><span>${F[k]?F[k].name:'waiting…'}</span>${miss}</div>`;
+    const wait=k==='t'?'loading official…':'waiting…';
+    return `<div class="slot ${F[k]?'ok':''}"><b>${ic(meta[k][0],'s')}${meta[k][1]}</b><span>${F[k]?F[k].name:wait}</span>${miss}</div>`;
   }).join('');
   $('analyzeBtn').disabled=!(F.t&&F.o&&F.c);
 }
@@ -599,7 +610,8 @@ $('analyzeBtn').onclick=async ()=>{
     }
     const dashSheet=twb.sheets.find(s=>s.name==='DASHBOARD');
     const dashXml=dashSheet?await twb.zip.file(dashSheet.path).async('string'):null;
-    CTX={trkXml, sst:twb.sst, sstRaw:twb.sstRaw, tracker, trkSheet, pkgSheet, pkgXml, dashSheet, dashXml, zip:twb.zip};
+    CTX={trkXml, sst:twb.sst, sstRaw:twb.sstRaw, tracker, trkSheet, pkgSheet, pkgXml, dashSheet, dashXml, zip:twb.zip,
+         prevClosed:tracker.filter(r=>r.st==='Closed').length, prevTotal:tracker.length};
     DIFF=E.diff(tracker, F.o.am, F.c.am, known);
     renderDecisions();
   }catch(e){ alert('Analysis error: '+e.message); console.error(e); }
@@ -676,12 +688,35 @@ async function run(){
     const outBuf=await CTX.zip.generateAsync({type:'blob', compression:'DEFLATE',
       mimeType:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
     const {stats, cards}=buildStats(model2);
-    OUTPUT={outBuf, stats, cards, summary:res.summary};
+    // بوابات السلامة قبل أي نشر تلقائي
+    const matched=DIFF.closes.length+DIFF.mh.length;
+    const coverage=matched/Math.max(1,CTX.tracker.length);
+    const newClosed=model2.filter(r=>r.st==='Closed').length;
+    const gates=[];
+    if(coverage<0.6) gates.push('AMOS exports match only '+Math.round(coverage*100)+'% of tracker — wrong aircraft or wrong files?');
+    if(newClosed<CTX.prevClosed) gates.push('Closed count would DROP ('+CTX.prevClosed+' → '+newClosed+') — mass-reopen blocked');
+    if(model2.length<CTX.prevTotal-5||model2.length>CTX.prevTotal+80) gates.push('Row count changed abnormally ('+CTX.prevTotal+' → '+model2.length+')');
+    OUTPUT={outBuf, stats, cards, summary:res.summary, gates, coverage, newClosed};
     showDone();
+    if(!gates.length) autoPublish();
   }catch(e){ alert('Run failed: '+e.message); console.error(e); }
   if($('runBtn')){ $('runBtn').disabled=false; $('runBtn').innerHTML=ic('play')+'Run update'; }
 }
 
+async function autoPublish(){
+  const log=$('upLog'); if(log) log.textContent='Publishing…';
+  const puts=[
+    ['uploads/outbox/HZ-ASD_C2_6Y_CABIN_WP_TRACKER.xlsx', OUTPUT.outBuf],
+    ['wpboard/wp_stats.json', new Blob([JSON.stringify(OUTPUT.stats)],{type:'application/json'})]];
+  const out=[];
+  for(const p of puts){
+    try{
+      const r=await fetch(WK+p[0], {method:'PUT', headers:{'X-AS-Key':AS}, body:p[1]});
+      out.push((r.ok?'✅ ':'❌ ')+p[0].split('/').pop()+(r.ok?'':' — '+r.status));
+    }catch(e){ out.push('❌ '+p[0].split('/').pop()+' — '+e.message); }
+  }
+  if(log) log.innerHTML=out.join('<br>')+(out.some(x=>x.indexOf('❌')===0)?'<br><span style="color:#68786F">If publishing fails on this network, the downloaded file is your source of truth — replace it on OneDrive</span>':'<br><span style="color:#1E8E5A;font-weight:700">Board updated · next cycle will build on this version automatically</span>');
+}
 function buildStats(model){
   const num=(cells,c)=>{ const cell=cells.get(c); const v=cell?+cell.val:0; return isNaN(v)?0:v; };
   const rows=model.map(r=>({wo:r.wo, desc:r.desc, cat:String((r.cells.get('D')||{}).val||''), seq:r.seq,
@@ -737,33 +772,21 @@ function buildStats(model){
 function showDone(){
   const s=OUTPUT.summary;
   const fb=s.mFallback?'<div class="note">'+s.mFallback+" cards had no closing date in the export — today's date used</div>":'';
+  const gateHtml=OUTPUT.gates.length?`<div class="sec warn"><h3>${ic('alert')}Auto-publish blocked</h3>${OUTPUT.gates.map(g=>'<div class="note">'+g+'</div>').join('')}<div class="note">Review carefully — you can still download, or publish manually below.</div></div>`:'';
   $('panel').innerHTML=`<div class="sec ok"><h3>${ic('check')}Update complete</h3>
     <div class="chips">${chip('CLOSED',s.closed,'g')}${chip('MAN-HOURS',s.mh)}${chip('DESCRIPTIONS',s.desc)}${chip('PARTS',s.parts)}${chip('ADDED',s.added,s.added?'a':'')}</div>${fb}
-    <div class="note">Also refreshed: FULL PKG sheet · dashboard stalled rows · board stats · agenda cards</div></div>
-    <div class="sec"><h3>${ic('doc')}What to do with the file?</h3>
-      <button class="cta" id="dlBtn">${ic('dl')}Download tracker</button>
-      <button class="cta alt" id="upBtn">${ic('cloud')}Publish (outbox + board + agenda)</button>
-      <div id="upLog" class="note"></div></div>`;
+    <div class="note">Also refreshed: FULL PKG sheet · dashboard stalled rows · board stats</div></div>
+    ${gateHtml}
+    <div class="sec"><h3>${ic('cloud')}Board & official copy</h3><div id="upLog" class="note">${OUTPUT.gates.length?'Waiting for your decision…':'Publishing automatically…'}</div>
+      ${OUTPUT.gates.length?`<button class="cta alt" id="upBtn">${ic('cloud')}Publish anyway</button>`:''}</div>
+    <div class="sec"><h3>${ic('doc')}For OneDrive</h3>
+      <button class="cta" id="dlBtn">${ic('dl')}Download tracker</button></div>`;
   $('dlBtn').onclick=()=>{
     const a=document.createElement('a');
     a.href=URL.createObjectURL(OUTPUT.outBuf);
     a.download='HZ-ASD C2+6Y CABIN WP TRACKER.xlsx'; a.click();
   };
-  $('upBtn').onclick=async ()=>{
-    const log=$('upLog'); log.textContent='Uploading…';
-    const puts=[
-      ['uploads/outbox/HZ-ASD_C2_6Y_CABIN_WP_TRACKER.xlsx', OUTPUT.outBuf],
-      ['agenda/wp_cards.json', new Blob([JSON.stringify(OUTPUT.cards)],{type:'application/json'})],
-      ['wpboard/wp_stats.json', new Blob([JSON.stringify(OUTPUT.stats)],{type:'application/json'})]];
-    const out=[];
-    for(const p of puts){
-      try{
-        const r=await fetch(WK+p[0], {method:'PUT', headers:{'X-AS-Key':AS}, body:p[1]});
-        out.push((r.ok?'✅ ':'❌ ')+p[0].split('/').pop()+(r.ok?'':' — '+r.status));
-      }catch(e){ out.push('❌ '+p[0].split('/').pop()+' — '+e.message); }
-    }
-    log.innerHTML=out.join('<br>')+'<br><span style="color:#68786F">Any ❌ means that path needs whitelisting on the worker — download and hand it over manually for now</span>';
-  };
+  if($('upBtn')) $('upBtn').onclick=autoPublish;
 }
 
 </script>
