@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl"><head>
+<html lang="en"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>WP Cycle Console</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
@@ -18,6 +18,9 @@
 }
 :root{--bg:#F2F6F3;--card:#fff;--ink:#16241D;--mut:#68786F;--edge:#E1E8E4;--band1:#0A5C36;--band2:#12854F;--grn:#1E8E5A;--red:#C62828;--amb:#B7791F;--tile:#F0F5F2}
 *{margin:0;padding:0;box-sizing:border-box;font-family:'BwGradual',system-ui,sans-serif}
+.ic{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;vertical-align:-2.5px;margin-right:7px}
+.ic.s{width:13px;height:13px}
+.ic.b{width:18px;height:18px}
 body{background:var(--bg);color:var(--ink);min-height:100vh}
 #lock{position:fixed;inset:0;background:#0F2920;z-index:99;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px}
 #lock h2{color:#fff;font-size:20px}
@@ -36,7 +39,7 @@ header span{display:block;font-size:11px;opacity:.85;margin-top:2px}
 .up label.big{display:inline-block;background:linear-gradient(120deg,var(--band1),var(--band2));color:#fff;border-radius:13px;padding:12px 26px;font-weight:800;cursor:pointer;font-size:14.5px}
 .up .hint{font-size:11.5px;color:var(--mut);margin-top:8px}
 #slots{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:14px}
-.slot{background:var(--tile);border:1.5px solid var(--edge);border-radius:13px;padding:10px;font-size:11px;text-align:right}
+.slot{background:var(--tile);border:1.5px solid var(--edge);border-radius:13px;padding:10px;font-size:11px}
 .slot b{display:block;font-size:12.5px;margin-bottom:3px}
 .slot span{color:var(--mut);word-break:break-all;font-size:10px}
 .slot i{display:block;color:var(--amb);font-size:9.5px;font-style:normal;margin-top:3px}
@@ -62,13 +65,13 @@ button.cta:disabled{opacity:.4;box-shadow:none}
 .row{display:flex;align-items:center;gap:8px;padding:6px 2px;border-bottom:1px solid var(--edge);font-size:12.5px}
 .row:last-child{border-bottom:none}
 .row b{white-space:nowrap;font-size:12px}
-.row .d{color:var(--mut);font-size:11px;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;direction:ltr;text-align:right}
+.row .d{color:var(--mut);font-size:11px;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .row em{color:var(--grn);font-style:normal;font-weight:700;font-size:11px}
 .ncard{border:1px solid var(--edge);border-radius:13px;padding:10px;margin-bottom:9px;background:#FBFDFB}
 .nhead{display:flex;align-items:center;gap:8px;font-size:12.5px}
 .nhead b{font-weight:800}
-.nhead .pr{margin-inline-start:auto;font-style:normal;font-size:10px;background:var(--tile);border-radius:8px;padding:2px 8px;color:var(--mut)}
-.ntitle{font-size:11.5px;color:var(--ink);margin:7px 2px;direction:ltr;text-align:right;line-height:1.5}
+.nhead .pr{margin-left:auto;font-style:normal;font-size:10px;background:var(--tile);border-radius:8px;padding:2px 8px;color:var(--mut)}
+.ntitle{font-size:11.5px;color:var(--ink);margin:7px 2px;line-height:1.5}
 .nsel{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
 .nsel select{font-size:10.5px;padding:5px 4px;border-radius:8px;border:1px solid var(--edge);background:#fff}
 .none{color:var(--mut);font-size:12px;padding:6px 0}
@@ -78,15 +81,15 @@ button.cta:disabled{opacity:.4;box-shadow:none}
 <div id="lock"><svg width="54" height="54" viewBox="0 0 24 24" fill="none"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z" stroke="#5FCF95" stroke-width="1.6"/></svg>
 <h2>WP CYCLE CONSOLE</h2><div class="dots" id="dots"></div><div id="pad"></div></div>
 <div id="app" style="display:none">
-<header><b>🔄 WP Cycle Console</b><span>HZ-ASD C2+6Y · دورة قارن وقفل ذاتية · Saudia Technic CA&QC</span></header>
+<header><b id="hb">WP Cycle Console</b><span>HZ-ASD C2+6Y · self-service compare & close · Saudia Technic CA&QC</span></header>
 <div style="height:14px"></div>
 <div class="up">
-  <label class="big" for="files">📂 ارفع الملفات الثلاثة</label>
+  <label class="big" for="files" id="upLbl">Upload the 3 files</label>
   <input type="file" id="files" multiple accept=".xlsx">
-  <div class="hint">التراكر + أوبن AMOS + كلوز AMOS — بأي ترتيب، الأداة تميزها تلقائياً</div>
+  <div class="hint">Tracker + AMOS Open + AMOS Closed — any order, auto-detected</div>
   <div id="slots"></div>
 </div>
-<button class="cta" id="analyzeBtn" disabled>🔍 تحليل</button>
+<button class="cta" id="analyzeBtn" disabled></button>
 <div id="panel"></div>
 </div>
 <script>
@@ -494,10 +497,30 @@ for(let i=0;i<3;i++){const d=document.createElement('div');d.className='dot';dot
     if(buf.length===3){ if(buf===CODE){localStorage.setItem(KEY,Date.now());unlock();}
       else{buf='';setTimeout(()=>[...dots.children].forEach(d=>d.classList.remove('on')),300);} } };
   pad.appendChild(b); });
-function unlock(){$('lock').style.display='none';$('app').style.display='';}
+function unlock(){$('lock').style.display='none';$('app').style.display='';
+  $('hb').innerHTML=ic('cycle','b')+'WP Cycle Console';
+  $('upLbl').innerHTML=ic('folder')+'Upload the 3 files';
+  $('analyzeBtn').innerHTML=ic('search')+'Analyze';}
 if(Date.now()-(+localStorage.getItem(KEY)||0)<TTL) unlock();
 
 const E=CycleEngine;
+const IC={
+ cycle:'<path d="M21 12a9 9 0 1 1-2.6-6.4"/><path d="M21 3v6h-6"/>',
+ folder:'<path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.7-.9L9.2 3.9A2 2 0 0 0 7.5 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2z"/>',
+ search:'<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>',
+ check:'<path d="M20 6 9 17l-5-5"/>',
+ plus:'<path d="M12 5v14M5 12h14"/>',
+ edit:'<path d="M17 3a2.8 2.8 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5z"/>',
+ box:'<path d="M21 8l-9-5-9 5v8l9 5 9-5zM3.3 7l8.7 5 8.7-5M12 22V12"/>',
+ clock:'<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',
+ alert:'<path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/>',
+ play:'<path d="M6 3l14 9-14 9z"/>',
+ dl:'<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>',
+ cloud:'<path d="M4 14.9A7 7 0 1 1 15.7 8h1.8a4.5 4.5 0 0 1 2.5 8.2"/><path d="M12 12v9M8 17l4 4 4-4"/>',
+ tbl:'<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/>',
+ doc:'<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/>'};
+function ic(n,cls){return '<svg class="ic '+(cls||'')+'" viewBox="0 0 24 24">'+IC[n]+'</svg>';}
+
 const F={t:null,o:null,c:null};
 let CTX=null, DIFF=null, OUTPUT=null;
 const CATS=['GENERAL CABIN','GALLEY','LAVATORY','PAX DOORS','F/A SEAT','PAX SEAT','FLIGHT DECK','TEDLAR/SIDEWALL','ACCESS','ACFT GENERAL T/C'];
@@ -514,29 +537,29 @@ $('files').addEventListener('change', async ev=>{
       else{
         const rows=E.parseSheet(await wb.zip.file(wb.sheets[0].path).async('string'), wb.sst);
         const am=E.amosMap(rows);
-        if(!am.hdr['Work Step / Event Number']){ alert(f.name+': ليس ملف AMOS صالحاً (عمود WO مفقود)'); continue; }
+        if(!am.hdr['Work Step / Event Number']){ alert(f.name+': not a valid AMOS export (WO column missing)'); continue; }
         const closedN=am.list.filter(r=>r.prog==='Closed'||r.closed).length;
         const kind=closedN>am.list.length/2?'c':'o';
         F[kind]={name:f.name, wb, rows, am};
       }
-    }catch(e){ alert('تعذر قراءة '+f.name+': '+e.message); }
+    }catch(e){ alert('Could not read '+f.name+': '+e.message); }
   }
   drawSlots();
 });
 function drawSlots(){
-  const meta={t:['📘','التراكر'], o:['📗','الأوبن'], c:['📕','الكلوز']};
+  const meta={t:['tbl','Tracker'], o:['doc','AMOS Open'], c:['check','AMOS Closed']};
   $('slots').innerHTML=['t','o','c'].map(k=>{
     const skipBy={o:['Closed Date','Progress'], c:['Part Requests'], t:[]};
     const ml=F[k]&&F[k].am?F[k].am.missing.filter(x=>!(skipBy[k]||[]).includes(x)):[];
-    const miss=ml.length?`<i>ناقص: ${ml.slice(0,3).join('، ')}${ml.length>3?'…':''}</i>`:'';
-    return `<div class="slot ${F[k]?'ok':''}"><b>${meta[k][0]} ${meta[k][1]}</b><span>${F[k]?F[k].name:'بانتظار الملف'}</span>${miss}</div>`;
+    const miss=ml.length?`<i>missing: ${ml.slice(0,3).join(', ')}${ml.length>3?'…':''}</i>`:'';
+    return `<div class="slot ${F[k]?'ok':''}"><b>${ic(meta[k][0],'s')}${meta[k][1]}</b><span>${F[k]?F[k].name:'waiting…'}</span>${miss}</div>`;
   }).join('');
   $('analyzeBtn').disabled=!(F.t&&F.o&&F.c);
 }
 drawSlots();
 
 $('analyzeBtn').onclick=async ()=>{
-  $('analyzeBtn').disabled=true; $('analyzeBtn').textContent='⏳ جاري التحليل…';
+  $('analyzeBtn').disabled=true; $('analyzeBtn').innerHTML=ic('clock')+'Analyzing…';
   try{
     const twb=F.t.wb;
     const trkSheet=twb.sheets.find(s=>s.name==='HZ-ASD Tracker');
@@ -553,30 +576,30 @@ $('analyzeBtn').onclick=async ()=>{
     CTX={trkXml, sst:twb.sst, sstRaw:twb.sstRaw, tracker, trkSheet, pkgSheet, pkgXml, dashSheet, dashXml, zip:twb.zip};
     DIFF=E.diff(tracker, F.o.am, F.c.am, known);
     renderDecisions();
-  }catch(e){ alert('خطأ بالتحليل: '+e.message); console.error(e); }
-  $('analyzeBtn').textContent='🔍 تحليل'; $('analyzeBtn').disabled=false;
+  }catch(e){ alert('Analysis error: '+e.message); console.error(e); }
+  $('analyzeBtn').innerHTML=ic('search')+'Analyze'; $('analyzeBtn').disabled=false;
 };
 
 function chip(n,v,cls){return `<div class="chip ${cls||''}"><b>${v}</b><span>${n}</span></div>`;}
 function renderDecisions(){
   const d=DIFF;
   const D1=dt=>dt?dt.toLocaleDateString('en-GB',{day:'numeric',month:'short'}):'—';
-  let h=`<div class="chips">${chip('إقفالات',d.closes.length,'g')}${chip('جديدة',d.newCards.length,d.newCards.length?'a':'')}${chip('أوصاف',d.descs.length)}${chip('قطع',d.partsProps.length)}${chip('مان أور',d.mh.length)}</div>`;
+  let h=`<div class="chips">${chip('CLOSURES',d.closes.length,'g')}${chip('NEW CARDS',d.newCards.length,d.newCards.length?'a':'')}${chip('DESCRIPTIONS',d.descs.length)}${chip('PARTS',d.partsProps.length)}${chip('MAN-HOURS',d.mh.length)}</div>`;
   const warns=[];
   const oMiss=F.o.am.missing.filter(x=>x!=='Closed Date'&&x!=='Progress');
-  if(oMiss.length) warns.push('ملف الأوبن ناقص أعمدة: '+oMiss.join('، ')+' — الحقول الناقصة لن تُحدَّث وتبقى على آخر قيمها');
+  if(oMiss.length) warns.push('Open export missing columns: '+oMiss.join(', ')+' — those fields keep their last values');
   const cMiss=F.c.am.missing.filter(x=>x!=='Part Requests');
-  if(cMiss.length) warns.push('ملف الكلوز ناقص أعمدة: '+cMiss.join('، ')+(cMiss.includes('Closed Date')?' — سيُستخدم تاريخ اليوم كتاريخ إقفال':''));
-  if(d.reopened.length) warns.push('أعيد فتحها في AMOS: '+d.reopened.map(x=>x.row.wo).join(' · '));
-  if(d.vanished.length) warns.push('مفتوحة عندك ولا تظهر في AMOS ('+d.vanished.length+'): '+d.vanished.slice(0,5).map(x=>x.row.wo||x.row.seq).join(' · ')+(d.vanished.length>5?' …':''));
-  if(warns.length) h+=`<div class="sec warn"><h3>⚠️ تنبيهات</h3>${warns.map(w=>'<div class="note">'+w+'</div>').join('')}</div>`;
-  h+=`<div class="sec"><h3>✅ إقفالات جديدة <em>${d.closes.length}</em></h3>
-    <label class="all"><input type="checkbox" id="allC" checked> تحديد الكل</label><div class="list">`;
+  if(cMiss.length) warns.push('Closed export missing columns: '+cMiss.join(', ')+(cMiss.includes('Closed Date')?" — today's date will be used as closing date":''));
+  if(d.reopened.length) warns.push('Reopened in AMOS: '+d.reopened.map(x=>x.row.wo).join(' · '));
+  if(d.vanished.length) warns.push('Open in tracker but absent from AMOS ('+d.vanished.length+'): '+d.vanished.slice(0,5).map(x=>x.row.wo||x.row.seq).join(' · ')+(d.vanished.length>5?' …':'')+' — usually cancelled/merged WOs or manual cards; review manually, the tool never touches them');
+  if(warns.length) h+=`<div class="sec warn"><h3>${ic('alert')}Alerts</h3>${warns.map(w=>'<div class="note">'+w+'</div>').join('')}</div>`;
+  h+=`<div class="sec"><h3>${ic('check')}New closures <em>${d.closes.length}</em></h3>
+    <label class="all"><input type="checkbox" id="allC" checked> select all</label><div class="list">`;
   d.closes.forEach((x,i)=>{ h+=`<label class="row"><input type="checkbox" class="ckC" data-i="${i}" checked>
     <b>${x.row.wo}</b><span class="d">${E.XESC(x.row.desc.slice(0,46))}</span><em>${D1(x.rec.closed)}</em></label>`; });
   h+='</div></div>';
-  h+=`<div class="sec"><h3>🆕 كروت جديدة في AMOS <em>${d.newCards.length}</em></h3><div class="list nl">`;
-  if(!d.newCards.length) h+='<div class="none">لا يوجد كروت جديدة</div>';
+  h+=`<div class="sec"><h3>${ic('plus')}New cards in AMOS <em>${d.newCards.length}</em></h3><div class="list nl">`;
+  if(!d.newCards.length) h+='<div class="none">No new cards</div>';
   d.newCards.forEach((r,i)=>{ h+=`<div class="ncard">
     <label class="nhead"><input type="checkbox" class="ckN" data-i="${i}">
       <b>seq ${r.seq} · ${r.wo}</b>${r.prio?`<em class="pr">${E.XESC(r.prio)}</em>`:''}</label>
@@ -588,21 +611,21 @@ function renderDecisions(){
       <select class="selA" data-i="${i}"><option value="">Area…</option>${AREAS.map(s=>'<option>'+s+'</option>').join('')}</select>
     </div></div>`; });
   h+='</div></div>';
-  h+=`<div class="sec"><h3>📝 أوصاف تغيرت <em>${d.descs.length}</em></h3><div class="list">`;
-  if(!d.descs.length) h+='<div class="none">لا شي</div>';
+  h+=`<div class="sec"><h3>${ic('edit')}Description updates <em>${d.descs.length}</em></h3><div class="list">`;
+  if(!d.descs.length) h+='<div class="none">None</div>';
   d.descs.forEach((x,i)=>{ h+=`<label class="row"><input type="checkbox" class="ckD" data-i="${i}" checked>
     <b>${x.row.seq}</b><span class="d">${E.XESC(x.nt.slice(0,54))}</span></label>`; });
   h+='</div></div>';
-  h+=`<div class="sec inline"><h3>📦 قطع صارت Requested <em>${d.partsProps.length}</em></h3>
-    <label class="all"><input type="checkbox" id="allP" checked> تطبيق الكل</label></div>`;
-  h+='<button id="runBtn" class="cta">🚀 نفّذ التحديث</button>';
+  h+=`<div class="sec inline"><h3>${ic('box')}Parts to mark Requested <em>${d.partsProps.length}</em></h3>
+    <label class="all"><input type="checkbox" id="allP" checked> apply all</label></div>`;
+  h+='<button id="runBtn" class="cta">'+ic('play')+'Run update</button>';
   $('panel').innerHTML=h;
   const allC=$('allC'); if(allC) allC.onchange=()=>document.querySelectorAll('.ckC').forEach(c=>c.checked=allC.checked);
   $('runBtn').onclick=run;
 }
 
 async function run(){
-  $('runBtn').disabled=true; $('runBtn').textContent='⏳ جاري التنفيذ…';
+  $('runBtn').disabled=true; $('runBtn').innerHTML=ic('clock')+'Running…';
   try{
     const closes=[...document.querySelectorAll('.ckC')].filter(c=>c.checked).map(c=>DIFF.closes[+c.dataset.i]);
     const descs=[...document.querySelectorAll('.ckD')].filter(c=>c.checked).map(c=>DIFF.descs[+c.dataset.i]);
@@ -629,8 +652,8 @@ async function run(){
     const {stats, cards}=buildStats(model2);
     OUTPUT={outBuf, stats, cards, summary:res.summary};
     showDone();
-  }catch(e){ alert('فشل التنفيذ: '+e.message); console.error(e); }
-  $('runBtn').disabled=false; $('runBtn').textContent='🚀 نفّذ التحديث';
+  }catch(e){ alert('Run failed: '+e.message); console.error(e); }
+  $('runBtn').disabled=false; if($('runBtn')) $('runBtn').innerHTML=ic('play')+'Run update';
 }
 
 function buildStats(model){
@@ -687,13 +710,13 @@ function buildStats(model){
 
 function showDone(){
   const s=OUTPUT.summary;
-  const fb=s.mFallback?'<div class="note">⚠️ '+s.mFallback+' كرت بلا تاريخ إقفال بالملف — استُخدم تاريخ اليوم</div>':'';
-  $('panel').innerHTML=`<div class="sec ok"><h3>✅ تم التنفيذ بنجاح</h3>
-    <div class="chips">${chip('أُقفل',s.closed,'g')}${chip('مان أور',s.mh)}${chip('أوصاف',s.desc)}${chip('قطع',s.parts)}${chip('أُضيف',s.added,s.added?'a':'')}</div>${fb}
-    <div class="note">شمل التحديث: FULL PKG + الكروت الراكدة بالداشبورد + إحصائيات البورد + كروت الأجندة</div></div>
-    <div class="sec"><h3>وش تبغى تسوي بالملف؟</h3>
-      <button class="cta" id="dlBtn">⬇️ تنزيل التراكر</button>
-      <button class="cta alt" id="upBtn">☁️ رفع للموقع (outbox + البورد + الأجندة)</button>
+  const fb=s.mFallback?'<div class="note">'+s.mFallback+" cards had no closing date in the export — today's date used</div>":'';
+  $('panel').innerHTML=`<div class="sec ok"><h3>${ic('check')}Update complete</h3>
+    <div class="chips">${chip('CLOSED',s.closed,'g')}${chip('MAN-HOURS',s.mh)}${chip('DESCRIPTIONS',s.desc)}${chip('PARTS',s.parts)}${chip('ADDED',s.added,s.added?'a':'')}</div>${fb}
+    <div class="note">Also refreshed: FULL PKG sheet · dashboard stalled rows · board stats · agenda cards</div></div>
+    <div class="sec"><h3>${ic('doc')}What to do with the file?</h3>
+      <button class="cta" id="dlBtn">${ic('dl')}Download tracker</button>
+      <button class="cta alt" id="upBtn">${ic('cloud')}Publish (outbox + board + agenda)</button>
       <div id="upLog" class="note"></div></div>`;
   $('dlBtn').onclick=()=>{
     const a=document.createElement('a');
@@ -701,7 +724,7 @@ function showDone(){
     a.download='HZ-ASD C2+6Y CABIN WP TRACKER.xlsx'; a.click();
   };
   $('upBtn').onclick=async ()=>{
-    const log=$('upLog'); log.textContent='⏳ جاري الرفع…';
+    const log=$('upLog'); log.textContent='Uploading…';
     const puts=[
       ['uploads/outbox/HZ-ASD_C2_6Y_CABIN_WP_TRACKER.xlsx', OUTPUT.outBuf],
       ['agenda/wp_cards.json', new Blob([JSON.stringify(OUTPUT.cards)],{type:'application/json'})],
@@ -713,7 +736,7 @@ function showDone(){
         out.push((r.ok?'✅ ':'❌ ')+p[0].split('/').pop()+(r.ok?'':' — '+r.status));
       }catch(e){ out.push('❌ '+p[0].split('/').pop()+' — '+e.message); }
     }
-    log.innerHTML=out.join('<br>')+'<br><span style="color:#68786F">أي ❌ يعني المسار محتاج إضافة بقائمة الوركر — نزّل الملف وارفعه يدوياً مؤقتاً</span>';
+    log.innerHTML=out.join('<br>')+'<br><span style="color:#68786F">Any ❌ means that path needs whitelisting on the worker — download and hand it over manually for now</span>';
   };
 }
 
