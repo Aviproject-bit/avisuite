@@ -101,7 +101,7 @@ button.cta:disabled{opacity:.4;box-shadow:none}
 <div id="lock"><svg width="54" height="54" viewBox="0 0 24 24" fill="none"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z" stroke="#5FCF95" stroke-width="1.6"/></svg>
 <h2>WP CYCLE CONSOLE</h2><div class="dots" id="dots"></div><div id="pad"></div></div>
 <div id="app" style="display:none">
-<header><b id="hb">WP Cycle Console</b><span>HZ-ASD C2+6Y · self-service compare & close · Saudia Technic CA&QC · <b style="opacity:.9">v2.7</b></span></header>
+<header><b id="hb">WP Cycle Console</b><span>HZ-ASD C2+6Y · self-service compare & close · Saudia Technic CA&QC · <b style="opacity:.9">v2.8</b></span></header>
 <div style="height:14px"></div>
 <div class="up">
   <label class="big" for="files" id="upLbl">Upload the 3 files</label>
@@ -550,19 +550,8 @@ for(let i=0;i<3;i++){const d=document.createElement('div');d.className='dot';dot
   pad.appendChild(b); });
 function unlock(){$('lock').style.display='none';$('app').style.display='';
   $('hb').innerHTML=ic('cycle','b')+'WP Cycle Console';
-  $('upLbl').innerHTML=ic('folder')+'Upload AMOS files';
-  $('analyzeBtn').innerHTML=ic('search')+'Analyze';
-  autoLoadTracker();}
-async function autoLoadTracker(){
-  if(F.t) return;
-  try{
-    const r=await fetch('../uploads/outbox/HZ-ASD_C2_6Y_CABIN_WP_TRACKER.xlsx?ts='+Date.now());
-    if(!r.ok) throw new Error(r.status);
-    const wb=await E.readWB(await r.arrayBuffer());
-    if(wb.sheets.some(s=>s.name==='HZ-ASD Tracker')){ F.t={name:'Official latest (auto)', wb, auto:true}; drawSlots(); }
-  }catch(e){ console.warn('auto tracker load failed', e); }
-}
-if(Date.now()-(+localStorage.getItem(KEY)||0)<TTL) unlock();
+  $('upLbl').innerHTML=ic('folder')+'Upload the 3 files';
+  $('analyzeBtn').innerHTML=ic('search')+'Analyze';}
 
 const E=CycleEngine;
 
@@ -799,5 +788,6 @@ function showDone(){
   if($('upBtn')) $('upBtn').onclick=autoPublish;
 }
 
+if(Date.now()-(+localStorage.getItem(KEY)||0)<TTL) unlock();
 </script>
 </body></html>
