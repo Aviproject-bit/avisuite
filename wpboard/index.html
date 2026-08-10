@@ -323,30 +323,47 @@ async function exportImg(mode){
     await new Promise(r=>setTimeout(r,400));
     const el=document.getElementById('cap');
     const w=el.scrollWidth, hh=el.scrollHeight;
-    const scale=Math.min(2, Math.sqrt(14e6/Math.max(1,w*hh)));   // سقف آمن لسفاري iOS
+    const scale=Math.min(2, Math.sqrt(14e6/Math.max(1,w*hh)));
     const canvas=await html2canvas(el,{scale, backgroundColor:getComputedStyle(b).backgroundColor, useCORS:true});
     b.classList.remove('exporting','exporting-wide');
-    const blob=await new Promise(res=>canvas.toBlob(res,'image/png'));
-    if(!blob) throw new Error('canvas too large for this device');
     const fname='HZ-ASD_board_'+(mode==='m'?'mobile':'screen')+'.png';
-    const file=new File([blob], fname, {type:'image/png'});
-    if(navigator.canShare&&navigator.canShare({files:[file]})){
-      try{ await navigator.share({files:[file], title:'HZ-ASD Board'}); return; }catch(e){ if(e.name==='AbortError') return; }
+    const durl=canvas.toDataURL('image/png');
+    const mobile=('ontouchstart' in window)||navigator.maxTouchPoints>1;
+    if(!mobile){
+      const a=document.createElement('a'); a.download=fname; a.href=durl; a.click();
+      return;
     }
-    const url=URL.createObjectURL(blob);
-    const isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.maxTouchPoints>1&&/Mac/.test(navigator.userAgent));
-    if(isIOS){
-      let ov=document.getElementById('shotOv');
-      if(ov) ov.remove();
-      ov=document.createElement('div'); ov.id='shotOv';
-      ov.style.cssText='position:fixed;inset:0;background:rgba(8,25,18,.94);z-index:9999;display:flex;flex-direction:column;align-items:center;padding:16px;overflow:auto';
-      ov.innerHTML='<div style="color:#fff;font-weight:800;font-size:13px;margin:6px 0 12px">Press & hold the image → Save to Photos</div>'
-        +'<img src="'+url+'" style="max-width:100%;border-radius:12px">'
-        +'<button style="margin-top:14px;background:#1E8E5A;color:#fff;border:none;border-radius:11px;padding:11px 26px;font-weight:800;font-size:14px" onclick="document.getElementById(\'shotOv\').remove()">Close</button>';
-      document.body.appendChild(ov);
-    } else {
-      const a=document.createElement('a'); a.download=fname; a.href=url; a.click();
-    }
+    let ov=document.getElementById('shotOv'); if(ov) ov.remove();
+    ov=document.createElement('div'); ov.id='shotOv';
+    ov.style.cssText='position:fixed;inset:0;background:rgba(8,25,18,.95);z-index:9999;display:flex;flex-direction:column;align-items:center;padding:14px;overflow:auto';
+    const hint=document.createElement('div');
+    hint.style.cssText='color:#fff;font-weight:800;font-size:12.5px;margin:4px 0 10px;text-align:center';
+    hint.textContent='Tap Share, or press & hold the image to save';
+    const img=document.createElement('img');
+    img.src=durl; img.style.cssText='max-width:100%;border-radius:12px';
+    const bar=document.createElement('div');
+    bar.style.cssText='display:flex;gap:10px;margin-top:14px';
+    const mkBtn=(t,bg)=>{const x=document.createElement('button');
+      x.textContent=t; x.style.cssText='background:'+bg+';color:#fff;border:none;border-radius:11px;padding:12px 24px;font-weight:800;font-size:14px'; return x;};
+    const sh=mkBtn('Share / Save','#1E8E5A'), cl=mkBtn('Close','#3B4A43');
+    sh.onclick=async ()=>{           // نداء المشاركة داخل الضغطة = إذن طازج (يرضي كروم)
+      try{
+        const blob=await (await fetch(durl)).blob();
+        const file=new File([blob], fname, {type:'image/png'});
+        if(navigator.canShare&&navigator.canShare({files:[file]})){
+          await navigator.share({files:[file], title:'HZ-ASD Board'});
+        } else if(navigator.share){
+          await navigator.share({title:'HZ-ASD Board'});
+          alert('This browser cannot share files - press & hold the image instead');
+        } else {
+          alert('Sharing unavailable - press & hold the image to save');
+        }
+      }catch(e){ if(e.name!=='AbortError') alert('Share failed: '+e.message); }
+    };
+    cl.onclick=()=>ov.remove();
+    bar.appendChild(sh); bar.appendChild(cl);
+    ov.appendChild(hint); ov.appendChild(img); ov.appendChild(bar);
+    document.body.appendChild(ov);
   }catch(err){
     b.classList.remove('exporting','exporting-wide');
     alert('Export failed: '+err.message);
