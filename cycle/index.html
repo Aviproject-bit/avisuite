@@ -127,7 +127,7 @@ details.fold .fbody{padding:0 14px 13px}
 </style></head><body>
 <div id="passcode-screen"></div>
 <div id="app" style="display:none">
-<header><b id="hb">WP Cycle Console</b><span>HZ-ASD C2+6Y · self-service compare & close · Saudia Technic CA&QC · <b style="opacity:.9">v3.0</b></span></header>
+<header><b id="hb">WP Cycle Console</b><span>HZ-ASD C2+6Y · self-service compare & close · Saudia Technic CA&QC · <b style="opacity:.9">v3.1</b></span></header>
 <div style="height:14px"></div>
 <div class="up">
   <label class="big" for="files" id="upLbl">Upload the 3 files</label>
@@ -321,7 +321,13 @@ function diff(tracker, open, closed, knownPkg){
     if(woKeys.has(r.wo)) return false;
     return true;
   });
-  return {closes, mh, descs, partsProps, reopened, vanished, newCards, closedMissing};
+  const openMissing=open.list.filter(r=>{
+    if(!r.seq||seqSet.has(r.seq)) return false;
+    if(woKeys.has(r.wo)) return false;
+    if(!(knownPkg.seq.has(r.seq)||knownPkg.wo.has(r.wo))) return false;  // الجديدة كلياً لها قائمتها
+    return true;
+  });
+  return {closes, mh, descs, partsProps, reopened, vanished, newCards, closedMissing, openMissing};
 }
 
 function applyAndSerialize(ctx, decisions, todaySerial){
@@ -741,6 +747,22 @@ function renderDecisions(){
           <select class="selMA" data-i="${i}"><option value="">Area…</option>${AREAS.map(s=>'<option>'+s+'</option>').join('')}</select>
         </div></div>`).join('')}
     </div></div></details>`;
+  // منسدلة: مفتوحة في AMOS خارج التراكر (معروفة سابقاً — ضمها اختياري)
+  h+=`<details class="fold"><summary>${ic('doc','s')}Open in AMOS, not in tracker <em>${d.openMissing.length}</em></summary><div class="fbody">
+    <div class="note" style="margin:4px 0 8px">Previously excluded cards (non-cabin scope). Tick to pull one into the tracker as <b>Open</b>.</div>
+    <input class="srch" id="srchO" placeholder="Search seq / WO / description…">
+    <div class="list" style="max-height:340px" id="oList">${d.openMissing.map((r,i)=>`
+      <div class="mcard" data-txt="${E.XESC((r.seq+' '+r.wo+' '+r.title).toLowerCase())}">
+        <label class="mhead"><input type="checkbox" class="ckO" data-i="${i}">
+          <b>seq ${r.seq} · ${r.wo}</b></label>
+        <div class="mtitle">${E.XESC(r.title)}</div>
+        <div class="nsel">
+          <select class="selOP" data-i="${i}"><option>Normal</option><option>AOG</option><option>Critical</option><option>ACCESS</option></select>
+          <select class="selOS" data-i="${i}"><option value="">Specialty…</option>${SPECS.map(s=>'<option>'+s+'</option>').join('')}</select>
+          <select class="selOC" data-i="${i}"><option value="">Category…</option>${CATS.map(s=>'<option>'+s+'</option>').join('')}</select>
+          <select class="selOA" data-i="${i}"><option value="">Area…</option>${AREAS.map(s=>'<option>'+s+'</option>').join('')}</select>
+        </div></div>`).join('')}
+    </div></div></details>`;
   // منسدلة 2: بالتراكر وغائبة عن AMOS (حذف اختياري)
   h+=`<details class="fold"><summary>${ic('alert','s')}In tracker, not in AMOS <em>${d.vanished.length}</em></summary><div class="fbody">
     <div class="note" style="margin:4px 0 8px">Usually cancelled/merged WOs or manual cards. Tick to <b style="color:var(--red)">delete</b> the row — untouched otherwise.</div>
@@ -754,11 +776,11 @@ function renderDecisions(){
   h+='<button id="runBtn" class="cta">'+ic('play')+'Run update</button>';
   $('panel').innerHTML=h;
   const allC=$('allC'); if(allC) allC.onchange=()=>document.querySelectorAll('.ckC').forEach(c=>c.checked=allC.checked);
-  const sm=$('srchM');
-  if(sm) sm.oninput=()=>{
-    const q=sm.value.trim().toLowerCase();
-    document.querySelectorAll('#mList .mcard').forEach(el=>el.classList.toggle('hid', q&&el.dataset.txt.indexOf(q)<0));
-  };
+  const wire=(inp,list)=>{const el=$(inp); if(el) el.oninput=()=>{
+    const q=el.value.trim().toLowerCase();
+    document.querySelectorAll('#'+list+' .mcard').forEach(x=>x.classList.toggle('hid', q&&x.dataset.txt.indexOf(q)<0));
+  };};
+  wire('srchM','mList'); wire('srchO','oList');
   $('runBtn').onclick=run;
 }
 
@@ -778,8 +800,12 @@ async function run(){
       const i=+x.dataset.i;
       return {rec:DIFF.closedMissing[i], prio:selM('.selMP',i), spec:selM('.selMS',i), cat:selM('.selMC',i), area:selM('.selMA',i)};
     });
+    const retroOpen=[...document.querySelectorAll('.ckO')].filter(x=>x.checked).map(x=>{
+      const i=+x.dataset.i;
+      return {rec:DIFF.openMissing[i], prio:selM('.selOP',i), spec:selM('.selOS',i), cat:selM('.selOC',i), area:selM('.selOA',i)};
+    });
     const deletes=[...document.querySelectorAll('.ckV')].filter(x=>x.checked).map(x=>DIFF.vanished[+x.dataset.i]);
-    const res=E.applyAndSerialize(CTX, {closes, mh:DIFF.mh, descs, parts, newCards, newClosed:retroClosed, deletes}, E.toSerial(new Date()));
+    const res=E.applyAndSerialize(CTX, {closes, mh:DIFF.mh, descs, parts, newCards:newCards.concat(retroOpen), newClosed:retroClosed, deletes}, E.toSerial(new Date()));
     // FULL PKG + STALLED
     if(CTX.pkgXml) CTX.zip.file(CTX.pkgSheet.path, E.rebuildFullPkg(CTX.pkgXml, F.o.am.list, F.c.am.list, res.S));
     const model2=E.trackerModel(E.parseSheet(res.newXml, res.sstFinal));
