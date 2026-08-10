@@ -104,6 +104,19 @@ button.cta:disabled{opacity:.4;box-shadow:none}
 .nsel select{font-size:10.5px;padding:5px 4px;border-radius:8px;border:1px solid var(--edge);background:#fff}
 .none{color:var(--mut);font-size:12px;padding:6px 0}
 .note{font-size:12px;color:var(--mut);line-height:1.8;margin-top:6px}
+details.fold{background:var(--card);border:1px solid var(--edge);border-radius:16px;margin-top:12px;overflow:hidden}
+details.fold summary{padding:13px 15px;font-weight:800;font-size:13.5px;cursor:pointer;display:flex;align-items:center;gap:8px}
+details.fold summary em{font-style:normal;background:var(--tile);border-radius:9px;padding:1px 9px;font-size:12px;font-weight:800;color:var(--amb)}
+details.fold .fbody{padding:0 14px 13px}
+.srch{width:100%;padding:9px 12px;border:1px solid var(--edge);border-radius:10px;font-size:12.5px;margin-bottom:9px;font-family:inherit}
+.mcard{border:1px solid var(--edge);border-radius:12px;padding:9px;margin-bottom:8px;background:#FBFDFB}
+.mcard.hid{display:none}
+.mhead{display:flex;align-items:center;gap:8px;font-size:12px}
+.mhead b{font-weight:800}
+.mhead .dt{margin-left:auto;font-size:10px;color:var(--grn);font-weight:800}
+.mtitle{font-size:11.5px;color:var(--ink);margin:6px 2px;line-height:1.5}
+.mdel .mtitle{color:var(--mut)}
+.mdel{background:#FFF8F5;border-color:#F0CFC2}
 .guide{background:var(--card);border:1px solid var(--edge);border-radius:16px;margin-top:12px;overflow:hidden}
 .guide summary{padding:13px 15px;font-weight:800;font-size:13.5px;cursor:pointer;color:var(--band1)}
 .gstep{padding:4px 16px 14px;border-top:1px dashed var(--edge)}
@@ -114,7 +127,7 @@ button.cta:disabled{opacity:.4;box-shadow:none}
 </style></head><body>
 <div id="passcode-screen"></div>
 <div id="app" style="display:none">
-<header><b id="hb">WP Cycle Console</b><span>HZ-ASD C2+6Y · self-service compare & close · Saudia Technic CA&QC · <b style="opacity:.9">v2.9</b></span></header>
+<header><b id="hb">WP Cycle Console</b><span>HZ-ASD C2+6Y · self-service compare & close · Saudia Technic CA&QC · <b style="opacity:.9">v3.0</b></span></header>
 <div style="height:14px"></div>
 <div class="up">
   <label class="big" for="files" id="upLbl">Upload the 3 files</label>
@@ -303,7 +316,12 @@ function diff(tracker, open, closed, knownPkg){
     if(knownPkg.seq.has(r.seq)||knownPkg.wo.has(r.wo)) return false;
     return true;
   });
-  return {closes, mh, descs, partsProps, reopened, vanished, newCards};
+  const closedMissing=closed.list.filter(r=>{
+    if(!r.seq||seqSet.has(r.seq)) return false;
+    if(woKeys.has(r.wo)) return false;
+    return true;
+  });
+  return {closes, mh, descs, partsProps, reopened, vanished, newCards, closedMissing};
 }
 
 function applyAndSerialize(ctx, decisions, todaySerial){
@@ -345,14 +363,27 @@ function applyAndSerialize(ctx, decisions, todaySerial){
   for(const tr of tracker){ if(tr.cells.size>=15){ tmplRow=tr; break; } }
   if(tmplRow) for(const [c,cell] of tmplRow.cells) tmpl[c]=cell.s;
 
+  const delSet=new Set((decisions.deletes||[]).map(d=>d.row.rn));
+  summary.deleted=delSet.size;
   const newRowObjs=[];
-  const sortedNew=(decisions.newCards||[]).slice().sort((a,b)=>(+a.rec.seq)-(+b.rec.seq));
+  const allNew=(decisions.newCards||[]).map(x=>Object.assign({closedRow:false},x))
+    .concat((decisions.newClosed||[]).map(x=>Object.assign({closedRow:true},x)));
+  const sortedNew=allNew.slice().sort((a,b)=>(+a.rec.seq)-(+b.rec.seq));
   for(const nc of sortedNew){
     const cells=new Map();
     const mkS=(c,val)=>cells.set(c,{t:'s', s:tmpl[c]!=null?tmpl[c]:null, v:String(S(val)), val, f:false});
     const mkN=(c,val)=>cells.set(c,{t:'', s:tmpl[c]!=null?tmpl[c]:null, v:String(val), val:String(val), f:false});
     mkS('A', nc.rec.wo); mkS('B', nc.rec.title); mkN('C', +nc.rec.seq);
-    mkS('E','Open'); mkS('F', nc.prio||'Normal');
+    if(nc.closedRow){
+      mkS('E','Closed');
+      const cs=nc.rec.closed?toSerial(nc.rec.closed):todaySerial;
+      mkN('M', cs); mkN('L', cs);
+      if(nc.rec.book!=null) mkN('P', nc.rec.book);
+      if(nc.rec.dur!=null) mkN('Q', nc.rec.dur);
+    } else {
+      mkS('E','Open');
+    }
+    mkS('F', nc.prio||'Normal');
     if(nc.spec) mkS('G', nc.spec);
     if(nc.cat) mkS('D', nc.cat);
     if(nc.area) mkS('K', nc.area);
@@ -403,6 +434,7 @@ function applyAndSerialize(ctx, decisions, todaySerial){
   for(const row of tracker){
     const rSeq=row.seq&&!isNaN(+row.seq)?+row.seq:Infinity;
     while(ni<newRowObjs.length&&newRowObjs[ni].seq<rSeq){ merged.push({cells:newRowObjs[ni].cells, orig:null}); ni++; }
+    if(delSet.has(row.rn)) continue;
     merged.push({cells:row.cells, orig:row.rn});
   }
   while(ni<newRowObjs.length){ merged.push({cells:newRowObjs[ni].cells, orig:null}); ni++; }
@@ -517,7 +549,6 @@ function pkgKnowledge(rows){
 }
 return {readWB, parseSheet, amosMap, trackerModel, keysOf, diff, applyAndSerialize, rebuildFullPkg, patchStalled, pkgKnowledge, toSerial, fromSerial, hoursOf, XESC, UNESC};
 });
-
 </script>
 <script>
 
@@ -694,9 +725,40 @@ function renderDecisions(){
   h+='</div></div>';
   h+=`<div class="sec inline"><h3>${ic('box')}Parts to mark Requested <em>${d.partsProps.length}</em></h3>
     <label class="all"><input type="checkbox" id="allP" checked> apply all</label></div>`;
+  // منسدلة 1: مقفلة في AMOS وغائبة عن التراكر (استرجاع المنسي)
+  h+=`<details class="fold"><summary>${ic('search','s')}Closed in AMOS, missing from tracker <em>${d.closedMissing.length}</em></summary><div class="fbody">
+    <div class="note" style="margin:4px 0 8px">Cards you may have missed — tick to add them as <b>Closed</b> with their AMOS closing date.</div>
+    <input class="srch" id="srchM" placeholder="Search seq / WO / description…">
+    <div class="list" style="max-height:340px" id="mList">${d.closedMissing.map((r,i)=>`
+      <div class="mcard" data-txt="${E.XESC((r.seq+' '+r.wo+' '+r.title).toLowerCase())}">
+        <label class="mhead"><input type="checkbox" class="ckM" data-i="${i}">
+          <b>seq ${r.seq} · ${r.wo}</b><span class="dt">${r.closed?r.closed.toLocaleDateString('en-GB',{day:'numeric',month:'short'}):''}</span></label>
+        <div class="mtitle">${E.XESC(r.title)}</div>
+        <div class="nsel">
+          <select class="selMP" data-i="${i}"><option>Normal</option><option>AOG</option><option>Critical</option><option>ACCESS</option></select>
+          <select class="selMS" data-i="${i}"><option value="">Specialty…</option>${SPECS.map(s=>'<option>'+s+'</option>').join('')}</select>
+          <select class="selMC" data-i="${i}"><option value="">Category…</option>${CATS.map(s=>'<option>'+s+'</option>').join('')}</select>
+          <select class="selMA" data-i="${i}"><option value="">Area…</option>${AREAS.map(s=>'<option>'+s+'</option>').join('')}</select>
+        </div></div>`).join('')}
+    </div></div></details>`;
+  // منسدلة 2: بالتراكر وغائبة عن AMOS (حذف اختياري)
+  h+=`<details class="fold"><summary>${ic('alert','s')}In tracker, not in AMOS <em>${d.vanished.length}</em></summary><div class="fbody">
+    <div class="note" style="margin:4px 0 8px">Usually cancelled/merged WOs or manual cards. Tick to <b style="color:var(--red)">delete</b> the row — untouched otherwise.</div>
+    ${d.vanished.map((x,i)=>`
+      <div class="mcard mdel">
+        <label class="mhead"><input type="checkbox" class="ckV" data-i="${i}">
+          <b>${x.row.wo||('seq '+x.row.seq)}</b><span class="dt" style="color:var(--red)">delete</span></label>
+        <div class="mtitle">${E.XESC(x.row.desc)}</div>
+      </div>`).join('')}
+    </div></details>`;
   h+='<button id="runBtn" class="cta">'+ic('play')+'Run update</button>';
   $('panel').innerHTML=h;
   const allC=$('allC'); if(allC) allC.onchange=()=>document.querySelectorAll('.ckC').forEach(c=>c.checked=allC.checked);
+  const sm=$('srchM');
+  if(sm) sm.oninput=()=>{
+    const q=sm.value.trim().toLowerCase();
+    document.querySelectorAll('#mList .mcard').forEach(el=>el.classList.toggle('hid', q&&el.dataset.txt.indexOf(q)<0));
+  };
   $('runBtn').onclick=run;
 }
 
@@ -711,7 +773,13 @@ async function run(){
       const i=+c.dataset.i;
       return {rec:DIFF.newCards[i], prio:sel('.selP',i), spec:sel('.selS',i), cat:sel('.selCat',i), area:sel('.selA',i)};
     });
-    const res=E.applyAndSerialize(CTX, {closes, mh:DIFF.mh, descs, parts, newCards}, E.toSerial(new Date()));
+    const selM=(cls,i)=>document.querySelector(cls+'[data-i="'+i+'"]').value;
+    const retroClosed=[...document.querySelectorAll('.ckM')].filter(x=>x.checked).map(x=>{
+      const i=+x.dataset.i;
+      return {rec:DIFF.closedMissing[i], prio:selM('.selMP',i), spec:selM('.selMS',i), cat:selM('.selMC',i), area:selM('.selMA',i)};
+    });
+    const deletes=[...document.querySelectorAll('.ckV')].filter(x=>x.checked).map(x=>DIFF.vanished[+x.dataset.i]);
+    const res=E.applyAndSerialize(CTX, {closes, mh:DIFF.mh, descs, parts, newCards, newClosed:retroClosed, deletes}, E.toSerial(new Date()));
     // FULL PKG + STALLED
     if(CTX.pkgXml) CTX.zip.file(CTX.pkgSheet.path, E.rebuildFullPkg(CTX.pkgXml, F.o.am.list, F.c.am.list, res.S));
     const model2=E.trackerModel(E.parseSheet(res.newXml, res.sstFinal));
@@ -812,7 +880,7 @@ function showDone(){
   const fb=s.mFallback?'<div class="note">'+s.mFallback+" cards had no closing date in the export — today's date used</div>":'';
   const gateHtml=OUTPUT.gates.length?`<div class="sec warn"><h3>${ic('alert')}Auto-publish blocked</h3>${OUTPUT.gates.map(g=>'<div class="note">'+g+'</div>').join('')}<div class="note">Review carefully — you can still download, or publish manually below.</div></div>`:'';
   $('panel').innerHTML=`<div class="sec ok"><h3>${ic('check')}Update complete</h3>
-    <div class="chips">${chip('CLOSED',s.closed,'g')}${chip('MAN-HOURS',s.mh)}${chip('DESCRIPTIONS',s.desc)}${chip('PARTS',s.parts)}${chip('ADDED',s.added,s.added?'a':'')}</div>${fb}
+    <div class="chips">${chip('CLOSED',s.closed,'g')}${chip('MAN-HOURS',s.mh)}${chip('DESCRIPTIONS',s.desc)}${chip('PARTS',s.parts)}${chip('ADDED',s.added,s.added?'a':'')}${chip('DELETED',s.deleted||0,s.deleted?'a':'')}</div>${fb}
     <div class="note">Also refreshed: FULL PKG sheet · dashboard stalled rows · board stats</div></div>
     ${gateHtml}
     <div class="sec"><h3>${ic('cloud')}Board & official copy</h3><div id="upLog" class="note">${OUTPUT.gates.length?'Waiting for your decision…':'Publishing automatically…'}</div>
