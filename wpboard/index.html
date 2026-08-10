@@ -323,8 +323,10 @@ async function exportImg(mode){
     await new Promise(r=>setTimeout(r,400));
     const el=document.getElementById('cap');
     const w=el.scrollWidth, hh=el.scrollHeight;
-    const scale=Math.min(2, Math.sqrt(14e6/Math.max(1,w*hh)));
+    // سقوف آيفون: مساحة كلية + كل بُعد على حدة
+    const scale=Math.max(0.4, Math.min(2, Math.sqrt(11e6/Math.max(1,w*hh)), 7000/hh, 7000/w));
     const canvas=await html2canvas(el,{scale, backgroundColor:getComputedStyle(b).backgroundColor, useCORS:true});
+    if(canvas.width*canvas.height>16e6) throw new Error('capture too large for this device');
     b.classList.remove('exporting','exporting-wide');
     const fname='HZ-ASD_board_'+(mode==='m'?'mobile':'screen')+'.png';
     const durl=canvas.toDataURL('image/png');
