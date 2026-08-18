@@ -521,6 +521,14 @@ function rebuildFullPkg(pkgXml, openList, closedList, S){
   return head+rows.join('')+tail;
 }
 
+function saneXml(s){ if(typeof s!=='string') return s;
+  // زوج سليم يبقى؛ عالٍ بلا منخفض بعده يُطرد؛ منخفض بلا عالٍ قبله يُطرد
+  var out=''; for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);
+    if(c>=0xD800&&c<=0xDBFF){ var n=i+1<s.length?s.charCodeAt(i+1):0;
+      if(n>=0xDC00&&n<=0xDFFF){ out+=s[i]+s[i+1]; i++; } /* زوج سليم */
+    } else if(c>=0xDC00&&c<=0xDFFF){ /* يتيم منخفض — يطرد */ }
+    else out+=s[i]; }
+  return out; }
 function patchStalled(dashXml, stalled, S){
   let out=dashXml;
   for(let k=0;k<8;k++){
@@ -807,16 +815,16 @@ async function run(){
     const deletes=[...document.querySelectorAll('.ckV')].filter(x=>x.checked).map(x=>DIFF.vanished[+x.dataset.i]);
     const res=E.applyAndSerialize(CTX, {closes, mh:DIFF.mh, descs, parts, newCards:newCards.concat(retroOpen), newClosed:retroClosed, deletes}, E.toSerial(new Date()));
     // FULL PKG + STALLED
-    if(CTX.pkgXml) CTX.zip.file(CTX.pkgSheet.path, E.rebuildFullPkg(CTX.pkgXml, F.o.am.list, F.c.am.list, res.S));
+    if(CTX.pkgXml) CTX.zip.file(CTX.pkgSheet.path, saneXml(E.rebuildFullPkg(CTX.pkgXml, F.o.am.list, F.c.am.list, res.S)));
     const model2=E.trackerModel(E.parseSheet(res.newXml, res.sstFinal));
     const stalled=model2.map(r=>({wo:r.wo, d:r.desc, st:r.st,
         dur:+((r.cells.get('Q')||{}).val||0), bkd:+((r.cells.get('P')||{}).val||0)}))
       .filter(x=>x.st!=='Closed'&&x.dur>0)
       .map(x=>({wo:x.wo, d:x.d.slice(0,58), dur:Math.round(x.dur), bkd:Math.round(x.bkd), idle:Math.round(x.dur-x.bkd)}))
       .sort((a,b)=>b.idle-a.idle).slice(0,8);
-    if(CTX.dashXml) CTX.zip.file(CTX.dashSheet.path, E.patchStalled(CTX.dashXml, stalled, res.S));
-    CTX.zip.file(CTX.trkSheet.path, res.newXml);
-    CTX.zip.file('xl/sharedStrings.xml', res.buildSst());
+    if(CTX.dashXml) CTX.zip.file(CTX.dashSheet.path, saneXml(E.patchStalled(CTX.dashXml, stalled, res.S)));
+    CTX.zip.file(CTX.trkSheet.path, saneXml(res.newXml));
+    CTX.zip.file('xl/sharedStrings.xml', saneXml(res.buildSst()));
     const outBuf=await CTX.zip.generateAsync({type:'blob', compression:'DEFLATE',
       mimeType:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
     const {stats, cards}=buildStats(model2);
