@@ -252,7 +252,8 @@ function render(s){
   h+=`<div class="card"><h3>${ic('flag')}MILESTONES & PACE</h3><div class="pad">
       ${[['land',"O.O.S",s.oos],['search','FINDINGS CUTOFF',s.findings],['box','MATERIAL CUTOFF',s.material],['lock','CLOSE-UP',s.closeup],['plane','B.I.S',s.bis]].map(([icn,n,d])=>{
         const dd=Math.ceil((new Date(d)-today)/864e5);
-        return `<div class="ms"><span>${ic(icn,'s')}${n}</span><b>${D1(d)} ${dd>=0?`<span style="color:var(--amb)">· in ${dd}d</span>`:'<span style="color:var(--grn)">done</span>'}</b></div>`;}).join('')}
+        const tail = (n==='MATERIAL CUTOFF' && dd<=0) ? `<span style="color:#EF4444;font-weight:900">· OVERRUN RISK!</span>` : (dd>=0?`<span style="color:var(--amb)">· in ${dd}d</span>`:`<span style="color:var(--grn)">done</span>`);
+        return `<div class="ms"><span>${ic(icn,'s')}${n}</span><b>${D1(d)} ${tail}</b></div>`;}).join('')}
       <div class="tiles" style="margin-top:12px">
         <div class="tile"><div class="l">DAYS LEFT</div><div class="v">${left}</div></div>
         <div class="tile"><div class="l">NEED / DAY</div><div class="v amb">${need}</div></div>
