@@ -130,7 +130,7 @@ html,body{margin:0;padding:0;background:#0F2920;min-height:100vh;font-family:'Bw
     <div class="drop-zone" id="drop-zone" onclick="document.getElementById('file-input').click()">
       <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#006937" stroke-width="1.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
       <h3>Tap to select files</h3>
-      <p>Excel, PDF, images — max 25MB · or paste (Ctrl+V)</p>
+      <p>Excel, PDF, ZIP — max 70MB (temp) · or paste (Ctrl+V)</p>
     </div>
     <input type="file" id="file-input" multiple accept="*/*">
 
@@ -249,7 +249,7 @@ function setupDrop(){
 
 function addFiles(files){
   files.forEach(f=>{
-    if(f.size > 25*1024*1024){ toast('❌ '+f.name+' exceeds 25MB'); return; }
+    if(f.size > 70*1024*1024){ toast('❌ '+f.name+' exceeds 70MB'); return; }
     pendingFiles.push({file:f, status:'pending'});
   });
   renderPending();
