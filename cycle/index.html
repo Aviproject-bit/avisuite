@@ -377,7 +377,7 @@ function applyAndSerialize(ctx, decisions, todaySerial){
   const sortedNew=allNew.slice().sort((a,b)=>(+a.rec.seq)-(+b.rec.seq));
   for(const nc of sortedNew){
     const cells=new Map();
-    const _d=String((nc.rec&&(nc.rec.desc||nc.rec.d))||'');
+    const _d=String((nc.rec&&(nc.rec.title||nc.rec.desc))||'');
     const estHt=Math.round(15.6*Math.max(1,Math.ceil(_d.length/38))*100)/100;
     const mkS=(c,val)=>cells.set(c,{t:'s', s:tmpl[c]!=null?tmpl[c]:null, v:String(S(val)), val, f:false});
     const mkN=(c,val)=>cells.set(c,{t:'', s:tmpl[c]!=null?tmpl[c]:null, v:String(val), val:String(val), f:false});
@@ -392,6 +392,8 @@ function applyAndSerialize(ctx, decisions, todaySerial){
       mkS('E','Open');
     }
     mkS('F', nc.prio||'Normal');
+    const _pt=String(nc.rec.parts||'').replace(/<[^>]*>/g,'').trim();
+    if(_pt && _pt.indexOf('No part requests')!==0 && _pt.indexOf('All part requests closed')!==0) mkS('H','Requested');
     if(nc.spec) mkS('G', nc.spec);
     if(nc.cat) mkS('D', nc.cat);
     if(nc.area) mkS('K', nc.area);
