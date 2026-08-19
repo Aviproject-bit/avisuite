@@ -377,6 +377,8 @@ function applyAndSerialize(ctx, decisions, todaySerial){
   const sortedNew=allNew.slice().sort((a,b)=>(+a.rec.seq)-(+b.rec.seq));
   for(const nc of sortedNew){
     const cells=new Map();
+    const _d=String((nc.rec&&(nc.rec.desc||nc.rec.d))||'');
+    const estHt=Math.round(15.6*Math.max(1,Math.ceil(_d.length/38))*100)/100;
     const mkS=(c,val)=>cells.set(c,{t:'s', s:tmpl[c]!=null?tmpl[c]:null, v:String(S(val)), val, f:false});
     const mkN=(c,val)=>cells.set(c,{t:'', s:tmpl[c]!=null?tmpl[c]:null, v:String(val), val:String(val), f:false});
     mkS('A', nc.rec.wo); mkS('B', nc.rec.title); mkN('C', +nc.rec.seq);
@@ -396,7 +398,7 @@ function applyAndSerialize(ctx, decisions, todaySerial){
     if(nc.rec.est!=null) mkN('N', nc.rec.est);
     const ALLC=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q'];
     for(const c of ALLC) if(!cells.has(c)) cells.set(c,{t:'', s:tmpl[c]!=null?tmpl[c]:null, v:null, val:null, f:false});
-    newRowObjs.push({seq:+nc.rec.seq, cells});
+    newRowObjs.push({estHt, seq:+nc.rec.seq, cells});
     summary.added++;
   }
 
@@ -407,6 +409,7 @@ function applyAndSerialize(ctx, decisions, todaySerial){
   const rowRaw=new Map();
   for(const rm of trkXml.slice(sdStart, sdEnd).matchAll(/<row [^>]*r="([0-9]+)"[^>]*(?:\/>|>[\s\S]*?<\/row>)/g))
     rowRaw.set(+rm[1], rm[0]);
+  const htOf=(raw)=>{ if(!raw) return null; const m=raw.match(/\sht="([0-9.]+)"/); return m?m[1]:null; };
 
   const serCell=(ref, cell, edit, origRn)=>{
     const sAttr=cell&&cell.s!=null?(' s="'+cell.s+'"'):'';
@@ -439,11 +442,11 @@ function applyAndSerialize(ctx, decisions, todaySerial){
   let ni=0;
   for(const row of tracker){
     const rSeq=row.seq&&!isNaN(+row.seq)?+row.seq:Infinity;
-    while(ni<newRowObjs.length&&newRowObjs[ni].seq<rSeq){ merged.push({cells:newRowObjs[ni].cells, orig:null}); ni++; }
+    while(ni<newRowObjs.length&&newRowObjs[ni].seq<rSeq){ merged.push({cells:newRowObjs[ni].cells, estHt:newRowObjs[ni].estHt, orig:null}); ni++; }
     if(delSet.has(row.rn)) continue;
     merged.push({cells:row.cells, orig:row.rn});
   }
-  while(ni<newRowObjs.length){ merged.push({cells:newRowObjs[ni].cells, orig:null}); ni++; }
+  while(ni<newRowObjs.length){ merged.push({cells:newRowObjs[ni].cells, estHt:newRowObjs[ni].estHt, orig:null}); ni++; }
 
   const colOrder=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q'];
   const bodyParts=[];
@@ -467,7 +470,10 @@ function applyAndSerialize(ctx, decisions, todaySerial){
       const out=serCell(c+rn, cell, em?em.get(c):null, item.orig);
       if(out) cellParts.push(out);
     }
-    bodyParts.push('<row r="'+rn+'" spans="1:17">'+cellParts.join('')+'</row>');
+    let htA='';
+    if(item.orig!=null){ const hv=htOf(rowRaw.get(item.orig)); if(hv) htA=' ht="'+hv+'" customHeight="1"'; }
+    else if(item.estHt){ htA=' ht="'+item.estHt+'" customHeight="1"'; }
+    bodyParts.push('<row r="'+rn+'" spans="1:17"'+htA+'>'+cellParts.join('')+'</row>');
     rn++;
   }
   const newXml=head+bodyParts.join('')+tail;
