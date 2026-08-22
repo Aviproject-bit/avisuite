@@ -223,7 +223,9 @@ function render(s){
   const need=left?Math.ceil(s.kpi.o/left):s.kpi.o;
   const avg7=(s.daily.slice(-7).reduce((a,x)=>a+x.s,0)/7).toFixed(1);
   const done=P(s.kpi.c,s.kpi.t), tp=Math.min(100,Math.round(day/tot*100));
-  document.getElementById('day').textContent=`DAY ${day}/${tot} · B.I.S ${D1(s.bis)}`;
+  const dayEl=document.getElementById('day');
+  if(day>tot){ dayEl.innerHTML=`DAY ${day}/${tot} · <span style="color:#EF4444;font-weight:900">OVERRUN +${day-tot}d</span> · B.I.S ${D1(s.bis_rev||s.bis)}`; }
+  else dayEl.textContent=`DAY ${day}/${tot} · B.I.S ${D1(s.bis_rev||s.bis)}`;
   const paceEl=document.getElementById('pace');
   paceEl.textContent=`Completed ${done}% vs Time ${tp}% · Days left ${left} · Need ${need}/day vs avg ${avg7}/day`;
   const behind=(done<tp)||(+avg7<need);
@@ -251,7 +253,7 @@ function render(s){
       </div>
       ${duo('Cabin closure', s.kpi.c+' / '+s.kpi.t+'  ·  '+done+'%', done)}
       ${duo('Time elapsed', 'Day '+day+' / '+tot+'  ·  '+tp+'%', tp, 'blue')}
-      ${(function(){const bl=Math.ceil((new Date(s.bis)-today)/864e5);const o=s.kpi.o;const a7=Math.round(s.daily.slice(-7).reduce((x,y)=>x+y.s,0)/7*10)/10;const nd=bl>0?Math.ceil(o/bl):o;if((bl<=0&&o>0)||(bl>0&&a7<nd))return `<div class="risk">${ic('alert')}OVERRUN RISK — ${o} OPEN · ${bl<=0?'TIME UP':bl+'d LEFT'} · NEED ${nd}/d vs PACE ${a7}/d</div>`;return '';})()}
+      ${(function(){const bl=Math.ceil((new Date(s.bis_rev||s.bis)-today)/864e5);const o=s.kpi.o;const a7=Math.round(s.daily.slice(-7).reduce((x,y)=>x+y.s,0)/7*10)/10;const nd=bl>0?Math.ceil(o/bl):o;if((bl<=0&&o>0)||(bl>0&&a7<nd))return `<div class="risk">${ic('alert')}${bl<=0?`OVERRUN — ${o} OPEN · +${1-bl}d PAST B.I.S`:`OVERRUN RISK — ${o} OPEN · ${bl}d LEFT · NEED ${nd}/d vs PACE ${a7}/d`}</div>`;return '';})()}
       </div></div>`;
   h+=`<div class="card"><h3>${ic('flag')}MILESTONES & PACE</h3><div class="pad">
       ${[['land',"O.O.S",s.oos],['search','FINDINGS CUTOFF',s.findings],['box','MATERIAL CUTOFF',s.material],['lock','CLOSE-UP',s.closeup],['plane','B.I.S',s.bis]].map(([icn,n,d])=>{
