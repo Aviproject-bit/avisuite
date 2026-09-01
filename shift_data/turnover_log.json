@@ -1,0 +1,169 @@
+{
+ "entries": [
+  {
+   "id": 1788259602027,
+   "date": "2026-09-01",
+   "shift": "DAY",
+   "specialty": "CAB",
+   "supv": "AHMED AL-GHAMDI, AHMED S. ALGHAMDI, ABDULAZIZ F. ALBOUQ",
+   "safety": false,
+   "mp": [
+    {
+     "name": "MOHAMMED BAROOM",
+     "status": "P",
+     "mh": "",
+     "isSupv": false
+    },
+    {
+     "name": "OLANDRES JR BEINVENIDO",
+     "status": "P",
+     "mh": "",
+     "isSupv": false
+    },
+    {
+     "name": "MASHHOUR ALSULAIMANI",
+     "status": "P",
+     "mh": "",
+     "isSupv": false
+    },
+    {
+     "name": "AHMED ALSHARIF",
+     "status": "P",
+     "mh": "",
+     "isSupv": false
+    },
+    {
+     "name": "HUSSAM ALTHUBAITI",
+     "status": "P",
+     "mh": "",
+     "isSupv": false
+    },
+    {
+     "name": "FADUL A. FADUL",
+     "status": "P",
+     "mh": "",
+     "isSupv": false
+    },
+    {
+     "name": "FOUAD A. MOJALLY",
+     "status": "P",
+     "mh": "",
+     "isSupv": false
+    },
+    {
+     "name": "AHMED M. ALYAMANI",
+     "status": "P",
+     "mh": "",
+     "isSupv": false
+    },
+    {
+     "name": "FAISAL ALHARTHI",
+     "status": "P",
+     "mh": "",
+     "isSupv": false
+    },
+    {
+     "name": "HAZEM ALSUBHI",
+     "status": "P",
+     "mh": "",
+     "isSupv": false
+    },
+    {
+     "name": "SIRAJ KHAYAT",
+     "status": "P",
+     "mh": "",
+     "isSupv": false
+    },
+    {
+     "name": "YOUSEF BARIFAH",
+     "status": "P",
+     "mh": "",
+     "isSupv": false
+    },
+    {
+     "name": "SALMAN ALJAADANI",
+     "status": "P",
+     "mh": "",
+     "isSupv": false
+    },
+    {
+     "name": "MUAED MEERA",
+     "status": "P",
+     "mh": "",
+     "isSupv": false
+    },
+    {
+     "name": "RAKAN AGILY",
+     "status": "P",
+     "mh": "",
+     "isSupv": false
+    },
+    {
+     "name": "ahmed alahmadi",
+     "status": "P",
+     "mh": "",
+     "isSupv": false
+    },
+    {
+     "name": "mohammed alsawat",
+     "status": "P",
+     "mh": "",
+     "isSupv": false
+    },
+    {
+     "name": "abdulrahman malki",
+     "status": "P",
+     "mh": "",
+     "isSupv": false
+    }
+   ],
+   "aircraft": [
+    {
+     "reg": "hz-asd",
+     "tasks": [
+      {
+       "type": "STATUS",
+       "text": "SEQ 1220 | G1 GALLEY OPS CHECK C/W INSP. STAMPED C/W (REQUIRE AVIO STEP AND FINAL SECURITY TO DO)\nSEQ 1219 | AFT GALLEY OPS CHECK C/W INSP. STAMPED C/W ( REQUIRE AVIO STEP AND FINAL SECURITY TO DO)\nSEQ 1510 | 42 RH/LH OXYGEN OPS CHECK C/W. (TO BE CLOSED)\nSEQ 1014 | 30 AND 34 LH OXYGEN OPS CHECK FAILED (AVIO INFORMED TO CHECK CONNECTION - F/UP)\nSEQ 1221 | LAV A OPS CHECK C/W INSP C/W - FINAL SECURITY TO DO\nSEQ 1222 | LAV E OPS CHECK C/W INSP C/W - FINAL SECURITY TO DO\nSEQ 1223 | LAV D OPS CHECK C/W INSP C/W - FINAL SECURITY TO DO\nRH EMER. EXIT DOOR LINING INSTALLED C/W.\nC1 STOWAGE REINSTALLED C/W.\nCOCKPIT GRID COLLECTOR SECURED C/W.\nSEVERAL CEILING PANLES / COVELIGHTS REMOVED FOR AVIO CONNECTION.\nCOCKPIT DOOR BRACKET INSTALLATION I/W BY S/M - F/UP TO INSTALL THE DOOR.\nALL FAILED OXY CONTAINER REPACKED AGAIN (NOTE: SEQ 427, 428 OPS CHECK TO DO AGAIN)\nFIRST RH HANDRAIL PAINTED - REQUIRE CURITNG TIME - PART AT THE ACFT.",
+       "html": "<ul><li>seq 1220 | g1 galley ops check <span class=\"kw-hl\" style=\"background:#DEF7EC;color:#057A55;font-weight:700;border-radius:3px;padding:0 3px;\">c/w</span> insp. stamped <span class=\"kw-hl\" style=\"background:#DEF7EC;color:#057A55;font-weight:700;border-radius:3px;padding:0 3px;\">c/w</span> (require avio step and final security <span class=\"kw-hl\" style=\"background:#FEF3C7;color:#B45309;font-weight:700;border-radius:3px;padding:0 3px;\">to do</span>)</li><li>seq 1219 | aft galley ops check <span class=\"kw-hl\" style=\"background:#DEF7EC;color:#057A55;font-weight:700;border-radius:3px;padding:0 3px;\">c/w</span> insp. stamped <span class=\"kw-hl\" style=\"background:#DEF7EC;color:#057A55;font-weight:700;border-radius:3px;padding:0 3px;\">c/w</span> ( require avio step and final security <span class=\"kw-hl\" style=\"background:#FEF3C7;color:#B45309;font-weight:700;border-radius:3px;padding:0 3px;\">to do</span>)</li><li>seq 1510 | 42 rh/lh oxygen ops check <span class=\"kw-hl\" style=\"background:#DEF7EC;color:#057A55;font-weight:700;border-radius:3px;padding:0 3px;\">c/w</span>. (to be closed)</li><li>seq 1014 | 30 and 34 lh oxygen ops check failed (avio informed to check connection - <span class=\"kw-hl\" style=\"background:#DBEAFE;color:#1A56DB;font-weight:700;border-radius:3px;padding:0 3px;\">f/up</span>)</li><li>seq 1221 | lav a ops check <span class=\"kw-hl\" style=\"background:#DEF7EC;color:#057A55;font-weight:700;border-radius:3px;padding:0 3px;\">c/w</span> insp <span class=\"kw-hl\" style=\"background:#DEF7EC;color:#057A55;font-weight:700;border-radius:3px;padding:0 3px;\">c/w</span> - final security <span class=\"kw-hl\" style=\"background:#FEF3C7;color:#B45309;font-weight:700;border-radius:3px;padding:0 3px;\">to do</span></li><li>seq 1222 | LAV e OPS CHECK <span class=\"kw-hl\" style=\"background:#DEF7EC;color:#057A55;font-weight:700;border-radius:3px;padding:0 3px;\">C/W</span> INSP <span class=\"kw-hl\" style=\"background:#DEF7EC;color:#057A55;font-weight:700;border-radius:3px;padding:0 3px;\">C/W</span> - FINAL SECURITY <span class=\"kw-hl\" style=\"background:#FEF3C7;color:#B45309;font-weight:700;border-radius:3px;padding:0 3px;\">TO DO</span></li><li>seq 1223 | LAV d OPS CHECK <span class=\"kw-hl\" style=\"background:#DEF7EC;color:#057A55;font-weight:700;border-radius:3px;padding:0 3px;\">C/W</span> INSP <span class=\"kw-hl\" style=\"background:#DEF7EC;color:#057A55;font-weight:700;border-radius:3px;padding:0 3px;\">C/W</span> - FINAL SECURITY <span class=\"kw-hl\" style=\"background:#FEF3C7;color:#B45309;font-weight:700;border-radius:3px;padding:0 3px;\">TO DO</span></li><li>rh emer. exit door lining installed <span class=\"kw-hl\" style=\"background:#DEF7EC;color:#057A55;font-weight:700;border-radius:3px;padding:0 3px;\">c/w</span>.</li><li>c1 stowage reinstalled <span class=\"kw-hl\" style=\"background:#DEF7EC;color:#057A55;font-weight:700;border-radius:3px;padding:0 3px;\">c/w</span>.</li><li>COCKPIT GRID COLLECTOR secured <span class=\"kw-hl\" style=\"background:#DEF7EC;color:#057A55;font-weight:700;border-radius:3px;padding:0 3px;\">c/w</span>.</li><li>several ceiling panles / covelights removed for avio connection.</li><li>cockpit door bracket installation <span class=\"kw-hl\" style=\"background:#FEF0E6;color:#C2410C;font-weight:700;border-radius:3px;padding:0 3px;\">i/w</span> by s/m -  <span class=\"kw-hl\" style=\"background:#DBEAFE;color:#1A56DB;font-weight:700;border-radius:3px;padding:0 3px;\">f/up</span> to install the door.</li><li>all failed oxy container repacked again (<span class=\"kw-hl\" style=\"background:#EDEBFE;color:#5521B5;font-weight:700;border-radius:3px;padding:0 3px;\">note</span>: <u><i>seq 427, 428</i></u> ops check <span class=\"kw-hl\" style=\"background:#FEF3C7;color:#B45309;font-weight:700;border-radius:3px;padding:0 3px;\">to do</span> again)</li><li>first rh handrail painted - require curitng time - part at the acft.</li></ul>"
+      },
+      {
+       "type": "TO DO",
+       "text": "ALL GALLEYS & LAVS FINAL SECURITY AND W/OS TO BE DONE AND CLOSED.\nFWD UTILITY AREA CEILING PANELS INSTALLATION.\nRH / LH MONUMENTS SHROUDS INSTALLATION.\nSEQ 591 | DECALCIFICATION OF THE POTABLE WATER TANK AND DISTRIBUTION SYSTEM\nSEQ 803 | WATER TANK DISINFECTION\nCURTAIN INSTALLATION.",
+       "html": "<ul><li>all galleys &amp; lavs <u>final security and w/os </u>to be done and closed.</li><li>fwd utility area ceiling panels installation.</li><li>rh / lh monuments shrouds installation.</li><li>seq 591 | DECALCIFICATION OF THE POTABLE WATER TANK AND DISTRIBUTION SYSTEM</li><li>seq 803 | WATER TANK DISINFECTION</li><li>curtain installation.</li></ul>"
+      },
+      {
+       "type": "NOTE",
+       "text": "CURTAIN SLIDERS P/S 4555893",
+       "html": "<ul><li>curtain sliders p/s 4555893</li></ul>"
+      }
+     ]
+    },
+    {
+     "reg": "hz-fbr",
+     "tasks": [
+      {
+       "type": "STATUS",
+       "text": "SEQ 5 | LAVATORY WASTEBOX C/W\nSEQ 7 | LIFE VEST INSPECTION C/W\nSEQ 8 | DOOR ESCAPE SLIDE CHECK C/W\nSEQ 9 | SUPPLEMENTAL LIFE RAFT CHECK C/W\nSEQ 21 | FUNCTIONAL CHECK OF CORRECT ADJUSTMENT OF COCKPIT DOOR C/W\nSEQ 26 | CHK OF PORTABLE OXYGEN CYLINDER C/W\nSEQ 27 | GVI OF PBE PROTECT. BREATHING EQPT C/W\nSEQ 33 | LUBRICATION OF DOOR WARNING PROXIMITY SWITCH C/W\nSEQ 41 | 48-HOUR CHECK C/W\nSEQ 42 | A32F - 48-HOUR CHECK C/W",
+       "html": "<ul><li>seq 5 | lAVATORY WASTEBOX <span class=\"kw-hl\" style=\"background:#DEF7EC;color:#057A55;font-weight:700;border-radius:3px;padding:0 3px;\">c/w</span></li><li>seq 7 | LIFE VEST INSPECTION <span class=\"kw-hl\" style=\"background:#DEF7EC;color:#057A55;font-weight:700;border-radius:3px;padding:0 3px;\">C/W</span></li><li>seq 8 | DOOR ESCAPE SLIDE  CHECK <span class=\"kw-hl\" style=\"background:#DEF7EC;color:#057A55;font-weight:700;border-radius:3px;padding:0 3px;\">C/W</span></li><li>seq 9 | SUPPLEMENTAL LIFE RAFT  CHECK <span class=\"kw-hl\" style=\"background:#DEF7EC;color:#057A55;font-weight:700;border-radius:3px;padding:0 3px;\">C/W</span></li><li>seq 21 | FUNCTIONAL CHECK OF CORRECT ADJUSTMENT OF COCKPIT  DOOR <span class=\"kw-hl\" style=\"background:#DEF7EC;color:#057A55;font-weight:700;border-radius:3px;padding:0 3px;\">C/W</span></li><li>seq 26 | CHK OF PORTABLE OXYGEN cylinder <span class=\"kw-hl\" style=\"background:#DEF7EC;color:#057A55;font-weight:700;border-radius:3px;padding:0 3px;\">C/W</span></li><li>seq 27 | GVI OF PBE PROTECT. BREATHING EQPT <span class=\"kw-hl\" style=\"background:#DEF7EC;color:#057A55;font-weight:700;border-radius:3px;padding:0 3px;\">C/W</span></li><li>seq 33 | LUBRICATION OF DOOR WARNING PROXIMITY SWITCH <span class=\"kw-hl\" style=\"background:#DEF7EC;color:#057A55;font-weight:700;border-radius:3px;padding:0 3px;\">C/W</span></li><li>seq 41 | 48-HOUR CHECK <span class=\"kw-hl\" style=\"background:#DEF7EC;color:#057A55;font-weight:700;border-radius:3px;padding:0 3px;\">C/W</span></li><li>seq 42 | A32F - 48-HOUR CHECK <span class=\"kw-hl\" style=\"background:#DEF7EC;color:#057A55;font-weight:700;border-radius:3px;padding:0 3px;\">C/W</span></li></ul>"
+      },
+      {
+       "type": "F/UP",
+       "text": "INBOUD WRITE-UP - LOGBOOK - LAVATORY G FUACET",
+       "html": "<ul><li>inboud write-up - logbook - lavatory g fuacet</li></ul>"
+      }
+     ]
+    }
+   ],
+   "critAog": "",
+   "critNote": "",
+   "hkArea": true,
+   "hkEquip": true,
+   "hkVehicle": true,
+   "ackHk": "",
+   "ackExplain": "",
+   "sigCurrent": "",
+   "sigNext": ""
+  }
+ ],
+ "deleted": []
+}
