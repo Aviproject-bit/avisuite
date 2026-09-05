@@ -1017,5 +1017,210 @@
       }
     },
     "conflicts": []
+  },
+  {
+    "id": "HZ-AK11_B777_AK1116_1788605233104",
+    "acft": "HZ-AK11",
+    "type": "B777_AK1116",
+    "lastEditedBy": "Ahmed Alghamdi",
+    "lastEditedAt": "2026-09-05T10:47:12.202Z",
+    "createdAt": "2026-09-05T10:47:12.202Z",
+    "data": {
+      "AK1116_R30_LH_cpn": "",
+      "AK1116_R30_LH_raw_c": "",
+      "AK1116_R1_LH_csn": "",
+      "AK1116_R1_LH_cpn": "",
+      "AK1116_R35_LH_BAS_gmfg": "2011-08",
+      "AK1116_R35_LH_gmfg": "2011-09",
+      "AK1116_R36_LH_gmfg": "2011-09",
+      "AK1116_R37_LH_gmfg": "2011-09",
+      "AK1116_R38_LH_gmfg": "2011-09",
+      "AK1116_R39_LH_gmfg": "2011-09",
+      "AK1116_R40_LH_gmfg": "2011-09",
+      "AK1116_R41_LH_gmfg": "2011-10",
+      "AK1116_R42_LH_gmfg": "2011-10",
+      "AK1116_R43_LH_gmfg": "2011-09",
+      "AK1116_R44_LH_gmfg": "2011-10",
+      "AK1116_R45_LH_gmfg": "2011-09",
+      "AK1116_R46_LH_gmfg": "2011-10",
+      "AK1116_R47_LH_gmfg": "2011-10",
+      "AK1116_R48_LH_gmfg": "2011-10",
+      "AK1116_R35_RH_BAS_gmfg": "2011-08",
+      "AK1116_R35_RH_gmfg": "2011-09",
+      "AK1116_R36_RH_gmfg": "2011-09",
+      "AK1116_R37_RH_gmfg": "2011-09",
+      "AK1116_R38_RH_gmfg": "2011-09",
+      "AK1116_R39_RH_gmfg": "2011-09",
+      "AK1116_R40_RH_gmfg": "2011-09",
+      "AK1116_R41_RH_gmfg": "2011-09",
+      "AK1116_R42_RH_gmfg": "2011-09",
+      "AK1116_R43_RH_gmfg": "2011-09",
+      "AK1116_R44_RH_gmfg": "2011-09",
+      "AK1116_R45_RH_gmfg": "2011-09",
+      "AK1116_R44_LH_cpn": "418W1015-1422A"
+    },
+    "meta": {
+      "AK1116_R30_LH_cpn": {
+        "by": "Ahmed Alghamdi",
+        "at": "2026-09-05T10:47:12.202Z",
+        "val": ""
+      },
+      "AK1116_R30_LH_raw_c": {
+        "by": "Ahmed Alghamdi",
+        "at": "2026-09-05T10:47:12.202Z",
+        "val": ""
+      },
+      "AK1116_R1_LH_csn": {
+        "by": "Ahmed Alghamdi",
+        "at": "2026-09-05T10:47:12.202Z",
+        "val": ""
+      },
+      "AK1116_R1_LH_cpn": {
+        "by": "Ahmed Alghamdi",
+        "at": "2026-09-05T10:47:12.202Z",
+        "val": ""
+      },
+      "AK1116_R35_LH_BAS_gmfg": {
+        "by": "Ahmed Alghamdi",
+        "at": "2026-09-05T10:47:12.202Z",
+        "val": "2011-08"
+      },
+      "AK1116_R35_LH_gmfg": {
+        "by": "Ahmed Alghamdi",
+        "at": "2026-09-05T10:47:12.202Z",
+        "val": "2011-09"
+      },
+      "AK1116_R36_LH_gmfg": {
+        "by": "Ahmed Alghamdi",
+        "at": "2026-09-05T10:47:12.202Z",
+        "val": "2011-09"
+      },
+      "AK1116_R37_LH_gmfg": {
+        "by": "Ahmed Alghamdi",
+        "at": "2026-09-05T10:47:12.202Z",
+        "val": "2011-09"
+      },
+      "AK1116_R38_LH_gmfg": {
+        "by": "Ahmed Alghamdi",
+        "at": "2026-09-05T10:47:12.202Z",
+        "val": "2011-09"
+      },
+      "AK1116_R39_LH_gmfg": {
+        "by": "Ahmed Alghamdi",
+        "at": "2026-09-05T10:47:12.202Z",
+        "val": "2011-09"
+      },
+      "AK1116_R40_LH_gmfg": {
+        "by": "Ahmed Alghamdi",
+        "at": "2026-09-05T10:47:12.202Z",
+        "val": "2011-09"
+      },
+      "AK1116_R41_LH_gmfg": {
+        "by": "Ahmed Alghamdi",
+        "at": "2026-09-05T10:47:12.202Z",
+        "val": "2011-10"
+      },
+      "AK1116_R42_LH_gmfg": {
+        "by": "Ahmed Alghamdi",
+        "at": "2026-09-05T10:47:12.202Z",
+        "val": "2011-10"
+      },
+      "AK1116_R43_LH_gmfg": {
+        "by": "Ahmed Alghamdi",
+        "at": "2026-09-05T10:47:12.202Z",
+        "val": "2011-09"
+      },
+      "AK1116_R44_LH_gmfg": {
+        "by": "Ahmed Alghamdi",
+        "at": "2026-09-05T10:47:12.202Z",
+        "val": "2011-10"
+      },
+      "AK1116_R45_LH_gmfg": {
+        "by": "Ahmed Alghamdi",
+        "at": "2026-09-05T10:47:12.202Z",
+        "val": "2011-09"
+      },
+      "AK1116_R46_LH_gmfg": {
+        "by": "Ahmed Alghamdi",
+        "at": "2026-09-05T10:47:12.202Z",
+        "val": "2011-10"
+      },
+      "AK1116_R47_LH_gmfg": {
+        "by": "Ahmed Alghamdi",
+        "at": "2026-09-05T10:47:12.202Z",
+        "val": "2011-10"
+      },
+      "AK1116_R48_LH_gmfg": {
+        "by": "Ahmed Alghamdi",
+        "at": "2026-09-05T10:47:12.202Z",
+        "val": "2011-10"
+      },
+      "AK1116_R35_RH_BAS_gmfg": {
+        "by": "Ahmed Alghamdi",
+        "at": "2026-09-05T10:47:12.202Z",
+        "val": "2011-08"
+      },
+      "AK1116_R35_RH_gmfg": {
+        "by": "Ahmed Alghamdi",
+        "at": "2026-09-05T10:47:12.202Z",
+        "val": "2011-09"
+      },
+      "AK1116_R36_RH_gmfg": {
+        "by": "Ahmed Alghamdi",
+        "at": "2026-09-05T10:47:12.202Z",
+        "val": "2011-09"
+      },
+      "AK1116_R37_RH_gmfg": {
+        "by": "Ahmed Alghamdi",
+        "at": "2026-09-05T10:47:12.202Z",
+        "val": "2011-09"
+      },
+      "AK1116_R38_RH_gmfg": {
+        "by": "Ahmed Alghamdi",
+        "at": "2026-09-05T10:47:12.202Z",
+        "val": "2011-09"
+      },
+      "AK1116_R39_RH_gmfg": {
+        "by": "Ahmed Alghamdi",
+        "at": "2026-09-05T10:47:12.202Z",
+        "val": "2011-09"
+      },
+      "AK1116_R40_RH_gmfg": {
+        "by": "Ahmed Alghamdi",
+        "at": "2026-09-05T10:47:12.202Z",
+        "val": "2011-09"
+      },
+      "AK1116_R41_RH_gmfg": {
+        "by": "Ahmed Alghamdi",
+        "at": "2026-09-05T10:47:12.202Z",
+        "val": "2011-09"
+      },
+      "AK1116_R42_RH_gmfg": {
+        "by": "Ahmed Alghamdi",
+        "at": "2026-09-05T10:47:12.202Z",
+        "val": "2011-09"
+      },
+      "AK1116_R43_RH_gmfg": {
+        "by": "Ahmed Alghamdi",
+        "at": "2026-09-05T10:47:12.202Z",
+        "val": "2011-09"
+      },
+      "AK1116_R44_RH_gmfg": {
+        "by": "Ahmed Alghamdi",
+        "at": "2026-09-05T10:47:12.202Z",
+        "val": "2011-09"
+      },
+      "AK1116_R45_RH_gmfg": {
+        "by": "Ahmed Alghamdi",
+        "at": "2026-09-05T10:47:12.202Z",
+        "val": "2011-09"
+      },
+      "AK1116_R44_LH_cpn": {
+        "by": "Ahmed Alghamdi",
+        "at": "2026-09-05T10:47:12.202Z",
+        "val": "418W1015-1422A"
+      }
+    },
+    "conflicts": []
   }
 ]
