@@ -2174,8 +2174,8 @@
     "id": "HZ-AK39_B777_AK3643_1789131906558",
     "acft": "HZ-AK39",
     "type": "B777_AK3643",
-    "lastEditedBy": "TURKI",
-    "lastEditedAt": "2026-09-11T15:14:20.646Z",
+    "lastEditedBy": "WILLIAM",
+    "lastEditedAt": "2026-09-11T15:14:39.108Z",
     "createdAt": "2026-09-11T13:05:05.538Z",
     "data": {
       "AK36_R1_LH_D1_u1_cpn": "418W1080-2261B",
@@ -2788,7 +2788,13 @@
       "AK36_R37_CTR_u1_gmfg": "2016-09",
       "AK36_R37_CTR_u2_gpn": "E72230-09",
       "AK36_R37_CTR_u2_gsn": "C835D2643-007",
-      "AK36_R37_CTR_u2_gmfg": "2016-09"
+      "AK36_R37_CTR_u2_gmfg": "2016-09",
+      "AK36_OFCR_RH_BUNK_cpn": "418W1080-2241A",
+      "AK36_OFCR_RH_BUNK_csn": "N/A",
+      "AK36_OFCR_RH_BUNK_cmfg": "2016-08",
+      "AK36_OFCR_RH_BUNK_gpn": "E72220-10",
+      "AK36_OFCR_RH_BUNK_gsn": "C831DF845 085",
+      "AK36_OFCR_RH_BUNK_gmfg": "2016-07"
     },
     "meta": {
       "AK36_R1_LH_D1_u1_cpn": {
@@ -5845,6 +5851,36 @@
         "by": "TURKI",
         "at": "2026-09-11T15:14:20.646Z",
         "val": "2016-09"
+      },
+      "AK36_OFCR_RH_BUNK_cpn": {
+        "by": "WILLIAM",
+        "at": "2026-09-11T15:14:39.108Z",
+        "val": "418W1080-2241A"
+      },
+      "AK36_OFCR_RH_BUNK_csn": {
+        "by": "WILLIAM",
+        "at": "2026-09-11T15:14:39.108Z",
+        "val": "N/A"
+      },
+      "AK36_OFCR_RH_BUNK_cmfg": {
+        "by": "WILLIAM",
+        "at": "2026-09-11T15:14:39.108Z",
+        "val": "2016-08"
+      },
+      "AK36_OFCR_RH_BUNK_gpn": {
+        "by": "WILLIAM",
+        "at": "2026-09-11T15:14:39.108Z",
+        "val": "E72220-10"
+      },
+      "AK36_OFCR_RH_BUNK_gsn": {
+        "by": "WILLIAM",
+        "at": "2026-09-11T15:14:39.108Z",
+        "val": "C831DF845 085"
+      },
+      "AK36_OFCR_RH_BUNK_gmfg": {
+        "by": "WILLIAM",
+        "at": "2026-09-11T15:14:39.108Z",
+        "val": "2016-07"
       }
     },
     "conflicts": []
