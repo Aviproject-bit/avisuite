@@ -2175,7 +2175,7 @@
     "acft": "HZ-AK39",
     "type": "B777_AK3643",
     "lastEditedBy": "TURKI",
-    "lastEditedAt": "2026-09-11T15:31:03.365Z",
+    "lastEditedAt": "2026-09-11T15:33:17.894Z",
     "createdAt": "2026-09-11T13:05:05.538Z",
     "data": {
       "AK36_R1_LH_D1_u1_cpn": "418W1080-2261B",
@@ -2896,7 +2896,13 @@
       "AK36_R46_CTR_u1_gmfg": "2016-09",
       "AK36_R46_CTR_u2_gpn": "E72230-09",
       "AK36_R46_CTR_u2_gsn": "C835D2643-028",
-      "AK36_R46_CTR_u2_gmfg": "2016-09"
+      "AK36_R46_CTR_u2_gmfg": "2016-09",
+      "AK36_R48_CTR_BAS_cpn": "418W2010-135B",
+      "AK36_R48_CTR_BAS_csn": "N/A",
+      "AK36_R48_CTR_BAS_cmfg": "2016-09",
+      "AK36_R48_CTR_BAS_gpn": "E72230-09",
+      "AK36_R48_CTR_BAS_gsn": "C833CC240-060",
+      "AK36_R48_CTR_BAS_gmfg": "2016-09"
     },
     "meta": {
       "AK36_R1_LH_D1_u1_cpn": {
@@ -6492,6 +6498,36 @@
       "AK36_R46_CTR_u2_gmfg": {
         "by": "TURKI",
         "at": "2026-09-11T15:30:15.870Z",
+        "val": "2016-09"
+      },
+      "AK36_R48_CTR_BAS_cpn": {
+        "by": "TURKI",
+        "at": "2026-09-11T15:33:17.894Z",
+        "val": "418W2010-135B"
+      },
+      "AK36_R48_CTR_BAS_csn": {
+        "by": "TURKI",
+        "at": "2026-09-11T15:33:17.894Z",
+        "val": "N/A"
+      },
+      "AK36_R48_CTR_BAS_cmfg": {
+        "by": "TURKI",
+        "at": "2026-09-11T15:33:17.894Z",
+        "val": "2016-09"
+      },
+      "AK36_R48_CTR_BAS_gpn": {
+        "by": "TURKI",
+        "at": "2026-09-11T15:33:17.894Z",
+        "val": "E72230-09"
+      },
+      "AK36_R48_CTR_BAS_gsn": {
+        "by": "TURKI",
+        "at": "2026-09-11T15:33:17.894Z",
+        "val": "C833CC240-060"
+      },
+      "AK36_R48_CTR_BAS_gmfg": {
+        "by": "TURKI",
+        "at": "2026-09-11T15:33:17.894Z",
         "val": "2016-09"
       }
     },
