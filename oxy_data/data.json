@@ -2174,8 +2174,8 @@
     "id": "HZ-AK39_B777_AK3643_1789131906558",
     "acft": "HZ-AK39",
     "type": "B777_AK3643",
-    "lastEditedBy": "WILLIAM",
-    "lastEditedAt": "2026-09-11T14:51:30.979Z",
+    "lastEditedBy": "TURKI",
+    "lastEditedAt": "2026-09-11T14:59:19.748Z",
     "createdAt": "2026-09-11T13:05:05.538Z",
     "data": {
       "AK36_R1_LH_D1_u1_cpn": "418W1080-2261B",
@@ -2641,7 +2641,13 @@
       "AK36_R3_RH_D1_u1_gmfg": "2016-07",
       "AK36_R3_RH_D1_u2_gpn": "E72220-10",
       "AK36_R3_RH_D1_u2_gsn": "C83229923-072",
-      "AK36_R3_RH_D1_u2_gmfg": "2016-07"
+      "AK36_R3_RH_D1_u2_gmfg": "2016-07",
+      "AK36_R30_LH_BAS_cpn": "418W1015-1321A",
+      "AK36_R30_LH_BAS_csn": "N/A",
+      "AK36_R30_LH_BAS_cmfg": "2016-10",
+      "AK36_R30_LH_BAS_gpn": "E72230-09",
+      "AK36_R30_LH_BAS_gsn": "C835D2643-112",
+      "AK36_R30_LH_BAS_gmfg": "2016-09"
     },
     "meta": {
       "AK36_R1_LH_D1_u1_cpn": {
@@ -4963,6 +4969,36 @@
         "by": "WILLIAM",
         "at": "2026-09-11T14:51:30.979Z",
         "val": "2016-07"
+      },
+      "AK36_R30_LH_BAS_cpn": {
+        "by": "TURKI",
+        "at": "2026-09-11T14:59:19.748Z",
+        "val": "418W1015-1321A"
+      },
+      "AK36_R30_LH_BAS_csn": {
+        "by": "TURKI",
+        "at": "2026-09-11T14:59:19.748Z",
+        "val": "N/A"
+      },
+      "AK36_R30_LH_BAS_cmfg": {
+        "by": "TURKI",
+        "at": "2026-09-11T14:59:19.748Z",
+        "val": "2016-10"
+      },
+      "AK36_R30_LH_BAS_gpn": {
+        "by": "TURKI",
+        "at": "2026-09-11T14:59:19.748Z",
+        "val": "E72230-09"
+      },
+      "AK36_R30_LH_BAS_gsn": {
+        "by": "TURKI",
+        "at": "2026-09-11T14:59:19.748Z",
+        "val": "C835D2643-112"
+      },
+      "AK36_R30_LH_BAS_gmfg": {
+        "by": "TURKI",
+        "at": "2026-09-11T14:59:19.748Z",
+        "val": "2016-09"
       }
     },
     "conflicts": []
