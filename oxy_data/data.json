@@ -2174,8 +2174,8 @@
     "id": "HZ-AK39_B777_AK3643_1789131906558",
     "acft": "HZ-AK39",
     "type": "B777_AK3643",
-    "lastEditedBy": "TURKI",
-    "lastEditedAt": "2026-09-11T15:26:48.716Z",
+    "lastEditedBy": "WILLIAM",
+    "lastEditedAt": "2026-09-11T15:29:01.066Z",
     "createdAt": "2026-09-11T13:05:05.538Z",
     "data": {
       "AK36_R1_LH_D1_u1_cpn": "418W1080-2261B",
@@ -2864,7 +2864,19 @@
       "AK36_R44_CTR_u1_gmfg": "2016-09",
       "AK36_R44_CTR_u2_gpn": "E72230-09",
       "AK36_R44_CTR_u2_gsn": "C835D2643-033",
-      "AK36_R44_CTR_u2_gmfg": "2016-09"
+      "AK36_R44_CTR_u2_gmfg": "2016-09",
+      "AK36_OFAR_BNK1_cpn": "418W1080-2242A",
+      "AK36_OFAR_BNK1_gsn": "C832C3044-053",
+      "AK36_OFAR_BNK1_gpn": "E72220-10",
+      "AK36_OFAR_BNK1_gmfg": "2016-07",
+      "AK36_OFAR_BNK1_csn": "N/A",
+      "AK36_OFAR_BNK1_cmfg": "2016-08",
+      "AK36_OFAR_BNK2_cpn": "418W1080-2242A",
+      "AK36_OFAR_BNK2_csn": "N/A",
+      "AK36_OFAR_BNK2_cmfg": "2016-07",
+      "AK36_OFAR_BNK2_gpn": "E72220-10",
+      "AK36_OFAR_BNK2_gsn": "C83229923- 071",
+      "AK36_OFAR_BNK2_gmfg": "2016-07"
     },
     "meta": {
       "AK36_R1_LH_D1_u1_cpn": {
@@ -6301,6 +6313,66 @@
         "by": "TURKI",
         "at": "2026-09-11T15:26:48.716Z",
         "val": "2016-09"
+      },
+      "AK36_OFAR_BNK1_cpn": {
+        "by": "WILLIAM",
+        "at": "2026-09-11T15:29:01.066Z",
+        "val": "418W1080-2242A"
+      },
+      "AK36_OFAR_BNK1_gsn": {
+        "by": "WILLIAM",
+        "at": "2026-09-11T15:29:01.066Z",
+        "val": "C832C3044-053"
+      },
+      "AK36_OFAR_BNK1_gpn": {
+        "by": "WILLIAM",
+        "at": "2026-09-11T15:29:01.066Z",
+        "val": "E72220-10"
+      },
+      "AK36_OFAR_BNK1_gmfg": {
+        "by": "WILLIAM",
+        "at": "2026-09-11T15:29:01.066Z",
+        "val": "2016-07"
+      },
+      "AK36_OFAR_BNK1_csn": {
+        "by": "WILLIAM",
+        "at": "2026-09-11T15:29:01.066Z",
+        "val": "N/A"
+      },
+      "AK36_OFAR_BNK1_cmfg": {
+        "by": "WILLIAM",
+        "at": "2026-09-11T15:29:01.066Z",
+        "val": "2016-08"
+      },
+      "AK36_OFAR_BNK2_cpn": {
+        "by": "WILLIAM",
+        "at": "2026-09-11T15:29:01.066Z",
+        "val": "418W1080-2242A"
+      },
+      "AK36_OFAR_BNK2_csn": {
+        "by": "WILLIAM",
+        "at": "2026-09-11T15:29:01.066Z",
+        "val": "N/A"
+      },
+      "AK36_OFAR_BNK2_cmfg": {
+        "by": "WILLIAM",
+        "at": "2026-09-11T15:29:01.066Z",
+        "val": "2016-07"
+      },
+      "AK36_OFAR_BNK2_gpn": {
+        "by": "WILLIAM",
+        "at": "2026-09-11T15:29:01.066Z",
+        "val": "E72220-10"
+      },
+      "AK36_OFAR_BNK2_gsn": {
+        "by": "WILLIAM",
+        "at": "2026-09-11T15:29:01.066Z",
+        "val": "C83229923- 071"
+      },
+      "AK36_OFAR_BNK2_gmfg": {
+        "by": "WILLIAM",
+        "at": "2026-09-11T15:29:01.066Z",
+        "val": "2016-07"
       }
     },
     "conflicts": []
