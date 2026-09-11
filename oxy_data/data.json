@@ -2174,8 +2174,8 @@
     "id": "HZ-AK39_B777_AK3643_1789131906558",
     "acft": "HZ-AK39",
     "type": "B777_AK3643",
-    "lastEditedBy": "TURKI",
-    "lastEditedAt": "2026-09-11T17:10:43.166Z",
+    "lastEditedBy": "WILLIAM",
+    "lastEditedAt": "2026-09-11T17:20:54.139Z",
     "createdAt": "2026-09-11T13:05:05.538Z",
     "data": {
       "AK36_R1_LH_D1_u1_cpn": "418W1080-2261B",
@@ -2660,8 +2660,8 @@
       "AK36_R31_LH_gpn": "E72230-09",
       "AK36_R31_LH_gsn": "C835D2643-106",
       "AK36_R31_LH_gmfg": "2016-09",
-      "AK36_R33_CTR_u1_cpn": "Ã¢ÂÂ418W2010-162B",
-      "AK36_R33_CTR_u2_cpn": "Ã¢ÂÂ418W2010-162B",
+      "AK36_R33_CTR_u1_cpn": "ÃÂ¢ÃÂÃÂ418W2010-162B",
+      "AK36_R33_CTR_u2_cpn": "ÃÂ¢ÃÂÃÂ418W2010-162B",
       "AK36_R33_CTR_u1_csn": "N/A",
       "AK36_R33_CTR_u1_cmfg": "2016-10",
       "AK36_R33_CTR_u1_gpn": "E72230-09",
@@ -3072,7 +3072,7 @@
       "AK36_R39_LH_gsn": "C83519550-005",
       "AK36_R39_LH_gmfg": "2016-08",
       "AK36_R33_CTR_u2_gpn": "E72230-09",
-      "AK36_R33_CTR_u2_gsn": "Ã¢ÂÂC835D2643-048",
+      "AK36_R33_CTR_u2_gsn": "ÃÂ¢ÃÂÃÂC835D2643-048",
       "AK36_R33_CTR_u2_gmfg": "2016-09",
       "AK36_R33_CTR_BAS_cpn": "418W2010-132B",
       "AK36_R33_CTR_BAS_csn": "N/A",
@@ -3193,7 +3193,19 @@
       "AK36_R59_LH_cmfg": "2016-09",
       "AK36_R59_LH_gpn": "E72230-09",
       "AK36_R59_LH_gsn": "C833CC240-072",
-      "AK36_R59_LH_gmfg": "2016-09"
+      "AK36_R59_LH_gmfg": "2016-09",
+      "AK36_CR_5A1R_cpn": "",
+      "AK36_CR_5A1R_csn": "",
+      "AK36_CR_5A1R_cmfg": "",
+      "AK36_CR_5A1R_gpn": "",
+      "AK36_CR_5A1R_gsn": "",
+      "AK36_CR_5A1R_gmfg": "",
+      "AK36_GAL_F1_cpn": "418W1080-2221A",
+      "AK36_GAL_F1_csn": "N/A",
+      "AK36_GAL_F1_cmfg": "2016-08",
+      "AK36_GAL_F1_gpn": "E72220-10",
+      "AK36_GAL_F1_gsn": "C83AE1678- 083",
+      "AK36_GAL_F1_gmfg": "2016-11"
     },
     "meta": {
       "AK36_R1_LH_D1_u1_cpn": {
@@ -5609,12 +5621,12 @@
       "AK36_R33_CTR_u1_cpn": {
         "by": "TURKI",
         "at": "2026-09-11T17:01:34.520Z",
-        "val": "Ã¢ÂÂ418W2010-162B"
+        "val": "ÃÂ¢ÃÂÃÂ418W2010-162B"
       },
       "AK36_R33_CTR_u2_cpn": {
         "by": "TURKI",
         "at": "2026-09-11T17:01:34.520Z",
-        "val": "Ã¢ÂÂ418W2010-162B"
+        "val": "ÃÂ¢ÃÂÃÂ418W2010-162B"
       },
       "AK36_R33_CTR_u1_csn": {
         "by": "TURKI",
@@ -7669,7 +7681,7 @@
       "AK36_R33_CTR_u2_gsn": {
         "by": "TURKI",
         "at": "2026-09-11T17:01:34.520Z",
-        "val": "Ã¢ÂÂC835D2643-048"
+        "val": "ÃÂ¢ÃÂÃÂC835D2643-048"
       },
       "AK36_R33_CTR_u2_gmfg": {
         "by": "TURKI",
@@ -8275,6 +8287,66 @@
         "by": "ANMAR",
         "at": "2026-09-11T17:05:42.986Z",
         "val": "2016-09"
+      },
+      "AK36_CR_5A1R_cpn": {
+        "by": "WILLIAM",
+        "at": "2026-09-11T17:20:54.139Z",
+        "val": ""
+      },
+      "AK36_CR_5A1R_csn": {
+        "by": "WILLIAM",
+        "at": "2026-09-11T17:20:54.139Z",
+        "val": ""
+      },
+      "AK36_CR_5A1R_cmfg": {
+        "by": "WILLIAM",
+        "at": "2026-09-11T17:20:54.139Z",
+        "val": ""
+      },
+      "AK36_CR_5A1R_gpn": {
+        "by": "WILLIAM",
+        "at": "2026-09-11T17:20:54.139Z",
+        "val": ""
+      },
+      "AK36_CR_5A1R_gsn": {
+        "by": "WILLIAM",
+        "at": "2026-09-11T17:20:54.139Z",
+        "val": ""
+      },
+      "AK36_CR_5A1R_gmfg": {
+        "by": "WILLIAM",
+        "at": "2026-09-11T17:20:54.139Z",
+        "val": ""
+      },
+      "AK36_GAL_F1_cpn": {
+        "by": "WILLIAM",
+        "at": "2026-09-11T17:20:54.139Z",
+        "val": "418W1080-2221A"
+      },
+      "AK36_GAL_F1_csn": {
+        "by": "WILLIAM",
+        "at": "2026-09-11T17:20:54.139Z",
+        "val": "N/A"
+      },
+      "AK36_GAL_F1_cmfg": {
+        "by": "WILLIAM",
+        "at": "2026-09-11T17:20:54.139Z",
+        "val": "2016-08"
+      },
+      "AK36_GAL_F1_gpn": {
+        "by": "WILLIAM",
+        "at": "2026-09-11T17:20:54.139Z",
+        "val": "E72220-10"
+      },
+      "AK36_GAL_F1_gsn": {
+        "by": "WILLIAM",
+        "at": "2026-09-11T17:20:54.139Z",
+        "val": "C83AE1678- 083"
+      },
+      "AK36_GAL_F1_gmfg": {
+        "by": "WILLIAM",
+        "at": "2026-09-11T17:20:54.139Z",
+        "val": "2016-11"
       }
     },
     "conflicts": []
