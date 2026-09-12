@@ -3527,5 +3527,8 @@ async function exportOfficialForm(){
 
 <div style="position:fixed;bottom:4px;left:8px;font-size:9px;color:#9ca3af;z-index:5;pointer-events:none">OM v2.1</div>
 <script>console.log('Oxygen Mapping v2.1 — 19-Jul-2026 build');</script>
+<script>/* ghost-char vaccine: strips invisible RTL/format marks that caused AK39 mojibake explosion */
+document.addEventListener('input',function(e){var t=e.target;if(!t||!('value' in t))return;var v=t.value;if(typeof v!=='string')return;var c=v.replace(/[\u200B-\u200F\u202A-\u202E\u2066-\u2069\uFEFF]/g,'').replace(/\u00A0/g,' ');if(c!==v){var p=t.selectionStart;t.value=c;try{t.setSelectionRange(Math.max(0,p-(v.length-c.length)),Math.max(0,p-(v.length-c.length)));}catch(_){ }t.dispatchEvent(new Event('change',{bubbles:true}));}},true);
+</script>
 </body>
 </html>
