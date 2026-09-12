@@ -3456,9 +3456,10 @@ async function exportOfficialForm(){
         if(_gpn) fillMap[hasFin?5:4]=_gpn;
       }
 
-      Object.entries(fillMap).forEach(([ci,val])=>{
-        if(!val||!cells[ci]) return;
-        const oldCell=cells[ci];
+      // index-based rebuild: empty cells are byte-identical - string replace scrambles columns
+      const rebuilt=cells.map((oldCell,ci)=>{
+        const val=fillMap[ci];
+        if(!val) return oldCell;
         const existRpr=oldCell.match(/<w:rPr>.*?<\/w:rPr>/s);
         const rPrXml=existRpr?existRpr[0]:'';
         const cellTxt=[...oldCell.matchAll(/<w:t[^>]*>([^<]*)<\/w:t>/g)].map(m=>m[1]).join('');
@@ -3469,26 +3470,24 @@ async function exportOfficialForm(){
             val.u1?`$1$2  ${val.u1}$3`:'$1$2$3');
           nc=nc.replace(/(<w:r[^>]*>(?:<w:rPr>.*?<\/w:rPr>)?<w:t[^>]*>)(#2)(<\/w:t><\/w:r>)/s,
             val.u2?`$1$2  ${val.u2}$3`:'$1$2$3');
-          newRow=newRow.replace(oldCell,nc);
-        } else {
-          const fillVal=typeof val==='object'?(val.u1||''):val;
-          if(!fillVal) return;
-          const hasT=/<w:t[^>]*>[^<]*<\/w:t>/.test(oldCell);
-          let nc;
-          if(hasT){
-            let done=false;
-            nc=oldCell.replace(/<w:t([^>]*)>([^<]*)<\/w:t>/g,(m,attr,txt)=>{
-              if(done) return m; done=true;
-              return `<w:t${attr}>${fillVal}</w:t>`;
-            });
-          } else {
-            const rpr=rPrXml||'<w:rPr><w:sz w:val="15"/></w:rPr>';
-            nc=oldCell.replace(/<\/w:p>/,`<w:r>${rpr}<w:t xml:space="preserve">${fillVal}</w:t></w:r></w:p>`);
-          }
-          newRow=newRow.replace(oldCell,nc);
+          return nc;
         }
+        const fillVal=typeof val==='object'?(val.u1||''):val;
+        if(!fillVal) return oldCell;
+        const hasT=/<w:t[^>]*>[^<]*<\/w:t>/.test(oldCell);
+        if(hasT){
+          let done=false;
+          return oldCell.replace(/<w:t([^>]*)>([^<]*)<\/w:t>/g,(m,attr,txt)=>{
+            if(done) return m; done=true;
+            return `<w:t${attr}>${fillVal}</w:t>`;
+          });
+        }
+        const rpr=rPrXml||'<w:rPr><w:sz w:val="15"/></w:rPr>';
+        return oldCell.replace(/<\/w:p>/,`<w:r>${rpr}<w:t xml:space="preserve">${fillVal}</w:t></w:r></w:p>`);
       });
-      return newRow;
+      const firstTc=rowXml.indexOf('<w:tc');
+      const lastTc=rowXml.lastIndexOf('</w:tc>')+7;
+      return rowXml.slice(0,firstTc)+rebuilt.join('')+rowXml.slice(lastTc);
     });
 
     // 6. Fill header (ACFT REG + Date)
