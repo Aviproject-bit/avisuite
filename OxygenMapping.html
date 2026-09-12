@@ -3532,20 +3532,7 @@ document.addEventListener('input',function(e){var t=e.target;if(!t||!('value' in
 <script>/* storage persistence shield: prevents browser eviction of local entries */
 try{if(navigator.storage&&navigator.storage.persist){navigator.storage.persist().then(function(g){if(g)console.log('storage persisted');});}}catch(_){}
 </script>
-<style>.pn-sug{position:absolute;z-index:9999;background:#fff;border:1px solid #cbd5e1;border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.15);max-height:180px;overflow:auto;min-width:180px}.pn-sug button{display:block;width:100%;text-align:left;padding:7px 10px;border:0;background:#fff;font:600 12px/1.2 monospace;cursor:pointer}.pn-sug button:hover{background:#eef6ff}</style>
-<script>/* PN suggestions for mapping app */
-var PN_SUG={cpn:["14C2222F5410101", "14C22L215460101", "14C22L2F5460009", "418W1015-1321A", "418W1015-1421A", "418W1015-1422A", "418W1015-2065B", "418W1015-221B", "418W1015-222B", "418W1015-2322A", "418W1015-4221B", "418W1015-4421A", "418W1015W1421A", "418W1080-2221A", "418W1080-2222A", "418W1080-2241A", "418W1080-2242A", "418W1080-2261B", "418W1080-2410H", "418W2010-132B", "418W2010-135B", "418W2010-142B", "418W2010-162B", "418W2010-165B", "418W2010-2065B", "418W2010W132B", "418WN1080-2221A"],gpn:["4441806-022", "E63440-00", "E72220-10", "E72230-09", "E72240-09"]};
-(function(){var box=null;function kill(){if(box){box.remove();box=null;}}
-function kind(el){var id=(el.id||'')+' '+(el.name||'');if(/cpn$/.test(el.id||''))return 'cpn';if(/gpn$/.test(el.id||''))return 'gpn';return null;}
-document.addEventListener('input',function(e){var el=e.target;if(!el||el.tagName!=='INPUT')return;var k=kind(el);if(!k){kill();return;}
-var q=(el.value||'').trim().toUpperCase();var list=PN_SUG[k].filter(function(v){return v.toUpperCase().indexOf(q)>=0;}).slice(0,12);
-kill();if(!list.length||!q)return;box=document.createElement('div');box.className='pn-sug';
-var r=el.getBoundingClientRect();box.style.left=(r.left+window.scrollX)+'px';box.style.top=(r.bottom+window.scrollY+2)+'px';
-list.forEach(function(v){var b=document.createElement('button');b.type='button';b.textContent=v;
-b.addEventListener('mousedown',function(ev){ev.preventDefault();el.value=v;el.dispatchEvent(new Event('input',{bubbles:true}));el.dispatchEvent(new Event('change',{bubbles:true}));kill();});
-box.appendChild(b);});document.body.appendChild(box);},true);
-document.addEventListener('click',function(e){if(box&&!box.contains(e.target))kill();},true);
-document.addEventListener('focusout',function(){setTimeout(kill,200);},true);})();
-</script>
+
+
 </body>
 </html>
