@@ -3512,9 +3512,9 @@ async function exportOfficialForm(){
     const out=await zip.generateAsync({type:'blob',mimeType:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'});
     const a=document.createElement('a');
     a.href=URL.createObjectURL(out);
-    a.download='OxyMapping_'+acft+'_'+curType+(tmplRev?'_'+tmplRev:'')+'.docx';
+    a.download='OxyMapping_'+acft+'_'+curType+(tmplRev?'_'+tmplRev:'')+'_F2.docx';
     a.click();
-    showToast('\u2713 Official form downloaded');
+    showToast('\u2713 Official form downloaded \u00b7 FILL-ENGINE v2');
 
   }catch(e){
     console.error(e);
