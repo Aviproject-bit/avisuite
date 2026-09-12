@@ -379,7 +379,10 @@ body{font-family:'BwGradual',sans-serif;background:var(--bg);color:var(--txt);pa
 <div class="exp-back" id="expBack" onclick="closeExpMenu()"></div>
 <div class="exp-menu" id="expMenu">
   <div class="exp-menu-title">Export Options</div>
-  <button class="exp-item" onclick="exportPDF();closeExpMenu()">
+  <button class="exp-item"  onclick="exportOfficialForm (Word)();closeExpMenu()">
+    <div class="exp-ico" style="background:#e0f2f1;color:#006937"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><polyline points="8,13 12,17 16,13"/><line x1="12" y1="17" x2="12" y2="7"/></svg></div>
+    <div><div class="exp-name">Official Form (Word) (.docx)</div><div class="exp-sub">SVA official oxygen mapping form</div></div>
+  </button><button class="exp-item" onclick="exportPDF();closeExpMenu()">
     <div class="exp-ico" style="background:#fee2e2;color:#c81e1e"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/></svg></div>
     <div><div class="exp-name">Export PDF</div><div class="exp-sub">Print-ready mapping sheet</div></div>
   </button>
@@ -399,10 +402,7 @@ body{font-family:'BwGradual',sans-serif;background:var(--bg);color:var(--txt);pa
     <div class="exp-ico" style="background:#fef9c3;color:#854d0e"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><path d="M10 13l2 2 4-4"/></svg></div>
     <div><div class="exp-name">Export JSON</div><div class="exp-sub">Full data backup</div></div>
   </button>
-  <button class="exp-item" data-hl="OFF-HL" style="border:2px solid #196B24;background:#E9F6EE;border-radius:10px"  onclick="exportOfficialForm();closeExpMenu()">
-    <div class="exp-ico" style="background:#e0f2f1;color:#006937"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><polyline points="8,13 12,17 16,13"/><line x1="12" y1="17" x2="12" y2="7"/></svg></div>
-    <div><div class="exp-name">Official Form (.docx)</div><div class="exp-sub">SVA official oxygen mapping form</div></div>
-  </button>
+  
 </div>
 
 <!-- SCAN OVERLAY -->
@@ -3331,7 +3331,7 @@ const TEMPLATE_URLS = {
   'A320_ASA':   {url:'https://raw.githubusercontent.com/aviproject-bit/ACFT-Project/main/oxy_templates/A320_ASA_template.docx',  rev:'R02'},
 };
 
-async function exportOfficialForm(){
+async function exportOfficialForm (Word)(){
   if(!curType){ showToast('⬆️ Select AIRCRAFT TYPE first (top selector)'); window.__omBusy=false; return; }
   const acft = document.getElementById('inpAcft').value.trim().toUpperCase();
   if(!acft){ showToast('Enter ACFT REG first'); window.__omBusy=false; return; }
